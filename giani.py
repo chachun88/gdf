@@ -12,7 +12,8 @@ from tornado.options import define, options
 
 from globals import port
 
-from image_handler import ImageHandler, ImageHandler2
+import home_handler
+import store_handler
 
 define("port", default=port, help="run on the given port", type=int)
     
@@ -21,7 +22,8 @@ define("protocol", default="https", help="run on the given port", type=str)
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r"/", HomeHandler), #home
+            (r"/", home_handler.HomeHandler), #home
+            (r"/store", store_handler.IndexHandler), #home de la tienda
         ]
         settings = dict(
             blog_title=u"Giani Da Firenze",

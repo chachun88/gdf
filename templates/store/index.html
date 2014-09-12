@@ -1,0 +1,51 @@
+{% extends "../base.html" %}
+{% block title %}
+Giani Da Firenze - Home
+{% end %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/store.css">
+{% end %}
+
+{% block body %}
+<div class="cuerpo clearfix">
+    <div class="slider">
+      <img class="slide" src="/static/images/001(5)-1400x921-5.jpg" data-rimage data-src="/static/images/001(5)-1400x921-5.jpg">
+    </div>
+    <div class="contenedor-productos clearfix">
+      <div class="cuerpo-categorias clearfix">
+        <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
+        <div class="categorias clearfix">
+          <a class="categoria categoria-2" href="#">· ¿ Qué es lo nuevo ?</a>
+          <a class="categoria categoria-3" href="#">·&nbsp;Zapatos</a>
+          <a class="categoria categoria-4" href="#">·&nbsp;Campaña&nbsp;</a>
+          <a class="categoria categoria-5" href="#">· Temporada 2015</a>
+          <a class="categoria categoria-6" href="#">·&nbsp;categoría dos</a>
+        </div>
+      </div>
+      {% for d in data %}
+      <div onClick="window.location='index-copy-copy.html';" class="cuerpo-producto clearfix">
+        <div class="producto-foto">
+          <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
+        </div>
+        <div class="producto-info clearfix">
+          <p class="producto-nombre">{{d['name']}}</p>
+          <p class="producto-precio">$ {{d['price']}}</p>
+        </div>
+        <div class="sobre-producto"></div>
+        <button class="_button">
+          <p>AGREGAR AL CARRO</p>
+          <p></p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </button>
+      </div>
+      {% end %}
+      <div class="paginador clearfix">
+        <p class="paginas"><span>&lt;</span> &nbsp; <span>1</span> &nbsp; 2 &nbsp; 3 &nbsp;<span>... &gt;</span></p>
+      </div>
+    </div>
+  </div>
+{% end %}
+{% block javascript %}{% end %}

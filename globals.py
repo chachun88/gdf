@@ -2,27 +2,18 @@
 CONFIG
 '''
 
-debugMode = True 
-
-token = ""
-
 PORT=8502
 DEBUG_PORT=8502
 
+debugMode = True 
+port = 0
+url_bodega = ""
+
 if (debugMode):
     port = DEBUG_PORT
+    url_bodega = "http://giani.loadingplay.com"
 else:
     port = PORT
+    url_bodega = "http://giani.loadingplay.com"
 
-               
-# connection = pymongo.Connection("mongodb://dev_bluups:loadingplay007@184.106.133.195:27017") 
-if debugMode:
-    connection = pymongo.Connection("198.61.180.245", 27017)   
-    self.db = connection.dev_bluups
-else:
-    connection = pymongo.Connection("localhost", 27017)   
-    self.db = connection.bluups
-
-url = webservice_url + "/access_token?appid=100"
-token = urllib.urlopen(url).read()
-print token
+print "Debug Mode:{} Port:{}".format(debugMode,port)

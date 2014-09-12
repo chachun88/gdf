@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0">
+  <title>{% block title %}{% end %}</title>
+  <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,inherit,400,500,400|Playfair+Display:900,400,700,400|Ubuntu+Condensed:400|Raleway:100|Cabin:500" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/static/css/standardize.css">
+  <link rel="stylesheet" href="/static/css/header.css">
+  {% block css %}{% end %}
+  <link rel="stylesheet" href="/static/css/footer.css">
+</head>
+<body class="body index clearfix">
+  <!-- header -->
+  {% module Template('header.html') %}
+  <!-- login -->
+  {% module Template('login.html') %}
+  <!-- registration -->
+  {% module Template('registration.html') %}
+
+  {% block body %}
+  <div class="cuerpo clearfix">
+    <div class="slider">
+      <img class="slide" src="/static/images/001(5)-1400x920.jpg" data-rimage data-src="/static/images/001(5)-1400x920.jpg">
+    </div>
+    <div class="timeline clearfix">
+      <img class="image" src="/static/images/002(2)-549x366.jpg" data-rimage data-src="/static/images/002(2)-549x366.jpg">
+    </div>
+    <div class="estilodevida clearfix">
+      <img class="image" src="/static/images/003-549x366.jpg" data-rimage data-src="/static/images/003-549x366.jpg">
+    </div>
+    <div class="queeslonuevo clearfix">
+      <img class="image" src="/static/images/001(2)-1120x523.jpg" data-rimage data-src="/static/images/001(2)-1120x523.jpg">
+    </div>
+    <div class="comunidad clearfix">
+      <img class="image" src="/static/images/002-549x475-5.jpg" data-rimage data-src="/static/images/002-549x475-5.jpg">
+    </div>
+    <div class="tienda clearfix">
+      <img class="image" src="/static/images/002-549x475.jpg" data-rimage data-src="/static/images/002-549x475.jpg">
+    </div>
+  </div>
+  {% end %}
+  
+  {% module Template('carrodecompra.html') %}
+  {% module Template('footer.html') %}
+
+
+  <script src="/static/js/jquery-min.js"></script>
+  <script src="/static/js/rimages.js"></script>
+  {% block javascript %}{% end %}
+</body>
+</html>
