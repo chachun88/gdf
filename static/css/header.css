@@ -20,7 +20,7 @@
 }
 
 .carritoproductos {
-  visibility: hidden;
+  display: none;
   position: absolute;
   top: 46px;
   left: 62.7845982142%;
@@ -171,4 +171,260 @@
   margin-left: -0.1317%;
   line-height: 1.38;
   color: rgb(0, 0, 0);
+}
+.fotoproductoencola {
+  position: relative;
+  float: left;
+  width: 19.6629213483%;
+  height: 70px;
+  margin: 16px 0 0 3.65169%;
+}
+
+.fotoproductoencola .image {
+  position: absolute;
+  top: 0;
+  left: -0.5580357143%;
+  z-index: 68;
+  width: 70px;
+}
+.nombreproductoencola {
+  position: relative;
+  float: left;
+  z-index: 70;
+  width: 36.9393139841%;
+  min-height: 16.5px;
+  margin: 10px 0 0 7.54477%;
+  font-size: 1.167em;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+}
+.color {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 71;
+  width: 36.9393139841%;
+  min-height: 16.5px;
+  margin: -57px 0 0 30.85938%;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+}
+.eliminarproducto {
+  display: block;
+  position: relative;
+  float: left;
+  z-index: 73;
+  width: 8.7071240105%;
+  height: 23px;
+  margin: -76px 0 0 91.28775%;
+  border-radius: 3px;
+  font-size: 1.333em;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: center;
+  color: rgb(172, 110, 97);
+}
+
+.eliminarproducto:hover {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: rgb(232, 169, 156);
+}
+.talla {
+  position: relative;
+  float: left;
+  z-index: 74;
+  width: 36.9393139841%;
+  min-height: 16.5px;
+  margin: -39px 0 0 30.90327%;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+}
+.cantidad {
+  position: relative;
+  float: left;
+  z-index: 75;
+  width: 19.6629213483%;
+  min-height: 16.5px;
+  margin: -16px 0 0 30.90327%;
+  font-size: 1em;
+  font-weight: 400;
+  line-height: 1.38;
+  color: rgb(0, 0, 0);
+}
+.precio {
+  position: relative;
+  float: left;
+  z-index: 72;
+  width: 36.9393139841%;
+  min-height: 16.5px;
+  margin: -21px 0 0 8.89221%;
+  font-size: 1.333em;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: right;
+  color: rgb(0, 0, 0);
+}
+.comprar, .iralcarro {
+  display: block;
+  float: left;
+  width: 40.8987837559%;
+  height: 41px;
+  margin: 10px 0 0 5.80499%;
+  border: 1px solid rgb(172, 110, 97);
+  background-color: rgb(255, 224, 218);
+  font-size: 1.333em;
+  font-weight: 300;
+  line-height: 1.38;
+  text-align: center;
+  color: rgb(172, 110, 97);
+}
+.comprar:hover,
+.iralcarro:hover {
+  background-color: rgb(232, 169, 156);
+  color: rgb(255, 255, 255);
+}
+.header-content {
+  position: relative;
+  float: left;
+  z-index: 62;
+  width: 100%;
+  height: 180px;
+}
+
+.header-left-cont {
+  position: relative;
+  float: left;
+  z-index: 56;
+  width: 18.7857142857%;
+  height: 135px;
+  margin-left: 10%;
+}
+
+.header-menu {
+  float: left;
+  clear: both;
+  width: 80%;
+  height: 45px;
+  margin-left: 10%;
+  border-bottom: 1px solid rgb(77, 77, 77);
+}
+
+.header-rigth-cont {
+  position: relative;
+  float: left;
+  z-index: 61;
+  width: 18.7857142857%;
+  height: 135px;
+  margin-left: 42.42746%;
+}
+.categoria-1 {
+  display: block;
+  float: left;
+  width: 20%;
+  min-height: 45px;
+  font-size: 1em;
+  line-height: 5;
+  text-align: center;
+  letter-spacing: 0.8px;
+}
+
+.categoria-1:hover {
+  color: rgb(232, 169, 156);
+}
+.categoria-1-1,
+.categoria-1-2,
+.categoria-1-3,
+.categoria-1-4 {
+  color: rgb(77, 77, 77);
+}
+
+.categoria-1-4:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.categoria-1-5 {
+  color: #4d4d4d;
+}
+
+
+.header-left-cont ._button {
+  float: left;
+  width: 68.8212927756%;
+  height: 30px;
+  margin-top: 15px;
+  border-width: 1px;
+  border-color: rgb(207, 207, 207);
+  border-radius: 3px;
+  background-color: rgb(247, 247, 247);
+  font: 1.167em/1.38 'Ubuntu Condensed';
+  text-align: justify;
+  color: rgb(176, 176, 176);
+}
+
+.header-rigth-cont ._button {
+  float: right;
+  width: 100%;
+  height: 30px;
+  border-width: 1px;
+  border-color: rgb(172, 110, 97) rgb(172, 110, 97) rgb(231, 169, 156);
+  background-color: rgb(255, 224, 218);
+  font-size: 1em;
+  font-weight: 300;
+  line-height: 1.38;
+  text-align: center;
+  letter-spacing: 4px;
+  color: rgb(231, 169, 156);
+}
+
+.header-rigth-cont ._container {
+  float: left;
+  width: 53.2319391634%;
+  height: 30px;
+  margin: 16px 0 0 5.69154%;
+}
+
+.reg-strate-correo ._button {
+  float: left;
+  clear: both;
+  width: 62.6086956521%;
+  height: 39px;
+  margin-top: 21px;
+  border-width: 1px;
+  border-color: rgb(172, 110, 97);
+  border-radius: 3px;
+  background-color: rgb(232, 169, 156);
+  font-size: 1.333em;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: center;
+  color: rgb(172, 110, 97);
+}
+
+.reg-strate-login ._button {
+  float: left;
+  clear: both;
+  width: 44.1734786557%;
+  height: 39px;
+  margin: 30px 0 0 -0.1317%;
+  border-width: 1px;
+  border-color: rgb(172, 110, 97);
+  border-radius: 3px;
+  background-color: rgb(232, 169, 156);
+  font-size: 1.333em;
+  font-weight: 400;
+  line-height: 1.38;
+  text-align: center;
+  color: rgb(172, 110, 97);
+}
+
+.reg-strate-login ._input {
+  margin-left: -0.1317%;
 }
