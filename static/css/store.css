@@ -34,7 +34,7 @@ body {
   float: left;
   clear: both;
   width: 99.9287580147%;
-  height: 324px;
+  height: 314px;
   border: 1px solid rgb(207, 207, 207);
   background-color: rgb(255, 255, 255);
 }
@@ -58,7 +58,7 @@ body {
   z-index: 37;
   width: 23.4821428571%;
   min-height: 23px;
-  margin-top: 10px;
+  margin-top: 20px;
   margin-left: 1%
 }
 
@@ -68,7 +68,7 @@ body {
   z-index: 45;
   width: 23.4821428571%;
   min-height: 23px;
-  margin: 10px 0 0 1%;
+  margin: 20px 0 0 1%;
   background-color: rgba(255, 255, 255, 0);
 }
 
@@ -185,7 +185,7 @@ body {
   clear: both;
   z-index: 42;
   width: 100%;
-  height: 67px;
+  height: 56px;
   margin-top: 1px;
   background-color: rgb(255, 255, 255);
 }
@@ -269,20 +269,20 @@ body {
 }
 
 .cuerpo-producto ._button {
-  float: left;
-  clear: both;
-  width: 100%;
-  height: 19px;
-  margin: 8px 0 0 -0.05347%;
-  padding-bottom: 10px;
-  border-width: 1px;
-  border-color: rgb(172, 110, 97);
-  background-color: rgb(232, 169, 156);
-  font-size: 0.857em;
-  line-height: 1.38;
-  text-align: center;
-  letter-spacing: 1px;
-  color: rgb(255, 255, 255);
+float: left;
+clear: both;
+width: 100%;
+height: 18px;
+margin: 0px 0 0 -0.05347%;
+/* padding-bottom: 10px; */
+border-width: 0px;
+/* border-color: rgb(172, 110, 97); */
+/* background-color: rgb(232, 169, 156); */
+font-size: 0.857em;
+line-height: 0;
+text-align: left;
+letter-spacing: 1px;
+color: rgb(111, 111, 111);
 }
 
 .cuerpo-producto ._button:hover {
@@ -1012,9 +1012,9 @@ body {
   .cuerpo-producto ._button {
     position: relative;
     z-index: 44;
-    width: 57.8313253012%;
-    margin-top: -6px;
-    margin-left: -0.2125%;
+    width: 100%;
+    margin-top: 0px;
+    margin-left: 0%;
   }
 
   .footer-left-center-cont ._button {
@@ -1347,9 +1347,9 @@ body {
   .cuerpo-producto ._button {
     position: relative;
     z-index: 44;
-    width: 73.6363636363%;
-    margin-top: -8px;
-    margin-left: -0.23932%;
+    width: 100%;
+    margin-top: 0px;
+    margin-left: 0%;
   }
 
   .footer-left-center-cont ._button {
@@ -1731,8 +1731,8 @@ body {
   .cuerpo-producto ._button {
     position: relative;
     z-index: 44;
-    margin-top: -136px;
-    margin-left: -0.12324%;
+    margin-top: 0px;
+    margin-left: 0%;
   }
 
   .footer-left-center-cont ._button {
