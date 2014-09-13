@@ -24,6 +24,7 @@ class Application(tornado.web.Application):
         handlers = [
             (r"/", home_handler.HomeHandler), #home
             (r"/store", store_handler.IndexHandler), #home de la tienda
+            (r"/product", store_handler.ProductHandler),
         ]
         settings = dict(
             blog_title=u"Giani Da Firenze",

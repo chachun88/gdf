@@ -24,7 +24,7 @@ Giani Da Firenze - Home
         </div>
       </div>
       {% for d in data %}
-      <div onClick="window.location='index-copy-copy.html';" class="cuerpo-producto clearfix">
+      <div onClick="window.location='/product/{{d['sku']}}';" class="cuerpo-producto clearfix">
         <div class="producto-foto">
           <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
         </div>

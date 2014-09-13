@@ -51,5 +51,11 @@ class BaseModel(object):
 
         return self._connection
     
-        
+    #@return json object
+    def ShowError(self, error_text):
+        return {'error': error_text}
+
+    #@return json object
+    def ShowSuccessMessage(self, message):
+        return {'success': message}
         

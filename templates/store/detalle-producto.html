@@ -1,0 +1,139 @@
+{% extends "../base.html" %}
+{% block title %}
+Giani Da Firenze - {{data.name}}
+{% end %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/detalle-producto.css">
+{% end %}
+
+{% block body %}
+  <div class="cuerpo clearfix">
+    <div class="cuerpo-categorias clearfix">
+      <div class="categorias clearfix">
+        <p class="titulo-categorias"><span>Más combinaciones</span></p>
+        {% for c in combinations %}
+        <div class="container container-1">
+          <img class="image image-7" src="{{url_bodega}}/image/{{c['image']}}?mw=141" data-rimage data-src="{{url_bodega}}/image/{{c['image']}}?mw=141">
+        </div>
+        {% end %}
+<!--         <div class="container container-1">
+          <img class="image image-6" src="images/2(2)-141x94-60.jpg" data-rimage data-src="images/2(2)-141x94-60.jpg">
+        </div>
+        <div class="container container-2">
+          <img class="image image-7" src="images/2(2)-141x94-55.jpg" data-rimage data-src="images/2(2)-141x94-55.jpg">
+        </div>
+        <div class="container container-3">
+          <img class="image image-8" src="images/2(2)-141x94-50.jpg" data-rimage data-src="images/2(2)-141x94-50.jpg">
+        </div>
+        <div class="container container-4">
+          <img class="image image-9" src="images/2(2)-141x94-45.jpg" data-rimage data-src="images/2(2)-141x94-45.jpg">
+        </div> -->
+      </div>
+    </div>
+    <div class="cuerpo-producto clearfix">
+      <div class="producto-foto">
+        <img class="foto-producto" src="{{url_bodega}}/image/{{data.image}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
+      </div>
+      <div class="producto-info">
+        <div class="container container-5">
+          <img class="image image-10" src="{{url_bodega}}/image/{{data.image}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
+        </div>
+        <div class="container container-6">
+          <img class="image image-11" src="{{url_bodega}}/image/{{data.image_2}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image_2}}?mw=547">
+        </div>
+        <div class="container container-7">
+          <img class="image image-12" src="{{url_bodega}}/image/{{data.image_3}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image_3}}?mw=547">
+        </div>
+<!--         <div class="container container-8">
+          <img class="image image-13" src="images/2(2)-75x49-25.jpg" data-rimage data-src="images/2(2)-75x49-25.jpg">
+        </div>
+        <div class="container container-9">
+          <img class="image image-14" src="images/2(2)-75x49-20.jpg" data-rimage data-src="images/2(2)-75x49-20.jpg">
+        </div> -->
+      </div>
+    </div>
+    <div class="container container-10 clearfix">
+      <div class="producto-info clearfix">
+        <p class="producto-nombre producto-nombre-1">{{data.name}}</p>
+        <div class="megusta clearfix">
+          <div class="fotomegusta"></div>
+          <p class="text">0</p>
+        </div>
+        <p class="producto-nombre producto-nombre-2">Línea de producto</p>
+        <p class="producto-nombre producto-nombre-3">Color : <span>{{data.color}}</span></p>
+        <div class="container container-11 clearfix">
+          <select class="_select _select-1">
+            {% for t in data.size %}
+            <option value="{{t}}">{{int(float(t))}}</option>
+            {% end %}
+          </select>
+          <select class="_select _select-2">
+            <option value="1">1</option>
+            <option value="36">36</option>
+          </select>
+          <select class="_select _select-3">
+            <option value="1">1</option>
+            <option value="2">2</option>
+          </select>
+          <div class="container container-12 clearfix">
+            <p class="producto-nombre producto-nombre-4">Talla</p>
+            <p class="producto-nombre producto-nombre-5">Disponibilidad</p>
+            <p class="producto-nombre producto-nombre-6">Cantidad</p>
+          </div>
+        </div>
+        <p class="producto-precio">$ {{money_format(data.price)}}</p>
+      </div>
+      <button class="_button">
+        <p>AGREGAR AL CARRO</p>
+        <p></p>
+        <p></p>
+        <p></p>
+        <p></p>
+      </button>
+      <div class="container container-13">
+        <div class="container container-14 clearfix">
+          <div class="container container-15 clearfix">
+            <p class="text text-2">Descripción</p>
+            <p class="text text-3">Delivery</p>
+            <p class="text text-4">Cual es tu talla</p>
+          </div>
+          <p class="text text-5">{{data.description}}</p>
+        </div>
+      </div>
+    </div>
+    <div class="container container-16 clearfix">
+      <p class="text text-6">Productos Relacionados</p>
+      {% for r in related %}
+      <div class="container container-17 clearfix">
+        <div class="container container-18">
+          <img class="image image-15" src="{{url_bodega}}/image/{{r['image']}}?mw=165" data-rimage data-src="{{url_bodega}}/image/{{r['image']}}?mw=165">
+        </div>
+        <p class="text text-7">{{r['name']}}</p>
+        <p class="text text-8">$ {{money_format(r['price'])}}</p>
+      </div>
+      {% end %}
+      <!-- <div class="container container-19 clearfix">
+        <div class="container container-20">
+          <img class="image image-16" src="images/2(2)-165x110-10.jpg" data-rimage data-src="images/2(2)-165x110-10.jpg">
+        </div>
+        <p class="text text-9">Nombre Producto</p>
+        <p class="text text-10">$ 00.00</p>
+      </div>
+      <div class="container container-21 clearfix">
+        <div class="container container-22">
+          <img class="image image-17" src="images/2(2)-165x110-5.jpg" data-rimage data-src="images/2(2)-165x110-5.jpg">
+        </div>
+        <p class="text text-11">Nombre Producto</p>
+        <p class="text text-12">$ 00.00</p>
+      </div>
+      <div class="container container-23 clearfix">
+        <div class="container container-24">
+          <img class="image image-18" src="images/2(2)-165x110.jpg" data-rimage data-src="images/2(2)-165x110.jpg">
+        </div>
+        <p class="text text-13">Nombre Producto</p>
+        <p class="text text-14">$ 00.00</p>
+      </div> -->
+    </div>
+  </div>
+  {% end %}
