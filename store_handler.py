@@ -28,9 +28,9 @@ class IndexHandler(BaseHandler):
 
 class ProductHandler(BaseHandler):
 
-	def get(self):
+	def get(self,sku=""):
 
-		sku = self.get_argument("sku","")
+		# sku = self.get_argument("sku","")
 		prod = Product()
 
 		if sku != "":
