@@ -237,14 +237,14 @@ class User(BaseModel):
 		cur.execute(q,p)
 		tipo_usuario = cur.fetchone()[0]
 
-		if self.user_type != "Visita":
+		q = '''select id from "Permission" where name = any(%(permissions)s)'''
+		p = {
+		"permissions":self.permissions
+		}
+		cur.execute(q,p)
+		permisos = cur.fetchall()
 
-			q = '''select id from "Permission" where name = any(%(permissions)s)'''
-			p = {
-			"permissions":self.permissions
-			}
-			cur.execute(q,p)
-			permisos = cur.fetchall()
+		if self.user_type != "Visita":			
 
 			q = '''select * from "User" where email = %(email)s limit 1'''
 			p = {
@@ -302,7 +302,7 @@ class User(BaseModel):
 				self.id = cur.fetchone()[0]
 
 				return self.ShowSuccessMessage(str(self.id))
-				
+
 			except Exception,e:
 				return self.ShowError("failed to save user {}, error:{}".format(self.email,str(e)))		
 
