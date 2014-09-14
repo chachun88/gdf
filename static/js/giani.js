@@ -14,6 +14,8 @@ $(document).ready(function(){
 	    			}
 	    		}
 	    	});
+	    } else {
+	    	GetCartByUserId(localStorage.guess_id);
 	    }
 	}
 

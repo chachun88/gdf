@@ -66,14 +66,22 @@ class Cart(BaseModel):
 		self._size = ''
 
 	def Remove(self):
-		try:
-			#delete = self._permissions.RemoveAllByUser()
-			#if "error" in delete:
-			#	return delete
 
-			return BaseModel.Remove(self)
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+		
+		try:
+			q = '''delete from "Temp_Cart" where id = %(id)s'''
+			p = {
+			"id":self.id
+			}
+			cur.execute(q,p)
+			self.connection.commit()
+			return self.ShowSuccessMessage(str(self.id))
 		except Exception, e:
-			return self.ShowError("error removing user")
+			return self.ShowError(str(e))
+		finally:
+			cur.close()
+			self.connection.close()
 
 	def InitById(self, idd):
 
@@ -96,39 +104,83 @@ class Cart(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
+		existe = False
+
 		try:
-			q = '''insert into "Temp_Cart" (product_id,date,quantity,subtotal,user_id,size) values (%(product_id)s,%(date)s,%(quantity)s,%(subtotal)s,%(user_id)s,%(size)s) returning id'''
+			q = '''select id from "Temp_Cart" where user_id = %(user_id)s and product_id = %(product_id)s and size = %(size)s limit 1'''
 			p = {
 			"product_id":self.product_id,
-			"date":datetime.now(),
-			"quantity":self.quantity,
-			"subtotal":self.subtotal,
 			"user_id":self.user_id,
 			"size":self.size
 			}
 			cur.execute(q,p)
-			self.connection.commit()
-			self.id = cur.fetchone()[0]
 
-			return self.ShowSuccessMessage(str(self.id))
+			if cur.rowcount > 0:
+				self.id = cur.fetchone()[0]
+				existe = True
 
-		except Exception,e:
-			return self.ShowError("failed to add item to cart, error:{}".format(str(e)))
-
-		finally:
-			cur.close()
-			self.connection.close()
+		except Exception, e:
+			pass
 
 
-	def GetListByUserId(self, page, items):
+		if not existe:
+
+			try:
+				q = '''insert into "Temp_Cart" (product_id,date,quantity,subtotal,user_id,size) values (%(product_id)s,%(date)s,%(quantity)s,%(subtotal)s,%(user_id)s,%(size)s) returning id'''
+				p = {
+				"product_id":self.product_id,
+				"date":datetime.now(),
+				"quantity":self.quantity,
+				"subtotal":self.subtotal,
+				"user_id":self.user_id,
+				"size":self.size
+				}
+				cur.execute(q,p)
+				self.connection.commit()
+				self.id = cur.fetchone()[0]
+
+				return self.ShowSuccessMessage(str(self.id))
+
+			except Exception,e:
+				return self.ShowError("failed to add item to cart, error:{}".format(str(e)))
+
+			finally:
+				cur.close()
+				self.connection.close()
+
+		else:
+
+			try:
+				q = '''update "Temp_Cart" set quantity = quantity + %(quantity)s, subtotal = subtotal + %(subtotal)s where id = %(id)s returning id'''
+				p = {
+				"id":self.id,
+				"quantity":self.quantity,
+				"subtotal":self.subtotal
+				}
+				cur.execute(q,p)
+				self.connection.commit()
+				self.id = cur.fetchone()[0]
+
+				return self.ShowSuccessMessage(str(self.id))
+
+			except Exception,e:
+				return self.ShowError("failed to update item to cart, error:{}".format(str(e)))
+
+			finally:
+				cur.close()
+				self.connection.close()
+
+
+	def GetCartByUserId(self, page=1, items=5):
 
 		page = int(page)
 		items = int(items)
 		offset = (page-1)*items
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 		try:
-			q = '''select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, STRING_AGG(distinct c.name, ',') as cellars_name from "User" u left join "Permission" p on p.id = any(u.permissions) left join "Cellar" c on c.id = any(u.cellar_permissions) group by u.id limit %(limit)s offset %(offset)s'''
+			q = '''select tc.id, p.name,tc.size,p.color,tc.quantity,tc.subtotal from "Temp_Cart" tc left join "Product" p on tc.product_id = p.id left join "Category" c on c.id = p.category_id where tc.user_id = %(user_id)s limit %(limit)s offset %(offset)s'''
 			p = {
+			"user_id":self.user_id,
 			"limit":items,
 			"offset":offset
 			}
@@ -139,3 +191,5 @@ class Cart(BaseModel):
 		except Exception,e:
 			print str(e)
 			return {}
+
+

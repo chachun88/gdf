@@ -42,6 +42,8 @@ class Application(tornado.web.Application):
             (r"/user/save-guess", user_handler.AddAnonimousHandler), #crear anonimo
             (r"/kardex/getunitsbysize", kardex_handler.GetUnitsBySizeHandler), # stock segun item y sku
             (r"/cart/add",store_handler.AddToCartHandler), # agregar item al carro
+            (r"/cart/getbyuserid", store_handler.GetCartByUserIdHandler), #traer carro del usuario
+            (r"/cart/remove", store_handler.RemoveCartByIdHandler),
 
             (r"/auth/login", auth.AuthHandler),
             (r"/auth/logout", auth.LogoutHandler),

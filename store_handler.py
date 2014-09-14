@@ -81,7 +81,7 @@ class AddToCartHandler(BaseHandler):
 
 				cart.quantity = int(self.get_argument("quantity",0))
 
-				subtotal = product.price * cart.quantity
+				subtotal = int(product.price) * cart.quantity
 
 				cart.date = datetime.now()
 				cart.subtotal = subtotal
@@ -97,3 +97,39 @@ class AddToCartHandler(BaseHandler):
 				self.write(response_obj["error"])
 		else:
 			self.write("Product ID is empty")
+
+class GetCartByUserIdHandler(BaseHandler):
+
+	def get(self):
+
+		user_id = self.get_argument("user_id","")
+
+		if user_id != "":
+
+			cart = Cart()
+			cart.user_id = user_id
+			lista = cart.GetCartByUserId()
+			suma = 0
+			for l in lista:
+				suma += l["subtotal"]
+
+			self.render("store/carro_ajax.html",data=lista,suma=suma)
+
+		else:
+
+			self.write("error")
+
+class RemoveCartByIdHandler(BaseHandler):
+
+	def get(self):
+
+		cart = Cart()
+		cart.id = self.get_argument("cart_id","")
+		if cart.id == "":
+			self.write("No existe el item a eliminar")
+		else:
+			response_obj = cart.Remove()
+			if "success" in response_obj:
+				self.write("ok")
+			else:
+				self.write(response_obj["error"])

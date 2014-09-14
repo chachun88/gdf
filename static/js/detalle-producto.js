@@ -8,8 +8,9 @@ $(document).ready(function(){
 			data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+localStorage.guess_id,
 			success:function(html){
 				if(html!="ok"){
-					GetCartByUserId(localStorage.guess_id)
+					alert(html)
 				} else {
+					GetCartByUserId(localStorage.guess_id);
 					alert("Producto ha sido a\xF1adido al carro")
 				}
 			}
@@ -34,6 +35,22 @@ $(document).ready(function(){
 					for (i = 1; i <= total_unidades; i++) { 
 					    $("#quantity").append($("<option></option>").attr("value",i).text(i));
 					}
+				}
+			}
+		});
+	});
+
+	$(document).on("click","button.eliminarproducto",function(){
+		var cart_id = $(this).attr("cart-id");
+		$.ajax({
+			url:"/cart/remove",
+			data:"cart_id="+cart_id,
+			success:function(html){
+				if(html=="ok"){
+					alert("Producto ha sido eliminado del carro");
+					GetCartByUserId(localStorage.guess_id);
+				} else {
+					alert(html);
 				}
 			}
 		})
