@@ -12,8 +12,12 @@ url_bodega = ""
 if (debugMode):
     port = DEBUG_PORT
     url_bodega = "http://giani.loadingplay.com"
+
+    url_local = "http://localhost:8502"
 else:
     port = PORT
     url_bodega = "http://giani.loadingplay.com"
+
+    url_local = "http://giani.ondev.today"
 
 print "Debug Mode:{} Port:{}".format(debugMode,port)

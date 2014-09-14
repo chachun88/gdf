@@ -20,6 +20,10 @@ define("port", default=port, help="run on the given port", type=int)
     
 define("protocol", default="https", help="run on the given port", type=str)
 
+define("email", help="remitente email", default="ricardo.silva.16761@gmail.com")
+define("user", help="cuenta usuario remitente", default="ricardo.silva.16761@gmail.com")
+define("password", help="clave remitente", default="yichunTAM")
+
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
@@ -32,7 +36,8 @@ class Application(tornado.web.Application):
             (r"/auth/login", auth.AuthHandler),
             (r"/auth/logout", auth.LogoutHandler),
             (r"/auth/registro", auth.UserRegistrationHandler), ## registro de usuarios
-            (r"/auth/recuperar-contrasena", auth.PasswordRecovery)
+            (r"/auth/recuperar-contrasena", auth.PasswordRecovery),
+            (r"/auth/nuevaclave/([^/]+)", auth.NewPasswordHandler)
         ]
         settings = dict(
             blog_title=u"Giani Da Firenze",

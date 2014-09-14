@@ -16,7 +16,7 @@ from model.user import User
 class UserRegistrationHandler(BaseHandler):    
 
     def get(self):
-        self.render( "login.html" )
+        self.render( "auth/login.html" )
 
     def post(self):
 
@@ -55,7 +55,7 @@ class UserRegistrationHandler(BaseHandler):
 class AuthHandler(BaseHandler):
 
     def get(self):
-        self.render( "login.html" )
+        self.render( "auth/login.html" )
 
     def post(self):
 
@@ -184,8 +184,52 @@ class PasswordRecovery(BaseHandler):
     
 
     def get(self):
-        self.write("recuperar password")
 
+        self.render( "auth/password_recovery.html" )
+
+    def post(self):
+        try:
+            email = self.get_argument("email", "")
+            if email == "":
+                raise Exception( "El email ingresado no es válido" )
+            if (User()).PassRecovery( email ):
+                self.write( "se ha enviado un correo" )
+            else:
+                self.write( "no se ha podido recuperar la contraseña" )
+        except Exception, e:
+            self.write( str(e) )
+
+
+class NewPasswordHandler(BaseHandler):
+    
+
+    def get(self, id):
+        try:
+            self.render( "auth/change_password.html", id=id )
+
+        except Exception, e:
+            print str( e )
+            self.write( "error al iniciar usuaio" )
+
+    def post(self, id):
+        try:
+            user = (User()).InitById( id )
+
+
+            clave_ant = self.get_argument("claveant", "")
+            clave_nva = self.get_argument("clavenva", "")
+            clave_nva_rep = self.get_argument("clavenvarep", "")
+
+
+            if clave_ant == user["password"] and clave_nva == clave_nva_rep and clave_nva != "":
+                (User()).ChangePassword( id, clave_nva )
+                self.write( "se ha cambiado correctamente" )
+                return
+
+            raise Exception( "no se puedo cambiar el usuario" )
+        except Exception, e:
+            print str( e )
+            self.write( "error al cambiar contrasña" )
 
 
 class LogoutHandler(BaseHandler):
@@ -193,4 +237,6 @@ class LogoutHandler(BaseHandler):
     def get(self):
         self.clear_cookie( "user_giani" )
         self.redirect( "/" )
+
+
         
