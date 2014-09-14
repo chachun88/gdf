@@ -40,16 +40,16 @@ class Application(tornado.web.Application):
             (r"/store", store_handler.IndexHandler), #home de la tienda
             (r"/product/([^/]+)", store_handler.ProductHandler), #detalle producto
             (r"/user/save-guess", user_handler.AddAnonimousHandler), #crear anonimo
+            (r"/kardex/getunitsbysize", kardex_handler.GetUnitsBySizeHandler), # stock segun item y sku
+            (r"/cart/add",store_handler.AddToCartHandler), # agregar item al carro
 
             (r"/auth/login", auth.AuthHandler),
             (r"/auth/logout", auth.LogoutHandler),
             (r"/auth/registro", auth.UserRegistrationHandler), ## registro de usuarios
             (r"/auth/recuperar-contrasena", auth.PasswordRecovery),
             (r"/auth/nuevaclave/([^/]+)", auth.NewPasswordHandler),
-            (r"/auth/facebook", auth.AuthFacebookHandler),
-            (r"/user/save-guess", user_handler.AddAnonimousHandler), #crear anonimo
-            (r"/kardex/getunitsbysize", kardex_handler.GetUnitsBySizeHandler), # stock segun item y sku
-            (r"/cart/add",store_handler.AddToCartHandler) # agregar item al carro
+            (r"/auth/facebook", auth.AuthFacebookHandler)
+            
         ]
         settings = dict(
             blog_title=u"Giani Da Firenze",
