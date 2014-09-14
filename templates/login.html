@@ -18,20 +18,22 @@
       <div class="cont-foto-fb"></div>
     </div>
     <div class="reg-strate-correo clearfix">
-      <p class="text text-5">REGÍSTRATE</p>
-      <p class="text text-6">ingresa tu correo *</p>
-      <input class="_input _input-3" placeholder="INGRESAR CORREO" type="text">
-      <p class="text text-7">repetir correo *</p>
-      <input class="_input _input-4" placeholder="INGRESAR CORREO" type="text">
-      <p class="text text-8">ingresa tu contraseña *</p>
-      <input class="_input _input-5" placeholder="INGRESAR CONTRASEÑA" type="text">
-      <p class="text text-9">repetir contraseña *</p>
-      <input class="_input _input-6" placeholder="INGRESAR CONTRASEÑA" type="text">
-      <label class="aceptar-condiciones clearfix">
-        <input class="radio" type="radio">
-        <span class="point-text"><font color="#4d4d4d"><span style="font-size: 12px; line-height: 16px;">Estoy de acuerdo con las condiciones</span></font></span>
-      </label>
-      <button class="_button">COMPLETAR REGISTRO</button>
+      <form action="" method="post">
+        <p class="text text-5">REGÍSTRATE</p>
+        <p class="text text-6">ingresa tu correo *</p>
+        <input class="_input _input-3" placeholder="INGRESAR CORREO" type="text" name="email">
+        <p class="text text-7">repetir correo *</p>
+        <input class="_input _input-4" placeholder="INGRESAR CORREO" type="text" name="re-email">
+        <p class="text text-8">ingresa tu contraseña *</p>
+        <input class="_input _input-5" placeholder="INGRESAR CONTRASEÑA" type="text" name="password">
+        <p class="text text-9">repetir contraseña *</p>
+        <input class="_input _input-6" placeholder="INGRESAR CONTRASEÑA" type="text" name="re-password">
+        <label class="aceptar-condiciones clearfix">
+          <input class="radio" type="radio" name="tos">
+          <span class="point-text"><font color="#4d4d4d"><span style="font-size: 12px; line-height: 16px;">Estoy de acuerdo con las condiciones</span></font></span>
+        </label>
+        <button class="_button" type="submit">COMPLETAR REGISTRO</button>
+      </form>
     </div>
   </div>
 </div>
