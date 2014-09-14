@@ -46,7 +46,7 @@ class Application(tornado.web.Application):
             (r"/auth/registro", auth.UserRegistrationHandler), ## registro de usuarios
             (r"/auth/recuperar-contrasena", auth.PasswordRecovery),
             (r"/auth/nuevaclave/([^/]+)", auth.NewPasswordHandler),
-            (r"/auth/facebook", auth.AuthFacebookHandler)
+            (r"/auth/facebook", auth.AuthFacebookHandler),
             (r"/user/save-guess", user_handler.AddAnonimousHandler), #crear anonimo
             (r"/kardex/getunitsbysize", kardex_handler.GetUnitsBySizeHandler), # stock segun item y sku
             (r"/cart/add",store_handler.AddToCartHandler) # agregar item al carro
