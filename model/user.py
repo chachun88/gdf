@@ -7,6 +7,8 @@ from basemodel import BaseModel
 import psycopg2
 import psycopg2.extras
 
+from sendpassword import Email
+
 
 class User(BaseModel):
 	def __init__(self):
@@ -21,7 +23,7 @@ class User(BaseModel):
 		self._cellars = []
 		self._permissions_name = []
 		self._cellars_name = []
-		self._user_type = 'Visita'
+		self._user_type = 'Visita'   ### se debe pasar el nombre del tipo de usuario, no el id
 
 	@property
 	def salesman_id(self):
@@ -127,12 +129,13 @@ class User(BaseModel):
 		# return False
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-		q = '''select count(1) from "User" where email = %(email)s and %(password)s limit 1'''
+		q = '''select count(1) from "User" where email = %(email)s and password = %(password)s limit 1'''
 		p = {
 		"email":username,
 		"password":password
 		}
 		try:
+			#print curs.mogrify( q, p )
 			cur.execute(q,p)
 			existe = cur.fetchone()
 			if existe:
@@ -325,3 +328,65 @@ class User(BaseModel):
 		except Exception,e:
 			print str(e)
 			return {}
+
+
+	def Exist(self, email):
+		try:
+
+			q = ''' select count(*) as cnt from "User" where email = %(email)s '''
+			p = { "email" : email }
+
+			cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+			cur.execute( q, p )
+
+			data = cur.fetchone()
+			if data[0] >= 1:
+				return True
+
+			return False
+
+		except Exception, e:
+			print str( e )
+			raise Exception( "no se ha podido validar el email" )
+
+
+	def PassRecovery( self, email ):
+		try:
+			if self.Exist( email ):
+				
+				password = ""
+				user_id = ""
+
+				p = ''' select password, id from "User" where email = %(email)s '''
+				q = {"email": email}
+
+				cur = self.connection.cursor(  cursor_factory=psycopg2.extras.DictCursor )
+
+				cur.execute(p,q)
+				data = cur.fetchone()
+
+				password = data[0]
+				user_id = "{}".format(data[1])
+
+				Email( email, user_id, password )
+
+				return True
+
+			else:
+				return False
+		except Exception, e:
+			print str( e )
+			raise Exception( "no se ha podido recuperar la contraseña" )
+
+	def ChangePassword(self, id, password):
+		try:
+
+			p = ''' update "User" set password = %(password)s where id = %(id)s '''
+			q = { "id": id, "password" : password }
+
+			cur = self.connection.cursor(  cursor_factory=psycopg2.extras.DictCursor )
+			cur.execute( p,q )
+
+		except Exception, e:
+			print str( e )
+			raise Exception( "no se ha podido cambiar la contrasela" )

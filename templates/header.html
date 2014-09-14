@@ -18,12 +18,21 @@
       <img class="image" src="/static/images/carrito-30x30.png" data-rimage data-src="/static/images/carrito-30x30.png">
     </div>
     <div class="_container clearfix">
-      <button class="_button">
-        <p>REGISTRO</p>
-        <p></p>
-        <p></p>
-        <p></p>
-      </button>
+      {% if current_user == None %}
+        <a class="_button button_register fancybox fancybox.ajax" href="/auth/login">
+          <p>REGISTRO</p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </a>
+      {% else %}
+        <a class="_button button_register"  href="/auth/logout" >
+          <p>{{ current_user }}</p>
+          <p></p>
+          <p></p>
+          <p></p>
+        </a>
+      {% end %}
     </div>
   </div>
   <div class="header-menu clearfix">
