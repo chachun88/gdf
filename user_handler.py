@@ -26,4 +26,4 @@ class AddAnonimousHandler(BaseHandler):
 		if "success" in response_obj:
 			self.write(response_obj['success'])
 		else:
-			self.write("error")
+			self.write(response_obj['error'])
