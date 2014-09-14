@@ -16,8 +16,6 @@ import hashlib
 from tornado.options import define, options
 
 from globals import url_local
-# from loadingplay.multilang.lang import lploadLanguage, lpautoSelectCurrentLang,\
-#     lptranslate, lpsetCurrentLang
 
 class EnviarClaveHandler(BaseHandler):
     def post(self):
@@ -66,52 +64,6 @@ def Email(to, userid, clave):
     html += "</p>"
     html += "<p>Gracias,</p>"
     html += "<p>El Equipo Giani da Firenze</p>"
-    html += "</body>"
-    html += "</html>"
-
-    # Record the MIME types of both parts - text/plain and text/html.
-    part1 = MIMEText(text, 'plain')
-    part2 = MIMEText(html, 'html')
-
-    # Attach parts into message container.
-    # According to RFC 2046, the last part of a multipart message, in this case
-    # the HTML message, is best and preferred.
-    msg.attach(part1)
-    msg.attach(part2)  
-      
-    # The actual mail send  
-    server = smtplib.SMTP('smtp.gmail.com:587')  
-    server.starttls()  
-    server.login(username, password)  
-    server.sendmail(fromaddr, toaddrs, msg.as_string())  
-    server.quit()
-    
-def EmailEn(to, userid, clave):
-      
-    fromaddr = options.email  
-    toaddrs = to  
-    msg = MIMEMultipart('alternative')
-    msg['Subject'] = "Giani da Firenze account password restoration"
-    msg['From'] = "Giani da Firenze " + "<" + fromaddr + ">"
-    msg['To'] = toaddrs  
-      
-      
-    # Credentials (if needed)  
-    username = options.user  
-    password = options.password
-    
-    text = lptranslate("hi") + ", your new password is: " + clave + "\n Changing your password is simple. Please use the link below : http://challenges.global-nomad.org/nuevaclave/" + userid
-    html = "<html>"
-    html += "<head></head>"
-    html += "<body>"
-    html += "<p>" + lptranslate("hi") + ",<br><br>"
-    html += "Changing your password is simple. Please use the link below<br/> <a href=\"http://challenges.global-nomad.org/nuevaclave/" + userid +"\">http://challenges.global-nomad.org/nuevaclave/" + userid +"</a><br/><br/>"
-    html += lptranslate("registro_contrasena") + ":"
-    html += clave
-    html += "<br><br/>"
-    html += "</p>"
-    html += "<p>Thank you,</p>"
-    html += "<p>The Giani da Firenze Team</p>"
     html += "</body>"
     html += "</html>"
 

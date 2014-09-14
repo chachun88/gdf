@@ -3,7 +3,7 @@
 
 from basehandler import BaseHandler
 
-from globals import debugMode
+from globals import url_local
 
 import psycopg2
 import psycopg2.extras
@@ -99,12 +99,8 @@ class AuthLogoutHandler(BaseHandler):
 
 class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
     @tornado.web.asynchronous
-    def get(self):   
-
-        my_url = "http://giani.ondev.today/auth/facebook"
-
-        if not debugMode:
-            my_url = "http://gianidafirenze.cl/auth/facebook"
+    def get(self):
+        my_url = url_local + "/auth/facebook"
 
 
         if self.get_argument("code", False):
