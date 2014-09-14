@@ -9,7 +9,7 @@ import urllib
 
 from tornado.options import define, options
 
-from globals import port
+from globals import port, debugMode
 
 import home_handler
 import store_handler
@@ -24,6 +24,14 @@ define("email", help="remitente email", default="ricardo.silva.16761@gmail.com")
 define("user", help="cuenta usuario remitente", default="ricardo.silva.16761@gmail.com")
 define("password", help="clave remitente", default="yichunTAM")
 
+
+if debugMode:
+    define("facebook_api_key", help="your Facebook application API key", default="348233998672458")
+    define("facebook_secret", help="your Facebook application secret", default="ba057d8acc18aea4819693c16ebee23a")
+else:
+    define("facebook_api_key", help="your Facebook application API key", default="348231912006000")
+    define("facebook_secret", help="your Facebook application secret", default="3b2028196c7367d81f1c54bdbdc17aab")
+
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
@@ -37,13 +45,17 @@ class Application(tornado.web.Application):
             (r"/auth/logout", auth.LogoutHandler),
             (r"/auth/registro", auth.UserRegistrationHandler), ## registro de usuarios
             (r"/auth/recuperar-contrasena", auth.PasswordRecovery),
-            (r"/auth/nuevaclave/([^/]+)", auth.NewPasswordHandler)
+            (r"/auth/nuevaclave/([^/]+)", auth.NewPasswordHandler),
+            (r"/auth/facebook", auth.AuthFacebookHandler)
         ]
         settings = dict(
             blog_title=u"Giani Da Firenze",
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             cookie_secret="12oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
+            facebook_api_key=options.facebook_api_key,
+            facebook_secret=options.facebook_secret,
+            login_url="/auth/login",
             autoescape=None,
             debug=True,
             xsrf_cookies= False

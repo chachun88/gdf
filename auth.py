@@ -101,11 +101,12 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
     @tornado.web.asynchronous
     def get(self):   
 
-        my_url = "http://localhost:8892/login/facebook"
+        my_url = "http://localhost:8502/auth/facebook"
 
         if not debugMode:
-            my_url = "http://dev.emprendedoresescolares.cl/login/facebook"
-                   
+            my_url = "http://gianidafirenze.cl/auth/facebook"
+
+
         if self.get_argument("code", False):
             self.get_authenticated_user(
                 redirect_uri=my_url,
@@ -119,15 +120,17 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                                 extra_params={"scope": "email"})
     
     def _on_auth(self, user):
-
         self.facebook_request("/me", access_token=user["access_token"], callback=self._save_user_profile)
 
 
     def _save_user_profile(self, user):
 
         if not user:
-            raise tornado.web.HTTPError(500, "Facebook authentication failed.")        
-                
+            raise tornado.web.HTTPError(500, "Facebook authentication failed.")
+
+
+        self.set_secure_cookie("user_giani", user["email"])
+        self.redirect( "/" )
         # conn = psycopg2.connect(conn_string)
 
         # cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)

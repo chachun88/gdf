@@ -31,6 +31,7 @@
 			} );
 			return false;
 		});
+
 	});
 	</script>
 
@@ -56,11 +57,13 @@
 		  </form>
 		</div>
 		<div class="reg-strate-fb clearfix">
-		  <p class="tt-tulo-fb">O REGÍSTRATE CON FACEBOOK</p>
-		  <div class="cont-foto-fb"></div>
+			<p class="tt-tulo-fb">O REGÍSTRATE CON FACEBOOK</p>
+			<div class="cont-foto-fb">
+				<a href="/auth/facebook" class="element element-2 loginfb">Facebook</a>
+			</div>
 		</div>
 		<div class="reg-strate-correo clearfix">
-		  <form action="/auth/registro" method="post">
+			<form action="/auth/registro" method="post">
 			<p class="text text-5">REGÍSTRATE</p>
 			<p class="text text-6">ingresa tu correo *</p>
 
@@ -79,8 +82,8 @@
 			<!--  Password -->
 			<input class="_input _input-6" placeholder="INGRESAR CONTRASEÑA" type="password" name="re-password" required >
 			<label class="aceptar-condiciones clearfix">
-			  <input class="radio" type="radio" name="tos">
-			  <span class="point-text"><font color="#4d4d4d"><span style="font-size: 12px; line-height: 16px;">Estoy de acuerdo con las condiciones</span></font></span>
+				<input class="radio" type="radio" name="tos">
+				<span class="point-text"><font color="#4d4d4d"><span style="font-size: 12px; line-height: 16px;">Estoy de acuerdo con las condiciones</span></font></span>
 			</label>
 			<button class="_button" type="submit">COMPLETAR REGISTRO</button>
 		  </form>
