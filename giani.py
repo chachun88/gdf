@@ -14,6 +14,7 @@ from globals import port
 import home_handler
 import store_handler
 import auth
+import user_handler
 
 define("port", default=port, help="run on the given port", type=int)
     
@@ -25,8 +26,10 @@ class Application(tornado.web.Application):
             (r"/", home_handler.HomeHandler), #home
             (r"/store", store_handler.IndexHandler), #home de la tienda
             (r"/product/([^/]+)", store_handler.ProductHandler),
+            (r"/product/([^/]+)", store_handler.ProductHandler), #detalle producto
+            (r"/user/save-guess", user_handler.AddAnonimousHandler) #crear anonimo
 
-            (r"/auth/registro", auth.UserRegistrationHandler)
+            (r"/auth/registro", auth.UserRegistrationHandler) ## registro de usuarios
         ]
         settings = dict(
             blog_title=u"Giani Da Firenze",
