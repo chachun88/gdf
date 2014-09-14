@@ -27,11 +27,13 @@ define("password", help="clave remitente", default="yichunTAM")
 
 
 if debugMode:
-    define("facebook_api_key", help="your Facebook application API key", default="348233998672458")
-    define("facebook_secret", help="your Facebook application secret", default="ba057d8acc18aea4819693c16ebee23a")
+    # define("facebook_api_key", help="your Facebook application API key", default="348233998672458")
+    # define("facebook_secret", help="your Facebook application secret", default="ba057d8acc18aea4819693c16ebee23a")
+    define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
+    define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
 else:
-    define("facebook_api_key", help="your Facebook application API key", default="348231912006000")
-    define("facebook_secret", help="your Facebook application secret", default="3b2028196c7367d81f1c54bdbdc17aab")
+    define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
+    define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
 
 class Application(tornado.web.Application):
     def __init__(self):

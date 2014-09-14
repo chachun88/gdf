@@ -101,7 +101,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
     @tornado.web.asynchronous
     def get(self):   
 
-        my_url = "http://localhost:8502/auth/facebook"
+        my_url = "http://giani.ondev.today/auth/facebook"
 
         if not debugMode:
             my_url = "http://gianidafirenze.cl/auth/facebook"
