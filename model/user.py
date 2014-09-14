@@ -10,6 +10,13 @@ import psycopg2.extras
 from sendpassword import Email
 
 
+class UserType(object):
+	
+	VISITA = 'Visita'
+	CLIENTE = 'Cliente'
+
+
+
 class User(BaseModel):
 	def __init__(self):
 		BaseModel.__init__(self)
@@ -23,7 +30,7 @@ class User(BaseModel):
 		self._cellars = []
 		self._permissions_name = []
 		self._cellars_name = []
-		self._user_type = 'Visita'   ### se debe pasar el nombre del tipo de usuario, no el id
+		self._user_type = UserType.VISITA   ### se debe pasar el nombre del tipo de usuario, no el id
 
 	@property
 	def salesman_id(self):
