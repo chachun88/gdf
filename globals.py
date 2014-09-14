@@ -8,6 +8,7 @@ DEBUG_PORT=8502
 debugMode = True 
 port = 0
 url_bodega = ""
+cellar_id = 5
 
 if (debugMode):
     port = DEBUG_PORT

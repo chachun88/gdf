@@ -13,10 +13,15 @@ import tornado.web
 from tornado.options import define, options
 from basehandler import BaseHandler
 
+from globals import cellar_id
+
 #libreria prescindible
 import json
+from datetime import datetime
 
 from model.product import Product
+from model.cart import Cart
+from model.kardex import Kardex
 
 class IndexHandler(BaseHandler):
 
@@ -35,31 +40,23 @@ class ProductHandler(BaseHandler):
 
 		if sku != "":
 
-			producto = json.loads(prod.InitBySku(sku))
+			response_obj = prod.InitBySku(sku)
 
-			if "error" in producto:
+			if "error" in response_obj:
 				self.render("error.html",msg="Producto no encontrado, error:{}".format(producto["error"]))
 			else:
 
-				prod.id = producto["id"]
-				prod.name = producto["name"]
-				prod.description = producto["description"]
-				prod.brand = producto["brand"]
-				prod.manufacturer = producto["manufacturer"]
-				prod.size = producto["size"]
-				prod.color = producto["color"]
-				prod.material = producto["material"]
-				prod.bullet_1 = producto["bullet_1"]
-				prod.bullet_2 = producto["bullet_2"]
-				prod.bullet_3 = producto["bullet_3"]
-				prod.image = producto["image"]
-				prod.image_2 = producto["image_2"]
-				prod.image_3 = producto["image_3"]
-				prod.category = producto["category"]
-				prod.upc = producto["upc"]
-				prod.sku = producto["sku"]
-				prod.price = producto["price"]
-				prod.sell_price = producto["sell_price"]
+				tallas_disponibles = []
+
+				for s in prod.size:
+
+					kardex = Kardex()
+					response_obj = kardex.GetUnitsBySize(prod.sku,cellar_id,s)
+
+					if "success" in response_obj:
+						tallas_disponibles.append(s)
+
+				prod.size = tallas_disponibles
 
 				combinaciones = prod.GetCombinations(prod.name)
 				relacionados = prod.GetRandom()
@@ -67,3 +64,36 @@ class ProductHandler(BaseHandler):
 				self.render("store/detalle-producto.html",data=prod,combinations=combinaciones,related=relacionados)
 		else:
 			self.render("error.html",msg="Producto no encontrado")
+
+class AddToCartHandler(BaseHandler):
+
+	def get(self):
+
+		product = Product()
+		cart = Cart()
+		cart.product_id = self.get_argument("product_id","")
+		
+		if cart.product_id != "":
+
+			response_obj = product.InitById(cart.product_id)
+
+			if "success" in response_obj:
+
+				cart.quantity = int(self.get_argument("quantity",0))
+
+				subtotal = product.price * cart.quantity
+
+				cart.date = datetime.now()
+				cart.subtotal = subtotal
+				cart.user_id = self.get_argument("user_id",-1)
+				cart.size = self.get_argument("size","")
+				response_obj = cart.Save()
+
+				if "success" in response_obj:
+					self.write("ok")
+				else:
+					self.write(response_obj["error"])
+			else:
+				self.write(response_obj["error"])
+		else:
+			self.write("Product ID is empty")

@@ -197,7 +197,27 @@ class Product(BaseModel):
 			producto = cur.fetchone()
 
 			if cur.rowcount > 0:
-				return json.dumps(producto)
+				self.id = producto['id']
+				self.name = producto['name']
+				self.price = producto['price']
+				self.sell_price = producto['sell_price']
+				self.image = producto['image']
+				self.image_2 = producto['image_2']
+				self.image_3 = producto['image_3']
+				self.bullet_1 = producto['bullet_1']
+				self.bullet_2 = producto['bullet_2']
+				self.bullet_3 = producto['bullet_3']
+				self.sku = producto['sku']
+				self.description = producto['description']
+				self.size = producto['size']
+				self.color = producto['color']
+				self.material = producto['material']
+				self.manufacturer = producto['manufacturer']
+				self.upc = producto['upc']
+				self.category = producto['category']
+				self.currency = producto['currency']
+
+				return self.ShowSuccessMessage("{}".format(self.id))
 			else:
 				return self.ShowError("product not found")
 		except Exception,e:
@@ -220,7 +240,28 @@ class Product(BaseModel):
 			producto = cur.fetchone()
 
 			if cur.rowcount > 0:
-				return json.dumps(producto)
+				# return json.dumps(producto)
+				self.id = producto['id']
+				self.name = producto['name']
+				self.price = producto['price']
+				self.sell_price = producto['sell_price']
+				self.image = producto['image']
+				self.image_2 = producto['image_2']
+				self.image_3 = producto['image_3']
+				self.bullet_1 = producto['bullet_1']
+				self.bullet_2 = producto['bullet_2']
+				self.bullet_3 = producto['bullet_3']
+				self.sku = producto['sku']
+				self.description = producto['description']
+				self.size = producto['size']
+				self.color = producto['color']
+				self.material = producto['material']
+				self.manufacturer = producto['manufacturer']
+				self.upc = producto['upc']
+				self.category = producto['category']
+				self.currency = producto['currency']
+
+				return self.ShowSuccessMessage("{}".format(self.id))
 			else:
 				return self.ShowError("product cannot be initialized")
 		except Exception,e:
