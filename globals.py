@@ -19,6 +19,6 @@ else:
     port = PORT
     url_bodega = "http://giani.loadingplay.com"
 
-    url_local = "http://giani.ondev.today"
+    url_local = "http://giani.ondev.today///"
 
 print "Debug Mode:{} Port:{}".format(debugMode,port)
