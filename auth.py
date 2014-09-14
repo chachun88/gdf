@@ -3,7 +3,7 @@
 
 from basehandler import BaseHandler
 
-from globals import debugMode
+from globals import url_local
 
 import psycopg2
 import psycopg2.extras
@@ -11,7 +11,7 @@ import tornado.auth
 from bson import json_util
 import hashlib
 
-from model.user import User
+from model.user import User, UserType
 
 class UserRegistrationHandler(BaseHandler):    
 
@@ -99,12 +99,8 @@ class AuthLogoutHandler(BaseHandler):
 
 class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
     @tornado.web.asynchronous
-    def get(self):   
-
-        my_url = "http://localhost:8502/auth/facebook"
-
-        if not debugMode:
-            my_url = "http://gianidafirenze.cl/auth/facebook"
+    def get(self):
+        my_url = url_local + "/auth/facebook"
 
 
         if self.get_argument("code", False):
@@ -128,8 +124,16 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         if not user:
             raise tornado.web.HTTPError(500, "Facebook authentication failed.")
 
-
         self.set_secure_cookie("user_giani", user["email"])
+
+        usr = User()
+        usr.name = user["name"]
+        usr.email = user["email"]
+        usr.user_type = UserType.CLIENTE
+
+        if not usr.Exist( usr.email ):
+            usr.Save()
+
         self.redirect( "/" )
         # conn = psycopg2.connect(conn_string)
 

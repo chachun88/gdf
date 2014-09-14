@@ -17,21 +17,6 @@ import auth
 import user_handler
 import kardex_handler
 
-define("port", default=port, help="run on the given port", type=int)
-    
-define("protocol", default="https", help="run on the given port", type=str)
-
-define("email", help="remitente email", default="ricardo.silva.16761@gmail.com")
-define("user", help="cuenta usuario remitente", default="ricardo.silva.16761@gmail.com")
-define("password", help="clave remitente", default="yichunTAM")
-
-
-if debugMode:
-    define("facebook_api_key", help="your Facebook application API key", default="348233998672458")
-    define("facebook_secret", help="your Facebook application secret", default="ba057d8acc18aea4819693c16ebee23a")
-else:
-    define("facebook_api_key", help="your Facebook application API key", default="348231912006000")
-    define("facebook_secret", help="your Facebook application secret", default="3b2028196c7367d81f1c54bdbdc17aab")
 
 class Application(tornado.web.Application):
     def __init__(self):
