@@ -7,6 +7,8 @@
   <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,inherit,400,500,400|Playfair+Display:900,400,700,400|Ubuntu+Condensed:400|Raleway:100|Cabin:500" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="/static/css/standardize.css">
   <link rel="stylesheet" href="/static/css/header.css">
+  <link rel="stylesheet" type="text/css" href="/static/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+
   {% block css %}{% end %}
   <link rel="stylesheet" href="/static/css/footer.css">
   <link rel="stylesheet" href="/static/css/giani.css">
@@ -14,8 +16,6 @@
 <body class="body index clearfix">
   <!-- header -->
   {% module Template('header.html') %}
-  <!-- login -->
-  {% module Template('login.html') %}
   <!-- registration -->
   {% module Template('registration.html') %}
 
@@ -49,6 +49,7 @@
   <script src="/static/js/jquery-min.js"></script>
   <script src="/static/js/rimages.js"></script>
   <script src="/static/js/giani.js"></script>
+  <script type="text/javascript" src="/static/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
   {% block javascript %}{% end %}
 </body>
 </html>

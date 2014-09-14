@@ -22,9 +22,9 @@ class BaseHandler(tornado.web.RequestHandler):
         #lpsetCurrentLang("en", self)
     
     def get_current_user(self):
-        user_json = self.get_secure_cookie("giani_user")        
+        user_json = self.get_secure_cookie("user_giani")        
         if not user_json: return None
-        return tornado.escape.json_decode(user_json)
+        return user_json
 
     def canonical_url(self,url):
 
@@ -64,6 +64,7 @@ class BaseHandler(tornado.web.RequestHandler):
        kwargs["truncate_decimal"] = self.truncate_decimal
        kwargs["canonical_url"] = self.canonical_url
        # kwargs["admin_url"] = admin_url
+       kwargs["current_user"] = self.get_current_user()
        kwargs["url_bodega"] = url_bodega
        kwargs["money_format"] = self.money_format
        tornado.web.RequestHandler.render(self, template_name, **kwargs)

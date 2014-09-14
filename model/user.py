@@ -21,7 +21,7 @@ class User(BaseModel):
 		self._cellars = []
 		self._permissions_name = []
 		self._cellars_name = []
-		self._user_type = 'Visita'
+		self._user_type = 'Visita'   ### se debe pasar el nombre del tipo de usuario, no el id
 
 	@property
 	def salesman_id(self):
@@ -127,12 +127,13 @@ class User(BaseModel):
 		# return False
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-		q = '''select count(1) from "User" where email = %(email)s and %(password)s limit 1'''
+		q = '''select count(1) from "User" where email = %(email)s and password = %(password)s limit 1'''
 		p = {
 		"email":username,
 		"password":password
 		}
 		try:
+			#print curs.mogrify( q, p )
 			cur.execute(q,p)
 			existe = cur.fetchone()
 			if existe:

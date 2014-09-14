@@ -123,7 +123,7 @@
   clear: both;
 }
 .body-login {
-  visibility: hidden;
+  visibility: visible;
   position: absolute;
   top: 0;
   left: 0;
@@ -133,10 +133,9 @@
 }
 .loginpopup {
   float: left;
-  width: 52.6428571428%;
-  margin: 50px 0 0 23.60603%;
   border: 1px solid rgb(255, 224, 218);
   background-color: rgb(254, 245, 244);
+  width: 600px;
 }
 .reg-strate-correo {
   float: left;

@@ -11,6 +11,8 @@ import tornado.auth
 from bson import json_util
 import hashlib
 
+from model.user import User
+
 class UserRegistrationHandler(BaseHandler):    
 
     def get(self):
@@ -37,89 +39,50 @@ class UserRegistrationHandler(BaseHandler):
         else:
             ### perform login
             self.write( "loged-in" )
-            # conn = psycopg2.connect(conn_string)
 
-            # cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
-            
-            # cursor.execute("SELECT * FROM \"user\" WHERE email = %(user_mail)s limit 1",{"user_mail":user_mail})
+            user = User()
+            user.email = email
+            user.password = password
+            user.user_type = 'Cliente'
 
-            # user = cursor.fetchone()
-            
-            # if user:
-            #     self.write("Usuario ya existe")
-            # else:
+            user.Save()
 
-            #     m = hashlib.md5()
+            redirect = self.get_argument("next", "/")
+            self.redirect( redirect )
+            self.write( "ok" )
 
-            #     m.update(password)
-
-            #     password = m.hexdigest()
-
-            #     user = {
-            #         "name": username,
-            #         "email": user_mail,
-            #         "pass": password,
-            #         "type": "registrado"
-            #     }
-
-            #     query = "INSERT INTO \"user\" (name,email,pass,type) VALUES (%(name)s,%(email)s,%(pass)s,%(type)s)"
-
-            #     try:
-            #         cursor.execute(query,user)
-            #         conn.commit()
-            #         self.write("ok")
-            #     except Exception, e:
-            #         self.write(str(e))
-            #     finally:
-            #         cursor.close()
-            #         conn.close()
-
-            pass
-            
-            
 
 class AuthHandler(BaseHandler):
 
+    def get(self):
+        self.render( "login.html" )
+
     def post(self):
 
-        # conn = psycopg2.connect(conn_string)
+        email = self.get_argument("email", "")
+        password = self.get_argument("password", "")
+        stay_logged = self.get_argument("stay-logged", "")
+        ajax = self.get_argument("ajax", "false")
 
-        # cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        # user_passowrd = self.get_argument("user_password","")
-        # user_mail = self.get_argument("user_mail","")
-        # msj = ""
-        
-        # if user_mail == "":
-        #     msj = "Ingrese email"
-        #     self.render("mensaje.html", msj = msj)
-        
-        # if user_passowrd == "":
-        #     msj = "Ingrese contraseña"
-        #     self.render("mensaje.html", msj = msj)
-            
-        # cursor.execute("SELECT * FROM \"user\" WHERE email = %(user_mail)s LIMIT 1",{"user_mail":user_mail})
+        if email == "":
+            self.write( "debe ingresar el email" )
+        elif password == "":
+            self.write( "debe ingresar la contraseña" )
+        else:
+            user = User()
+            if user.Login( email, password ):
 
-        # user=cursor.fetchone()
-        
-        # if not user:            
-        #     msj = "No existe usuario asociado al email ingresado"
-        #     self.render("mensaje.html", msj = msj)
-        # else:
+                ## setting user cookie 
+                self.set_secure_cookie( "user_giani", email )
+                self.write( "ok" )
 
-        #     n = hashlib.md5()
-        #     n.update(user_passowrd)
-        #     user_passowrd  = n.hexdigest()
+                if ajax == "false":
+                    redirect = self.get_argument("next", "/")
+                    self.redirect( redirect )
+            else:
+                self.write( "login incorrecto" )
 
-        #     if user["pass"] == user_passowrd: 
-                
-        #         self.set_secure_cookie("user_emp_esc", json_util.dumps(user, sort_keys=True, indent=4, default=json_util.default))  
-        #         self.write("ok")
-        #     else:
-        #         msj = "Clave ingresada no es válida"
-        #         self.render("mensaje.html", msj = msj) 
-
-        pass
 
 class FormLoginHandler(BaseHandler):
     def get(self):
@@ -214,3 +177,20 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         # self.redirect("/")
 
         pass
+
+
+
+class PasswordRecovery(BaseHandler):
+    
+
+    def get(self):
+        self.write("recuperar password")
+
+
+
+class LogoutHandler(BaseHandler):
+    
+    def get(self):
+        self.clear_cookie( "user_giani" )
+        self.redirect( "/" )
+        

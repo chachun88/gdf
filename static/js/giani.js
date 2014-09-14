@@ -16,4 +16,7 @@ $(document).ready(function(){
 	    	});
 	    }
 	}
+
+	$('.fancybox').fancybox({padding: 3});
+
 });
