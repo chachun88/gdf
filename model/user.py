@@ -422,7 +422,7 @@ class User(BaseModel):
 			else:
 				return False
 		except Exception, e:
-			print str( e )
+			print "no se ha podido recuperar la contrasena : {}".format(str( e ))
 			raise Exception( "no se ha podido recuperar la contraseña" )
 
 	def ChangePassword(self, id, password):
@@ -431,12 +431,15 @@ class User(BaseModel):
 			p = ''' update "User" set password = %(password)s where id = %(id)s '''
 			q = { "id": id, "password" : password }
 
-			cur = self.connection.cursor(  cursor_factory=psycopg2.extras.DictCursor )
+			# c
+
+			cur = self.connection.cursor( cursor_factory=psycopg2.extras.DictCursor )
 			cur.execute( p,q )
+
 
 		except Exception, e:
 			print str( e )
-			raise Exception( "no se ha podido cambiar la contrasela" )
+			raise Exception( "no se ha podido cambiar la contraseña" )
 
 
 	def GetUserId( self, email ):

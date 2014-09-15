@@ -20,35 +20,44 @@ class UserRegistrationHandler(BaseHandler):
 
     def post(self):
 
+        name = self.get_argument("name", "")
         email = self.get_argument("email", "")
-        re_email = self.get_argument("re-email", "")
         password = self.get_argument("password", "")
         re_password = self.get_argument("re-password", "")
         tos = self.get_argument("tos", "")
+        ajax = self.get_argument("ajax", "false")
 
         if email == "":
             self.write( "debe ingresar el email" )
-        elif email != re_email:
-            self.write( "los email no coinciden" )
+        elif name == "":
+            self.write( "debe ingresar su nombre" )
         elif password == "":
             self.write( "debe ingresar la contraseña" )
         elif password != re_password:
             self.write( "las contraseñas no coinciden" )
         elif tos != "on":
             self.write( "debe aceptar las condiciones de uso" )
+        elif (User()).Exist( email ):
+            self.write( "ya existe un usuario registrado con este email" )
         else:
             ### perform login
-            self.write( "loged-in" )
+            self.write( "ok" )
 
             user = User()
+            user.name = name
             user.email = email
             user.password = password
             user.user_type = 'Cliente'
 
             user.Save()
 
-            redirect = self.get_argument("next", "/")
-            self.redirect( redirect )
+            if user.Login( user.email, user.password ):
+                self.set_secure_cookie( "user_giani", user.email )
+
+            ##redirect is the request isn't aajx
+            if ajax == "false":
+                redirect = self.get_argument("next", "/")
+                self.redirect( redirect )
 
 class AuthHandler(BaseHandler):
 
@@ -195,6 +204,7 @@ class PasswordRecovery(BaseHandler):
     def post(self):
         try:
             email = self.get_argument("email", "")
+
             if email == "":
                 raise Exception( "El email ingresado no es válido" )
             if (User()).PassRecovery( email ):
@@ -202,9 +212,9 @@ class PasswordRecovery(BaseHandler):
                 self.render( "auth/success.html" )
             else:
                 # self.write( "no se ha podido recuperar la contraseña" )
-                self.render( "auth/fail.html" )
+                self.render( "auth/fail.html", message="no se ha podido recuperar la contraseña" )
         except Exception, e:
-            self.write( str(e) )
+            self.render( "auth/fail.html", message=str(e) )
 
 
 class NewPasswordHandler(BaseHandler):
@@ -230,13 +240,13 @@ class NewPasswordHandler(BaseHandler):
 
             if clave_ant == user["password"] and clave_nva == clave_nva_rep and clave_nva != "":
                 (User()).ChangePassword( id, clave_nva )
-                self.write( "se ha cambiado correctamente" )
+                self.render( "auth/fail.html", message="se ha cambiado correctamente" )
                 return
 
             raise Exception( "no se puedo cambiar el usuario" )
         except Exception, e:
             print str( e )
-            self.write( "error al cambiar contrasña" )
+            self.render( "auth/fail.html", message="error al cambiar contrasña" )
 
 
 class LogoutHandler(BaseHandler):

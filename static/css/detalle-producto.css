@@ -7,7 +7,17 @@ body {
   font: 300 0.75em/1.38 Ubuntu;
   color: rgb(255, 255, 255);
 }
+.otro-angulo {
+  max-width: 70px;
+}
 
+.otro-angulo-mas-combinaciones {
+  max-width: 160px;
+}
+
+.selects {
+  float: left;width: 40px;
+}
 .categoria-1 {
   display: block;
   float: left;
@@ -217,6 +227,7 @@ body {
   width: 100%;
   height: auto;
   overflow: hidden;
+  max-width: 600px;
 }
 
 .fotomegusta {
@@ -293,6 +304,7 @@ body {
   height: 448px;
   border: 1px solid rgb(207, 207, 207);
   background-color: rgb(255, 255, 255);
+  overflow: hidden;
 }
 
 .producto-nombre {
@@ -334,7 +346,7 @@ body {
   display: block;
   position: relative;
   float: left;
-  width: 22.3744292237%;
+  width: 100%;
   height: 22px;
   padding-left: 10px;
   border: 1px solid rgb(119, 119, 119);
@@ -407,7 +419,6 @@ body {
   float: left;
   width: 73.0593607305%;
   height: 89px;
-  margin: -49px 0 0 4.55908%;
 }
 
 .container-13 {
@@ -1076,8 +1087,12 @@ body {
 
   .container ._select {
     position: relative;
-    width: 15.284090909%;
+    width: 100%;
   }
+
+  .selects {
+ width: 40px;
+}
 
   .footer-left-center-cont ._button {
     width: 69.6010638297%;
@@ -1093,11 +1108,6 @@ body {
 
   .footer-right-center-cont ._button {
     width: 74.7074468085%;
-  }
-
-  .header-left-cont ._button,
-  .header-rigth-cont ._button {
-    width: 50%;
   }
 
   .categorias .container-1 {
@@ -1126,7 +1136,6 @@ body {
   .container .container-12 {
     width: 76.5114425594%;
     height: 77px;
-    margin-left: 8.02687%;
   }
 
   .container .container-13 {
@@ -1663,7 +1672,6 @@ body {
 
   .container ._select {
     position: relative;
-    width: 21.2669683257%;
   }
 
   .footer-left-center-cont ._button {
@@ -1700,10 +1708,7 @@ body {
   }
 
   .container .container-12 {
-    width: 74.2081447963%;
-    height: 82px;
-    margin-top: -48px;
-    margin-left: 2.08569%;
+   
   }
 
   .container .container-13 {
@@ -1756,21 +1761,13 @@ body {
   }
 
   .container .producto-nombre-4 {
-    float: right;
-    width: auto;
-    margin-right: 84.7561%;
+      width: auto;
   }
 
-  .container .producto-nombre-5 {
-    float: right;
-    margin-top: 5px;
-    margin-right: 53.65854%;
-  }
 
   .container .producto-nombre-6 {
-    float: right;
     margin-top: 0;
-    margin-right: 70.73171%;
+  }
   }
 
   .container .text-11,
@@ -1981,6 +1978,7 @@ body {
     height: 88px;
     margin-top: 10px;
     margin-left: 0;
+    padding: 0;
   }
 
   .producto-info .container-5 {
@@ -2042,6 +2040,9 @@ body {
 }
 
 @media(max-width: 767px) {
+  .selects {
+  width: 30px;
+  }
   .categorias .container {
     position: relative;
     width: 19.4484760522%;
@@ -2795,7 +2796,6 @@ body {
     width: 15.4929577464%;
     height: 63px;
     margin-top: 13px;
-    margin-left: 34.49971%;
   }
 
   .megusta .text {
@@ -2828,8 +2828,6 @@ body {
 
   .container ._select {
     position: relative;
-    width: 15.2883489461%;
-    margin-left: 32.85625%;
   }
 
   .footer-left-center-cont ._button {
@@ -2882,13 +2880,6 @@ body {
   }
 
   .container .container-12 {
-    position: relative;
-    clear: none;
-    z-index: 61;
-    width: 29.5709570957%;
-    height: 77px;
-    margin-top: -49px;
-    margin-left: 3.22214%;
   }
 
   .container .container-13 {
