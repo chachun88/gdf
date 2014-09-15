@@ -53,18 +53,18 @@ Giani Da Firenze - Carro de Compra
                     <table style="width:100%"  class="table-bordered table">
                       <tbody>
                         <tr >
-                          <td > Carrier</td>
-                          <td >Method</td>
-                          <td >Information</td>
-                          <td >Price!</td>
+                          <td > Transporte</td>
+                          <td >Método</td>
+                          <td >Información</td>
+                          <td >Precio!</td>
                         </tr>
                         <tr >
                           <td ><label class="radio">
-                              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" checked="true">
+                              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" checked="true" style="visibility:hidden" >
                               <i class="fa fa-truck fa-2x"></i> </label></td>
-                          <td >By Road </td>
-                          <td >Delivery next day!</td>
-                          <td >Free!</td>
+                          <td >Por tierra </td>
+                          <td >Despacho en 48 horas</td>
+                          <td >Gratis!</td>
                         </tr>
                       </tbody>
                     </table>
@@ -75,8 +75,8 @@ Giani Da Firenze - Carro de Compra
                 
                 <div class="cartFooter w100">
                   <div class="box-footer">
-                    <div class="pull-left"> <a class="btn btn-default" href="checkout-2.html"> <i class="fa fa-arrow-left"></i> &nbsp; Shipping address </a> </div>
-                    <div class="pull-right"> <a href="checkout-4.html" class="btn btn-primary btn-small " > Payment Method &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+                    <div class="pull-left"> <a class="btn btn-default" href="/checkout/billing"> <i class="fa fa-arrow-left"></i> &nbsp; Dirección de facturación </a> </div>
+                    <div class="pull-right"> <a href="/checkout/order" class="btn btn-primary btn-small " > Resumen &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
                   </div>
                 </div>
                 <!--/ cartFooter --> 
@@ -95,26 +95,26 @@ Giani Da Firenze - Carro de Compra
       <div class="w100 cartMiniTable">
         <table id="cart-summary" class="std table">
           <tbody>
-            <tr >
-              <td>Total products</td>
-              <td class="price" >$216.51</td>
-            </tr>
-            <tr  style="">
-              <td>Shipping</td>
-              <td class="price" ><span class="success">Free shipping!</span></td>
-            </tr>
-            <tr class="cart-total-price ">
-              <td>Total (tax excl.)</td>
-              <td class="price" >$216.51</td>
-            </tr>
-            <tr >
-              <td>Total tax</td>
-              <td class="price" id="total-tax">$0.00</td>
-            </tr>
-            <tr >
-              <td > Total </td>
-              <td class=" site-color" id="total-price">$216.51</td>
-            </tr>
+                <tr >
+                    <td>Total productos</td>
+                    <td class="price" >0</td>
+                  </tr>
+                  <tr  style="">
+                    <td>Envío</td>
+                    <td class="price" ><span class="success">Envío gratis!</span></td>
+                  </tr>
+                  <tr class="cart-total-price ">
+                    <td>Total (+impuestos)</td>
+                    <td class="price" >0</td>
+                  </tr>
+                  <tr >
+                    <td>Total impuestos</td>
+                    <td class="price" id="total-tax">$0.00</td>
+                  </tr>
+                  <tr >
+                    <td > Total </td>
+                    <td class=" site-color" id="total-price">0</td>
+                  </tr>
           </tbody>
           <tbody>
           </tbody>

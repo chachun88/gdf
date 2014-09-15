@@ -31,7 +31,6 @@ form {
 	-moz-border-radius: 2px 2px 2px 2px;
 	-webkit-border-radius: 2px 2px 2px 2px;
 	border: 1px solid rgb(205, 205, 205);
-	float: left;
 	color: gray;
     text-transform: uppercase;
 
