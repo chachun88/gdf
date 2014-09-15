@@ -204,6 +204,7 @@ class PasswordRecovery(BaseHandler):
     def post(self):
         try:
             email = self.get_argument("email", "")
+
             if email == "":
                 raise Exception( "El email ingresado no es válido" )
             if (User()).PassRecovery( email ):
@@ -211,9 +212,9 @@ class PasswordRecovery(BaseHandler):
                 self.render( "auth/success.html" )
             else:
                 # self.write( "no se ha podido recuperar la contraseña" )
-                self.render( "auth/fail.html" )
+                self.render( "auth/fail.html", message="no se ha podido recuperar la contraseña" )
         except Exception, e:
-            self.write( str(e) )
+            self.render( "auth/fail.html", message=str(e) )
 
 
 class NewPasswordHandler(BaseHandler):
@@ -239,13 +240,13 @@ class NewPasswordHandler(BaseHandler):
 
             if clave_ant == user["password"] and clave_nva == clave_nva_rep and clave_nva != "":
                 (User()).ChangePassword( id, clave_nva )
-                self.write( "se ha cambiado correctamente" )
+                self.render( "auth/fail.html", message="se ha cambiado correctamente" )
                 return
 
             raise Exception( "no se puedo cambiar el usuario" )
         except Exception, e:
             print str( e )
-            self.write( "error al cambiar contrasña" )
+            self.render( "auth/fail.html", message="error al cambiar contrasña" )
 
 
 class LogoutHandler(BaseHandler):

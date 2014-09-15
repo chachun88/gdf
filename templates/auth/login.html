@@ -71,9 +71,9 @@
 				});
 			});
 
-			$(".loginfb").click(function(evt){
+			$(".parent-link").click(function(evt){
 				evt.preventDefault();
-				window.parent.document.location.href = "/auth/facebook";
+				window.parent.document.location.href = $(this).attr( "href" );
 			});
 
 		});
@@ -92,9 +92,9 @@
 
 				<!--  Password  -->
 				<input class="_input" placeholder="INGRESAR CONTRASEÑA" type="password" name="password" required>
-				<p class="text text-4"><a href="/auth/recuperar-contrasena">olvidé mi contraseña</a></p>
+				<p class="text text-4"><a class="parent-link" href="/auth/recuperar-contrasena">olvidé mi contraseña</a></p>
 				<label class="radio-label _container clearfix">
-				  <input class="radio" type="radio" name="stay-logged" >
+				  <input class="radio" type="checkbox" name="stay-logged" >
 				  <span class="point-text"><span>seguir conectado</span></span>
 				</label>
 				<button class="_button" type="submit">INGRESAR</button>
@@ -103,7 +103,7 @@
 			<div class="reg-strate-fb clearfix">
 				<p class="tt-tulo-fb">O REGÍSTRATE CON FACEBOOK</p>
 				<div class="cont-foto-fb">
-					<a href="/auth/facebook" class="element element-2 loginfb">Facebook</a>
+					<a href="/auth/facebook" class="element element-2 loginfb parent-link">Facebook</a>
 				</div>
 			</div>
 			<div class="reg-strate-correo clearfix">
