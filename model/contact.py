@@ -121,8 +121,8 @@ class Contact(BaseModel):
 
 			# self.collection.insert(contact)
 			cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-			query = '''insert into "Contact" (name,type_id,telephone,email,customer_id,address)
-			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(customer_id)s,%(address)s) returning id'''
+			query = '''insert into "Contact" (name,type_id,telephone,email,customer_id,address, lastname)
+			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(customer_id)s,%(address)s,%(lastname)s) returning id'''
 			cur.execute(query,contact)
 			self.connection.commit()
 			new_id = cur.fetchone()[0]
