@@ -37,6 +37,8 @@ class UserRegistrationHandler(BaseHandler):
             self.write( "las contraseñas no coinciden" )
         elif tos != "on":
             self.write( "debe aceptar las condiciones de uso" )
+        elif (User()).Exist( email ):
+            self.write( "ya existe un usuario registrado con este email" )
         else:
             ### perform login
             self.write( "ok" )
