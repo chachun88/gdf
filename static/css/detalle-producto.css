@@ -44,7 +44,6 @@ body {
 .categorias .container {
   position: relative;
   float: left;
-  clear: both;
   width: 100%;
   height: 128px;
   border: 1px solid rgb(207, 207, 207);
@@ -61,9 +60,9 @@ body {
 }
 
 .container .producto-info {
-  float: right;
-  width: 89.8876404494%;
-  margin: 10px 0.11412% 0 0;
+float: right;
+width: 89.8876404494%;
+margin: 0px 0.11412% 0 0;
 }
 
 .cuerpo {
@@ -97,11 +96,12 @@ body {
 }
 
 .cuerpo-producto .container {
-  position: relative;
-  float: right;
-  width: 14.0255009107%;
-  height: 69px;
-  border: 1px solid rgb(207, 207, 207);
+position: relative;
+float: right;
+width: 14.0255009107%;
+height: 69px;
+border: 1px solid rgb(207, 207, 207);
+margin: 10px 0px 0px 20px;
 }
 
 .cuerpo-producto .producto-info {
@@ -659,13 +659,13 @@ body {
 }
 
 .producto-nombre-1 {
-  float: right;
-  width: 100%;
-  min-height: 23px;
-  font-family: Bitter;
-  font-size: 1.75em;
-  font-weight: 400;
-  color: rgb(147, 147, 147);
+float: right;
+width: 100%;
+min-height: 23px;
+font-family: 'Bree Serif', serif;
+font-size: 2.5em;
+font-weight: 400;
+color: rgb(147, 147, 147);
 }
 
 .producto-nombre-2 {
@@ -880,6 +880,7 @@ body {
     width: 17.1368861024%;
     height: 150px;
     margin-top: 12px;
+    margin-right: 20px;
   }
 
   .categorias .titulo-categorias {
@@ -1824,11 +1825,11 @@ body {
   }
 
   .cuerpo .container-10 {
-    position: relative;
-    z-index: 79;
-    width: 25.6384065372%;
-    margin-top: 14px;
-    margin-left: 1.53218%;
+position: relative;
+z-index: 79;
+width: 25.6384065372%;
+margin-top: 44px;
+margin-left: 1.53218%;
   }
 
   .cuerpo .container-16 {
