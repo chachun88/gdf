@@ -47,7 +47,8 @@ class Application(tornado.web.Application):
             (r"/auth/recuperar-contrasena", auth.PasswordRecovery),
             (r"/auth/nuevaclave/([^/]+)", auth.NewPasswordHandler),
             (r"/auth/facebook", auth.AuthFacebookHandler),
-            (r"/auth/checkout", auth.ValidateUserCheckoutHandler)
+            (r"/auth/checkout", auth.ValidateUserCheckoutHandler),
+            (r"/checkout/success", auth.CheckoutSuccessHandler)
             
         ]
         settings = dict(

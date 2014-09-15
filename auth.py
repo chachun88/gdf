@@ -267,3 +267,9 @@ class ValidateUserCheckoutHandler(BaseHandler):
             pass
 
         self.redirect( "/auth/login?ajax=0" )
+
+
+class CheckoutSuccessHandler(BaseHandler):
+    def get(self):
+        self.render( "store/success.html" )
+        
