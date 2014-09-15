@@ -100,4 +100,250 @@ class CheckoutOrderHandler(BaseHandler):
 		cart.user_id = user.GetUserId(self.current_user)
 		data = cart.GetCartByUserId()
 		self.render("store/checkout-5.html",data=data)
+
+class CheckoutSendHandler(BaseHandler):
+
+	def get(self):
+		pass
+
+		# sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
+
+		# cart = Cart()
+		# user = User()
+		# cart.user_id = user.GetUserId(self.current_user)
+		# data = cart.GetCartByUserId()
+
+
+		# datos_empresa = '''
+		# 		<table style="font-size:12px; width:400px; margin-top: 20px auto;" cellspacing="0">
+		# 			<tr style="">
+		# 				<th colspan="4" style=" background-color: white;line-height: 2.5;height: 30px;border: 1px;border-color: #d6d6d6; border-style: solid;">Datos Empresas</th>
+		# 			</tr>
+
+		# 			<tr>
+		# 				<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Raz&oacute;n social</th>
+		# 				<td colspan="3" style=" background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{razon_social}
+		# 				</td>
+		# 			</tr>
+		# 			<tr>
+		# 				<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Rut</th>
+		# 				<td colspan="3" style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{rut_factura}
+		# 				</td>
+		# 			</tr>
+		# 			<tr>
+		# 				<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Giro</th>
+		# 				<td colspan="4" style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{giro}
+		# 				</td>
+		# 			</tr>
+		# 			<tr> 
+		# 				<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
+		# 				<td colspan="3" style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{direccion_factura}
+		# 				</td>
+		# 			</tr>
+		# 			<tr> 
+		# 				<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
+		# 				<td colspan="3" style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{email_factura}
+		# 				</td>
+		# 			</tr>
+		# 			<tr> 
+		# 				<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
+		# 				<td colspan="3" style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{telefono_factura}
+		# 				</td>
+		# 			</tr>
+		# 		</table>
+		# 		'''.format(
+		# 		razon_social=tryToEncodeUtf8(chk.razonsocial),
+		# 		rut_factura=tryToEncodeUtf8(chk.rut_factura),
+		# 		giro=tryToEncodeUtf8(chk.giro),
+		# 		direccion_factura=tryToEncodeUtf8(chk.direccion_factura),
+		# 		email_factura=tryToEncodeUtf8(chk.email_factura),
+		# 		telefono_factura=tryToEncodeUtf8(chk.telefono_factura)
+		# 		)
+
+		# 		datos_personales = '''
+		# 		<table style="font-size:12px; width:400px; margin: 20px auto;" cellspacing="0">
+		# 			<tr style="">
+		# 				<th colspan="4" style=" background-color: white;line-height: 2.5;height: 30px;border: 1px;border-color: #d6d6d6; border-style: solid;">Datos Personales</th>
+		# 			</tr>
+		# 			<tr>
+		# 				<th style="background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Nombre</th>
+		# 				<td style="background-color: white;line-height: 2.5; height: 30px;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{nombre}
+		# 				</td>
+		# 				<th  style="background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Apellido</th>
+		# 				<td style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{apellido}
+		# 				</td>
+		# 			</tr>
+		# 			<tr>
+		# 				<th style=" background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Email</th>
+		# 				<td style="background-color: white;line-height: 2.5; height: 30px;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{email}
+		# 				</td>
+		# 				<th style=" background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Tel&eacute;fono</th>
+		# 				<td style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{telefono}
+		# 				</td>
+		# 			</tr>
+		# 			<tr>
+		# 				<th style=" background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
+		# 				<td colspan="3" style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{direccion}
+		# 				</td>
+		# 			</tr>
+		# 			<tr>
+		# 				<th style=" background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Ciudad</th>
+		# 				<td colspan="3" style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{ciudad}
+		# 				</td>
+		# 			</tr>
+		# 			<tr>
+		# 				<th style=" background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Comentarios</th>
+		# 				<td colspan="3" style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{comentario}
+		# 				</td>
+		# 			</tr>
+		# 		</table>
+		# 		'''.format(
+		# 		nombre=nombre,
+		# 		apellido=apellido,
+		# 		email=email,
+		# 		telefono=telefono,
+		# 		direccion=direccion,
+		# 		ciudad=ciudad,
+		# 		comentario=comentario
+		# 		)
+
+		# 		if chk.razonsocial!="":
+		# 			datos = datos_empresa
+		# 			nombre = razon_social
+		# 			email = email_factura
+		# 		else:
+		# 			datos = datos_personales
+		# 			nombre = nombre
+		# 			email = email
+
+		# 		carro = ""
+		# 		total = 0
+		# 		html_total = ""
+
+		# 		for d in data:
+
+		# 			product_name=d["name"]
+		# 			color=d["color"]
+		# 			finish=d["size"]
+		# 			paper=''
+		# 			quantity=d['quantity']
+		# 			subtotal=d["subtotal"]
+		# 			product_id=''
+
+		# 			producto = '''
+		# 			<tr>
+		# 				<td style="background-color: white;line-height: 2.5; height: 30px; border-right: 1px solid #d6d6d6; border-bottom: 1px solid #d6d6d6; border-left: 1px solid #d6d6d6;">
+		# 					<a href=\"http://{host}/design/get?identifier={product_id}\">{product_name}</a>
+		# 				</td>
+		# 				<td style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{color}
+		# 				</td>
+		# 				<td style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{finish}
+		# 				</td>
+		# 				<td style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{paper}
+		# 				</td>
+		# 				<td style="background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{quantity}
+		# 				</td>
+		# 				<td style="text-align:right; background-color: white;line-height: 2.5; height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">
+		# 					{subtotal}
+		# 				</td>
+		# 			</tr>
+		# 			'''.format(
+		# 			product_name=product_name,
+		# 			color=color,
+		# 			finish=finish,
+		# 			paper=paper,
+		# 			quantity=quantity,
+		# 			subtotal=subtotal,
+		# 			host=self.request.host,
+		# 			product_id=product_id
+		# 			)
+		# 			total += int(subtotal)
+		# 			carro += producto
+
+
+		# 		html_total = '''
+		# 		<tr>
+		# 			<td colspan="6" style="text-align:right; background-color: white;line-height: 2.5; height: 30px; border-right: 1px solid #d6d6d6; border-bottom: 1px solid #d6d6d6; border-left: 1px solid #d6d6d6;">
+		# 			{total}
+		# 			</td>
+		# 		</tr>
+		# 		'''.format(
+		# 		total=total
+		# 		)
+
+		# 		if total != 0:
+		# 			carro += html_total
+
+		# 		contact_body = '''
+		# 		<html>
+
+
+		# 		<body style="width:400px; background: #efefef; margin: 0 auto; font-family: 'arial'; font-size:12px; color:black;">
+		# 			<table style="background-color: white; font-size:12px; width:400px; margin: 0;" cellspacing="0">
+		# 				<tr style="background-color: white;">
+		# 					<td style="width:400px; background-color: white;line-height: 2.5;height: 30px;border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">
+		# 						<a href="http://{host}"><img src="http://ecommerce.loadingplay.com/static/images/logo_1.png" ></a>
+		# 					</td>
+		# 				</tr>
+		# 			</table>
+		# 			<h3 style="text-align: center; font-size: 18px">Confirmaci&oacute;n de pedido realizado</h3>
+		# 			<h3 style="text-align: center;">{nombre} ha realizado un pedido</h3>
+					
+
+		# 			{datos}
+					
+		# 			<table style="font-size:12px; width:400px; margin: 20px auto;" cellspacing="0">
+		# 				<tr style="">
+		# 					<th colspan="6" style=" background-color: white;line-height: 2.5;height: 30px;border: 1px;border-color: #d6d6d6; border-style: solid;">Carro de Compra</th>
+		# 				</tr>
+
+		# 				<tr>
+		# 					<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Producto</th>
+		# 					<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Color</th>
+		# 					<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Terminaci&oacute;n</th>
+		# 					<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Papel</th>
+		# 					<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Cantidad</th>
+		# 					<th style=" width:120px ;background-color: white;line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
+		# 				</tr>
+		# 				{carro}
+		# 			</table>
+
+					
+
+		# 			<table style="font-size:12px; width:100%; margin-top: 20px; background-color: white;" cellspacing="0">
+		# 				<tr style="background-color: white;">
+		# 					<td style="width:400px; background-color: white;line-height: 2.5;height: 30px;border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">
+		# 						<a href="http://{host}"><img src="http://ecommerce.loadingplay.com/static/images/logo_1.png" ></a>
+		# 					</td>
+		# 				</tr>
+		# 			</table>
+		# 		</body>
+		# 		</html>
+		# 		'''.format( nombre=nombre,
+		# 					datos=datos,
+		# 					carro=carro,
+		# 					host=self.request.host)
+
+		# message = sendgrid.Mail()
+		# message.set_from("{nombre} <{mail}>".format(nombre=nombre,mail=email))
+		# message.add_to(email_confirmacion)
+		# message.set_subject("Mail de confirmación")
+		# message.set_html(contact_body)
 		
