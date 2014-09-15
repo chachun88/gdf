@@ -14,7 +14,6 @@ class Enviroment(object):
 	ONTEST = 3
 	PRODUCTION = 4
 
-
 enviroment = Enviroment.LOCAL
 
 if host_name == "development":
