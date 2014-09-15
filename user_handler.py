@@ -138,7 +138,8 @@ class BillingSaveHandler(BaseHandler):
             response_obj = order.Edit()
 
             if "success" in response_obj:
-                self.redirect("/checkout/shipping")
+                # self.redirect("/checkout/shipping")
+                self.write("algo")
             else:
                 self.write(response_obj["error"])
 
