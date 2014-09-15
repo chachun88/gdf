@@ -19,6 +19,8 @@ $(document).ready(function(){
 	    }
 	}
 
-	$('.fancybox').fancybox({padding: 3});
+	$('.fancybox').fancybox({padding: 3, width: 600});
+
+	
 
 });

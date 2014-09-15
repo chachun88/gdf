@@ -1,0 +1,249 @@
+
+
+{% extends "../base.html" %}
+{% block title %}
+Giani Da Firenze - Carro de Compra
+{% end %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/detalle-producto.css">
+<link rel="stylesheet" href="/static/css/bootstrap/style.css">
+<link rel="stylesheet" href="/static/css/bootstrap/skin-10.css">
+{% end %}
+
+{% block javascript %}
+<script src="/static/js/detalle-producto.js"></script>
+<script src="/static/js/bootstrap/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap/bootstrap.touchspin.js"></script>
+{% end %}
+
+{% block body %}
+
+<div class="container main-container ">
+
+  
+<!--   <div class="row">
+      <div class="col-lg-9 col-md-9 col-sm-7">
+            <h1 class="section-title-inner"><span><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</span></h1>
+</div>
+
+    <div class="col-lg-3 col-md-3 col-sm-5 rightSidebar"> 
+
+      <h4 class="caps"><a href="category.html"><i class="fa fa-chevron-left"></i> Back to shopping </a></h4>
+      </div>
+</div> -->
+  
+  <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-12">
+      <div class="row userInfo">
+        
+        <div class="col-xs-12 col-sm-12">
+        
+       <div class="w100 clearfix"> 
+       
+       
+               <ul class="orderStep ">
+                    <li> <a href="/checkout/address"> <i class="fa fa-map-marker "></i> <span> dirección</span> </a> </li>
+                    <li> <a href="/checkout/billing"> <i class="fa fa fa-envelope  "></i> <span> facturación </span></a></li>
+                    <li> <a href="/checkout/shipping"><i class="fa fa-truck "> </i><span>despacho</span> </a> </li>
+                    <li class="active"> <a href="/checkout/order"><i class="fa fa-check-square "> </i><span>resumen</span></a> </li>
+                    <li> <a href="/checkout/payment"><i class="fa fa-money  "> </i><span>pago</span> </a> </li>
+                    
+                
+                </ul><!--orderStep-->
+        </div>
+        
+        
+        <div class="w100 clearfix">
+        
+        
+        	<div class="row userInfo">
+                
+                <div class="col-lg-12">
+                    <h2 class="block-title-2"> Revisar compra </h2>
+                </div>
+                
+            
+            
+            	<div class="col-xs-12 col-sm-12">
+                      <div class="cartContent w100 checkoutReview ">
+                        <table class="cartTable table-responsive"   style="width:100%">
+                          <tbody>
+                            <tr class="CartProduct cartTableHeader">
+                              <th style="width:15%"> Producto </th>
+                              <th class="checkoutReviewTdDetails"  >Detalles</th>
+                              <th style="width:10%" >Precio unitario</th>
+                              <th class="hidden-xs" style="width:5%">CTD</th>
+                              <th class="hidden-xs" style="width:10%" >descuento</th>
+                              <th style="width:15%">Total</th>
+                            </tr>
+                            {% for d in data %}
+                            <tr class="CartProduct">
+                              <td  class="CartProductThumb"><div> <a href="product-details.html"><img src="{{url_bodega}}/image/{{d['image']}}?mw=86"></a> </div></td>
+                              <td ><div class="CartDescription">
+                                  <h4> <a href="product-details.html">{{d["name"]}} </a> </h4>
+                                  <span class="size">{{d["size"]}}</span>
+                                 
+                                </div></td>
+                              <td class="delete"><div class="price ">${{d["price"]}} </div></td>
+                              <td class="hidden-xs">{{d['quantity']}}</td>
+                              <td class="hidden-xs">0</td>
+                              <td class="price">${{d["subtotal"]}}</td>
+                            </tr>
+                            {% end %}
+                            <!-- <tr class="CartProduct">
+                              <td  class="CartProductThumb"><div> <a href="product-details.html"><img src="images/product/2.jpg"></a> </div></td>
+                              <td ><div class="CartDescription">
+                                  <h4> <a href="product-details.html">Denim T shirt </a> </h4>
+                                  <span class="size">12 x 1.5 L</span>
+                                
+                                </div></td>
+                              <td class="delete"><div class="price ">$50 </div></td>
+                              <td class="hidden-xs">1</td>
+                              <td class="hidden-xs">0</td>
+                              <td class="price" >$50</td>
+                            </tr>
+                            <tr class="CartProduct">
+                              <td  class="CartProductThumb"><div> <a href="product-details.html"><img src="images/product/5.jpg"></a> </div></td>
+                              <td ><div class="CartDescription">
+                                  <h4> <a href="product-details.html">Denim T shirt Red </a> </h4>
+                                  <span class="size">12 x 1.5 L</span>
+                                 
+                                </div></td>
+                              <td class="delete"><div class="price ">$50  </div></td>
+                              <td class="hidden-xs">1</td>
+                              <td class="hidden-xs">0</td>
+                              <td class="price">$50</td>
+                            </tr> -->
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--cartContent-->
+                      
+                      <div class="w100 costDetails">
+                        <div class="table-block" id="order-detail-content">
+                          <table class="std table" id="cart-summary">
+                            <tr >
+                              <td>Total productos</td>
+                              <td  class="price">$216.51 </td>
+                            </tr>
+                            <tr style="" >
+                              <td>Despacho</td>
+                              <td  class="price"><span class="success">Despacho gratis!</span></td>
+                            </tr>
+                            <tr class="cart-total-price ">
+                              <td>Total (+impuestos)</td>
+                              <td  class="price">$216.51 </td>
+                            </tr>
+                            <tr >
+                              <td>Total impuestos</td>
+                              <td id="total-tax" class="price">0.00</td>
+                            </tr>
+                            <tr >
+                              <td > Total </td>
+                              <td id="total-price" class="price">$216.51 </td>
+                            </tr>
+                            <tbody>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <!--/costDetails-->
+                      
+
+          
+          <!--/row-->
+  
+          
+        </div>
+                
+                
+                </div>
+                
+          
+            
+            
+            
+            </div><!--/row end-->
+            
+            
+            
+            <div class="cartFooter w100">
+            <div class="box-footer">
+
+              <div class="pull-left"> <a class="btn btn-default" href="/checkout/shipping"> <i class="fa fa-arrow-left"></i> &nbsp; Despacho </a> </div>
+              <div class="pull-right"> <a href="/checkout/payment" class="btn btn-primary btn-small " > Pago &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+               
+               <!-- <div class="pull-right">
+                <a href="#" class="btn btn-primary btn-small " > 
+					Confirm Order &nbsp; <i class="fa fa-check"></i>
+                 </a>
+              </div> -->
+               
+               
+              
+            </div>
+          </div>
+          <!--/ cartFooter --> 
+    
+        	
+       
+     
+        
+        
+        
+        
+        
+        </div>
+          
+          
+          
+                
+        </div>
+      </div>
+      <!--/row end--> 
+      
+  
+    <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar"> 
+      
+  <div class="w100 cartMiniTable">
+                            <table id="cart-summary" class="std table">
+                                    <tbody>
+                                                    <tr >
+                    <td>Total productos</td>
+                    <td class="price" >0</td>
+                  </tr>
+                  <tr  style="">
+                    <td>Envío</td>
+                    <td class="price" ><span class="success">Envío gratis!</span></td>
+                  </tr>
+                  <tr class="cart-total-price ">
+                    <td>Total (+impuestos)</td>
+                    <td class="price" >0</td>
+                  </tr>
+                  <tr >
+                    <td>Total impuestos</td>
+                    <td class="price" id="total-tax">$0.00</td>
+                  </tr>
+                  <tr >
+                    <td > Total </td>
+                    <td class=" site-color" id="total-price">0</td>
+                  </tr>
+
+                                    
+                                                                         
+                                    </tbody><tbody>
+                                    </tbody>
+                                  </table> 
+                                  </div>
+      
+    </div>
+    <!--/rightSidebar--> 
+    
+  </div>
+  <!--/row-->
+  
+  <div style="clear:both"></div>
+</div>
+<!-- /wrapper --> 
+{% end %}

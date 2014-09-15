@@ -8,7 +8,7 @@ import psycopg2
 import psycopg2.extras
 
 from sendpassword import Email
-
+from customer import Customer
 
 class UserType(object):
 	
@@ -278,6 +278,20 @@ class User(BaseModel):
 					}
 					cur.execute(q,p)
 					self.connection.commit()
+
+					##### customer ######
+					try:
+						customer = Customer()
+						customer.name = self.name
+						customer.username = self.email
+						customer.password = self.password
+						customer.user_id = self.id
+						customer.Save()
+					except Exception,e:
+						print str( e )
+						pass
+					##### customer ######
+
 					return self.ShowSuccessMessage(str(self.id))
 				else:
 					q = '''insert into "User" (name,password,email,permissions,type_id) values (%(name)s,%(password)s,%(email)s,%(permissions)s,%(type_id)s) returning id'''
@@ -291,6 +305,19 @@ class User(BaseModel):
 					cur.execute(q,p)
 					self.connection.commit()
 					self.id = cur.fetchone()[0]
+
+					##### customer ######
+					try:
+						customer = Customer()
+						customer.name = self.name
+						customer.username = self.email
+						customer.password = self.password
+						customer.user_id = self.id
+						customer.Save()
+					except Exception,e:
+						print str( e )
+						pass
+					##### customer ######
 
 					return self.ShowSuccessMessage(str(self.id))
 			except Exception,e:
@@ -310,6 +337,19 @@ class User(BaseModel):
 				cur.execute(q,p)
 				self.connection.commit()
 				self.id = cur.fetchone()[0]
+
+				##### customer ######
+				try:
+					customer = Customer()
+					customer.name = self.name
+					customer.username = self.email
+					customer.password = self.password
+					customer.user_id = self.id
+					customer.Save()
+				except Exception,e:
+					print str( e )
+					pass
+				##### customer ######
 
 				return self.ShowSuccessMessage(str(self.id))
 
@@ -382,7 +422,7 @@ class User(BaseModel):
 			else:
 				return False
 		except Exception, e:
-			print str( e )
+			print "no se ha podido recuperar la contrasena : {}".format(str( e ))
 			raise Exception( "no se ha podido recuperar la contraseña" )
 
 	def ChangePassword(self, id, password):
@@ -391,9 +431,28 @@ class User(BaseModel):
 			p = ''' update "User" set password = %(password)s where id = %(id)s '''
 			q = { "id": id, "password" : password }
 
-			cur = self.connection.cursor(  cursor_factory=psycopg2.extras.DictCursor )
+			# c
+
+			cur = self.connection.cursor( cursor_factory=psycopg2.extras.DictCursor )
 			cur.execute( p,q )
+
 
 		except Exception, e:
 			print str( e )
-			raise Exception( "no se ha podido cambiar la contrasela" )
+			raise Exception( "no se ha podido cambiar la contraseña" )
+
+
+	def GetUserId( self, email ):
+		try:
+			p = ''' select id from "User" where email = %(email)s '''
+			q = {"email":email}
+
+			cur = self.connection.cursor( cursor_factory=psycopg2.extras.DictCursor )
+			cur.execute( p, q )
+
+			data = cur.fetchone()
+
+			return data[0]
+
+		except Exception,e:
+			print str( e )

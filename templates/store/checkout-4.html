@@ -1,0 +1,254 @@
+
+
+{% extends "../base.html" %}
+{% block title %}
+Giani Da Firenze - Carro de Compra
+{% end %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/detalle-producto.css">
+<link rel="stylesheet" href="/static/css/bootstrap/style.css">
+<link rel="stylesheet" href="/static/css/bootstrap/skin-10.css">
+{% end %}
+
+{% block javascript %}
+<script src="/static/js/detalle-producto.js"></script>
+<script src="/static/js/bootstrap/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap/bootstrap.touchspin.js"></script>
+{% end %}
+
+{% block body %}
+<div class="container main-container ">
+  
+  
+<!--   <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-7">
+      <h1 class="section-title-inner"><span><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</span></h1>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-5 rightSidebar">
+      <h4 class="caps"><a href="category.html"><i class="fa fa-chevron-left"></i> Back to shopping </a></h4>
+    </div>
+  </div> -->
+  
+  
+  <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-12">
+      <div class="row userInfo">
+        <div class="col-xs-12 col-sm-12">
+          <div class="w100 clearfix">
+            <ul class="orderStep ">
+              <li> <a href="/checkout/address"> <i class="fa fa-map-marker "></i> <span> dirección</span> </a> </li>
+              <li> <a href="/checkout/billing"> <i class="fa fa fa-envelope  "></i> <span> facturación </span></a></li>
+              <li> <a href="/checkout/shipping"><i class="fa fa-truck "> </i><span>despacho</span> </a> </li>
+              <li> <a href="/checkout/order"><i class="fa fa-check-square "> </i><span>resumen</span></a> </li>
+              <li class="active"> <a href="/checkout/payment"><i class="fa fa-money  "> </i><span>pago</span> </a> </li>
+            </ul>
+            <!--orderStep--> 
+          </div>
+          <div class="w100 clearfix">
+            <div class="row userInfo">
+              <div class="col-lg-12">
+                <h2 class="block-title-2"> Método de pago </h2>
+              </div>
+              <div class="col-xs-12 col-sm-12">
+                <div class="paymentBox">
+                  <div class="panel-group paymentMethod" id="accordion">
+                    <div class="panel panel-default">
+                      <div class="panel-heading panel-heading-custom">
+                        <h4 class="panel-title"> <a class="cashOnDelivery" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <span class="numberCircuil"></span> <strong> Transferencia bancaria</strong> </a> </h4>
+                      </div>
+                      <div id="collapseOne" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                          <p>Envíe el comprobante de transferencia.</p>
+                          <br>
+                          <h2>Datos para la transferencia</h2>
+                          <p>....</p>
+                          <hr>
+                          <div class="form-group">
+                            <label for="CommentsOrder">Comprobante de transferencia</label>
+                            <input type="file" name="image" />
+                          </div>
+                          <div class="form-group">
+                            <label for="CommentsOrder">Comentarios</label>
+                            <textarea id="CommentsOrder" class="form-control" name="CommentsOrder" cols="26" rows="3"></textarea>
+                          </div>
+                          <div class="form-group clearfix">
+                            <label class="checkbox-inline" for="checkboxes-1">
+                              <input name="checkboxes" id="checkboxes-1" value="1" type="checkbox">
+                              Estoy de acuerdo y acepto los <a href="terms-conditions.html">Términos y condiciones</a> </label>
+                          </div>
+                          <div class="pull-right"> <a href="/checkout/order" class="btn btn-primary btn-small " > Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+                        </div>
+                      </div>
+                    </div>
+                   <!--  <div class="panel panel-default">
+                      <div class="panel-heading panel-heading-custom">
+                        <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> <span class="numberCircuil">Option 2</span><strong> PayPal</strong> </a> </h4>
+                      </div>
+                      <div id="collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          <p>All transactions are secure and encrypted, and we neverstor To learn more, please view our privacy policy.</p>
+                          <br>
+                          <label class="radio-inline" for="radios-3">
+                            <input name="radios" id="radios-3" value="4" type="radio">
+                            <img src="images/site/payment/paypal-small.png" height="18" alt="paypal"> Checkout with Paypal </label>
+                          <div class="form-group">
+                            <label for="CommentsOrder2">Add Comments About Your Order</label>
+                            <textarea id="CommentsOrder2" class="form-control" name="CommentsOrder2" cols="26" rows="3"></textarea>
+                          </div>
+                          <div class="form-group clearfix">
+                            <label class="checkbox-inline" for="checkboxes-0">
+                              <input name="checkboxes" id="checkboxes-0" value="1" type="checkbox">
+                              I have read and agree to the <a href="terms-conditions.html">Terms & Conditions</a> </label>
+                          </div>
+                          <div class="pull-right"> <a href="checkout-5.html" class="btn btn-primary btn-small " > Order &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+                        </div>
+                      </div>
+                    </div> -->
+                    <!-- <div class="panel panel-default">
+                      <div class="panel-heading panel-heading-custom">
+                        <h4 class="panel-title"> <a class="masterCard" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> <span class="numberCircuil">Option 3</span> <strong> MasterCard</strong> </a> </h4>
+                      </div>
+                      <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+                          <p>All transactions are secure and encrypted, and we neverstor To learn more, please view our privacy policy.</p>
+                          <br>
+                          <div class="panel open">
+                            <div class="creditCard">
+                              <div class="cartBottomInnerRight paymentCard"> 
+                              </div>
+                              <span>Supported</span> <span>Credit Cards</span>
+                              <div class="paymentInput">
+                                <label for="CardNumber">Credit Card Number *</label>
+                                <br>
+                                <input id="CardNumber" type="text" name="Number">
+                              </div>
+
+                              <div class="paymentInput">
+                                <label for="CardNumber2">Name on Credit Card *</label>
+                                <br>
+                                <input type="text" name="CardNumber2" id="CardNumber2">
+                              </div>
+
+                              <div class="paymentInput">
+                                <div class="form-group">
+                                  <label>Expiration date *</label>
+                                  <br>
+                                  <div class="col-lg-4 col-md-4 col-sm-4 no-margin-left no-padding">
+                                    <select required aria-required="true" name="expire">
+                                      <option value="">Month</option>
+                                      <option value="1">01 - January</option>
+                                      <option value="2">02 - February</option>
+                                      <option value="3">03 - March</option>
+                                      <option value="4">04 - April</option>
+                                      <option value="5">05 - May</option>
+                                      <option value="6">06 - June</option>
+                                      <option value="7">07 - July</option>
+                                      <option value="8">08 - August</option>
+                                      <option value="9">09 - September</option>
+                                      <option value="10">10 - October</option>
+                                      <option value="11">11 - November</option>
+                                      <option value="12">12 - December</option>
+                                    </select>
+                                  </div>
+                                  <div class="col-lg-4 col-md-4 col-sm-4">
+                                    <select required aria-required="true" name="year">
+                                      <option value="">Year</option>
+                                      <option value="2013">2013</option>
+                                      <option value="2014">2014</option>
+                                      <option value="2015">2015</option>
+                                      <option value="2016">2016</option>
+                                      <option value="2017">2017</option>
+                                      <option value="2018">2018</option>
+                                      <option value="2019">2019</option>
+                                      <option value="2020">2020</option>
+                                      <option value="2021">2021</option>
+                                      <option value="2022">2022</option>
+                                      <option value="2023">2023</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              <div style="clear:both"></div>
+                              <div class="paymentInput clearfix">
+                                <label for="VerificationCode">Verification Code *</label>
+                                <br>
+                                <input type="text" id="VerificationCode" name="VerificationCode" style="width:90px;">
+                                <br>
+                              </div>
+                              
+                              <div>
+                                <input type="checkbox" name="saveInfo" id="saveInfoid">
+                                <label for="saveInfoid">&nbsp;Save my Card information</label>
+                              </div>
+                            </div>
+                            
+                            <div class="pull-right"> <a href="checkout-5.html" class="btn btn-primary btn-small " > Order &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+                  </div>
+                </div>
+                
+                <!--/row--> 
+                
+              </div>
+            </div>
+          </div>
+          <!--/row end-->
+          
+          <div class="cartFooter w100">
+            <div class="box-footer">
+               <div class="pull-left"> <a class="btn btn-default" href="/checkout/billing"> <i class="fa fa-arrow-left"></i> &nbsp; Dirección de facturación </a> </div>
+              <div class="pull-right"> <a class="btn btn-primary btn-small "  href="/checkout/order"> Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+            </div>
+          </div>
+        </div>
+        
+        <!--/ cartFooter --> 
+        
+      </div>
+    </div>
+    <!--/row end-->
+    
+    <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar">
+      <div class="w100 cartMiniTable">
+        <table id="cart-summary" class="std table">
+          <tbody>
+                <tr >
+                    <td>Total productos</td>
+                    <td class="price" >0</td>
+                  </tr>
+                  <tr  style="">
+                    <td>Envío</td>
+                    <td class="price" ><span class="success">Envío gratis!</span></td>
+                  </tr>
+                  <tr class="cart-total-price ">
+                    <td>Total (+impuestos)</td>
+                    <td class="price" >0</td>
+                  </tr>
+                  <tr >
+                    <td>Total impuestos</td>
+                    <td class="price" id="total-tax">$0.00</td>
+                  </tr>
+                  <tr >
+                    <td > Total </td>
+                    <td class=" site-color" id="total-price">0</td>
+                  </tr>
+          </tbody>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--/rightSidebar--> 
+    
+  </div>
+  <!--/row-->
+  
+  <div style="clear:both"></div>
+</div>
+<!-- /.main-container -->
+{% end %}

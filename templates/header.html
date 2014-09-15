@@ -7,11 +7,13 @@
     </button>
   </div>
   <div class="logo-content">
-    <img class="image image-1" src="/static/images/giani-logo-2-gris-260x119.png" data-rimage data-src="/static/images/giani-logo-2-gris-260x119.png">
-    <img class="image image-2" src="/static/images/giani-logo-2-negro-268x123.png" data-rimage data-src="/static/images/giani-logo-2-negro-268x123.png">
-    <img class="image image-3" src="/static/images/giani-logo-3-242x111.png" data-rimage data-src="/static/images/giani-logo-3-242x111.png">
-    <img class="image image-4" src="/static/images/logo-web-2-373x89.png" data-rimage data-src="/static/images/logo-web-2-373x89.png">
-    <img class="image image-5" src="/static/images/logo-web-500x119.png" data-rimage data-src="/static/images/logo-web-500x119.png">
+    <a href="/">
+      <img class="image image-1" src="/static/images/giani-logo-2-gris-260x119.png" data-rimage data-src="/static/images/giani-logo-2-gris-260x119.png">
+      <img class="image image-2" src="/static/images/giani-logo-2-negro-268x123.png" data-rimage data-src="/static/images/giani-logo-2-negro-268x123.png">
+      <img class="image image-3" src="/static/images/giani-logo-3-242x111.png" data-rimage data-src="/static/images/giani-logo-3-242x111.png">
+      <img class="image image-4" src="/static/images/logo-web-2-373x89.png" data-rimage data-src="/static/images/logo-web-2-373x89.png">
+      <img class="image image-5" src="/static/images/logo-web-500x119.png" data-rimage data-src="/static/images/logo-web-500x119.png">
+    </a>
   </div>
   <div class="header-rigth-cont clearfix">
     <div class="carritoicono clearfix">
@@ -19,7 +21,7 @@
     </div>
     <div class="_container clearfix">
       {% if current_user == None %}
-        <a class="_button button_register fancybox fancybox.ajax" href="/auth/login">
+        <a class="_button button_register fancybox fancybox.iframe" href="/auth/login">
           <p>REGISTRO</p>
           <p></p>
           <p></p>

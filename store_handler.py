@@ -103,6 +103,7 @@ class GetCartByUserIdHandler(BaseHandler):
 	def get(self):
 
 		user_id = self.get_argument("user_id","")
+		ajax = int(self.get_argument("ajax",1))
 
 		if user_id != "":
 
@@ -113,8 +114,10 @@ class GetCartByUserIdHandler(BaseHandler):
 			for l in lista:
 				suma += l["subtotal"]
 
-			self.render("store/carro_ajax.html",data=lista,suma=suma)
-
+			if ajax:
+				self.render("store/carro_ajax.html",data=lista,suma=suma)
+			else:
+				self.render("store/cart.html",data=lista,suma=suma)
 		else:
 
 			self.write("error")
@@ -133,3 +136,4 @@ class RemoveCartByIdHandler(BaseHandler):
 				self.write("ok")
 			else:
 				self.write(response_obj["error"])
+

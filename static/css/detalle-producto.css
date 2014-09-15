@@ -7,7 +7,17 @@ body {
   font: 300 0.75em/1.38 Ubuntu;
   color: rgb(255, 255, 255);
 }
+.otro-angulo {
+  max-width: 70px;
+}
 
+.otro-angulo-mas-combinaciones {
+  max-width: 160px;
+}
+
+.selects {
+  float: left;width: 40px;
+}
 .categoria-1 {
   display: block;
   float: left;
@@ -102,6 +112,8 @@ body {
   margin-left: -0.06546%;
   background-color: rgb(255, 255, 255);
 }
+
+
 
 .footer {
   position: relative;
@@ -215,6 +227,7 @@ body {
   width: 100%;
   height: auto;
   overflow: hidden;
+  max-width: 600px;
 }
 
 .fotomegusta {
@@ -264,24 +277,7 @@ body {
   overflow: hidden;
 }
 
-.logo-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 114;
-  width: 42.4274553571%;
-  height: 135px;
-  margin: 0 auto;
-}
 
-.logo-content .image {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-right: auto;
-  margin-left: auto;
-}
 
 .megusta {
   float: left;
@@ -308,6 +304,7 @@ body {
   height: 448px;
   border: 1px solid rgb(207, 207, 207);
   background-color: rgb(255, 255, 255);
+  overflow: hidden;
 }
 
 .producto-nombre {
@@ -349,7 +346,7 @@ body {
   display: block;
   position: relative;
   float: left;
-  width: 22.3744292237%;
+  width: 100%;
   height: 22px;
   padding-left: 10px;
   border: 1px solid rgb(119, 119, 119);
@@ -383,85 +380,7 @@ body {
   color: rgb(172, 110, 97);
 }
 
-.footer-left-center-cont ._button {
-  width: 200px;
-  height: 40px;
-  margin: 23px auto 0;
-  border-width: 2px;
-  border-color: rgb(255, 255, 255);
-  font-size: 1.167em;
-  line-height: 2.68;
-  text-align: center;
-  letter-spacing: 4px;
-  color: rgb(255, 255, 255);
-}
 
-.footer-left-cont ._button {
-  width: 150px;
-  height: 32px;
-  margin: 160px auto 0;
-  border-width: 2px;
-  border-color: rgb(255, 255, 255);
-  font-size: 1.167em;
-  line-height: 2.18;
-  text-align: center;
-  letter-spacing: 7px;
-  color: rgb(255, 255, 255);
-}
-
-.footer-left-cont ._button:hover {
-  background-color: rgb(255, 255, 255);
-  color: rgb(231, 169, 156);
-}
-
-.footer-right-center-cont ._button {
-  width: 65.0190114068%;
-  height: 40px;
-  margin: 25px auto 0;
-  border-width: 2px;
-  border-color: rgb(255, 255, 255);
-  border-radius: 3px;
-  font-size: 1.167em;
-  line-height: 2.68;
-  text-align: center;
-  letter-spacing: 7px;
-  color: rgb(255, 255, 255);
-}
-
-.footer-left-center-cont ._button:hover,
-.footer-right-center-cont ._button:hover {
-  background-color: #ffffff;
-  color: rgb(232, 169, 156);
-}
-
-.header-left-cont ._button {
-  float: left;
-  width: 68.8212927756%;
-  height: 30px;
-  margin-top: 15px;
-  border-width: 1px;
-  border-color: rgb(207, 207, 207);
-  border-radius: 3px;
-  background-color: rgb(247, 247, 247);
-  font: 400 1.167em/1.38 'Ubuntu Condensed';
-  text-align: justify;
-  color: rgb(176, 176, 176);
-}
-
-.header-rigth-cont ._button {
-  float: right;
-  width: 53.2319391634%;
-  height: 30px;
-  margin-top: 15px;
-  border-width: 1px;
-  border-color: rgb(172, 110, 97);
-  background-color: rgb(232, 169, 156);
-  font-size: 1em;
-  line-height: 1.38;
-  text-align: center;
-  letter-spacing: 4px;
-  color: rgb(255, 255, 255);
-}
 
 .categoria-1-1,
 .categoria-1-2,
@@ -500,7 +419,6 @@ body {
   float: left;
   width: 73.0593607305%;
   height: 89px;
-  margin: -49px 0 0 4.55908%;
 }
 
 .container-13 {
@@ -600,13 +518,7 @@ body {
   margin-top: -69px;
 }
 
-.image-1 {
-  top: 0;
-  bottom: 0;
-  z-index: 113;
-  width: 260px;
-  margin: auto 0;
-}
+
 
 .image-10 {
   z-index: 51;
@@ -649,12 +561,7 @@ body {
   margin: 15px auto 0;
 }
 
-.image-2 {
-  visibility: hidden;
-  top: 0;
-  z-index: 112;
-  width: 268px;
-}
+
 
 .image-20 {
   position: relative;
@@ -726,35 +633,14 @@ body {
   margin: 27px 0 0 21.72619%;
 }
 
-.image-3 {
-  visibility: hidden;
-  top: 0;
-  bottom: 0;
-  z-index: 111;
-  width: 242px;
-  margin: auto 0;
-}
+
 
 .image-30 {
   z-index: 25;
   margin: 27px 0 0 12.03497%;
 }
 
-.image-4 {
-  visibility: hidden;
-  top: 23px;
-  z-index: 110;
-  width: 373px;
-}
 
-.image-5 {
-  visibility: hidden;
-  top: 0;
-  bottom: 0;
-  z-index: 109;
-  width: 373px;
-  margin: auto 0;
-}
 
 .image-6 {
   z-index: 31;
@@ -980,6 +866,14 @@ body {
   color: #ffffff;
 }
 
+.userInfo,.contentBox{
+  margin-top: 50px;
+}
+
+.main-container{
+  width: 1100px;
+}
+
 @media(max-width: 1199px) {
   .categorias .container {
     position: relative;
@@ -1193,8 +1087,12 @@ body {
 
   .container ._select {
     position: relative;
-    width: 15.284090909%;
+    width: 100%;
   }
+
+  .selects {
+ width: 40px;
+}
 
   .footer-left-center-cont ._button {
     width: 69.6010638297%;
@@ -1210,11 +1108,6 @@ body {
 
   .footer-right-center-cont ._button {
     width: 74.7074468085%;
-  }
-
-  .header-left-cont ._button,
-  .header-rigth-cont ._button {
-    width: 50%;
   }
 
   .categorias .container-1 {
@@ -1243,7 +1136,6 @@ body {
   .container .container-12 {
     width: 76.5114425594%;
     height: 77px;
-    margin-left: 8.02687%;
   }
 
   .container .container-13 {
@@ -1780,7 +1672,6 @@ body {
 
   .container ._select {
     position: relative;
-    width: 21.2669683257%;
   }
 
   .footer-left-center-cont ._button {
@@ -1817,10 +1708,7 @@ body {
   }
 
   .container .container-12 {
-    width: 74.2081447963%;
-    height: 82px;
-    margin-top: -48px;
-    margin-left: 2.08569%;
+   
   }
 
   .container .container-13 {
@@ -1873,21 +1761,13 @@ body {
   }
 
   .container .producto-nombre-4 {
-    float: right;
-    width: auto;
-    margin-right: 84.7561%;
+      width: auto;
   }
 
-  .container .producto-nombre-5 {
-    float: right;
-    margin-top: 5px;
-    margin-right: 53.65854%;
-  }
 
   .container .producto-nombre-6 {
-    float: right;
     margin-top: 0;
-    margin-right: 70.73171%;
+  }
   }
 
   .container .text-11,
@@ -2098,6 +1978,7 @@ body {
     height: 88px;
     margin-top: 10px;
     margin-left: 0;
+    padding: 0;
   }
 
   .producto-info .container-5 {
@@ -2159,6 +2040,9 @@ body {
 }
 
 @media(max-width: 767px) {
+  .selects {
+  width: 30px;
+  }
   .categorias .container {
     position: relative;
     width: 19.4484760522%;
@@ -2912,7 +2796,6 @@ body {
     width: 15.4929577464%;
     height: 63px;
     margin-top: 13px;
-    margin-left: 34.49971%;
   }
 
   .megusta .text {
@@ -2945,8 +2828,6 @@ body {
 
   .container ._select {
     position: relative;
-    width: 15.2883489461%;
-    margin-left: 32.85625%;
   }
 
   .footer-left-center-cont ._button {
@@ -2999,13 +2880,6 @@ body {
   }
 
   .container .container-12 {
-    position: relative;
-    clear: none;
-    z-index: 61;
-    width: 29.5709570957%;
-    height: 77px;
-    margin-top: -49px;
-    margin-left: 3.22214%;
   }
 
   .container .container-13 {

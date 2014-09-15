@@ -1,0 +1,133 @@
+{% extends "../base.html" %}
+{% block title %}
+Giani Da Firenze - Carro de Compra
+{% end %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/detalle-producto.css">
+<link rel="stylesheet" href="/static/css/bootstrap/style.css">
+<link rel="stylesheet" href="/static/css/bootstrap/skin-10.css">
+{% end %}
+
+{% block javascript %}
+<script src="/static/js/detalle-producto.js"></script>
+<script src="/static/js/bootstrap/bootstrap.min.js"></script>
+<script src="/static/js/bootstrap/bootstrap.touchspin.js"></script>
+{% end %}
+
+{% block body %}
+
+<div class="container main-container">
+  
+<!--   <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-7">
+      <h1 class="section-title-inner"><span><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</span></h1>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-5 rightSidebar">
+      <h4 class="caps"><a href="category.html"><i class="fa fa-chevron-left"></i> Back to shopping </a></h4>
+    </div>
+  </div> -->
+  
+  <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-12">
+      <div class="row userInfo">
+        <div class="col-xs-12 col-sm-12">
+          <div class="w100 clearfix">
+            <ul class="orderStep ">
+              <li> <a href="/checkout/address"> <i class="fa fa-map-marker "></i> <span> dirección</span> </a> </li>
+              <li> <a href="/checkout/billing"> <i class="fa fa fa-envelope  "></i> <span> Facturación </span></a></li>
+              <li class="active"> <a href="/checkout/shipping"><i class="fa fa-truck "> </i><span>Despacho</span> </a> </li>
+              <li> <a href="/checkout/order"><i class="fa fa-check-square "> </i><span>Resumen</span></a> </li>
+              <li> <a href="/checkout/payment"><i class="fa fa-money  "> </i><span>Pago</span> </a> </li>
+            </ul>
+            <!--/orderStep--> 
+          </div>
+          <div class="w100 clearfix">
+            <div class="row userInfo">
+              <div class="col-lg-12">
+                <h2 class="block-title-2"> Método de envío </h2>
+              </div>
+              <div class="col-xs-12 col-sm-12">
+                <div class="w100 row">
+                  <div class="form-group col-lg-12 col-sm-12 col-md-12 -col-xs-12">
+                    <table style="width:100%"  class="table-bordered table">
+                      <tbody>
+                        <tr >
+                          <td > Transporte</td>
+                          <td >Método</td>
+                          <td >Información</td>
+                          <td >Precio!</td>
+                        </tr>
+                        <tr >
+                          <td ><label class="radio">
+                              <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" checked="true" style="visibility:hidden" >
+                              <i class="fa fa-truck fa-2x"></i> </label></td>
+                          <td >Por tierra </td>
+                          <td >Despacho en 48 horas</td>
+                          <td >Gratis!</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                
+                <!--/row-->
+                
+                <div class="cartFooter w100">
+                  <div class="box-footer">
+                    <div class="pull-left"> <a class="btn btn-default" href="/checkout/billing"> <i class="fa fa-arrow-left"></i> &nbsp; Dirección de facturación </a> </div>
+                    <div class="pull-right"> <a href="/checkout/order" class="btn btn-primary btn-small " > Resumen &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+                  </div>
+                </div>
+                <!--/ cartFooter --> 
+                
+              </div>
+            </div>
+          </div>
+          <!--/row end--> 
+          
+        </div>
+      </div>
+    </div>
+    <!--/row end-->
+    
+    <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar">
+      <div class="w100 cartMiniTable">
+        <table id="cart-summary" class="std table">
+          <tbody>
+                <tr >
+                    <td>Total productos</td>
+                    <td class="price" >0</td>
+                  </tr>
+                  <tr  style="">
+                    <td>Envío</td>
+                    <td class="price" ><span class="success">Envío gratis!</span></td>
+                  </tr>
+                  <tr class="cart-total-price ">
+                    <td>Total (+impuestos)</td>
+                    <td class="price" >0</td>
+                  </tr>
+                  <tr >
+                    <td>Total impuestos</td>
+                    <td class="price" id="total-tax">$0.00</td>
+                  </tr>
+                  <tr >
+                    <td > Total </td>
+                    <td class=" site-color" id="total-price">0</td>
+                  </tr>
+          </tbody>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--/rightSidebar--> 
+    
+  </div>
+  <!--/row-->
+  
+  <div style="clear:both"></div>
+  
+</div>
+<!-- /main-container -->
+{% end %}

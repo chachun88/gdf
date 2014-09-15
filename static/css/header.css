@@ -377,10 +377,11 @@
   background-color: rgb(255, 224, 218);
   font-size: 1em;
   font-weight: 300;
-  line-height: 1.38;
+  line-height: 2.38;
   text-align: center;
   letter-spacing: 4px;
   color: rgb(231, 169, 156);
+  overflow: hidden;
 }
 
 .header-rigth-cont ._container {
@@ -426,4 +427,133 @@
 
 .reg-strate-login ._input {
   margin-left: -0.1317%;
+}
+
+.logo-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 114;
+  width: 42.4274553571%;
+  height: 135px;
+  margin: 0 auto;
+}
+
+.logo-content .image {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 260px;
+}
+
+.image-1 {
+  top: 0;
+  bottom: 0;
+  z-index: 113;
+  width: 260px;
+  margin: auto 0;
+}
+
+.image-2 {
+  visibility: hidden;
+  top: 0;
+  z-index: 112;
+  width: 268px;
+}
+
+.image-3 {
+  visibility: hidden;
+  top: 0;
+  bottom: 0;
+  z-index: 111;
+  width: 242px;
+  margin: auto 0;
+}
+
+.image-4 {
+  visibility: hidden;
+  top: 23px;
+  z-index: 110;
+  width: 373px;
+}
+
+.image-5 {
+  visibility: hidden;
+  top: 0;
+  bottom: 0;
+  z-index: 109;
+  width: 373px;
+  margin: auto 0;
+}
+@media(max-width: 1199px) {
+  .carritoproductos {
+  display: none;
+  position: absolute;
+  top: 46px;
+  left: 55.784598%;
+  z-index: 80;
+  width: 34.214286%;
+  }
+  .flecha .image {
+  float: left;
+  width: 15px;
+  margin: 1px 0 0 49.5269%;
+  }
+  .header-left-cont ._button, .header-rigth-cont ._button {
+  width: 100%;
+
+}
+@media(max-width: 979px) {
+  .flecha .image {
+  float: left;
+  width: 15px;
+  margin: 1px 0 0 49.5269%;
+  }
+
+}
+@media(max-width: 767px) {
+  .carritoproductos {
+  display: none;
+  position: absolute;
+  top: 46px;
+  left: 42.784598%;
+  z-index: 80;
+  width: 47.214286%;
+  }
+  .flecha .image {
+  float: left;
+  width: 15px;
+  margin: 1px 0 0 63.5269%;
+  }
+
+}
+@media(max-width: 479px) {
+  .carritoproductos {
+  display: none;
+  position: absolute;
+  top: 46px;
+  left: 5%;
+  z-index: 80;
+  width: 90%;
+  }
+  .flecha .image {
+  float: left;
+  width: 15px;
+  margin: 1px 0 0 2%;
+  }
+  .carritoicono {
+  float: left;
+  width: 11.4068441064%;
+  height: 30px;
+  margin: 16px 0 0 0%;
+  }
+  .header-rigth-cont ._container {
+  float: none;
+  width: 53.2319391634%;
+  height: 30px;
+  margin: 16px auto;
+  }
 }

@@ -6,3 +6,8 @@
   margin-top: 20px;
   overflow: hidden;
 }
+
+.cuerpo-producto:hover
+{
+	cursor: pointer;
+}
