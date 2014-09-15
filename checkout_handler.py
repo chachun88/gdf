@@ -33,7 +33,8 @@ class CheckoutPaymentHandler(BaseHandler):
 class CheckoutOrderHandler(BaseHandler):
 	def get(self):
 		cart = Cart()
-		cart.user_id = self.current_user["id"]
+		#cart.user_id = self.current_user["id"]
+		cart.user_id = 0
 		data = cart.GetCartByUserId()
 		self.render("store/checkout-5.html",data=data)
 		
