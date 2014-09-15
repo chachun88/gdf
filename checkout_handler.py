@@ -46,6 +46,7 @@ class CheckoutPaymentHandler(BaseHandler):
 class CheckoutOrderHandler(BaseHandler):
 	def get(self):
 		cart = Cart()
+#		cart.user_id = self.current_user["id"]
 		user = User()
 		cart.user_id = user.GetUserId(self.current_user)
 		data = cart.GetCartByUserId()
