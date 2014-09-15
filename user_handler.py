@@ -57,6 +57,16 @@ class AddressSaveHandler(BaseHandler):
 
         contact = Contact()
 
+        if id_contacto == "":
+            contact.name = nombre
+            contact.telephone = telefono
+            contact.email = email
+            contact.address = direccion
+            contact.lastname = apellido
+
+            contact.Save()
+
+
         contacto = json.loads(contact.InitById(id_contacto))
 
         contact.id = id_contacto
