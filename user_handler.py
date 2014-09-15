@@ -76,7 +76,10 @@ class AddressSaveHandler(BaseHandler):
 
         contacto = json.loads(contact.InitById(id_contacto))
 
-        contact.id = id_contacto
+        if id_contacto != "":
+            contact.id = id_contacto
+        else:
+            contact.id = contacto['id']
         contact.name = nombre
         contact.type = contacto["type_id"]
         contact.telephone = telefono
