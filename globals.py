@@ -9,7 +9,7 @@ class Enviroment(object):
 	ONTEST = 3
 	PRODUCTION = 4
 
-enviroment = Enviroment.ONDEV
+enviroment = Enviroment.LOCAL
 
 
 PORT=8502
