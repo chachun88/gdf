@@ -198,9 +198,11 @@ class PasswordRecovery(BaseHandler):
             if email == "":
                 raise Exception( "El email ingresado no es válido" )
             if (User()).PassRecovery( email ):
-                self.write( "se ha enviado un correo" )
+                # self.write( "se ha enviado un correo" )
+                self.render( "auth/success.html" )
             else:
-                self.write( "no se ha podido recuperar la contraseña" )
+                # self.write( "no se ha podido recuperar la contraseña" )
+                self.render( "auth/fail.html" )
         except Exception, e:
             self.write( str(e) )
 
