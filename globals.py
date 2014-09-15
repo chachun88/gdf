@@ -30,6 +30,14 @@ if enviroment == Enviroment.LOCAL:
 	define("facebook_api_key", help="your Facebook application API key", default="839778829389863")
 	define("facebook_secret", help="your Facebook application secret", default="5e533cd56091707c73e88c2113ffb13d")
 
+elif enviroment == Enviroment.ONDEV:
+	port = DEBUG_PORT
+	url_bodega = "http://giani.loadingplay.com"
+	url_local = "http://giani.ondev.today"
+
+	define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
+	define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
+
 elif enviroment == Enviroment.ONTEST:
 	port = DEBUG_PORT
 	url_bodega = "http://giani.loadingplay.com"
