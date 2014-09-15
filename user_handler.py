@@ -63,6 +63,7 @@ class AddressSaveHandler(BaseHandler):
         customer.user_id = user.GetUserId(self.current_user)
         response_obj = customer.InitByUserId()
 
+
         if id_contacto == "":
             contact.name = nombre
             contact.telephone = telefono

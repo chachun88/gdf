@@ -131,11 +131,11 @@ class Customer(BaseModel):
         self._rut = ""
         #self._contact = Contact()
         self._bussiness = ""
-        self._approval_date = ""
-        self._registration_date = ""
+        self._approval_date = "2014-01-01"
+        self._registration_date = "2014-01-01"
         self._status = 0
-        self._first_view = ""
-        self._last_view = ""
+        self._first_view = "2014-01-01"
+        self._last_view = "2014-01-01"
         self._username = ""
         self._password = ""
     
