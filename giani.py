@@ -17,6 +17,7 @@ import auth
 import user_handler
 import kardex_handler
 import checkout_handler
+import error_handler
 
 
 class Application(tornado.web.Application):
@@ -48,7 +49,8 @@ class Application(tornado.web.Application):
             (r"/auth/nuevaclave/([^/]+)", auth.NewPasswordHandler),
             (r"/auth/facebook", auth.AuthFacebookHandler),
             (r"/auth/checkout", auth.ValidateUserCheckoutHandler),
-            (r"/checkout/success", auth.CheckoutSuccessHandler)
+            (r"/checkout/success", auth.CheckoutSuccessHandler),
+            (r"/error", error_handler.BeautyError)
             
         ]
         settings = dict(
