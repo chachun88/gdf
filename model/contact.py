@@ -1,9 +1,11 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-from bson import json_util
-from bson.objectid import ObjectId
-from basemodel import BaseModel, db
+# from bson import json_util
+# from bson.objectid import ObjectId
+from basemodel import BaseModel
+import psycopg2
+import psycopg2.extras
 
 class Contact(BaseModel):
 
@@ -57,7 +59,7 @@ class Contact(BaseModel):
 		self._email = value
 
 	def __init__(self):
-		self.collection = db.contact
+		# self.collection = db.contact
 		self._id = ""
 		self._name = ""
 		self._type = ""
@@ -153,7 +155,11 @@ class Contact(BaseModel):
 
 			return str(e)
 
-	def ListByCustomerId(self, _customer_id):
+	def ListByCustomerId(self, _customer_id, _type=3):
+
+		DESPACHO = 1
+		FACTURACION = 2
+		DEFAULT = 3
 
 		# contacts = self.collection.find({"customer_id":_customer_id})
 
@@ -166,10 +172,17 @@ class Contact(BaseModel):
 
 		try:
 
-			query = '''select * from "Contact" where customer_id = %(customer_id)s'''
-			parametros = {
-			"customer_id":_customer_id
-			}
+			if _type > 0:
+				query = '''select * from "Contact" where customer_id = %(customer_id)s and type_id = %(type_id)s'''
+				parametros = {
+				"customer_id":_customer_id,
+				"type_id":_type
+				}
+			else:
+				query = '''select * from "Contact" where customer_id = %(customer_id)s'''
+				parametros = {
+				"customer_id":_customer_id
+				}
 			cur.execute(query,parametros)
 			contactos = cur.fetchall()
 
