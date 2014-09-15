@@ -346,4 +346,6 @@ class CheckoutSendHandler(BaseHandler):
 		# message.add_to(email_confirmacion)
 		# message.set_subject("Mail de confirmación")
 		# message.set_html(contact_body)
+
+		self.redirect( "/checkout/success" )
 		
