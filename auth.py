@@ -20,16 +20,17 @@ class UserRegistrationHandler(BaseHandler):
 
     def post(self):
 
+        name = self.get_argument("name", "")
         email = self.get_argument("email", "")
-        re_email = self.get_argument("re-email", "")
         password = self.get_argument("password", "")
         re_password = self.get_argument("re-password", "")
         tos = self.get_argument("tos", "")
+        ajax = self.get_argument("ajax", "false")
 
         if email == "":
             self.write( "debe ingresar el email" )
-        elif email != re_email:
-            self.write( "los email no coinciden" )
+        elif name == "":
+            self.write( "debe ingresar su nombre" )
         elif password == "":
             self.write( "debe ingresar la contraseña" )
         elif password != re_password:
@@ -38,17 +39,23 @@ class UserRegistrationHandler(BaseHandler):
             self.write( "debe aceptar las condiciones de uso" )
         else:
             ### perform login
-            self.write( "loged-in" )
+            self.write( "ok" )
 
             user = User()
+            user.name = name
             user.email = email
             user.password = password
             user.user_type = 'Cliente'
 
             user.Save()
 
-            redirect = self.get_argument("next", "/")
-            self.redirect( redirect )
+            if user.Login( user.email, user.password ):
+                self.set_secure_cookie( "user_giani", user.email )
+
+            ##redirect is the request isn't aajx
+            if ajax == "false":
+                redirect = self.get_argument("next", "/")
+                self.redirect( redirect )
 
 class AuthHandler(BaseHandler):
 

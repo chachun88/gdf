@@ -23,9 +23,9 @@
 			} );
 
 			// repetir email
-			$('input[name=email]').change( function(){
-				$('input[name=re-email]').attr( "pattern", $(this).val() );
-			} );
+			// $('input[name=email]').change( function(){
+			// 	$('input[name=re-email]').attr( "pattern", $(this).val() );
+			// } );
 
 			// login submit
 			$( ".form-login" ).submit( function(evt)
@@ -45,6 +45,30 @@
 					}
 				} );
 				return false;
+			});
+
+			$( ".form-register" ).submit(function(evt)
+			{
+				evt.preventDefault();
+
+				var tthis = $( this );
+				var data = { "ajax":"true",
+							 "name":$("input[name=name]", tthis).val(),
+							 "email":$("input[name=email]", tthis).val(),
+							 "password":$("input[name=password]", tthis).val(),
+							 "re-password":$("input[name=re-password]", tthis).val(),
+							 "tos":$("input[name=tos]", tthis).val()}
+
+				$.post( "/auth/registro", data, function(rtn){
+					if (rtn == "ok") 
+					{
+						window.parent.document.location.href = "/";
+					}
+					else
+					{
+						alert( rtn );
+					}
+				});
 			});
 
 			$(".loginfb").click(function(evt){
@@ -83,16 +107,16 @@
 				</div>
 			</div>
 			<div class="reg-strate-correo clearfix">
-				<form action="/auth/registro" method="post">
+				<form action="/auth/registro" method="post" class="form-register">
 				<p class="text text-5">REGÍSTRATE</p>
-				<p class="text text-6">ingresa tu correo *</p>
+				<p class="text text-6">Nombre *</p>
 
 				<!--  Email  -->
-				<input class="_input _input-3" placeholder="INGRESAR CORREO" type="email" name="email" required >
+				<input class="_input _input-3" placeholder="INGRESAR NOMBRE" type="text" name="name" required >
 				<p class="text text-7">repetir correo *</p>
 
 				<!--  Email  -->
-				<input class="_input _input-4" placeholder="INGRESAR CORREO" type="email" name="re-email" required >
+				<input class="_input _input-4" placeholder="INGRESAR CORREO" type="email" name="email" required >
 				<p class="text text-8">ingresa tu contraseña *</p>
 
 				<!--  Password -->
@@ -102,7 +126,7 @@
 				<!--  Password -->
 				<input class="_input _input-6" placeholder="INGRESAR CONTRASEÑA" type="password" name="re-password" required >
 				<label class="aceptar-condiciones clearfix">
-					<input class="radio" type="radio" name="tos">
+					<input class="radio" type="checkbox" name="tos">
 					<span class="point-text"><font color="#4d4d4d"><span style="font-size: 12px; line-height: 16px;">Estoy de acuerdo con las condiciones</span></font></span>
 				</label>
 				<button class="_button" type="submit">COMPLETAR REGISTRO</button>
