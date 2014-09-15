@@ -67,23 +67,20 @@ Giani Da Firenze - {{data.name}}
         <p class="producto-nombre producto-nombre-2">Línea de producto</p>
         <p class="producto-nombre producto-nombre-3">Color : <span>{{data.color}}</span></p>
         <div class="container container-11 clearfix">
-          <select class="_select _select-1" id="size" sku="{{data.sku}}">
-            {% for t in data.size %}
-            <option value="{{t}}">{{int(float(t))}}</option>
-            {% end %}
-          </select>
-          <select class="_select _select-2">
-            <option value="1">1</option>
-            <option value="36">36</option>
-          </select>
-          <select class="_select _select-3" id="quantity">
-            <option value="1">1</option>
-            <option value="2">2</option>
-          </select>
+          <div class="selects">
+            <select class="_select _select-1" id="size" sku="{{data.sku}}">
+              {% for t in data.size %}
+              <option value="{{t}}">{{int(float(t))}}</option>
+              {% end %}
+            </select>
+             <select class="_select _select-2">
+              <option value="1">1</option>
+              <option value="36">36</option>
+            </select>
+          </div>
           <div class="container container-12 clearfix">
             <p class="producto-nombre producto-nombre-4">Talla</p>
             <p class="producto-nombre producto-nombre-5">Disponibilidad</p>
-            <p class="producto-nombre producto-nombre-6">Cantidad</p>
           </div>
         </div>
         <p class="producto-precio">$ {{money_format(data.price)}}</p>
