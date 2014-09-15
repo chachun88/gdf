@@ -21,7 +21,7 @@ form {
 	height: 300px;
 }
 
-.contenedor_formularios form input, button{
+.contenedor_formularios form input, form button{
 	height: 40px;
 	width: 80%;
 	margin-top: 20px;
@@ -41,4 +41,11 @@ form {
 }
 .contenedor_formularios form button:hover {
 	background-color: #cccccc;
+}
+.contenedor_form2 form input{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.contenedor_form2 form button {
+	margin-top: 20px;
 }
