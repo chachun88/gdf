@@ -76,11 +76,11 @@ class CheckoutBillingHandler(BaseHandler):
 				self.render("store/checkout-2.html",contactos=contactos,customer=customer,data=lista,suma=suma,selected_address=last_order['billing_id'])
 
 			else:
-
 				self.write("error")
 			
 		else:
-			self.write(response_obj["error"])
+			#self.write(response_obj["error"])
+			self.render( "beauty_error.html", message=response_obj["error"] )
 
 class CheckoutShippingHandler(BaseHandler):
 	def get(self):

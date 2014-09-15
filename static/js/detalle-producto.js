@@ -17,7 +17,7 @@ $(document).ready(function(){
 		})
 	});
 
-	$("#size").change(function(){
+	var size_changed = function(){
 		var sku = $(this).attr("sku");
 		var size = $(this).val();
 		$.ajax({
@@ -38,7 +38,10 @@ $(document).ready(function(){
 				}
 			}
 		});
-	});
+	};
+
+	$("#size").change(size_changed);
+	//$("#size").ready(size_changed);
 
 
 	if($("input[name='quanitySniper']").length){

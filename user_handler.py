@@ -19,6 +19,7 @@ import json
 from model.user import User
 from model.contact import Contact
 from model.order import Order
+from model.customer import Customer
 
 class AddAnonimousHandler(BaseHandler):
 
@@ -53,18 +54,40 @@ class AddressSaveHandler(BaseHandler):
         ciudad = self.get_argument("city","")
         codigo_postal = self.get_argument("zip_code","")
         telefono = self.get_argument("telephone","")
+        apellido = self.get_argument("lastname","")
 
         contact = Contact()
+        user = User()
+        customer = Customer()
+
+        customer.user_id = user.GetUserId(self.current_user)
+        response_obj = customer.InitByUserId()
+
+
+        if id_contacto == "":
+            contact.name = nombre
+            contact.telephone = telefono
+            contact.email = email
+            contact.address = direccion
+            contact.lastname = apellido
+            contact.customer_id = customer.id
+            contact.type = 1
+
+            id_contacto = contact.Save()
 
         contacto = json.loads(contact.InitById(id_contacto))
 
-        contact.id = id_contacto
+        if id_contacto != "":
+            contact.id = id_contacto
+        else:
+            contact.id = contacto['id']
         contact.name = nombre
         contact.type = contacto["type_id"]
         contact.telephone = telefono
         contact.email = email
         contact.address = direccion
         contact.customer_id = contacto['customer_id']
+        contact.lastname = apellido
 
         response_obj = contact.Edit()
 
@@ -88,7 +111,7 @@ class AddressSaveHandler(BaseHandler):
             if "success" in response_obj:
                 self.redirect("/checkout/billing")
             else:
-                self.write(response_obj["error"])
+                self.render( "beauty-error.html", message=response_obj["error"])
 
         # self.redirect("/checkout/billing")
 
@@ -103,6 +126,7 @@ class BillingSaveHandler(BaseHandler):
         ciudad = self.get_argument("city","")
         codigo_postal = self.get_argument("zip_code","")
         telefono = self.get_argument("telephone","")
+        apellido = self.get_argument("lastname","")
 
         contact = Contact()
 
@@ -115,6 +139,7 @@ class BillingSaveHandler(BaseHandler):
         contact.email = email
         contact.address = direccion
         contact.customer_id = contacto['customer_id']
+        contact.lastname = apellido
 
         response_obj = contact.Edit()
 
@@ -138,8 +163,8 @@ class BillingSaveHandler(BaseHandler):
             response_obj = order.Edit()
 
             if "success" in response_obj:
-                # self.redirect("/checkout/shipping")
-                self.write("algo")
+                self.redirect("/checkout/shipping")
+                # self.write("algo")
             else:
                 self.write(response_obj["error"])
 
