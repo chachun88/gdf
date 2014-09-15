@@ -131,11 +131,11 @@ class Customer(BaseModel):
         self._rut = ""
         #self._contact = Contact()
         self._bussiness = ""
-        self._approval_date = ""
-        self._registration_date = ""
+        self._approval_date = "2014-01-01"
+        self._registration_date = "2014-01-01"
         self._status = 0
-        self._first_view = ""
-        self._last_view = ""
+        self._first_view = "2014-01-01"
+        self._last_view = "2014-01-01"
         self._username = ""
         self._password = ""
     
@@ -324,17 +324,35 @@ class Customer(BaseModel):
         except:
             pass
 
-    def GetCustomerIdByUserId(self):
+    def InitByUserId(self):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
         try:
-            q = '''select id from "Customer" where user_id = %(user_id)s limit 1'''
+            q = '''select * from "Customer" where user_id = %(user_id)s limit 1'''
             p = {
             "user_id":self.user_id
             }
             cur.execute(q,p)
-            self.id = cur.fetchone()[0]
-            return self.ShowSuccessMessage(str(self.id))
+            cliente = cur.fetchone()
+
+            if cur.rowcount > 0:
+                self.id = cliente['id']
+                self.name = cliente['name']
+                self.lastname = cliente['lastname']
+                self.type = cliente['type']
+                self.rut = cliente['rut']
+                self.bussiness = cliente['bussiness']
+                self.approval_date = cliente['approval_date']
+                self.registration_date = cliente['registration_date']
+                self.status = cliente['status']
+                self.first_view = cliente['first_view']
+                self.last_view = cliente['last_view']
+                self.username = cliente['username']
+                self.password = cliente['password']
+
+                return self.ShowSuccessMessage(str(self.id))
+            else:
+                return self.ShowError("Customer not found")
         except Exception,e:
             return self.ShowError(str(e))

@@ -5,6 +5,7 @@ Giani Da Firenze - {{data.name}}
 
 {% block css %}
 <link rel="stylesheet" href="/static/css/detalle-producto.css">
+<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
 {% end %}
 
 {% block javascript %}
@@ -17,7 +18,7 @@ Giani Da Firenze - {{data.name}}
       <div class="categorias clearfix">
         <p class="titulo-categorias"><span>Más combinaciones</span></p>
         {% for c in combinations %}
-        <div class="container container-1">
+        <div class="container">
           <img class="image image-7 otro-angulo-mas-combinaciones" src="{{url_bodega}}/image/{{c['image']}}?mw=141" data-rimage data-src="{{url_bodega}}/image/{{c['image']}}?mw=141">
         </div>
         {% end %}
@@ -40,13 +41,13 @@ Giani Da Firenze - {{data.name}}
         <img class="foto-producto" src="{{url_bodega}}/image/{{data.image}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
       </div>
       <div class="producto-info">
-        <div class="container container-5">
+        <div class="container">
           <img class="image image-10 otro-angulo" src="{{url_bodega}}/image/{{data.image}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
         </div>
-        <div class="container container-6">
+        <div class="container">
           <img class="image image-11 otro-angulo" src="{{url_bodega}}/image/{{data.image_2}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image_2}}?mw=547">
         </div>
-        <div class="container container-7">
+        <div class="container">
           <img class="image image-12 otro-angulo" src="{{url_bodega}}/image/{{data.image_3}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image_3}}?mw=547">
         </div>
 <!--         <div class="container container-8">
@@ -73,14 +74,12 @@ Giani Da Firenze - {{data.name}}
               <option value="{{t}}">{{int(float(t))}}</option>
               {% end %}
             </select>
-             <select class="_select _select-2">
-              <option value="1">1</option>
-              <option value="36">36</option>
+            <select class="_select _select-2" id="quantity">
             </select>
           </div>
           <div class="container container-12 clearfix">
             <p class="producto-nombre producto-nombre-4">Talla</p>
-            <p class="producto-nombre producto-nombre-5">Disponibilidad</p>
+            <p class="producto-nombre producto-nombre-5">Cantidad</p>
           </div>
         </div>
         <p class="producto-precio">$ {{money_format(data.price)}}</p>

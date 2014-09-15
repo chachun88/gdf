@@ -21,6 +21,29 @@ $(document).ready(function(){
 
 	$('.fancybox').fancybox({padding: 3, width: 600});
 
+	$(document).on("click","button.eliminarproducto,a.borrarproducto",function(){
+		var cart_id = $(this).attr("cart-id");
+		var from_cart = $(this).hasClass("eliminarproducto");
+		
+		$.ajax({
+			url:"/cart/remove",
+			data:"cart_id="+cart_id,
+			success:function(html){
+				if(html=="ok"){
+					alert("Producto ha sido eliminado del carro");
+					if(from_cart){
+						GetCartByUserId(localStorage.guess_id);
+					} else {
+						location.reload()
+					}
+				} else {
+					alert(html);
+				}
+			}
+		});
+		
+	});
+
 	
 
 });

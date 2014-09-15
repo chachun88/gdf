@@ -17,7 +17,7 @@ $(document).ready(function(){
 		})
 	});
 
-	$("#size").change(function(){
+	var size_changed = function(){
 		var sku = $(this).attr("sku");
 		var size = $(this).val();
 		$.ajax({
@@ -38,35 +38,26 @@ $(document).ready(function(){
 				}
 			}
 		});
-	});
+	};
 
-	$(document).on("click","button.eliminarproducto,a.borrarproducto",function(){
-		var cart_id = $(this).attr("cart-id");
-		var from_cart = $(this).hasClass("eliminarproducto");
-		
-		$.ajax({
-			url:"/cart/remove",
-			data:"cart_id="+cart_id,
-			success:function(html){
-				if(html=="ok"){
-					alert("Producto ha sido eliminado del carro");
-					if(from_cart){
-						GetCartByUserId(localStorage.guess_id);
-					} else {
-						location.reload()
-					}
-				} else {
-					alert(html);
-				}
-			}
-		});
-		
-	});
+	$("#size").change(size_changed);
+	//$("#size").ready(size_changed);
+
 
 	if($("input[name='quanitySniper']").length){
 		$("input[name='quanitySniper']").TouchSpin({
 	        buttondown_class: "btn btn-link",
 	        buttonup_class: "btn btn-link"
 	    });
+	}
+
+	if($("select#address").length){
+		
+		GetAddressById($("select#address").val());
+
+		$("select#address").change(function(){
+			_id = $(this).val();
+			GetAddressById(_id);
+		});
 	}
 });

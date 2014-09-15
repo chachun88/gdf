@@ -7,6 +7,8 @@ from basemodel import BaseModel
 import psycopg2
 import psycopg2.extras
 
+import json
+
 class Contact(BaseModel):
 
 	@property
@@ -58,8 +60,16 @@ class Contact(BaseModel):
 	def email(self, value):
 		self._email = value
 
+	@property
+	def lastname(self):
+	    return self._lastname
+	@lastname.setter
+	def lastname(self, value):
+	    self._lastname = value
+	
+
 	def __init__(self):
-		# self.collection = db.contact
+		BaseModel.__init__(self)
 		self._id = ""
 		self._name = ""
 		self._type = ""
@@ -67,6 +77,7 @@ class Contact(BaseModel):
 		self._email = ""
 		self._address = ""
 		self._customer_id = ""
+		self._lastname = ""
 
 	def InitById(self, _id):
 
@@ -77,7 +88,7 @@ class Contact(BaseModel):
 		# else:
 		# 	return ""
 
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 		query = '''select * from "Contact" where id = %(id)s limit 1'''
 
@@ -88,7 +99,7 @@ class Contact(BaseModel):
 		try:
 			cur.execute(query,parametros)
 			contact = cur.fetchone()
-			return contact
+			return json.dumps(contact)
 		except:
 			return ""
 
@@ -98,19 +109,21 @@ class Contact(BaseModel):
 
 		contact = {
 		"name": self.name,
-		"type": self.type,
+		"type_id": self.type,
 		"telephone": self.telephone,
 		"email": self.email,
 		"customer_id": self.customer_id,
-		"address": self.address
+		"address": self.address,
+		"lastname": self.lastname
 		}
 
 		try:
 
 			# self.collection.insert(contact)
 			cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-			query = '''insert into "Contact" (name,type,telephone,email,customer_id,address)
-			values (%(name)s,%(type)s,%(telephone)s,%(email)s,%(customer_id)s,%(address)s) returning id'''
+			query = '''insert into "Contact" (name,type_id,telephone,email,customer_id,address, lastname)
+			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(customer_id)s,%(address)s,%(lastname)s) returning id'''
+			print cur.mogrify(query,contact)
 			cur.execute(query,contact)
 			self.connection.commit()
 			new_id = cur.fetchone()[0]
@@ -126,12 +139,13 @@ class Contact(BaseModel):
 
 		contact = {
 		"name": self.name,
-		"type": self.type,
+		"type_id": self.type,
 		"telephone": self.telephone,
 		"email": self.email,
 		"customer_id": self.customer_id,
 		"address":self.address,
-		"id":self.id
+		"id":self.id,
+		"lastname":self.lastname
 		}
 
 		# try:
@@ -145,21 +159,18 @@ class Contact(BaseModel):
 
 			# self.collection.insert(contact)
 			cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-			query = '''update "Contact" set name = %(name)s and type = %(type)s and telephone = %(telephone)s and email = %(email)s and customer_id = %(customer_id)s
-			and address = %(address)s where id = %(id)s'''
+			query = '''update "Contact" set name = %(name)s, type_id = %(type_id)s, telephone = %(telephone)s, email = %(email)s, customer_id = %(customer_id)s
+		, address = %(address)s, lastname = %(lastname)s where id = %(id)s'''
+			print cur.mogrify(query,contact)
 			cur.execute(query,contact)
 			self.connection.commit()
-			return self.id
+			return self.ShowSuccessMessage("{}".format(self.id))
 
 		except Exception, e:
 
-			return str(e)
+			return self.ShowError(str(e))
 
-	def ListByCustomerId(self, _customer_id, _type=3):
-
-		DESPACHO = 1
-		FACTURACION = 2
-		DEFAULT = 3
+	def ListByCustomerId(self, _customer_id):
 
 		# contacts = self.collection.find({"customer_id":_customer_id})
 
@@ -172,17 +183,11 @@ class Contact(BaseModel):
 
 		try:
 
-			if _type > 0:
-				query = '''select * from "Contact" where customer_id = %(customer_id)s and type_id = %(type_id)s'''
-				parametros = {
-				"customer_id":_customer_id,
-				"type_id":_type
-				}
-			else:
-				query = '''select * from "Contact" where customer_id = %(customer_id)s'''
-				parametros = {
-				"customer_id":_customer_id
-				}
+		
+			query = '''select * from "Contact" where customer_id = %(customer_id)s'''
+			parametros = {
+			"customer_id":_customer_id
+			}
 			cur.execute(query,parametros)
 			contactos = cur.fetchall()
 
