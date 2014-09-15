@@ -111,7 +111,7 @@ class AddressSaveHandler(BaseHandler):
             if "success" in response_obj:
                 self.redirect("/checkout/billing")
             else:
-                self.write(response_obj["error"])
+                self.render( "beauty-error.html", message=response_obj["error"])
 
         # self.redirect("/checkout/billing")
 

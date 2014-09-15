@@ -398,7 +398,6 @@ body {
   .cuerpo {
     position: relative;
     z-index: 42;
-    margin-top: -374px;
   }
 
   .cuerpo .comunidad {
@@ -2216,7 +2215,6 @@ body {
   .cuerpo {
     position: relative;
     z-index: 42;
-    margin-top: -308px;
   }
 
   .cuerpo .comunidad {
