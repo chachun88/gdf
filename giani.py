@@ -18,7 +18,7 @@ import user_handler
 import kardex_handler
 import checkout_handler
 import error_handler
-
+import server_handler
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -51,7 +51,9 @@ class Application(tornado.web.Application):
             (r"/auth/facebook", auth.AuthFacebookHandler),
             (r"/auth/checkout", auth.ValidateUserCheckoutHandler),
             (r"/checkout/success", auth.CheckoutSuccessHandler),
-            (r"/error", error_handler.BeautyError)
+            
+            (r"/error", error_handler.BeautyError),
+            (r"/getserver", server_handler.ServerHandler)
             
         ]
         settings = dict(
