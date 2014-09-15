@@ -49,8 +49,6 @@ class UserRegistrationHandler(BaseHandler):
 
             redirect = self.get_argument("next", "/")
             self.redirect( redirect )
-            self.write( "ok" )
-
 
 class AuthHandler(BaseHandler):
 

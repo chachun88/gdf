@@ -3,8 +3,8 @@
 
 from bson import json_util
 from bson.objectid import ObjectId
-from basemodel import BaseModel, db
-from contact import Contact
+from basemodel import BaseModel
+#from contact import Contact
 import psycopg2
 import psycopg2.extras
 
@@ -43,12 +43,12 @@ class Customer(BaseModel):
     def rut(self, value):
         self._rut = value
     
-    @property
-    def contact(self):
-        return self._contact
-    @contact.setter
-    def contact(self, value):
-        self._contact = value
+    # @property
+    # def contact(self):
+    #     return self._contact
+    # @contact.setter
+    # def contact(self, value):
+    #     self._contact = value
     
     @property
     def bussiness(self):
@@ -113,18 +113,27 @@ class Customer(BaseModel):
     def password(self, value):
         self._password = value
 
+
+    @property
+    def user_id(self):
+        return self._user_id
+    @user_id.setter
+    def user_id(self, value):
+        self._user_id = value
+    
+
     def __init__(self):
         BaseModel.__init__(self)
         self._id = ""
         self._name = ""
         self._lastname = ""
-        self._type = ""
+        self._type = 0
         self._rut = ""
-        self._contact = Contact()
+        #self._contact = Contact()
         self._bussiness = ""
         self._approval_date = ""
         self._registration_date = ""
-        self._status = ""
+        self._status = 0
         self._first_view = ""
         self._last_view = ""
         self._username = ""
@@ -175,7 +184,8 @@ class Customer(BaseModel):
         "first_view": self.first_view,
         "last_view": self.last_view,
         "username": self.username,
-        "password": self.password
+        "password": self.password,
+        "user_id":int(self.user_id)
         }
 
         # try:
@@ -190,8 +200,12 @@ class Customer(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        query = '''insert into "Customer" (name,lastname,type,rut,bussiness,approval_date,registration_date,status,first_view,last_view,username,password)
-        values (%(name)s,%(lastname)s,%(type)s,%(rut)s,%(bussiness)s,%(approval_date)s,%(registration_date)s,%(status)s,%(first_view)s,%(last_view)s,%(username)s,%(password)s)
+        query = '''insert into "Customer" (name,lastname,type,rut,bussiness,approval_date,registration_date,status,first_view,last_view,username,password,user_id)
+            values (%(name)s,%(lastname)s,%(type)s,%(rut)s,%(bussiness)s,
+                to_date(%(approval_date)s,'DD/MM/YYYY'),
+                to_date(%(registration_date)s,'DD/MM/YYYY'),
+                %(status)s,
+                to_date(%(first_view)s,'DD/MM/YYYY'),to_date(%(last_view)s,'DD/MM/YYYY'),%(username)s,%(password)s,%(user_id)s)
          returning id'''
 
         try:
@@ -199,7 +213,8 @@ class Customer(BaseModel):
             self.connection.commit()
             customer_id = cur.fetchone()[0]
             return customer_id
-        except:
+        except Exception, e:
+            print str( e )
             return ""
 
     def Edit(self):
