@@ -5,7 +5,8 @@ CONFIG
 from tornado.options import define, options
 
 import socket
-print(socket.gethostname())
+
+host_name = socket.gethostname()
 
 class Enviroment(object):
 	LOCAL = 1
@@ -13,7 +14,11 @@ class Enviroment(object):
 	ONTEST = 3
 	PRODUCTION = 4
 
-enviroment = Enviroment.ONDEV
+
+enviroment = Enviroment.LOCAL
+
+if host_name == "development":
+	enviroment.Enviroment.ONDEV
 
 PORT=8502
 DEBUG_PORT=8502
