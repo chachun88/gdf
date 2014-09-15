@@ -135,8 +135,6 @@ class Contact(BaseModel):
 
 	def Edit(self):
 
-		print "Edit WS id:{}\n".format(self.id)
-
 		contact = {
 		"name": self.name,
 		"type_id": self.type,
