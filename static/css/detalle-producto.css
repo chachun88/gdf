@@ -7,7 +7,13 @@ body {
   font: 300 0.75em/1.38 Ubuntu;
   color: rgb(255, 255, 255);
 }
+.otro-angulo {
+  max-width: 70px;
+}
 
+.otro-angulo-mas-combinaciones {
+  max-width: 160px;
+}
 .categoria-1 {
   display: block;
   float: left;
@@ -217,6 +223,7 @@ body {
   width: 100%;
   height: auto;
   overflow: hidden;
+  max-width: 600px;
 }
 
 .fotomegusta {
@@ -293,6 +300,7 @@ body {
   height: 448px;
   border: 1px solid rgb(207, 207, 207);
   background-color: rgb(255, 255, 255);
+  overflow: hidden;
 }
 
 .producto-nombre {
