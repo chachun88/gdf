@@ -66,8 +66,9 @@ elif enviroment == Enviroment.PRODUCTION:
 	# define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
 
 
-define(facebook_api_key, help="your Facebook application API key", default="839778829389863")
-define(facebook_secret, help="your Facebook application secret", default="5e533cd56091707c73e88c2113ffb13d")
+
+define("facebook_api_key", help="your Facebook application API key", default=facebook_api_key)
+define("facebook_secret", help="your Facebook application secret", default=facebook_secret)
 
 define("port", default=port, help="run on the given port", type=int)
 define("protocol", default="https", help="run on the given port", type=str)
