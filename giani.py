@@ -16,6 +16,7 @@ import store_handler
 import auth
 import user_handler
 import kardex_handler
+import checkout_handler
 
 
 class Application(tornado.web.Application):
@@ -27,15 +28,22 @@ class Application(tornado.web.Application):
             (r"/user/save-guess", user_handler.AddAnonimousHandler), #crear anonimo
             (r"/kardex/getunitsbysize", kardex_handler.GetUnitsBySizeHandler), # stock segun item y sku
             (r"/cart/add",store_handler.AddToCartHandler), # agregar item al carro
-            (r"/cart/getbyuserid", store_handler.GetCartByUserIdHandler), #traer carro del usuario
+            (r"/cart/getbyuserid", store_handler.GetCartByUserIdHandler), #traer carro del usuario,
             (r"/cart/remove", store_handler.RemoveCartByIdHandler),
+
+            (r"/checkout/address", checkout_handler.CheckoutAddressHandler),
+            (r"/checkout/billing", checkout_handler.CheckoutBillingHandler),
+            (r"/checkout/shipping", checkout_handler.CheckoutShippingHandler),
+            (r"/checkout/payment", checkout_handler.CheckoutPaymentHandler),
+            (r"/checkout/order", checkout_handler.CheckoutOrderHandler),
 
             (r"/auth/login", auth.AuthHandler),
             (r"/auth/logout", auth.LogoutHandler),
             (r"/auth/registro", auth.UserRegistrationHandler), ## registro de usuarios
             (r"/auth/recuperar-contrasena", auth.PasswordRecovery),
             (r"/auth/nuevaclave/([^/]+)", auth.NewPasswordHandler),
-            (r"/auth/facebook", auth.AuthFacebookHandler)
+            (r"/auth/facebook", auth.AuthFacebookHandler),
+            (r"/auth/checkout", auth.ValidateUserCheckoutHandler)
             
         ]
         settings = dict(

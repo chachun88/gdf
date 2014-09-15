@@ -247,3 +247,13 @@ class LogoutHandler(BaseHandler):
 
 
         
+class ValidateUserCheckoutHandler(BaseHandler):
+
+    def get(self):
+        try:
+            if (User()).Exist( self.get_current_user() ):
+                self.redirect( "/checkout/address" )
+        except Exception,e:
+            pass
+
+        self.redirect( "/auth/login?ajax=0" )
