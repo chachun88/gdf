@@ -17,7 +17,7 @@ class Enviroment(object):
 enviroment = Enviroment.LOCAL
 
 if host_name == "development":
-	enviroment.Enviroment.ONDEV
+	enviroment = Enviroment.ONDEV
 
 PORT=8502
 DEBUG_PORT=8502
