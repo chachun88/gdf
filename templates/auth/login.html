@@ -1,92 +1,114 @@
-	
-	<script type="text/javascript" >
+<html>
+	<head>
 
-	// pasar a giani.js
-	$(document).ready(function(){
-		// repetir password
-		$('input[name=password]').change( function(){
-			$('input[name=re-password]').attr( "pattern", $(this).val() );
-		} );
+		<script src="/static/js/jquery-min.js"></script>
 
-		// repetir email
-		$('input[name=email]').change( function(){
-			$('input[name=re-email]').attr( "pattern", $(this).val() );
-		} );
+		<!-- <link rel="stylesheet" href="/static/css/bootstrap/bootstrap.css"> -->
+		<link rel="stylesheet" href="/static/css/standardize.css">
+		<link rel="stylesheet" href="/static/css/header.css">
 
-		// login submit
-		$( ".form-login" ).submit( function(evt)
-		{
+		<link rel="stylesheet" href="/static/css/login.css">
 
-			var tthis = $(this);
+		<link rel="stylesheet" href="/static/css/footer.css">
+		<link rel="stylesheet" href="/static/css/giani.css">
+	</head>
+	<body>
+		<script type="text/javascript" >
 
-			var data = { "ajax":"true",
-						 "email":$("input[name=email]", tthis).val(),
-						 "password":$("input[name=password]", tthis).val() };
-
-			$.post( "/auth/login", data, function(rtn){
-				if (rtn == "ok") 
-				{
-					document.location.href = "/"; // TODO:poner aqui redirect a pagina anterior
-				}
+		// pasar a giani.js
+		$(document).ready(function(){
+			// repetir password
+			$('input[name=password]').change( function(){
+				$('input[name=re-password]').attr( "pattern", $(this).val() );
 			} );
-			return false;
+
+			// repetir email
+			$('input[name=email]').change( function(){
+				$('input[name=re-email]').attr( "pattern", $(this).val() );
+			} );
+
+			// login submit
+			$( ".form-login" ).submit( function(evt)
+			{
+				evt.preventDefault();
+
+				var tthis = $(this);
+
+				var data = { "ajax":"true",
+							 "email":$("input[name=email]", tthis).val(),
+							 "password":$("input[name=password]", tthis).val() };
+
+				$.post( "/auth/login", data, function(rtn){
+					if (rtn == "ok") 
+					{
+						window.parent.document.location.href = "/"; // TODO:poner aqui redirect a pagina anterior
+					}
+				} );
+				return false;
+			});
+
+			$(".loginfb").click(function(evt){
+				evt.preventDefault();
+				window.parent.document.location.href = "/auth/facebook";
+			});
+
 		});
+		</script>
 
-	});
-	</script>
+		<!--<div class="body-login clearfix">-->
+		  <div class="loginpopup clearfix">
+			<div class="reg-strate-login clearfix">
+			  <form action="/auth/login" method="post" class="form-login">
+				<p class="text text-1">LOG IN</p>
+				<p class="text text-2">ingresa tu correo *</p>
 
-	<!--<div class="body-login clearfix">-->
-	  <div class="loginpopup clearfix">
-		<div class="reg-strate-login clearfix">
-		  <form action="/auth/login" method="post" class="form-login">
-			<p class="text text-1">LOG IN</p>
-			<p class="text text-2">ingresa tu correo *</p>
+				<!--  Email  -->
+				<input class="_input" placeholder="INGRESAR CORREO" type="email" name="email" required >
+				<p class="text text-3">ingresa tu contraseña *</p>
 
-			<!--  Email  -->
-			<input class="_input" placeholder="INGRESAR CORREO" type="email" name="email" required >
-			<p class="text text-3">ingresa tu contraseña *</p>
-
-			<!--  Password  -->
-			<input class="_input" placeholder="INGRESAR CONTRASEÑA" type="password" name="password" required>
-			<p class="text text-4"><a href="/auth/recuperar-contrasena">olvidé mi contraseña</a></p>
-			<label class="radio-label _container clearfix">
-			  <input class="radio" type="radio" name="stay-logged" >
-			  <span class="point-text"><span>seguir conectado</span></span>
-			</label>
-			<button class="_button" type="submit">INGRESAR</button>
-		  </form>
-		</div>
-		<div class="reg-strate-fb clearfix">
-			<p class="tt-tulo-fb">O REGÍSTRATE CON FACEBOOK</p>
-			<div class="cont-foto-fb">
-				<a href="/auth/facebook" class="element element-2 loginfb">Facebook</a>
+				<!--  Password  -->
+				<input class="_input" placeholder="INGRESAR CONTRASEÑA" type="password" name="password" required>
+				<p class="text text-4"><a href="/auth/recuperar-contrasena">olvidé mi contraseña</a></p>
+				<label class="radio-label _container clearfix">
+				  <input class="radio" type="radio" name="stay-logged" >
+				  <span class="point-text"><span>seguir conectado</span></span>
+				</label>
+				<button class="_button" type="submit">INGRESAR</button>
+			  </form>
 			</div>
-		</div>
-		<div class="reg-strate-correo clearfix">
-			<form action="/auth/registro" method="post">
-			<p class="text text-5">REGÍSTRATE</p>
-			<p class="text text-6">ingresa tu correo *</p>
+			<div class="reg-strate-fb clearfix">
+				<p class="tt-tulo-fb">O REGÍSTRATE CON FACEBOOK</p>
+				<div class="cont-foto-fb">
+					<a href="/auth/facebook" class="element element-2 loginfb">Facebook</a>
+				</div>
+			</div>
+			<div class="reg-strate-correo clearfix">
+				<form action="/auth/registro" method="post">
+				<p class="text text-5">REGÍSTRATE</p>
+				<p class="text text-6">ingresa tu correo *</p>
 
-			<!--  Email  -->
-			<input class="_input _input-3" placeholder="INGRESAR CORREO" type="email" name="email" required >
-			<p class="text text-7">repetir correo *</p>
+				<!--  Email  -->
+				<input class="_input _input-3" placeholder="INGRESAR CORREO" type="email" name="email" required >
+				<p class="text text-7">repetir correo *</p>
 
-			<!--  Email  -->
-			<input class="_input _input-4" placeholder="INGRESAR CORREO" type="email" name="re-email" required >
-			<p class="text text-8">ingresa tu contraseña *</p>
+				<!--  Email  -->
+				<input class="_input _input-4" placeholder="INGRESAR CORREO" type="email" name="re-email" required >
+				<p class="text text-8">ingresa tu contraseña *</p>
 
-			<!--  Password -->
-			<input class="_input _input-5" placeholder="INGRESAR CONTRASEÑA" type="password" name="password" required >
-			<p class="text text-9">repetir contraseña *</p>
+				<!--  Password -->
+				<input class="_input _input-5" placeholder="INGRESAR CONTRASEÑA" type="password" name="password" required >
+				<p class="text text-9">repetir contraseña *</p>
 
-			<!--  Password -->
-			<input class="_input _input-6" placeholder="INGRESAR CONTRASEÑA" type="password" name="re-password" required >
-			<label class="aceptar-condiciones clearfix">
-				<input class="radio" type="radio" name="tos">
-				<span class="point-text"><font color="#4d4d4d"><span style="font-size: 12px; line-height: 16px;">Estoy de acuerdo con las condiciones</span></font></span>
-			</label>
-			<button class="_button" type="submit">COMPLETAR REGISTRO</button>
-		  </form>
-		</div>
-	  </div>
-	<!--</div>-->
+				<!--  Password -->
+				<input class="_input _input-6" placeholder="INGRESAR CONTRASEÑA" type="password" name="re-password" required >
+				<label class="aceptar-condiciones clearfix">
+					<input class="radio" type="radio" name="tos">
+					<span class="point-text"><font color="#4d4d4d"><span style="font-size: 12px; line-height: 16px;">Estoy de acuerdo con las condiciones</span></font></span>
+				</label>
+				<button class="_button" type="submit">COMPLETAR REGISTRO</button>
+			  </form>
+			</div>
+		  </div>
+		<!--</div>-->
+	</body>
+</html>
