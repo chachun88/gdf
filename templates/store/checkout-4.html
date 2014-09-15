@@ -49,37 +49,39 @@ Giani Da Firenze - Carro de Compra
             <div class="row userInfo">
               <div class="col-lg-12">
                 <h2 class="block-title-2"> Método de pago </h2>
-                <p>Please select the preferred shipping method to use on this order.</p>
-                <hr>
               </div>
               <div class="col-xs-12 col-sm-12">
                 <div class="paymentBox">
                   <div class="panel-group paymentMethod" id="accordion">
                     <div class="panel panel-default">
                       <div class="panel-heading panel-heading-custom">
-                        <h4 class="panel-title"> <a class="cashOnDelivery" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <span class="numberCircuil">Option 1</span> <strong> Cash on Delivery</strong> </a> </h4>
+                        <h4 class="panel-title"> <a class="cashOnDelivery" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <span class="numberCircuil"></span> <strong> Transferencia bancaria</strong> </a> </h4>
                       </div>
                       <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
-                          <p>All transactions are secure and encrypted, and we neverstor To learn more, please view our privacy policy.</p>
+                          <p>Envíe el comprobante de transferencia.</p>
                           <br>
-                          <label class="radio-inline" for="radios-4">
-                            <input name="radios" id="radios-4" value="4" type="radio">
-                            Cash On Delivery </label>
+                          <h2>Datos para la transferencia</h2>
+                          <p>....</p>
+                          <hr>
                           <div class="form-group">
-                            <label for="CommentsOrder">Add Comments About Your Order</label>
+                            <label for="CommentsOrder">Comprobante de transferencia</label>
+                            <input type="file" name="image" />
+                          </div>
+                          <div class="form-group">
+                            <label for="CommentsOrder">Comentarios</label>
                             <textarea id="CommentsOrder" class="form-control" name="CommentsOrder" cols="26" rows="3"></textarea>
                           </div>
                           <div class="form-group clearfix">
                             <label class="checkbox-inline" for="checkboxes-1">
                               <input name="checkboxes" id="checkboxes-1" value="1" type="checkbox">
-                              I have read and agree to the <a href="terms-conditions.html">Terms & Conditions</a> </label>
+                              Estoy de acuerdo y acepto los <a href="terms-conditions.html">Términos y condiciones</a> </label>
                           </div>
-                          <div class="pull-right"> <a href="checkout-5.html" class="btn btn-primary btn-small " > Confirm Order &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+                          <div class="pull-right"> <a href="/checkout/order" class="btn btn-primary btn-small " > Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
                         </div>
                       </div>
                     </div>
-                    <div class="panel panel-default">
+                   <!--  <div class="panel panel-default">
                       <div class="panel-heading panel-heading-custom">
                         <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> <span class="numberCircuil">Option 2</span><strong> PayPal</strong> </a> </h4>
                       </div>
@@ -102,8 +104,8 @@ Giani Da Firenze - Carro de Compra
                           <div class="pull-right"> <a href="checkout-5.html" class="btn btn-primary btn-small " > Order &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="panel panel-default">
+                    </div> -->
+                    <!-- <div class="panel panel-default">
                       <div class="panel-heading panel-heading-custom">
                         <h4 class="panel-title"> <a class="masterCard" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> <span class="numberCircuil">Option 3</span> <strong> MasterCard</strong> </a> </h4>
                       </div>
@@ -121,13 +123,13 @@ Giani Da Firenze - Carro de Compra
                                 <br>
                                 <input id="CardNumber" type="text" name="Number">
                               </div>
-                              <!--paymentInput-->
+
                               <div class="paymentInput">
                                 <label for="CardNumber2">Name on Credit Card *</label>
                                 <br>
                                 <input type="text" name="CardNumber2" id="CardNumber2">
                               </div>
-                              <!--paymentInput-->
+
                               <div class="paymentInput">
                                 <div class="form-group">
                                   <label>Expiration date *</label>
@@ -167,7 +169,6 @@ Giani Da Firenze - Carro de Compra
                                   </div>
                                 </div>
                               </div>
-                              <!--paymentInput-->
                               
                               <div style="clear:both"></div>
                               <div class="paymentInput clearfix">
@@ -176,20 +177,18 @@ Giani Da Firenze - Carro de Compra
                                 <input type="text" id="VerificationCode" name="VerificationCode" style="width:90px;">
                                 <br>
                               </div>
-                              <!--paymentInput-->
                               
                               <div>
                                 <input type="checkbox" name="saveInfo" id="saveInfoid">
                                 <label for="saveInfoid">&nbsp;Save my Card information</label>
                               </div>
                             </div>
-                            <!--creditCard-->
                             
                             <div class="pull-right"> <a href="checkout-5.html" class="btn btn-primary btn-small " > Order &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
                           </div>
                         </div>
                       </div>
-                    </div>
+                    </div> -->
                   </div>
                 </div>
                 
@@ -202,7 +201,8 @@ Giani Da Firenze - Carro de Compra
           
           <div class="cartFooter w100">
             <div class="box-footer">
-              <div class="pull-right"> <a class="btn btn-primary btn-small "  href="checkout-2.html"> Confirm Order &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+               <div class="pull-left"> <a class="btn btn-default" href="/checkout/billing"> <i class="fa fa-arrow-left"></i> &nbsp; Dirección de facturación </a> </div>
+              <div class="pull-right"> <a class="btn btn-primary btn-small "  href="/checkout/order"> Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
             </div>
           </div>
         </div>

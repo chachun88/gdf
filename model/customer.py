@@ -323,3 +323,18 @@ class Customer(BaseModel):
 
         except:
             pass
+
+    def GetCustomerIdByUserId(self):
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+        try:
+            q = '''select id from "Customer" where user_id = %(user_id)s limit 1'''
+            p = {
+            "user_id":self.user_id
+            }
+            cur.execute(q,p)
+            self.id = cur.fetchone()[0]
+            return self.ShowSuccessMessage(str(self.id))
+        except Exception,e:
+            return self.ShowError(str(e))
