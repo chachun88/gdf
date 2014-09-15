@@ -8,6 +8,8 @@ import tornado.options
 import tornado.web
 from basehandler import BaseHandler
 
+from model.cart import Cart
+
 class CheckoutAddressHandler(BaseHandler):
 	def get(self):
 
@@ -30,6 +32,8 @@ class CheckoutPaymentHandler(BaseHandler):
 
 class CheckoutOrderHandler(BaseHandler):
 	def get(self):
-
-		self.render("store/checkout-5.html")
+		cart = Cart()
+		cart.user_id = self.current_user["id"]
+		data = cart.GetCartByUserId()
+		self.render("store/checkout-5.html",data=data)
 		
