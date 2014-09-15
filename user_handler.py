@@ -57,6 +57,7 @@ class AddressSaveHandler(BaseHandler):
 
         contact = Contact()
 
+
         if id_contacto == "":
             contact.name = nombre
             contact.telephone = telefono
@@ -64,8 +65,10 @@ class AddressSaveHandler(BaseHandler):
             contact.address = direccion
             contact.lastname = apellido
 
-            contact.Save()
+            id_contacto = contact.Save()
 
+        self.write("llega {}".format( id_contacto ))
+        return
 
         contacto = json.loads(contact.InitById(id_contacto))
 
