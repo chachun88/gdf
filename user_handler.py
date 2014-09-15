@@ -19,6 +19,7 @@ import json
 from model.user import User
 from model.contact import Contact
 from model.order import Order
+from model.customer import Customer
 
 class AddAnonimousHandler(BaseHandler):
 
@@ -56,6 +57,11 @@ class AddressSaveHandler(BaseHandler):
         apellido = self.get_argument("lastname","")
 
         contact = Contact()
+        user = User()
+        customer = Customer()
+
+        customer.user_id = user.GetUserId(self.current_user)
+        response_obj = customer.InitByUserId()
 
 
         if id_contacto == "":
@@ -64,11 +70,10 @@ class AddressSaveHandler(BaseHandler):
             contact.email = email
             contact.address = direccion
             contact.lastname = apellido
+            contact.customer_id = customer.id
+            contact.type = 1
 
             id_contacto = contact.Save()
-
-        self.write("llega {}".format( id_contacto ))
-        return
 
         contacto = json.loads(contact.InitById(id_contacto))
 
