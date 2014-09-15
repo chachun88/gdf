@@ -53,6 +53,7 @@ class AddressSaveHandler(BaseHandler):
         ciudad = self.get_argument("city","")
         codigo_postal = self.get_argument("zip_code","")
         telefono = self.get_argument("telephone","")
+        apellido = self.get_argument("lastname","")
 
         contact = Contact()
 
@@ -65,6 +66,7 @@ class AddressSaveHandler(BaseHandler):
         contact.email = email
         contact.address = direccion
         contact.customer_id = contacto['customer_id']
+        contact.lastname = apellido
 
         response_obj = contact.Edit()
 
@@ -103,6 +105,7 @@ class BillingSaveHandler(BaseHandler):
         ciudad = self.get_argument("city","")
         codigo_postal = self.get_argument("zip_code","")
         telefono = self.get_argument("telephone","")
+        apellido = self.get_argument("lastname","")
 
         contact = Contact()
 
@@ -115,6 +118,7 @@ class BillingSaveHandler(BaseHandler):
         contact.email = email
         contact.address = direccion
         contact.customer_id = contacto['customer_id']
+        contact.lastname = apellido
 
         response_obj = contact.Edit()
 
@@ -138,8 +142,8 @@ class BillingSaveHandler(BaseHandler):
             response_obj = order.Edit()
 
             if "success" in response_obj:
-                # self.redirect("/checkout/shipping")
-                self.write("algo")
+                self.redirect("/checkout/shipping")
+                # self.write("algo")
             else:
                 self.write(response_obj["error"])
 
