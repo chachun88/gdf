@@ -42,7 +42,7 @@ $(document).ready(function(){
 				if(html=="ok"){
 					alert("Producto ha sido eliminado del carro");
 					if(from_cart){
-						GetCartByUserId(localStorage.guess_id);
+						GetCartByUserId(localStorage.user_id);
 					} else {
 						location.reload()
 					}

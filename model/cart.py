@@ -153,20 +153,23 @@ class Cart(BaseModel):
 		existe = False
 
 		try:
-			q = '''select id from "Temp_Cart" where user_id = %(user_id)s and product_id = %(product_id)s and size = %(size)s limit 1'''
+			q = '''select id from "Temp_Cart" where user_id = %(user_id)s and product_id = %(product_id)s and size = %(size)s and bought = 0 limit 1'''
 			p = {
 			"product_id":self.product_id,
 			"user_id":self.user_id,
 			"size":self.size
 			}
+
+			print cur.mogrify(q,p)
+
 			cur.execute(q,p)
 
 			if cur.rowcount > 0:
-				self.id = cur.fetchone()[0]
+				self.id = cur.fetchone()["id"]
 				existe = True
 
 		except Exception, e:
-			pass
+			return self.ShowError("failed getting cart, error:{}".format(str(e)))
 
 
 		if not existe:
@@ -181,9 +184,10 @@ class Cart(BaseModel):
 				"user_id":self.user_id,
 				"size":self.size
 				}
+				
 				cur.execute(q,p)
 				self.connection.commit()
-				self.id = cur.fetchone()[0]
+				self.id = cur.fetchone()["id"]
 
 				return self.ShowSuccessMessage(str(self.id))
 
@@ -205,7 +209,7 @@ class Cart(BaseModel):
 				}
 				cur.execute(q,p)
 				self.connection.commit()
-				self.id = cur.fetchone()[0]
+				self.id = cur.fetchone()["id"]
 
 				return self.ShowSuccessMessage(str(self.id))
 
