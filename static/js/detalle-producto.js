@@ -5,13 +5,14 @@ $(document).ready(function(){
 		var quantity = $("#quantity").val()
 		$.ajax({
 			url:"/cart/add",
-			data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+localStorage.guess_id,
+			data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+localStorage.user_id,
 			success:function(html){
 				if(html!="ok"){
 					alert(html)
 				} else {
-					GetCartByUserId(localStorage.guess_id);
+					GetCartByUserId(localStorage.user_id);
 					alert("Producto ha sido a\xF1adido al carro")
+					$(".carritoicono").trigger("click");
 				}
 			}
 		})

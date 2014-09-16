@@ -14,7 +14,7 @@ var GetCartByUserId = function(user_id){
 
 var GetAddressById = function(_id){
 	$.ajax({
-		url:"/contact/getbyid",
+		url:"/checkout/getaddressbyid",
 		data:"id="+_id,
 		success: function(html){
 			if(html!="error"){

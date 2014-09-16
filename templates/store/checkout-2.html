@@ -30,7 +30,7 @@ Giani Da Firenze - Carro de Compra
   <div class="row">
     <div class="col-lg-9 col-md-9 col-sm-12">
       <div class="row userInfo">
-      <form id="checkout-address" action="/billing/save">
+      <form id="checkout-address" action="/checkout/shipping" method="post">
         <div class="col-xs-12 col-sm-12">
           <div class="w100 clearfix">
             <ul class="orderStep ">
@@ -46,7 +46,7 @@ Giani Da Firenze - Carro de Compra
           <div class="w100 clearfix">
             <div class="row">
               <div class="col-lg-12">
-                <select name="direccion" class="form-control" id="address">
+                <select name="contact_id" class="form-control" id="address">
                   {% for c in contactos %}
                     {% if selected_address == c['id'] %}
                       <option value="{{c['id']}}" selected>{{c['address']}}</option>
@@ -132,10 +132,10 @@ Giani Da Firenze - Carro de Compra
       
     </div>
     <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar">
-      <div class="w100 cartMiniTable">
+      <div class="w100 cartMiniTable contentBox">
         <table id="cart-summary" class="std table">
           <tbody>
-             <tr >
+             <!-- <tr >
               <td>Total productos</td>
               <td class="price" >0</td>
             </tr>
@@ -154,7 +154,29 @@ Giani Da Firenze - Carro de Compra
             <tr >
               <td > Total </td>
               <td class=" site-color" id="total-price">0</td>
+            </tr> -->
+
+            <tr>
+              <td>Total productos</td>
+              <td class="price">{{suma}}</td>
             </tr>
+            <tr style="">
+              <td>Envío</td>
+              <td class="price" ><span class="success">Envío gratis!</span></td>
+            </tr>
+            <trclass="cart-total-price ">
+              <td>Total (+impuestos)</td>
+              <td class="price" >0</td>
+            </tr>
+            <tr>
+              <td>Total impuestos</td>
+              <td class="price" id="total-tax">$0.00</td>
+            </tr>
+            <tr>
+              <td > Total </td>
+              <td class=" site-color" id="total-price">{{suma}}</td>
+            </tr>
+
 
           </tbody>
           <tbody>

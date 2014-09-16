@@ -37,11 +37,19 @@ class OrderDetail(BaseModel):
 	    self._quantity = value
 	
 	@property
-	def total(self):
-	    return self._total
-	@total.setter
-	def total(self, value):
-	    self._total = value
+	def subtotal(self):
+	    return self._subtotal
+	@subtotal.setter
+	def subtotal(self, value):
+	    self._subtotal = value
+
+	@property
+	def size(self):
+	    return self._size
+	@size.setter
+	def size(self, value):
+	    self._size = value
+	
 	
 
 	def __init__(self):
@@ -50,7 +58,8 @@ class OrderDetail(BaseModel):
 		self._order_id 	= ""
 		self._quantity	= ""
 		self._product_id = ""
-		self._total 	= ""
+		self._subtotal 	= ""
+		self._size = ""
 
 	def Save(self):
 		#save the object and return the id
@@ -64,30 +73,35 @@ class OrderDetail(BaseModel):
 		# 	"order_id":self.order_id,
 		# 	"quantity":self.quantity,
 		# 	"product_id":self.product_id,
-		# 	"total":self.total
+		# 	"subtotal":self.subtotal
 		# 	})
 
 		# return str(object_id)
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-		query = '''insert into "Order_Detail" (order_id,quantity,product_id,total) values (%(order_id)s,%(quantity)s,%(product_id)s,%(total)s)
-		returning id'''
+		query = '''insert into "Order_Detail" (order_id,quantity,product_id,subtotal,size) values (%(order_id)s,%(quantity)s,%(product_id)s,%(subtotal)s,%(size)s) returning id'''
 
 		parametros = {
 		"order_id":self.order_id,
 		"quantity":self.quantity,
 		"product_id":self.product_id,
-		"total":self.total
+		"subtotal":float(self.subtotal),
+		"size":self.size
 		}
 
 		try:
+
 			cur.execute(query,parametros)
+
 			self.connection.commit()
-			_id = cur.fetchone()[0]
-			return _id
-		except:
-			return ""
+			self.id = cur.fetchone()[0]
+
+			return self.ShowSuccessMessage("{}".format(self.id))
+
+		except Exception,e:
+
+			return self.ShowError("Error saving order detail {}".format(str(e)))
 
 	def ListByOrderId(self, order_id, page=1, limit=20):
 

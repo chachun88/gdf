@@ -53,13 +53,6 @@ class Cart(BaseModel):
 	@size.setter
 	def size(self, value):
 	    self._size = value
-	
-	@property
-	def address_id(self):
-	    return self._address_id
-	@address_id.setter
-	def address_id(self, value):
-	    self._address_id = value
 
 	@property
 	def shipping_id(self):
@@ -81,6 +74,14 @@ class Cart(BaseModel):
 	@payment_type.setter
 	def payment_type(self, value):
 	    self._payment_type = value
+
+	@property
+	def shipping_type(self):
+	    return self._shipping_type
+	@shipping_type.setter
+	def shipping_type(self, value):
+	    self._shipping_type = value
+	
 	
 	
 	def __init__(self):
@@ -92,17 +93,18 @@ class Cart(BaseModel):
 		self._subtotal = 0
 		self._user_id = -1
 		self._size = ''
-		self._address_id = 0
 		self._shipping_id = 0
 		self._billing_id = 0
 		self._payment_type = 1
+		self._shipping_type = 1
+
 
 	def Remove(self):
 
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 		
 		try:
-			q = '''delete from "Temp_Cart" where id = %(id)s'''
+			q = '''update "Temp_Cart" set bought = 1 where id = %(id)s'''
 			p = {
 			"id":self.id
 			}
@@ -116,6 +118,8 @@ class Cart(BaseModel):
 			self.connection.close()
 
 	def InitById(self, idd):
+
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 		q = '''select * from "Temp_Cart" where id = %(id)s'''
 		p = {
@@ -132,20 +136,19 @@ class Cart(BaseModel):
 				self.subtotal = usuario["subtotal"]
 				self.user_id = usuario["user_id"]
 				self.size = usuario["size"]
-				self.address_id = usuario["address_id"]
 				self.shipping_id = usuario["shipping_id"]
 				self.billing_id = usuario["billing_id"]
 				self.payment_type = usuario["payment_type"]
 
 				return self.ShowSuccessMessage("cart has been initizalized successfully")
 			else:
-				return self.ShowError("user : " + idd + " not found")
-		except:
-			return self.ShowError("user : " + idd + " not found")
+				return self.ShowError("user : {} not found".format(idd))
+		except Exception,e:
+			return self.ShowError("cannot find cart with id {}, error:{}".format(idd,str(e)))
 
 	def Save(self):
 
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 		existe = False
 
@@ -213,18 +216,19 @@ class Cart(BaseModel):
 				cur.close()
 				self.connection.close()
 
-	def GetCartByUserId(self, page=1, items=5):
+	def GetCartByUserId(self, page=1, items=5, bought=0):
 
 		page = int(page)
 		items = int(items)
 		offset = (page-1)*items
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 		try:
-			q = '''select tc.id, p.name,tc.size,p.color,tc.quantity,tc.subtotal,p.price, p.image from "Temp_Cart" tc left join "Product" p on tc.product_id = p.id left join "Category" c on c.id = p.category_id where tc.user_id = %(user_id)s limit %(limit)s offset %(offset)s'''
+			q = '''select tc.id, p.name,tc.size,p.color,tc.quantity,tc.subtotal,p.price, p.image, tc.billing_id, tc.shipping_id, tc.shipping_type, tc.payment_type, tc.product_id from "Temp_Cart" tc left join "Product" p on tc.product_id = p.id left join "Category" c on c.id = p.category_id where tc.user_id = %(user_id)s and tc.bought = %(bought)s limit %(limit)s offset %(offset)s'''
 			p = {
 			"user_id":self.user_id,
 			"limit":items,
-			"offset":offset
+			"offset":offset,
+			"bought":bought
 			}
 			cur.execute(q,p)
 
@@ -242,11 +246,11 @@ class Cart(BaseModel):
 			"subtotal":self.subtotal,
 			"user_id":self.user_id,
 			"size":self.size,
-			"address_id":self.address_id,
 			"shipping_id":self.shipping_id,
 			"billing_id":self.billing_id,
 			"payment_type":self.payment_type,
-			"id":self.id
+			"id":self.id,
+			"shipping_type":self.shipping_type
 		}
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -256,11 +260,11 @@ class Cart(BaseModel):
 		                                  subtotal = %(subtotal)s,
 		                                  user_id = %(user_id)s,
 		                                  size = %(size)s,
-		                                  address_id = %(address_id)s,
 		                                  shipping_id = %(shipping_id)s,
 		                                  billing_id = %(billing_id)s,
-		                                  payment_type = %(payment_type)s
-		                            where id = %(id)s'''
+		                                  payment_type = %(payment_type)s,
+		                                  shipping_type = %(shipping_type)s
+		                            where id = %(id)s and bought = 0'''
 
 		try:
 			cur.execute(query,parametros)
@@ -272,6 +276,7 @@ class Cart(BaseModel):
 				return self.ShowSuccessMessage("no cart to be updated")
 
 		except Exception,e:
+			print "Error al editar carro {}".format(str(e))
 			return self.ShowError(str(e))
 
 
