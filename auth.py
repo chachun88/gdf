@@ -16,7 +16,12 @@ from model.user import User, UserType
 class UserRegistrationHandler(BaseHandler):    
 
     def get(self):
-        self.render( "auth/login.ajax.html" )
+        ajax = self.get_argument("ajax", "0")
+
+        if ajax == "1":
+            self.render( "auth/login.ajax.html" )
+        else:
+            self.render( "auth/login.html" )
 
     def post(self):
 
