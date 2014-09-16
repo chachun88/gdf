@@ -6,6 +6,7 @@ Created on 25/02/2013
 import tornado.web
 from globals import url_bodega
 import locale
+import urllib
 # from loadingplay.multilang.lang import lploadLanguage, lpautoSelectCurrentLang,\
 #     lptranslate, lpsetCurrentLang
 
@@ -61,12 +62,24 @@ class BaseHandler(tornado.web.RequestHandler):
         locale.setlocale( locale.LC_NUMERIC, '' )
         return locale.format('%d', value, True)
 
+    @property
+    def next(self):
+        return self.get_argument("next", "/")
+
     def render(self, template_name ,**kwargs):
-       # kwargs["lptranslate"] = lptranslate
-       kwargs["truncate_decimal"] = self.truncate_decimal
-       kwargs["canonical_url"] = self.canonical_url
-       # kwargs["admin_url"] = admin_url
-       kwargs["current_user"] = self.get_current_user()
-       kwargs["url_bodega"] = url_bodega
-       kwargs["money_format"] = self.money_format
-       tornado.web.RequestHandler.render(self, template_name, **kwargs)
+
+        # kwargs["lptranslate"] = lptranslate
+        kwargs["truncate_decimal"] = self.truncate_decimal
+        kwargs["canonical_url"] = self.canonical_url
+        kwargs["nxt"] = self.get_argument("next", "/")
+        # kwargs["admin_url"] = admin_url
+        kwargs["current_user"] = self.get_current_user()
+        kwargs["url_bodega"] = url_bodega
+        kwargs["money_format"] = self.money_format
+
+        tornado.web.RequestHandler.render(self, template_name, **kwargs)
+
+
+
+
+
