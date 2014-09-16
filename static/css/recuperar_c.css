@@ -34,6 +34,7 @@ form {
 	border: 1px solid rgb(205, 205, 205);
 	color: gray;
     text-transform: uppercase;
+    padding: 5px;
 
 }
 .contenedor_formularios form button {
