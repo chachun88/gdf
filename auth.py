@@ -46,7 +46,6 @@ class UserRegistrationHandler(BaseHandler):
             self.write( "ya existe un usuario registrado con este email" )
         else:
             ### perform login
-            self.write( "ok" )
 
             user = User()
             user.name = name
@@ -60,11 +59,11 @@ class UserRegistrationHandler(BaseHandler):
 
             if "success" in response_obj:
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
+                self.write( "ok:{}".format( self.next ) )
 
             ##redirect is the request isn't aajx
             if ajax == "false":
-                redirect = self.get_argument("next", "/")
-                self.redirect( redirect )
+                self.redirect( self.next )
 
 class AuthHandler(BaseHandler):
 
@@ -98,11 +97,10 @@ class AuthHandler(BaseHandler):
 
             if "success" in response_obj:
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
-                self.write( "ok" )
+                self.write( "ok:{}".format( self.next ) )
 
                 if ajax == "false":
-                    redirect = self.get_argument("next", "/")
-                    self.redirect( redirect )
+                    self.redirect( self.next )
 
             else:
                 self.write("Usuario y contraseña no coinciden, error:{}".format(response_obj["error"]))
@@ -119,12 +117,12 @@ class FormRegisterHandler(BaseHandler):
 class AuthLogoutHandler(BaseHandler):
     def get(self):        
         self.clear_cookie("user_emp_esc")
-        self.redirect("/")
+        self.redirect(self.next)
 
 class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
     @tornado.web.asynchronous
     def get(self):
-        my_url = url_local + "/auth/facebook"
+        my_url = url_local + self.request.uri
 
 
         if self.get_argument("code", False):
@@ -159,7 +157,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
             self.set_secure_cookie("user_giani", response_obj["success"])
 
-        self.redirect( "/" )
+        self.redirect( self.next )
         
         # conn = psycopg2.connect(conn_string)
 
@@ -272,7 +270,7 @@ class LogoutHandler(BaseHandler):
     
     def get(self):
         self.clear_cookie( "user_giani" )
-        self.redirect( "/" )
+        self.redirect( self.next )
 
 
         
@@ -285,7 +283,8 @@ class ValidateUserCheckoutHandler(BaseHandler):
         except Exception,e:
             pass
 
-        self.redirect( "/auth/login?ajax=0" )
+        next = self.get_argument("next", "/")
+        self.redirect( "/auth/login?next={}".format( self.next ) )
 
 
 class CheckoutSuccessHandler(BaseHandler):
