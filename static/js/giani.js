@@ -30,7 +30,7 @@ $(document).ready(function(){
 	}
 
 	if (!device_touch)
-		$('.fancybox').fancybox({padding: 3, width: 600});
+		$('.fancybox').fancybox({padding: 3, width: 600, href: '/auth/login?ajax=0'});
 
 	$(document).on("click","button.eliminarproducto,a.borrarproducto",function(){
 		var cart_id = $(this).attr("cart-id");

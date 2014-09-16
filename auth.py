@@ -18,10 +18,10 @@ class UserRegistrationHandler(BaseHandler):
     def get(self):
         ajax = self.get_argument("ajax", "0")
 
-        if ajax == "1":
+        if ajax == "0":
             self.render( "auth/login.ajax.html" )
         else:
-            self.render( "auth/login.html" )
+            self.write( "auth/login.html" )
 
     def post(self):
 
@@ -67,7 +67,13 @@ class UserRegistrationHandler(BaseHandler):
 class AuthHandler(BaseHandler):
 
     def get(self):
-        self.render( "auth/login.ajax.html" )
+        ajax = self.get_argument("ajax", "")
+
+        if ajax == "":
+            self.render( "auth/login.html" )
+        else:
+            self.render( "auth/login.ajax.html" )
+
 
     def post(self):
 
