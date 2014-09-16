@@ -23,8 +23,10 @@ class BaseHandler(tornado.web.RequestHandler):
     
     def get_current_user(self):
         user_json = self.get_secure_cookie("user_giani")        
-        if not user_json: return None
-        return user_json
+        if user_json:
+            return tornado.escape.json_decode(user_json)
+        else:
+            return None
 
     def canonical_url(self,url):
 
