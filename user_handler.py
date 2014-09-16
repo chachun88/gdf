@@ -26,7 +26,7 @@ class AddAnonimousHandler(BaseHandler):
     def get(self):
 
         if not self.current_user:
-
+            
             user = User()
             response_obj = user.Save()
             if "success" in response_obj:
