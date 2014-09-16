@@ -19,11 +19,11 @@ class Contact(BaseModel):
 		self._id = value
 
 	@property
-	def customer_id(self):
-		return self._customer_id
-	@customer_id.setter
-	def customer_id(self, value):
-		self._customer_id = value
+	def user_id(self):
+		return self._user_id
+	@user_id.setter
+	def user_id(self, value):
+		self._user_id = value
 
 	@property
 	def name(self):
@@ -66,18 +66,43 @@ class Contact(BaseModel):
 	@lastname.setter
 	def lastname(self, value):
 	    self._lastname = value
+
+	@property
+	def city(self):
+	    return self._city
+	@city.setter
+	def city(self, value):
+	    self._city = value
+	
+	@property
+	def zip_code(self):
+	    return self._zip_code
+	@zip_code.setter
+	def zip_code(self, value):
+	    self._zip_code = value
+
+	@property
+	def additional_info(self):
+	    return self._additional_info
+	@additional_info.setter
+	def additional_info(self, value):
+	    self._additional_info = value
+	
 	
 
 	def __init__(self):
 		BaseModel.__init__(self)
 		self._id = ""
 		self._name = ""
-		self._type = ""
+		self._type = 3
 		self._telephone = ""
 		self._email = ""
 		self._address = ""
-		self._customer_id = ""
+		self._user_id = ""
 		self._lastname = ""
+		self._city = ""
+		self._zip_code = ""
+		self._additional_info = ""
 
 	def InitById(self, _id):
 
@@ -112,18 +137,21 @@ class Contact(BaseModel):
 		"type_id": self.type,
 		"telephone": self.telephone,
 		"email": self.email,
-		"customer_id": self.customer_id,
+		"user_id": self.user_id,
 		"address": self.address,
-		"lastname": self.lastname
+		"lastname": self.lastname,
+		"city": self.city,
+		"zip_code": self.zip_code,
+		"additional_info":self.additional_info
 		}
 
 		try:
 
 			# self.collection.insert(contact)
 			cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-			query = '''insert into "Contact" (name,type_id,telephone,email,customer_id,address, lastname)
-			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(customer_id)s,%(address)s,%(lastname)s) returning id'''
-			print cur.mogrify(query,contact)
+			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info)
+			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s) returning id'''
+			# print cur.mogrify(query,contact)
 			cur.execute(query,contact)
 			self.connection.commit()
 			new_id = cur.fetchone()[0]
@@ -142,10 +170,13 @@ class Contact(BaseModel):
 		"type_id": self.type,
 		"telephone": self.telephone,
 		"email": self.email,
-		"customer_id": self.customer_id,
+		"user_id": self.user_id,
 		"address":self.address,
 		"id":self.id,
-		"lastname":self.lastname
+		"city":self.city,
+		"zip_code":self.zip_code,
+		"lastname":self.lastname,
+		"additional_info":self.additional_info
 		}
 
 		# try:
@@ -159,9 +190,19 @@ class Contact(BaseModel):
 
 			# self.collection.insert(contact)
 			cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-			query = '''update "Contact" set name = %(name)s, type_id = %(type_id)s, telephone = %(telephone)s, email = %(email)s, customer_id = %(customer_id)s
-		, address = %(address)s, lastname = %(lastname)s where id = %(id)s'''
-			print cur.mogrify(query,contact)
+			query = '''update "Contact" set 
+										name = %(name)s, 
+										type_id = %(type_id)s, 
+										telephone = %(telephone)s, 
+										email = %(email)s, 
+										user_id = %(user_id)s, 
+										address = %(address)s, 
+										lastname = %(lastname)s,
+										zip_code = %(zip_code)s,
+										lastname = %(lastname)s,
+										additional_info = %(additional_info)s
+						where id = %(id)s'''
+
 			cur.execute(query,contact)
 			self.connection.commit()
 			return self.ShowSuccessMessage("{}".format(self.id))
@@ -170,9 +211,9 @@ class Contact(BaseModel):
 
 			return self.ShowError(str(e))
 
-	def ListByCustomerId(self, _customer_id):
+	def ListByUserId(self, _user_id):
 
-		# contacts = self.collection.find({"customer_id":_customer_id})
+		# contacts = self.collection.find({"user_id":_user_id})
 
 		# if contacts:
 		# 	return contacts
@@ -183,22 +224,21 @@ class Contact(BaseModel):
 
 		try:
 
-		
-			query = '''select * from "Contact" where customer_id = %(customer_id)s'''
+			query = '''select * from "Contact" where user_id = %(user_id)s'''
 			parametros = {
-			"customer_id":_customer_id
+			"user_id":_user_id
 			}
 			cur.execute(query,parametros)
 			contactos = cur.fetchall()
 
-			if contactos:
-				return contactos
+			if cur.rowcount > 0:
+				return self.ShowSuccessMessage(json_util.dumps(contactos))
 			else:
-				return []
+				return self.ShowError("No se han encontrado contactos")
 
-		except:
-
-			return []
+		except Exception,e:
+			return ShowError(str(e))
+			
 
 	def Remove(self,ids):
 		print ids

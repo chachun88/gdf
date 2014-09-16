@@ -10,6 +10,8 @@ import psycopg2.extras
 from sendpassword import Email
 from customer import Customer
 
+from bson import json_util
+
 class UserType(object):
 	
 	VISITA = 'Visita'
@@ -135,8 +137,8 @@ class User(BaseModel):
 		# 	return True
 		# return False
 
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-		q = '''select count(1) from "User" where email = %(email)s and password = %(password)s limit 1'''
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+		q = '''select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, STRING_AGG(distinct c.name, ',') as cellars_name from "User" u left join "Permission" p on p.id = any(u.permissions) left join "Cellar" c on c.id = any(u.cellar_permissions) where u.email = %(email)s and u.password = %(password)s group by u.id limit 1'''
 		p = {
 		"email":username,
 		"password":password
@@ -144,13 +146,13 @@ class User(BaseModel):
 		try:
 			#print curs.mogrify( q, p )
 			cur.execute(q,p)
-			existe = cur.fetchone()
-			if existe:
-				return True
+			user = cur.fetchone()
+			if cur.rowcount > 0:
+				return self.ShowSuccessMessage(json_util.dumps(user))
 			else:
-				return False
-		except:
-			return False
+				return self.ShowError("username and password do not match")
+		except Exception,e:
+			return self.ShowError("cannot login user: {}".format(str(e)))
 
 	def InitByEmail(self, email):
 
@@ -179,8 +181,8 @@ class User(BaseModel):
 		try:
 			cur.execute(q,p)
 			usuario = cur.fetchone()
-			if usuario:
-				return usuario
+			if cur.rowcount > 0:
+				return self.ShowSuccessMessage(json_util.dumps(usuario))
 			else:
 				return self.ShowError("user : " + email + " not found")
 		except:

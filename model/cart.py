@@ -54,7 +54,35 @@ class Cart(BaseModel):
 	def size(self, value):
 	    self._size = value
 	
+	@property
+	def address_id(self):
+	    return self._address_id
+	@address_id.setter
+	def address_id(self, value):
+	    self._address_id = value
 
+	@property
+	def shipping_id(self):
+	    return self._shipping_id
+	@shipping_id.setter
+	def shipping_id(self, value):
+	    self._shipping_id = value
+	
+	@property
+	def billing_id(self):
+	    return self._billing_id
+	@billing_id.setter
+	def billing_id(self, value):
+	    self._billing_id = value
+	
+	@property
+	def payment_type(self):
+	    return self._payment_type
+	@payment_type.setter
+	def payment_type(self, value):
+	    self._payment_type = value
+	
+	
 	def __init__(self):
 		BaseModel.__init__(self)
 		self.table = 'Temp_Cart'
@@ -64,6 +92,10 @@ class Cart(BaseModel):
 		self._subtotal = 0
 		self._user_id = -1
 		self._size = ''
+		self._address_id = 0
+		self._shipping_id = 0
+		self._billing_id = 0
+		self._payment_type = 1
 
 	def Remove(self):
 
@@ -85,20 +117,31 @@ class Cart(BaseModel):
 
 	def InitById(self, idd):
 
-		q = '''select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, STRING_AGG(distinct c.name, ',') as cellars_name from "User" u left join "Permission" p on p.id = any(u.permissions) left join "Cellar" c on c.id = any(u.cellar_permissions) where u.id = %(id)s group by u.id limit 1'''
+		q = '''select * from "Temp_Cart" where id = %(id)s'''
 		p = {
 		"id":idd
 		}
 		try:
 			cur.execute(q,p)
 			usuario = cur.fetchone()
-			if usuario:
-				return usuario
+			if cur.rowcount > 0:
+				self.id = usuario["id"]
+				self.product_id = usuario["product_id"]
+				self.date = usuario["date"]
+				self.quantity = usuario["quantity"]
+				self.subtotal = usuario["subtotal"]
+				self.user_id = usuario["user_id"]
+				self.size = usuario["size"]
+				self.address_id = usuario["address_id"]
+				self.shipping_id = usuario["shipping_id"]
+				self.billing_id = usuario["billing_id"]
+				self.payment_type = usuario["payment_type"]
+
+				return self.ShowSuccessMessage("cart has been initizalized successfully")
 			else:
 				return self.ShowError("user : " + idd + " not found")
 		except:
 			return self.ShowError("user : " + idd + " not found")
-
 
 	def Save(self):
 
@@ -170,7 +213,6 @@ class Cart(BaseModel):
 				cur.close()
 				self.connection.close()
 
-
 	def GetCartByUserId(self, page=1, items=5):
 
 		page = int(page)
@@ -191,5 +233,49 @@ class Cart(BaseModel):
 		except Exception,e:
 			print str(e)
 			return {}
+
+	def Edit(self):
+
+		parametros = {
+			"product_id":self.product_id,
+			"quantity":self.quantity,
+			"subtotal":self.subtotal,
+			"user_id":self.user_id,
+			"size":self.size,
+			"address_id":self.address_id,
+			"shipping_id":self.shipping_id,
+			"billing_id":self.billing_id,
+			"payment_type":self.payment_type,
+			"id":self.id
+		}
+
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+		query = '''update "Temp_Cart" set product_id = %(product_id)s,
+		                                  quantity = %(quantity)s,
+		                                  subtotal = %(subtotal)s,
+		                                  user_id = %(user_id)s,
+		                                  size = %(size)s,
+		                                  address_id = %(address_id)s,
+		                                  shipping_id = %(shipping_id)s,
+		                                  billing_id = %(billing_id)s,
+		                                  payment_type = %(payment_type)s
+		                            where id = %(id)s'''
+
+		try:
+			cur.execute(query,parametros)
+			self.connection.commit()
+
+			if cur.rowcount > 0:
+				return self.ShowSuccessMessage("cart has been updated successfully")
+			else:
+				return self.ShowSuccessMessage("no cart to be updated")
+
+		except Exception,e:
+			return self.ShowError(str(e))
+
+
+
+
 
 
