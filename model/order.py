@@ -19,11 +19,11 @@ class Order(BaseModel):
         self._salesman = value
         
     @property
-    def customer_id(self):
-        return self._customer_id
-    @customer_id.setter
-    def customer_id(self, value):
-        self._customer_id = value
+    def user_id(self):
+        return self._user_id
+    @user_id.setter
+    def user_id(self, value):
+        self._user_id = value
     
     @property
     def subtotal(self):
@@ -81,6 +81,7 @@ class Order(BaseModel):
     def date(self, value):
         self._date = value
 
+    # si es persona o empresa
     @property
     def type(self):
         return self._type
@@ -88,6 +89,7 @@ class Order(BaseModel):
     def type(self, value):
         self._type = value
     
+    # web, tablet, etc...
     @property
     def source(self):
         return self._source
@@ -110,25 +112,19 @@ class Order(BaseModel):
         self._items_quantity = value
     
     @property
-    def product_quantity(self):
-        return self._product_quantity
-    @product_quantity.setter
-    def product_quantity(self, value):
-        self._product_quantity = value
+    def products_quantity(self):
+        return self._products_quantity
+    @products_quantity.setter
+    def products_quantity(self, value):
+        self._products_quantity = value
 
+    #recibida, reservada, despachada, etc...
     @property
     def state(self):
         return self._state
     @state.setter
     def state(self, value):
         self._state = value
-
-    @property
-    def address_id(self):
-        return self._address_id
-    @address_id.setter
-    def address_id(self, value):
-        self._address_id = value
 
     @property
     def billing_id(self):
@@ -144,15 +140,21 @@ class Order(BaseModel):
     def shipping_id(self, value):
         self._shipping_id = value
     
+    @property
+    def payment_type(self):
+        return self._payment_type
+    @payment_type.setter
+    def payment_type(self, value):
+        self._payment_type = value
     
 
     def __init__(self):
         BaseModel.__init__(self)
         self._id                     = ""
         self._date                   = ""
-        self._type                   = ""
+        self._type                   = 1 #por defecto 1 para personas
         self._salesman               = ""
-        self._customer_id            = ""
+        self._user_id                = ""
         self._subtotal               = ""
         self._discount               = ""
         self._tax                    = ""
@@ -163,11 +165,12 @@ class Order(BaseModel):
         self._source                 = ""
         self._country                = ""
         self._items_quantity         = ""
-        self._product_quantity       = ""
+        self._products_quantity      = ""
         self._state                  = ""
         self._billing_id             = -1
         self._shipping_id            = -1
         self._address_id             = -1
+        self._payment_type           = 1
 
     def GetOrderById(self, _id):
 
@@ -206,7 +209,7 @@ class Order(BaseModel):
         #     "source": self.source,
         #     "country": self.country,
         #     "items_quantity": self.items_quantity,
-        #     "product_quantity": self.product_quantity,
+        #     "products_quantity": self.products_quantity,
         #     "state": self.state,
         #     "salesman" : self.salesman,
         #     "customer" : self.customer,
@@ -224,8 +227,9 @@ class Order(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        query = '''insert into "Order" (date,type,subtotal,discount,tax,total,items,products,customer_id,billing_id,address_id,shipping_id) 
-        values (now(),%(type)s,%(subtotal)s,%(discount)s,%(tax)s,%(total)s,%(items)s,%(products)s,%(customer_id)s,%(billing_id)s,%(address_id)s,%(shipping_id)s)'''
+        query = '''insert into "Order" (date,type,subtotal,discount,tax,total,items_quantity,products_quantity,user_id,billing_id,shipping_id,payment_type) 
+        values (now(),%(type)s,%(subtotal)s,%(discount)s,%(tax)s,%(total)s,%(items_quantity)s,%(products_quantity)s,%(user_id)s,%(billing_id)s,%(shipping_id)s,%(payment_type)s) 
+        returning id'''
 
         parametros = {
         "type":self.type,
@@ -233,12 +237,12 @@ class Order(BaseModel):
         "discount":self.discount,
         "tax":self.tax,
         "total":self.total,
-        "items":self.items,
-        "products":self.products,
-        "customer_id":self.customer_id,
+        "items_quantity":self.items_quantity,
+        "products_quantity":self.products_quantity,
+        "user_id":self.user_id,
         "billing_id":self.billing_id,
-        "address_id":self.address_id,
-        "shipping_id":self.shipping_id
+        "shipping_id":self.shipping_id,
+        "payment_type":self.payment_type
         }
 
         try:
@@ -246,7 +250,9 @@ class Order(BaseModel):
 
             self.connection.commit()
 
-            return self.ShowSuccessMessage("Order saved correctly")
+            self.id = cur.fetchone()[0]
+
+            return self.ShowSuccessMessage("{}".format(self.id))
 
         except Exception,e:
 
@@ -270,10 +276,10 @@ class Order(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        query = '''select * from "Order" where customer_id = %(customer_id)s order by id desc limit 1'''
+        query = '''select * from "Order" where user_id = %(user_id)s order by id desc limit 1'''
 
         parametros = {
-        "customer_id":_id
+        "user_id":_id
         }
 
         cur.execute(query,parametros)
@@ -290,7 +296,7 @@ class Order(BaseModel):
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
         query = '''update "Order" set type = %(type)s, subtotal = %(subtotal)s, discount = %(discount)s, tax = %(tax)s, total = %(total)s, 
-        items = %(items)s, products = %(products)s, customer_id = %(customer_id)s, billing_id = %(billing_id)s, address_id = %(address_id)s, shipping_id = %(shipping_id)s'''
+        items_quantity = %(items_quantity)s, products_quantity = %(products_quantity)s, user_id = %(user_id)s, billing_id = %(billing_id)s, shipping_id = %(shipping_id)s, payment_type = %(payment_type)s'''
 
         parametros = {
         "type":self.type,
@@ -298,12 +304,12 @@ class Order(BaseModel):
         "discount":self.discount,
         "tax":self.tax,
         "total":self.total,
-        "items":self.items,
-        "products":self.products,
-        "customer_id":self.customer_id,
+        "items_quantity":self.items_quantity,
+        "products_quantity":self.products_quantity,
+        "user_id":self.user_id,
         "billing_id":self.billing_id,
-        "address_id":self.address_id,
-        "shipping_id":self.shipping_id
+        "shipping_id":self.shipping_id,
+        "payment_type":self.payment_type
         }
 
         try:
