@@ -22,10 +22,17 @@ $(document).ready(function(){
 					 "email":$("input[name=email]", tthis).val(),
 					 "password":$("input[name=password]", tthis).val() };
 
-		$.post( "/auth/login", data, function(rtn){
-			if (rtn == "ok") 
+		$.post( $( this ).attr( 'action' ), data, function(rtn){
+
+			var rtn_pair = rtn.split( ":" )
+
+			if (rtn_pair[0] == "ok") 
 			{
-				window.parent.document.location.href = "/"; // TODO:poner aqui redirect a pagina anterior
+				window.parent.document.location.href = rtn_pair[1]; // TODO:poner aqui redirect a pagina anterior
+			}
+			else
+			{
+				alert( rtn_pair[1] );
 			}
 		} );
 		return false;
@@ -43,16 +50,21 @@ $(document).ready(function(){
 					 "re-password":$("input[name=re-password]", tthis).val(),
 					 "tos":$("input[name=tos]", tthis).val()}
 
-		$.post( "/auth/registro", data, function(rtn){
-			if (rtn == "ok") 
+		$.post( $( this ).attr( 'action' ), data, function(rtn){
+
+			var rtn_pair = rtn.split( ":" );
+
+			if (rtn_pair[0] == "ok") 
 			{
-				window.parent.document.location.href = "/";
+				window.parent.document.location.href = rtn_pair[1];
 			}
 			else
 			{
-				alert( rtn );
+				alert( rtn_pair[1] );
 			}
 		});
+
+		return false;
 	});
 
 	$(".parent-link").click(function(evt){

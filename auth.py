@@ -46,7 +46,6 @@ class UserRegistrationHandler(BaseHandler):
             self.write( "ya existe un usuario registrado con este email" )
         else:
             ### perform login
-            self.write( "ok" )
 
             user = User()
             user.name = name
@@ -60,6 +59,7 @@ class UserRegistrationHandler(BaseHandler):
 
             if "success" in response_obj:
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
+                self.write( "ok:{}".format( self.next ) )
 
             ##redirect is the request isn't aajx
             if ajax == "false":
@@ -97,7 +97,7 @@ class AuthHandler(BaseHandler):
 
             if "success" in response_obj:
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
-                self.write( "ok" )
+                self.write( "ok:{}".format( self.next ) )
 
                 if ajax == "false":
                     self.redirect( self.next )
@@ -122,7 +122,7 @@ class AuthLogoutHandler(BaseHandler):
 class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
     @tornado.web.asynchronous
     def get(self):
-        my_url = url_local + "/auth/facebook"
+        my_url = url_local + self.request.uri
 
 
         if self.get_argument("code", False):

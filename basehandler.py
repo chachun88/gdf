@@ -6,6 +6,7 @@ Created on 25/02/2013
 import tornado.web
 from globals import url_bodega
 import locale
+import urllib
 # from loadingplay.multilang.lang import lploadLanguage, lpautoSelectCurrentLang,\
 #     lptranslate, lpsetCurrentLang
 
@@ -63,16 +64,14 @@ class BaseHandler(tornado.web.RequestHandler):
 
     @property
     def next(self):
-        next = self.get_argument("next", "/")
-        return next
+        return self.get_argument("next", "/")
 
     def render(self, template_name ,**kwargs):
 
         # kwargs["lptranslate"] = lptranslate
         kwargs["truncate_decimal"] = self.truncate_decimal
         kwargs["canonical_url"] = self.canonical_url
-        kwargs["next"] = self.next
-        kwargs["current_uri"] = self.request.uri
+        kwargs["nxt"] = self.get_argument("next", "/")
         # kwargs["admin_url"] = admin_url
         kwargs["current_user"] = self.get_current_user()
         kwargs["url_bodega"] = url_bodega

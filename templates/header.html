@@ -21,14 +21,14 @@
 		</div>
 		<div class="_container clearfix">
 			{% if current_user == None %}
-				<a class="_button button_register fancybox fancybox.iframe" href="/auth/login?next=test">
+				<a class="_button button_register fancybox fancybox.iframe" href="/auth/login?next={{request.uri}}">
 					<p>REGISTRO</p>
 					<p></p>
 					<p></p>
 					<p></p>
 				</a>
 			{% else %}
-				<a class="_button button_register"  href="/auth/logout" >
+				<a class="_button button_register"  href="/auth/logout?next={{request.uri}}" >
 					<p>{{current_user["name"]}}</p>
 					<p></p>
 					<p></p>
