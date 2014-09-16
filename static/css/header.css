@@ -133,12 +133,13 @@
 }
 .loginpopup {
   float: left;
-  border: 1px solid rgb(255, 224, 218);
-  background-color: rgb(254, 245, 244);
+  /* border: 1px solid rgb(255, 224, 218);
+  background-color: rgb(254, 245, 244); */
   width: 80%;
   /* margin: 20px auto; */
   /* height: 100%; */
   margin-left: 10%;
+  margin-top: 20px;
   }
 .reg-strate-correo {
   float: left;
@@ -158,6 +159,7 @@
   width: 37.2789115646%;
   height: 269px;
   margin: 13px 0 0 8.96259%;
+  min-width: 280px;
 }
 
 .reg-strate-login {
@@ -167,6 +169,7 @@
   width: 46.8113975576%;
   margin: 13px 0 0 1.66667%;
   padding-bottom: 30px;
+  min-width: 280px;
 }
 
 .reg-strate-login .text {
@@ -530,6 +533,9 @@
   width: 15px;
   margin: 1px 0 0 63.5269%;
   }
+  .categoria-1 {
+  margin-top: 10px;
+}
 
 }
 @media(max-width: 479px) {
