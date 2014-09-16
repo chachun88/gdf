@@ -47,7 +47,7 @@ class AddressSaveHandler(BaseHandler):
 
     def get(self):
 
-        try:
+        # try:
             id_contacto = self.get_argument("direccion","")
             nombre = self.get_argument("name","")
             email = self.get_argument("email","")
@@ -112,11 +112,12 @@ class AddressSaveHandler(BaseHandler):
                 if "success" in response_obj:
                     self.redirect("/checkout/billing")
                 else:
-                    self.render( "beauty-error.html", message=response_obj["error"])
+                    self.render( "beauty_error.html", message=response_obj["error"])
 
             # self.redirect("/checkout/billing")
-        except Exception,e:
-            self.render( "beauty-error.html", str( e ) )
+        # except Exception,e:
+        #     print str( e )
+        #     self.render( "beauty_error.html", message=str( e ) ) #"Ups! ha ocurrido un problema, nuestros ingenieros ya lo están solucionando." )
 
 class BillingSaveHandler(BaseHandler):
 

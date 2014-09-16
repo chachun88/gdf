@@ -76,7 +76,7 @@ Giani Da Firenze - Carro de Compra
         <div class="w100 costDetails">
           <div class="table-block" id="order-detail-content"> 
           {% if suma > 0 %}
-          <a class="btn btn-primary btn-lg btn-block " title="checkout" href="/auth/checkout" style="margin-bottom:20px"> Pasar por la caja &nbsp; <i class="fa fa-arrow-right"></i> </a>
+          <a class="btn btn-primary btn-lg btn-block " title="checkout" href="/auth/checkout?next={{ url_escape('/checkout/address') }}" style="margin-bottom:20px"> Pasar por la caja &nbsp; <i class="fa fa-arrow-right"></i> </a>
           {% end %}
             <div class="w100 cartMiniTable">
               <table id="cart-summary" class="std table">

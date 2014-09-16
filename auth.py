@@ -284,7 +284,7 @@ class ValidateUserCheckoutHandler(BaseHandler):
             pass
 
         next = self.get_argument("next", "/")
-        self.redirect( "/auth/login?next={}".format( self.next ) )
+        self.redirect( "/auth/login?next={}".format( tornado.escape.url_escape(self.next) ) )
 
 
 class CheckoutSuccessHandler(BaseHandler):
