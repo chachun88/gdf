@@ -30,9 +30,9 @@ class CheckoutAddressHandler(BaseHandler):
 
         if "success" in response_obj:
             contactos = json_util.loads(response_obj["success"])
-        else:
-            self.render("beauty_error.html",message="Error al obtener la lista de contactos:{}".format(response_obj["error"]))
-            return
+        # else:
+        #     self.render("beauty_error.html",message="Error al obtener la lista de contactos:{}".format(response_obj["error"]))
+        #     return
 
         if user_id != "":
 
