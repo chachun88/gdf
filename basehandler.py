@@ -61,12 +61,26 @@ class BaseHandler(tornado.web.RequestHandler):
         locale.setlocale( locale.LC_NUMERIC, '' )
         return locale.format('%d', value, True)
 
+    @property
+    def next(self):
+        next = self.get_argument("next", "/")
+        return next
+
     def render(self, template_name ,**kwargs):
-       # kwargs["lptranslate"] = lptranslate
-       kwargs["truncate_decimal"] = self.truncate_decimal
-       kwargs["canonical_url"] = self.canonical_url
-       # kwargs["admin_url"] = admin_url
-       kwargs["current_user"] = self.get_current_user()
-       kwargs["url_bodega"] = url_bodega
-       kwargs["money_format"] = self.money_format
-       tornado.web.RequestHandler.render(self, template_name, **kwargs)
+
+        # kwargs["lptranslate"] = lptranslate
+        kwargs["truncate_decimal"] = self.truncate_decimal
+        kwargs["canonical_url"] = self.canonical_url
+        kwargs["next"] = self.next
+        kwargs["current_uri"] = self.request.uri
+        # kwargs["admin_url"] = admin_url
+        kwargs["current_user"] = self.get_current_user()
+        kwargs["url_bodega"] = url_bodega
+        kwargs["money_format"] = self.money_format
+
+        tornado.web.RequestHandler.render(self, template_name, **kwargs)
+
+
+
+
+
