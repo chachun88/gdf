@@ -33,8 +33,8 @@ $(document).ready(function(){
 				} else {
 					$("#quantity").empty();
 					var total_unidades = parseInt(html);
-					for (i = 1; i <= total_unidades; i++) { 
-					    $("#quantity").append($("<option></option>").attr("value",i).text(i));
+					for (i = 1; i <= total_unidades; i++) {
+						$("#quantity").append($("<option></option>").attr("value",i).text(i));
 					}
 				}
 			}
@@ -42,14 +42,15 @@ $(document).ready(function(){
 	};
 
 	$("#size").change(size_changed);
+	$("#size").trigger( "change" )
 	//$("#size").ready(size_changed);
 
 
 	if($("input[name='quanitySniper']").length){
 		$("input[name='quanitySniper']").TouchSpin({
-	        buttondown_class: "btn btn-link",
-	        buttonup_class: "btn btn-link"
-	    });
+			buttondown_class: "btn btn-link",
+			buttonup_class: "btn btn-link"
+		});
 	}
 
 	if($("select#address").length){
