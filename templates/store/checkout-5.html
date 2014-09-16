@@ -125,7 +125,7 @@ Giani Da Firenze - Carro de Compra
                           <table class="std table" id="cart-summary">
                             <tr >
                               <td>Total productos</td>
-                              <td  class="price">$216.51 </td>
+                              <td  class="price">$ {{suma}} </td>
                             </tr>
                             <tr style="" >
                               <td>Despacho</td>
@@ -133,7 +133,7 @@ Giani Da Firenze - Carro de Compra
                             </tr>
                             <tr class="cart-total-price ">
                               <td>Total (+impuestos)</td>
-                              <td  class="price">$216.51 </td>
+                              <td  class="price">$ {{suma}} </td>
                             </tr>
                             <tr >
                               <td>Total impuestos</td>
@@ -141,7 +141,7 @@ Giani Da Firenze - Carro de Compra
                             </tr>
                             <tr >
                               <td > Total </td>
-                              <td id="total-price" class="price">$216.51 </td>
+                              <td id="total-price" class="price">${{suma}} </td>
                             </tr>
                             <tbody>
                             </tbody>
@@ -204,39 +204,35 @@ Giani Da Firenze - Carro de Compra
       <!--/row end--> 
       
   
-    <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar"> 
-      
-  <div class="w100 cartMiniTable">
-                            <table id="cart-summary" class="std table">
-                                    <tbody>
-                                                    <tr >
-                    <td>Total productos</td>
-                    <td class="price" >0</td>
-                  </tr>
-                  <tr  style="">
-                    <td>Envío</td>
-                    <td class="price" ><span class="success">Envío gratis!</span></td>
-                  </tr>
-                  <tr class="cart-total-price ">
-                    <td>Total (+impuestos)</td>
-                    <td class="price" >0</td>
-                  </tr>
-                  <tr >
-                    <td>Total impuestos</td>
-                    <td class="price" id="total-tax">$0.00</td>
-                  </tr>
-                  <tr >
-                    <td > Total </td>
-                    <td class=" site-color" id="total-price">0</td>
-                  </tr>
+      <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar"> 
 
-                                    
-                                                                         
-                                    </tbody><tbody>
-                                    </tbody>
-                                  </table> 
-                                  </div>
-      
+        <div class="w100 cartMiniTable">
+          <table id="cart-summary" class="std table">
+            <tbody>
+              <tr>
+                <td>Total productos</td>
+                <td class="price">{{suma}}</td>
+              </tr>
+              <tr style="">
+                <td>Envío</td>
+                <td class="price" ><span class="success">Envío gratis!</span></td>
+              </tr>
+              <trclass="cart-total-price ">
+              <td>Total (+impuestos)</td>
+              <td class="price" >0</td>
+            </tr>
+            <tr>
+              <td>Total impuestos</td>
+              <td class="price" id="total-tax">$0.00</td>
+            </tr>
+            <tr>
+              <td > Total </td>
+              <td class=" site-color" id="total-price">{{suma}}</td>
+            </tr>
+          </tbody>
+        </table> 
+      </div>
+
     </div>
     <!--/rightSidebar--> 
     

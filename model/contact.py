@@ -1,13 +1,11 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-# from bson import json_util
+from bson import json_util
 # from bson.objectid import ObjectId
 from basemodel import BaseModel
 import psycopg2
 import psycopg2.extras
-
-import json
 
 class Contact(BaseModel):
 
@@ -124,7 +122,7 @@ class Contact(BaseModel):
 		try:
 			cur.execute(query,parametros)
 			contact = cur.fetchone()
-			return json.dumps(contact)
+			return json_util.dumps(contact)
 		except:
 			return ""
 
@@ -154,12 +152,13 @@ class Contact(BaseModel):
 			# print cur.mogrify(query,contact)
 			cur.execute(query,contact)
 			self.connection.commit()
-			new_id = cur.fetchone()[0]
-			return new_id
+			self.id = cur.fetchone()[0]
+
+			return self.ShowSuccessMessage("{}".format(self.id))
 
 		except Exception, e:
 
-			return str(e)
+			return self.ShowError(str(e))
 
 	def Edit(self):
 
@@ -199,7 +198,6 @@ class Contact(BaseModel):
 										address = %(address)s, 
 										lastname = %(lastname)s,
 										zip_code = %(zip_code)s,
-										lastname = %(lastname)s,
 										additional_info = %(additional_info)s
 						where id = %(id)s'''
 
@@ -237,7 +235,7 @@ class Contact(BaseModel):
 				return self.ShowError("No se han encontrado contactos")
 
 		except Exception,e:
-			return ShowError(str(e))
+			return self.ShowError(str(e))
 			
 
 	def Remove(self,ids):
