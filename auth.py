@@ -51,8 +51,10 @@ class UserRegistrationHandler(BaseHandler):
 
             user.Save()
 
-            if user.Login( user.email, user.password ):
-                self.set_secure_cookie( "user_giani", user.email )
+            response_obj = user.Login( user.email, user.password )
+
+            if "success" in response_obj:
+                self.set_secure_cookie( "user_giani", response_obj["success"] )
 
             ##redirect is the request isn't aajx
             if ajax == "false":
@@ -78,17 +80,21 @@ class AuthHandler(BaseHandler):
             self.write( "debe ingresar la contraseña" )
         else:
             user = User()
-            if user.Login( email, password ):
+            user.email = email
+            user.password = password
 
-                ## setting user cookie 
-                self.set_secure_cookie( "user_giani", email )
+            response_obj = user.Login( user.email, user.password )
+
+            if "success" in response_obj:
+                self.set_secure_cookie( "user_giani", response_obj["success"] )
                 self.write( "ok" )
 
                 if ajax == "false":
                     redirect = self.get_argument("next", "/")
                     self.redirect( redirect )
+
             else:
-                self.write( "login incorrecto" )
+                self.write("Usuario y contraseña no coinciden, error:{}".format(response_obj["error"]))
 
 
 class FormLoginHandler(BaseHandler):
@@ -131,17 +137,19 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         if not user:
             raise tornado.web.HTTPError(500, "Facebook authentication failed.")
 
-        self.set_secure_cookie("user_giani", user["email"])
-
         usr = User()
-        usr.name = user["name"]
-        usr.email = user["email"]
-        usr.user_type = UserType.CLIENTE
 
-        if not usr.Exist( usr.email ):
+        if not usr.Exist( user["email"] ):
             usr.Save()
+        
+        response_obj = usr.InitByEmail(user["email"])
+
+        if "success" in response_obj:
+
+            self.set_secure_cookie("user_giani", response_obj["success"])
 
         self.redirect( "/" )
+        
         # conn = psycopg2.connect(conn_string)
 
         # cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -261,7 +269,7 @@ class ValidateUserCheckoutHandler(BaseHandler):
 
     def get(self):
         try:
-            if (User()).Exist( self.get_current_user() ):
+            if self.get_current_user():
                 self.redirect( "/checkout/address" )
         except Exception,e:
             pass

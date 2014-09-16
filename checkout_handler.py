@@ -16,71 +16,127 @@ from model.order import Order
 
 class CheckoutAddressHandler(BaseHandler):
 	def get(self):
-		contact = Contact()
-		user = User()
-		customer = Customer()
 
-		customer.user_id = user.GetUserId(self.current_user)
-		response_obj = customer.InitByUserId()
+		user_id = self.current_user["id"]
+		
+		contact = Contact()
+		response_obj = contact.ListByUserId(user_id)
+
+		contactos = []
 
 		if "success" in response_obj:
-			contactos = contact.ListByCustomerId(customer.id)
+			contactos = response_obj["success"]
 
-			user_id = customer.user_id
+		if user_id != "":
 
-			if user_id != "":
+			cart = Cart()
+			cart.user_id = user_id
 
-				cart = Cart()
-				cart.user_id = user_id
-				lista = cart.GetCartByUserId()
-				suma = 0
-				for l in lista:
-					suma += l["subtotal"]
+			lista = cart.GetCartByUserId()
+			suma = 0
+			for l in lista:
+				suma += l["subtotal"]
 
-				self.render("store/checkout-1.html",contactos=contactos,customer=customer,data=lista,suma=suma)
+			self.render("store/checkout-1.html",contactos=contactos,data=lista,suma=suma)
 
-			else:
-
-				self.write("error")
-			
 		else:
-			self.write(response_obj["error"])
+			self.write("error")
+
+		# else:
+		# 	self.write(response_obj["error"])
 
 class CheckoutBillingHandler(BaseHandler):
 	def get(self):
 
-		contact = Contact()
-		user = User()
-		customer = Customer()
-		order = Order()
+		if self.current_user:
 
-		customer.user_id = user.GetUserId(self.current_user)
-		response_obj = customer.InitByUserId()
+			user_id = self.current_user["id"]
+			nombre = self.get_argument("name", self.current_user["nombre"])
+			apellido = self.get_argument("lastname", self.current_user["lastname"])
+			email = self.get_argument("email", self.current_user["email"])
+			direccion = self.get_argument("address","")
+			ciudad = self.get_argument("city","")
+			codigo_postal = self.get_argument("zip_code","")
+			informacion_adicional = self.get_argument("additional_info","")
+			telefono = self.get_argument("telephone","")
+			id_contacto = self.get_argument("contact_id","")
 
-		if "success" in response_obj:
-			contactos = contact.ListByCustomerId(customer.id)
 
-			user_id = customer.user_id
+			contact = Contact()
 
-			if user_id != "":
+			contact.name = nombre
+			contact.lastname = apellido
+			contact.telephone = telefono
+			contact.email = email
+			contact.address = direccion
+			contact.city = ciudad
+			contact.zip_code = codigo_postal
+			contact.user_id = user_id
+			contact.additional_info = informacion_adicional
 
-				cart = Cart()
-				cart.user_id = user_id
-				lista = cart.GetCartByUserId()
+			if id_contacto != "":
+				contact.id = id_contacto	
+				response_obj = contact.Edit()
+			else:
+				response_obj = contact.Save()
+
+			if "error" in response_obj:
+				self.rende("beauty_error.html",message=response_obj["error"])
+			else:
+
+				lista = contact.GetCartByUserId()
+
 				suma = 0
+
 				for l in lista:
+					cart = Cart()
+					cart.InitById(l["id"])
+					cart.address_id = direccion
+					cart.Edit()
 					suma += l["subtotal"]
 
-				last_order = order.GetLastOrderByCustomerId(customer.id)
+				contactos = []
 
-				self.render("store/checkout-2.html",contactos=contactos,customer=customer,data=lista,suma=suma,selected_address=last_order['billing_id'])
+				if "success" in response_obj:
+					response_obj = contact.ListByUserId(user_id)
 
-			else:
-				self.write("error")
-			
+				self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
 		else:
-			#self.write(response_obj["error"])
-			self.render( "beauty_error.html", message=response_obj["error"] )
+
+			self.redirect("/auth/login")
+
+		# contact = Contact()
+		# user = User()
+		# customer = Customer()
+		# order = Order()
+
+		# customer.user_id = user.GetUserId(self.current_user)
+		# response_obj = customer.InitByUserId()
+
+		# if "success" in response_obj:
+		# 	contactos = contact.ListByCustomerId(customer.id)
+
+		# 	user_id = customer.user_id
+
+		# 	if user_id != "":
+
+		# 		cart = Cart()
+		# 		cart.user_id = user_id
+		# 		lista = cart.GetCartByUserId()
+		# 		suma = 0
+		# 		for l in lista:
+		# 			suma += l["subtotal"]
+
+		# 		last_order = order.GetLastOrderByCustomerId(customer.id)
+
+		# 		self.render("store/checkout-2.html",contactos=contactos,customer=customer,data=lista,suma=suma,selected_address=last_order['billing_id'])
+
+		# 	else:
+		# 		self.write("error")
+			
+		# else:
+		# 	#self.write(response_obj["error"])
+		# 	self.render( "beauty_error.html", message=response_obj["error"] )
 
 class CheckoutShippingHandler(BaseHandler):
 	def get(self):
