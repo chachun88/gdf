@@ -24,9 +24,16 @@ from model.customer import Customer
 class AddAnonimousHandler(BaseHandler):
 
     def get(self):
-        user = User()
-        response_obj = user.Save()
-        if "success" in response_obj:
-            self.write(response_obj['success'])
+
+        if not self.current_user:
+
+            user = User()
+            response_obj = user.Save()
+            if "success" in response_obj:
+                self.write(response_obj['success'])
+            else:
+                self.write(response_obj['error'])
+
         else:
-            self.write(response_obj['error'])
+
+            self.write("{}".format(self.current_user["id"]))

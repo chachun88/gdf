@@ -5,18 +5,17 @@ $(document).ready(function(){
 
 
 	if(typeof(Storage) !== "undefined") {
-		if(!localStorage.guess_id){
-			$.ajax({
-				url: '/user/save-guess',
-				success: function(html){
-					if(html!="error"){
-						localStorage.guess_id = html;
-					}
+
+		$.ajax({
+			url: '/user/save-guess',
+			success: function(html){
+				if(html!="error"){
+					localStorage.user_id = html;
 				}
-			});
-		} else {
-			GetCartByUserId(localStorage.guess_id);
-		}
+			}
+		});
+
+		GetCartByUserId(localStorage.user_id);
 	}
 
 
@@ -55,6 +54,8 @@ $(document).ready(function(){
 		
 	});
 
-	
+	$(document).on("click","button.comprar", function(){
+		location.href="/checkout/address";
+	});
 
 });

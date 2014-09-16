@@ -103,9 +103,14 @@ class CheckoutBillingHandler(BaseHandler):
 
                 for l in lista:
                     c = Cart()
-                    c.InitById(l["id"])
-                    c.address_id = direccion
-                    c.Edit()
+                    response_obj = c.InitById(l["id"])
+
+                    if "success" in response_obj:
+                        c.shipping_id = id_contacto
+                        c.Edit()
+                    else:
+                        print response_obj["error"]
+
                     suma += l["subtotal"]
 
                 contactos = []
@@ -210,7 +215,7 @@ class CheckoutShippingHandler(BaseHandler):
                 for l in lista:
                     c = Cart()
                     c.InitById(l["id"])
-                    c.address_id = direccion
+                    c.billing_id = id_contacto
                     c.Edit()
                     suma += l["subtotal"]
 
@@ -229,6 +234,9 @@ class CheckoutPaymentHandler(BaseHandler):
     def get(self):
 
         if self.current_user:
+
+            shipping_type = self.get_argument("shipping_type",1)
+
             user_id = self.current_user["id"]
 
             cart = Cart()
@@ -239,6 +247,10 @@ class CheckoutPaymentHandler(BaseHandler):
             suma = 0
 
             for l in lista:
+                c = Cart()
+                c.InitById(l["id"])
+                c.shipping_type = shipping_type
+                c.Edit()
                 suma += l["subtotal"]
 
             self.render("store/checkout-4.html",suma=suma)
