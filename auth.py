@@ -16,7 +16,7 @@ from model.user import User, UserType
 class UserRegistrationHandler(BaseHandler):    
 
     def get(self):
-        self.render( "auth/login.html" )
+        self.render( "auth/login.ajax.html" )
 
     def post(self):
 
@@ -62,7 +62,7 @@ class UserRegistrationHandler(BaseHandler):
 class AuthHandler(BaseHandler):
 
     def get(self):
-        self.render( "auth/login.html" )
+        self.render( "auth/login.ajax.html" )
 
     def post(self):
 
