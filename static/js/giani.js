@@ -19,7 +19,18 @@ $(document).ready(function(){
 	    }
 	}
 
-	$('.fancybox').fancybox({padding: 3, width: 600});
+
+	var device_touch = false
+
+	try {
+		document.createEvent("TouchEvent");
+		device_touch = true;
+	} catch (e) {
+		device_touch = false;
+	}
+
+	if (!device_touch)
+		$('.fancybox').fancybox({padding: 3, width: 600});
 
 	$(document).on("click","button.eliminarproducto,a.borrarproducto",function(){
 		var cart_id = $(this).attr("cart-id");
