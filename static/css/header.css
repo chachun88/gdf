@@ -541,6 +541,12 @@
   .categoria-1 {
   margin-top: 10px;
 }
+  .loginpopup .reg-strate-login {
+position: relative;
+z-index: 99;
+width: 80.6192138412%;
+margin-left: 9.69495%;
+}
 
 }
 @media(max-width: 479px) {

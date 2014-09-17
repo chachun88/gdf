@@ -30,25 +30,22 @@
 				</div>
 			</div>
 			<div id="tab-2" class="tab-content">
-				<div class="reg-strate-correo clearfix">
+				<div class="reg-strate-login clearfix">
 
 					<form action="/auth/registro?next={{ url_escape(nxt) }}" method="post" class="form-register">
-					<p class="text text-6">Nombre *</p>
 
 					<!--  Email  -->
-					<input class="_input _input-3" placeholder="INGRESAR NOMBRE" type="text" name="name" required >
-					<p class="text text-7">repetir correo *</p>
+					<input class="_input _input-3 new_input margin-top" placeholder="INGRESAR CORREO" type="text" name="name" required >
+				
 
 					<!--  Email  -->
-					<input class="_input _input-4" placeholder="INGRESAR CORREO" type="email" name="email" required >
-					<p class="text text-8">ingresa tu contraseña *</p>
+					<input class="_input _input-4 new_input margin-top" placeholder="REPETIR CORREO" type="email" name="email" required >
 
 					<!--  Password -->
-					<input class="_input _input-5" placeholder="INGRESAR CONTRASEÑA" type="password" name="password" required >
-					<p class="text text-9">repetir contraseña *</p>
+					<input class="_input _input-5 new_input margin-top" placeholder="INGRESAR CONTRASEÑA" type="password" name="password" required >
 
 					<!--  Password -->
-					<input class="_input _input-6" placeholder="INGRESAR CONTRASEÑA" type="password" name="re-password" required >
+					<input class="_input _input-6 new_input margin-top" placeholder="REPETIR CONTRASEÑA" type="password" name="re-password" required >
 					<label class="aceptar-condiciones clearfix">
 						<input class="radio" type="checkbox" name="tos">
 						<span class="point-text"><font color="#4d4d4d"><span style="font-size: 12px; line-height: 16px;">Estoy de acuerdo con las condiciones</span></font></span>

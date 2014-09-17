@@ -19,7 +19,9 @@ body {
   height: 20px;
   margin-top: 6px;
 }
-
+.margin-top{
+  margin-top: 15px !important;
+}
 
 
 .comunidad {
