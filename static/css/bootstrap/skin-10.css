@@ -25,7 +25,7 @@ a:hover, a:focus {
 	color: #F26663;
 }
 .btn-primary, .btn-primary, .product:hover .add-fav:hover, .product:hover .add-fav.active {
-	background-color: rgb(255, 224, 218);
+	background-color: rgb(231, 169, 156);
 	color: #FFFFFF;
 }
 .btn-primary:active, .btn-primary.active, .open .dropdown-toggle.btn-primary {
@@ -43,7 +43,7 @@ a:hover, a:focus {
 	background:#F17370;
 }
 .site-color {
-	color:#F17370 !important;
+	color:#FEBEBD !important;
 }
 .navbar-nav > li > a {
 	color:#fff;
@@ -125,7 +125,7 @@ a:hover, a:focus {
 	color:#F26663;
 }
 .panel-default > .panel-heading {
-	border-top: 4px solid #F17370;
+	border-top: 4px solid #FEBEBD;
 }
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus, .nav-tabs > li:hover > a {
 	background:#BFC9CA;

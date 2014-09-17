@@ -77,3 +77,6 @@ form {
 	text-transform: uppercase;
 	color:  rgb(231, 169, 156);
 }
+.size h1{
+	font-size: 33px !important;
+}
