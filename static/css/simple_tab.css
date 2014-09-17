@@ -39,7 +39,7 @@ padding: 0;
 }
 
 .tabs-menu .current a {
-    color: #000000;
+    color: gray;
 }
 
 .tab {
