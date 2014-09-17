@@ -17,24 +17,26 @@ from model.order_detail import OrderDetail
 
 from datetime import datetime
 from bson import json_util
+import sendgrid
+from globals import url_local
 
 class CheckoutAddressHandler(BaseHandler):
     def get(self):
 
-        user_id = self.current_user["id"]
-        
-        contact = Contact()
-        response_obj = contact.ListByUserId(user_id)
+        if self.current_user:
 
-        contactos = []
+            user_id = self.current_user["id"]
+            
+            contact = Contact()
+            response_obj = contact.ListByUserId(user_id)
 
-        if "success" in response_obj:
-            contactos = json_util.loads(response_obj["success"])
-        # else:
-        #     self.render("beauty_error.html",message="Error al obtener la lista de contactos:{}".format(response_obj["error"]))
-        #     return
+            contactos = []
 
-        if user_id != "":
+            if "success" in response_obj:
+                contactos = json_util.loads(response_obj["success"])
+            # else:
+            #     self.render("beauty_error.html",message="Error al obtener la lista de contactos:{}".format(response_obj["error"]))
+            #     return
 
             cart = Cart()
             cart.user_id = user_id
@@ -384,21 +386,26 @@ class CheckoutSendHandler(BaseHandler):
                         detail.size = l["size"]
                         res_obj = detail.Save()
 
-                        if "error" in res_obj:
-                            print "{}".format(res_obj["error"])
+                        # if "error" in res_obj:
+                        #     print "{}".format(res_obj["error"])
 
                         cart.id = l["id"]
                         cart.Remove()
 
                         detalle_orden += """\
                             <tr>
-                                <td style="line-height: 2.5;border-left: 1px solid #d6d6d6; margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
+                                <td style="line-height: 2.5;border-left: 1px solid #d6d6d6; margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{quantity}</td>
+                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
+                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{color}</td>
                                 <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{size}</td>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{quantity}</td>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;">{color}</td>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;">{price}</td>
+                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{price}</td>
+                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{subtotal}</td>
                             </tr>
-                        """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=l["price"])
+                        """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=l["price"],subtotal=l["subtotal"])
+
+                    contact = Contact()
+                    facturacion = json_util.loads(contact.InitById(order.billing_id))
+                    despacho = json_util.loads(contact.InitById(order.shipping_id))
 
                     datos_facturacion = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
@@ -406,7 +413,7 @@ class CheckoutSendHandler(BaseHandler):
                             <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos de Facturaci&oacute;n </th>
                         </tr>
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">N Orden </th>
+                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">N&deg; Orden </th>
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_id}</td>
                         </tr>
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -414,7 +421,7 @@ class CheckoutSendHandler(BaseHandler):
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
                         </tr>
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">direccion</th>
+                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{address} - {town} - {city} - {country}</td>
                         </tr>
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -426,7 +433,7 @@ class CheckoutSendHandler(BaseHandler):
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{email}</td>
                         </tr>
                     </table>
-                    """.format(order_id=order.id,name="",address="",town="",city="",country="",telephone="",email="")
+                    """.format(order_id=order.id,name=facturacion["name"],address=facturacion["address"],town="",city=facturacion["city"],country="",telephone=facturacion["telephone"],email=facturacion["email"])
 
                     datos_despacho = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
@@ -434,7 +441,7 @@ class CheckoutSendHandler(BaseHandler):
                             <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos de Despacho</th>
                         </tr>
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">N Orden </th>
+                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">N&deg; Orden </th>
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_id}</td>
                         </tr>
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -442,7 +449,7 @@ class CheckoutSendHandler(BaseHandler):
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
                         </tr>
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">direccion</th>
+                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{address} - {town} - {city} - {country}</td>
                         </tr>
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -454,7 +461,7 @@ class CheckoutSendHandler(BaseHandler):
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{email}</td>
                         </tr>
                     </table>
-                    """.format(order_id=order.id,name="",address="",town="",city="",country="",telephone="",email="")
+                    """.format(order_id=order.id,name=despacho["name"],address=despacho["address"],town="",city=despacho["city"],country="",telephone=despacho["telephone"],email=despacho["email"])
 
                     html = """\
                     <!DOCTYPE html>
@@ -465,7 +472,7 @@ class CheckoutSendHandler(BaseHandler):
                     <body style="text-align:center; font-family:Arial; width:100%; margin: 0px;">
                         <div style="">
                             <div style="background-color:rgb(239, 239, 239); height:100px;padding-top:10px;">
-                                <img style="display:block;margin:0 auto;max-height:90px;" src="giani-logo-2-gris-260x119.png" />
+                                <img style="display:block;margin:0 auto;max-height:90px;" src="{url_local}/static/img/giani-logo-2-gris-260x119.png" />
                             </div>
                                 <p style="margin:0px;font-family: Arial;color:#999;font-size:16px;text-align: left;padding: 24px 13px 0 27px;">
                                     Hola {name}
@@ -485,12 +492,12 @@ class CheckoutSendHandler(BaseHandler):
                             </table>
                             <table cellspacing=0 style="width:80%; margin:10px auto; background:#efefef;color:#999999;-webkit-text-stroke: 1px transparent;font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
                                 <tr>
-                                    <th style="border: 1px solid #d6d6d6;line-height: 2.5;">Nombre producto</th>
-                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">talla</th>
-                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">cantidad</th>
-                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">color</th>
-                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">precio</th>
-                                   
+                                    <th style="border: 1px solid #d6d6d6;line-height: 2.5;">Cantidad</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Nombre producto</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Color</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Talla</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Precio</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Subtotal</th>
                                 </tr>
                                 
                                 {detalle_orden}
@@ -499,10 +506,12 @@ class CheckoutSendHandler(BaseHandler):
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
-                                    <td style="border-top: 1px solid #d6d6d6;line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_subtotal}</td>
+                                    <td></td>
+                                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
+                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_subtotal}</td>
                                 </tr>
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -510,6 +519,7 @@ class CheckoutSendHandler(BaseHandler):
                                     <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_tax}</td>
                                 </tr>
                                 <tr>
+                                    <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
@@ -526,34 +536,25 @@ class CheckoutSendHandler(BaseHandler):
                         </div>
                     </body>
                     </html> 
-                    """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total="",order_subtotal="",order_tax="")
+                    """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=order.total,order_subtotal=order.subtotal,order_tax=order.tax,url_local=url_local)
 
-                    self.write(html)
-                    
+                    email_confirmacion = "yichun212@gmail.com"
 
-                    # nombre_cliente
-                    # nro_orden
-                    # rut
-                    # direccion
-                    # telefono
-                    # correo
-                    # subtotal
-                    # descuento
-                    # iva
-                    # total
+                    sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
+                    message = sendgrid.Mail()
+                    message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail="info@loadingplay.com"))
+                    message.add_to(email_confirmacion)
+                    message.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
+                    message.set_html(html)
+                    status, msg = sg.send(message)
 
-
-                    # sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
-                    # message = sendgrid.Mail()
-                    # message.set_from("{nombre} <{mail}>".format(nombre=nombre,mail=email))
-                    # message.add_to(email_confirmacion)
-                    # message.set_subject("Mail de confirmación")
-                    # message.set_html(html)
-
-                    # self.redirect( "/checkout/success" )
+                    if status == 200:
+                        self.redirect( "/checkout/success" )
+                    else:
+                        self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
 
                 else:
-                    self.write("{}".format(response_obj["error"]))
+                    self.render("beauty_error.html",message="{}".format(response_obj["error"]))
 
             else:
 

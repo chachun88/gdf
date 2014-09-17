@@ -283,7 +283,33 @@ class Cart(BaseModel):
 			print "Error al editar carro {}".format(str(e))
 			return self.ShowError(str(e))
 
+	def MoveTempToLoggedUser(self, old_user_id, current_user_id):
 
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+		query = '''update "Temp_Cart" set user_id = %(current_user_id)s where user_id = %(old_user_id)s'''
+		parameters = {
+		"current_user_id":current_user_id,
+		"old_user_id":old_user_id
+		}
+
+		try:
+			cur.execute(query,parameters)
+		except Exception,e:
+			return self.ShowError(str(e))
+
+		query = '''delete from "User" where id = %(old_user_id)s'''
+		parameters = {
+		"old_user_id":old_user_id
+		}
+
+		try:
+			cur.execute(query,parameters)
+		except Exception,e:
+			return self.ShowError(str(e))
+
+		self.connection.commit()
+		return self.ShowSuccessMessage("Cart has been move to logged user")
 
 
 

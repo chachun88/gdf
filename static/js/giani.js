@@ -6,14 +6,16 @@ $(document).ready(function(){
 
 	if(typeof(Storage) !== "undefined") {
 
-		$.ajax({
-			url: '/user/save-guess',
-			success: function(html){
-				if(html!="error"){
-					localStorage.user_id = html;
+		if(!localStorage.user_id){
+			$.ajax({
+				url: '/user/save-guess',
+				success: function(html){
+					if(html!="error"){
+						localStorage.user_id = html;
+					}
 				}
-			}
-		});
+			});
+		}
 
 		GetCartByUserId(localStorage.user_id);
 	}

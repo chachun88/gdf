@@ -12,6 +12,7 @@ from bson import json_util
 import hashlib
 
 from model.user import User, UserType
+from model.cart import Cart
 
 class UserRegistrationHandler(BaseHandler):    
 
@@ -82,6 +83,9 @@ class AuthHandler(BaseHandler):
         password = self.get_argument("password", "")
         stay_logged = self.get_argument("stay-logged", "")
         ajax = self.get_argument("ajax", "false")
+        user_id = self.get_argument("user_id","")
+
+        print "user_id {}".format(user_id)
 
 
         if email == "":
@@ -96,14 +100,29 @@ class AuthHandler(BaseHandler):
             response_obj = user.Login( user.email, user.password )
 
             if "success" in response_obj:
+
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
-                self.write( "ok:{}".format( self.next ) )
+
+                cart = Cart()
+
+                current_user_id = json_util.loads(response_obj["success"])["id"]
+
+                response = cart.MoveTempToLoggedUser(user_id,current_user_id)
+
+                if "error" in response:
+                    rtn_obj = {"status":"error","message":"Usuario y contraseña no coinciden, error:{}".format(response_obj["error"])}
+                    self.write( json_util.dumps(rtn_obj) )
+                    return
+
+                rtn_obj = {"status":"ok","next":self.next,"user_id":current_user_id}
+                self.write( json_util.dumps(rtn_obj) )
 
                 if ajax == "false":
                     self.redirect( self.next )
 
             else:
-                self.write("Usuario y contraseña no coinciden, error:{}".format(response_obj["error"]))
+                rtn_obj = {"status":"error","message":"Usuario y contraseña no coinciden, error:{}".format(response_obj["error"])}
+                self.write( json_util.dumps(rtn_obj) )
 
 
 class FormLoginHandler(BaseHandler):

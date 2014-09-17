@@ -20,19 +20,21 @@ $(document).ready(function(){
 
 		var data = { "ajax":"true",
 					 "email":$("input[name=email]", tthis).val(),
-					 "password":$("input[name=password]", tthis).val() };
+					 "password":$("input[name=password]", tthis).val(),
+					 "user_id":localStorage.user_id };
 
 		$.post( $( this ).attr( 'action' ), data, function(rtn){
 
-			var rtn_pair = rtn.split( ":" )
+			var rtn_pair = $.parseJSON(rtn)
 
-			if (rtn_pair[0] == "ok") 
+			if (rtn_pair["status"] == "ok") 
 			{
-				window.parent.document.location.href = rtn_pair[1]; // TODO:poner aqui redirect a pagina anterior
+				localStorage.user_id = rtn_pair["user_id"];
+				window.parent.document.location.href = rtn_pair["next"]; // TODO:poner aqui redirect a pagina anterior
 			}
 			else
 			{
-				alert( rtn_pair[1] );
+				alert( rtn_pair["message"] );
 			}
 		} );
 		return false;
