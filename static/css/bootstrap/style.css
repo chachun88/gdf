@@ -59,7 +59,7 @@ ul, ol {
 body {
 	margin: 0;
 	padding: 0;
-	color: #34495E;
+	color: gray;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size: 14px;
 	line-height: 21px;
@@ -3438,7 +3438,7 @@ tr.CartProduct td:nth-child(2) {
 .cartFooter {
 	padding: 20px;
 	border-top: solid 1px #eee;
-	background: #EBEDEF;
+	background: #FBFBFB;
 	display: inline-block;
 	width: 100%;
 }
