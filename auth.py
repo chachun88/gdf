@@ -174,6 +174,12 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
         if "success" in response_obj:
 
+            cart = Cart()
+
+            current_user_id = json_util.loads(response_obj["success"])["id"]
+
+            response = cart.MoveTempToLoggedUser(user_id,current_user_id)
+
             self.set_secure_cookie("user_giani", response_obj["success"])
 
         self.redirect( self.next )

@@ -538,12 +538,12 @@ class CheckoutSendHandler(BaseHandler):
                     </html> 
                     """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=order.total,order_subtotal=order.subtotal,order_tax=order.tax,url_local=url_local)
 
-                    email_confirmacion = "yichun212@gmail.com"
+                    # email_confirmacion = "yichun212@gmail.com"
 
                     sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
                     message = sendgrid.Mail()
                     message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail="info@loadingplay.com"))
-                    message.add_to(email_confirmacion)
+                    message.add_to(self.current_user["email"])
                     message.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
                     message.set_html(html)
                     status, msg = sg.send(message)
