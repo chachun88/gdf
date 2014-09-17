@@ -176,6 +176,7 @@
   margin-left: -0.1317%;
   line-height: 1.38;
   color: rgb(0, 0, 0);
+  margin-top: 10px;
 }
 .fotoproductoencola {
   position: relative;
@@ -416,17 +417,21 @@
 .reg-strate-login ._button {
   float: left;
   clear: both;
-  width: 44.1734786557%;
+  width: 100%;
   height: 39px;
   margin: 30px 0 0 -0.1317%;
-  border-width: 1px;
+  border-width: 0px;
   border-color: rgb(172, 110, 97);
-  border-radius: 3px;
   background-color: rgb(232, 169, 156);
   font-size: 1.333em;
   font-weight: 400;
   line-height: 1.38;
   text-align: center;
+  color: white;
+  letter-spacing: 2px;
+}
+.reg-strate-login ._button:hover {
+  background-color: rgb(255, 224, 218);
   color: rgb(172, 110, 97);
 }
 

@@ -333,7 +333,33 @@ body {
 }
 
 .text-4 a {
-  border-bottom-width: 1px;
-  border-color: rgb(0, 0, 0);
-  border-style: solid;
+
+}
+.text-4 a:hover {
+  color: rgb(232, 169, 156);
+
+}
+.new_input {
+  height: 48px !important;
+}
+.reg-strate-fb a {
+  margin-left: 30%;
+}
+.reg-strate-fb a img {
+  max-width: 165px;
+}
+@media(max-width: 1200px) {
+.reg-strate-fb a {
+  margin-left: 17%;
+}  
+}
+@media(max-width: 979px) {
+.reg-strate-fb a {
+  margin-left: 33%;
+}  
+}
+@media(max-width: 400px) {
+.reg-strate-fb a {
+  margin-left: 17%;
+}  
 }

@@ -334,9 +334,7 @@ body {
 }
 
 .text-4 a {
-  border-bottom-width: 1px;
-  border-color: rgb(0, 0, 0);
-  border-style: solid;
+  color: gray;
 }
 
 @media(max-width: 1199px) {
@@ -584,13 +582,11 @@ body {
 
   .loginpopup .reg-strate-fb {
     clear: both;
-    width: 97.164227159%;
     margin-top: -264px;
     margin-left: 59.11534%;
   }
 
   .loginpopup .reg-strate-login {
-    position: relative;
     z-index: 99;
     width: 46.8113034648%;
     margin-top: 8px;
@@ -760,7 +756,6 @@ body {
   }
 
   .reg-strate-login ._button {
-    width: 44.0902351196%;
     margin-left: -0.12698%;
   }
 
@@ -1337,7 +1332,6 @@ body {
   }
 
   .header-rigth-cont ._button {
-    width: 99.6031746031%;
     margin-right: 0.62251%;
   }
 
@@ -1346,21 +1340,19 @@ body {
   }
 
   .reg-strate-correo ._button {
-    width: 44.2137464202%;
     margin-left: -0.25226%;
   }
 
   .reg-strate-correo ._input {
-    width: 99.9088778963%;
+    width: 100%;
   }
 
   .reg-strate-login ._button {
-    width: 44.2137464202%;
     margin-left: -0.12425%;
   }
 
   .reg-strate-login ._input {
-    width: 99.9088778963%;
+    width: 100%;
     margin-left: -0.12425%;
   }
 
@@ -1945,12 +1937,11 @@ body {
   }
 
   .reg-strate-login ._button {
-    width: 44.1674975074%;
     margin-left: -0.12225%;
   }
 
   .reg-strate-login ._input {
-    width: 99.9169159189%;
+    width: 100%;
     margin-left: -0.12225%;
   }
 
@@ -2579,12 +2570,12 @@ body {
   }
 
   .reg-strate-login ._button {
-    width: 44.1804591564%;
+
     margin-left: -0.1135%;
   }
 
   .reg-strate-login ._input {
-    width: 100.2402562733%;
+    width: 100%;
     margin-left: -0.23835%;
   }
 
