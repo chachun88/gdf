@@ -1,0 +1,70 @@
+<style>
+/************ menu chekout *************/
+#order_step.orderStep li i {
+  border-radius: 0;
+  display: block;
+  font-size: 20px;
+  height: auto;
+  left: 0;
+  line-height: 40px;
+  margin-top: -20px;
+  padding: 0;
+  text-align: center;
+  width: auto;
+  float: none !important;
+}
+#order_step.orderStep li span {
+	display: block;
+	padding: 5px 0;
+}
+
+#order_step.orderStep li {
+  background: #F26663;
+}
+
+#order_step.orderStep li {
+  background: #EFF0F2;
+  display: inline-block;
+  font-size: 14px;
+  height: 100%;
+  line-height: normal;
+  padding: 20px 0 0;
+  text-align: center;
+  vertical-align: middle;
+  width: 20%;
+  text-transform: uppercase;
+  font-size: 13px;
+}
+
+#order_step.orderStep li
+{
+  background: #F26663;
+}
+
+#order_step.orderStep li i {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#order_step.orderStep li.active {
+  background: #F17370;
+  color: #FFFFFF;
+}
+
+/************ menu chekout *************/
+
+</style>
+
+<ul class="orderStep" id="order_step">
+<!--
+  <li class="{% if 'address' in request.uri %}active{% end %}" > <a href="#"> <i class="fa fa-map-marker "></i> <span> Direccion</span> </a> </li>
+  <li class="{% if 'billing' in request.uri %}active{% end %}" > <a href="#"> <i class="fa fa fa-envelope  "></i> <span> Facturación </span></a></li>
+  <li class="{% if 'shipping' in request.uri %}active{% end %}" > <a href="#"><i class="fa fa-truck "> </i><span>Despacho</span> </a> </li>
+  <li class="{% if 'order' in request.uri %}active{% end %}" > <a href="#"><i class="fa fa-check-square "> </i><span>Resumen</span></a> </li>
+  <li class="{% if 'payment' in request.uri %}active{% end %}" > <a href="#"><i class="fa fa-money  "> </i><span>Pago</span> </a> </li>
+ -->
+  <li class="{% if 'address' in request.uri %}active{% end %}" >  <i class="fa fa-map-marker "></i> <span> Dirección</span> </li>
+  <li class="{% if 'billing' in request.uri %}active{% end %}" >  <i class="fa fa fa-envelope  "></i> <span> Facturación </span> </li>
+  <li class="{% if 'shipping' in request.uri %}active{% end %}" > <i class="fa fa-truck "> </i><span>Despacho</span> </li>
+  <li class="{% if 'order' in request.uri %}active{% end %}" > <i class="fa fa-check-square "> </i><span>Resumen</span></li>
+  <li class="{% if 'payment' in request.uri %}active{% end %}" > <i class="fa fa-money  "> </i><span>Pago</span> </li>
+</ul>

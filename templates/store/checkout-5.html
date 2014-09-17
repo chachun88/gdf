@@ -40,17 +40,8 @@ Giani Da Firenze - Carro de Compra
         <div class="col-xs-12 col-sm-12">
         
        <div class="w100 clearfix"> 
-       
-       
-               <ul class="orderStep ">
-                    <li> <a href="/checkout/address"> <i class="fa fa-map-marker "></i> <span> dirección</span> </a> </li>
-                    <li> <a href="/checkout/billing"> <i class="fa fa fa-envelope  "></i> <span> facturación </span></a></li>
-                    <li> <a href="/checkout/shipping"><i class="fa fa-truck "> </i><span>despacho</span> </a> </li>
-                    <li class="active"> <a href="/checkout/order"><i class="fa fa-check-square "> </i><span>resumen</span></a> </li>
-                    <li> <a href="/checkout/payment"><i class="fa fa-money  "> </i><span>pago</span> </a> </li>
-                    
-                
-                </ul><!--orderStep-->
+          {% include order.step.html %}
+          <!--orderStep-->
         </div>
         
         
@@ -171,7 +162,7 @@ Giani Da Firenze - Carro de Compra
             <div class="cartFooter w100">
             <div class="box-footer">
 
-              <div class="pull-left"> <a class="btn btn-default" href="/checkout/shipping"> <i class="fa fa-arrow-left"></i> &nbsp; Despacho </a> </div>
+              <div class="pull-left"> <!-- <a class="btn btn-default" href="/checkout/address"> <i class="fa fa-arrow-left"></i> &nbsp; Dirección </a> --> </div>
               <div class="pull-right"> <a href="/checkout/payment" class="btn btn-primary btn-small " > Pago &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
                
                <!-- <div class="pull-right">
