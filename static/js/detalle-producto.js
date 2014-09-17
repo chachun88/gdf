@@ -61,4 +61,13 @@ $(document).ready(function(){
 			GetAddressById(_id);
 		});
 	}
+
+	$("#same_address").change(function(){
+		var checked = $("#same_address:checked").val();
+		if(checked=="on"){
+			$("#formulario_direccion").fadeOut();
+		} else {
+			$("#formulario_direccion").fadeIn();
+		}
+	});
 });

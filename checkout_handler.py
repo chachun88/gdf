@@ -179,32 +179,52 @@ class CheckoutShippingHandler(BaseHandler):
             informacion_adicional = self.get_argument("additional_info","")
             telefono = self.get_argument("telephone","")
             id_contacto = self.get_argument("contact_id","")
+            misma_direccion = self.get_argument("same_address","")
 
+            if misma_direccion != "on":
 
-            contact = Contact()
+                contact = Contact()
 
-            contact.name = nombre
-            contact.lastname = apellido
-            contact.telephone = telefono
-            contact.email = email
-            contact.address = direccion
-            contact.city = ciudad
-            contact.zip_code = codigo_postal
-            contact.user_id = user_id
-            contact.additional_info = informacion_adicional
+                contact.name = nombre
+                contact.lastname = apellido
+                contact.telephone = telefono
+                contact.email = email
+                contact.address = direccion
+                contact.city = ciudad
+                contact.zip_code = codigo_postal
+                contact.user_id = user_id
+                contact.additional_info = informacion_adicional
 
-            operacion = ""
+                operacion = ""
 
-            if id_contacto != "":
-                contact.id = id_contacto    
-                response_obj = contact.Edit()
-                operacion = "editar"
-            else:
-                response_obj = contact.Save()
-                operacion = "guardar"
+                if id_contacto != "":
+                    contact.id = id_contacto    
+                    response_obj = contact.Edit()
+                    operacion = "editar"
+                else:
+                    response_obj = contact.Save()
+                    operacion = "guardar"
 
-            if "error" in response_obj:
-                self.render("beauty_error.html",message="Error al {} contacto {}".format(operacion,response_obj["error"]))
+                if "error" in response_obj:
+                    self.render("beauty_error.html",message="Error al {} contacto {}".format(operacion,response_obj["error"]))
+                else:
+
+                    cart = Cart()
+                    cart.user_id = user_id
+
+                    lista = cart.GetCartByUserId()
+
+                    suma = 0
+
+                    for l in lista:
+                        c = Cart()
+                        c.InitById(l["id"])
+                        c.billing_id = id_contacto
+                        c.Edit()
+                        suma += l["subtotal"]
+
+                    # self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
+                    self.render("store/checkout-3.html",suma=suma)
             else:
 
                 cart = Cart()
@@ -217,12 +237,13 @@ class CheckoutShippingHandler(BaseHandler):
                 for l in lista:
                     c = Cart()
                     c.InitById(l["id"])
-                    c.billing_id = id_contacto
+                    c.billing_id = c.shipping_id
                     c.Edit()
                     suma += l["subtotal"]
 
                 # self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
                 self.render("store/checkout-3.html",suma=suma)
+
         else:
 
             self.redirect("/auth/login")
@@ -290,6 +311,7 @@ class CheckoutSendHandler(BaseHandler):
 
     def get(self):
         
+        payment_type = self.get_argument("payment_type",1)
 
         if self.current_user:
             user_id = self.current_user["id"]
@@ -301,67 +323,77 @@ class CheckoutSendHandler(BaseHandler):
 
         lista = cart.GetCartByUserId()
 
-        if len(lista) > 0:
-
-            subtotal = 0
-            descuento = 0
-            iva = 0
-            cantidad_items = 0
-            cantidad_productos = 0
-            id_facturacion = 0
-            id_despacho = 0
-            tipo_pago = 0
-            total = 0
+        if len(lista > 0):
 
             for l in lista:
-                subtotal += l["subtotal"]
-                cantidad_items += l["quantity"]
-                cantidad_productos += 1
-                id_facturacion = l["billing_id"]
-                id_despacho = l["shipping_id"]
-                tipo_pago = l["shipping_type"]
-                total += l["subtotal"]
+                c = Cart()
+                c.InitById(l["id"])
+                c.shipping_type = shipping_type
+                c.Edit()
 
+            lista = cart.GetCartByUserId()
 
-            order.date = datetime.now()
-            order.type = 1
-            order.subtotal = subtotal
-            order.discount = descuento
-            order.tax = iva
-            order.total = total
-            order.items_quantity = cantidad_items
-            order.products_quantity = cantidad_productos
-            order.user_id = user_id
-            order.billing_id = id_facturacion
-            order.shipping_id = id_despacho
-            order.payment_type = tipo_pago
+            if len(lista) > 0:
 
-            response_obj = order.Save()
-
-            if "success" in response_obj:
+                subtotal = 0
+                descuento = 0
+                iva = 0
+                cantidad_items = 0
+                cantidad_productos = 0
+                id_facturacion = 0
+                id_despacho = 0
+                tipo_pago = 0
+                total = 0
 
                 for l in lista:
+                    subtotal += l["subtotal"]
+                    cantidad_items += l["quantity"]
+                    cantidad_productos += 1
+                    id_facturacion = l["billing_id"]
+                    id_despacho = l["shipping_id"]
+                    tipo_pago = l["shipping_type"]
+                    total += l["subtotal"]
 
-                    detail = OrderDetail()
-                    detail.order_id = order.id
-                    detail.quantity = l["quantity"]
-                    detail.subtotal = l["subtotal"]
-                    detail.product_id = l["product_id"]
-                    detail.size = l["size"]
-                    res_obj = detail.Save()
 
-                    if "error" in res_obj:
-                        print "{}".format(res_obj["error"])
+                order.date = datetime.now()
+                order.type = 1
+                order.subtotal = subtotal
+                order.discount = descuento
+                order.tax = iva
+                order.total = total
+                order.items_quantity = cantidad_items
+                order.products_quantity = cantidad_productos
+                order.user_id = user_id
+                order.billing_id = id_facturacion
+                order.shipping_id = id_despacho
+                order.payment_type = tipo_pago
 
-                    cart.id = l["id"]
-                    cart.Remove()
+                response_obj = order.Save()
+
+                if "success" in response_obj:
+
+                    for l in lista:
+
+                        detail = OrderDetail()
+                        detail.order_id = order.id
+                        detail.quantity = l["quantity"]
+                        detail.subtotal = l["subtotal"]
+                        detail.product_id = l["product_id"]
+                        detail.size = l["size"]
+                        res_obj = detail.Save()
+
+                        if "error" in res_obj:
+                            print "{}".format(res_obj["error"])
+
+                        cart.id = l["id"]
+                        cart.Remove()
+
+                else:
+                    self.write("{}".format(response_obj["error"]))
 
             else:
-                self.write("{}".format(response_obj["error"]))
 
-        else:
-
-            self.render("beauty_error.html",message="Carro se encuentra vacío")
+                self.render("beauty_error.html",message="Carro se encuentra vacío")
 
 
         # pass
