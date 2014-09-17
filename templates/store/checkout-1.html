@@ -29,19 +29,13 @@ Giani Da Firenze - Carro de Compra
     </div>
   </div> <!--/.row-->
   
-  <div class="row">
+  <div class="row step-margin-top">
     <div class="col-lg-9 col-md-9 col-sm-12">
       <div class="row userInfo">
       <form id="checkout-address" action="/checkout/billing" method="post">
         <div class="col-xs-12 col-sm-12">
           <div class="w100 clearfix">
-            <ul class="orderStep ">
-              <li class="active"> <a href="/checkout/address"> <i class="fa fa-map-marker "></i> <span> Direccion</span> </a> </li>
-              <li> <a href="/checkout/billing"> <i class="fa fa fa-envelope  "></i> <span> Facturación </span></a></li>
-              <li> <a href="/checkout/shipping"><i class="fa fa-truck "> </i><span>Despacho</span> </a> </li>
-              <li> <a href="/checkout/order"><i class="fa fa-check-square "> </i><span>Resumen</span></a> </li>
-              <li> <a href="/checkout/payment"><i class="fa fa-money  "> </i><span>Pago</span> </a> </li>
-            </ul>
+            {% include order.step.html %}
             <!--/.orderStep end--> 
           </div>
           

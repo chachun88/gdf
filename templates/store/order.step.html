@@ -1,0 +1,14 @@
+<ul class="orderStep" id="order_step">
+<!--
+  <li class="{% if 'address' in request.uri %}active{% end %}" > <a href="#"> <i class="fa fa-map-marker "></i> <span> Direccion</span> </a> </li>
+  <li class="{% if 'billing' in request.uri %}active{% end %}" > <a href="#"> <i class="fa fa fa-envelope  "></i> <span> Facturación </span></a></li>
+  <li class="{% if 'shipping' in request.uri %}active{% end %}" > <a href="#"><i class="fa fa-truck "> </i><span>Despacho</span> </a> </li>
+  <li class="{% if 'order' in request.uri %}active{% end %}" > <a href="#"><i class="fa fa-check-square "> </i><span>Resumen</span></a> </li>
+  <li class="{% if 'payment' in request.uri %}active{% end %}" > <a href="#"><i class="fa fa-money  "> </i><span>Pago</span> </a> </li>
+ -->
+  <li class="{% if 'address' in request.uri %}active{% end %}" >  <i class="fa fa-map-marker "></i> <span> Dirección</span> </li>
+  <li class="{% if 'billing' in request.uri %}active{% end %}" >  <i class="fa fa fa-envelope  "></i> <span> Facturación </span> </li>
+  <li class="{% if 'shipping' in request.uri %}active{% end %}" > <i class="fa fa-truck "> </i><span>Despacho</span> </li>
+  <li class="{% if 'order' in request.uri %}active{% end %}" > <i class="fa fa-check-square "> </i><span>Resumen</span></li>
+  <li class="{% if 'payment' in request.uri %}active{% end %}" > <i class="fa fa-money  "> </i><span>Pago</span> </li>
+</ul>
