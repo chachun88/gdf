@@ -328,7 +328,7 @@ class CheckoutSendHandler(BaseHandler):
             for l in lista:
                 c = Cart()
                 c.InitById(l["id"])
-                c.shipping_type = shipping_type
+                c.payment_type = payment_type
                 c.Edit()
 
             lista = cart.GetCartByUserId()
