@@ -323,7 +323,7 @@ class CheckoutSendHandler(BaseHandler):
 
         lista = cart.GetCartByUserId()
 
-        if len(lista > 0):
+        if len(lista) > 0:
 
             for l in lista:
                 c = Cart()
@@ -395,6 +395,9 @@ class CheckoutSendHandler(BaseHandler):
 
                 self.render("beauty_error.html",message="Carro se encuentra vacío")
 
+        else:
+
+                self.render("beauty_error.html",message="Carro se encuentra vacío")
 
         # pass
 
