@@ -221,3 +221,23 @@
   background-color: #ffffff;
   color: rgb(232, 169, 156);
 }
+
+@media(max-width:1200px) {
+  .footer-left-cont ._button {
+margin: 27px auto 0;
+}
+.footer-redes .image-25 {
+  clear: initial;
+}
+.footer-redes .image-26 {
+margin: 0px 0 0 12.03497%;
+}
+.footer-redes .image-25 {
+margin: 0px 0 0 12.72619%;
+}
+}
+@media(max-width:980px){
+  .footer-redes .image-23 {
+margin-left: 0%;
+}
+}
