@@ -36,7 +36,7 @@ facebook_secret = ""
 
 if enviroment == Enviroment.LOCAL:
 	port = DEBUG_PORT
-	url_bodega = "http://bgiani.ondev.today"
+	url_bodega = "http://giani.loadingplay.com"
 	url_local = "http://localhost:8502"
 
 	facebook_api_key = "839778829389863"
@@ -44,7 +44,7 @@ if enviroment == Enviroment.LOCAL:
 
 elif enviroment == Enviroment.ONDEV:
 	port = DEBUG_PORT
-	url_bodega = "http://giani.loadingplay.com"
+	url_bodega = "http://bgiani.ondev.today"
 	url_local = "http://giani.ondev.today"
 
 	facebook_api_key = "839753546059058"
