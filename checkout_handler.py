@@ -14,6 +14,8 @@ from model.contact import Contact
 from model.customer import Customer
 from model.order import Order
 from model.order_detail import OrderDetail
+from model.kardex import Kardex
+from model.cellar import Cellar
 
 from datetime import datetime
 from bson import json_util
@@ -385,6 +387,27 @@ class CheckoutSendHandler(BaseHandler):
                         detail.product_id = l["product_id"]
                         detail.size = l["size"]
                         res_obj = detail.Save()
+
+                        kardex = Kardex()
+                        cellar = Cellar()
+
+                        response = cellar.InitByName("Bodega Central")
+
+                        producto = Product()
+                        response = producto.InitById(detail.product_id)
+
+                        if "success" in response:
+
+                            kardex.product_sku = producto.sku
+                            kardex.cellar_identifier = cellar.id
+                            kardex.operation_type = Kardex.OPERATION_SELL
+                            kardex.sell_price = producto.sell_price
+                            kardex.size = detail.size
+                            kardex.date = str(datetime.now().isoformat()) 
+                            kardex.user = self.current_user["email"]
+                            kardex.units = detail.quantity
+
+                            kardex.Insert()
 
                         # if "error" in res_obj:
                         #     print "{}".format(res_obj["error"])
