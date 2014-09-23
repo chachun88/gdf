@@ -71,7 +71,7 @@ $(document).ready(function(){
 
 	$(".parent-link").click(function(evt){
 		evt.preventDefault();
-		window.parent.document.location.href = $(this).attr( "href" );
+		window.parent.document.location.href = $(this).attr( "href" ) + "&user_id=" + localStorage.user_id;
 	});
 
 });
