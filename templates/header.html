@@ -1,10 +1,14 @@
 <div class="header-content clearfix">
 	<div class="header-left-cont clearfix">
-		<button class="_button">
+		<div class="header-left-social">
+		    <div class="iconos"><i class="icon-instagram"></i></div>
+			<div class="iconos-left iconos"><i class="icon-facebook"></i></div>
+			<div class="iconos-left iconos"><i class="icon-twitter"></i></div>
+			
+		</div>
+		<!-- <button class="_button">
 			<p>&nbsp; &nbsp;Buscar</p>
-			<p></p>
-			<p></p>
-		</button>
+		</button> --> 
 	</div>
 	<div class="logo-content">
 		<a href="/">
@@ -17,22 +21,17 @@
 	</div>
 	<div class="header-rigth-cont clearfix">
 		<div class="carritoicono clearfix">
-			<img class="image" src="/static/images/carrito-30x30.png" data-rimage data-src="/static/images/carrito-30x30.png">
+			<!-- <img class="image" src="" data-rimage data-src="/static/images/carrito-30x30.png"> -->
+			<div class="iconos"><i class="icon-shopping-cart"></i></div>
 		</div>
 		<div class="_container clearfix">
 			{% if current_user == None %}
 				<a class="_button button_register fancybox fancybox.iframe" href="/auth/login?next={{url_escape(request.uri)}}">
 					<p>REGISTRO</p>
-					<p></p>
-					<p></p>
-					<p></p>
 				</a>
 			{% else %}
 				<a class="_button button_register"  href="/auth/logout?next={{url_escape(request.uri)}}" >
 					<p>{{current_user["name"]}}</p>
-					<p></p>
-					<p></p>
-					<p></p>
 				</a>
 			{% end %}
 		</div>
