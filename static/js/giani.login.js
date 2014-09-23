@@ -74,4 +74,9 @@ $(document).ready(function(){
 		window.parent.document.location.href = $(this).attr( "href" );
 	});
 
+	$("a.loginfb").click(function(){
+		var link = $(this).attr("href");
+		link += "&user_id=" + localStorage.user_id;
+	});
+
 });
