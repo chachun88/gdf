@@ -162,6 +162,8 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
     def _save_user_profile(self, user):
 
+        user_id = self.get_argument("user_id")
+
         if not user:
             raise tornado.web.HTTPError(500, "Facebook authentication failed.")
 

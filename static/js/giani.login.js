@@ -71,12 +71,7 @@ $(document).ready(function(){
 
 	$(".parent-link").click(function(evt){
 		evt.preventDefault();
-		window.parent.document.location.href = $(this).attr( "href" );
-	});
-
-	$("a.loginfb").click(function(){
-		var link = $(this).attr("href");
-		link += "&user_id=" + localStorage.user_id;
+		window.parent.document.location.href = $(this).attr( "href" ) + "&user_id=" + localStorage.user_id;
 	});
 
 });
