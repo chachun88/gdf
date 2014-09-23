@@ -1,3 +1,24 @@
+.header-left-social{
+  width: 80%;
+  height: auto;
+  float: left;
+  margin-top: 13px;
+}
+
+.iconos {
+  float: left;
+  color: rgb(77, 77, 77);
+  text-align: center;
+}
+
+.iconos i{
+  font-size: 25px;
+}
+
+.iconos-left {
+  margin-left: 15%;
+}
+
 .carritoicono {
   float: left;
   width: 11.4068441064%;
@@ -17,6 +38,7 @@
   width: 99.9958989501%;
   border: 1px solid rgb(172, 110, 97);
   background-color: rgb(255, 248, 246);
+  min-height: 100px;
 }
 
 .carritoproductos {
