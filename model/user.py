@@ -356,7 +356,7 @@ class User(BaseModel):
 			return False
 
 		except Exception, e:
-			print str( e )
+			# print str( e )
 			raise Exception( "no se ha podido validar el email" )
 
 
