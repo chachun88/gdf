@@ -36,7 +36,7 @@ class IndexHandler(BaseHandler):
 		if "success" in response:
 			items = response["success"]
 
-		self.render("store/index.html",data=lista,items=items)
+		self.render("store/index.html",data=lista,items=items,page=page)
 
 class ProductHandler(BaseHandler):
 
