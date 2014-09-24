@@ -6,7 +6,24 @@ $(document).ready(function(){
 
 	if(typeof(Storage) !== "undefined") {
 
-		if(!localStorage.user_id){
+		var usuario_existe = false;
+
+		if(localStorage.user_id){
+			$.ajax({
+				url:"/user/exists",
+				data:"user_id="+localStorage.user_id,
+				async:false,
+				success:function(html){
+					if(html=="true"){
+						usuario_existe = true;
+					}
+				}
+			});
+		}
+
+		if(usuario_existe){
+			GetCartByUserId(localStorage.user_id);
+		} else {
 			$.ajax({
 				url: '/user/save-guess',
 				success: function(html){
@@ -16,8 +33,6 @@ $(document).ready(function(){
 				}
 			});
 		}
-
-		GetCartByUserId(localStorage.user_id);
 	}
 
 

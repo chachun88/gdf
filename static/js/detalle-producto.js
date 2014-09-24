@@ -72,7 +72,10 @@ $(document).ready(function(){
 		}
 	});
 
-
+	$("img.otro-angulo").click(function(){
+		var image_src = $(this).attr("data-src");
+		$("img.foto-producto").attr("src",image_src);
+	});
 
 });
 

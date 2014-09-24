@@ -21,11 +21,13 @@ Giani Da Firenze - {{data.name}}
       <div class="categorias clearfix">
         <p class="titulo-categorias"><span>Más combinaciones</span></p>
         {% for c in combinations %}
-        <div class="container">
-          <a href="/product/{{c['sku']}}">
-            <img class="image image-7 otro-angulo-mas-combinaciones" src="{{url_bodega}}/image/{{c['image']}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{c['image']}}?mw=75">
-          </a>
-        </div>
+          {% if c["image"] != "" %}
+          <div class="container">
+            <a href="/product/{{c['sku']}}">
+              <img class="image image-7 otro-angulo-mas-combinaciones" src="{{url_bodega}}/image/{{c['image']}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{c['image']}}?mw=75">
+            </a>
+          </div>
+          {% end %}
         {% end %}
 <!--         <div class="container container-1">
           <img class="image image-6" src="images/2(2)-141x94-60.jpg" data-rimage data-src="images/2(2)-141x94-60.jpg">
@@ -49,12 +51,16 @@ Giani Da Firenze - {{data.name}}
         <div class="container">
           <img class="image image-10 otro-angulo" src="{{url_bodega}}/image/{{data.image}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
         </div>
+        {% if data.image_2 != "" %}
         <div class="container">
           <img class="image image-11 otro-angulo" src="{{url_bodega}}/image/{{data.image_2}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_2}}?mw=547">
         </div>
+        {% end %}
+        {% if data.image_3 != "" %}
         <div class="container">
           <img class="image image-12 otro-angulo" src="{{url_bodega}}/image/{{data.image_3}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_3}}?mw=547">
         </div>
+        {% end %}
 <!--         <div class="container container-8">
           <img class="image image-13" src="images/2(2)-75x49-25.jpg" data-rimage data-src="images/2(2)-75x49-25.jpg">
         </div>

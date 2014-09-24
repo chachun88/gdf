@@ -37,3 +37,19 @@ class AddAnonimousHandler(BaseHandler):
         else:
 
             self.write("{}".format(self.current_user["id"]))
+
+class UserExistHandler(BaseHandler):
+
+    def get(self):
+
+        user_id = self.get_argument("user_id","")
+
+        if user_id != "":
+            user = User()
+            exists = user.Exist(user_id)
+            if exists:
+                self.write("true")
+            else:
+                self.write("false")
+        else:
+            self.write("false")

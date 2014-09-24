@@ -28,6 +28,7 @@ class Application(tornado.web.Application):
             (r"/store", store_handler.IndexHandler), #home de la tienda
             (r"/product/([^/]+)", store_handler.ProductHandler), #detalle producto
             (r"/user/save-guess", user_handler.AddAnonimousHandler), #crear anonimo
+            (r"/user/exists", user_handler.UserExistHandler), #verifica si usuario temporal existe
             (r"/kardex/getunitsbysize", kardex_handler.GetUnitsBySizeHandler), # stock segun item y sku
             (r"/cart/add",store_handler.AddToCartHandler), # agregar item al carro
             (r"/cart/getbyuserid", store_handler.GetCartByUserIdHandler), #traer carro del usuario,
