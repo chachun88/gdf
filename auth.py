@@ -33,10 +33,10 @@ class UserRegistrationHandler(BaseHandler):
         tos = self.get_argument("tos", "")
         ajax = self.get_argument("ajax", "false")
 
-        if email == "":
-            self.write( "debe ingresar el email" )
-        elif name == "":
+        if name == "":
             self.write( "debe ingresar su nombre" )
+        elif email == "":
+            self.write( "debe ingresar el email" )
         elif password == "":
             self.write( "debe ingresar la contraseña" )
         elif password != re_password:

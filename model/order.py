@@ -337,3 +337,39 @@ class Order(BaseModel):
         finally:
             cur.close()
             self.connection.close()
+
+    def RemoveByUserId(self,user_id):
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+        od = OrderDetail()
+        
+
+        query = '''select id from "Order" where user_id = %(user_id)s'''
+
+        parametros = {
+        "user_id":user_id
+        }
+
+        try:
+            cur.execute(query,parametros)
+            ordenes = cur.fetchall()
+
+            for o in ordenes:
+                od.RemoveByOrderId(o["id"])
+
+        except Exception,e:
+            return self.ShowError("Error deleting order details, {}".format(str(e)))
+
+        query = '''delete from "Order" where user_id = %(user_id)s'''
+
+        parametros = {
+        "user_id":user_id
+        }
+
+        try:
+            cur.execute(query,parametros)
+            self.connection.commit()
+            return self.ShowSuccessMessage(user_id)
+        except Exception,e:
+            return self.ShowError("Error deleting contacts by user_id {user_id}, error:{error}".format(user_id=user_id,error=str(e)))

@@ -255,3 +255,20 @@ class Contact(BaseModel):
 			self.connection.commit()
 		except:
 			pass
+
+	def RemoveByUserId(self,user_id):
+
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+		query = '''delete from "Contact" where user_id = %(user_id)s'''
+
+		parametros = {
+		"user_id":user_id
+		}
+
+		try:
+			cur.execute(query,parametros)
+			self.connection.commit()
+			return self.ShowSuccessMessage(user_id)
+		except Exception,e:
+			return self.ShowError("Error deleting contacts by user_id {user_id}, error:{error}".format(user_id=user_id,error=str(e)))

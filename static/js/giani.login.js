@@ -14,29 +14,38 @@ $(document).ready(function(){
 	// login submit
 	$( ".form-login" ).submit( function(evt)
 	{
+
+		var email = $("input[name=email]", tthis).val().trim();
+		var password = $("input[name=password]", tthis).val().trim();
+
 		evt.preventDefault();
 
-		var tthis = $(this);
+		if(email!=""&&password!=""){
 
-		var data = { "ajax":"true",
-					 "email":$("input[name=email]", tthis).val(),
-					 "password":$("input[name=password]", tthis).val(),
-					 "user_id":localStorage.user_id };
+			var tthis = $(this);
 
-		$.post( $( this ).attr( 'action' ), data, function(rtn){
+			var data = { "ajax":"true",
+						 "email":email,
+						 "password":password,
+						 "user_id":localStorage.user_id };
 
-			var rtn_pair = $.parseJSON(rtn)
+			$.post( $( this ).attr( 'action' ), data, function(rtn){
 
-			if (rtn_pair["status"] == "ok") 
-			{
-				localStorage.user_id = rtn_pair["user_id"];
-				window.parent.document.location.href = rtn_pair["next"]; // TODO:poner aqui redirect a pagina anterior
-			}
-			else
-			{
-				alert( rtn_pair["message"] );
-			}
-		} );
+				var rtn_pair = $.parseJSON(rtn)
+
+				if (rtn_pair["status"] == "ok") 
+				{
+					localStorage.user_id = rtn_pair["user_id"];
+					window.parent.document.location.href = rtn_pair["next"]; // TODO:poner aqui redirect a pagina anterior
+				}
+				else
+				{
+					alert( rtn_pair["message"] );
+				}
+			} );
+		} else {
+			alert("Debe ingresar email y contrase\xF1a");
+		}
 		return false;
 	});
 
@@ -45,12 +54,44 @@ $(document).ready(function(){
 		evt.preventDefault();
 
 		var tthis = $( this );
+
+		var email = $("input[name=email]", tthis).val().trim();
+		var password = $("input[name=password]", tthis).val().trim();
+		var name = $("input[name=name]", tthis).val().trim();
+		var repassword = $("input[name=re-password]", tthis).val().trim();
+		var tos = $("input[name=tos]", tthis).val();
+
+		if(name==""){
+			alert("Debe ingresar nombre de usuario");
+			return false;
+		}
+
+		if(email==""){
+			alert("Debe ingresar email");
+			return false;
+		}
+
+		if(password==""){
+			alert("Debe ingresar contrase\xF1a");
+			return false;
+		} else if(password!=repassword){
+			alert("Error en al confimar contrase\xF1a");
+			return false;
+		}
+
+		if(tos!="on"){
+			alert("Debe aceptar los t\xE9rminos y condiciones");
+			return false;
+		}
+
+
+			
 		var data = { "ajax":"true",
-					 "name":$("input[name=name]", tthis).val(),
-					 "email":$("input[name=email]", tthis).val(),
-					 "password":$("input[name=password]", tthis).val(),
-					 "re-password":$("input[name=re-password]", tthis).val(),
-					 "tos":$("input[name=tos]", tthis).val()}
+					 "name":name,
+					 "email":email,
+					 "password":password,
+					 "re-password":repassword,
+					 "tos":tos}
 
 		$.post( $( this ).attr( 'action' ), data, function(rtn){
 

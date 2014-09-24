@@ -7,7 +7,8 @@ from basemodel import BaseModel
 import psycopg2
 import psycopg2.extras
 from datetime import datetime
-
+from contact import Contact
+from order import Order
 
 class Cart(BaseModel):
 
@@ -298,18 +299,35 @@ class Cart(BaseModel):
 		except Exception,e:
 			return self.ShowError(str(e))
 
-		query = '''delete from "User" where id = %(old_user_id)s'''
-		parameters = {
-		"old_user_id":old_user_id
-		}
+		contact = Contact()
+		order = Order()
+		
+		response_obj = order.RemoveByUserId(old_user_id)
 
-		try:
-			cur.execute(query,parameters)
-		except Exception,e:
-			return self.ShowError(str(e))
+		if "success" in response_obj:
+			
+			response = contact.RemoveByUserId(old_user_id)
 
-		self.connection.commit()
-		return self.ShowSuccessMessage("Cart has been move to logged user")
+			if "success" in response:
+
+				query = '''delete from "User" where id = %(old_user_id)s'''
+				parameters = {
+				"old_user_id":old_user_id
+				}
+
+				try:
+					cur.execute(query,parameters)
+				except Exception,e:
+					return self.ShowError(str(e))
+
+				self.connection.commit()
+				return self.ShowSuccessMessage("Cart has been move to logged user")
+
+			else:
+
+				return self.ShowError(response["error"])
+		else:
+			return self.ShowError(response_obj["error"])
 
 
 

@@ -22,7 +22,9 @@ Giani Da Firenze - {{data.name}}
         <p class="titulo-categorias"><span>Más combinaciones</span></p>
         {% for c in combinations %}
         <div class="container">
-          <img class="image image-7 otro-angulo-mas-combinaciones" src="{{url_bodega}}/image/{{c['image']}}?mw=141" data-rimage data-src="{{url_bodega}}/image/{{c['image']}}?mw=141">
+          <a href="/product/{{c['sku']}}">
+            <img class="image image-7 otro-angulo-mas-combinaciones" src="{{url_bodega}}/image/{{c['image']}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{c['image']}}?mw=75">
+          </a>
         </div>
         {% end %}
 <!--         <div class="container container-1">
@@ -48,10 +50,10 @@ Giani Da Firenze - {{data.name}}
           <img class="image image-10 otro-angulo" src="{{url_bodega}}/image/{{data.image}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
         </div>
         <div class="container">
-          <img class="image image-11 otro-angulo" src="{{url_bodega}}/image/{{data.image_2}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image_2}}?mw=547">
+          <img class="image image-11 otro-angulo" src="{{url_bodega}}/image/{{data.image_2}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_2}}?mw=547">
         </div>
         <div class="container">
-          <img class="image image-12 otro-angulo" src="{{url_bodega}}/image/{{data.image_3}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image_3}}?mw=547">
+          <img class="image image-12 otro-angulo" src="{{url_bodega}}/image/{{data.image_3}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_3}}?mw=547">
         </div>
 <!--         <div class="container container-8">
           <img class="image image-13" src="images/2(2)-75x49-25.jpg" data-rimage data-src="images/2(2)-75x49-25.jpg">
