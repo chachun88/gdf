@@ -71,4 +71,7 @@ $(document).ready(function(){
 			$("#formulario_direccion").fadeIn();
 		}
 	});
+
+
 });
+

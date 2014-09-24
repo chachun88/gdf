@@ -146,6 +146,14 @@ class Order(BaseModel):
     @payment_type.setter
     def payment_type(self, value):
         self._payment_type = value
+
+    @property
+    def voucher(self):
+        return self._voucher
+    @voucher.setter
+    def voucher(self, value):
+        self._voucher = value
+    
     
 
     def __init__(self):
@@ -171,6 +179,7 @@ class Order(BaseModel):
         self._shipping_id            = -1
         self._address_id             = -1
         self._payment_type           = 1
+        self._voucher                = ""
 
     def GetOrderById(self, _id):
 
@@ -227,11 +236,12 @@ class Order(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        query = '''insert into "Order" (date,type,subtotal,discount,tax,total,items_quantity,products_quantity,user_id,billing_id,shipping_id,payment_type) 
-        values (now(),%(type)s,%(subtotal)s,%(discount)s,%(tax)s,%(total)s,%(items_quantity)s,%(products_quantity)s,%(user_id)s,%(billing_id)s,%(shipping_id)s,%(payment_type)s) 
+        query = '''insert into "Order" (voucher,date,type,subtotal,discount,tax,total,items_quantity,products_quantity,user_id,billing_id,shipping_id,payment_type) 
+        values (%(voucher)s,now(),%(type)s,%(subtotal)s,%(discount)s,%(tax)s,%(total)s,%(items_quantity)s,%(products_quantity)s,%(user_id)s,%(billing_id)s,%(shipping_id)s,%(payment_type)s) 
         returning id'''
 
         parametros = {
+        "voucher":self.voucher,
         "type":self.type,
         "subtotal":self.subtotal,
         "discount":self.discount,
@@ -295,10 +305,11 @@ class Order(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        query = '''update "Order" set type = %(type)s, subtotal = %(subtotal)s, discount = %(discount)s, tax = %(tax)s, total = %(total)s, 
+        query = '''update "Order" set voucher = %(voucher)s, type = %(type)s, subtotal = %(subtotal)s, discount = %(discount)s, tax = %(tax)s, total = %(total)s, 
         items_quantity = %(items_quantity)s, products_quantity = %(products_quantity)s, user_id = %(user_id)s, billing_id = %(billing_id)s, shipping_id = %(shipping_id)s, payment_type = %(payment_type)s'''
 
         parametros = {
+        "voucher":self.voucher,
         "type":self.type,
         "subtotal":self.subtotal,
         "discount":self.discount,

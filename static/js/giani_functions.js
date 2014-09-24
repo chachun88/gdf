@@ -12,6 +12,17 @@ var GetCartByUserId = function(user_id){
 	});
 }
 
+var ValidateCheckoutPayment = function(){
+	var checked = $('#checkboxes-1:checked').val()
+	var comprobante = $("#comprobante").val().trim();
+
+	if(checked==undefined||comprobante==""){
+		return false;
+	}
+
+	return true;
+}
+
 var GetAddressById = function(_id){
 	$.ajax({
 		url:"/checkout/getaddressbyid",

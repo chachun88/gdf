@@ -8,6 +8,8 @@ import tornado.options
 import tornado.web
 from basehandler import BaseHandler
 
+import uuid
+
 from model.cart import Cart
 from model.user import User
 from model.contact import Contact
@@ -16,11 +18,13 @@ from model.order import Order
 from model.order_detail import OrderDetail
 from model.kardex import Kardex
 from model.cellar import Cellar
+from model.product import Product
 
 from datetime import datetime
 from bson import json_util
 import sendgrid
 from globals import url_local
+
 
 class CheckoutAddressHandler(BaseHandler):
     def get(self):
@@ -314,6 +318,25 @@ class CheckoutOrderHandler(BaseHandler):
 class CheckoutSendHandler(BaseHandler):
 
     def get(self):
+
+        final_name = ""
+
+        if "image" in self.request.files:
+
+            imagedata = self.request.files['image'][0]
+
+            final_name = "{filename}.{extension}".format(filename=uuid.uuid4(),extension="png")
+            
+            # final_name = "{}_{}.png".format( image_number, sku )
+
+            try:
+                fn = imagedata["filename"]
+                file_path = 'uploads/images/' + final_name
+
+                open(file_path, 'wb').write(imagedata["body"])
+            except Exception, e:
+                print str(e)
+                pass
         
         payment_type = self.get_argument("payment_type",1)
 
@@ -371,6 +394,7 @@ class CheckoutSendHandler(BaseHandler):
                 order.billing_id = id_facturacion
                 order.shipping_id = id_despacho
                 order.payment_type = tipo_pago
+                order.voucher = final_name
 
                 response_obj = order.Save()
 

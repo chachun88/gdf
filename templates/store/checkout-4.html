@@ -52,30 +52,33 @@ Giani Da Firenze - Carro de Compra
                         <h4 class="panel-title"> <a class="cashOnDelivery" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <span class="numberCircuil"></span> <strong> Transferencia bancaria</strong> </a> </h4>
                       </div>
                       <div id="collapseOne" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                          <p>Envíe el comprobante de transferencia.</p>
-                          <br>
-                          <h2>Datos para la transferencia</h2>
-                          <p>....</p>
-                          <hr>
-                          <div class="form-group">
-                            <label for="CommentsOrder">Comprobante de transferencia</label>
-                            <input type="file" name="image" />
+                        <form action="/checkout/send" onsubmit="return ValidateCheckoutPayment()">
+                          <div class="panel-body">
+                            <p>Envíe el comprobante de transferencia.</p>
+                            <br>
+                            <h2>Datos para la transferencia</h2>
+                            <p>....</p>
+                            <hr>
+                            <div class="form-group">
+                              <label for="CommentsOrder">Comprobante de transferencia</label>
+                              <input type="file" name="image" id="comprobante" />
+                            </div>
+                            <div class="form-group">
+                              <label for="CommentsOrder">Comentarios</label>
+                              <textarea id="CommentsOrder" class="form-control" name="CommentsOrder" cols="26" rows="3"></textarea>
+                            </div>
+                            <div class="form-group clearfix">
+                              <label class="checkbox-inline" for="checkboxes-1">
+                                <input name="checkboxes" id="checkboxes-1" value="1" type="checkbox">
+                                Estoy de acuerdo y acepto los <a href="terms-conditions.html">Términos y condiciones</a> </label>
+                            </div>
+                            <input type="hidden" name="payment_type" value="1">
+                            <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small " > Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
                           </div>
-                          <div class="form-group">
-                            <label for="CommentsOrder">Comentarios</label>
-                            <textarea id="CommentsOrder" class="form-control" name="CommentsOrder" cols="26" rows="3"></textarea>
-                          </div>
-                          <div class="form-group clearfix">
-                            <label class="checkbox-inline" for="checkboxes-1">
-                              <input name="checkboxes" id="checkboxes-1" value="1" type="checkbox">
-                              Estoy de acuerdo y acepto los <a href="terms-conditions.html">Términos y condiciones</a> </label>
-                          </div>
-                          <div class="pull-right"> <a href="/checkout/send" class="btn btn-primary btn-small " > Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
-                        </div>
+                        </form>
                       </div>
                     </div>
-                    <input type="hidden" name="payment_type" value="1">
+                    
                    <!--  <div class="panel panel-default">
                       <div class="panel-heading panel-heading-custom">
                         <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> <span class="numberCircuil">Option 2</span><strong> PayPal</strong> </a> </h4>
