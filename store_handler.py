@@ -16,12 +16,13 @@ from basehandler import BaseHandler
 from globals import cellar_id
 
 #libreria prescindible
-import json
+from bson import json_util
 from datetime import datetime
 
 from model.product import Product
 from model.cart import Cart
 from model.kardex import Kardex
+from model.vote import Vote
 
 class IndexHandler(BaseHandler):
 
@@ -65,10 +66,20 @@ class ProductHandler(BaseHandler):
 
 				prod.size = tallas_disponibles
 
+				vote = Vote()
+				print "PRODUCT ID:{}".format(prod.id)
+				res = vote.GetVotes(prod.id)
+				votos = 0
+
 				combinaciones = prod.GetCombinations(prod.name)
 				relacionados = prod.GetRandom()
 
-				self.render("store/detalle-producto.html",data=prod,combinations=combinaciones,related=relacionados)
+				
+
+				if "success" in res:
+					votos = res["success"]
+
+				self.render("store/detalle-producto.html",data=prod,combinations=combinaciones,related=relacionados,votos=votos)
 		else:
 			self.render("error.html",msg="Producto no encontrado")
 
@@ -144,3 +155,37 @@ class RemoveCartByIdHandler(BaseHandler):
 			else:
 				self.write(response_obj["error"])
 
+class VoteProductHandler(BaseHandler):
+
+	def get(self):
+
+		user_id = self.get_argument("user_id","")
+		product_id = self.get_argument("product_id","")
+
+		vote = Vote()
+		response = vote.VoteProduct(user_id,product_id)
+
+		self.write(json_util.dumps(response))
+
+class IfVotedHandler(BaseHandler):
+
+	def get(self):
+
+		user_id = self.get_argument("user_id","")
+		product_id = self.get_argument("product_id","")
+
+		vote = Vote()
+		response = vote.IfVoted(user_id,product_id)
+
+		self.write(json_util.dumps(response))
+
+class GetVotesHandler(BaseHandler):
+
+	def get(self):
+
+		product_id = self.get_argument("product_id","")
+
+		vote = Vote()
+		response = vote.GetVotes(product_id)
+
+		self.write(json_util.dumps(response))

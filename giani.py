@@ -32,6 +32,9 @@ class Application(tornado.web.Application):
             (r"/cart/add",store_handler.AddToCartHandler), # agregar item al carro
             (r"/cart/getbyuserid", store_handler.GetCartByUserIdHandler), #traer carro del usuario,
             (r"/cart/remove", store_handler.RemoveCartByIdHandler),
+            (r"/store/voteproduct", store_handler.VoteProductHandler),
+            (r"/store/product/ifvoted", store_handler.IfVotedHandler),
+            (r"/store/product/getvotes", store_handler.GetVotesHandler),
 
             (r"/checkout/address", checkout_handler.CheckoutAddressHandler),
             (r"/checkout/billing", checkout_handler.CheckoutBillingHandler),

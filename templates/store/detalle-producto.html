@@ -10,6 +10,9 @@ Giani Da Firenze - {{data.name}}
 
 {% block javascript %}
 <script src="/static/js/detalle-producto.js"></script>
+<script type="text/javascript">
+    ifvoted({{data.id}});
+</script>
 {% end %}
 
 {% block body %}
@@ -62,8 +65,8 @@ Giani Da Firenze - {{data.name}}
       <div class="producto-info clearfix">
         <p class="producto-nombre producto-nombre-1">{{data.name}}</p>
         <div class="megusta clearfix">
-          <div class="fotomegusta"><img src="/static/images/corazon.png"></div>
-          <p class="text">0</p>
+          <div class="fotomegusta enabled" onclick="votar({{data.id}})"><img src="/static/images/corazon.png"></div>
+          <p class="text" id="votes-quantity">{{votos}}</p>
         </div>
         <p class="producto-nombre producto-nombre-2">Línea de producto</p>
         <p class="producto-nombre producto-nombre-3">Color : <span>{{data.color}}</span></p>
@@ -106,13 +109,15 @@ Giani Da Firenze - {{data.name}}
     <div class="container container-16 clearfix">
       <p class="text text-6">Productos Relacionados</p>
       {% for r in related %}
-      <div class="container container-17 clearfix">
-        <div class="container container-18 otro-angulo-mas-combinaciones">
-          <img class="image image-15" src="{{url_bodega}}/image/{{r['image']}}?mw=165" data-rimage data-src="{{url_bodega}}/image/{{r['image']}}?mw=165">
+      <a href="/product/{{r['sku']}}">
+        <div class="container container-17 clearfix">
+          <div class="container container-18 otro-angulo-mas-combinaciones">
+            <img class="image image-15" src="{{url_bodega}}/image/{{r['image']}}?mw=165" data-rimage data-src="{{url_bodega}}/image/{{r['image']}}?mw=165">
+          </div>
+          <p class="text text-7">{{r['name']}}</p>
+          <p class="text text-8">$ {{money_format(r['price'])}}</p>
         </div>
-        <p class="text text-7">{{r['name']}}</p>
-        <p class="text text-8">$ {{money_format(r['price'])}}</p>
-      </div>
+      </a>
       {% end %}
       <!-- <div class="container container-19 clearfix">
         <div class="container container-20">

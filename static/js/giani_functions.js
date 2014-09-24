@@ -66,3 +66,51 @@ var enviarFormulario = function(id_formulario){
 
 	return false;
 }
+
+var votar = function(product_id){
+
+	if($(".fotomegusta").hasClass("enabled")){
+
+		$.ajax({
+			url:"/store/voteproduct",
+			data: "product_id="+product_id+"&user_id="+localStorage.user_id,
+			success: function(html){
+				response = $.parseJSON(html)
+				if(response.error){
+					alert(response.error);
+				} else {
+					$(".fotomegusta img").attr("src","/static/images/corazon2.png");
+					getvotes(product_id);
+				}
+			}
+		});
+	}
+}
+
+var ifvoted = function(product_id){
+	$.ajax({
+		url:"/store/product/ifvoted",
+		data: "product_id="+product_id+"&user_id="+localStorage.user_id,
+		success: function(html){
+			response = $.parseJSON(html)
+			console.log(response.success);
+			if(response.success){
+				$(".fotomegusta").removeClass("enabled");
+				$(".fotomegusta img").attr("src","/static/images/corazon2.png");
+			}
+		}
+	});
+}
+
+var getvotes = function(product_id){
+	$.ajax({
+		url:"/store/product/getvotes",
+		data: "product_id="+product_id,
+		success: function(html){
+			response = $.parseJSON(html)
+			if(response.success){
+				$("#votes-quantity").html(response.success);
+			}
+		}
+	});
+}

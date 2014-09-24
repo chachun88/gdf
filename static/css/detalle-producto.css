@@ -235,6 +235,9 @@ margin: 10px 0px 0px 20px;
   width: 50px;
   height: 50px;
 }
+.fotomegusta.enabled{
+  cursor: pointer;
+}
 .fotomegusta img{
   width: 100%;
 }
