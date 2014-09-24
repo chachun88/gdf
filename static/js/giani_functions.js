@@ -17,6 +17,7 @@ var ValidateCheckoutPayment = function(){
 	var comprobante = $("#comprobante").val().trim();
 
 	if(checked==undefined||comprobante==""){
+		alert("Debe ingresar comprobante y aceptar t\xE9rminos y condiciones");
 		return false;
 	}
 

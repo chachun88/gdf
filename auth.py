@@ -110,7 +110,7 @@ class AuthHandler(BaseHandler):
                 response = cart.MoveTempToLoggedUser(user_id,current_user_id)
 
                 if "error" in response:
-                    rtn_obj = {"status":"error","message":"Usuario y contraseña no coinciden, error:{}".format(response_obj["error"])}
+                    rtn_obj = {"status":"error","message":"Usuario y contraseña no coinciden, error:{}".format(response["error"])}
                     self.write( json_util.dumps(rtn_obj) )
                     return
 

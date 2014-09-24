@@ -27,6 +27,8 @@ from globals import url_local
 
 
 class CheckoutAddressHandler(BaseHandler):
+
+    @tornado.web.authenticated
     def get(self):
 
         if self.current_user:
@@ -62,6 +64,7 @@ class CheckoutAddressHandler(BaseHandler):
 
 class CheckoutBillingHandler(BaseHandler):
 
+    @tornado.web.authenticated
     def get(self):
 
         if self.current_user:
@@ -135,6 +138,7 @@ class CheckoutBillingHandler(BaseHandler):
 
             self.redirect("/auth/login")
 
+    @tornado.web.authenticated
     def post(self):
         self.get()
 
@@ -173,6 +177,7 @@ class CheckoutBillingHandler(BaseHandler):
 
 class CheckoutShippingHandler(BaseHandler):
 
+    @tornado.web.authenticated
     def get(self):
 
         if self.current_user:
@@ -256,12 +261,15 @@ class CheckoutShippingHandler(BaseHandler):
 
             self.redirect("/auth/login")
 
+    @tornado.web.authenticated
     def post(self):
         self.get()
 
         
 
 class CheckoutPaymentHandler(BaseHandler):
+
+    @tornado.web.authenticated
     def get(self):
 
         if self.current_user:
@@ -289,6 +297,8 @@ class CheckoutPaymentHandler(BaseHandler):
             self.redirect("/auth/login")
 
 class CheckoutOrderHandler(BaseHandler):
+
+    @tornado.web.authenticated
     def get(self):
 
         if self.current_user:
@@ -316,7 +326,8 @@ class CheckoutOrderHandler(BaseHandler):
         # self.render("store/checkout-5.html",data=data)
 
 class CheckoutSendHandler(BaseHandler):
-
+    
+    @tornado.web.authenticated
     def get(self):
 
         final_name = ""
