@@ -5,6 +5,7 @@ Giani Da Firenze - Home
 
 {% block css %}
 <link rel="stylesheet" href="/static/css/store.css">
+<link rel="stylesheet" href="/static/css/simplePagination.css">
 {% end %}
 
 {% block body %}
@@ -41,9 +42,26 @@ Giani Da Firenze - Home
       </div>
       {% end %}
       <div class="paginador clearfix">
-        <p class="paginas"><span>&lt;</span> &nbsp; <span>1</span> &nbsp; 2 &nbsp; 3 &nbsp;<span>... &gt;</span></p>
+        <!-- <p class="paginas">
+          <span>&lt;</span> &nbsp; 
+          <a href="/store?page=1"><span>1</span></a> &nbsp; 
+          <a href="/store?page=2"><span>2</span></a> &nbsp; 
+          <a href="/store?page=3"><span>3</span></a> &nbsp;
+          <span>... &gt;</span>
+        </p> -->
       </div>
     </div>
   </div>
 {% end %}
-{% block javascript %}{% end %}
+{% block javascript %}
+<script src="/static/js/jquery.simplePagination.js"></script>
+<script>
+    $(".paginador").pagination({
+        items: {{items}},
+        itemsOnPage: 7,
+        prevText: '<',
+        nextText: '>',
+        hrefTextPrefix:'?page='
+    });
+</script>
+{% end %}

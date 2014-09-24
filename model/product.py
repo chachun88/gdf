@@ -302,3 +302,14 @@ class Product(BaseModel):
 		finally:
 			cur.close()
 			self.connection.close()
+
+	def GetItems(self):
+
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+		q = '''select count(*) as total_items from "Product"'''
+		try:
+			cur.execute(q)
+			total_items = cur.fetchone()["total_items"]
+			return self.ShowSuccessMessage(total_items)
+		except Exception,e:
+			return self.ShowError(str(e))

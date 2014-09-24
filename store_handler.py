@@ -27,9 +27,16 @@ class IndexHandler(BaseHandler):
 
 	def get(self):
 		product = Product()
-		lista = product.GetList()
-		# self.write(json.dumps(lista))
-		self.render("store/index.html",data=lista)
+		page = int(self.get_argument("page","1"))
+		lista = product.GetList(page,7)
+
+		items = 0
+
+		response = product.GetItems()
+		if "success" in response:
+			items = response["success"]
+
+		self.render("store/index.html",data=lista,items=items)
 
 class ProductHandler(BaseHandler):
 
