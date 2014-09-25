@@ -40,11 +40,11 @@ $(document).ready(function(){
 				}
 				else
 				{
-					alert( rtn_pair["message"] );
+					fancyAlert( rtn_pair["message"] );
 				}
 			} );
 		} else {
-			alert("Debe ingresar email y contrase\xF1a");
+			fancyAlert("Debe ingresar email y contrase\xF1a");
 		}
 		return false;
 	});
@@ -67,25 +67,25 @@ $(document).ready(function(){
 		}
 
 		if(name==""){
-			alert("Debe ingresar nombre de usuario");
+			fancyAlert("Debe ingresar nombre de usuario");
 			return false;
 		}
 
 		if(email==""){
-			alert("Debe ingresar email");
+			fancyAlert("Debe ingresar email");
 			return false;
 		}
 
 		if(password==""){
-			alert("Debe ingresar contrase\xF1a");
+			fancyAlert("Debe ingresar contrase\xF1a");
 			return false;
 		} else if(password!=repassword){
-			alert("Error en al confimar contrase\xF1a");
+			fancyAlert("Error en al confimar contrase\xF1a");
 			return false;
 		}
 
 		if(tos!="on"){
-			alert("Debe aceptar los t\xE9rminos y condiciones");
+			fancyAlert("Debe aceptar los t\xE9rminos y condiciones");
 			return false;
 		}
 
@@ -109,7 +109,7 @@ $(document).ready(function(){
 			}
 			else
 			{
-				alert( rtn_pair.error );
+				fancyAlert( rtn_pair.error );
 			}
 		});
 
@@ -121,7 +121,7 @@ $(document).ready(function(){
 		var user_id = localStorage.user_id;
 		localStorage.user_id = 0;
 		var url = $(this).attr( "href" ) + "&user_id=" + user_id;
-		/*alert("se va al login de fb " + url);*/
+		/*fancyAlert("se va al login de fb " + url);*/
 		window.parent.document.location.href = url;
 	});
 

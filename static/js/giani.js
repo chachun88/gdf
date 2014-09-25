@@ -57,14 +57,14 @@ $(document).ready(function(){
 			data:"cart_id="+cart_id,
 			success:function(html){
 				if(html=="ok"){
-					alert("Producto ha sido eliminado del carro");
+					fancyAlert("Producto ha sido eliminado del carro");
 					if(from_cart){
 						GetCartByUserId(localStorage.user_id);
 					} else {
 						location.reload()
 					}
 				} else {
-					alert(html);
+					fancyAlert(html);
 				}
 			}
 		});

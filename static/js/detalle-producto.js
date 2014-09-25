@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 
-	fancyAlert("holi");
+	//fancyAlert("holi");
 
 	$("button.add-to-cart").click(function(){
 		var product_id = $(this).attr("product-id");
@@ -12,10 +12,10 @@ $(document).ready(function(){
 			data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+localStorage.user_id,
 			success:function(html){
 				if(html!="ok"){
-					alert(html);
+					fancyAlert(html);
 				} else {
 					GetCartByUserId(localStorage.user_id);
-					alert("Producto ha sido a\xF1adido al carro")
+					fancyAlert("Producto ha sido a\xF1adido al carro")
 					$(".carritoicono").trigger("click");
 				}
 			}
@@ -30,7 +30,7 @@ $(document).ready(function(){
 			data:"sku="+sku+"&size="+size,
 			success:function(html){
 				if(html.indexOf("error") > -1){
-					alert(html);
+					fancyAlert(html);
 					$("#quantity").empty();
 					var total_unidades = parseInt(html);
 					$("#quantity").append($("<option></option>").attr("value",0).text(0));
