@@ -115,4 +115,35 @@ $(document).ready(function(){
 		window.parent.document.location.href = $(this).attr( "href" ) + "&user_id=" + localStorage.user_id;
 	});
 
+	if(typeof(Storage) !== "undefined") {
+
+		var usuario_existe = false;
+
+		if(localStorage.user_id){
+			$.ajax({
+				url:"/user/exists",
+				data:"user_id="+localStorage.user_id,
+				async:false,
+				success:function(html){
+					if(html=="true"){
+						usuario_existe = true;
+					}
+				}
+			});
+		}
+
+		if(usuario_existe){
+			GetCartByUserId(localStorage.user_id);
+		} else {
+			$.ajax({
+				url: '/user/save-guess',
+				success: function(html){
+					if(html!="error"){
+						localStorage.user_id = html;
+					}
+				}
+			});
+		}
+	}
+
 });
