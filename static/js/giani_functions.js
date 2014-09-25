@@ -90,6 +90,8 @@ var enviarFormulario = function(id_formulario){
 		if(ValidateRequired(id_formulario)){
 			$("#"+id_formulario).submit();
 		}
+	} else {
+		$("#"+id_formulario).submit();
 	}
 
 }
