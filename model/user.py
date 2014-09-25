@@ -357,7 +357,8 @@ class User(BaseModel):
 
 		except Exception, e:
 			# print str( e )
-			raise Exception( "no se ha podido validar el email" )
+			# raise Exception( "no se ha podido validar el email" )
+			return str(e)
 
 
 	def PassRecovery( self, email ):
