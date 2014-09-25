@@ -16,7 +16,8 @@ $(document).ready(function(){
 				} else {
 					GetCartByUserId(localStorage.user_id);
 					fancyAlert("Producto ha sido a\xF1adido al carro")
-					$(".carritoicono").trigger("click");
+					$(".carritoproductos").show();
+					$('html,body').animate({ scrollTop: 0 }, 'slow');
 				}
 			}
 		})
