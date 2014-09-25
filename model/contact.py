@@ -146,7 +146,7 @@ class Contact(BaseModel):
 		query = '''select id from "Contact" where name = %(name)s and email = %(email)s and address = %(address)s'''
 
 		try:
-			cur.execute(query)
+			cur.execute(query,contact)
 			self.id = int(cur.fetchone()["id"])
 		except Exception,e:
 			return self.ShowError("Error al obtener contacto {}".format(str(e)))
