@@ -340,25 +340,26 @@ class User(BaseModel):
 			return {}
 
 
-	def Exist(self, email):
+	def Exist(self, email='',id=0):
+
+
 		try:
 
-			q = ''' select count(*) as cnt from "User" where email = %(email)s or id = %(email)s'''
-			p = { "email" : email }
+			q = '''select count(*) as cnt from "User" where email = %(email)s or id = %(id)s'''
+			p = { "email" : email, "id":id }
 
 			cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 			cur.execute( q, p )
 
 			data = cur.fetchone()
-			if data["cnt"] > 0:
-				return True
 
-			return False
+			if data["cnt"] > 0:
+				return self.ShowSuccessMessage(True)
+
+			return self.ShowError(False)
 
 		except Exception, e:
-			# print str( e )
-			# raise Exception( "no se ha podido validar el email" )
-			return str(e)
+			return self.ShowError(str(e))
 
 
 	def PassRecovery( self, email ):

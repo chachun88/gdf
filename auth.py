@@ -157,6 +157,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                                 extra_params={"scope": "email"})
     
     def _on_auth(self, user):
+        print "lllllllllllll {}".format(user["access_token"])
         self.facebook_request("/me", access_token=user["access_token"], callback=self._save_user_profile)
 
 
@@ -164,27 +165,37 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
         user_id = self.get_argument("user_id")
 
+        self.write(user)
+
         if not user:
             raise tornado.web.HTTPError(500, "Facebook authentication failed.")
 
         usr = User()
 
-        if not usr.Exist( user["email"] ):
-            usr.Save()
+
+
+        # response = usr.Exist(user["email"])
+
+        # if "success" in response:
+        #     usr.Save()
         
-        response_obj = usr.InitByEmail(user["email"])
+        # response_obj = usr.InitByEmail(user["email"])
 
-        if "success" in response_obj:
+        # if "success" in response_obj:
 
-            cart = Cart()
+        #     cart = Cart()
 
-            current_user_id = json_util.loads(response_obj["success"])["id"]
+        #     current_user_id = json_util.loads(response_obj["success"])["id"]
 
-            response = cart.MoveTempToLoggedUser(user_id,current_user_id)
+        #     response = cart.MoveTempToLoggedUser(user_id,current_user_id)
 
-            self.set_secure_cookie("user_giani", response_obj["success"])
+        #     self.set_secure_cookie("user_giani", response_obj["success"])
 
-        self.redirect( self.next )
+        #     self.redirect( self.next )
+
+        # else:
+
+        #     self.write(response_obj["error"])
         
         # conn = psycopg2.connect(conn_string)
 

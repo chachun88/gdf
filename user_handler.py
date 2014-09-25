@@ -46,9 +46,12 @@ class UserExistHandler(BaseHandler):
 
         if user_id != "":
             user = User()
-            exists = user.Exist(user_id)
-            if exists:
-                self.write("true")
+            response_obj = user.Exist('',user_id)
+            if "success" in response_obj:
+                if response_obj["success"]:
+                    self.write("true")
+                else:
+                    self.write("false")
             else:
                 self.write("false")
         else:

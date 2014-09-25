@@ -35,6 +35,9 @@ facebook_secret = ""
 
 
 if enviroment == Enviroment.LOCAL:
+
+	print "local enviroment"
+
 	port = DEBUG_PORT
 	url_bodega = "http://giani.loadingplay.com"
 	url_local = "http://localhost:8502"
