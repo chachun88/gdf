@@ -78,11 +78,20 @@ var ValidateRequired = function(id_formulario){
 
 var enviarFormulario = function(id_formulario){
 
-	if(ValidateRequired(id_formulario)){
-		$("#"+id_formulario).submit();
+	var same_address = false;
+
+	if($("#same_address").length){
+		if($("#same_address").val()=="on"){
+			same_address = true;
+		}
 	}
 
-	return false;
+	if(!same_address){
+		if(ValidateRequired(id_formulario)){
+			$("#"+id_formulario).submit();
+		}
+	}
+
 }
 
 var votar = function(product_id){
