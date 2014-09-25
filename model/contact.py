@@ -128,7 +128,7 @@ class Contact(BaseModel):
 
 	def Save(self):
 
-		#new_id = db.seq.find_and_modify(query={'seq_name':'contact_seq'},update={'$inc': {'id': 1}},fields={'id': 1, '_id': 0},new=True,upsert=True)["id"]
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 		contact = {
 		"name": self.name,
@@ -143,16 +143,24 @@ class Contact(BaseModel):
 		"additional_info":self.additional_info
 		}
 
-		try:
+		query = '''select id from "Contact" where name = %(name)s and email = %(email)s and address = %(address)s'''
 
-			# self.collection.insert(contact)
-			cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info)
-			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s) returning id'''
-			# print cur.mogrify(query,contact)
-			cur.execute(query,contact)
-			self.connection.commit()
-			self.id = cur.fetchone()[0]
+		try:
+			cur.execute(query)
+			self.id = int(cur.fetchone()["id"])
+		except Exception,e:
+			return self.ShowError("Error al obtener contacto")
+
+		try:
+			
+			if self.id != "":
+
+				query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info)
+				values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s) returning id'''
+				# print cur.mogrify(query,contact)
+				cur.execute(query,contact)
+				self.connection.commit()
+				self.id = cur.fetchone()[0]
 
 			return self.ShowSuccessMessage("{}".format(self.id))
 
