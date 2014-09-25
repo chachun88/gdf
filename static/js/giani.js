@@ -45,8 +45,10 @@ $(document).ready(function(){
 		device_touch = false;
 	}
 
-	if (!device_touch)
-		$('.fancybox').fancybox({padding: 3, width: 600, href: $('.fancybox').attr('href') + '&ajax=0'});
+	if (!device_touch){
+		if($('.fancybox').length)
+			$('.fancybox').fancybox({padding: 3, width: 600, href: $('.fancybox').attr('href') + '&ajax=0'});
+	}
 
 	$(document).on("click","button.eliminarproducto,a.borrarproducto",function(){
 		var cart_id = $(this).attr("cart-id");
