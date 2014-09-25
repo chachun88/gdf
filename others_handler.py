@@ -18,7 +18,7 @@ class ContactHandler(BaseHandler):
 
     def get(self):
 
-        self.render("registration.html")
+        self.render("auth/contacto.html")
 
 class KardexTestHandler(BaseHandler):
 

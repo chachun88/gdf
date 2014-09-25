@@ -19,7 +19,7 @@ from bson import json_util
 from model.user import User
 from model.contact import Contact
 from model.order import Order
-from model.customer import Customer
+#from model.customer import Customer
 
 class AddAnonimousHandler(BaseHandler):
 
