@@ -151,22 +151,26 @@ class Contact(BaseModel):
 		except Exception,e:
 			return self.ShowError("Error al obtener contacto")
 
-		try:
+		
 			
-			if self.id == "":
+		if self.id == "":
 
-				query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info)
-				values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s) returning id'''
-				# print cur.mogrify(query,contact)
+			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info)
+			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s) returning id'''
+			# print cur.mogrify(query,contact)
+
+			try:
 				cur.execute(query,contact)
 				self.connection.commit()
 				self.id = cur.fetchone()[0]
 
-			return self.ShowSuccessMessage("{}".format(self.id))
+			except Exception, e:
 
-		except Exception, e:
+				return self.ShowError(str(e))
 
-			return self.ShowError(str(e))
+		return self.ShowSuccessMessage("{}".format(self.id))
+
+		
 
 	def Edit(self):
 
