@@ -149,7 +149,7 @@ class Contact(BaseModel):
 			cur.execute(query)
 			self.id = int(cur.fetchone()["id"])
 		except Exception,e:
-			return self.ShowError("Error al obtener contacto")
+			return self.ShowError("Error al obtener contacto {}".format(str(e)))
 
 		
 			
