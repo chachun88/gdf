@@ -153,7 +153,7 @@ class Contact(BaseModel):
 
 		try:
 			
-			if self.id != "":
+			if self.id == "":
 
 				query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info)
 				values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s) returning id'''
