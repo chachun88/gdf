@@ -287,31 +287,24 @@ class User(BaseModel):
 
 					if self.id != "":
 
-						q = '''select * from "User" where id = %(id)s limit 1'''
+						print "update user"
+
+						q = '''update "User" set name = %(name)s, password = %(password)s, email = %(email)s,permissions = %(permissions)s, type_id = %(type_id)s where id = %(id)s'''
 						p = {
+						"name":self.name,
+						"email":self.email,
+						"permissions":permisos,
+						"password":self.password,
+						"type_id":tipo_usuario,
 						"id":self.id
 						}
-						cur.execute(q,p)
-						usuario = cur.fetchone()
 
-						if cur.rowcount > 0:
-
-							q = '''update "User" set name = %(name)s, password = %(password)s, email = %(email)s,permissions = %(permissions)s, type_id = %(type_id)s where id = %(id)s'''
-							p = {
-							"name":self.name,
-							"email":self.email,
-							"permissions":permisos,
-							"password":self.password,
-							"type_id":tipo_usuario,
-							"id":self.id
-							}
-
-							try:
-								cur.execute(q,p)
-								self.connection.commit()
-								return self.ShowSuccessMessage(str(self.id))
-							except Exception,e:
-								return self.ShowError(str(e))
+						try:
+							cur.execute(q,p)
+							self.connection.commit()
+							return self.ShowSuccessMessage(str(self.id))
+						except Exception,e:
+							return self.ShowError(str(e))
 							
 
 					else:
@@ -374,32 +367,37 @@ class User(BaseModel):
 
 	def Exist(self, email='',id=0):
 
-
 		try:
 
+			cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
 			if email != "":
+				
 				q = '''select count(*) as cnt from "User" where email = %(email)s'''
 				
-			p = { "email" : email, "id":id }
+				p = { "email" : email }
+				
+				cur.execute( q, p )
 
-			cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-			cur.execute( q, p )
+				data = cur.fetchone()
 
-			data = cur.fetchone()
+				if data["cnt"] > 0:
+					return self.ShowSuccessMessage(True)
 
-			if data["cnt"] > 0:
-				return self.ShowSuccessMessage(True)
-			else:
+			if id != 0:
+
 				q = '''select count(*) as cnt from "User" where id = %(id)s'''
+				p = { "id":id }
+
 				try:
 					cur.execute(q,p)
 					data = cur.fetchone()
 					if data["cnt"] > 0:
 						return self.ShowSuccessMessage(True)
-					else:
-						return self.ShowSuccessMessage(False)
 				except Exception,e:
 					self.ShowError(str(e))
+
+			return self.ShowSuccessMessage(False)
 
 		except Exception, e:
 			return self.ShowError(str(e))

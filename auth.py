@@ -32,19 +32,26 @@ class UserRegistrationHandler(BaseHandler):
         re_password = self.get_argument("re-password", "")
         tos = self.get_argument("tos", "")
         ajax = self.get_argument("ajax", "false")
+        user_id = int(self.get_argument("user_id",0))
 
         if name == "":
-            self.write( "debe ingresar su nombre" )
+            self.write(json_util.dumps({"error":"debe ingresar su nombre"}))
+            return
         elif email == "":
-            self.write( "debe ingresar el email" )
+            self.write(json_util.dumps({"error":"debe ingresar el email"}))
+            return
         elif password == "":
-            self.write( "debe ingresar la contraseña" )
+            self.write(json_util.dumps({"error":"debe ingresar la contraseña"}))
+            return
         elif password != re_password:
-            self.write( "las contraseñas no coinciden" )
+            self.write(json_util.dumps({"error":"las contraseñas no coinciden"}))
+            return
         elif tos != "on":
-            self.write( "debe aceptar las condiciones de uso" )
-        elif (User()).Exist( email ):
-            self.write( "ya existe un usuario registrado con este email" )
+            self.write(json_util.dumps({"error":"debe aceptar las condiciones de uso"}))
+            return
+        elif User().Exist(email)["success"]:
+            self.write(json_util.dumps({"error":"ya existe un usuario registrado con este email"}))
+            return
         else:
             ### perform login
 
@@ -54,13 +61,16 @@ class UserRegistrationHandler(BaseHandler):
             user.password = password
             user.user_type = 'Cliente'
 
+            if user_id != 0:
+                user.id = user_id
+                
             user.Save()
 
             response_obj = user.Login( user.email, user.password )
 
             if "success" in response_obj:
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
-                self.write( "ok:{}".format( self.next ) )
+                self.write(json_util.dumps({"success":self.next}))
 
             ##redirect is the request isn't aajx
             if ajax == "false":
@@ -103,11 +113,13 @@ class AuthHandler(BaseHandler):
 
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
 
-                cart = Cart()
-
                 current_user_id = json_util.loads(response_obj["success"])["id"]
 
-                response = cart.MoveTempToLoggedUser(user_id,current_user_id)
+                if user_id != current_user_id:
+
+                    cart = Cart()
+
+                    response = cart.MoveTempToLoggedUser(user_id,current_user_id)
 
                 if "error" in response:
                     rtn_obj = {"status":"error","message":"Usuario y contraseña no coinciden, error:{}".format(response["error"])}
@@ -121,7 +133,7 @@ class AuthHandler(BaseHandler):
                     self.redirect( self.next )
 
             else:
-                rtn_obj = {"status":"error","message":"Usuario y contraseña no coinciden, error:{}".format(response_obj["error"])}
+                rtn_obj = {"status":"error","message":"Error:{}".format(response_obj["error"])}
                 self.write( json_util.dumps(rtn_obj) )
 
 
@@ -135,7 +147,7 @@ class FormRegisterHandler(BaseHandler):
 
 class AuthLogoutHandler(BaseHandler):
     def get(self):        
-        self.clear_cookie("user_emp_esc")
+        self.clear_cookie("user_giani")
         self.redirect(self.next)
 
 class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
@@ -177,30 +189,34 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         if user_id != "":
             usr.id = user_id
 
-        response = usr.Exist(user["email"],user_id)
-
-        nuevo = True
+        response = usr.Exist(user["email"])
 
         if "success" in response:
-            if response["success"]:
-                usr.Save()
-            else:
-                nuevo = False
+            if not response["success"]:
+                res = usr.Save()
+                if "error" in res:
+                    print res["error"]
         
         response_obj = usr.InitByEmail(user["email"])
 
         if "success" in response_obj:
 
-            cart = Cart()
-
             current_user_id = json_util.loads(response_obj["success"])["id"]
 
-            if not nuevo:
-                response = cart.MoveTempToLoggedUser(user_id,current_user_id)            
+            if int(user_id) != int(current_user_id):
+
+                cart = Cart()
+
+                response = cart.MoveTempToLoggedUser(user_id,current_user_id)          
 
             self.set_secure_cookie("user_giani", response_obj["success"])
 
-        self.redirect( self.next )
+            self.redirect( self.next )
+
+        else:
+
+            print response_obj["error"]
+            self.redirect("/auth/login")
 
         # else:
 
@@ -251,7 +267,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         #     except Exception,e:
         #         self.write(str(e))
         
-        # self.set_secure_cookie("user_emp_esc", json_util.dumps(_user, sort_keys=True, indent=4, default=json_util.default))                                
+        # self.set_secure_cookie("user_giani", json_util.dumps(_user, sort_keys=True, indent=4, default=json_util.default))                                
         # self.redirect("/")
 
         pass

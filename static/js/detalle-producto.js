@@ -54,13 +54,16 @@ $(document).ready(function(){
 	}
 
 	if($("select#address").length){
-		
-		GetAddressById($("select#address").val());
 
-		$("select#address").change(function(){
-			_id = $(this).val();
-			GetAddressById(_id);
-		});
+		if($(select#address).val()!=""){
+			
+			GetAddressById($("select#address").val());
+
+			$("select#address").change(function(){
+				_id = $(this).val();
+				GetAddressById(_id);
+			});
+		}
 	}
 
 	$("#same_address").change(function(){

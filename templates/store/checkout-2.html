@@ -52,6 +52,7 @@ Giani Da Firenze - Carro de Compra
                 <div class="form-group">
                   <label for="address">Seleccione una direcci&oacute;n</label>
                   <select name="contact_id" class="form-control" id="address">
+                    <option value="">Agregar una nueva</option>
                     {% for c in contactos %}
                       {% if selected_address == c['id'] %}
                         <option value="{{c['id']}}" selected>{{c['address']}}</option>

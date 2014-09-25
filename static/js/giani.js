@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	$(".carritoicono").click(function(){
 		$(".carritoproductos").slideToggle();
 	});
@@ -6,34 +7,32 @@ $(document).ready(function(){
 
 	if(typeof(Storage) !== "undefined") {
 
-		var usuario_existe = false;
-
-		if(localStorage.user_id){
-			$.ajax({
-				url:"/user/exists",
-				data:"user_id="+localStorage.user_id,
-				async:false,
-				success:function(html){
-					if(html=="true"){
-						usuario_existe = true;
-					}
-				}
-			});
+		if(!localStorage.user_id){
+			localStorage.user_id = 0;
 		}
 
-		if(usuario_existe){
-			GetCartByUserId(localStorage.user_id);
-		} else {
-			$.ajax({
-				url: '/user/save-guess',
-				success: function(html){
-					if(html!="error"){
-						localStorage.user_id = html;
-					}
+		$.ajax({
+			url: '/user/save-guess',
+			data: "user_id="+localStorage.user_id,
+			success: function(html){
+				console.log("success");
+				var objeto = $.parseJSON(html);
+				if(objeto.success){
+					localStorage.user_id = objeto.success;
 				}
-			});
-		}
+			}
+		});
+
+		
+		GetCartByUserId(localStorage.user_id);
+		
 	}
+
+	$("a.logout").click(function(){
+		if(typeof(Storage) !== "undefined") {
+			localStorage.user_id = 0;
+		}
+	});
 
 
 	var device_touch = false
@@ -46,8 +45,7 @@ $(document).ready(function(){
 	}
 
 	if (!device_touch){
-		if($('.fancybox').length)
-			$('.fancybox').fancybox({padding: 3, width: 600, href: $('.fancybox').attr('href') + '&ajax=0'});
+		$('.fancybox').fancybox({padding: 3, width: 600, href: $('.fancybox').attr('href') + '&ajax=0'});
 	}
 
 	$(document).on("click","button.eliminarproducto,a.borrarproducto",function(){

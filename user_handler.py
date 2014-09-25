@@ -14,7 +14,7 @@ from tornado.options import define, options
 from basehandler import BaseHandler
 
 #libreria prescindible
-import json
+from bson import json_util
 
 from model.user import User
 from model.contact import Contact
@@ -25,18 +25,33 @@ class AddAnonimousHandler(BaseHandler):
 
     def get(self):
 
-        if not self.current_user:
+        user_id = int(self.get_argument("user_id",0))
             
-            user = User()
-            response_obj = user.Save()
-            if "success" in response_obj:
-                self.write(response_obj['success'])
+        user = User()
+
+        if user_id != 0:
+
+            exists_response = user.Exist('',user_id)
+
+            if "success" in exists_response:
+                existe = exists_response["success"]
+
+                if not existe:
+                    response_obj = user.Save()
+                    self.write(json_util.dumps(response_obj))
+                else:
+                    self.write(json_util.dumps({"success":user_id}))
+
             else:
-                self.write(response_obj['error'])
+                self.write(json_util.dumps(exists_response))
 
         else:
 
-            self.write("{}".format(self.current_user["id"]))
+            if self.current_user:
+                self.write(json_util.dumps({"success":self.current_user["id"]}))
+            else:
+                response_obj = user.Save()
+                self.write(json_util.dumps(response_obj))
 
 class UserExistHandler(BaseHandler):
 

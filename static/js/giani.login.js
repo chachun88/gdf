@@ -60,6 +60,11 @@ $(document).ready(function(){
 		var name = $("input[name=name]", tthis).val().trim();
 		var repassword = $("input[name=re-password]", tthis).val().trim();
 		var tos = $("input[name=tos]", tthis).val();
+		var user_id = 0;
+
+		if(localStorage.user_id){
+			user_id = localStorage.user_id;
+		}
 
 		if(name==""){
 			alert("Debe ingresar nombre de usuario");
@@ -91,19 +96,20 @@ $(document).ready(function(){
 					 "email":email,
 					 "password":password,
 					 "re-password":repassword,
+					 "user_id":user_id,
 					 "tos":tos}
 
 		$.post( $( this ).attr( 'action' ), data, function(rtn){
 
-			var rtn_pair = rtn.split( ":" );
+			var rtn_pair = $.parseJSON(rtn);
 
-			if (rtn_pair[0] == "ok") 
+			if (rtn_pair.success) 
 			{
-				window.parent.document.location.href = rtn_pair[1];
+				window.parent.document.location.href = rtn_pair.success;
 			}
 			else
 			{
-				alert( rtn_pair[1] );
+				alert( rtn_pair.error );
 			}
 		});
 
@@ -112,38 +118,11 @@ $(document).ready(function(){
 
 	$(".parent-link").click(function(evt){
 		evt.preventDefault();
-		window.parent.document.location.href = $(this).attr( "href" ) + "&user_id=" + localStorage.user_id;
+		var user_id = localStorage.user_id;
+		localStorage.user_id = 0;
+		var url = $(this).attr( "href" ) + "&user_id=" + user_id;
+		alert("se va al login de fb " + url);
+		window.parent.document.location.href = url;
 	});
-
-	if(typeof(Storage) !== "undefined") {
-
-		var usuario_existe = false;
-
-		if(localStorage.user_id){
-			$.ajax({
-				url:"/user/exists",
-				data:"user_id="+localStorage.user_id,
-				async:false,
-				success:function(html){
-					if(html=="true"){
-						usuario_existe = true;
-					}
-				}
-			});
-		}
-
-		if(usuario_existe){
-			GetCartByUserId(localStorage.user_id);
-		} else {
-			$.ajax({
-				url: '/user/save-guess',
-				success: function(html){
-					if(html!="error"){
-						localStorage.user_id = html;
-					}
-				}
-			});
-		}
-	}
 
 });

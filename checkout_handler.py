@@ -119,7 +119,7 @@ class CheckoutBillingHandler(BaseHandler):
                     response_obj = c.InitById(l["id"])
 
                     if "success" in response_obj:
-                        c.shipping_id = id_contacto
+                        c.shipping_id = contact.id
                         c.Edit()
                     else:
                         print response_obj["error"]
@@ -199,7 +199,7 @@ class CheckoutShippingHandler(BaseHandler):
                     for l in lista:
                         c = Cart()
                         c.InitById(l["id"])
-                        c.billing_id = id_contacto
+                        c.billing_id = contact.id
                         c.Edit()
                         suma += l["subtotal"]
 
