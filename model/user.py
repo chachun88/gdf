@@ -282,18 +282,50 @@ class User(BaseModel):
 					self.connection.commit()
 
 					return self.ShowSuccessMessage(str(self.id))
+
 				else:
-					q = '''insert into "User" (name,password,email,permissions,type_id) values (%(name)s,%(password)s,%(email)s,%(permissions)s,%(type_id)s) returning id'''
-					p = {
-					"name":self.name,
-					"email":self.email,
-					"permissions":permisos,
-					"password":self.password,
-					"type_id":tipo_usuario
-					}
-					cur.execute(q,p)
-					self.connection.commit()
-					self.id = cur.fetchone()[0]
+
+					if self.id != "":
+
+						q = '''select * from "User" where id = %(id)s limit 1'''
+						p = {
+						"id":self.id
+						}
+						cur.execute(q,p)
+						usuario = cur.fetchone()
+
+						if cur.rowcount > 0:
+
+							q = '''update "User" set name = %(name)s, password = %(password)s, email = %(email)s,permissions = %(permissions)s, type_id = %(type_id)s where id = %(id)s'''
+							p = {
+							"name":self.name,
+							"email":self.email,
+							"permissions":permisos,
+							"password":self.password,
+							"type_id":tipo_usuario,
+							"id":self.id
+							}
+
+							try:
+								cur.execute(q,p)
+								self.connection.commit()
+								return self.ShowSuccessMessage(str(self.id))
+							except Exception,e:
+								return self.ShowError(str(e))
+							
+
+					else:
+						q = '''insert into "User" (name,password,email,permissions,type_id) values (%(name)s,%(password)s,%(email)s,%(permissions)s,%(type_id)s) returning id'''
+						p = {
+						"name":self.name,
+						"email":self.email,
+						"permissions":permisos,
+						"password":self.password,
+						"type_id":tipo_usuario
+						}
+						cur.execute(q,p)
+						self.connection.commit()
+						self.id = cur.fetchone()[0]
 
 					return self.ShowSuccessMessage(str(self.id))
 			except Exception,e:
@@ -345,7 +377,9 @@ class User(BaseModel):
 
 		try:
 
-			q = '''select count(*) as cnt from "User" where email = %(email)s or id = %(id)s'''
+			if email != "":
+				q = '''select count(*) as cnt from "User" where email = %(email)s'''
+				
 			p = { "email" : email, "id":id }
 
 			cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -355,8 +389,17 @@ class User(BaseModel):
 
 			if data["cnt"] > 0:
 				return self.ShowSuccessMessage(True)
-
-			return self.ShowError(False)
+			else:
+				q = '''select count(*) as cnt from "User" where id = %(id)s'''
+				try:
+					cur.execute(q,p)
+					data = cur.fetchone()
+					if data["cnt"] > 0:
+						return self.ShowSuccessMessage(True)
+					else:
+						return self.ShowSuccessMessage(False)
+				except Exception,e:
+					self.ShowError(str(e))
 
 		except Exception, e:
 			return self.ShowError(str(e))
