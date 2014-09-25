@@ -1,3 +1,20 @@
+var fancyAlert = function(msg) {
+
+
+	var html = "<div style=\"margin:1px;width:240px;\">"
+	         + msg
+	         + "<div style=\"text-align:right;margin-top:10px;\">"
+	         + "<input style=\"margin:3px;padding:0px;\" type=\"button\" onclick=\"jQuery.fancybox.close();\" value=\"Cerrar\">"
+	         + "</div>"
+	         + "</div>";
+
+    jQuery.fancybox({
+        'modal' : true,
+        'content' : html
+    });
+}
+
+
 var GetCartByUserId = function(user_id){
 
 	$.ajax({

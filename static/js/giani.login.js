@@ -121,7 +121,7 @@ $(document).ready(function(){
 		var user_id = localStorage.user_id;
 		localStorage.user_id = 0;
 		var url = $(this).attr( "href" ) + "&user_id=" + user_id;
-		alert("se va al login de fb " + url);
+		/*alert("se va al login de fb " + url);*/
 		window.parent.document.location.href = url;
 	});
 

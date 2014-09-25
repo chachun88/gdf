@@ -1,4 +1,8 @@
 $(document).ready(function(){
+
+
+	fancyAlert("holi");
+
 	$("button.add-to-cart").click(function(){
 		var product_id = $(this).attr("product-id");
 		var size = $("#size").val()
@@ -8,7 +12,7 @@ $(document).ready(function(){
 			data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+localStorage.user_id,
 			success:function(html){
 				if(html!="ok"){
-					alert(html)
+					alert(html);
 				} else {
 					GetCartByUserId(localStorage.user_id);
 					alert("Producto ha sido a\xF1adido al carro")
@@ -55,7 +59,7 @@ $(document).ready(function(){
 
 	if($("select#address").length){
 
-		if($(select#address).val()!=""){
+		if($("select#address").val()!=""){
 			
 			GetAddressById($("select#address").val());
 
