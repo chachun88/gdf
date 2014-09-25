@@ -521,6 +521,11 @@
   width: 373px;
   margin: auto 0;
 }
+
+a.redes_sociales{  
+  color: rgb(77, 77, 77);
+  cursor: pointer;
+}
 @media(max-width: 1199px) {
   .carritoproductos {
   display: none;

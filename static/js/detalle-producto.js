@@ -59,15 +59,14 @@ $(document).ready(function(){
 
 	if($("select#address").length){
 
-		if($("select#address").val()!=""){
-			
-			GetAddressById($("select#address").val());
+		GetAddressById($("select#address").val());
 
-			$("select#address").change(function(){
+		$("select#address").change(function(){
+			if($("select#address").val()!=""){
 				_id = $(this).val();
 				GetAddressById(_id);
-			});
-		}
+			}
+		});		
 	}
 
 	$("#same_address").change(function(){
