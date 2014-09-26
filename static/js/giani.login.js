@@ -15,6 +15,8 @@ $(document).ready(function(){
 	$( ".form-login" ).submit( function(evt)
 	{
 
+		alert( "llega" );
+
 		var email = $("input[name=email]", tthis).val().trim();
 		var password = $("input[name=password]", tthis).val().trim();
 
@@ -120,7 +122,7 @@ $(document).ready(function(){
 		evt.preventDefault();
 		var user_id = localStorage.user_id;
 		localStorage.user_id = 0;
-		var url = $(this).attr( "href" ) + "&user_id=" + user_id;
+		var url = $(this).attr( "href" ) + "?user_id=" + user_id;
 		/*fancyAlert("se va al login de fb " + url);*/
 		window.parent.document.location.href = url;
 	});
