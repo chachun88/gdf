@@ -12,34 +12,37 @@ body {
 }
 
 .categoria {
-  display: block;
-  float: left;
-  min-height: 23px;
-  margin-left: 21.91912%;
-  font-size: 0.857em;
-  line-height: 1.68;
-  color: rgb(232, 169, 156);
+display: block;
+float: left;
+min-height: 23px;
+margin-left: 6.91912%;
+font-size: 0.9em;
+line-height: -0.32;
+color: rgb(103, 101, 100);
+text-transform: uppercase;
+font-weight: 100;
+letter-spacing: 1px;
 }
 
 .categoria:hover {
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
+  color: black;
 }
 
 .categorias {
-  float: left;
-  clear: both;
-  width: 99.9287580147%;
-  height: 314px;
-  border: 1px solid rgb(207, 207, 207);
-  background-color: rgb(255, 255, 255);
+float: left;
+clear: both;
+width: 99.9287580147%;
+height: 274px;
+border: 1px solid rgb(207, 207, 207);
+/* background-color: rgb(245, 245, 245); */
 }
 
 .contenedor-productos {
-  float: left;
-  clear: both;
-  width: 80%;
-  margin: 10px 0 0 10%;
+/* float: left; */
+clear: both;
+width: 80%;
+margin: 10px auto;
+max-width: 1200px;
 }
 
 .cuerpo {
@@ -83,6 +86,7 @@ body {
   width: 100%;
   height: auto;
   overflow: hidden;
+  max-width: 260px;
 }
 
 .header-content {
@@ -192,7 +196,9 @@ body {
   min-height: 23px;
   font-size: 1em;
   line-height: 2.08;
-  color: rgb(147, 147, 147);
+  color: rgb(19, 19, 19);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 .producto-precio {
@@ -200,10 +206,11 @@ body {
   clear: both;
   width: 100%;
   min-height: 23px;
-  font-size: 1em;
-  font-weight: 500;
+  font-size: 0.83em;
+  font-weight: 300;
   line-height: 2.08;
-  color: rgb(0, 0, 0);
+  color: rgb(134, 134, 134);
+  margin-top: -5px;
 }
 
 .slide {
@@ -243,15 +250,18 @@ body {
 }
 
 .titulo-categorias {
-  float: left;
-  width: 100%;
-  min-height: 23px;
-  background-color: rgb(207, 207, 207);
-  font-size: 0.929em;
-  font-weight: 400;
-  line-height: 1.88;
-  text-align: center;
-  color: rgb(255, 255, 255);
+float: left;
+width: 100%;
+min-height: 23px;
+/* background-color: rgb(207, 207, 207); */
+font-size: 1em;
+font-weight: 400;
+line-height: 1.88;
+text-align: center;
+color: rgb(0, 0, 0);
+border: 1px solid rgb(0, 0, 0);
+margin-bottom: 15px;
+letter-spacing: 1px;
 }
 
 ._button {
@@ -295,17 +305,13 @@ color: rgb(111, 111, 111);
 }
 
 .categoria-2 {
-  margin-top: 60px;
+margin-top: 10px;
 }
 
-.categoria-3,
-.categoria-4,
-.categoria-5,
-.categoria-6 {
-  clear: both;
-  margin-top: 10px;
+.categoria-3, .categoria-4, .categoria-5, .categoria-6 {
+clear: both;
+margin-top: 4px;
 }
-
 .categoria-6:hover {
   border-bottom-color: rgb(172, 110, 97);
 }
