@@ -99,7 +99,7 @@ class AddToCartHandler(BaseHandler):
 
 				cart.quantity = int(self.get_argument("quantity",0))
 
-				subtotal = int(product.price) * cart.quantity
+				subtotal = int(product.sell_price) * cart.quantity
 
 				cart.date = datetime.now()
 				cart.subtotal = subtotal

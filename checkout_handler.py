@@ -23,7 +23,7 @@ from model.product import Product
 from datetime import datetime
 from bson import json_util
 import sendgrid
-from globals import url_local
+from globals import url_local, email_giani, cellar_id
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -391,9 +391,6 @@ class CheckoutSendHandler(BaseHandler):
                         res_obj = detail.Save()
 
                         kardex = Kardex()
-                        cellar = Cellar()
-
-                        response = cellar.InitByName("Bodega Central")
 
                         producto = Product()
                         response = producto.InitById(detail.product_id)
@@ -401,7 +398,7 @@ class CheckoutSendHandler(BaseHandler):
                         if "success" in response:
 
                             kardex.product_sku = producto.sku
-                            kardex.cellar_identifier = cellar.id
+                            kardex.cellar_identifier = cellar_id
                             kardex.operation_type = Kardex.OPERATION_SELL
                             kardex.sell_price = producto.sell_price
                             kardex.size = detail.size
@@ -426,7 +423,7 @@ class CheckoutSendHandler(BaseHandler):
                                 <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{price}</td>
                                 <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{subtotal}</td>
                             </tr>
-                        """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=l["price"],subtotal=l["subtotal"])
+                        """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=l["sell_price"],subtotal=l["subtotal"])
 
                     contact = Contact()
                     facturacion = json_util.loads(contact.InitById(order.billing_id))
@@ -567,7 +564,7 @@ class CheckoutSendHandler(BaseHandler):
 
                     sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
                     message = sendgrid.Mail()
-                    message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail="info@loadingplay.com"))
+                    message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail=email_giani))
                     message.add_to(self.current_user["email"])
                     message.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
                     message.set_html(html)

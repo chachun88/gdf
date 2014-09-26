@@ -307,7 +307,7 @@ class Kardex(BaseModel):
 			"size":self.size
 			}
 			cur.execute(query,parametros)
-			print "QUERY:{}".format(cur.query)
+			# print "QUERY:{}".format(cur.query)
 			kardex = cur.fetchone()
 
 			if kardex:
@@ -328,7 +328,7 @@ class Kardex(BaseModel):
 		except:
 			return self.ShowError("kardex not found")
 
-		return new_kardex
+		return self.ShowSuccessMessage(new_kardex)
 
 	def Insert(self):
 

@@ -22,10 +22,11 @@ if host_name == "development":
 PORT=8502
 DEBUG_PORT=8502
 
-debugMode = True 
+debugMode = False 
 port = 0
 url_bodega = ""
 url_local = ""
+email_giani = ""
 cellar_id = 5
 
 
@@ -45,6 +46,8 @@ if enviroment == Enviroment.LOCAL:
 	facebook_api_key = "839778829389863"
 	facebook_secret = "5e533cd56091707c73e88c2113ffb13d"
 
+	email_giani = "yichun212@gmail.com"
+
 elif enviroment == Enviroment.ONDEV:
 	port = DEBUG_PORT
 	url_bodega = "http://bgiani.ondev.today"
@@ -52,6 +55,8 @@ elif enviroment == Enviroment.ONDEV:
 
 	facebook_api_key = "839753546059058"
 	facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
+
+	email_giani = "yichun212@gmail.com"
 
 	# define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
 	# define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
@@ -64,6 +69,8 @@ elif enviroment == Enviroment.ONTEST:
 	facebook_api_key = "839753546059058"
 	facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
 
+	email_giani = "yichun212@gmail.com"
+
 	# define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
 	# define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
 
@@ -71,6 +78,8 @@ elif enviroment == Enviroment.PRODUCTION:
 	port = PORT
 	url_bodega = "http://giani.loadingplay.com"
 	url_local = "http://giani.ondev.today"
+
+	email_giani = "yichun212@gmail.com"
 
 	# define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
 	# define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
