@@ -26,10 +26,10 @@ class ContactHandler(BaseHandler):
 
     def post(self):
 
-        name = self.get_argument("name","")
-        email = self.get_argument("email","")
-        subject = self.get_argument("subject","")
-        message = self.get_argument("message","")
+        name = self.get_argument("name","").encode("utf-8")
+        email = self.get_argument("email","").encode("utf-8")
+        subject = self.get_argument("subject","").encode("utf-8")
+        message = self.get_argument("message","").encode("utf-8")
 
         if name == "" or email == "" or subject == "" or message == "":
 
