@@ -336,10 +336,10 @@ class Kardex(BaseModel):
 
 		prev_kardex = Kardex()
 
-		if "success" in response_prevkardex:
-			prev_kardex = response_prevkardex["success"]
-		else:
-			return self.ShowError("error al obtener kardex {}".format(response_prevkardex["error"]))
+		# if "success" in response_prevkardex:
+		# 	prev_kardex = response_prevkardex["success"]
+		# else:
+		# 	return self.ShowError("error al obtener kardex {}".format(response_prevkardex["error"]))
 
 		##parsing all to float
 		self.price = float(self.price)
