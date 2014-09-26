@@ -22,7 +22,7 @@ if host_name == "development":
 PORT=8502
 DEBUG_PORT=8502
 
-debugMode = False 
+debugMode = True 
 port = 0
 url_bodega = ""
 url_local = ""
