@@ -205,7 +205,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
             if user_id != "undefined":
 
-                if int(user_id) != int(current_user_id):
+                if str(user_id) != str(current_user_id):
 
                     cart = Cart()
 
