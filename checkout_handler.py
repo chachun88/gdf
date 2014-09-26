@@ -23,7 +23,7 @@ from model.product import Product
 from datetime import datetime
 from bson import json_util
 import sendgrid
-from globals import url_local, email_giani
+from globals import url_local, email_giani, cellar_id
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -391,9 +391,6 @@ class CheckoutSendHandler(BaseHandler):
                         res_obj = detail.Save()
 
                         kardex = Kardex()
-                        cellar = Cellar()
-
-                        response = cellar.InitByName("Bodega Central")
 
                         producto = Product()
                         response = producto.InitById(detail.product_id)
@@ -401,7 +398,7 @@ class CheckoutSendHandler(BaseHandler):
                         if "success" in response:
 
                             kardex.product_sku = producto.sku
-                            kardex.cellar_identifier = cellar.id
+                            kardex.cellar_identifier = cellar_id
                             kardex.operation_type = Kardex.OPERATION_SELL
                             kardex.sell_price = producto.sell_price
                             kardex.size = detail.size
