@@ -1,10 +1,10 @@
 var fancyAlert = function(msg) {
 
 
-	var html = "<div style=\"margin:1px;width:240px;\">"
+	var html = "<div style=\"width: 100%; height: 100%; margin:0px;width:240px;\">"
 	         + msg
-	         + "<div style=\"text-align:right;margin-top:10px;\">"
-	         + "<input style=\"margin:3px;padding:0px;\" type=\"button\" onclick=\"jQuery.fancybox.close();\" value=\"Cerrar\">"
+	         + "<div style=\"text-align:center;margin-top:40px; width: 100%;\">"
+	         + "<input style=\"margin:0px;padding:5px;width:70%; height: 40px; border: 1px solid gray; color: white; font-size: 15px;\" type=\"button\" onclick=\"jQuery.fancybox.close();\" value=\"Cerrar\">"
 	         + "</div>"
 	         + "</div>";
 

@@ -558,7 +558,7 @@ body {
 
   .header-content .header-rigth-cont {
     position: relative;
-    z-index: 61;
+    z-index: 61 !important;
     width: 25.6046705587%;
     margin-left: 28.85738%;
   }

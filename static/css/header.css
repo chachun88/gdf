@@ -18,6 +18,10 @@
 .iconos-left {
   margin-left: 15%;
 }
+.margin-left-2{
+  margin-left: 0%;
+
+}
 
 .carritoicono {
   float: left;
@@ -580,6 +584,19 @@ margin-left: 9.69495%;
 
 }
 @media(max-width: 479px) {
+  .header-left-social {
+width: 100%;
+height: auto;
+float: left;
+margin-top: 30px;
+}
+.iconos i {
+font-size: 35px;
+}
+.margin-left-2{
+  margin-left: 24%;
+
+}
   .carritoproductos {
   display: none;
   position: absolute;
