@@ -62,8 +62,9 @@ var GetAddressById = function(_id){
 
 var ValidateRequired = function(id_formulario){
 	var valid = true;
-	$("div.required :input").each(function(){
+	$("div.required :text, div.required textarea").each(function(){
 		var valor = $(this).val().trim();
+
 		if(valor==""){
 			valid = false;
 		}

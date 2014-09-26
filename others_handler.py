@@ -14,11 +14,41 @@ from basehandler import BaseHandler
 from model.kardex import Kardex
 from datetime import datetime
 
+from globals import email_giani
+
+import sendgrid
+
 class ContactHandler(BaseHandler):
 
     def get(self):
 
         self.render("auth/contacto.html")
+
+    def post(self):
+
+        name = self.get_argument("name","")
+        email = self.get_argument("email","")
+        subject = self.get_argument("subject","")
+        message = self.get_argument("message","")
+
+        if name == "" or email == "" or subject == "" or message == "":
+
+            self.write("Debe ingresar los campos requeridos")
+
+        else:
+
+            sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
+            mensaje = sendgrid.Mail()
+            mensaje.set_from("{nombre} <{mail}>".format(nombre=name,mail=email))
+            mensaje.add_to(email_giani)
+            mensaje.set_subject("Contact GDF - {}".format(subject))
+            mensaje.set_html(message)
+            status, msg = sg.send(mensaje)
+
+            if status == 200:
+                self.render("message.html",message="Gracias por contactarte con nosotros, su mensaje ha sido enviado exitosamente")
+            else:
+                self.render("beauty_error.html",message="Ha ocurrido un error al enviar su mensaje, {}".format(msg))
 
 class KardexTestHandler(BaseHandler):
 
@@ -35,3 +65,4 @@ class KardexTestHandler(BaseHandler):
         kardex.units = 1
 
         kardex.Insert()
+

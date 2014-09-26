@@ -23,7 +23,7 @@ from model.product import Product
 from datetime import datetime
 from bson import json_util
 import sendgrid
-from globals import url_local
+from globals import url_local, email_giani
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -567,7 +567,7 @@ class CheckoutSendHandler(BaseHandler):
 
                     sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
                     message = sendgrid.Mail()
-                    message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail="info@loadingplay.com"))
+                    message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail=email_giani))
                     message.add_to(self.current_user["email"])
                     message.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
                     message.set_html(html)

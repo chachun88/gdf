@@ -6,26 +6,26 @@
 {% block body %}
 <div class="contenedor-contacto">
 	<div class="contenedor-contacto-form">
-		<form action="" method="" class="contacto-form">
+		<form action="/contact" method="post" class="contacto-form" onsubmit="return ValidateRequired('')" novalidate>
 			<h1>Contáctanos</h1>
-			<div class="contacto-centrar">
+			<div class="contacto-centrar required">
 
 				<!--  Email  -->
-				<p class=""></p>
-				<input class="" placeholder="NOMBRE" type="" name="" required >
+				<p></p>
+				<input placeholder="NOMBRE" type="text" name="name" required >
 
 
 				<!--  Correo  -->
-				<p class=""></p>
-				<input class="" placeholder="CORREO" type="" name="" required>
+				<p></p>
+				<input placeholder="CORREO" type="text" name="email" required>
 
 				<!--  Asunto  -->
-				<p class=""></p>
-				<input class="" placeholder="ASUNTO" type="" name="" required>
+				<p></p>
+				<input placeholder="ASUNTO" type="text" name="subject" required>
 
-				<textarea class="" placeholder="DÉJANOS TU MENSAJE"></textarea>
+				<textarea placeholder="DÉJANOS TU MENSAJE" name="message"></textarea>
 
-				<button class="" type="submit">ENVIAR</button>
+				<button type="submit">ENVIAR</button>
 			</div>
 		</form>
 	</div>
