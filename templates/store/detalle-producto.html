@@ -94,7 +94,7 @@ Giani Da Firenze - {{data.name}}
             <p class="producto-nombre producto-nombre-5">Cantidad</p>
           </div>
         </div>
-        <p class="producto-precio">$ {{money_format(data.price)}}</p>
+        <p class="producto-precio">$ {{money_format(data.sell_price)}}</p>
       </div>
       <button class="_button add-to-cart" product-id="{{data.id}}">
         <p>AGREGAR AL CARRO</p>
@@ -123,7 +123,7 @@ Giani Da Firenze - {{data.name}}
             <img class="image image-15" src="{{url_bodega}}/image/{{r['image']}}?mw=165" data-rimage data-src="{{url_bodega}}/image/{{r['image']}}?mw=165">
           </div>
           <p class="text text-7">{{r['name']}}</p>
-          <p class="text text-8">$ {{money_format(r['price'])}}</p>
+          <p class="text text-8">$ {{money_format(r['sell_price'])}}</p>
         </div>
       </a>
       {% end %}
