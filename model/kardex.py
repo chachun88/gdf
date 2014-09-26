@@ -133,7 +133,7 @@ class Kardex(BaseModel):
 	def InitById(self, idd):
 		return ''
 		
-	def FindKardex(self, product_sku, cellar_identifier):
+	def FindKardex(self, product_sku, cellar_identifier,size):
 		# try:
 		# 	data = self.collection.find({
 		# 						"product_sku":product_sku,
@@ -160,11 +160,12 @@ class Kardex(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-		query = '''select * from "Kardex" where product_sku = %(product_sku)s and cellar_id = %(cellar_id)s order by id desc limit 1'''
+		query = '''select * from "Kardex" where product_sku = %(product_sku)s and cellar_id = %(cellar_id)s and size = %(size)s order by id desc limit 1'''
 
 		parametros = {
 		"product_sku":product_sku,
-		"cellar_id":cellar_identifier
+		"cellar_id":cellar_identifier,
+		"size":size
 		}
 
 		try:
@@ -331,7 +332,14 @@ class Kardex(BaseModel):
 
 	def Insert(self):
 
-		prev_kardex = self.GetPrevKardex()
+		response_prevkardex = self.GetPrevKardex()
+
+		prev_kardex = Kardex()
+
+		if "success" in response_prevkardex:
+			prev_kardex = response_prevkardex["success"]
+		else:
+			return self.ShowError("error al obtener kardex {}".format(response_prevkardex["error"]))
 
 		##parsing all to float
 		self.price = float(self.price)
@@ -380,7 +388,7 @@ class Kardex(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-		query = '''select * from "Kardex" where product_sku = %(product_sku)s and cellar_id = %(cellar_id)s order by id desc limit 1'''
+		query = '''select * from "Kardex" where product_sku = %(product_sku)s and cellar_id = %(cellar_id)s and size = %(size)s order by id desc limit 1'''
 
 		parametros = {
 		"product_sku":self.product_sku,
@@ -400,7 +408,7 @@ class Kardex(BaseModel):
 		}
 
 		try:
-			query = '''insert into "Kardex" (product_sku,cellar_id,operation_type,units,price,sell_price,size,color,total,balance_units,balance_price,date,"user") values (%(product_sku)s,%(cellar_id)s,%(operation_type)s,%(units)s,%(price)s,%(sell_price)s,%(size)s,%(color)s,%(total)s,%(balance_units)s,%(balance_price)s,%(date)s,%(user)s)'''
+			query = '''insert into "Kardex" (balance_total,product_sku,cellar_id,operation_type,units,price,sell_price,size,color,total,balance_units,balance_price,date,"user") values (%(balance_total)s,%(product_sku)s,%(cellar_id)s,%(operation_type)s,%(units)s,%(price)s,%(sell_price)s,%(size)s,%(color)s,%(total)s,%(balance_units)s,%(balance_price)s,%(date)s,%(user)s)'''
 			cur.execute(query,parametros)
 			# return cur.mogrify(query,parametros)
 			self.connection.commit()
@@ -428,15 +436,16 @@ class Kardex(BaseModel):
 		
 
 	## only for debugging.
-	def Debug(self, product_sku, cellar_identifier):
+	def Debug(self, product_sku, cellar_identifier,size):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-		query = '''select * from "Kardex" where product_sku = %(product_sku)s and cellar_id = %(cellar_id)s order by id desc limit 1'''
+		query = '''select * from "Kardex" where product_sku = %(product_sku)s and cellar_id = %(cellar_id)s and size = %(size)s order by id desc limit 1'''
 
 		parameters = {
 		"product_sku":product_sku,
-		"cellar_id":cellar_identifier
+		"cellar_id":cellar_identifier,
+		"size":size
 		}
 
 		# data = self.collection.find({
