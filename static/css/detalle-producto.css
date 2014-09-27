@@ -410,6 +410,7 @@ margin: 10px 0px 0px 20px;
   margin: 44px 0 0 1.58036%;
   border: 1px solid rgb(224, 224, 224);
   background-color: rgb(247, 247, 247);
+  padding: 0;
 }
 
 .container-11 {
@@ -418,11 +419,12 @@ margin: 10px 0px 0px 20px;
   width: 68.4375%;
   height: 89px;
   margin-top: 21px;
+  padding-left: 0px;
 }
 
 .container-12 {
   float: left;
-  width: 73.0593607305%;
+  width: 50%;
   height: 89px;
 }
 
@@ -433,6 +435,7 @@ margin: 10px 0px 0px 20px;
   width: 100%;
   height: 213px;
   margin: 27px 0 0 -0.25018%;
+  padding: 0;
 }
 
 .container-14 {
@@ -733,6 +736,7 @@ color: rgb(147, 147, 147);
   margin-left: 0.2227%;
   font: 400 1em/1.38 Helvetica;
   color: rgb(0, 0, 0);
+  margin-top: 0px;
 }
 
 .text-15 {
@@ -800,7 +804,6 @@ color: rgb(147, 147, 147);
 
 .text-3 {
   float: left;
-  margin-left: 8.79473%;
   padding: 4px;
   border: 1px solid rgb(255, 255, 255);
   font-size: 1em;
@@ -810,13 +813,14 @@ color: rgb(147, 147, 147);
 }
 
 .text-4 {
-  float: right;
-  padding: 4px;
-  border: 1px solid rgb(255, 255, 255);
-  font-size: 1em;
-  line-height: 1.38;
-  text-align: center;
-  color: rgb(255, 255, 255);
+float: right;
+padding: 4px;
+border: 1px solid rgb(255, 255, 255);
+font-size: 1em;
+line-height: 1.38;
+text-align: center;
+color: rgb(255, 255, 255);
+margin-top: 18px;
 }
 
 .text-3:hover,
@@ -1773,7 +1777,6 @@ color: rgb(147, 147, 147);
   .container .producto-nombre-6 {
     margin-top: 0;
   }
-  }
 
   .container .text-11,
   .container .text-13,
@@ -1832,7 +1835,7 @@ color: rgb(147, 147, 147);
 position: relative;
 z-index: 79;
 width: 25.6384065372%;
-margin-top: 44px;
+margin-top: 12px;
 margin-left: 1.53218%;
   }
 
@@ -2070,7 +2073,7 @@ margin-left: 1.53218%;
 
   .container .producto-info {
     float: right;
-    width: 100%;
+    width: 90%;
     margin-right: -0.09318%;
     margin-left: 0;
   }
@@ -2208,7 +2211,6 @@ margin-left: 1.53218%;
 
   .megusta .fotomegusta {
     width: 22.4770642201%;
-    margin-left: 25.70958%;
   }
 
   .megusta .text {
@@ -2571,7 +2573,6 @@ margin-left: 1.53218%;
 
   .producto-info .producto-nombre-1 {
     width: 99.7835732063%;
-    text-align: center;
   }
 
   .producto-info .producto-nombre-2 {
@@ -2580,7 +2581,6 @@ margin-left: 1.53218%;
     width: 99.7835732063%;
     margin-top: 8px;
     margin-right: 0;
-    text-align: center;
   }
 
   .producto-info .producto-nombre-3 {
@@ -2588,7 +2588,6 @@ margin-left: 1.53218%;
     z-index: 66;
     width: 99.7835732063%;
     margin-right: 0.20786%;
-    text-align: center;
   }
 
   .container ._select-1 {
@@ -2634,12 +2633,12 @@ margin-left: 1.53218%;
   }
 
   .container .producto-info {
-    float: left;
-    width: 99.3006993006%;
+    float: right;
+    width: 90%;
     margin-top: 6px;
     margin-right: 0;
     margin-left: -0.22946%;
-  }
+    }
 
   .cuerpo .cuerpo-categorias {
     position: relative;
@@ -3195,7 +3194,7 @@ margin-left: 1.53218%;
 
   .producto-info .producto-nombre-1 {
     width: 99.7748527883%;
-    font-size: 1.5em;
+    font-size: 3em;
   }
 
   .producto-info .producto-nombre-2 {

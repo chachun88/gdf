@@ -12,5 +12,15 @@
 	cursor: pointer;
 }
 .fancybox-skin {
-	background-color: gray;
+	background-color:  rgb(198, 198, 198);
+	border-radius: 0px;
+	color: white;
+}
+.iconosalarmas {
+	width: 100%;
+	font-size: 25px;
+	text-align: center;
+}
+.fancybox-wrap,  .fancybox-desktop, .fancybox-type-html, .fancybox-opened {
+	opacity: 0.4;
 }
