@@ -23,6 +23,7 @@ from model.product import Product
 from model.cart import Cart
 from model.kardex import Kardex
 from model.vote import Vote
+from model.tag import Tag
 
 class IndexHandler(BaseHandler):
 
@@ -189,3 +190,42 @@ class GetVotesHandler(BaseHandler):
 		response = vote.GetVotes(product_id)
 
 		self.write(json_util.dumps(response))
+
+class GetProductsByTagsHandler(BaseHandler):
+
+	def get(self):
+
+		tags = self.get_argument("tags","")
+		page = int(self.get_argument("page","1"))
+
+		tags_arr = tags.split(",")
+
+		items = 0
+
+		tag = Tag()
+
+		res = tag.GetItemsByTags(tags_arr)
+
+		if "success" in res:
+			items = int(res["success"])
+
+		res = tag.GetProductsByTags(tags_arr,page)
+
+		if "success" in res:
+			self.render("store/index.html",data=res["success"],items=items,page=page)
+		else:
+			self.render("beauty_error.html",message=res["error"])
+
+
+
+		# product = Product()
+		# page = int(self.get_argument("page","1"))
+		# lista = product.GetList(page,7)
+
+		# items = 0
+
+		# response = product.GetItems()
+		# if "success" in response:
+		# 	items = response["success"]
+
+		# self.render("store/index.html",data=lista,items=items,page=page)
