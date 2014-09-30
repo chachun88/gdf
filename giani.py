@@ -59,7 +59,9 @@ class Application(tornado.web.Application):
             (r"/error", error_handler.BeautyError),
             (r"/getserver", server_handler.ServerHandler),
             (r"/contact", others_handler.ContactHandler),
-            (r"/kardextest", others_handler.KardexTestHandler)
+            (r"/kardextest", others_handler.KardexTestHandler),
+
+            (r"/tos", others_handler.TosHandler)
             
         ]
         settings = dict(

@@ -66,3 +66,10 @@ class KardexTestHandler(BaseHandler):
 
         kardex.Insert()
 
+
+class TosHandler(BaseHandler):
+    
+
+    def get(self):
+        self.render( "tos.html" )
+        
