@@ -25,7 +25,7 @@ var GetCartByUserId = function(user_id){
 		data:"user_id="+user_id,
 		success: function(html){
 			if(html.indexOf("error") > -1 )
-				alert("Se produjo un error al intentar obtener el carro de compra");
+				fancyAlert("Se produjo un error al intentar obtener el carro de compra");
 			else
 				$(".carritoproductos").html(html);
 		}
@@ -37,7 +37,7 @@ var ValidateCheckoutPayment = function(){
 	var comprobante = $("#comprobante").val().trim();
 
 	if(checked==undefined||comprobante==""){
-		alert("Debe ingresar comprobante y aceptar t\xE9rminos y condiciones");
+		fancyAlert("Debe ingresar comprobante y aceptar t\xE9rminos y condiciones");
 		return false;
 	}
 
@@ -74,7 +74,7 @@ var ValidateRequired = function(id_formulario){
 	});
 
 	if(!valid){
-		alert("Debe llenar todos los campos requeridos");
+		fancyAlert("Debe llenar todos los campos requeridos");
 	}
 
 	return valid;
@@ -110,7 +110,7 @@ var votar = function(product_id){
 			success: function(html){
 				response = $.parseJSON(html)
 				if(response.error){
-					alert(response.error);
+					fancyAlert(response.error);
 				} else {
 					$(".fotomegusta img").attr("src","/static/images/corazon2.png");
 					getvotes(product_id);

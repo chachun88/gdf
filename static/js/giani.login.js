@@ -15,7 +15,7 @@ $(document).ready(function(){
 	$( ".form-login" ).submit( function(evt)
 	{
 
-		alert( "llega" );
+		//fancyAlert( "llega" );
 
 		var email = $("input[name=email]", tthis).val().trim();
 		var password = $("input[name=password]", tthis).val().trim();
