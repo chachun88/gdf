@@ -82,5 +82,6 @@ class TestPagoHandler(BaseHandler):
 class XtCompraHandler(BaseHandler):
 
     def get(self):
+        print self.request.arguments
         self.write("ACEPTADO")
         
