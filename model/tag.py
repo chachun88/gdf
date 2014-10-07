@@ -56,9 +56,15 @@ class Tag(BaseModel):
 
 			except Exception,e:
 				return self.ShowError("Error al obtener lista por tags, {}".format(str(e)))
+			finally:
+				cur.close()
+				self.connection.close()
 
 		except Exception,e:
 			return self.ShowError("Error al lista de product_id por tags, {}".format(str(e)))
+		finally:
+			cur.close()
+			self.connection.close()
 
 	def GetItemsByTags(self,_tags):
 	
@@ -91,5 +97,35 @@ class Tag(BaseModel):
 			except Exception,e:
 				return self.ShowError("Error al obtener cantidad de items por tags, {}".format(str(e)))
 
+			finally:
+				cur.close()
+				self.connection.close()
+
 		except Exception,e:
 			return self.ShowError("Error al lista de product_id por tags, {}".format(str(e)))
+
+		finally:
+			cur.close()
+			self.connection.close()
+
+	def ListVisibleTags(self):
+		
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+		query = '''select * from "Tag" where visible = %(visible)s'''
+		parameters = {
+		"visible":1
+		}
+
+		try:
+			cur.execute(query,parameters)
+			tags = cur.fetchall()
+			return self.ShowSuccessMessage(tags)
+
+		except Exception,e:
+			return self.ShowError("Error al lista de product_id por tags, {}".format(str(e)))
+
+		finally:
+			cur.close()
+			self.connection.close()
+		
