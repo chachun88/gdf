@@ -72,10 +72,4 @@ class TosHandler(BaseHandler):
 
     def get(self):
         self.render( "tos.html" )
-
-class TestPagoHandler(BaseHandler):
-
-    def get(self):
-
-        self.render("testpago.html")
         
