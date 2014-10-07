@@ -33,12 +33,19 @@ class IndexHandler(BaseHandler):
 		lista = product.GetList(page,7)
 
 		items = 0
+		tags = {}
 
 		response = product.GetItems()
 		if "success" in response:
 			items = response["success"]
 
-		self.render("store/index.html",data=lista,items=items,page=page)
+		tag = Tag()
+		tags_visibles = tag.ListVisibleTags()
+
+		if "success" in tags_visibles:
+			tags = tags_visibles["success"]
+
+		self.render("store/index.html",data=lista,items=items,page=page,tags=tags)
 
 class ProductHandler(BaseHandler):
 
