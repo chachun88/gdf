@@ -47,6 +47,10 @@ class IndexHandler(BaseHandler):
 
 		self.render("store/index.html",data=lista,items=items,page=page,tags=tags)
 
+	def post(self):
+
+		self.write(json_util.dumps(self.request.arguments))
+
 class ProductHandler(BaseHandler):
 
 	def get(self,sku=""):
