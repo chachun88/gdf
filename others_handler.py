@@ -77,11 +77,75 @@ class TestPagoHandler(BaseHandler):
 
     def get(self):
 
+        # f=open("dato201410071642.log","w")
+        # f.write("machacando\n")
+        # f.close()
+
         self.render("testpago.html")
 
 class XtCompraHandler(BaseHandler):
 
     def get(self):
-        
+
+
+        TBK_RESPUESTA=self.get_argument("TBK_RESPUESTA")
+        TBK_ORDEN_COMPRA=self.get_argument("TBK_ORDEN_COMPRA")
+        TBK_MONTO=self.get_argument("TBK_MONTO")
+        TBK_ID_SESION=self.get_argument("TBK_ID_SESION")
+
+        myPath = "/var/www/giani.ondev/webpay/dato{}.log".format(TBK_ID_SESION)
+
+        filename_txt = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
+
+        cmdline = "/var/www/cgiani.ondev/cgi-bin/tbk_check_mac.cgi {}".format(filename_txt)
+
+
+        acepta=False;
+
+        f=open(myPath,"r")
+
+        linea = f.readline()
+
+        while linea != "":
+            linea = f.readline()
+
+        f.close()
+
+        detalle=linea.split(";")
+
+        ''''hasta aqui llego la conversion'''
+
+        if (count($detalle)>=1){
+        $monto=$detalle[0];
+        $ordenCompra=$detalle[1];
+        }
+
+        //guarda los datos del post uno a uno en archivo para la ejecución del MAC
+        $fp=fopen($filename_txt,"wt");
+        while(list($key, $val)=each($_POST)){
+        fwrite($fp, "$key=$val&");
+        }
+        fclose($fp);
+        //Validación de respuesta de Transbank, solo si es 0 continua con la pagina de cierre
+        if($TBK_RESPUESTA=="0"){ $acepta=true; } else { $acepta=false; }
+        //validación de monto y Orden de compra
+        if ($TBK_MONTO==$monto && $TBK_ORDEN_COMPRA==$ordenCompra && $acepta==true){ $acepta=true;}
+        else{ $acepta=false;}
+        //Validación MAC
+        if ($acepta==true){
+        exec ($cmdline, $result, $retint);
+        if ($result [0] =="CORRECTO") $acepta=true; else $acepta=false;
+        }
+        log_me("XT_COMPRA","XT_COMPRA");
+        ?>
+        <html>
+
+        <?php if ($acepta==true){?>
+        ACEPTADO
+        <?php } else {?>
+        RECHAZADO
+        <?php }?>
+        </html>
+
         self.write("ACEPTADO")
         
