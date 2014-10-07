@@ -62,7 +62,8 @@ class Application(tornado.web.Application):
             (r"/kardextest", others_handler.KardexTestHandler),
 
             (r"/tos", others_handler.TosHandler),
-            (r"/testpago", others_handler.TestPagoHandler)
+            (r"/testpago", others_handler.TestPagoHandler),
+            (r"/xt_compra", others_handler.XtCompraHandler)
             
         ]
         settings = dict(

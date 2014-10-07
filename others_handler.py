@@ -78,4 +78,9 @@ class TestPagoHandler(BaseHandler):
     def get(self):
 
         self.render("testpago.html")
+
+class XtCompraHandler(BaseHandler):
+
+    def get(self):
+        self.write("ACEPTADO")
         
