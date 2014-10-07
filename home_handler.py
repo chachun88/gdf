@@ -21,3 +21,14 @@ class HomeHandler(BaseHandler):
 	def get(self):
 
 		self.render("home/index.html")
+
+class MainHandler(BaseHandler):
+
+	def get(self):
+
+		self.write("MainHandler")
+class MainHandler(BaseHandler):
+
+	def get(self):
+
+		self.write("MainHandler")
