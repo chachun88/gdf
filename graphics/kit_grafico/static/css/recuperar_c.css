@@ -1,0 +1,90 @@
+.contenedor_formularios {
+width: 80%;
+margin-left: 10%;
+float: left;
+}
+.contenedor_form_1 {
+	width: 320px;
+	margin: 0 auto;
+}
+.contenedor_form_1 h1 {
+	width: 100%;
+	text-align: center;
+	color: white;
+	font-size: 16px;
+	text-transform: uppercase;
+	padding-top: 20px;
+
+}
+form {
+	background-color: rgb(221, 221, 221);
+	margin: 20px auto;
+	height: 300px;
+}
+
+.contenedor_formularios form input, form button{
+	height: 40px;
+	width: 80%;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 10%;
+	border-radius: 2px 2px 2px 2px;
+	-moz-border-radius: 2px 2px 2px 2px;
+	-webkit-border-radius: 2px 2px 2px 2px;
+	border: 1px solid rgb(205, 205, 205);
+	color: gray;
+    text-transform: uppercase;
+    padding: 5px;
+
+}
+.contenedor_formularios form button {
+	background-color: gray;
+	color: white;
+}
+.contenedor_formularios form button:hover {
+	background-color: #cccccc;
+}
+.contenedor_form2 form input{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.contenedor_form2 form button {
+	margin-top: 20px;
+}
+
+.titulos {
+	margin-top: 20px;
+	background-color: rgb(221, 221, 221);
+	height: 300px;
+
+}
+.titulos h1 {
+	font-size: 12px;
+	width: 80%;
+	margin-left: 10%;
+	padding-top: 20%;
+}
+.mensaje-error {
+	margin: 40px auto;
+	width: 320px;
+
+}
+.mensaje-error h1{
+	font-family: 'Vidaloka', serif;
+	font-size: 80px;
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	color:  rgb(231, 169, 156);
+}
+
+.mensaje-error h2{
+	font-family: 'Vidaloka', serif;
+	font-size: 16px;
+	width: 100%;
+	text-align: center;
+	color:  gray;
+}
+.size h1{
+	font-size: 33px !important;
+}
