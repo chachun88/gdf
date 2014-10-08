@@ -101,10 +101,10 @@ class XtCompraHandler(BaseHandler):
 
         f=open(myPath,"r")
 
-        linea = f.readline()
+        linea = ""
 
-        while linea != "":
-            linea = f.readline()
+        for l in f:
+            linea = l
 
         f.close()
 
