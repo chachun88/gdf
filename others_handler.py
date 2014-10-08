@@ -110,7 +110,7 @@ class XtCompraHandler(BaseHandler):
 
         detalle=linea.split(";")
 
-        if detalle.count()>0:
+        if len(detalle)>0:
             monto = detalle[0]
             ordenCompra = detalle[1]
 
