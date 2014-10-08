@@ -146,7 +146,7 @@ class XtCompraHandler(BaseHandler):
             monto = detalle[0]
             ordenCompra = detalle[1]
 
-        f=open("{}".format(filename_txt),"wt")
+        f=open(filename_txt,"wt")
 
         f.write("{}={}&".format("TBK_ORDEN_COMPRA",self.get_argument("TBK_ORDEN_COMPRA")))
         f.write("{}={}&".format("TBK_TIPO_TRANSACCION",self.get_argument("TBK_TIPO_TRANSACCION")))
@@ -181,7 +181,7 @@ class XtCompraHandler(BaseHandler):
 
             resultado = os.popen(cmdline).read()
 
-            print "RESULTADO:{}".format(resultado)
+            # print "RESULTADO:{}".format(resultado)
             
             if resultado == "CORRECTO":
                 acepta = True
@@ -190,8 +190,10 @@ class XtCompraHandler(BaseHandler):
 
 
         if acepta:
+            print "si acepto"
             self.write("ACEPTADO")
         else:
+            print "no acepto"
             self.write("RECHAZADO")
 
         
