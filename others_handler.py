@@ -80,6 +80,30 @@ class TestPagoHandler(BaseHandler):
 
         self.render("testpago.html")
 
+    def post(self):
+
+        TBK_TIPO_TRANSACCION = self.get_argument("TBK_TIPO_TRANSACCION","")
+        TBK_MONTO = self.get_argument("TBK_MONTO","")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
+        TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO","")
+        TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO","")
+
+        url = "http://cgiani.ondev.today/cgi-bin/tbk_bp_pago.cgi"
+
+        data = {
+        "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
+        "TBK_MONTO":TBK_MONTO,
+        "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
+        "TBK_ID_SESION":TBK_ID_SESION,
+        "TBK_URL_EXITO":TBK_URL_EXITO,
+        "TBK_URL_FRACASO":TBK_URL_FRACASO
+        }
+
+        self.render("testtransbank.html",data=data)
+
+        
+
 class XtCompraHandler(BaseHandler):
 
     def post(self):
