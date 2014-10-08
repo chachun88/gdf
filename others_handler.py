@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import os.path
+import os
 
 import tornado.auth
 import tornado.httpserver
@@ -77,91 +78,73 @@ class TestPagoHandler(BaseHandler):
 
     def get(self):
 
-        # f=open("dato201410071642.log","w")
-        # f.write("machacando\n")
-        # f.close()
-
         self.render("testpago.html")
 
 class XtCompraHandler(BaseHandler):
 
     def get(self):
 
-        import os
 
-        filename_txt = "/var/www/giani.ondev/webpay/MAC01Normal20141007125538.txt" #.format(TBK_ID_SESION)
+        TBK_RESPUESTA=self.get_argument("TBK_RESPUESTA")
+        TBK_ORDEN_COMPRA=self.get_argument("TBK_ORDEN_COMPRA")
+        TBK_MONTO=self.get_argument("TBK_MONTO")
+        TBK_ID_SESION=self.get_argument("TBK_ID_SESION")
+
+        myPath = "/var/www/giani.ondev/webpay/dato{}.log".format(TBK_ID_SESION)
+
+        filename_txt = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
 
         cmdline = "/var/www/cgiani.ondev/cgi-bin/tbk_check_mac.cgi {}".format(filename_txt)
 
-        resultado = os.popen(cmdline).read()
-        self.write(resultado) 
+
+        acepta=False;
+
+        f=open(myPath,"r")
+
+        linea = f.readline()
+
+        while linea != "":
+            linea = f.readline()
+
+        f.close()
+
+        detalle=linea.split(";")
+
+        if count(detalle)>0:
+            monto = detalle[0]
+            ordenCompra = detalle[1]
+
+        f=open("filename_txt.txt","wt")
+
+        for i in self.request.arguments:
+            f.write("{}={}&".format(i,self.get_argument(i)))
+
+        f.close()
+
+        if TBK_RESPUESTA == "0":
+            acepta = True
+        else:
+            acepta = False
+
+        if TBK_MONTO == monto and TBK_ORDEN_COMPRA == ordenCompra and acepta == True:
+            acepta = True
+        else:
+            acepta = False
 
 
-        # TBK_RESPUESTA=self.get_argument("TBK_RESPUESTA")
-        # TBK_ORDEN_COMPRA=self.get_argument("TBK_ORDEN_COMPRA")
-        # TBK_MONTO=self.get_argument("TBK_MONTO")
-        # TBK_ID_SESION=self.get_argument("TBK_ID_SESION")
+        if acepta:
 
-        # myPath = "/var/www/giani.ondev/webpay/dato{}.log".format(TBK_ID_SESION)
-
-        # filename_txt = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
-
-        # cmdline = "/var/www/cgiani.ondev/cgi-bin/tbk_check_mac.cgi {}".format(filename_txt)
+            resultado = os.popen(cmdline).read()
+            
+            if resultado == "CORRECTO":
+                acepta = True
+            else:
+                acepta = False
 
 
-        # acepta=False;
+        if acepta:
+            self.write("ACEPTADO")
+        else:
+            self.write("RECHAZADO")
 
-        # f=open(myPath,"r")
-
-        # linea = f.readline()
-
-        # while linea != "":
-        #     linea = f.readline()
-
-        # f.close()
-
-        # detalle=linea.split(";")
-
-        # if count(detalle)>0:
-        #     monto = detalle[0]
-        #     ordenCompra = detalle[1]
-
-        # f=open("filename_txt.txt","wt")
-
-        # for i in self.request.arguments:
-        #     f.write("{}={}&".format(i,self.get_argument(i)))
-
-        # f.close()
-
-        # if TBK_RESPUESTA == "0":
-        #     acepta = True
-        # else:
-        #     acepta = False
-
-        # if TBK_MONTO == monto and TBK_ORDEN_COMPRA == ordenCompra and acepta == True:
-        #     acepta = True
-        # else:
-        #     acepta = False
-
-
-        # if acepta:
-
-
-        # //Validación MAC
-        # if ($acepta==true){
-        # exec ($cmdline, $result, $retint);
-        # if ($result [0] =="CORRECTO") $acepta=true; else $acepta=false;
-        # }
-        # log_me("XT_COMPRA","XT_COMPRA");
-        # ?>
-        # <html>
-
-        # <?php if ($acepta==true){?>
-        # ACEPTADO
-        # <?php } else {?>
-        # RECHAZADO
-        # <?php }?>
-        # </html>
-
-        # self.write("ACEPTADO")
         
