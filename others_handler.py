@@ -87,6 +87,15 @@ class XtCompraHandler(BaseHandler):
 
     def get(self):
 
+        import os
+
+        filename_txt = "/var/www/giani.ondev/webpay/MAC01Normal20141007125538.txt" #.format(TBK_ID_SESION)
+
+        cmdline = "/var/www/cgiani.ondev/cgi-bin/tbk_check_mac.cgi {}".format(filename_txt)
+
+        resultado = os.popen(cmdline).read()
+        self.write(resultado) 
+
 
         # TBK_RESPUESTA=self.get_argument("TBK_RESPUESTA")
         # TBK_ORDEN_COMPRA=self.get_argument("TBK_ORDEN_COMPRA")
@@ -113,24 +122,31 @@ class XtCompraHandler(BaseHandler):
 
         # detalle=linea.split(";")
 
-        ''''hasta aqui llego la conversion'''
+        # if count(detalle)>0:
+        #     monto = detalle[0]
+        #     ordenCompra = detalle[1]
 
-        # if (count($detalle)>=1){
-        # $monto=$detalle[0];
-        # $ordenCompra=$detalle[1];
-        # }
+        # f=open("filename_txt.txt","wt")
 
-        # //guarda los datos del post uno a uno en archivo para la ejecución del MAC
-        # $fp=fopen($filename_txt,"wt");
-        # while(list($key, $val)=each($_POST)){
-        # fwrite($fp, "$key=$val&");
-        # }
-        # fclose($fp);
-        # //Validación de respuesta de Transbank, solo si es 0 continua con la pagina de cierre
-        # if($TBK_RESPUESTA=="0"){ $acepta=true; } else { $acepta=false; }
-        # //validación de monto y Orden de compra
-        # if ($TBK_MONTO==$monto && $TBK_ORDEN_COMPRA==$ordenCompra && $acepta==true){ $acepta=true;}
-        # else{ $acepta=false;}
+        # for i in self.request.arguments:
+        #     f.write("{}={}&".format(i,self.get_argument(i)))
+
+        # f.close()
+
+        # if TBK_RESPUESTA == "0":
+        #     acepta = True
+        # else:
+        #     acepta = False
+
+        # if TBK_MONTO == monto and TBK_ORDEN_COMPRA == ordenCompra and acepta == True:
+        #     acepta = True
+        # else:
+        #     acepta = False
+
+
+        # if acepta:
+
+
         # //Validación MAC
         # if ($acepta==true){
         # exec ($cmdline, $result, $retint);
@@ -147,5 +163,5 @@ class XtCompraHandler(BaseHandler):
         # <?php }?>
         # </html>
 
-        self.write("ACEPTADO")
+        # self.write("ACEPTADO")
         
