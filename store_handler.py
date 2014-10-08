@@ -206,10 +206,10 @@ class GetProductsByTagsHandler(BaseHandler):
 
 	def get(self):
 
-		tags = self.get_argument("tags","")
+		_tags = self.get_argument("tags","")
 		page = int(self.get_argument("page","1"))
 
-		tags_arr = tags.split(",")
+		tags_arr = _tags.split(",")
 
 		items = 0
 
@@ -222,8 +222,13 @@ class GetProductsByTagsHandler(BaseHandler):
 
 		res = tag.GetProductsByTags(tags_arr,page)
 
+		tags_visibles = tag.ListVisibleTags()
+
+		if "success" in tags_visibles:
+			tags = tags_visibles["success"]
+
 		if "success" in res:
-			self.render("store/index.html",data=res["success"],items=items,page=page)
+			self.render("store/index.html",data=res["success"],items=items,page=page,tags=tags)
 		else:
 			self.render("beauty_error.html",message=res["error"])
 
