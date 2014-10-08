@@ -104,19 +104,20 @@ class XtCompraHandler(BaseHandler):
         linea = ""
 
         for l in f:
-            linea = l
+            if l.strip() != "":
+                linea = l
 
         f.close()
 
         detalle=linea.split(";")
 
-        print "linea:{}".format(linea)
+        # print "linea:{}".format(linea)
 
         if len(detalle)>0:
             monto = detalle[0]
             ordenCompra = detalle[1]
 
-        f=open("filename_txt.txt","wt")
+        f=open("{}.txt".format(filename_txt),"wt")
 
         for i in self.request.arguments:
             f.write("{}={}&".format(i,self.get_argument(i)))
@@ -138,7 +139,7 @@ class XtCompraHandler(BaseHandler):
 
             resultado = os.popen(cmdline).read()
 
-            print "RESULTADO:{}".format(resultado)
+            # print "RESULTADO:{}".format(resultado)
             
             if resultado == "CORRECTO":
                 acepta = True
