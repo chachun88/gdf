@@ -148,8 +148,21 @@ class XtCompraHandler(BaseHandler):
 
         f=open("{}".format(filename_txt),"wt")
 
-        for i in self.request.arguments:
-            f.write("{}={}&".format(i,self.get_argument(i)))
+        f.write("{}={}&".format("TBK_ORDEN_COMPRA",self.get_argument("TBK_ORDEN_COMPRA")))
+        f.write("{}={}&".format("TBK_TIPO_TRANSACCION",self.get_argument("TBK_TIPO_TRANSACCION")))
+        f.write("{}={}&".format("TBK_RESPUESTA",self.get_argument("TBK_RESPUESTA")))
+        f.write("{}={}&".format("TBK_MONTO",self.get_argument("TBK_MONTO")))
+        f.write("{}={}&".format("TBK_CODIGO_AUTORIZACION",self.get_argument("TBK_CODIGO_AUTORIZACION")))
+        f.write("{}={}&".format("TBK_FINAL_NUMERO_TARJETA",self.get_argument("TBK_FINAL_NUMERO_TARJETA")))
+        f.write("{}={}&".format("TBK_FECHA_CONTABLE",self.get_argument("TBK_FECHA_CONTABLE")))
+        f.write("{}={}&".format("TBK_FECHA_TRANSACCION",self.get_argument("TBK_FECHA_TRANSACCION")))
+        f.write("{}={}&".format("TBK_HORA_TRANSACCION",self.get_argument("TBK_HORA_TRANSACCION")))
+        f.write("{}={}&".format("TBK_ID_SESION",self.get_argument("TBK_ID_SESION")))
+        f.write("{}={}&".format("TBK_ID_TRANSACCION",self.get_argument("TBK_ID_TRANSACCION")))
+        f.write("{}={}&".format("TBK_TIPO_PAGO",self.get_argument("TBK_TIPO_PAGO")))
+        f.write("{}={}&".format("TBK_NUMERO_CUOTAS",self.get_argument("TBK_NUMERO_CUOTAS")))
+        f.write("{}={}&".format("TBK_VCI",self.get_argument("TBK_VCI")))
+        f.write("{}={}&".format("TBK_MAC",self.get_argument("TBK_MAC")))
 
         f.close()
 
