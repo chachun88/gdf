@@ -1,41 +1,65 @@
+{% extends "base.html" %}
+{% block title %}
+Giani Da Firenze - Transbank
+{% end %}
+
+{% block body %}
+
 <form action="http://cgiani.ondev.today/cgi-bin/tbk_bp_pago.cgi" method="post" id="webpayplus">
   <input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" />
 
-  <input type="text" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
-  <input type="text" name="TBK_MONTO" value="300000" />
-  <input type="text" name="TBK_ORDEN_COMPRA" value="3212" />
-  <input type="text" name="TBK_ID_SESION" value="20141007125538" />
-  <input type="text" name="TBK_URL_EXITO" value="http://giani.ondev.today" />
-  <input type="text" name="TBK_URL_FRACASO" value="http://giani.ondev.today/store" />
+  <input type="hidden" name="TBK_TIPO_TRANSACCION" value="{{data['TBK_TIPO_TRANSACCION']}}" />
+  <input type="hidden" name="TBK_MONTO" value="{{data['TBK_MONTO']}}" />
+  <input type="hidden" name="TBK_ORDEN_COMPRA" value="{{data['TBK_ORDEN_COMPRA']}}" />
+  <input type="hidden" name="TBK_ID_SESION" value="{{data['TBK_ID_SESION']}}" />
+  <input type="hidden" name="TBK_URL_EXITO" value="{{data['TBK_URL_EXITO']}}" />
+  <input type="hidden" name="TBK_URL_FRACASO" value="{{data['TBK_URL_FRACASO']}}" />
 
 </form>
+
 <div class="overlay"></div>
 <div class="mensaje">
-  <img src='/static/source/fancybox_loading.gif' alt='Redireccionando'/>
+  <img src='/static/img/loading.gif' alt='Redireccionando'/>
   <p>
     Gracias por su pedido. Estamos redireccionandote a WebPay
   </p>
 </div>
 
 <style type="text/css">
+  #submit_webpayplus_payment_form{
+    visibility: hidden;
+  }
   .overlay{
-    background: #fff;
-    opacity: 0.6;
+    background: #ccc;
     width: 100%;
     height: 100%;
+    cursor: wait;
     position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    opacity: 0.8;
   }
   .mensaje{
     padding: 20;
     text-align: center;
-    color: #555;
-    border: 3px solid #aaa;
+    color: #333;
+    border: 3px solid #999;
     background-color: #fff;
-    cursor: wait;
     line-height: 32px;
+    position: fixed;
+    z-index: 2;
+    margin-left: -200px;
+    left: 50%;
+    top: 40%;
   }
 </style>
-
+{% end %}
+{% block javascript %}
 <script type="text/javascript">
-  //jQuery("#submit_webpayplus_payment_form").click();
+  $(document).ready(function(){
+    $("#submit_webpayplus_payment_form").click();
+  });
 </script>
+{% end %}
+

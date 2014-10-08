@@ -89,7 +89,12 @@ class TestPagoHandler(BaseHandler):
         TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO","")
         TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO","")
 
-        url = "http://cgiani.ondev.today/cgi-bin/tbk_bp_pago.cgi"
+        myPath = "/var/www/giani.ondev/webpay/dato{}.log".format(TBK_ID_SESION)
+
+        f = open(myPath, "w+");
+        linea = "{};{}".format(TBK_MONTO,TBK_ORDEN_COMPRA)
+        f.write(linea);
+        f.close();
 
         data = {
         "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
