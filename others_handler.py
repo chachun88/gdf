@@ -117,7 +117,7 @@ class XtCompraHandler(BaseHandler):
             monto = detalle[0]
             ordenCompra = detalle[1]
 
-        f=open("{}.txt".format(filename_txt),"wt")
+        f=open("{}".format(filename_txt),"wt")
 
         for i in self.request.arguments:
             f.write("{}={}&".format(i,self.get_argument(i)))
