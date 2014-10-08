@@ -135,6 +135,8 @@ class XtCompraHandler(BaseHandler):
         if acepta:
 
             resultado = os.popen(cmdline).read()
+
+            print "RESULTADO:{}".format(resultado)
             
             if resultado == "CORRECTO":
                 acepta = True
