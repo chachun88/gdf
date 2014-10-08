@@ -82,7 +82,7 @@ class TestPagoHandler(BaseHandler):
 
 class XtCompraHandler(BaseHandler):
 
-    def get(self):
+    def post(self):
 
 
         TBK_RESPUESTA=self.get_argument("TBK_RESPUESTA")
