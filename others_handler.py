@@ -221,49 +221,64 @@ class ExitoHandler(BaseHandler):
 
         dict_parametros = urlparse.parse_qs(linea)
 
-        self.write(dict_parametros["TBK_MONTO"][0])
+        # self.write(dict_parametros["TBK_MONTO"][0])
 
         # detalle = linea.split("&")
 
-        # TBK_ORDEN_COMPRA = detalle[0].split("=");
-        # TBK_TIPO_TRANSACCION = detalle[1].split("=");
-        # TBK_RESPUESTA = detalle[2].split("=");
-        # TBK_MONTO = detalle[3].split("=");
-        # TBK_CODIGO_AUTORIZACION = detalle[4].split("=");
-        # TBK_FINAL_NUMERO_TARJETA = detalle[5].split("=");
-        # TBK_FECHA_CONTABLE = detalle[6].split("=");
-        # TBK_FECHA_TRANSACCION = detalle[7].split("=");
-        # TBK_HORA_TRANSACCION = detalle[8].split("=");
-        # TBK_ID_TRANSACCION = detalle[10].split("=");
-        # TBK_TIPO_PAGO = detalle[11].split("=");
-        # TBK_NUMERO_CUOTAS = detalle[12].split("=");
-        # TBK_MAC = detalle[13].split("=");
-        # TBK_FECHA_CONTABLE = 
+        TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
+        TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
+        TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
+        TBK_MONTO = dict_parametros["TBK_MONTO"][0]
+        TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
+        TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
+        TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+        TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
+        TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
+        TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
+        TBK_MAC = dict_parametros["TBK_MAC"][0]
+        
 
+        TBK_FECHA_CONTABLE = dict_parametros["TBK_FECHA_CONTABLE"][0] # ej: 1006
+        TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0] # ej: 1006
 
-# //Rescate de los valores informados por transbank
-# $fic = fopen($myPath, "r");
-# $linea = fgets($fic);
-# fclose($fic);
-# $detalle = explode("&", $linea);
-# $TBK_ORDEN_COMPRA = explode("=", $detalle[0]);
-# $TBK_TIPO_TRANSACCION = explode("=", $detalle[1]);
-# $TBK_RESPUESTA = explode("=", $detalle[2]);
-# $TBK_MONTO = explode("=", $detalle[3]);
-# $TBK_CODIGO_AUTORIZACION = explode("=", $detalle[4]);
-# $TBK_FINAL_NUMERO_TARJETA = explode("=", $detalle[5]);
-# $TBK_FECHA_CONTABLE = explode("=", $detalle[6]);
-# $TBK_FECHA_TRANSACCION = explode("=", $detalle[7]);
-# $TBK_HORA_TRANSACCION = explode("=", $detalle[8]);
-# $TBK_ID_TRANSACCION = explode("=", $detalle[10]);
-# $TBK_TIPO_PAGO = explode("=", $detalle[11]);
-# $TBK_NUMERO_CUOTAS = explode("=", $detalle[12]);
-# $TBK_MAC = explode("=", $detalle[13]);
-# $TBK_FECHA_CONTABLE[1] = substr($TBK_FECHA_CONTABLE[1], 2, 2) . "-
-# " . substr($TBK_FECHA_CONTABLE[1], 0, 2);
-# $TBK_FECHA_TRANSACCION[1] = substr($TBK_FECHA_TRANSACCION[1], 2, 2) . "-
-# " . substr($TBK_FECHA_TRANSACCION[1], 0, 2);
-# $TBK_HORA_TRANSACCION[1] = substr($TBK_HORA_TRANSACCION[1], 0, 2).":".substr($TBK_HORA_TRANSACCION[1], 2, 2).":" . substr($TBK_HORA_TRANSACCION[1], 4, 2);
-# ?>
+        mes_contable = TBK_FECHA_CONTABLE[:2] #extrae el 10
+        dia_contable = TBK_FECHA_CONTABLE[2:] #extrae el 06
 
+        # formatea la fecha como 10-06
+
+        TBK_FECHA_CONTABLE = "{mes}-{dia}".format(mes=mes_contable,dia=dia_contable)
+
+        # aqui se repite la misma operacion para obtener mes y dia
+
+        mes_transaccion = TBK_FECHA_TRANSACCION[:2]
+        dia_transaccion = TBK_FECHA_TRANSACCION[2:]
+
+        TBK_FECHA_TRANSACCION = "{mes}-{dia}".format(mes=mes_transaccion,dia=dia_transaccion)
+
+        TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+
+        hora_transaccion = TBK_HORA_TRANSACCION[:2]
+        minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
+        segundo_transaccion = TBK_HORA_TRANSACCION[5:]
+
+        TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
+
+        data = {
+        "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
+        "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
+        "TBK_RESPUESTA":TBK_RESPUESTA,
+        "TBK_MONTO":TBK_MONTO,
+        "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
+        "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
+        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+        "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
+        "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
+        "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
+        "TBK_MAC":TBK_MAC,
+        "TBK_FECHA_CONTABLE":TBK_FECHA_CONTABLE,
+        "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
+        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION
+        }
+
+        self.render("exito.html",data=data,pathSubmit=pathSubmit)
 
