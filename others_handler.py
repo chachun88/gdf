@@ -259,7 +259,7 @@ class ExitoHandler(BaseHandler):
 
         hora_transaccion = TBK_HORA_TRANSACCION[:2]
         minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
-        segundo_transaccion = TBK_HORA_TRANSACCION[5:]
+        segundo_transaccion = TBK_HORA_TRANSACCION[5:6]
 
         TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
 
