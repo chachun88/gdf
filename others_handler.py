@@ -15,6 +15,7 @@ from basehandler import BaseHandler
 from model.kardex import Kardex
 from datetime import datetime
 import urlparse
+from bson import json_util
 
 from globals import email_giani
 
@@ -216,7 +217,7 @@ class ExitoHandler(BaseHandler):
 
         f.close()
 
-        print urlparse.parse_qs(linea)
+        self.write(json_util.dumps(urlparse.parse_qs(linea)))
 
         # detalle = linea.split("&")
 
