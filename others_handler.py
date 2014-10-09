@@ -14,6 +14,7 @@ from basehandler import BaseHandler
 
 from model.kardex import Kardex
 from datetime import datetime
+import urlparse
 
 from globals import email_giani
 
@@ -181,7 +182,7 @@ class XtCompraHandler(BaseHandler):
 
             resultado = os.popen(cmdline).read()
 
-            print "RESULTADO:-----{}----".format(resultado.strip())
+            # print "RESULTADO:-----{}----".format(resultado.strip())
             
             if resultado.strip() == "CORRECTO":
                 acepta = True
@@ -190,10 +191,74 @@ class XtCompraHandler(BaseHandler):
 
 
         if acepta:
-            print "si acepto"
+            # print "si acepto"
             self.write("ACEPTADO")
         else:
-            print "no acepto"
+            # print "no acepto"
             self.write("RECHAZADO")
 
-        
+class ExitoHandler(BaseHandler):
+
+    def get(self):
+
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","1")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","1")
+
+        myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
+        pathSubmit = "http://giani.ondev.today"
+
+        f = open(myPath,"r")
+        linea = ""
+
+        for l in f:
+            if l.strip() != "":
+                linea = l
+
+        f.close()
+
+        print urlparse.parse_qs(linea)
+
+        # detalle = linea.split("&")
+
+        # TBK_ORDEN_COMPRA = detalle[0].split("=");
+        # TBK_TIPO_TRANSACCION = detalle[1].split("=");
+        # TBK_RESPUESTA = detalle[2].split("=");
+        # TBK_MONTO = detalle[3].split("=");
+        # TBK_CODIGO_AUTORIZACION = detalle[4].split("=");
+        # TBK_FINAL_NUMERO_TARJETA = detalle[5].split("=");
+        # TBK_FECHA_CONTABLE = detalle[6].split("=");
+        # TBK_FECHA_TRANSACCION = detalle[7].split("=");
+        # TBK_HORA_TRANSACCION = detalle[8].split("=");
+        # TBK_ID_TRANSACCION = detalle[10].split("=");
+        # TBK_TIPO_PAGO = detalle[11].split("=");
+        # TBK_NUMERO_CUOTAS = detalle[12].split("=");
+        # TBK_MAC = detalle[13].split("=");
+        # TBK_FECHA_CONTABLE = 
+
+
+# //Rescate de los valores informados por transbank
+# $fic = fopen($myPath, "r");
+# $linea = fgets($fic);
+# fclose($fic);
+# $detalle = explode("&", $linea);
+# $TBK_ORDEN_COMPRA = explode("=", $detalle[0]);
+# $TBK_TIPO_TRANSACCION = explode("=", $detalle[1]);
+# $TBK_RESPUESTA = explode("=", $detalle[2]);
+# $TBK_MONTO = explode("=", $detalle[3]);
+# $TBK_CODIGO_AUTORIZACION = explode("=", $detalle[4]);
+# $TBK_FINAL_NUMERO_TARJETA = explode("=", $detalle[5]);
+# $TBK_FECHA_CONTABLE = explode("=", $detalle[6]);
+# $TBK_FECHA_TRANSACCION = explode("=", $detalle[7]);
+# $TBK_HORA_TRANSACCION = explode("=", $detalle[8]);
+# $TBK_ID_TRANSACCION = explode("=", $detalle[10]);
+# $TBK_TIPO_PAGO = explode("=", $detalle[11]);
+# $TBK_NUMERO_CUOTAS = explode("=", $detalle[12]);
+# $TBK_MAC = explode("=", $detalle[13]);
+# $TBK_FECHA_CONTABLE[1] = substr($TBK_FECHA_CONTABLE[1], 2, 2) . "-
+# " . substr($TBK_FECHA_CONTABLE[1], 0, 2);
+# $TBK_FECHA_TRANSACCION[1] = substr($TBK_FECHA_TRANSACCION[1], 2, 2) . "-
+# " . substr($TBK_FECHA_TRANSACCION[1], 0, 2);
+# $TBK_HORA_TRANSACCION[1] = substr($TBK_HORA_TRANSACCION[1], 0, 2).":".substr($TBK_HORA_TRANSACCION[1], 2, 2).":" . substr($TBK_HORA_TRANSACCION[1], 4, 2);
+# ?>
+
+
