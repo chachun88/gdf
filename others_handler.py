@@ -217,7 +217,11 @@ class ExitoHandler(BaseHandler):
 
         f.close()
 
-        self.write(json_util.dumps(urlparse.parse_qs(linea)))
+        # json_util.dumps(urlparse.parse_qs(linea))
+
+        dict_parametros = urlparse.parse_qs(linea)
+
+        self.write(dict_parametros["TBK_MONTO"][0])
 
         # detalle = linea.split("&")
 
