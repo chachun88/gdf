@@ -105,7 +105,7 @@ class Cart(BaseModel):
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 		
 		try:
-			q = '''update "Temp_Cart" set bought = 1 where id = %(id)s'''
+			q = '''delete from "Temp_Cart" where id = %(id)s'''
 			p = {
 			"id":self.id
 			}
