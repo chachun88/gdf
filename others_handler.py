@@ -377,7 +377,7 @@ class ExitoHandler(BaseHandler):
         
         detail = OrderDetail()
 
-        lista = detail.ListByOrderId()
+        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
 
         if len(lista) > 0:
 
