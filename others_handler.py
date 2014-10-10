@@ -396,13 +396,11 @@ class ExitoHandler(BaseHandler):
                     kardex.cellar_identifier = cellar_id
                     kardex.operation_type = Kardex.OPERATION_SELL
                     kardex.sell_price = producto.sell_price
-                    kardex.size = detail.size
+                    kardex.size = l["size"]
                     kardex.date = str(datetime.now().isoformat()) 
                     kardex.user = self.current_user["email"]
-                    kardex.units = detail.quantity
+                    kardex.units = l["quantity"]
 
-                    self.write(detail.quantity)
-                    return
 
                     kardex.Insert()
 
