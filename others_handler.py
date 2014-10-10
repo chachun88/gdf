@@ -183,8 +183,8 @@ class TestPagoHandler(BaseHandler):
         }
 
 
-        self.write(json_util.dumps(data))
-        # self.render("testtransbank.html",data=data)
+        # self.write(json_util.dumps(data))
+        self.render("testtransbank.html",data=data)
 
         
 
@@ -266,6 +266,13 @@ class XtCompraHandler(BaseHandler):
                 acepta = True
             else:
                 acepta = False
+
+        order = Order()
+        init_by_id = order.InitById(TBK_ORDEN_COMPRA)
+
+        # si ya existe la orden rechazar el pago
+        if "success" in init_by_id:
+            acepta = False
 
 
         if acepta:
@@ -358,11 +365,8 @@ class ExitoHandler(BaseHandler):
         }
 
 
-        '''esto es solo de prueba borrar despues'''
-        user_id = 16
-
         order = Order()
-        order.InitById(TBK_ORDEN_COMPRA)
+        init_by_id = order.InitById(TBK_ORDEN_COMPRA)
         order.state = 2
         save_order = order.Save()
 
@@ -370,7 +374,7 @@ class ExitoHandler(BaseHandler):
             self.render("store/failure.html")
         
         cart = Cart()
-        cart.user_id = user_id
+        cart.user_id = order.user_id
 
         lista = cart.GetCartByUserId()
 
