@@ -590,5 +590,5 @@ class FracasoHandler(BaseHandler):
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
 
-        self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA)
+        self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=PATHSUBMIT)
 
