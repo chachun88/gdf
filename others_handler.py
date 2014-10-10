@@ -402,6 +402,7 @@ class ExitoHandler(BaseHandler):
                     kardex.units = detail.quantity
 
                     self.write(detail.quantity)
+                    return
 
                     kardex.Insert()
 
