@@ -360,6 +360,12 @@ class ExitoHandler(BaseHandler):
         user_id = 16
 
         order = Order()
+        order.InitById(TBK_ORDEN_COMPRA)
+        order.state = 2
+        save_order = order.Save()
+
+        if "error" in save_order:
+            self.render("store/failure.html")
         
         cart = Cart()
         cart.user_id = user_id
@@ -375,14 +381,6 @@ class ExitoHandler(BaseHandler):
                 detalle_orden = ""
 
                 for l in lista:
-
-                    detail = OrderDetail()
-                    detail.order_id = order.id
-                    detail.quantity = l["quantity"]
-                    detail.subtotal = l["subtotal"]
-                    detail.product_id = l["product_id"]
-                    detail.size = l["size"]
-                    res_obj = detail.Save()
 
                     kardex = Kardex()
 

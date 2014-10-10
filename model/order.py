@@ -373,3 +373,39 @@ class Order(BaseModel):
             return self.ShowSuccessMessage(user_id)
         except Exception,e:
             return self.ShowError("Error deleting contacts by user_id {user_id}, error:{error}".format(user_id=user_id,error=str(e)))
+
+    def InitById(self, _id):
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+        query = '''select * from "Order" where id = %(id)s limit 1'''
+
+        parametros = {
+        "id":_id
+        }
+
+        try:
+            cur.execute(query,parametros)
+            order = cur.fetchone()
+
+            self.id = order["id"]
+            self.date = order["date"]
+            self.type = order["type"]
+            self.subtotal = order["subtotal"]
+            self.discount = order["discount"]
+            self.tax = order["tax"]
+            self.total = order["total"]
+            self.items_quantity = order["items_quantity"]
+            self.products_quantity = order["products_quantity"]
+            self.user_id = order["user_id"]
+            self.billing_id = order["billing_id"]
+            self.shipping_id = order["shipping_id"]
+            self.payment_type = order["payment_type"]
+            self.source = order["source"]
+            self.voucher = order["voucher"]
+            self.state = order["state"]
+
+            return self.ShowSuccessMessage(self.id)
+
+        except Exception,e:
+            return self.ShowError(str(e))
