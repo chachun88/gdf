@@ -151,7 +151,7 @@ class TestPagoHandler(BaseHandler):
             order.billing_id = id_facturacion
             order.shipping_id = id_despacho
             order.payment_type = tipo_pago
-            order.voucher = final_name
+            order.voucher = ""
             order.state = 1
 
             response_obj = order.Save()
@@ -181,8 +181,8 @@ class TestPagoHandler(BaseHandler):
         }
 
 
-
-        self.render("testtransbank.html",data=data)
+        self.write(json_util.dumps(data))
+        # self.render("testtransbank.html",data=data)
 
         
 
