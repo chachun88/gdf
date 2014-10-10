@@ -272,7 +272,8 @@ class XtCompraHandler(BaseHandler):
 
         # si ya existe la orden rechazar el pago
         if "success" in init_by_id:
-            acepta = False
+            if order.state != 1:
+                acepta = False
 
 
         if acepta:
