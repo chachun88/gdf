@@ -91,7 +91,7 @@ class TestPagoHandler(BaseHandler):
 
         TBK_TIPO_TRANSACCION = self.get_argument("TBK_TIPO_TRANSACCION","")
         TBK_MONTO = self.get_argument("TBK_MONTO","")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
+        # TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO","")
         TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO","")
