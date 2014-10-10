@@ -1,0 +1,41 @@
+{% extends "../base.html" %}
+{% block title %}
+Giani Da Firenze - Home
+{% end %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/index.css">
+<link rel="stylesheet" href="/static/css/recuperar_c.css">
+<link href='http://fonts.googleapis.com/css?family=Vidaloka' rel='stylesheet' type='text/css'>
+{% end %}
+
+{% block body %}
+<div class="contenedor_formularios">
+    <div class="mensaje-error size">
+        <center>
+            <b>TRANSACCI&Oacute;N FRACASADA !!!</b>
+            <table>
+                <tr>
+                    <th>Orden N&uacute;mero {{TBK_ORDEN_COMPRA}}</th>
+                </tr>
+                <tr>
+                    <th>Las posibles causas de este rechazo son:</th>
+                </tr>
+                <tr>
+                    <ul>
+                        <li>Error en el ingreso de los datos de su tarjeta de cr&eacute;dito o d&eacute;bito (fecha y/o c&oacute;digo de seguridad).</li>
+                        <li>Su tarjeta de cr&eacute;dito o d&eacute;bito no cuenta con el cupo necesario para cancelar la compra.</li>
+                        <li>Tarjeta aún no habilitada en el sistema financiero. </li>
+                    </ul>
+                </tr>
+            </table>
+        </center>
+        <form action="{{PATHSUBMIT}}" method="post">
+            <center>
+                <input type="submit" value="Volver a Inicio">
+            </center>
+        </form>
+    </div>
+</div>
+{% end %}
+{% block javascript %}{% end %}
