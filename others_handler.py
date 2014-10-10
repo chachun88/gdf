@@ -96,12 +96,7 @@ class TestPagoHandler(BaseHandler):
         TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO","")
         TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO","")
 
-        myPath = "/var/www/giani.ondev/webpay/dato{}.log".format(TBK_ID_SESION)
-
-        f = open(myPath, "w+");
-        linea = "{};{}".format(TBK_MONTO,TBK_ORDEN_COMPRA)
-        f.write(linea);
-        f.close();
+        
 
         '''esto es solo de prueba borrar despues'''
         user_id = 16
@@ -151,7 +146,7 @@ class TestPagoHandler(BaseHandler):
             order.billing_id = id_facturacion
             order.shipping_id = id_despacho
             order.payment_type = tipo_pago
-            order.voucher = final_name
+            order.voucher = ""
             order.state = 1
 
             response_obj = order.Save()
@@ -171,6 +166,13 @@ class TestPagoHandler(BaseHandler):
                     # if "error" in res_obj:
                     #     print "{}".format(res_obj["error"])
 
+        myPath = "/var/www/giani.ondev/webpay/dato{}.log".format(TBK_ID_SESION)
+
+        f = open(myPath, "w+");
+        linea = "{};{}".format(TBK_MONTO,order.id)
+        f.write(linea);
+        f.close();
+
         data = {
         "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
         "TBK_MONTO":TBK_MONTO,
@@ -181,8 +183,8 @@ class TestPagoHandler(BaseHandler):
         }
 
 
-
-        self.render("testtransbank.html",data=data)
+        self.write(json_util.dumps(data))
+        # self.render("testtransbank.html",data=data)
 
         
 
