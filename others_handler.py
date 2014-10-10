@@ -401,6 +401,8 @@ class ExitoHandler(BaseHandler):
                     kardex.user = self.current_user["email"]
                     kardex.units = detail.quantity
 
+                    self.write(detail.quantity)
+
                     kardex.Insert()
 
                 # if "error" in res_obj:
