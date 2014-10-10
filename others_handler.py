@@ -375,10 +375,9 @@ class ExitoHandler(BaseHandler):
         if "error" in save_order:
             self.render("store/failure.html")
         
-        cart = Cart()
-        cart.user_id = order.user_id
+        detail = OrderDetail()
 
-        lista = cart.GetCartByUserId()
+        lista = detail.ListByOrderId()
 
         if len(lista) > 0:
 
@@ -389,7 +388,7 @@ class ExitoHandler(BaseHandler):
                 kardex = Kardex()
 
                 producto = Product()
-                response = producto.InitById(detail.product_id)
+                response = producto.InitById(l["product_id"])
 
                 if "success" in response:
 
@@ -407,7 +406,7 @@ class ExitoHandler(BaseHandler):
                 # if "error" in res_obj:
                 #     print "{}".format(res_obj["error"])
 
-                cart.id = l["id"]
+                # cart.id = l["id"]
                 # cart.Remove()
                 detalle_orden += """\
                     <tr>
