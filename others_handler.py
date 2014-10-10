@@ -371,7 +371,7 @@ class ExitoHandler(BaseHandler):
         order = Order()
         init_by_id = order.InitById(TBK_ORDEN_COMPRA)
         order.state = 2
-        save_order = order.Save()
+        save_order = order.Edit()
 
         if "error" in save_order:
             self.render("store/failure.html")
