@@ -17,7 +17,7 @@ from datetime import datetime
 import urlparse
 from bson import json_util
 
-from globals import email_giani, cellar_id
+from globals import email_giani, cellar_id, url_local
 
 import sendgrid
 
