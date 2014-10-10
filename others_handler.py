@@ -25,6 +25,7 @@ from model.cart import Cart
 from model.order import Order
 from model.order_detail import OrderDetail
 from model.kardex import Kardex
+from model.product import Product
 
 class ContactHandler(BaseHandler):
 
