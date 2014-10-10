@@ -284,7 +284,7 @@ class XtCompraHandler(BaseHandler):
 
 class ExitoHandler(BaseHandler):
 
-    def get(self):
+    def post(self):
 
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
@@ -584,7 +584,7 @@ class ExitoHandler(BaseHandler):
 
 class FracasoHandler(BaseHandler):
 
-    def get(self):
+    def post(self):
 
         PATHSUBMIT = "http://giano.ondev.today"
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
