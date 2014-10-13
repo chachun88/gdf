@@ -65,7 +65,6 @@ Giani Da Firenze - Carro de Compra
                               <th class="checkoutReviewTdDetails"  >Detalles</th>
                               <th style="width:10%" >Precio unitario</th>
                               <th class="hidden-xs" style="width:5%">CTD</th>
-                              <th class="hidden-xs" style="width:10%" >descuento</th>
                               <th style="width:15%">Total</th>
                             </tr>
                             {% for d in data %}
@@ -78,7 +77,6 @@ Giani Da Firenze - Carro de Compra
                                 </div></td>
                               <td class="delete"><div class="price ">${{d["sell_price"]}} </div></td>
                               <td class="hidden-xs">{{d['quantity']}}</td>
-                              <td class="hidden-xs">0</td>
                               <td class="price">${{d["subtotal"]}}</td>
                             </tr>
                             {% end %}
@@ -122,14 +120,14 @@ Giani Da Firenze - Carro de Compra
                               <td>Despacho</td>
                               <td  class="price"><span class="success">Despacho gratis!</span></td>
                             </tr> -->
-                            <tr class="cart-total-price ">
+<!--                             <tr class="cart-total-price ">
                               <td>Total (+impuestos)</td>
                               <td  class="price">$ {{suma}} </td>
                             </tr>
                             <tr >
                               <td>Total impuestos</td>
                               <td id="total-tax" class="price">0.00</td>
-                            </tr>
+                            </tr> -->
                             <tr >
                               <td > Total </td>
                               <td id="total-price" class="price">${{suma}} </td>
