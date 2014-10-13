@@ -57,7 +57,8 @@ var GetAddressById = function(_id){
 				$("#InputMobile").val(obj.telephone);
 				$("#InputEmail").val(obj.email);
 				$("#InputLastName").val(obj.lastname);
-				$("#InputName").val(obj.name)
+				$("#InputName").val(obj.name);
+				$("#InputTown").val(obj.town);
 			}
 		}
 	});
