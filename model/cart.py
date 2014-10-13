@@ -118,6 +118,24 @@ class Cart(BaseModel):
 			cur.close()
 			self.connection.close()
 
+	def RemoveByUserId(self):
+
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+		
+		try:
+			q = '''delete from "Temp_Cart" where user_id = %(user_id)s'''
+			p = {
+			"user_id":self.user_id
+			}
+			cur.execute(q,p)
+			self.connection.commit()
+			return self.ShowSuccessMessage(str(self.user_id))
+		except Exception, e:
+			return self.ShowError(str(e))
+		finally:
+			cur.close()
+			self.connection.close()
+
 	def InitById(self, idd):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
