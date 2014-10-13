@@ -98,10 +98,7 @@ class TestPagoHandler(BaseHandler):
         TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO","")
         TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO","")
 
-        
-
-        '''esto es solo de prueba borrar despues'''
-        user_id = 16
+        user_id = self.current_user["id"]
 
         order = Order()
         
