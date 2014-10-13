@@ -85,6 +85,14 @@ class Contact(BaseModel):
 	@additional_info.setter
 	def additional_info(self, value):
 	    self._additional_info = value
+
+	@property
+	def town(self):
+	    return self._town
+	@town.setter
+	def town(self, value):
+	    self._town = value
+	
 	
 	
 
@@ -101,6 +109,7 @@ class Contact(BaseModel):
 		self._city = ""
 		self._zip_code = ""
 		self._additional_info = ""
+		self._town = ""
 
 	def InitById(self, _id):
 
@@ -140,7 +149,8 @@ class Contact(BaseModel):
 		"lastname": self.lastname,
 		"city": self.city,
 		"zip_code": self.zip_code,
-		"additional_info":self.additional_info
+		"additional_info":self.additional_info,
+		"town":self.town
 		}
 
 		query = '''select id from "Contact" where name = %(name)s and email = %(email)s and address = %(address)s'''
@@ -155,8 +165,8 @@ class Contact(BaseModel):
 			
 		if self.id == "":
 
-			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info)
-			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s) returning id'''
+			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info,town)
+			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s,%(town)s) returning id'''
 			# print cur.mogrify(query,contact)
 
 			try:
@@ -187,7 +197,8 @@ class Contact(BaseModel):
 		"city":self.city,
 		"zip_code":self.zip_code,
 		"lastname":self.lastname,
-		"additional_info":self.additional_info
+		"additional_info":self.additional_info,
+		"town":self.town
 		}
 
 		# try:
@@ -210,7 +221,8 @@ class Contact(BaseModel):
 										address = %(address)s, 
 										lastname = %(lastname)s,
 										zip_code = %(zip_code)s,
-										additional_info = %(additional_info)s
+										additional_info = %(additional_info)s,
+										town = %(town)s
 						where id = %(id)s'''
 
 			cur.execute(query,contact)

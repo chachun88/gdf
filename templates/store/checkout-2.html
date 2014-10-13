@@ -39,7 +39,7 @@ Giani Da Firenze - Carro de Compra
           <div class="col-xs-12 col-sm-12">
             <label class="checkbox-inline" for="checkboxes-0">
               <input name="same_address" id="same_address" type="checkbox">
-              Mi dirección de despacho y mi derección de facturación son la misma. </label>
+              Mi dirección de despacho y mi dirección de facturación son la misma. </label>
             <hr>
           </div>
 
@@ -79,11 +79,15 @@ Giani Da Firenze - Carro de Compra
                   <input required type="text" class="form-control" id="InputAddress" placeholder="Dirección" name="address">
                 </div>
                 <div class="form-group required">
-                  <label for="InputCity">Ciudad <sup>*</sup> </label>
-                  <input required type="text" class="form-control" id="InputCity" placeholder="Ciudad" name="city">
+                  <label for="InputTown">Comuna <sup>*</sup> </label>
+                  <input required type="text" class="form-control" id="InputTown" placeholder="Town" value="" name="town">
                 </div>
               </div>
               <div class="col-xs-12 col-sm-6">
+                <div class="form-group required">
+                  <label for="InputCity">Ciudad <sup>*</sup> </label>
+                  <input required type="text" class="form-control" id="InputCity" placeholder="Ciudad" name="city">
+                </div>
                 <div class="form-group required">
                   <label for="InputZip">Código postal <sup>*</sup> </label>
                   <input required type="text" class="form-control" id="InputZip" placeholder="Código postal" name="zip_code">

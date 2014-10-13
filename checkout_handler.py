@@ -79,6 +79,7 @@ class CheckoutBillingHandler(BaseHandler):
             informacion_adicional = self.get_argument("additional_info","")
             telefono = self.get_argument("telephone","")
             id_contacto = self.get_argument("contact_id","")
+            comuna = self.get_argument("town","")
 
 
             contact = Contact()
@@ -92,6 +93,7 @@ class CheckoutBillingHandler(BaseHandler):
             contact.zip_code = codigo_postal
             contact.user_id = user_id
             contact.additional_info = informacion_adicional
+            contact.town = comuna
 
             operacion = ""
 
@@ -160,6 +162,7 @@ class CheckoutShippingHandler(BaseHandler):
             telefono = self.get_argument("telephone","")
             id_contacto = self.get_argument("contact_id","")
             misma_direccion = self.get_argument("same_address","")
+            comuna = self.get_argument("town","")
 
             if misma_direccion != "on":
 
@@ -174,6 +177,7 @@ class CheckoutShippingHandler(BaseHandler):
                 contact.zip_code = codigo_postal
                 contact.user_id = user_id
                 contact.additional_info = informacion_adicional
+                contact.town = comuna
 
                 operacion = ""
 
