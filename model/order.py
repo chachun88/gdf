@@ -306,7 +306,7 @@ class Order(BaseModel):
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
         query = '''update "Order" set voucher = %(voucher)s, type = %(type)s, subtotal = %(subtotal)s, discount = %(discount)s, tax = %(tax)s, total = %(total)s, 
-        items_quantity = %(items_quantity)s, products_quantity = %(products_quantity)s, user_id = %(user_id)s, billing_id = %(billing_id)s, shipping_id = %(shipping_id)s, payment_type = %(payment_type)s'''
+        items_quantity = %(items_quantity)s, products_quantity = %(products_quantity)s, user_id = %(user_id)s, billing_id = %(billing_id)s, shipping_id = %(shipping_id)s, payment_type = %(payment_type)s, state = %(state)s'''
 
         parametros = {
         "voucher":self.voucher,
@@ -320,7 +320,8 @@ class Order(BaseModel):
         "user_id":self.user_id,
         "billing_id":self.billing_id,
         "shipping_id":self.shipping_id,
-        "payment_type":self.payment_type
+        "payment_type":self.payment_type,
+        "state":self.state
         }
 
         try:
