@@ -11,60 +11,84 @@ Giani Da Firenze - Home
 
 {% block body %}
 <div class="contenedor_formularios">
-<div class="mensaje-error_succes size">
+<div class="mensaje-error_succes">
 	<h1>Gracias por comprar en Giani da Firenze, pronto nos pondremos en contacto contigo.</h1>
 
     {% if webpay == "si" %}
-    	<p align="center">Transaccion Normal - EXITO</p>
+    	<p align="center" style="margin: 20px;">Transaccion Normal - EXITO</p>
         <table align="center">
             <tr>
-                <td align=""left"" width="100%">El pago se ha realizado con &eacute;xito.</td>
+                <td align="left" width="100%" colspan="2">
+                    <h3 style="width:100%; text-align:center; margin-top:40px; margin-bottom: 40px;">El pago se ha realizado con &eacute;xito.
+                    </h3>
+                </td>
             </tr>
+        </table>
+        <table align="center">
             <tr>
-                <td align=""left"" width="100%">Datos de la Compra:</td>
+                <th align="left" colspan="2"> <h3>Datos de la Compra:</h3>
+                </th>
             </tr>
             <tr>
                 <td align="left" width="100%" >
-                    <table>
+                    
                         <tr valign="top">
                             <th align="left">Nro Orden:</th>
                             <td align="left">{{data["TBK_ORDEN_COMPRA"]}}</td>
+                        </tr>
+                        <tr valign="top">
                             <th align="left">Monto (pesos chilenos):</th>
                             <td align="left">{{data["TBK_MONTO"] / 100}}</td>
                         </tr>
-                    </table>
+                    
                 </td>
             </tr>
-            <tr><td align="left" width="100%"><h3>Datos de la Transacci&oacute;n:</h3></td>
+            </table>
+        <table align="center">
+            <tr>
+                <th align="left" width="100%" colspan="2">
+                    <h3 >Datos de la Transacci&oacute;n:
+                    </h3>
+                </th>
             </tr>
             <tr>
                 <td align="left" width="100%">
-                    <table width="90%" border="0" align="center">
                         <tr valign="top" >
                             <th align="left">Respuesta Transacci&oacute;n:</th>
                             <td align="left">{{data["TBK_RESPUESTA"]}}</td>
+                        </tr>
+                        <tr valign="top" >
                             <th align="left">Codigo Autorizaci&oacute;n:</th>
                             <td align="left">{{data["TBK_CODIGO_AUTORIZACION"]}}</td>
+                        </tr>
+                        <tr valign="top" >
                             <th align="left">Fecha Contable:</th>
                             <td align="left">{{data["TBK_FECHA_CONTABLE"]}}</td>
                         </tr>
                         <tr valign="top" >
                             <th align="left">Fecha Transacci&oacute;n:</th>
                             <td align="left">{{data["TBK_FECHA_TRANSACCION"]}}</td>
+                        </tr>
+                        <tr valign="top" >
                             <th align="left">Hora Transacci&oacute;n:</th>
                             <td align="left">{{data["TBK_HORA_TRANSACCION"]}}</td>
+                        </tr>
+                        <tr valign="top" >
                             <th align="left">Tarjeta de Cr&eacute;dito:</th>
                             <td align="left">XXXXXXXXXXXX{{data["TBK_FINAL_NUMERO_TARJETA"]}}</td>
                         </tr>
                         <tr valign="top">
                             <th align="left">Tipo Transacci&oacute;n:</th>
                             <td align="left">{{data["TBK_TIPO_TRANSACCION"]}}</td>
+                        </tr>
+                        <tr valign="top" >
                             <th align="left">Tipo Pago:</th> 
                             <td align="left">{{data["TBK_TIPO_PAGO"]}}</td>
+                        </tr>
+                        <tr valign="top" >
                             <th align="left">Numero cuotas:</th> 
                             <td align="left">{{data["TBK_NUMERO_CUOTAS"]}}</td>
                         </tr>
-                    </table>
                 </td>
             </tr>
         </table>

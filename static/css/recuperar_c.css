@@ -89,6 +89,55 @@ form {
 	font-size: 33px !important;
 }
 .mensaje-error_succes{
-margin-top: 40px;
-width: 100%;
+margin: 40px auto;
+width: 520px;
 } 
+.mensaje-error_succes h1{
+	font-family: 'Vidaloka', serif;
+	font-size: 25px;
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	color:  rgb(231, 169, 156);
+}
+.mensaje-error_succes form {
+	width: 100%;
+	height: 50px;
+	background-color: white;
+}
+.mensaje-error_succes form input{
+	width: 320px;
+	height: 50px;
+	margin: 0px auto;
+	color: white;
+}
+.mensaje-error_succes form input:hover{
+	background: white;
+	border: 1px solid gray;
+	color: gray;
+}
+table {
+	width: 520px;
+	border: 1px solid gray;
+	margin: 10px auto;
+	font-size: 12px;
+}
+th {
+	width: 50%;
+	padding:5px 10px;
+	font-weight: 400;
+}
+td {
+	width: 50%;
+	padding:5px 10px;
+	font-weight: 100;
+}
+tr{
+}
+h3 {
+	font-size: 15px;
+	font-weight: 500;
+}
+.titulos_success {
+	width: 100% !important ;
+}
