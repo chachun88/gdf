@@ -365,19 +365,19 @@ margin: 10px 0px 0px 20px;
 }
 
 .container ._button {
-  float: left;
-  clear: both;
-  width: 76.404494382%;
-  height: 39px;
-  margin: 17px 0 0 11.78459%;
-  border-width: 1px;
-  border-color: rgb(172, 110, 97);
-  background-color: rgb(232, 169, 156);
-  font-size: 1.333em;
-  line-height: 1.38;
-  text-align: center;
-  letter-spacing: 1px;
-  color: rgb(255, 255, 255);
+float: left;
+clear: both;
+width: 80%;
+height: 39px;
+margin: 17px 0 0 10%;
+border-width: 1px;
+border-color: rgb(172, 110, 97);
+background-color: rgb(232, 169, 156);
+font-size: 1.333em;
+line-height: 1.38;
+text-align: center;
+letter-spacing: 1px;
+color: rgb(255, 255, 255);
 }
 
 .container ._button:hover {

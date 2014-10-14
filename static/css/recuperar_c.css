@@ -88,3 +88,7 @@ form {
 .size h1{
 	font-size: 33px !important;
 }
+.mensaje-error_succes{
+margin-top: 40px;
+width: 100%;
+} 
