@@ -50,6 +50,9 @@ var GetAddressById = function(_id){
 		data:"id="+_id,
 		success: function(html){
 			var obj = jQuery.parseJSON( html );
+
+			console.log(obj);
+
 			if(obj.success){
 				
 				$("#InputAddress").val(obj.success.address);
