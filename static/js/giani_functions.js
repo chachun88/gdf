@@ -67,7 +67,7 @@ var GetAddressById = function(_id){
 				} else {
 					alert(obj.error);
 				}
-				
+
 			}
 		}
 	});
@@ -95,7 +95,7 @@ var enviarFormulario = function(id_formulario){
 	var same_address = false;
 
 	if($("#same_address").length){
-		if($("#same_address").val()=="on"){
+		if($("#same_address:checked").val()=="on"){
 			same_address = true;
 		}
 	}
