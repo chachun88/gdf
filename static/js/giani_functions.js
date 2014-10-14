@@ -53,16 +53,21 @@ var GetAddressById = function(_id){
 
 			console.log(obj);
 
-			if(obj.success){
+			if(obj){
+
+				if(obj.success){
+					$("#InputAddress").val(obj.success.address);
+					$("#InputCity").val(obj.success.city);
+					$("#InputZip").val(obj.success.zip_code);
+					$("#InputMobile").val(obj.success.telephone);
+					$("#InputEmail").val(obj.success.email);
+					$("#InputLastName").val(obj.success.lastname);
+					$("#InputName").val(obj.success.name);
+					$("#InputTown").val(obj.success.town);
+				} else {
+					alert(obj.error);
+				}
 				
-				$("#InputAddress").val(obj.success.address);
-				$("#InputCity").val(obj.success.city);
-				$("#InputZip").val(obj.success.zip_code);
-				$("#InputMobile").val(obj.success.telephone);
-				$("#InputEmail").val(obj.success.email);
-				$("#InputLastName").val(obj.success.lastname);
-				$("#InputName").val(obj.success.name);
-				$("#InputTown").val(obj.success.town);
 			}
 		}
 	});
