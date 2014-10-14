@@ -81,7 +81,7 @@ Giani Da Firenze - {{data.name}}
         <p class="producto-nombre producto-nombre-3">En stock</p>
         <div class="container container-11 clearfix">
           <div class="selects">
-            {% len(data.size) %}
+            {% if len(data.size) > 0 %}
               <select class="_select _select-1" id="size" sku="{{data.sku}}">
                 {% for t in data.size %}
                 <option value="{{t}}">{{t}}</option>
