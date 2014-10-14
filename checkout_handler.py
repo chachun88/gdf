@@ -57,7 +57,7 @@ class CheckoutAddressHandler(BaseHandler):
             if suma > 0:
                 self.render("store/checkout-1.html",contactos=contactos,data=lista,suma=suma)
             else:
-                self.render("beauty_error.hmtl",message="Carro est&aacute; vac&iacute;o")
+                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
         else:
             self.redirect("/auth/login")
@@ -78,7 +78,7 @@ class CheckoutBillingHandler(BaseHandler):
             lista = cart.GetCartByUserId()
 
             if len(lista) <= 0:
-                self.render("beauty_error.hmtl",message="Carro est&aacute; vac&iacute;o")
+                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
             user_id = self.current_user["id"]
             nombre = self.get_argument("name", self.current_user["name"])
@@ -165,7 +165,7 @@ class CheckoutShippingHandler(BaseHandler):
             lista = cart.GetCartByUserId()
 
             if len(lista) <= 0:
-                self.render("beauty_error.hmtl",message="Carro est&aacute; vac&iacute;o")
+                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
             user_id = self.current_user["id"]
             nombre = self.get_argument("name", self.current_user["name"])
@@ -268,7 +268,7 @@ class CheckoutPaymentHandler(BaseHandler):
             lista = cart.GetCartByUserId()
 
             if len(lista) <= 0:
-                self.render("beauty_error.hmtl",message="Carro est&aacute; vac&iacute;o")
+                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
             suma = 0
 
@@ -298,7 +298,7 @@ class CheckoutOrderHandler(BaseHandler):
             lista = cart.GetCartByUserId()
 
             if len(lista) <= 0:
-                self.render("beauty_error.hmtl",message="Carro est&aacute; vac&iacute;o")
+                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
             suma = 0
 
@@ -326,7 +326,7 @@ class CheckoutSendHandler(BaseHandler):
         lista = cart.GetCartByUserId()
 
         if len(lista) <= 0:
-                self.render("beauty_error.hmtl",message="Carro est&aacute; vac&iacute;o")
+                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
         final_name = ""
 
