@@ -54,7 +54,10 @@ class CheckoutAddressHandler(BaseHandler):
             for l in lista:
                 suma += l["subtotal"]
 
-            self.render("store/checkout-1.html",contactos=contactos,data=lista,suma=suma)
+            if suma > 0:
+                self.render("store/checkout-1.html",contactos=contactos,data=lista,suma=suma)
+            else:
+                self.render("beauty_error.hmtl",message="Carro está vacío")
 
         else:
             self.redirect("/auth/login")
@@ -68,6 +71,14 @@ class CheckoutBillingHandler(BaseHandler):
     def get(self):
 
         if self.current_user:
+
+            cart = Cart()
+            cart.user_id = user_id
+
+            lista = cart.GetCartByUserId()
+
+            if len(lista) <= 0:
+                self.render("beauty_error.hmtl",message="Carro está vacío")
 
             user_id = self.current_user["id"]
             nombre = self.get_argument("name", self.current_user["name"])
@@ -109,10 +120,7 @@ class CheckoutBillingHandler(BaseHandler):
                 self.render("beauty_error.html",message="Error al {} contacto {}".format(operacion,response_obj["error"]))
             else:
 
-                cart = Cart()
-                cart.user_id = user_id
-
-                lista = cart.GetCartByUserId()
+                
 
                 suma = 0
 
@@ -150,6 +158,14 @@ class CheckoutShippingHandler(BaseHandler):
     def get(self):
 
         if self.current_user:
+
+            cart = Cart()
+            cart.user_id = user_id
+
+            lista = cart.GetCartByUserId()
+
+            if len(lista) <= 0:
+                self.render("beauty_error.hmtl",message="Carro está vacío")
 
             user_id = self.current_user["id"]
             nombre = self.get_argument("name", self.current_user["name"])
@@ -193,10 +209,7 @@ class CheckoutShippingHandler(BaseHandler):
                     self.render("beauty_error.html",message="Error al {} contacto {}".format(operacion,response_obj["error"]))
                 else:
 
-                    cart = Cart()
-                    cart.user_id = user_id
-
-                    lista = cart.GetCartByUserId()
+                    
 
                     suma = 0
 
@@ -254,6 +267,9 @@ class CheckoutPaymentHandler(BaseHandler):
 
             lista = cart.GetCartByUserId()
 
+            if len(lista) <= 0:
+                self.render("beauty_error.hmtl",message="Carro está vacío")
+
             suma = 0
 
             for l in lista:
@@ -281,6 +297,9 @@ class CheckoutOrderHandler(BaseHandler):
 
             lista = cart.GetCartByUserId()
 
+            if len(lista) <= 0:
+                self.render("beauty_error.hmtl",message="Carro está vacío")
+
             suma = 0
 
             for l in lista:
@@ -300,6 +319,14 @@ class CheckoutSendHandler(BaseHandler):
     
     @tornado.web.authenticated
     def get(self):
+
+        cart = Cart()
+        cart.user_id = user_id
+
+        lista = cart.GetCartByUserId()
+
+        if len(lista) <= 0:
+                self.render("beauty_error.hmtl",message="Carro está vacío")
 
         final_name = ""
 
@@ -327,10 +354,7 @@ class CheckoutSendHandler(BaseHandler):
 
         order = Order()
         
-        cart = Cart()
-        cart.user_id = user_id
 
-        lista = cart.GetCartByUserId()
 
         if len(lista) > 0:
 
