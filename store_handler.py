@@ -74,7 +74,8 @@ class ProductHandler(BaseHandler):
 					response_obj = kardex.GetUnitsBySize(prod.sku,cellar_id,s)
 
 					if "success" in response_obj:
-						tallas_disponibles.append(s)
+						if kardex.balance_units > 0:
+							tallas_disponibles.append(s)
 					# else:
 					# 	self.write(json_util.dumps(response_obj["error"]))
 
