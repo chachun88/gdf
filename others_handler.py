@@ -290,7 +290,7 @@ class ExitoHandler(BaseHandler):
         "TBK_ORDEN_COMPRA":"120",
         "TBK_TIPO_TRANSACCION":"TR_NORMAL",
         "TBK_RESPUESTA":"0",
-        "TBK_MONTO":"23500",
+        "TBK_MONTO":23500,
         "TBK_CODIGO_AUTORIZACION":"356819",
         "TBK_FINAL_NUMERO_TARJETA":"6623",
         "TBK_HORA_TRANSACCION":"16:36:54",
