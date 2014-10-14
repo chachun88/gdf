@@ -78,7 +78,13 @@ Giani Da Firenze - {{data.name}}
         </div>
         <p class="producto-nombre producto-nombre-2">Línea de producto</p>
         <p class="producto-nombre producto-nombre-3">Color : <span>{{data.color}}</span></p>
-        <p class="producto-nombre producto-nombre-3">En stock</p>
+        <p class="producto-nombre producto-nombre-3">
+          {% if len(data.size) > 0 %}
+            En stock
+          {% else %}
+            Sin stock
+          {% end %}
+        </p>
         <div class="container container-11 clearfix">
           <div class="selects">
             {% if len(data.size) > 0 %}
