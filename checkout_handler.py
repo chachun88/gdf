@@ -584,7 +584,7 @@ class CheckoutSendHandler(BaseHandler):
                         for l in lista:
                             cart.id = l["id"]
                             cart.Remove()
-                        self.redirect( "/checkout/success?webpay=no" )
+                        self.render( "store/success.html",webpay="no" )
                     else:
                         self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
 
