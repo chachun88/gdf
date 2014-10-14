@@ -420,8 +420,7 @@ class CheckoutSendHandler(BaseHandler):
                         # if "error" in res_obj:
                         #     print "{}".format(res_obj["error"])
 
-                        cart.id = l["id"]
-                        cart.Remove()
+                        
 
                         detalle_orden += """\
                             <tr>
@@ -579,7 +578,12 @@ class CheckoutSendHandler(BaseHandler):
                     message.set_html(html)
                     status, msg = sg.send(message)
 
+
+
                     if status == 200:
+                        for l in lista:
+                            cart.id = l["id"]
+                            cart.Remove()
                         self.redirect( "/checkout/success" )
                     else:
                         self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
