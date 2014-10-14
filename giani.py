@@ -62,7 +62,7 @@ class Application(tornado.web.Application):
             (r"/kardextest", others_handler.KardexTestHandler),
 
             (r"/tos", others_handler.TosHandler),
-            (r"/testpago", others_handler.TestPagoHandler),
+            (r"/pago", others_handler.PagoHandler),
             (r"/xt_compra", others_handler.XtCompraHandler),
             (r"/store/success", others_handler.ExitoHandler),
             (r"/store/failure", others_handler.FracasoHandler)

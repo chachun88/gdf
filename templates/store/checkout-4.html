@@ -86,7 +86,7 @@ Giani Da Firenze - Carro de Compra
                       <div id="collapseTwo" class="panel-collapse collapse">
                         <div class="panel-body">
 
-                          <form action="/testpago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
+                          <form action="/pago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
                               <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
                               <input type="hidden" name="TBK_MONTO" value="{{suma}}00" />
                               <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}" />

@@ -93,6 +93,12 @@ class Contact(BaseModel):
 	def town(self, value):
 	    self._town = value
 	
+	@property
+	def rut(self):
+	    return self._rut
+	@rut.setter
+	def rut(self, value):
+	    self._rut = value
 	
 	
 
@@ -110,6 +116,7 @@ class Contact(BaseModel):
 		self._zip_code = ""
 		self._additional_info = ""
 		self._town = ""
+		self._rut = ""
 
 	def InitById(self, _id):
 
@@ -150,7 +157,8 @@ class Contact(BaseModel):
 		"city": self.city,
 		"zip_code": self.zip_code,
 		"additional_info":self.additional_info,
-		"town":self.town
+		"town":self.town,
+		"rut":self.rut
 		}
 
 		query = '''select id from "Contact" where name = %(name)s and email = %(email)s and address = %(address)s'''
@@ -167,8 +175,8 @@ class Contact(BaseModel):
 			
 		if self.id == "":
 
-			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info,town)
-			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s,%(town)s) returning id'''
+			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info,town,rut)
+			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s,%(town)s,%(rut)s) returning id'''
 		
 			# return self.ShowError(cur.mogrify(query,contact))
 
@@ -201,7 +209,8 @@ class Contact(BaseModel):
 		"zip_code":self.zip_code,
 		"lastname":self.lastname,
 		"additional_info":self.additional_info,
-		"town":self.town
+		"town":self.town,
+		"rut":self.rut
 		}
 
 		# try:
@@ -225,7 +234,8 @@ class Contact(BaseModel):
 										lastname = %(lastname)s,
 										zip_code = %(zip_code)s,
 										additional_info = %(additional_info)s,
-										town = %(town)s
+										town = %(town)s,
+										rut = %(rut)s
 						where id = %(id)s'''
 
 			cur.execute(query,contact)

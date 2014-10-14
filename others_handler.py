@@ -83,11 +83,11 @@ class TosHandler(BaseHandler):
     def get(self):
         self.render( "tos.html" )
 
-class TestPagoHandler(BaseHandler):
+class PagoHandler(BaseHandler):
 
     def get(self):
 
-        self.render("testpago.html")
+        self.render("pago.html")
 
     def post(self):
 
@@ -183,7 +183,7 @@ class TestPagoHandler(BaseHandler):
 
 
         # self.write(json_util.dumps(data))
-        self.render("testtransbank.html",data=data)
+        self.render("transbank.html",data=data)
 
         
 
