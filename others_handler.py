@@ -565,7 +565,7 @@ class ExitoHandler(BaseHandler):
             status, msg = sg.send(message)
 
             if status == 200:
-                self.render("store/success.html",data=data,pathSubmit=pathSubmit)
+                self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si")
             else:
                 self.render("store/failure.html",message="Error al enviar correo de confirmación, {}".format(msg))
 
@@ -576,7 +576,7 @@ class ExitoHandler(BaseHandler):
             self.render("store/failure.html",message="Carro se encuentra vacío")
 
 
-        self.render("store/success.html",data=data,pathSubmit=pathSubmit)
+        self.render("store/success.html",data=data,pathSubmit=pathSubmit, webpay="si")
 
 class FracasoHandler(BaseHandler):
 
