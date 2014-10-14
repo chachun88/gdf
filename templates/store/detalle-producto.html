@@ -106,6 +106,7 @@ Giani Da Firenze - {{data.name}}
         </div>
         <p class="producto-precio">$ {{money_format(data.sell_price)}}</p>
       </div>
+      {% if len(data.size) > 0 %}
       <button class="_button add-to-cart" product-id="{{data.id}}">
         <p>AGREGAR AL CARRO</p>
         <p></p>
@@ -113,6 +114,7 @@ Giani Da Firenze - {{data.name}}
         <p></p>
         <p></p>
       </button>
+      {% end %}
       <div class="container container-13">
         <div class="container container-14 clearfix">
           <div class="container container-15 clearfix">
