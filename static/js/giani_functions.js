@@ -75,6 +75,7 @@ var GetAddressById = function(_id){
 					$("#InputLastName").val(obj.success.lastname);
 					$("#InputName").val(obj.success.name);
 					$("#InputTown").val(obj.success.town);
+					$("#InputRut").val(obj.success.rut);
 				} else {
 					alert(obj.error);
 				}
