@@ -23,7 +23,7 @@ from model.product import Product
 from datetime import datetime
 from bson import json_util
 import sendgrid
-from globals import url_local, email_giani, cellar_id
+from globals import url_local, email_giani, cellar_id, shipping_cellar
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -409,6 +409,11 @@ class CheckoutSendHandler(BaseHandler):
                             kardex.date = str(datetime.now().isoformat()) 
                             kardex.user = self.current_user["email"]
                             kardex.units = detail.quantity
+
+                            kardex.Insert()
+
+                            kardex.cellar_identifier = shipping_cellar
+                            kardex.operation_type = Kardex.OPERATION_BUY
 
                             kardex.Insert()
 

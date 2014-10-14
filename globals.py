@@ -28,6 +28,8 @@ url_bodega = ""
 url_local = ""
 email_giani = ""
 cellar_id = 5
+shipping_cellar = 8
+
 
 
 facebook_api_key = ""

@@ -17,7 +17,7 @@ from datetime import datetime
 import urlparse
 from bson import json_util
 
-from globals import email_giani, cellar_id, url_local
+from globals import email_giani, cellar_id, url_local, shipping_cellar
 
 import sendgrid
 
@@ -399,6 +399,11 @@ class ExitoHandler(BaseHandler):
                     kardex.user = self.current_user["email"]
                     kardex.units = l["quantity"]
 
+
+                    kardex.Insert()
+
+                    kardex.cellar_identifier = shipping_cellar
+                    kardex.operation_type = Kardex.OPERATION_BUY
 
                     kardex.Insert()
 
