@@ -33,11 +33,22 @@ var GetCartByUserId = function(user_id){
 }
 
 var ValidateCheckoutPayment = function(){
-	var checked = $('#checkboxes-1:checked').val()
+	var checked = $('#checkboxes-1:checked').val();
 	var comprobante = $("#comprobante").val().trim();
 
 	if(checked==undefined||comprobante==""){
 		fancyAlert("Debe ingresar comprobante y aceptar t\xE9rminos y condiciones");
+		return false;
+	}
+
+	return true;
+}
+
+var ValidateTerms = function(){
+	var checked = $('#term-1:checked').val();
+
+	if(checked==undefined){
+		fancyAlert("Debe aceptar los t\xE9rminos y condiciones");
 		return false;
 	}
 
