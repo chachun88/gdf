@@ -168,7 +168,8 @@ class Contact(BaseModel):
 
 			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info,town)
 			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s,%(town)s) returning id'''
-			# print cur.mogrify(query,contact)
+		
+			return self.ShowError(cur.mogrify(query,contact))
 
 			try:
 				cur.execute(query,contact)
