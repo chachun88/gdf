@@ -72,13 +72,7 @@ class CheckoutBillingHandler(BaseHandler):
 
         if self.current_user:
 
-            cart = Cart()
-            cart.user_id = user_id
-
-            lista = cart.GetCartByUserId()
-
-            if len(lista) <= 0:
-                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
+            
 
             user_id = self.current_user["id"]
             nombre = self.get_argument("name", self.current_user["name"])
@@ -92,6 +86,14 @@ class CheckoutBillingHandler(BaseHandler):
             id_contacto = self.get_argument("contact_id","")
             comuna = self.get_argument("town","")
             rut = self.get_argument("rut","")
+
+            cart = Cart()
+            cart.user_id = user_id
+
+            lista = cart.GetCartByUserId()
+
+            if len(lista) <= 0:
+                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
 
             contact = Contact()
@@ -161,13 +163,6 @@ class CheckoutShippingHandler(BaseHandler):
 
         if self.current_user:
 
-            cart = Cart()
-            cart.user_id = user_id
-
-            lista = cart.GetCartByUserId()
-
-            if len(lista) <= 0:
-                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
             user_id = self.current_user["id"]
             nombre = self.get_argument("name", self.current_user["name"])
@@ -182,6 +177,14 @@ class CheckoutShippingHandler(BaseHandler):
             misma_direccion = self.get_argument("same_address","")
             comuna = self.get_argument("town","")
             rut = self.get_argument("rut","")
+
+            cart = Cart()
+            cart.user_id = user_id
+
+            lista = cart.GetCartByUserId()
+
+            if len(lista) <= 0:
+                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
             if misma_direccion != "on":
 
