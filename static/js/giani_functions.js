@@ -49,16 +49,17 @@ var GetAddressById = function(_id){
 		url:"/checkout/getaddressbyid",
 		data:"id="+_id,
 		success: function(html){
-			if(html!="error"){
-				var obj = jQuery.parseJSON( html );
-				$("#InputAddress").val(obj.address);
-				$("#InputCity").val(obj.city);
-				$("#InputZip").val(obj.zip_code);
-				$("#InputMobile").val(obj.telephone);
-				$("#InputEmail").val(obj.email);
-				$("#InputLastName").val(obj.lastname);
-				$("#InputName").val(obj.name);
-				$("#InputTown").val(obj.town);
+			var obj = jQuery.parseJSON( html );
+			if(obj.success){
+				
+				$("#InputAddress").val(obj.success.address);
+				$("#InputCity").val(obj.success.city);
+				$("#InputZip").val(obj.success.zip_code);
+				$("#InputMobile").val(obj.success.telephone);
+				$("#InputEmail").val(obj.success.email);
+				$("#InputLastName").val(obj.success.lastname);
+				$("#InputName").val(obj.success.name);
+				$("#InputTown").val(obj.success.town);
 			}
 		}
 	});

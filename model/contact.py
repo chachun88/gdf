@@ -131,9 +131,9 @@ class Contact(BaseModel):
 		try:
 			cur.execute(query,parametros)
 			contact = cur.fetchone()
-			return json_util.dumps(contact)
-		except:
-			return ""
+			return self.ShowSuccessMessage(contact)
+		except Exception, e:
+			return self.ShowError(str(e))
 
 	def Save(self):
 

@@ -613,4 +613,4 @@ class GetAddressByIdHandler(BaseHandler):
         if contact_id != "":
             contact = Contact()
             json_str_contactos = contact.InitById(contact_id)
-            self.write(json_str_contactos)
+            self.write(json_util.dumps(json_str_contactos))
