@@ -175,7 +175,7 @@ class Contact(BaseModel):
 			try:
 				cur.execute(query,contact)
 				self.connection.commit()
-				self.id = cur.fetchone()[0]
+				self.id = cur.fetchone()["id"]
 				return self.ShowSuccessMessage("{}".format(self.id))
 			except Exception, e:
 
