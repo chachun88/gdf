@@ -434,8 +434,21 @@ class CheckoutSendHandler(BaseHandler):
                         """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=l["sell_price"],subtotal=l["subtotal"])
 
                     contact = Contact()
-                    facturacion = json_util.loads(contact.InitById(order.billing_id))
-                    despacho = json_util.loads(contact.InitById(order.shipping_id))
+                    facturacion_response = contact.InitById(order.billing_id)
+
+                    if "success" in facturacion_response:
+                        facturacion = facturacion_response["success"]
+                    else:
+                        self.render("beauty_error.html",message="Error al obtener datos de facturación, {}".format(facturacion_response["error"]))
+
+
+                    despacho_response = contact.InitById(order.shipping_id)
+
+                    if "success" in despacho_response:
+                        despacho = despacho_response["success"]
+                    else:
+                        self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
+
 
                     datos_facturacion = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
