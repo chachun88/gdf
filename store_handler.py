@@ -75,6 +75,8 @@ class ProductHandler(BaseHandler):
 
 					if "success" in response_obj:
 						tallas_disponibles.append(s)
+					else:
+						self.write(json_util.dumps(response_obj["error"]))
 
 				prod.size = tallas_disponibles
 
