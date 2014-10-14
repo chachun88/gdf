@@ -159,6 +159,7 @@ class Contact(BaseModel):
 			cur.execute(query,contact)
 			if cur.rowcount > 0:
 				self.id = int(cur.fetchone()["id"])
+				return self.ShowSuccessMessage("{}".format(self.id))
 		except Exception,e:
 			return self.ShowError("Error al obtener contacto {}".format(str(e)))
 
@@ -175,12 +176,12 @@ class Contact(BaseModel):
 				cur.execute(query,contact)
 				self.connection.commit()
 				self.id = cur.fetchone()[0]
-
+				return self.ShowSuccessMessage("{}".format(self.id))
 			except Exception, e:
 
 				return self.ShowError(str(e))
 
-		return self.ShowSuccessMessage("{}".format(self.id))
+		
 
 		
 
