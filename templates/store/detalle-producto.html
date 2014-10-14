@@ -98,8 +98,10 @@ Giani Da Firenze - {{data.name}}
             {% end %}
           </div>
           <div class="container container-12 clearfix">
-            <p class="producto-nombre producto-nombre-4">Talla</p>
-            <p class="producto-nombre producto-nombre-5">Cantidad</p>
+            {% if len(data.size) > 0 %}
+              <p class="producto-nombre producto-nombre-4">Talla</p>
+              <p class="producto-nombre producto-nombre-5">Cantidad</p>
+            {% end %}
           </div>
         </div>
         <p class="producto-precio">$ {{money_format(data.sell_price)}}</p>
