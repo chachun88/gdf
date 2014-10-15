@@ -133,7 +133,6 @@ body {
 
 .slide {
   display: block;
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;
@@ -422,9 +421,6 @@ body {
     margin-left: 10.00834%;
   }
 
-  .cuerpo .slider {
-    height: 466px;
-  }
 
   .cuerpo .tienda {
     position: relative;
@@ -2222,9 +2218,7 @@ body {
     margin-left: 5.01044%;
   }
 
-  .cuerpo .slider {
-    height: 302px;
-  }
+
 
   .cuerpo .tienda {
     position: relative;
