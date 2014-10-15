@@ -606,7 +606,7 @@ class ExitoHandler(BaseHandler):
             status, msg = sg.send(message)
 
             if status == 200:
-                self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si")
+                self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista)
             else:
                 self.render("store/failure.html",message="Error al enviar correo de confirmación, {}".format(msg))
 
