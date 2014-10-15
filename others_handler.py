@@ -618,7 +618,7 @@ class FracasoHandler(BaseHandler):
 
     def post(self):
 
-        PATHSUBMIT = "http://giano.ondev.today"
+        PATHSUBMIT = "http://giani.ondev.today"
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
 
