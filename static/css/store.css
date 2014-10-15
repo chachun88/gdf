@@ -238,8 +238,15 @@ max-width: 1200px;
   background-color: rgba(222, 222, 222, 0);
 }
 
+.sobre-producto div {
+  display: none;
+}
+
 .sobre-producto:hover {
   background-color: rgba(224, 192, 192, 0.44);
+}
+.sobre-producto:hover div{
+  display: block;
 }
 
 .text {
