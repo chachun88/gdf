@@ -371,6 +371,11 @@ class ExitoHandler(BaseHandler):
 
         TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
 
+        if TBK_TIPO_PAGO == "VD":
+            TBK_TIPO_PAGO = "Redcompra"
+        else:
+            TBK_TIPO_PAGO = "Cr&eacute;dito"
+
         data = {
         "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
         "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
@@ -638,13 +643,19 @@ class WSCorreosChileHandler(BaseHandler):
 
         from suds.client import Client
 
-        client = Client(url='http://www.webservicex.com/globalweather.asmx?WSDL')
+        #client = Client(url='http://www.webservicex.com/globalweather.asmx?WSDL')
 
-        request = client.factory.create('tns:GetWeather')
-        request.CityName = 'Caracas'
-        request.CountryName = 'Venezuela'
+        client = Client(url='http://b2b.correos.cl:8008/ServicioTarificadorPersonasExterno/cch/ws/tarificacion/externo/implementacion/ServicioExternoTarificadorPersonas.asmx?WSDL')
 
-        response = client.service.GetWeather(request)
+        request = client.factory.create('tns:aplicarTarifaPersona')
+        request.usuario = 'correo'
+        request.contrasena = 'correo'
+        request.cobertura = 'c'
+        request.iataOrigen = 'ARICA'
+        request.iataDestino = 'SANTIAGO'
+        request.peso = 0.5
+
+        response = client.service.aplicarTarifaPersona(request)
 
         self.write(response)
 
