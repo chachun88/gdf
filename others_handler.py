@@ -632,3 +632,19 @@ class FracasoHandler(BaseHandler):
 
     #     self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=PATHSUBMIT)
 
+class WSCorreosChileHandler(BaseHandler):
+
+    def get(self):
+
+        from suds.client import Client
+
+        client = Client(url='http://www.webservicex.com/globalweather.asmx?WSDL')
+
+        request = client.factory.create('tns:GetWeather')
+        request.CityName = 'Caracas'
+        request.CountryName = 'Venezuela'
+
+        response = client.service.GetWeather(request)
+
+        self.write(response)
+
