@@ -284,28 +284,28 @@ class XtCompraHandler(BaseHandler):
 
 class ExitoHandler(BaseHandler):
 
-    def get(self):
+    # def get(self):
 
-        data = {
-        "TBK_ORDEN_COMPRA":"120",
-        "TBK_TIPO_TRANSACCION":"TR_NORMAL",
-        "TBK_RESPUESTA":"0",
-        "TBK_MONTO":23500,
-        "TBK_CODIGO_AUTORIZACION":"356819",
-        "TBK_FINAL_NUMERO_TARJETA":"6623",
-        "TBK_HORA_TRANSACCION":"16:36:54",
-        "TBK_ID_TRANSACCION":"356819",
-        "TBK_TIPO_PAGO":"VN",
-        "TBK_NUMERO_CUOTAS":"0",
-        "TBK_MAC":"",
-        "TBK_FECHA_CONTABLE":"10-14",
-        "TBK_FECHA_TRANSACCION":"10-14",
-        "TBK_HORA_TRANSACCION":"16:36:54"
-        }
+    #     data = {
+    #     "TBK_ORDEN_COMPRA":"120",
+    #     "TBK_TIPO_TRANSACCION":"TR_NORMAL",
+    #     "TBK_RESPUESTA":"0",
+    #     "TBK_MONTO":23500,
+    #     "TBK_CODIGO_AUTORIZACION":"356819",
+    #     "TBK_FINAL_NUMERO_TARJETA":"6623",
+    #     "TBK_HORA_TRANSACCION":"16:36:54",
+    #     "TBK_ID_TRANSACCION":"356819",
+    #     "TBK_TIPO_PAGO":"VN",
+    #     "TBK_NUMERO_CUOTAS":"0",
+    #     "TBK_MAC":"",
+    #     "TBK_FECHA_CONTABLE":"10-14",
+    #     "TBK_FECHA_TRANSACCION":"10-14",
+    #     "TBK_HORA_TRANSACCION":"16:36:54"
+    #     }
 
-        pathSubmit = "http://giano.ondev.today"
+    #     pathSubmit = "http://giano.ondev.today"
 
-        self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si")
+    #     self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si")
 
 
     def post(self):
@@ -618,17 +618,33 @@ class FracasoHandler(BaseHandler):
 
     def post(self):
 
-        PATHSUBMIT = "http://giano.ondev.today"
+        PATHSUBMIT = "http://giani.ondev.today"
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
 
         self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=PATHSUBMIT)
 
+    # def get(self):
+
+    #     PATHSUBMIT = "http://giano.ondev.today"
+    #     TBK_ID_SESION = self.get_argument("TBK_ID_SESION","201410141634")
+    #     TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","120")
+
+    #     self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=PATHSUBMIT)
+
+class WSCorreosChileHandler(BaseHandler):
+
     def get(self):
 
-        PATHSUBMIT = "http://giano.ondev.today"
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","201410141634")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","120")
+        from suds.client import Client
 
-        self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=PATHSUBMIT)
+        client = Client(url='http://www.webservicex.com/globalweather.asmx?WSDL')
+
+        request = client.factory.create('tns:GetWeather')
+        request.CityName = 'Caracas'
+        request.CountryName = 'Venezuela'
+
+        response = client.service.GetWeather(request)
+
+        self.write(response)
 

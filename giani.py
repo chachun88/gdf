@@ -65,7 +65,8 @@ class Application(tornado.web.Application):
             (r"/pago", others_handler.PagoHandler),
             (r"/xt_compra", others_handler.XtCompraHandler),
             (r"/store/success", others_handler.ExitoHandler),
-            (r"/store/failure", others_handler.FracasoHandler)
+            (r"/store/failure", others_handler.FracasoHandler),
+            (r"/wscc", others_handler.WSCorreosChileHandler)
             
         ]
         settings = dict(
