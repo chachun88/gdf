@@ -311,10 +311,10 @@ class ExitoHandler(BaseHandler):
     # TBK_ORDEN_COMPRA:133
 
 
-    def post(self):
+    def get(self):
 
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","20141015235139")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","133")
 
         myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
         pathSubmit = "http://giani.ondev.today"
