@@ -651,9 +651,9 @@ class WSCorreosChileHandler(BaseHandler):
         client = Client(url='http://b2b.correos.cl:8008/ServicioTarificadorPersonasExterno/cch/ws/tarificacion/externo/implementacion/ServicioExternoTarificadorPersonas.asmx?WSDL')
 
         request = client.factory.create('tns:aplicarTarifaPersona')
-        request.usuario = 'correo'
-        request.contrasena = 'correo'
-        request.cobertura = 'c'
+        request.usuario = 'FIRENZE'
+        request.contrasena = 'GIANI'
+        request.cobertura = '1'
         request.iataOrigen = 'ARICA'
         request.iataDestino = 'SANTIAGO'
         request.peso = 0.5
