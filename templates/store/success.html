@@ -44,12 +44,12 @@ Giani Da Firenze - Home
                 </td>
             </tr>
         </table>
-        <table style="text-align:center;">
+        <table>
             <tr>
-                <td style="width:55%">Producto</td>
-                <td style="width:15%">Cantidad</td>
-                <td style="width:15%">Precio Unitario</td>
-                <td style="width:15%">Subtotal</td>
+                <td style="width:55%;text-align:left;">Producto</td>
+                <td style="width:15%;text-align:center;">Cantidad</td>
+                <td style="width:15%;text-align:right;">Precio Unitario</td>
+                <td style="width:15%;text-align: right;">Subtotal</td>
             </tr>
             {% for d in detalle %}
             <tr>
@@ -61,13 +61,13 @@ Giani Da Firenze - Home
             {% end %}
             <tr>
                 <td colspan="2"></td>
-                <td>Costo Env&iacute;o</td>
-                <td>0</td>
+                <td style="text-align: right; border-top: 1px solid grey;">Costo Env&iacute;o</td>
+                <td style="text-align: right; border-top: 1px solid grey;">0</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
-                <td>Total</td>
-                <td>{{data["TBK_MONTO"] / 100}}</td>
+                <td style="text-align: right;">Total</td>
+                <td style="text-align: right;">{{data["TBK_MONTO"] / 100}}</td>
             </tr>
         </table>
         <table align="center">
