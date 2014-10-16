@@ -46,17 +46,17 @@ Giani Da Firenze - Home
         </table>
         <table align="center">
             <tr>
-                <td style="width:30%">Producto</td>
+                <td style="width:55%">Producto</td>
                 <td style="width:15%">Cantidad</td>
-                <td style="width:25%">Precio Unitario</td>
-                <td style="width:30%">Subtotal</td>
+                <td style="width:15%">Precio Unitario</td>
+                <td style="width:15%">Subtotal</td>
             </tr>
             {% for d in detalle %}
             <tr>
-                <td style="width:30%">{{d["name"]}}</td>
-                <td style="width:15%">{{d["quantity"]}}</td>
-                <td style="width:25%">{{d["sell_price"]}}</td>
-                <td style="width:30%">{{d["subtotal"]}}</td>
+                <td style="width:55%">{{d["name"]}}</td>
+                <td style="width:15%;text-align:center;">{{d["quantity"]}}</td>
+                <td style="width:15%;text-align:right;">{{d["sell_price"]}}</td>
+                <td style="width:15%;text-align:right;">{{d["subtotal"]}}</td>
             </tr>
             {% end %}
             <tr>
