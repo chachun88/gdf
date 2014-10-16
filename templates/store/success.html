@@ -31,7 +31,21 @@ Giani Da Firenze - Home
             </tr>
             <tr>
                 <td align="left" width="100%" >
-                    
+
+                        <tr valign="top">
+                            <th align="left">Nombre Comercio:</th>
+                            <td align="left">Giani Da Firenze</td>
+                        </tr>
+                        <tr valign="top">
+                            <th align="left">Url Comercio:</th>
+                            <td align="left">http://gianidafirenze.cl/</td>
+                        </tr>
+
+                        <tr valign="top">
+                            <th align="left">Comprador:</th>
+                            <td align="left">{{self.current_user["name"]}}</td>
+                        </tr>
+                        
                         <tr valign="top">
                             <th align="left">Nro Orden:</th>
                             <td align="left">{{data["TBK_ORDEN_COMPRA"]}}</td>
@@ -116,6 +130,11 @@ Giani Da Firenze - Home
                             <td align="left">{{data["TBK_NUMERO_CUOTAS"]}}</td>
                         </tr>
                 </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>“En caso de requerir devoluciones o reembolsos favor de contactar a (persona XXXX) o (Departamento XXXX) al teléfono (XXXX) o al mail (XXXX@XXXX.cl)”.</td>
             </tr>
         </table>
     <form action="{{pathSubmit}}" method="get">
