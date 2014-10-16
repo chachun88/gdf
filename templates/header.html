@@ -31,7 +31,7 @@
 				</a>
 			{% else %}
 				<!-- la clase logout es funcional no borrar -->
-				<a class="_button button_register logout"  href="/auth/logout?next={{url_escape(request.uri)}}" >
+				<a class="logout"  href="/auth/logout?next={{url_escape(request.uri)}}" >
 					<p>{{current_user["name"]}}</p>
 				</a>
 			{% end %}

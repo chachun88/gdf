@@ -185,7 +185,6 @@
 .footer-left-cont ._button {
   width: 150px;
   height: 32px;
-  margin: 160px auto 0;
   border-width: 2px;
   border-color: rgb(255, 255, 255);
   font-size: 1.167em;
@@ -224,7 +223,6 @@
 
 @media(max-width:1200px) {
   .footer-left-cont ._button {
-margin: 27px auto 0;
 }
 .footer-redes .image-25 {
   clear: initial;
