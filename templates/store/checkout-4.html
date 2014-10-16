@@ -47,11 +47,43 @@ Giani Da Firenze - Carro de Compra
               <div class="col-xs-12 col-sm-12">
                 <div class="paymentBox">
                   <div class="panel-group paymentMethod" id="accordion">
+                    
+                    
+                    <div class="panel panel-default">
+                      <div class="panel-heading panel-heading-custom">
+                        <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> <span class="numberCircuil"></span><strong> WebPay</strong> </a> </h4>
+                      </div>
+                      <div id="collapseTwo" class="panel-collapse collapse in">
+                        <div class="panel-body">
+
+                          <form action="/pago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
+                              <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
+                              <input type="hidden" name="TBK_MONTO" value="{{suma}}00" />
+                              <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}" />
+                              <input type="hidden" name="TBK_URL_EXITO" value="http://giani.ondev.today/store/success" />
+                              <input type="hidden" name="TBK_URL_FRACASO" value="http://giani.ondev.today/store/failure" />
+                              <!-- <input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" /> -->
+                          
+                          <div class="form-group clearfix">
+                            <img src="/static/img/logo_webpay.jpg" class="logo_webpay">
+                          </div>
+
+                          <div class="form-group clearfix">
+                            <label class="checkbox-inline" for="checkboxes-1">
+                              <input name="checkboxes" id="term-1" value="1" type="checkbox">
+                              Estoy de acuerdo y acepto los <a href="/tos" target="_blank" >Términos y condiciones</a> </label>
+                          </div>
+                          <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small " > Pagar &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+
                     <div class="panel panel-default">
                       <div class="panel-heading panel-heading-custom">
                         <h4 class="panel-title"> <a class="cashOnDelivery" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <span class="numberCircuil"></span> <strong> Transferencia bancaria</strong> </a> </h4>
                       </div>
-                      <div id="collapseOne" class="panel-collapse collapse in">
+                      <div id="collapseOne" class="panel-collapse collapse">
                         <form action="/checkout/send" onsubmit="return ValidateCheckoutPayment()">
                           <div class="panel-body">
                             <p>Envíe el comprobante de transferencia.</p>
@@ -78,33 +110,7 @@ Giani Da Firenze - Carro de Compra
                         </form>
                       </div>
                     </div>
-                    
-                    <div class="panel panel-default">
-                      <div class="panel-heading panel-heading-custom">
-                        <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> <span class="numberCircuil"></span><strong> WebPay</strong> </a> </h4>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
 
-                          <form action="/pago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
-                              <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
-                              <input type="hidden" name="TBK_MONTO" value="{{suma}}00" />
-                              <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}" />
-                              <input type="hidden" name="TBK_URL_EXITO" value="http://giani.ondev.today/store/success" />
-                              <input type="hidden" name="TBK_URL_FRACASO" value="http://giani.ondev.today/store/failure" />
-                              <!-- <input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" /> -->
-                          
-
-                          <div class="form-group clearfix">
-                            <label class="checkbox-inline" for="checkboxes-1">
-                              <input name="checkboxes" id="term-1" value="1" type="checkbox">
-                              Estoy de acuerdo y acepto los <a href="/tos" target="_blank" >Términos y condiciones</a> </label>
-                          </div>
-                          <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small " > Pagar &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
-                          </form>
-                        </div>
-                      </div>
-                    </div>
                     <!-- <div class="panel panel-default">
                       <div class="panel-heading panel-heading-custom">
                         <h4 class="panel-title"> <a class="masterCard" data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> <span class="numberCircuil">Option 3</span> <strong> MasterCard</strong> </a> </h4>

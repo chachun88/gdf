@@ -31,7 +31,21 @@ Giani Da Firenze - Home
             </tr>
             <tr>
                 <td align="left" width="100%" >
-                    
+
+                        <tr valign="top">
+                            <th align="left">Nombre Comercio:</th>
+                            <td align="left">Giani Da Firenze</td>
+                        </tr>
+                        <tr valign="top">
+                            <th align="left">Url Comercio:</th>
+                            <td align="left">http://gianidafirenze.cl/</td>
+                        </tr>
+
+                        <tr valign="top">
+                            <th align="left">Comprador:</th>
+                            <td align="left">{{current_user["name"]}}</td>
+                        </tr>
+                        
                         <tr valign="top">
                             <th align="left">Nro Orden:</th>
                             <td align="left">{{data["TBK_ORDEN_COMPRA"]}}</td>
@@ -44,30 +58,30 @@ Giani Da Firenze - Home
                 </td>
             </tr>
         </table>
-        <table align="center">
+        <table>
             <tr>
-                <th width="30%">Producto</th>
-                <th width="15%">Cantidad</th>
-                <th width="25%">Precio Unitario</th>
-                <th width="30%">Subtotal</th>
+                <td style="width:55%;text-align:left;">Producto</td>
+                <td style="width:15%;text-align:center;">Cantidad</td>
+                <td style="width:15%;text-align:right;">Precio Unitario</td>
+                <td style="width:15%;text-align: right;">Subtotal</td>
             </tr>
             {% for d in detalle %}
             <tr>
-                <td>{{d["name"]}}</td>
-                <td>{{d["quantity"]}}</td>
-                <td>{{d["sell_price"]}}</td>
-                <td>{{d["subtotal"]}}</td>
+                <td style="width:55%">{{d["name"]}}</td>
+                <td style="width:15%;text-align:center;">{{d["quantity"]}}</td>
+                <td style="width:15%;text-align:right;">{{d["sell_price"]}}</td>
+                <td style="width:15%;text-align:right;">{{d["subtotal"]}}</td>
             </tr>
             {% end %}
             <tr>
                 <td colspan="2"></td>
-                <td>Costo Env&iacute;o</td>
-                <td>0</td>
+                <td style="text-align: right; border-top: 1px solid grey;">Costo Env&iacute;o</td>
+                <td style="text-align: right; border-top: 1px solid grey;">0</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
-                <td>Total</td>
-                <td>{{data["TBK_MONTO"] / 100}}</td>
+                <td style="text-align: right;">Total</td>
+                <td style="text-align: right;">{{data["TBK_MONTO"] / 100}}</td>
             </tr>
         </table>
         <table align="center">
@@ -116,6 +130,11 @@ Giani Da Firenze - Home
                             <td align="left">{{data["TBK_NUMERO_CUOTAS"]}}</td>
                         </tr>
                 </td>
+            </tr>
+        </table>
+        <table>
+            <tr>
+                <td>“En caso de requerir devoluciones o reembolsos favor de contact&aacute;ctenos al tel&eacute;fono (+56) 2 2555 0328”.</td>
             </tr>
         </table>
     <form action="{{pathSubmit}}" method="get">
