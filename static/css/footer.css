@@ -197,7 +197,7 @@
 
 .footer-left-cont ._button:hover {
   background-color: rgb(255, 255, 255);
-  color: rgb(231, 169, 156);
+  color: gray;
 }
 
 .footer-right-center-cont ._button {
@@ -218,7 +218,7 @@
 .footer-left-center-cont ._button:hover,
 .footer-right-center-cont ._button:hover {
   background-color: #ffffff;
-  color: rgb(232, 169, 156);
+  color: gray;
 }
 
 @media(max-width:1200px) {
