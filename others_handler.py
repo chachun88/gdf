@@ -307,6 +307,9 @@ class ExitoHandler(BaseHandler):
 
     #     self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si")
 
+    # TBK_ID_SESION:20141015235139
+    # TBK_ORDEN_COMPRA:133
+
 
     def post(self):
 
