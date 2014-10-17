@@ -2529,9 +2529,7 @@ body {
   }
 
   .footer-left-cont ._button {
-    float: none;
     clear: none;
-    margin-top: 174px;
     margin-right: auto;
     margin-left: auto;
   }
