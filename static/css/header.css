@@ -25,7 +25,6 @@
 
 .carritoicono {
   float: left;
-  width: 11.4068441064%;
   height: 30px;
   margin: 16px 0 0 29.63997%;
 }
@@ -422,7 +421,6 @@
 .header-rigth-cont ._container {
   float: left;
   width: 53.2319391634%;
-  height: 30px;
   margin: 16px 0 0 5.69154%;
 }
 
@@ -612,14 +610,12 @@ font-size: 35px;
   }
   .carritoicono {
   float: left;
-  width: 11.4068441064%;
   height: 30px;
   margin: 16px 0 0 0%;
   }
   .header-rigth-cont ._container {
   float: none;
   width: 53.2319391634%;
-  height: 30px;
   margin: 16px auto;
   }
 }

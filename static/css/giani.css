@@ -22,3 +22,6 @@
 .fancybox-wrap,  .fancybox-desktop, .fancybox-type-html, .fancybox-opened {
 	opacity: 0.4;
 }
+.icon-thumbs-up-alt {
+	color: rgb(215, 106, 96);
+}

@@ -2,7 +2,7 @@ var fancyAlert = function(msg) {
 
 
 	var html = "<div class=\"iconosalarmas\">"
-			 + "<i class=\"icon-exclamation-sign\"></i>"
+			 + "<i class=\"icon-thumbs-up-alt\"></i>"
 			 + "</div>"
 			 +"<div style=\"width: 100%; height: 100%; margin:0px;width:240px;text-align:center;\">"
 	         + msg
