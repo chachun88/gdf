@@ -30,7 +30,6 @@ body {
   clear: both;
   z-index: 33;
   width: 39.2142857142%;
-  height: 475px;
   margin: 17px 0 0 10.07143%;
   overflow: hidden;
 }
@@ -58,7 +57,7 @@ body {
   z-index: 37;
   width: 39.2142857142%;
   height: 366px;
-  margin: 45px 0 0 1.64286%;
+  margin: 10px 0 0 1.64286%;
   overflow: hidden;
 }
 
@@ -101,7 +100,6 @@ body {
   float: left;
   clear: both;
   width: 80%;
-  height: 523px;
   margin: 12px 0 0 10.07143%;
   overflow: hidden;
 }
@@ -150,7 +148,6 @@ body {
   float: left;
   z-index: 31;
   width: 39.2142857142%;
-  height: 475px;
   margin: 17px 0 0 1.57143%;
   overflow: hidden;
 }
@@ -169,8 +166,7 @@ body {
   clear: both;
   z-index: 39;
   width: 39.2142857142%;
-  height: 366px;
-  margin: 45px 0 0 10%;
+  margin: 10px 0 0 10%;
   overflow: hidden;
 }
 
@@ -400,7 +396,6 @@ body {
     position: relative;
     z-index: 33;
     width: 39.2136676396%;
-    height: 403px;
     margin-top: 10px;
     margin-left: 10.00834%;
   }
@@ -409,14 +404,12 @@ body {
     position: relative;
     z-index: 37;
     width: 39.2136676396%;
-    height: 312px;
     margin-top: 10px;
     margin-left: 1.57032%;
   }
 
   .cuerpo .queeslonuevo {
     width: 79.9989574645%;
-    height: 437px;
     margin-top: 10px;
     margin-left: 10.00834%;
   }
@@ -426,7 +419,6 @@ body {
     position: relative;
     z-index: 31;
     width: 39.2136676396%;
-    height: 403px;
     margin-top: 10px;
     margin-left: 1.57032%;
   }
@@ -435,7 +427,6 @@ body {
     position: relative;
     z-index: 39;
     width: 39.2136676396%;
-    height: 311px;
     margin-top: 10px;
     margin-left: 10.00834%;
   }
@@ -1035,7 +1026,6 @@ body {
     position: relative;
     z-index: 33;
     width: 39.2141215526%;
-    height: 328px;
     margin-left: 10.00862%;
   }
 
@@ -1043,13 +1033,11 @@ body {
     position: relative;
     z-index: 37;
     width: 39.2141215526%;
-    height: 255px;
     margin-left: 1.54335%;
   }
 
   .cuerpo .queeslonuevo {
     width: 79.9987231869%;
-    height: 354px;
     margin-left: 10.00862%;
   }
 
@@ -1057,7 +1045,6 @@ body {
     position: relative;
     z-index: 31;
     width: 39.2141215526%;
-    height: 328px;
     margin-left: 1.54335%;
   }
 
@@ -1065,7 +1052,6 @@ body {
     position: relative;
     z-index: 39;
     width: 39.2141215526%;
-    height: 254px;
     margin-left: 10.00862%;
   }
 
@@ -1610,7 +1596,6 @@ body {
     position: relative;
     z-index: 33;
     width: 89.8305084745%;
-    height: 590px;
     margin-left: 5.08475%;
   }
 
@@ -1619,14 +1604,12 @@ body {
     clear: both;
     z-index: 37;
     width: 89.700130378%;
-    height: 450px;
     margin-top: 9px;
     margin-left: 5.08475%;
   }
 
   .cuerpo .queeslonuevo {
     width: 89.9995925684%;
-    height: 322px;
     margin-left: 5.08475%;
   }
 
@@ -1634,16 +1617,13 @@ body {
     position: relative;
     clear: both;
     z-index: 31;
-    width: 89.700130378%;
-    height: 589px;
-    margin-left: 5.08475%;
+    width: 89.700130378%; margin-left: 5.08475%;
   }
 
   .cuerpo .timeline {
     position: relative;
     z-index: 39;
     width: 90.0912646675%;
-    height: 432px;
     margin-left: 4.95437%;
   }
 
@@ -2196,7 +2176,6 @@ body {
     position: relative;
     z-index: 33;
     width: 89.8290709812%;
-    height: 366px;
     margin-left: 5.01044%;
   }
 
@@ -2204,14 +2183,12 @@ body {
     position: relative;
     z-index: 37;
     width: 89.9791231732%;
-    height: 235px;
     margin-top: 8px;
     margin-left: 5.01044%;
   }
 
   .cuerpo .queeslonuevo {
     width: 89.9986951983%;
-    height: 190px;
     margin-left: 5.01044%;
   }
 
@@ -2221,7 +2198,6 @@ body {
     position: relative;
     z-index: 31;
     width: 89.6985908141%;
-    height: 365px;
     margin-left: 5.01044%;
   }
 
@@ -2229,7 +2205,6 @@ body {
     position: relative;
     z-index: 39;
     width: 89.770354906%;
-    height: 286px;
     margin-top: 16px;
     margin-left: 5.01044%;
   }

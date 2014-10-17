@@ -3,6 +3,16 @@
   float: left;
   width: 100%;
   margin-top: 20px;
+  display: inline;
+}
+.slider-small {
+	display: none;
+}
+.queeslonuevo {
+	display: inline;
+}
+.queeslonuevo-small{
+	display: none;
 }
 
 .cuerpo-producto:hover
@@ -24,4 +34,20 @@
 }
 .icon-thumbs-up-alt {
 	color: rgb(215, 106, 96);
+}
+@media(max-width: 479px) {
+.slider {
+	display: none;
+}
+.slider-small, .queeslonuevo-small {
+	display: inline;
+	position: relative;
+  float: left;
+  width: 90%;
+  margin-top: 20px;
+  margin-left: 5%;
+}
+.queeslonuevo {
+	display: none;
+}
 }

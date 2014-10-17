@@ -1,0 +1,365 @@
+.text-10:hover {
+  background-color: rgb(232, 169, 156);
+}
+
+body {
+  background-color: rgb(255, 255, 255);
+  font: 400 0.75em/1.38 Ubuntu;
+  color: rgb(0, 0, 0);
+}
+
+
+
+.aceptar-condiciones {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 20px;
+  margin-top: 6px;
+}
+
+
+
+.comunidad {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 33;
+  width: 39.2142857142%;
+  height: 475px;
+  margin: 17px 0 0 10.07143%;
+  overflow: hidden;
+}
+
+.cont-foto-fb {
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 214px;
+  margin-top: 17px;
+  background-color: rgb(37, 111, 189);
+}
+
+.cuerpo {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 42;
+  width: 100%;
+}
+
+.estilodevida {
+  position: relative;
+  float: left;
+  z-index: 37;
+  width: 39.2142857142%;
+  height: 366px;
+  margin: 45px 0 0 1.64286%;
+  overflow: hidden;
+}
+
+
+
+.image {
+  display: block;
+  height: auto;
+  overflow: hidden;
+}
+
+
+
+.logo-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 54;
+  width: 42.4274553571%;
+  height: 135px;
+  margin: 0 auto;
+}
+
+.logo-content .image {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.point-text {
+  display: block;
+  float: left;
+  margin-left: 6px;
+  line-height: 1.38;
+}
+.queeslonuevo {
+  float: left;
+  clear: both;
+  width: 80%;
+  height: 523px;
+  margin: 12px 0 0 10.07143%;
+  overflow: hidden;
+}
+
+.queeslonuevo .image {
+  float: left;
+  width: 100%;
+  margin-left: -0.07394%;
+}
+
+.radio {
+  display: block;
+  float: left;
+  margin-top: 3px;
+}
+
+.radio-label {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 20px;
+  margin-left: -0.27248%;
+}
+
+
+
+
+
+.slide {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+
+
+.tienda {
+  position: relative;
+  float: left;
+  z-index: 31;
+  width: 39.2142857142%;
+  height: 475px;
+  margin: 17px 0 0 1.57143%;
+  overflow: hidden;
+}
+
+.comunidad .image,
+.estilodevida .image,
+.tienda .image {
+  float: left;
+  width: 100%;
+  margin-left: -0.148%;
+}
+
+.timeline {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 39;
+  width: 39.2142857142%;
+  height: 366px;
+  margin: 45px 0 0 10%;
+  overflow: hidden;
+}
+
+.timeline .image {
+  float: left;
+  width: 100%;
+}
+
+
+
+
+
+.tt-tulo-fb {
+  float: left;
+  width: 100%;
+  min-height: 38px;
+  font: 700 1.333em/1.38 'Playfair Display';
+  color: rgb(0, 0, 0);
+}
+
+._button {
+  display: block;
+  border-style: solid;
+}
+
+._input {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 36px;
+  margin-top: 5px;
+  padding: 0 10px;
+  border: 1px solid rgb(232, 232, 232);
+  background-color: rgb(255, 255, 255);
+  font: 400 1.083em/1.38 Helvetica;
+  color: rgb(177, 177, 177);
+}
+
+
+
+
+
+.image-1 {
+  top: 0;
+  bottom: 0;
+  z-index: 53;
+  width: 260px;
+  margin: auto 0;
+}
+
+
+.image-2 {
+  visibility: hidden;
+  top: 0;
+  z-index: 52;
+  width: 268px;
+}
+
+
+
+
+.image-3 {
+  visibility: hidden;
+  top: 0;
+  bottom: 0;
+  z-index: 51;
+  width: 242px;
+  margin: auto 0;
+}
+
+.image-4 {
+  visibility: hidden;
+  top: 23px;
+  z-index: 50;
+  width: 373px;
+}
+
+.image-5 {
+  visibility: hidden;
+  top: 0;
+  bottom: 0;
+  z-index: 49;
+  width: 373px;
+  margin: auto 0;
+}
+
+.text-11,
+.text-12,
+.text-13 {
+  clear: both;
+}
+
+
+
+.text-3 {
+  clear: both;
+  width: 99.9818346957%;
+  margin-top: 18px;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.text-4 {
+  clear: both;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 400;
+  text-align: right;
+}
+
+.text-1,
+.text-5 {
+  width: 100%;
+  min-height: 38px;
+  font-family: 'Playfair Display';
+  font-size: 1.333em;
+  font-weight: 700;
+}
+
+.text-2,
+.text-6 {
+  clear: both;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.text-7 {
+  clear: both;
+  width: 100%;
+  margin-top: 15px;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.text-8 {
+  clear: both;
+  width: 99.9773550724%;
+  margin-top: 15px;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.text-9 {
+  clear: both;
+  width: 99.9818346957%;
+  margin-top: 12px;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.point-text span {
+  font-size: NaNem;
+  font-weight: inherit;
+  color: rgb(77, 77, 77);
+}
+
+.text-22 a {
+  font-weight: inherit;
+  color: #ffffff;
+}
+
+.text-4 a {
+
+}
+.text-4 a:hover {
+  color: rgb(232, 169, 156);
+
+}
+.new_input {
+  height: 48px !important;
+}
+.reg-strate-fb a {
+  margin-left: 30%;
+}
+.reg-strate-fb a img {
+  max-width: 165px;
+}
+@media(max-width: 1200px) {
+.reg-strate-fb a {
+  margin-left: 17%;
+}  
+}
+@media(max-width: 979px) {
+.reg-strate-fb a {
+  margin-left: 33%;
+}  
+}
+@media(max-width: 400px) {
+.reg-strate-fb a {
+  margin-left: 17%;
+}  
+}

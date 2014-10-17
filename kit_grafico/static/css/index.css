@@ -1,0 +1,2749 @@
+
+.text-10:hover {
+  background-color: rgb(232, 169, 156);
+}
+
+body {
+  background-color: rgb(255, 255, 255);
+  font: 400 0.75em/1.38 Ubuntu;
+  color: rgb(0, 0, 0);
+}
+
+
+
+.aceptar-condiciones {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 20px;
+  margin-top: 6px;
+}
+.margin-top{
+  margin-top: 15px !important;
+}
+
+
+.comunidad {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 33;
+  width: 39.2142857142%;
+  margin: 17px 0 0 10.07143%;
+  overflow: hidden;
+}
+
+.cont-foto-fb {
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 214px;
+  margin-top: 17px;
+  background-color: rgb(37, 111, 189);
+}
+
+.cuerpo {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 42;
+  width: 100%;
+}
+
+.estilodevida {
+  position: relative;
+  float: left;
+  z-index: 37;
+  width: 39.2142857142%;
+  height: 366px;
+  margin: 10px 0 0 1.64286%;
+  overflow: hidden;
+}
+
+
+
+.image {
+  display: block;
+  height: auto;
+  overflow: hidden;
+}
+
+
+
+.logo-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 54;
+  width: 42.4274553571%;
+  height: 135px;
+  margin: 0 auto;
+}
+
+.logo-content .image {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.point-text {
+  display: block;
+  float: left;
+  margin-left: 6px;
+  line-height: 1.38;
+}
+.queeslonuevo {
+  float: left;
+  clear: both;
+  width: 80%;
+  margin: 12px 0 0 10.07143%;
+  overflow: hidden;
+}
+
+.queeslonuevo .image {
+  float: left;
+  width: 100%;
+  margin-left: -0.07394%;
+}
+
+.radio {
+  display: block;
+  float: left;
+  margin-top: 3px;
+}
+
+.radio-label {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 20px;
+  margin-left: -0.27248%;
+}
+
+
+
+
+
+.slide {
+  display: block;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 40;
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+
+
+.tienda {
+  position: relative;
+  float: left;
+  z-index: 31;
+  width: 39.2142857142%;
+  margin: 17px 0 0 1.57143%;
+  overflow: hidden;
+}
+
+.comunidad .image,
+.estilodevida .image,
+.tienda .image {
+  float: left;
+  width: 100%;
+  margin-left: -0.148%;
+}
+
+.timeline {
+  position: relative;
+  float: left;
+  clear: both;
+  z-index: 39;
+  width: 39.2142857142%;
+  margin: 10px 0 0 10%;
+  overflow: hidden;
+}
+
+.timeline .image {
+  float: left;
+  width: 100%;
+}
+
+
+
+
+
+.tt-tulo-fb {
+  float: left;
+  width: 100%;
+  min-height: 38px;
+  font: 700 1.333em/1.38 'Playfair Display';
+  color: rgb(0, 0, 0);
+}
+
+._button {
+  display: block;
+  border-style: solid;
+}
+
+._input {
+  display: block;
+  float: left;
+  clear: both;
+  width: 100%;
+  height: 36px;
+  margin-top: 5px;
+  padding: 0 10px;
+  border: 1px solid rgb(232, 232, 232);
+  background-color: rgb(255, 255, 255);
+  font: 400 1.083em/1.38 Helvetica;
+  color: rgb(177, 177, 177);
+}
+
+
+
+
+
+.image-1 {
+  top: 0;
+  bottom: 0;
+  z-index: 53;
+  width: 260px;
+  margin: auto 0;
+}
+
+
+.image-2 {
+  visibility: hidden;
+  top: 0;
+  z-index: 52;
+  width: 268px;
+}
+
+
+
+
+.image-3 {
+  visibility: hidden;
+  top: 0;
+  bottom: 0;
+  z-index: 51;
+  width: 242px;
+  margin: auto 0;
+}
+
+.image-4 {
+  visibility: hidden;
+  top: 23px;
+  z-index: 50;
+  width: 373px;
+}
+
+.image-5 {
+  visibility: hidden;
+  top: 0;
+  bottom: 0;
+  z-index: 49;
+  width: 373px;
+  margin: auto 0;
+}
+
+.text-11,
+.text-12,
+.text-13 {
+  clear: both;
+}
+
+
+
+.text-3 {
+  clear: both;
+  width: 99.9818346957%;
+  margin-top: 18px;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.text-4 {
+  clear: both;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 400;
+  text-align: right;
+}
+
+.text-1,
+.text-5 {
+  width: 100%;
+  min-height: 38px;
+  font-family: 'Playfair Display';
+  font-size: 1.333em;
+  font-weight: 700;
+}
+
+.text-2,
+.text-6 {
+  clear: both;
+  width: 100%;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.text-7 {
+  clear: both;
+  width: 100%;
+  margin-top: 15px;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.text-8 {
+  clear: both;
+  width: 99.9773550724%;
+  margin-top: 15px;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.text-9 {
+  clear: both;
+  width: 99.9818346957%;
+  margin-top: 12px;
+  font-size: 1em;
+  font-weight: 400;
+}
+
+.point-text span {
+  font-size: NaNem;
+  font-weight: inherit;
+  color: rgb(77, 77, 77);
+}
+
+.text-22 a {
+  font-weight: inherit;
+  color: #ffffff;
+}
+
+.text-4 a {
+  color: gray;
+}
+
+@media(max-width: 1199px) {
+  .carritoicono:hover {
+    background-color: rgb(255, 224, 218);
+  }
+
+  .acciones .comprar {
+    width: 40.9307933445%;
+    margin-top: 11px;
+    margin-left: 7.17145%;
+  }
+
+  .acciones .iralcarro {
+    width: 39.8167349891%;
+    margin-top: 11px;
+    margin-left: 5.932%;
+  }
+
+  .body-login .loginpopup {
+    width: 52.7848728106%;
+    margin-left: 23.60561%;
+  }
+
+  .carritoicono .image {
+    height: auto;
+    margin-left: -0.41667%;
+  }
+
+  .carritoinfo .acciones {
+    width: 100.0047931745%;
+  }
+
+  .carritoinfo .productosencola,
+  .carritoinfo .total {
+    width: 94.1403424162%;
+    margin-top: 2px;
+    margin-left: 2.84061%;
+  }
+
+  .carritoproductos {
+    left: 62.8%;
+    width: 27.189324437%;
+  }
+
+  .carritoproductos .carritoinfo {
+    width: 99.9952070552%;
+  }
+
+  .comunidad .image {
+    width: 99.8274889692%;
+    height: auto;
+    margin-left: -0.01994%;
+  }
+
+  .cuerpo {
+    position: relative;
+    z-index: 42;
+  }
+
+  .cuerpo .comunidad {
+    position: relative;
+    z-index: 33;
+    width: 39.2136676396%;
+    margin-top: 10px;
+    margin-left: 10.00834%;
+  }
+
+  .cuerpo .estilodevida {
+    position: relative;
+    z-index: 37;
+    width: 39.2136676396%;
+    margin-top: 10px;
+    margin-left: 1.57032%;
+  }
+
+  .cuerpo .queeslonuevo {
+    width: 79.9989574645%;
+    margin-top: 10px;
+    margin-left: 10.00834%;
+  }
+
+
+  .cuerpo .tienda {
+    position: relative;
+    z-index: 31;
+    width: 39.2136676396%;
+    margin-top: 10px;
+    margin-left: 1.57032%;
+  }
+
+  .cuerpo .timeline {
+    position: relative;
+    z-index: 39;
+    width: 39.2136676396%;
+    margin-top: 10px;
+    margin-left: 10.00834%;
+  }
+
+  .estilodevida .image {
+    width: 99.8274889692%;
+    height: auto;
+    margin-left: -0.19275%;
+  }
+
+  .flecha .image {
+    height: auto;
+    margin-left: 36.65644%;
+  }
+
+  .flecharegistro .image {
+    height: auto;
+    margin-left: 45.51675%;
+  }
+
+  .footer {
+    margin-top: 15px;
+  }
+
+  .footer .footer-left-center-cont {
+    position: relative;
+    z-index: 18;
+    width: 25.6046705587%;
+    margin-top: 37px;
+    margin-left: 1.59508%;
+  }
+
+  .footer .footer-left-cont {
+    position: relative;
+    z-index: 15;
+    width: 25.6046705587%;
+    margin-top: 20px;
+    margin-left: 9.99922%;
+  }
+
+  .footer .footer-right-center-cont {
+    position: relative;
+    z-index: 21;
+    width: 25.6046705587%;
+    margin-top: 37px;
+    margin-left: 1.59508%;
+  }
+
+  .footer .footer-right-cont {
+    position: relative;
+    clear: both;
+    z-index: 28;
+    width: 79.9833194328%;
+    height: 103px;
+    margin-left: 9.99922%;
+  }
+
+  .footer-left-center-cont .text {
+    margin-left: 12.20287%;
+  }
+
+  .footer-left-cont .image {
+    height: auto;
+  }
+
+  .footer-left-cont .text {
+    position: relative;
+    width: 58.8763297872%;
+    margin-left: 3.52708%;
+  }
+
+  .footer-redes .image {
+    position: relative;
+    height: auto;
+  }
+
+  .footer-right-center-cont .image {
+    height: auto;
+  }
+
+  .footer-right-cont .footer-redes {
+    width: 100%;
+    height: 53px;
+    margin-top: 7px;
+  }
+
+  .footer-right-cont .text {
+    float: none;
+    width: 32.0125130344%;
+    margin-top: 19px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .fotoproductoencola .image {
+    left: -0.2901785715%;
+    height: auto;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 62;
+  }
+
+  .header-content .header-left-cont {
+    position: relative;
+    z-index: 56;
+    width: 25.5212677231%;
+    margin-left: 10.00834%;
+  }
+
+  .header-content .header-menu {
+    width: 79.9976542952%;
+    margin-left: 10.00834%;
+  }
+
+  .header-content .header-rigth-cont {
+    position: relative;
+    z-index: 61 !important;
+    width: 25.6046705587%;
+    margin-left: 28.85738%;
+  }
+
+  .header-content .logo-content {
+    left: 0;
+    right: 0;
+    width: 28.8573811509%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .header-rigth-cont .carritoicono {
+    width: 9.7719869706%;
+    margin-left: 29.31596%;
+  }
+
+  .loginpopup .reg-strate-correo {
+    width: 46.8113034648%;
+    margin-top: 19px;
+    margin-left: 1.94913%;
+  }
+
+  .loginpopup .reg-strate-fb {
+    clear: both;
+    margin-top: -264px;
+    margin-left: 59.11534%;
+  }
+
+  .loginpopup .reg-strate-login {
+    z-index: 99;
+    width: 46.8113034648%;
+    margin-top: 8px;
+    margin-left: 2.05315%;
+  }
+
+  .logo-content .image {
+    height: auto;
+  }
+
+  .productosencola .cantidad {
+    position: relative;
+    z-index: 75;
+    margin-top: -14px;
+    margin-left: 30.85041%;
+  }
+
+  .productosencola .color {
+    position: relative;
+    z-index: 71;
+    margin-top: -55px;
+    margin-left: 30.86066%;
+  }
+
+  .productosencola .eliminarproducto {
+    position: relative;
+    z-index: 73;
+    margin-left: 89.4416%;
+  }
+
+  .productosencola .fotoproductoencola {
+    width: 22.9508196721%;
+    height: 69px;
+    margin-left: 3.60656%;
+  }
+
+  .productosencola .nombreproductoencola {
+    position: relative;
+    z-index: 70;
+    width: 50.8196721311%;
+    margin-top: 11px;
+    margin-left: 4.26742%;
+  }
+
+  .productosencola .precio {
+    position: relative;
+    z-index: 72;
+    margin-left: 8.72951%;
+  }
+
+  .productosencola .talla {
+    position: relative;
+    z-index: 74;
+    margin-top: -38px;
+    margin-left: 30.85041%;
+  }
+
+  .queeslonuevo .image {
+    width: 99.9153645833%;
+    height: auto;
+    margin-left: -0.00652%;
+  }
+
+  .reg-strate-correo .aceptar-condiciones {
+    width: 100.0900233001%;
+    margin-left: -0.0899400001%;
+  }
+
+  .reg-strate-fb .cont-foto-fb {
+    width: 38.2799755301%;
+    margin-left: -0.0102%;
+  }
+
+  .reg-strate-fb .tt-tulo-fb {
+    width: 99.8980424143%;
+  }
+
+  .reg-strate-login .radio-label {
+    width: 100.0900233001%;
+    margin-left: -0.26983%;
+  }
+
+  .reg-strate-login .text {
+    margin-left: -0.12698%;
+  }
+
+  .registroopciones {
+    left: 77.2310258548%;
+    width: 12.7606338615%;
+  }
+
+  .registroopciones .flecharegistro {
+    position: relative;
+    z-index: 87;
+    width: 100%;
+    height: 16px;
+  }
+
+  .registroopciones .opcionesregistro {
+    position: relative;
+    z-index: 85;
+    margin-top: 14px;
+  }
+
+  .slider .slide {
+    position: static;
+    float: left;
+    height: auto;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .tienda .image {
+    width: 99.8274889692%;
+    height: auto;
+    margin-left: -0.02991%;
+  }
+
+  .timeline .image {
+    width: 99.8274889692%;
+    height: auto;
+    margin-left: -0.01662%;
+  }
+
+  .total .totalcarrrito {
+    width: 31.1550518447%;
+    margin-right: 2.6332%;
+  }
+
+  .footer-left-center-cont ._button {
+    width: 69.6010638297%;
+  }
+
+  .footer-left-cont ._button {
+    float: left;
+    clear: both;
+    margin-top: 16px;
+    margin-right: 0;
+    margin-left: 23.73779%;
+  }
+
+  .footer-right-center-cont ._button {
+    width: 74.7074468085%;
+  }
+
+  .header-left-cont ._button {
+    width: 50%;
+  }
+
+  .header-rigth-cont ._button {
+    width: 99.6854388635%;
+    margin-right: 0.62093%;
+  }
+
+  .header-rigth-cont ._container {
+    width: 50%;
+    margin-left: 10.75428%;
+  }
+
+  .reg-strate-correo ._button {
+    width: 69.7529231257%;
+    margin-left: -0.11111%;
+  }
+
+  .reg-strate-correo ._input {
+    width: 99.5551789875%;
+  }
+
+  .reg-strate-login ._button {
+    margin-left: -0.12698%;
+  }
+
+  .reg-strate-login ._input {
+    width: 99.5551789875%;
+    margin-left: -0.12698%;
+  }
+
+  .footer .text-22 {
+    height: 137px;
+    margin-top: 15px;
+  }
+
+  .footer-left-cont .image-16 {
+    position: relative;
+    z-index: 2;
+    margin-left: 9.99593%;
+  }
+
+  .footer-left-cont .image-17 {
+    position: relative;
+    z-index: 4;
+    margin-top: 10px;
+    margin-left: 9.99593%;
+  }
+
+  .footer-left-cont .image-18 {
+    position: relative;
+    z-index: 6;
+    margin-top: 13px;
+    margin-left: 9.99593%;
+  }
+
+  .footer-left-cont .image-19 {
+    position: relative;
+    z-index: 8;
+    margin-top: 7px;
+    margin-left: 9.99593%;
+  }
+
+  .footer-left-cont .image-20 {
+    position: relative;
+    z-index: 10;
+    margin-top: 9px;
+    margin-left: 9.99593%;
+  }
+
+  .footer-left-cont .image-21 {
+    position: relative;
+    z-index: 12;
+    margin-left: 9.99593%;
+  }
+
+  .footer-left-cont .text-14 {
+    z-index: 3;
+  }
+
+  .footer-left-cont .text-15 {
+    z-index: 5;
+  }
+
+  .footer-left-cont .text-16 {
+    z-index: 7;
+  }
+
+  .footer-left-cont .text-17 {
+    z-index: 9;
+  }
+
+  .footer-left-cont .text-18 {
+    z-index: 11;
+  }
+
+  .footer-left-cont .text-19 {
+    z-index: 13;
+  }
+
+  .footer-redes .image-23 {
+    z-index: 24;
+    margin-left: 30.43861%;
+  }
+
+  .footer-redes .image-24 {
+    z-index: 23;
+    margin-left: 5.60806%;
+  }
+
+  .footer-redes .image-25 {
+    clear: none;
+    z-index: 22;
+    margin-top: 0;
+    margin-left: 6.37709%;
+  }
+
+  .footer-redes .image-26 {
+    z-index: 25;
+    margin-top: 0;
+    margin-left: 6.30703%;
+  }
+
+  .header-menu .categoria-1-1 {
+    margin-left: -0.00815%;
+  }
+
+  .header-menu .categoria-1-2 {
+    width: 19.9993483962%;
+  }
+
+  .header-menu .categoria-1-4 {
+    position: relative;
+    z-index: 46;
+  }
+
+  .header-menu .categoria-1-5 {
+    position: relative;
+    z-index: 47;
+    width: 20%;
+  }
+
+  .logo-content .image-1 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 75.1445086705%;
+    margin: auto;
+  }
+
+  .logo-content .image-3 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .logo-content .image-2,
+  .logo-content .image-4 {
+    left: auto;
+    right: auto;
+  }
+
+  .logo-content .image-5 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 343px;
+    margin: auto;
+  }
+
+  .reg-strate-correo .text-5 {
+    width: 51.0749841135%;
+    margin-left: -0.06878%;
+  }
+
+  .reg-strate-correo .text-6 {
+    width: 99.5075195933%;
+    margin-left: -0.12698%;
+  }
+
+  .reg-strate-correo .text-7 {
+    width: 99.5075195933%;
+    margin-left: -0.26983%;
+  }
+
+  .reg-strate-correo .text-8 {
+    width: 99.7987714467%;
+    margin-left: -0.2909900001%;
+  }
+
+  .reg-strate-correo .text-9 {
+    width: 99.7987714467%;
+    margin-left: -0.07407%;
+  }
+
+  .reg-strate-login .text-1 {
+    width: 51.0749841135%;
+  }
+
+  .reg-strate-login .text-2 {
+    width: 99.5075195933%;
+  }
+
+  .reg-strate-login .text-3,
+  .reg-strate-login .text-4 {
+    width: 99.7987714467%;
+  }
+
+  .reg-strate-correo ._input-3 {
+    margin-left: -0.12698%;
+  }
+
+  .reg-strate-correo ._input-4,
+  .reg-strate-correo ._input-5 {
+    margin-left: -0.2909900001%;
+  }
+
+  .reg-strate-correo ._input-6 {
+    margin-left: -0.07407%;
+  }
+
+  .point-text span {
+    font-size: NaNem;
+  }
+}
+
+@media(max-width: 979px) {
+  .categoria-1-1:hover {
+    line-height: 5;
+  }
+
+  body {
+    font-size: 0.75em;
+  }
+
+  .acciones .comprar {
+    width: 36.456417255%;
+    margin-top: 12px;
+    margin-left: 8.33946%;
+  }
+
+  .acciones .iralcarro {
+    width: 37.9754346407%;
+    margin-top: 12px;
+    margin-left: 7.57409%;
+  }
+
+  .body-login .loginpopup {
+    width: 52.7850485188%;
+    margin-left: 23.60349%;
+  }
+
+  .carritoicono .image {
+    height: auto;
+    margin-left: -1.6666700001%;
+  }
+
+  .carritoinfo .acciones {
+    width: 99.6898408239%;
+  }
+
+  .carritoinfo .productosencola {
+    width: 93.8838282266%;
+    margin-left: 2.63078%;
+  }
+
+  .carritoinfo .total {
+    width: 93.5052644031%;
+    margin-top: 1px;
+    margin-left: 2.63078%;
+  }
+
+  .carritoproductos {
+    left: 63.6363636363%;
+    width: 26.353421859%;
+  }
+
+  .carritoproductos .carritoinfo {
+    width: 99.9941297329%;
+    margin-left: -0.24225%;
+  }
+
+  .comunidad .image,
+  .estilodevida .image,
+  .timeline .image {
+    width: 99.9755859375%;
+    height: auto;
+    margin-left: 0;
+  }
+
+  .cuerpo {
+    position: relative;
+    z-index: 42;
+    margin-top: 0;
+  }
+
+  .cuerpo .comunidad {
+    position: relative;
+    z-index: 33;
+    width: 39.2141215526%;
+    margin-left: 10.00862%;
+  }
+
+  .cuerpo .estilodevida {
+    position: relative;
+    z-index: 37;
+    width: 39.2141215526%;
+    margin-left: 1.54335%;
+  }
+
+  .cuerpo .queeslonuevo {
+    width: 79.9987231869%;
+    margin-left: 10.00862%;
+  }
+
+  .cuerpo .tienda {
+    position: relative;
+    z-index: 31;
+    width: 39.2141215526%;
+    margin-left: 1.54335%;
+  }
+
+  .cuerpo .timeline {
+    position: relative;
+    z-index: 39;
+    width: 39.2141215526%;
+    margin-left: 10.00862%;
+  }
+
+  .flecha .image {
+    height: auto;
+    margin-left: 36.62185%;
+  }
+
+  .flecharegistro .image {
+    height: auto;
+    margin-left: 45.5301%;
+  }
+
+  .footer {
+  }
+
+  .footer .footer-left-center-cont {
+    position: relative;
+    z-index: 18;
+    width: 25.6384065372%;
+    margin-top: 13px;
+    margin-left: 1.53218%;
+  }
+
+  .footer .footer-left-cont {
+    position: relative;
+    z-index: 15;
+    width: 25.6384065372%;
+    margin-top: 0;
+    margin-left: 10.00862%;
+  }
+
+  .footer .footer-right-center-cont {
+    position: relative;
+    z-index: 21;
+    width: 25.6384065372%;
+    margin-top: 13px;
+    margin-left: 1.53218%;
+  }
+
+  .footer .footer-right-cont {
+    position: relative;
+    z-index: 28;
+    width: 79.9795709908%;
+    margin-left: 10.00862%;
+  }
+
+  .footer-left-center-cont .text {
+    float: none;
+    clear: none;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .footer-left-cont .image {
+    height: auto;
+  }
+
+  .footer-left-cont .text {
+    position: relative;
+    width: 58.8110749185%;
+  }
+
+  .footer-redes .image {
+    position: relative;
+    height: auto;
+  }
+
+  .footer-right-center-cont .image,
+  .slider .slide {
+    height: auto;
+  }
+
+  .footer-right-cont .footer-redes {
+    width: 47.1264367816%;
+    margin-top: 12px;
+  }
+
+  .footer-right-cont .text {
+    width: 32.0561941251%;
+    margin-top: 0;
+  }
+
+  .fotoproductoencola .image {
+    left: -1.1383928572%;
+    height: auto;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 62;
+  }
+
+  .header-content .header-left-cont {
+    position: relative;
+    z-index: 56;
+    width: 25.5362614913%;
+    height: 133px;
+    margin-left: 10.00862%;
+  }
+
+  .header-content .header-menu {
+    width: 79.9987231869%;
+    margin-left: 10.00862%;
+  }
+
+  .header-content .header-rigth-cont {
+    position: relative;
+    z-index: 61;
+    width: 25.6384065372%;
+    height: 133px;
+    margin-left: 28.80331%;
+  }
+
+  .header-content .logo-content {
+    left: 0;
+    right: 0;
+    width: 28.8049029622%;
+    height: 133px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .header-rigth-cont .carritoicono {
+    margin-left: 29.48207%;
+  }
+
+  .loginpopup .reg-strate-correo {
+    width: 80.6192138412%;
+    margin-top: 15px;
+    margin-left: 9.69495%;
+  }
+
+  .loginpopup .reg-strate-fb {
+    width: 79.0651085141%;
+    height: auto;
+    margin-top: 0;
+    margin-left: 9.69495%;
+  }
+
+  .loginpopup .reg-strate-login {
+    position: relative;
+    z-index: 99;
+    width: 80.6192138412%;
+    margin-left: 9.69495%;
+  }
+
+  .logo-content .image {
+    height: auto;
+  }
+
+  .productosencola .cantidad {
+    position: relative;
+    z-index: 75;
+    margin-top: -17px;
+    margin-left: 35.76723%;
+  }
+
+  .productosencola .color {
+    position: relative;
+    z-index: 71;
+    margin-top: -56px;
+    margin-left: 35.76723%;
+  }
+
+  .productosencola .eliminarproducto {
+    position: relative;
+    z-index: 73;
+    margin-top: -75px;
+    margin-left: 91.12484%;
+  }
+
+  .productosencola .fotoproductoencola {
+    width: 8.4859735192%;
+    margin-left: 3.62809%;
+  }
+
+  .productosencola .nombreproductoencola {
+    position: relative;
+    z-index: 70;
+    margin-top: 10px;
+    margin-left: 23.63459%;
+  }
+
+  .productosencola .precio {
+    position: relative;
+    z-index: 72;
+    margin-top: -22px;
+    margin-left: 59.30429%;
+  }
+
+  .productosencola .talla {
+    position: relative;
+    z-index: 74;
+    margin-top: -39px;
+    margin-left: 35.76723%;
+  }
+
+  .queeslonuevo .image {
+    width: 99.8963647959%;
+    height: auto;
+    margin-left: -0.00998%;
+  }
+
+  .reg-strate-correo .aceptar-condiciones,
+  .reg-strate-login .radio-label {
+    width: 100.3775058578%;
+    margin-left: -0.37651%;
+  }
+
+  .reg-strate-fb .cont-foto-fb {
+    width: 56.2653562653%;
+    margin-left: 20.86533%;
+  }
+
+  .reg-strate-fb .tt-tulo-fb {
+    width: 99.9719870517%;
+  }
+
+  .reg-strate-login .text {
+    margin-left: -0.12425%;
+  }
+
+  .registroopciones {
+    width: 14.2112125162%;
+  }
+
+  .registroopciones .flecharegistro {
+    position: relative;
+    z-index: 87;
+  }
+
+  .registroopciones .opcionesregistro {
+    position: relative;
+    z-index: 85;
+  }
+
+  .tienda .image {
+    width: 99.9755859375%;
+    height: auto;
+    margin-left: -0.1343100001%;
+  }
+
+  .total .totalcarrrito {
+    width: 56.2753036437%;
+    margin-top: 13px;
+    margin-right: 2.80063%;
+  }
+
+  .footer-left-center-cont ._button {
+    width: 69.5638020833%;
+  }
+
+  .footer-left-cont ._button {
+    margin-top: 13px;
+    margin-left: 20.88521%;
+  }
+
+  .footer-right-center-cont ._button {
+    width: 74.658203125%;
+  }
+
+  .header-rigth-cont ._button {
+    margin-right: 0.62251%;
+  }
+
+  .header-rigth-cont ._container {
+    margin-left: 8.36031%;
+  }
+
+  .reg-strate-correo ._button {
+    margin-left: -0.25226%;
+  }
+
+  .reg-strate-correo ._input {
+    width: 100%;
+  }
+
+  .reg-strate-login ._button {
+    margin-left: -0.12425%;
+  }
+
+  .reg-strate-login ._input {
+    width: 100%;
+    margin-left: -0.12425%;
+  }
+
+  .footer .text-22 {
+    height: 109px;
+    margin-top: 5px;
+  }
+
+  .footer-left-cont .image-16 {
+    position: relative;
+    z-index: 2;
+    margin-left: 15.5503%;
+  }
+
+  .footer-left-cont .image-17 {
+    position: relative;
+    z-index: 4;
+    margin-left: 16.55254%;
+  }
+
+  .footer-left-cont .image-18 {
+    position: relative;
+    z-index: 6;
+    margin-left: 16.55254%;
+  }
+
+  .footer-left-cont .image-19 {
+    position: relative;
+    z-index: 8;
+    margin-left: 16.55254%;
+  }
+
+  .footer-left-cont .image-20 {
+    position: relative;
+    z-index: 10;
+    margin-left: 16.55254%;
+  }
+
+  .footer-left-cont .image-21 {
+    position: relative;
+    z-index: 12;
+    margin-left: 15.5503%;
+  }
+
+  .footer-left-cont .text-14 {
+    z-index: 3;
+    margin-left: 3.54831%;
+  }
+
+  .footer-left-cont .text-15 {
+    z-index: 5;
+    margin-left: 3.54831%;
+  }
+
+  .footer-left-cont .text-16 {
+    z-index: 7;
+    margin-left: 3.54831%;
+  }
+
+  .footer-left-cont .text-17 {
+    z-index: 9;
+    margin-left: 3.54831%;
+  }
+
+  .footer-left-cont .text-18 {
+    z-index: 11;
+    margin-left: 3.54831%;
+  }
+
+  .footer-left-cont .text-19 {
+    z-index: 13;
+    margin-left: 3.53586%;
+  }
+
+  .footer-redes .image-23 {
+    z-index: 24;
+    margin-left: 6.1144999999%;
+  }
+
+  .footer-redes .image-24 {
+    z-index: 23;
+    margin-left: 10.56911%;
+  }
+
+  .footer-redes .image-25 {
+    z-index: 22;
+    margin-left: 10.83164%;
+  }
+
+  .footer-redes .image-26 {
+    z-index: 25;
+    margin-left: 10.91633%;
+  }
+
+  .header-menu .categoria-1-1 {
+    margin-left: 0;
+  }
+
+  .header-menu .categoria-1-2,
+  .header-menu .categoria-1-3 {
+    width: 19.9992017879%;
+  }
+
+  .header-menu .categoria-1-4 {
+    position: relative;
+    z-index: 46;
+    width: 19.9992017879%;
+  }
+
+  .header-menu .categoria-1-5 {
+    position: relative;
+    clear: none;
+    z-index: 47;
+  }
+
+  .logo-content .image-1 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 92.1985815602%;
+    margin: auto;
+  }
+
+  .logo-content .image-3 {
+    top: 0;
+    bottom: 0;
+    left: auto;
+    right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .logo-content .image-5 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 282px;
+    margin: auto;
+  }
+
+  .reg-strate-correo .text-5 {
+    width: 51.2626920072%;
+    margin-left: -0.10166%;
+  }
+
+  .reg-strate-correo .text-6 {
+    width: 99.791720906%;
+    margin-left: -0.11672%;
+  }
+
+  .reg-strate-correo .text-7 {
+    width: 99.791720906%;
+    margin-left: -0.25226%;
+  }
+
+  .reg-strate-correo .text-8 {
+    width: 100.0846133819%;
+    margin-left: -0.36898%;
+  }
+
+  .reg-strate-correo .text-9 {
+    width: 100.0846133819%;
+    margin-left: -0.10166%;
+  }
+
+  .reg-strate-login .text-1 {
+    width: 51.2626920072%;
+  }
+
+  .reg-strate-login .text-2 {
+    width: 99.791720906%;
+  }
+
+  .reg-strate-login .text-3,
+  .reg-strate-login .text-4 {
+    width: 100.0846133819%;
+  }
+
+  .reg-strate-correo ._input-3 {
+    margin-left: -0.11672%;
+  }
+
+  .reg-strate-correo ._input-4,
+  .reg-strate-correo ._input-5 {
+    margin-left: -0.36898%;
+  }
+
+  .reg-strate-correo ._input-6 {
+    margin-left: -0.10166%;
+  }
+
+  .point-text span {
+    font-size: NaNem;
+  }
+}
+
+@media(max-width: 767px) {
+  .acciones .comprar {
+    width: 35.4675327624%;
+    margin-top: 11px;
+    margin-left: 15.99855%;
+  }
+
+  .acciones .iralcarro {
+    width: 36.9211201707%;
+    margin-left: 5.95971%;
+  }
+
+  .aceptar-condiciones .point-text {
+    margin-left: 24px;
+  }
+
+  .body-login .loginpopup {
+    width: 56.9752281616%;
+    margin-left: 21.51239%;
+  }
+
+  .carritoicono .image {
+    height: auto;
+    margin-left: -2.91667%;
+  }
+
+  .carritoinfo .acciones {
+    width: 100%;
+  }
+
+  .carritoinfo .productosencola,
+  .carritoinfo .total {
+    width: 94.0471053169%;
+    margin-left: 2.76182%;
+  }
+
+  .carritoproductos {
+    top: 79px;
+    left: 4.9543676662%;
+    width: 89.960886571%;
+  }
+
+  .carritoproductos .carritoinfo {
+    width: 99.9954578488%;
+    margin-left: 0;
+  }
+
+  .comunidad .image {
+    width: 100%;
+    height: auto;
+    margin-left: -0.09525%;
+  }
+
+  .cuerpo {
+    position: relative;
+    z-index: 42;
+  }
+
+  .cuerpo .comunidad {
+    position: relative;
+    z-index: 33;
+    width: 89.8305084745%;
+    margin-left: 5.08475%;
+  }
+
+  .cuerpo .estilodevida {
+    position: relative;
+    clear: both;
+    z-index: 37;
+    width: 89.700130378%;
+    margin-top: 9px;
+    margin-left: 5.08475%;
+  }
+
+  .cuerpo .queeslonuevo {
+    width: 89.9995925684%;
+    margin-left: 5.08475%;
+  }
+
+  .cuerpo .tienda {
+    position: relative;
+    clear: both;
+    z-index: 31;
+    width: 89.700130378%; margin-left: 5.08475%;
+  }
+
+  .cuerpo .timeline {
+    position: relative;
+    z-index: 39;
+    width: 90.0912646675%;
+    margin-left: 4.95437%;
+  }
+
+  .estilodevida .image {
+    width: 99.9221345514%;
+    height: auto;
+    margin-left: -0.23165%;
+  }
+
+  .flecha .image {
+    height: auto;
+    margin-left: 79.11232%;
+  }
+
+  .flecharegistro .image {
+    height: auto;
+    margin-left: 45.51319%;
+  }
+
+  .footer {
+    margin-top: 20px;
+  }
+
+  .footer .footer-left-center-cont {
+    position: relative;
+    z-index: 18;
+    width: 28.813559322%;
+    margin-top: 21px;
+    margin-left: 1.78048%;
+  }
+
+  .footer .footer-left-cont {
+    position: relative;
+    z-index: 15;
+    width: 28.813559322%;
+    margin-left: 4.9991899999%;
+  }
+
+  .footer .footer-right-center-cont {
+    position: relative;
+    z-index: 21;
+    width: 28.813559322%;
+    margin-top: 21px;
+    margin-left: 1.809%;
+  }
+
+  .footer .footer-right-cont {
+    position: relative;
+    z-index: 28;
+    width: 90%;
+    margin-left: 4.95437%;
+  }
+
+  .footer-left-cont .image {
+    height: auto;
+  }
+
+  .footer-left-cont .text {
+    position: relative;
+    width: 58.7153102588%;
+  }
+
+  .footer-redes .image {
+    position: relative;
+    height: auto;
+  }
+
+  .footer-right-center-cont .image,
+  .slider .slide {
+    height: auto;
+  }
+
+  .footer-right-cont .footer-redes {
+    width: 50.8476878154%;
+    margin-top: 14px;
+  }
+
+  .footer-right-cont .text {
+    width: 32.1600760542%;
+  }
+
+  .fotoproductoencola .image {
+    left: -0.1339285715%;
+    height: auto;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 62;
+  }
+
+  .header-content .header-left-cont {
+    position: relative;
+    z-index: 56;
+    width: 28.813559322%;
+    height: 135px;
+    margin-left: 4.95437%;
+  }
+
+  .header-content .header-menu {
+    width: 89.8305084745%;
+    margin-left: 4.95437%;
+  }
+
+  .header-content .header-rigth-cont {
+    position: relative;
+    z-index: 61;
+    width: 28.552803129%;
+    height: 135px;
+    margin-left: 32.4641499999%;
+  }
+
+  .header-content .logo-content {
+    left: 0;
+    right: 0;
+    width: 32.3337679269%;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .header-rigth-cont .carritoicono {
+    margin-left: 29.68037%;
+  }
+
+  .loginpopup .reg-strate-correo {
+    width: 93.7931034482%;
+    margin-top: 0;
+    margin-left: 2.98851%;
+  }
+
+  .loginpopup .reg-strate-fb {
+    width: 94.2528735632%;
+    margin-left: 2.75503%;
+  }
+
+  .loginpopup .reg-strate-login {
+    position: relative;
+    z-index: 99;
+    width: 94.0229885057%;
+    margin-left: 2.75503%;
+  }
+
+  .logo-content .image {
+    height: auto;
+  }
+
+  .productosencola .cantidad {
+    position: relative;
+    z-index: 75;
+    margin-top: -14px;
+    margin-left: 17.31791%;
+  }
+
+  .productosencola .color {
+    position: relative;
+    z-index: 71;
+    margin-top: -55px;
+    margin-left: 17.31791%;
+  }
+
+  .productosencola .eliminarproducto {
+    position: relative;
+    z-index: 73;
+    margin-top: -74px;
+    margin-left: 91.19011%;
+  }
+
+  .productosencola .fotoproductoencola {
+    width: 10.8191653786%;
+    margin-left: 3.55487%;
+  }
+
+  .productosencola .nombreproductoencola {
+    position: relative;
+    z-index: 70;
+    margin-top: 11px;
+    margin-left: 2.94388%;
+  }
+
+  .productosencola .precio {
+    position: relative;
+    z-index: 72;
+    margin-top: -21px;
+    margin-left: 23.60655%;
+  }
+
+  .productosencola .talla {
+    position: relative;
+    z-index: 74;
+    margin-top: -38px;
+    margin-left: 17.31791%;
+  }
+
+  .queeslonuevo .image {
+    width: 99.8982452966%;
+    height: auto;
+    margin-left: -0.08828%;
+  }
+
+  .reg-strate-correo .aceptar-condiciones {
+    width: 100.2741774675%;
+    margin-left: -0.27191%;
+  }
+
+  .reg-strate-fb .cont-foto-fb {
+    width: 38.0988261421%;
+    margin-top: 5px;
+    margin-left: 31.25381%;
+  }
+
+  .reg-strate-fb .tt-tulo-fb {
+    width: 99.80964467%;
+  }
+
+  .reg-strate-login .radio-label {
+    width: 100.2741774675%;
+    margin-left: -0.27124%;
+  }
+
+  .reg-strate-login .text {
+    margin-left: -0.12225%;
+  }
+
+  .registroopciones {
+    left: 80.7040417209%;
+  }
+
+  .registroopciones .flecharegistro {
+    position: relative;
+    z-index: 87;
+  }
+
+  .registroopciones .opcionesregistro {
+    position: relative;
+    z-index: 85;
+  }
+
+  .tienda .image {
+    width: 100%;
+    height: auto;
+    margin-left: -0.09539%;
+  }
+
+  .timeline .image {
+    width: 99.9221345514%;
+    height: auto;
+    margin-left: -0.09271%;
+  }
+
+  .total .totalcarrrito {
+    width: 31.0578105781%;
+    margin-top: 12px;
+    margin-right: 2.62993%;
+  }
+
+  .footer-left-center-cont ._button {
+    width: 69.3055986753%;
+  }
+
+  .footer-left-cont ._button {
+    margin-top: 18px;
+    margin-left: 18.15611%;
+  }
+
+  .footer-right-center-cont ._button {
+    width: 74.3764876332%;
+  }
+
+  .header-rigth-cont ._button {
+    float: left;
+    width: 99.5454545454%;
+    margin-right: 0;
+  }
+
+  .header-rigth-cont ._container {
+    float: right;
+    margin-left: 0;
+  }
+
+  .reg-strate-correo ._button {
+    width: 44.1674975074%;
+    margin-left: -0.26425%;
+  }
+
+  .reg-strate-correo ._input {
+    width: 99.9169159189%;
+  }
+
+  .reg-strate-login ._button {
+    margin-left: -0.12225%;
+  }
+
+  .reg-strate-login ._input {
+    width: 100%;
+    margin-left: -0.12225%;
+  }
+
+  .footer .text-22 {
+    height: 105px;
+    margin-top: 15px;
+  }
+
+  .footer-left-cont .image-16 {
+    position: relative;
+    z-index: 2;
+    margin-left: 20.67308%;
+  }
+
+  .footer-left-cont .image-17 {
+    position: relative;
+    z-index: 4;
+    margin-top: 8px;
+    margin-left: 20.67308%;
+  }
+
+  .footer-left-cont .image-18 {
+    position: relative;
+    z-index: 6;
+    margin-left: 20.68015%;
+  }
+
+  .footer-left-cont .image-19 {
+    position: relative;
+    z-index: 8;
+    margin-left: 20.68015%;
+  }
+
+  .footer-left-cont .image-20 {
+    position: relative;
+    z-index: 10;
+    margin-left: 20.68015%;
+  }
+
+  .footer-left-cont .image-21 {
+    position: relative;
+    z-index: 12;
+    margin-left: 20.67308%;
+  }
+
+  .footer-left-cont .text-14 {
+    z-index: 3;
+    margin-left: 3.528%;
+  }
+
+  .footer-left-cont .text-15 {
+    z-index: 5;
+    margin-left: 3.53507%;
+  }
+
+  .footer-left-cont .text-16 {
+    z-index: 7;
+    margin-left: 3.528%;
+  }
+
+  .footer-left-cont .text-17 {
+    z-index: 9;
+    margin-left: 3.528%;
+  }
+
+  .footer-left-cont .text-18 {
+    z-index: 11;
+    margin-left: 3.528%;
+  }
+
+  .footer-left-cont .text-19 {
+    z-index: 13;
+    margin-left: 3.528%;
+  }
+
+  .footer-redes .image-23 {
+    z-index: 24;
+    margin-left: 9.88693%;
+  }
+
+  .footer-redes .image-24 {
+    z-index: 23;
+    margin-left: 7.43857%;
+  }
+
+  .footer-redes .image-25 {
+    z-index: 22;
+    margin-left: 8.11966%;
+  }
+
+  .footer-redes .image-26 {
+    z-index: 25;
+    margin-left: 8.74733%;
+  }
+
+  .header-menu .categoria-1-1,
+  .header-menu .categoria-1-2,
+  .header-menu .categoria-1-3 {
+    width: 19.9995464441%;
+  }
+
+  .header-menu .categoria-1-4 {
+    position: relative;
+    z-index: 46;
+    width: 19.9995464441%;
+  }
+
+  .header-menu .categoria-1-5 {
+    position: relative;
+    z-index: 47;
+  }
+
+  .logo-content .image-1 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: auto;
+  }
+
+  .logo-content .image-3 {
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+
+  .logo-content .image-5 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 248px;
+    margin: auto;
+  }
+
+  .reg-strate-correo .text-5 {
+    width: 51.2711864406%;
+    margin-left: -0.09574%;
+  }
+
+  .reg-strate-correo .text-6 {
+    width: 99.6925888999%;
+    margin-left: -0.09574%;
+  }
+
+  .reg-strate-correo .text-7 {
+    width: 99.6925888999%;
+    margin-left: -0.26425%;
+  }
+
+  .reg-strate-correo .text-8 {
+    width: 99.9833831837%;
+    margin-left: -0.49403%;
+  }
+
+  .reg-strate-correo .text-9 {
+    width: 99.9833831837%;
+    margin-left: -0.09574%;
+  }
+
+  .reg-strate-login .text-1 {
+    width: 51.2711864406%;
+  }
+
+  .reg-strate-login .text-2 {
+    width: 99.6925888999%;
+  }
+
+  .reg-strate-login .text-3,
+  .reg-strate-login .text-4 {
+    width: 99.9833831837%;
+  }
+
+  .reg-strate-correo ._input-4,
+  .reg-strate-correo ._input-5 {
+    margin-left: -0.49403%;
+  }
+
+  .reg-strate-correo ._input-3,
+  .reg-strate-correo ._input-6 {
+    margin-left: -0.09574%;
+  }
+
+  .point-text span {
+    font-size: NaNem;
+  }
+}
+
+@media(max-width: 479px) {
+  body {
+    font-size: 0.75em;
+  }
+
+  .acciones .comprar {
+    width: 40.8536984865%;
+    margin-top: 10px;
+    margin-left: 5.50011%;
+  }
+
+  .acciones .iralcarro {
+    width: 45.8592675096%;
+    margin-top: 10px;
+    margin-left: 3.9375%;
+  }
+
+  .aceptar-condiciones .point-text {
+    clear: both;
+    margin-left: 6px;
+  }
+
+  .body-login .loginpopup {
+    width: 89.9791231732%;
+    margin-left: 5.01044%;
+  }
+
+  .carritoicono .image {
+    height: auto;
+    margin-left: -2.65625%;
+  }
+
+  .carritoinfo .productosencola {
+    width: 92.3144168427%;
+    margin-left: 4.4438%;
+  }
+
+  .carritoinfo .total {
+    width: 93.4800029139%;
+    margin-top: 3px;
+    margin-left: 4.4438%;
+  }
+
+  .carritoproductos {
+    top: 53px;
+    left: 4.9999999999%;
+    width: 89.9791231732%;
+  }
+
+  .carritoproductos .carritoinfo {
+    width: 99.9934759916%;
+  }
+
+  .comunidad .image {
+    width: 99.8332366589%;
+    height: auto;
+    margin-left: -0.01453%;
+  }
+
+  .cuerpo {
+    position: relative;
+    z-index: 42;
+  }
+
+  .cuerpo .comunidad {
+    position: relative;
+    z-index: 33;
+    width: 89.8290709812%;
+    margin-left: 5.01044%;
+  }
+
+  .cuerpo .estilodevida {
+    position: relative;
+    z-index: 37;
+    width: 89.9791231732%;
+    margin-top: 8px;
+    margin-left: 5.01044%;
+  }
+
+  .cuerpo .queeslonuevo {
+    width: 89.9986951983%;
+    margin-left: 5.01044%;
+  }
+
+
+
+  .cuerpo .tienda {
+    position: relative;
+    z-index: 31;
+    width: 89.6985908141%;
+    margin-left: 5.01044%;
+  }
+
+  .cuerpo .timeline {
+    position: relative;
+    z-index: 39;
+    width: 89.770354906%;
+    margin-top: 16px;
+    margin-left: 5.01044%;
+  }
+
+  .estilodevida .image {
+    width: 99.9085771276%;
+    height: auto;
+    margin-left: -0.39516%;
+  }
+
+  .flecha .image {
+    height: auto;
+    margin-left: 11.75319%;
+  }
+
+  .flecharegistro .image {
+    height: auto;
+    margin-left: 45.53002%;
+  }
+
+  .footer {
+    margin-top: 24px;
+  }
+
+  .footer .footer-left-center-cont {
+    position: relative;
+    clear: both;
+    z-index: 18;
+    width: 89.5615866388%;
+    margin-top: 16px;
+    margin-left: 4.99413%;
+  }
+
+  .footer .footer-left-cont {
+    position: relative;
+    z-index: 15;
+    width: 89.770354906%;
+    margin-left: 5.01044%;
+  }
+
+  .footer .footer-right-center-cont {
+    position: relative;
+    clear: both;
+    z-index: 21;
+    width: 89.5615866388%;
+    margin-top: 22px;
+    margin-left: 4.99413%;
+  }
+
+  .footer .footer-right-cont {
+    position: relative;
+    z-index: 28;
+    width: 89.5615866388%;
+    margin-left: 5.01044%;
+    height: 180px;
+  }
+
+  .footer-left-center-cont .text {
+    margin-top: 17px;
+  }
+
+  .footer-left-cont .image {
+    height: auto;
+  }
+
+  .footer-left-cont .text {
+    position: relative;
+    margin-left: 3.51381%;
+  }
+
+  .footer-redes .image {
+    position: relative;
+    height: auto;
+  }
+
+  .footer-right-center-cont .image {
+    height: auto;
+    margin-top: 18px;
+  }
+
+  .footer-right-cont .footer-redes,
+  .header-rigth-cont ._button {
+    width: 100%;
+  }
+
+  .footer-right-cont .text {
+    width: 26.2910798122%;
+    margin-top: 12px;
+  }
+
+  .fotoproductoencola .image {
+    left: -1.40625%;
+    height: auto;
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 62;
+    height: 526px;
+  }
+
+  .header-content .header-left-cont {
+    position: relative;
+    z-index: 56;
+    width: 89.9791231732%;
+    height: 63px;
+    margin-top: 447px;
+    margin-left: 5.01044%;
+  }
+
+  .header-content .header-menu {
+    clear: none;
+    width: 89.9791231732%;
+    height: 345px;
+    margin-top: -324px;
+    margin-left: 5.01044%;
+  }
+
+  .header-content .header-rigth-cont {
+    position: relative;
+    clear: both;
+    z-index: 61;
+    width: 89.9791231732%;
+    height: 58px;
+    margin-top: -510px;
+    margin-left: 5.01044%;
+  }
+
+  .header-content .logo-content {
+    top: 61px;
+    left: 0;
+    right: 0;
+    width: 89.9791231732%;
+    height: 125px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .header-menu .categoria-1 {
+    width: 100%;
+    border-bottom-width: 1px;
+    border-bottom-color: rgb(77, 77, 77);
+    font-size: 1.5em;
+    line-height: 2.5;
+  }
+
+  .header-rigth-cont .carritoicono {
+    margin-left: 10%;
+  }
+
+  .loginpopup .reg-strate-correo {
+    width: 96.5034965034%;
+    margin-left: 1.86116%;
+  }
+
+  .loginpopup .reg-strate-fb {
+    width: 96.2703962703%;
+    margin-top: 23px;
+    margin-left: 1.86116%;
+  }
+
+  .loginpopup .reg-strate-login {
+    position: relative;
+    z-index: 99;
+    width: 96.2703962703%;
+    margin-left: 1.86116%;
+  }
+
+  .logo-content .image {
+    height: auto;
+  }
+
+  .opcionesregistro .text {
+    font-size: 1.5em;
+  }
+
+  .productosencola .cantidad {
+    position: relative;
+    z-index: 75;
+    margin-top: -15px;
+    margin-left: 30.85543%;
+  }
+
+  .productosencola .color {
+    position: relative;
+    z-index: 71;
+    margin-top: -56px;
+    margin-left: 30.85543%;
+  }
+
+  .productosencola .eliminarproducto {
+    position: relative;
+    z-index: 73;
+    margin-top: -75px;
+    margin-left: 91.15767%;
+  }
+
+  .productosencola .fotoproductoencola {
+    width: 17.6767676767%;
+    margin-left: 3.78788%;
+  }
+
+  .productosencola .nombreproductoencola {
+    position: relative;
+    z-index: 70;
+    margin-top: 10px;
+    margin-left: 9.38684%;
+  }
+
+  .productosencola .precio {
+    position: relative;
+    z-index: 72;
+    margin-top: -22px;
+    margin-left: 10.63763%;
+  }
+
+  .productosencola .talla {
+    position: relative;
+    z-index: 74;
+    margin-top: -39px;
+    margin-left: 30.85543%;
+  }
+
+  .queeslonuevo .image {
+    width: 99.7902199074%;
+    height: auto;
+    margin-left: -0.00725%;
+  }
+
+  .reg-strate-correo .aceptar-condiciones {
+    width: 100.2936465563%;
+    margin-left: -0.29061%;
+  }
+
+  .reg-strate-fb .cont-foto-fb {
+    width: 38.014527845%;
+    height: 144px;
+    margin-top: 6px;
+    margin-left: 31.23865%;
+  }
+
+  .reg-strate-fb .tt-tulo-fb {
+    width: 99.7279858299%;
+  }
+
+  .reg-strate-login .radio-label {
+    width: 100.2936465563%;
+    margin-left: -0.29131%;
+  }
+
+  .reg-strate-login .text {
+    margin-left: -0.1135%;
+  }
+
+  .registroopciones {
+    top: 53px;
+    left: 5.0104384133%;
+    width: 89.9791231732%;
+  }
+
+  .registroopciones .flecharegistro {
+    position: relative;
+    z-index: 87;
+    margin-top: -184px;
+  }
+
+  .registroopciones .opcionesregistro {
+    position: relative;
+    z-index: 85;
+    margin-left: -0.0108800001%;
+  }
+
+  .slider .slide {
+    height: auto;
+  }
+
+  .tienda .image {
+    width: 99.9200581395%;
+    height: auto;
+    margin-left: -0.01455%;
+  }
+
+  .timeline .image {
+    width: 99.9085771276%;
+    height: auto;
+    margin-left: -0.05814%;
+  }
+
+  .total .totalcarrrito {
+    width: 31.0980803249%;
+    margin-right: 2.62625%;
+  }
+
+  .footer-left-center-cont ._button {
+    width: 69.5146276595%;
+    margin-top: 67px;
+  }
+
+  .footer-left-cont ._button {
+    clear: none;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .footer-right-center-cont ._button {
+    width: 74.6010638297%;
+    margin-top: 61px;
+  }
+
+  .header-left-cont ._button {
+    float: none;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  .header-rigth-cont ._container {
+    width: 43.6194895591%;
+    margin-right: 29.23434%;
+  }
+
+  .reg-strate-correo ._button {
+    width: 44.1804591564%;
+    margin-left: -0.26042%;
+  }
+
+  .reg-strate-correo ._input {
+    width: 100.2402562733%;
+  }
+
+  .reg-strate-login ._button {
+
+    margin-left: -0.1135%;
+  }
+
+  .reg-strate-login ._input {
+    width: 100%;
+    margin-left: -0.23835%;
+  }
+
+  .footer .text-22 {
+    width: 89.770354906%;
+    height: 113px;
+    margin-top: 35px;
+    margin-left: 4.99413%;
+  }
+
+  .footer-left-cont .image-16 {
+    position: relative;
+    z-index: 2;
+    margin-left: 32.99782%;
+  }
+
+  .footer-left-cont .image-17 {
+    position: relative;
+    z-index: 4;
+    margin-left: 32.99782%;
+  }
+
+  .footer-left-cont .image-18 {
+    position: relative;
+    z-index: 6;
+    margin-top: 8px;
+    margin-left: 32.99782%;
+  }
+
+  .footer-left-cont .image-19 {
+    position: relative;
+    z-index: 8;
+    margin-top: 8px;
+    margin-left: 32.99782%;
+  }
+
+  .footer-left-cont .image-20 {
+    position: relative;
+    z-index: 10;
+    margin-top: 10px;
+    margin-left: 32.99782%;
+  }
+
+  .footer-left-cont .image-21 {
+    position: relative;
+    z-index: 12;
+    margin-left: 32.99782%;
+  }
+
+  .footer-left-cont .text-14 {
+    z-index: 3;
+    width: 28.6046511627%;
+  }
+
+  .footer-left-cont .text-15 {
+    z-index: 5;
+    width: 27.4418604651%;
+  }
+
+  .footer-left-cont .text-16 {
+    z-index: 7;
+    width: 27.4418604651%;
+  }
+
+  .footer-left-cont .text-17 {
+    z-index: 9;
+    width: 27.4418604651%;
+  }
+
+  .footer-left-cont .text-18 {
+    z-index: 11;
+    width: 27.4418604651%;
+    margin-top: 10px;
+  }
+
+  .footer-left-cont .text-19 {
+    z-index: 13;
+    width: 28.6046511627%;
+  }
+
+  .footer-redes .image-23 {
+    z-index: 24;
+    margin-left: 17.26763%;
+  }
+
+  .footer-redes .image-24 {
+    z-index: 23;
+    margin-left: 6.82911%;
+  }
+
+  .footer-redes .image-25 {
+    z-index: 22;
+    margin-left: 6.71256%;
+  }
+
+  .footer-redes .image-26 {
+    z-index: 25;
+    margin-left: 7.99097%;
+  }
+
+  .header-menu .categoria-1-1 {
+    border-top-width: 1px;
+    border-top-color: rgb(77, 77, 77);
+  }
+
+  .header-menu .categoria-1-2,
+  .header-menu .categoria-1-3 {
+    clear: both;
+  }
+
+  .header-menu .categoria-1-4 {
+    position: relative;
+    clear: both;
+    z-index: 46;
+  }
+
+  .header-menu .categoria-1-5 {
+    position: relative;
+    clear: both;
+    z-index: 47;
+    margin-left: -0.0108800001%;
+  }
+
+  .logo-content .image-1 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 60.324825986%;
+    margin: auto;
+  }
+
+  .logo-content .image-3 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+  }
+
+  .logo-content .image-5 {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 430px;
+    margin: auto;
+  }
+
+  .opcionesregistro .text-12,
+  .opcionesregistro .text-13 {
+    margin-left: -0.00729%;
+  }
+
+  .reg-strate-correo .text-5 {
+    width: 51.4281900694%;
+    margin-left: -0.10568%;
+  }
+
+  .reg-strate-correo .text-6 {
+    width: 99.7197010144%;
+    margin-left: -0.117%;
+  }
+
+  .reg-strate-correo .text-7 {
+    width: 99.7197010144%;
+    margin-left: -0.26042%;
+  }
+
+  .reg-strate-correo .text-8 {
+    width: 100%;
+    margin-left: -0.79635%;
+  }
+
+  .reg-strate-correo .text-9 {
+    width: 100%;
+    margin-left: -0.10568%;
+  }
+
+  .reg-strate-login .text-1 {
+    width: 51.4281900694%;
+  }
+
+  .reg-strate-login .text-2 {
+    width: 99.7197010144%;
+  }
+
+  .reg-strate-login .text-3,
+  .reg-strate-login .text-4 {
+    width: 100%;
+  }
+
+  .reg-strate-correo ._input-4,
+  .reg-strate-correo ._input-5 {
+    margin-left: -0.79635%;
+  }
+
+  .reg-strate-correo ._input-3,
+  .reg-strate-correo ._input-6 {
+    margin-left: -0.23777%;
+  }
+
+  .point-text span {
+    font-size: NaNem;
+  }
+}

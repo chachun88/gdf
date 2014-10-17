@@ -194,6 +194,8 @@
   letter-spacing: 7px;
   color: rgb(255, 255, 255);
   float:left;
+  margin-top: 20px;
+  margin-left: 20%;
 }
 
 .footer-left-cont ._button:hover {
