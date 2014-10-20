@@ -461,6 +461,7 @@ color: rgb(255, 255, 255);
   margin: 49px 0 0 10%;
   border-top: 1px solid rgb(172, 110, 97);
   border-bottom: 1px solid rgb(172, 110, 97);
+  padding: 0px;
 }
 
 .container-19 {
@@ -2612,7 +2613,9 @@ margin-left: 1.53218%;
   body {
     font-size: 0.75em;
   }
-
+  .otro-angulo-mas-combinaciones {
+    max-width: 100%;
+  }
   .categorias .container {
     position: relative;
     height: 72px;
@@ -2631,7 +2634,7 @@ margin-left: 1.53218%;
     right: 0;
     height: auto;
     margin: auto;
-  }
+}
 
   .container .producto-info {
     float: right;
@@ -2798,7 +2801,7 @@ margin-left: 1.53218%;
   }
 
   .megusta .fotomegusta {
-    width: 15.4929577464%;
+    width: 19%;
     height: 63px;
     margin-top: 13px;
   }
@@ -2819,16 +2822,20 @@ margin-left: 1.53218%;
     height: 76px;
   }
 
-  .producto-info .producto-precio {
-    width: 99.7748527883%;
-    height: 66px;
-    min-height: 0;
-    margin-right: 0.22741%;
-    font-size: 3.333em;
-  }
+ .producto-info .producto-precio {
+width: 100%;
+height: 66px;
+min-height: 0;
+margin-right: 0.22741%;
+font-size: 3.333em;
+text-align: left;
+}
 
   .container ._button {
-    margin-top: 363px;
+  margin-top: 20px;
+  margin-left: 10%;
+  float: left;
+  width: 80%;
   }
 
   .container ._select {
@@ -2885,6 +2892,14 @@ margin-left: 1.53218%;
   }
 
   .container .container-12 {
+    position: relative;
+    clear: none;
+    z-index: 61;
+    width: 50%;
+    margin-top: 0px;
+    margin-left: 0px;
+    float: left;
+    height: auto;
   }
 
   .container .container-13 {
@@ -2908,11 +2923,12 @@ margin-left: 1.53218%;
   }
 
   .container .container-17 {
-    clear: both;
-    width: 64.9651972157%;
-    height: 274px;
-    margin-top: 38px;
-    margin-left: 17.16575%;
+    width: 100%;
+    height: 300px;
+    margin-top: 0px;
+    margin-left: 0%;
+    padding: 0px;
+    float: none;
   }
 
   .container .container-19 {
@@ -2943,10 +2959,10 @@ margin-left: 1.53218%;
   .container .container-20,
   .container .container-22,
   .container .container-24 {
-    width: 98.3369607679%;
-    height: 214px;
-    margin-left: 1.16636%;
-  }
+    width: 100%;
+    height: 300px;
+    /* margin-left: 1.16636%; */
+    }
 
   .container .producto-nombre-4 {
     float: left;
@@ -3022,11 +3038,14 @@ margin-left: 1.53218%;
   }
 
   .cuerpo .container-16 {
-    width: 89.9791231732%;
-    height: 1332px;
+    width: 90%;
+    height: 1580px;
     margin-top: 51px;
     margin-left: 5.01044%;
-  }
+    }
+    .cuerpo .container-16 a{
+   position: relative;
+    }
 
   .footer .text-23 {
     width: 89.770354906%;
@@ -3168,7 +3187,7 @@ margin-left: 1.53218%;
 
   .producto-info .container-11 {
     width: 99.9450247388%;
-    height: 77px;
+      height: auto;
     margin-top: 15px;
   }
 
@@ -3215,13 +3234,18 @@ margin-left: 1.53218%;
   .container ._select-1 {
     z-index: 62;
     margin-top: 0;
+    width: 100%;
   }
 
   .container ._select-2 {
     z-index: 63;
+    width: 100%;
   }
 
   .container ._select-3 {
     z-index: 64;
   }
+  .selects {
+width: 25%;
+}
 }
