@@ -259,7 +259,7 @@ max-width: 1200px;
 }
 
 .sobre-producto:hover {
-  background-color: rgba(224, 192, 192, 0.44);
+  background-color: rgba(231, 231, 231, 0.44);
 }
 .sobre-producto:hover div{
   display: block;
