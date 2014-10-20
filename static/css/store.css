@@ -788,7 +788,7 @@ margin-top: 4px;
     position: relative;
     z-index: 39;
     width: 99.7685185185%;
-    height: 400px;
+    height: 285px;
     margin-top: 0;
     margin-left: 0;
   }
@@ -802,8 +802,8 @@ margin-top: 4px;
   .cuerpo-producto .sobre-producto {
     position: relative;
     z-index: 43;
-    height: 467px;
-    margin-top: -469px;
+    height: 342px;
+    margin-top: -342px;
     margin-left: 0;
   }
 
@@ -826,6 +826,12 @@ margin-top: 4px;
   .producto-info .producto-precio {
     width: 99.7748527883%;
   }
+ .producto-nombre {
+font-size: 20px;
+}
+ .producto-precio {
+font-size: 15px;
+}
 
   .cuerpo-producto ._button {
     position: relative;
