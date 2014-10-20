@@ -24,7 +24,7 @@
 			<!-- <img class="image" src="" data-rimage data-src="/static/images/carrito-30x30.png"> -->
 			<div class="iconos"><i class="fa icon-shopping-cart"></i></div>
 		</div>
-		<div class="_container clearfix">
+		<div class="_container clearfix salir_registro">
 			{% if current_user == None %}
 				<a class="_button button_register fancybox fancybox.iframe" href="/auth/login?next={{url_escape(request.uri)}}">
 					<p>REGISTRO</p>
@@ -32,7 +32,8 @@
 			{% else %}
 				<!-- la clase logout es funcional no borrar -->
 				<a class="logout"  href="/auth/logout?next={{url_escape(request.uri)}}" >
-					<p style="padding: 5px;color: gray;font-size: 16px;font-weight: 100;">{{current_user["name"]}}</p>
+					<p class=""style="padding: 5px;color: gray;font-size: 16px;font-weight: 100;">{{current_user["name"]}}</p>
+					<div class="salir_registro_1"><i class="icon-signout"></i></div>
 				</a>
 			{% end %}
 		</div>
