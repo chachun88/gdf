@@ -2348,6 +2348,7 @@ body {
     border-bottom-color: rgb(77, 77, 77);
     font-size: 1.5em;
     line-height: 2.5;
+    height: 42px;
   }
 
   .header-rigth-cont .carritoicono {

@@ -2527,7 +2527,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 	line-height: 18px;
 }
 .price {
-	font-size: 16px;
+	font-size: 18px;
 	font-weight: bold;
 	color: #2c3e50;
 }
@@ -3649,7 +3649,7 @@ tr.CartProduct {
 	border-bottom: 1px solid #E7E9EC;
 }
 tr.CartProduct td {
-	padding: 10px 8px;
+	padding: 10px 0;
 }
 /* mycart */
 
@@ -3812,10 +3812,6 @@ input.quanitySniper {
 
 .subCategoryThumb img {
  height: 100% !important;
-}
-.container {
- width: 100% !important;
- max-width: 900px !important;
 }
 .category-top {
  margin-top: 30px;
@@ -4255,9 +4251,7 @@ h1.x2large {
 #pager a {
  font-size: 10px;
 }
-.container {
- min-width: 310px;
-}
+
 .cartFooter .box-footer div {
  width: 100%;
  text-align: center;
@@ -4290,10 +4284,6 @@ h1.x2large {
 }
 }
  @media (max-width: 320px) {
-.container {
- width: 100% !important;
- max-width: 320px !important;
-}
 .banner {
  width: 100% !important;
  max-width: 320px !important;

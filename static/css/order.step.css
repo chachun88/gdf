@@ -13,7 +13,6 @@
   float: none !important;
 }
 #order_step.orderStep li span {
-	display: block;
 	padding: 5px 0;
 }
 
@@ -53,5 +52,16 @@
 {
   margin-top: 30px;
 }
+.hides {
+  display: inline;
+}
+@media(max-width: 479px) {
+
+  .hides {
+    display: none;
+  }
+}
+
+
 
 /************ menu chekout *************/

@@ -48,7 +48,7 @@ Giani Da Firenze - Carro de Compra
                   <td class="delete"><a title="Delete" class="borrarproducto" cart-id="{{d['id']}}"> <i class="glyphicon glyphicon-trash fa-2x"></i></a></td>
                   <td>{{ d['quantity'] }}<!-- <input class="quanitySniper" type="text" value="{{d['quantity']}}" name="quanitySniper"> --></td>
                   <!-- <td>0</td> -->
-                  <td class="price">$ {{d["subtotal"]}}</td>
+                  <td class="price">${{d["subtotal"]}}</td>
                 </tr>
                 {% end %}
               </tbody>
