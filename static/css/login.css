@@ -333,7 +333,7 @@ body {
 }
 
 .text-4 a {
-
+  color: gray;
 }
 .text-4 a:hover {
   color: rgb(232, 169, 156);
