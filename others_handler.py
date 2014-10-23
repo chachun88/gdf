@@ -289,6 +289,15 @@ class ExitoHandler(BaseHandler):
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","20141015235139")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","133")
 
+        detail = OrderDetail()
+
+        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+
+        order = Order()
+        pedido = order.GetOrderById(TBK_ORDEN_COMPRA)
+
+
+
         myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
         pathSubmit = "http://giani.ondev.today"
 
@@ -321,7 +330,7 @@ class ExitoHandler(BaseHandler):
         mes_transaccion = TBK_FECHA_TRANSACCION[:2]
         dia_transaccion = TBK_FECHA_TRANSACCION[2:]
 
-        TBK_FECHA_TRANSACCION = "{mes}-{dia}".format(mes=mes_transaccion,dia=dia_transaccion)
+        TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(year=pedido["date"].year,mes=mes_transaccion,dia=dia_transaccion)
 
         TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
 
@@ -355,9 +364,7 @@ class ExitoHandler(BaseHandler):
         "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
         }
         
-        detail = OrderDetail()
-
-        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+        
 
         self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista)
 
@@ -420,6 +427,8 @@ class ExitoHandler(BaseHandler):
 
         TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
 
+        TBK_TIPO_CUOTA = TBK_TIPO_PAGO
+
         if TBK_TIPO_PAGO == "VD":
             TBK_TIPO_PAGO = "Redcompra"
         else:
@@ -438,7 +447,8 @@ class ExitoHandler(BaseHandler):
         "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
         "TBK_MAC":TBK_MAC,
         "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
-        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION
+        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+        "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
         }
 
 
