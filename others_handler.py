@@ -331,6 +331,8 @@ class ExitoHandler(BaseHandler):
 
         TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
 
+        TBK_TIPO_CUOTA = TBK_TIPO_PAGO
+
         if TBK_TIPO_PAGO == "VD":
             TBK_TIPO_PAGO = "Redcompra"
         else:
@@ -349,7 +351,8 @@ class ExitoHandler(BaseHandler):
         "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
         "TBK_MAC":TBK_MAC,
         "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
-        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION
+        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+        "TBK_TIPO_CUOTA":TBK_TIPO_PAGO
         }
         
         detail = OrderDetail()

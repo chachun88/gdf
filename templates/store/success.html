@@ -120,14 +120,14 @@ Giani Da Firenze - Home
                         <tr valign="top" >
                             <th align="left">Tipo de cuotas:</th> 
                             <td align="left">
-                                {{data["TBK_TIPO_PAGO"]}}
-                                {% if data["TBK_TIPO_PAGO"] == "VN" %}
+
+                                {% if data["TBK_TIPO_CUOTA"] == "VN" %}
                                 Sin Cuotas
-                                {% elif data["TBK_TIPO_PAGO"] == "VC" %}
+                                {% elif data["TBK_TIPO_CUOTA"] == "VC" %}
                                 Cuotas Normales
-                                {% elif data["TBK_TIPO_PAGO"] == "SI" %}
+                                {% elif data["TBK_TIPO_CUOTA"] == "SI" %}
                                 Sin inter&eacute;s
-                                {% elif data["TBK_TIPO_PAGO"] == "CI" %}
+                                {% elif data["TBK_TIPO_CUOTA"] == "CI" %}
                                 Cuotas Comercio
                                 {% end %}
                             </td>
