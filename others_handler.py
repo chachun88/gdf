@@ -316,10 +316,6 @@ class ExitoHandler(BaseHandler):
         
         TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0] # ej: 1006
 
-        # formatea la fecha como 10-06
-
-        TBK_FECHA_CONTABLE = "{mes}-{dia}".format(mes=mes_contable,dia=dia_contable)
-
         # aqui se repite la misma operacion para obtener mes y dia
 
         mes_transaccion = TBK_FECHA_TRANSACCION[:2]
