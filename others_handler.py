@@ -284,28 +284,84 @@ class XtCompraHandler(BaseHandler):
 
 class ExitoHandler(BaseHandler):
 
-    # def get(self):
+    def get(self):
 
-    #     data = {
-    #     "TBK_ORDEN_COMPRA":"120",
-    #     "TBK_TIPO_TRANSACCION":"TR_NORMAL",
-    #     "TBK_RESPUESTA":"0",
-    #     "TBK_MONTO":23500,
-    #     "TBK_CODIGO_AUTORIZACION":"356819",
-    #     "TBK_FINAL_NUMERO_TARJETA":"6623",
-    #     "TBK_HORA_TRANSACCION":"16:36:54",
-    #     "TBK_ID_TRANSACCION":"356819",
-    #     "TBK_TIPO_PAGO":"VN",
-    #     "TBK_NUMERO_CUOTAS":"0",
-    #     "TBK_MAC":"",
-    #     "TBK_FECHA_CONTABLE":"10-14",
-    #     "TBK_FECHA_TRANSACCION":"10-14",
-    #     "TBK_HORA_TRANSACCION":"16:36:54"
-    #     }
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","20141015235139")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","133")
 
-    #     pathSubmit = "http://giano.ondev.today"
+        myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
+        pathSubmit = "http://giani.ondev.today"
 
-    #     self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si")
+        f = open(myPath,"r")
+        linea = ""
+
+        for l in f:
+            if l.strip() != "":
+                linea = l
+
+        f.close()
+        dict_parametros = urlparse.parse_qs(linea)
+
+        TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
+        TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
+        TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
+        TBK_MONTO = dict_parametros["TBK_MONTO"][0]
+        TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
+        TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
+        TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+        TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
+        TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
+        TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
+        TBK_MAC = dict_parametros["TBK_MAC"][0]
+        
+        TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0] # ej: 1006
+
+        # formatea la fecha como 10-06
+
+        TBK_FECHA_CONTABLE = "{mes}-{dia}".format(mes=mes_contable,dia=dia_contable)
+
+        # aqui se repite la misma operacion para obtener mes y dia
+
+        mes_transaccion = TBK_FECHA_TRANSACCION[:2]
+        dia_transaccion = TBK_FECHA_TRANSACCION[2:]
+
+        TBK_FECHA_TRANSACCION = "{mes}-{dia}".format(mes=mes_transaccion,dia=dia_transaccion)
+
+        TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+
+        hora_transaccion = TBK_HORA_TRANSACCION[:2]
+        minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
+        segundo_transaccion = TBK_HORA_TRANSACCION[4:]
+
+        TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
+
+        if TBK_TIPO_PAGO == "VD":
+            TBK_TIPO_PAGO = "Redcompra"
+        else:
+            TBK_TIPO_PAGO = "Cr&eacute;dito"
+
+        data = {
+        "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
+        "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
+        "TBK_RESPUESTA":TBK_RESPUESTA,
+        "TBK_MONTO":int(TBK_MONTO),
+        "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
+        "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
+        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+        "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
+        "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
+        "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
+        "TBK_MAC":TBK_MAC,
+        "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
+        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION
+        }
+        
+        detail = OrderDetail()
+
+        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+
+        self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista)
+
 
     # TBK_ID_SESION:20141015235139
     # TBK_ORDEN_COMPRA:133
@@ -348,16 +404,7 @@ class ExitoHandler(BaseHandler):
         TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
         TBK_MAC = dict_parametros["TBK_MAC"][0]
         
-
-        TBK_FECHA_CONTABLE = dict_parametros["TBK_FECHA_CONTABLE"][0] # ej: 1006
         TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0] # ej: 1006
-
-        mes_contable = TBK_FECHA_CONTABLE[:2] #extrae el 10
-        dia_contable = TBK_FECHA_CONTABLE[2:] #extrae el 06
-
-        # formatea la fecha como 10-06
-
-        TBK_FECHA_CONTABLE = "{mes}-{dia}".format(mes=mes_contable,dia=dia_contable)
 
         # aqui se repite la misma operacion para obtener mes y dia
 
@@ -391,7 +438,6 @@ class ExitoHandler(BaseHandler):
         "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
         "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
         "TBK_MAC":TBK_MAC,
-        "TBK_FECHA_CONTABLE":TBK_FECHA_CONTABLE,
         "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
         "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION
         }

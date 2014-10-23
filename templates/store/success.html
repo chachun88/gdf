@@ -69,8 +69,8 @@ Giani Da Firenze - Home
             <tr>
                 <td style="width:55%">{{d["name"]}}</td>
                 <td style="width:15%;text-align:center;">{{d["quantity"]}}</td>
-                <td style="width:15%;text-align:right;">{{d["sell_price"]}}</td>
-                <td style="width:15%;text-align:right;">{{d["subtotal"]}}</td>
+                <td style="width:15%;text-align:right;">${{money_format(d["sell_price"])}}</td>
+                <td style="width:15%;text-align:right;">${{money_format(d["subtotal"])}}</td>
             </tr>
             {% end %}
             <tr>
@@ -81,7 +81,7 @@ Giani Da Firenze - Home
             <tr>
                 <td colspan="2"></td>
                 <td style="text-align: right;">Total</td>
-                <td style="text-align: right;">{{data["TBK_MONTO"] / 100}}</td>
+                <td style="text-align: right;">${{money_format(int(data["TBK_MONTO"] / 100))}}</td>
             </tr>
         </table>
         <table align="center">
@@ -94,16 +94,8 @@ Giani Da Firenze - Home
             <tr>
                 <td align="left" width="100%">
                         <tr valign="top" >
-                            <th align="left">Respuesta Transacci&oacute;n:</th>
-                            <td align="left">{{data["TBK_RESPUESTA"]}}</td>
-                        </tr>
-                        <tr valign="top" >
                             <th align="left">Codigo Autorizaci&oacute;n:</th>
                             <td align="left">{{data["TBK_CODIGO_AUTORIZACION"]}}</td>
-                        </tr>
-                        <tr valign="top" >
-                            <th align="left">Fecha Contable:</th>
-                            <td align="left">{{data["TBK_FECHA_CONTABLE"]}}</td>
                         </tr>
                         <tr valign="top" >
                             <th align="left">Fecha Transacci&oacute;n:</th>
@@ -124,6 +116,20 @@ Giani Da Firenze - Home
                         <tr valign="top" >
                             <th align="left">Tipo Pago:</th> 
                             <td align="left">{{data["TBK_TIPO_PAGO"]}}</td>
+                        </tr>
+                        <tr valign="top" >
+                            <th align="left">Tipo de cuotas:</th> 
+                            <td align="left">
+                                {% if data["TBK_TIPO_PAGO"] == "VN" %}
+                                Sin Cuotas
+                                {% elif data["TBK_TIPO_PAGO"] == "VC" %}
+                                Cuotas Normales
+                                {% elif data["TBK_TIPO_PAGO"] == "SI" %}
+                                Sin inter&eacute;s
+                                {% elif data["TBK_TIPO_PAGO"] == "CI" %}
+                                Cuotas Comercio
+                                {% end %}
+                            </td>
                         </tr>
                         <tr valign="top" >
                             <th align="left">N&uacute;mero cuotas:</th> 
