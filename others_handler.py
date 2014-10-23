@@ -352,7 +352,7 @@ class ExitoHandler(BaseHandler):
         "TBK_MAC":TBK_MAC,
         "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
         "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-        "TBK_TIPO_CUOTA":TBK_TIPO_PAGO
+        "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
         }
         
         detail = OrderDetail()
