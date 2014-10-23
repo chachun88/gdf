@@ -269,10 +269,18 @@ class XtCompraHandler(BaseHandler):
         order = Order()
         init_by_id = order.InitById(TBK_ORDEN_COMPRA)
 
-        # si ya existe la orden rechazar el pago
+        
         if "success" in init_by_id:
+            # rechaza si orden no esta pendiente
             if order.state != 1:
                 acepta = False
+            # si esta pendiente actualizar a pagado
+            elif order.state == 1:
+                order.state = 2
+                save_order = order.Edit()
+                # rechaza si no puede actualizar la orden
+                if "error" in save_order:
+                    acepta = False
 
 
         if acepta:
@@ -284,89 +292,89 @@ class XtCompraHandler(BaseHandler):
 
 class ExitoHandler(BaseHandler):
 
-    def get(self):
+    # def get(self):
 
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","20141015235139")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","133")
+    #     TBK_ID_SESION = self.get_argument("TBK_ID_SESION","20141015235139")
+    #     TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","133")
 
-        detail = OrderDetail()
+    #     detail = OrderDetail()
 
-        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+    #     lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
 
-        order = Order()
-        pedido = order.GetOrderById(TBK_ORDEN_COMPRA)
+    #     order = Order()
+    #     pedido = order.GetOrderById(TBK_ORDEN_COMPRA)
 
 
 
-        myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
-        pathSubmit = "http://giani.ondev.today"
+    #     myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
+    #     pathSubmit = "http://giani.ondev.today"
 
-        f = open(myPath,"r")
-        linea = ""
+    #     f = open(myPath,"r")
+    #     linea = ""
 
-        for l in f:
-            if l.strip() != "":
-                linea = l
+    #     for l in f:
+    #         if l.strip() != "":
+    #             linea = l
 
-        f.close()
-        dict_parametros = urlparse.parse_qs(linea)
+    #     f.close()
+    #     dict_parametros = urlparse.parse_qs(linea)
 
-        TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
-        TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
-        TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
-        TBK_MONTO = dict_parametros["TBK_MONTO"][0]
-        TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
-        TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
-        TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
-        TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
-        TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
-        TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
-        TBK_MAC = dict_parametros["TBK_MAC"][0]
+    #     TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
+    #     TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
+    #     TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
+    #     TBK_MONTO = dict_parametros["TBK_MONTO"][0]
+    #     TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
+    #     TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
+    #     TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+    #     TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
+    #     TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
+    #     TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
+    #     TBK_MAC = dict_parametros["TBK_MAC"][0]
         
-        TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0] # ej: 1006
+    #     TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0] # ej: 1006
 
-        # aqui se repite la misma operacion para obtener mes y dia
+    #     # aqui se repite la misma operacion para obtener mes y dia
 
-        mes_transaccion = TBK_FECHA_TRANSACCION[:2]
-        dia_transaccion = TBK_FECHA_TRANSACCION[2:]
+    #     mes_transaccion = TBK_FECHA_TRANSACCION[:2]
+    #     dia_transaccion = TBK_FECHA_TRANSACCION[2:]
 
-        TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(year=pedido["date"].year,mes=mes_transaccion,dia=dia_transaccion)
+    #     TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(year=pedido["date"].year,mes=mes_transaccion,dia=dia_transaccion)
 
-        TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+    #     TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
 
-        hora_transaccion = TBK_HORA_TRANSACCION[:2]
-        minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
-        segundo_transaccion = TBK_HORA_TRANSACCION[4:]
+    #     hora_transaccion = TBK_HORA_TRANSACCION[:2]
+    #     minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
+    #     segundo_transaccion = TBK_HORA_TRANSACCION[4:]
 
-        TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
+    #     TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
 
-        TBK_TIPO_CUOTA = TBK_TIPO_PAGO
+    #     TBK_TIPO_CUOTA = TBK_TIPO_PAGO
 
-        if TBK_TIPO_PAGO == "VD":
-            TBK_TIPO_PAGO = "Redcompra"
-        else:
-            TBK_TIPO_PAGO = "Cr&eacute;dito"
+    #     if TBK_TIPO_PAGO == "VD":
+    #         TBK_TIPO_PAGO = "Redcompra"
+    #     else:
+    #         TBK_TIPO_PAGO = "Cr&eacute;dito"
 
-        data = {
-        "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
-        "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
-        "TBK_RESPUESTA":TBK_RESPUESTA,
-        "TBK_MONTO":int(TBK_MONTO),
-        "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
-        "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
-        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-        "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
-        "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
-        "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
-        "TBK_MAC":TBK_MAC,
-        "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
-        "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-        "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
-        }
+    #     data = {
+    #     "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
+    #     "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
+    #     "TBK_RESPUESTA":TBK_RESPUESTA,
+    #     "TBK_MONTO":int(TBK_MONTO),
+    #     "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
+    #     "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
+    #     "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+    #     "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
+    #     "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
+    #     "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
+    #     "TBK_MAC":TBK_MAC,
+    #     "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
+    #     "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+    #     "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
+    #     }
         
         
 
-        self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista)
+    #     self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista)
 
 
     # TBK_ID_SESION:20141015235139
@@ -396,11 +404,7 @@ class ExitoHandler(BaseHandler):
 
         order = Order()
         init_by_id = order.InitById(TBK_ORDEN_COMPRA)
-        order.state = 2
-        save_order = order.Edit()
-
-        if "error" in save_order:
-            self.render("store/failure.html")
+        
 
         TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
         TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
@@ -454,10 +458,6 @@ class ExitoHandler(BaseHandler):
         "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
         "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
         }
-
-
-        
-        
         
         detail = OrderDetail()
 
@@ -665,13 +665,13 @@ class ExitoHandler(BaseHandler):
             if status == 200:
                 self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista)
             else:
-                self.render("store/failure.html",message="Error al enviar correo de confirmación, {}".format(msg))
+                self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
 
 
 
         else:
 
-            self.render("store/failure.html",message="Carro se encuentra vacío")
+            self.render("beauty_error.html",message="Carro se encuentra vacío")
 
 
         self.render("store/success.html",data=data,pathSubmit=pathSubmit, webpay="si")
