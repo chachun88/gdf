@@ -394,9 +394,13 @@ class ExitoHandler(BaseHandler):
 
         dict_parametros = urlparse.parse_qs(linea)
 
-        # self.write(dict_parametros["TBK_MONTO"][0])
+        order = Order()
+        init_by_id = order.InitById(TBK_ORDEN_COMPRA)
+        order.state = 2
+        save_order = order.Edit()
 
-        # detalle = linea.split("&")
+        if "error" in save_order:
+            self.render("store/failure.html")
 
         TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
         TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
@@ -417,7 +421,7 @@ class ExitoHandler(BaseHandler):
         mes_transaccion = TBK_FECHA_TRANSACCION[:2]
         dia_transaccion = TBK_FECHA_TRANSACCION[2:]
 
-        TBK_FECHA_TRANSACCION = "{mes}-{dia}".format(mes=mes_transaccion,dia=dia_transaccion)
+        TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(year=order.date.year,mes=mes_transaccion,dia=dia_transaccion)
 
         TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
 
@@ -452,13 +456,8 @@ class ExitoHandler(BaseHandler):
         }
 
 
-        order = Order()
-        init_by_id = order.InitById(TBK_ORDEN_COMPRA)
-        order.state = 2
-        save_order = order.Edit()
-
-        if "error" in save_order:
-            self.render("store/failure.html")
+        
+        
         
         detail = OrderDetail()
 
