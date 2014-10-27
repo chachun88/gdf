@@ -189,6 +189,9 @@ class PagoHandler(BaseHandler):
 
 class XtCompraHandler(BaseHandler):
 
+    def get(self):
+        self.write("RECHAZADO")
+
     def post(self):
 
 
@@ -206,53 +209,60 @@ class XtCompraHandler(BaseHandler):
 
         acepta=False;
 
-        f=open(myPath,"r")
+        try:
+            f=open(myPath,"r")
 
-        linea = ""
+            linea = ""
 
-        for l in f:
-            if l.strip() != "":
-                linea = l
+            for l in f:
+                if l.strip() != "":
+                    linea = l
 
-        f.close()
+            f.close()
 
-        detalle=linea.split(";")
+            detalle=linea.split(";")
 
-        # print "linea:{}".format(linea)
+            # print "linea:{}".format(linea)
 
-        if len(detalle)>0:
-            monto = detalle[0]
-            ordenCompra = detalle[1]
+            if len(detalle)>0:
+                monto = detalle[0]
+                ordenCompra = detalle[1]
 
-        f=open(filename_txt,"wt")
+            f=open(filename_txt,"wt")
 
-        f.write("{}={}&".format("TBK_ORDEN_COMPRA",self.get_argument("TBK_ORDEN_COMPRA")))
-        f.write("{}={}&".format("TBK_TIPO_TRANSACCION",self.get_argument("TBK_TIPO_TRANSACCION")))
-        f.write("{}={}&".format("TBK_RESPUESTA",self.get_argument("TBK_RESPUESTA")))
-        f.write("{}={}&".format("TBK_MONTO",self.get_argument("TBK_MONTO")))
-        f.write("{}={}&".format("TBK_CODIGO_AUTORIZACION",self.get_argument("TBK_CODIGO_AUTORIZACION")))
-        f.write("{}={}&".format("TBK_FINAL_NUMERO_TARJETA",self.get_argument("TBK_FINAL_NUMERO_TARJETA")))
-        f.write("{}={}&".format("TBK_FECHA_CONTABLE",self.get_argument("TBK_FECHA_CONTABLE")))
-        f.write("{}={}&".format("TBK_FECHA_TRANSACCION",self.get_argument("TBK_FECHA_TRANSACCION")))
-        f.write("{}={}&".format("TBK_HORA_TRANSACCION",self.get_argument("TBK_HORA_TRANSACCION")))
-        f.write("{}={}&".format("TBK_ID_SESION",self.get_argument("TBK_ID_SESION")))
-        f.write("{}={}&".format("TBK_ID_TRANSACCION",self.get_argument("TBK_ID_TRANSACCION")))
-        f.write("{}={}&".format("TBK_TIPO_PAGO",self.get_argument("TBK_TIPO_PAGO")))
-        f.write("{}={}&".format("TBK_NUMERO_CUOTAS",self.get_argument("TBK_NUMERO_CUOTAS")))
-        f.write("{}={}&".format("TBK_VCI",self.get_argument("TBK_VCI")))
-        f.write("{}={}&".format("TBK_MAC",self.get_argument("TBK_MAC")))
+            f.write("{}={}&".format("TBK_ORDEN_COMPRA",self.get_argument("TBK_ORDEN_COMPRA")))
+            f.write("{}={}&".format("TBK_TIPO_TRANSACCION",self.get_argument("TBK_TIPO_TRANSACCION")))
+            f.write("{}={}&".format("TBK_RESPUESTA",self.get_argument("TBK_RESPUESTA")))
+            f.write("{}={}&".format("TBK_MONTO",self.get_argument("TBK_MONTO")))
+            f.write("{}={}&".format("TBK_CODIGO_AUTORIZACION",self.get_argument("TBK_CODIGO_AUTORIZACION")))
+            f.write("{}={}&".format("TBK_FINAL_NUMERO_TARJETA",self.get_argument("TBK_FINAL_NUMERO_TARJETA")))
+            f.write("{}={}&".format("TBK_FECHA_CONTABLE",self.get_argument("TBK_FECHA_CONTABLE")))
+            f.write("{}={}&".format("TBK_FECHA_TRANSACCION",self.get_argument("TBK_FECHA_TRANSACCION")))
+            f.write("{}={}&".format("TBK_HORA_TRANSACCION",self.get_argument("TBK_HORA_TRANSACCION")))
+            f.write("{}={}&".format("TBK_ID_SESION",self.get_argument("TBK_ID_SESION")))
+            f.write("{}={}&".format("TBK_ID_TRANSACCION",self.get_argument("TBK_ID_TRANSACCION")))
+            f.write("{}={}&".format("TBK_TIPO_PAGO",self.get_argument("TBK_TIPO_PAGO")))
+            f.write("{}={}&".format("TBK_NUMERO_CUOTAS",self.get_argument("TBK_NUMERO_CUOTAS")))
+            f.write("{}={}&".format("TBK_VCI",self.get_argument("TBK_VCI")))
+            f.write("{}={}&".format("TBK_MAC",self.get_argument("TBK_MAC")))
 
-        f.close()
+            f.close()
+
+            if TBK_MONTO == monto and TBK_ORDEN_COMPRA == ordenCompra and acepta == True:
+                acepta = True
+            else:
+                acepta = False
+
+        except Exception,e:
+            self.write("RECHAZADO")
+            return
 
         if TBK_RESPUESTA == "0":
             acepta = True
         else:
             acepta = False
 
-        if TBK_MONTO == monto and TBK_ORDEN_COMPRA == ordenCompra and acepta == True:
-            acepta = True
-        else:
-            acepta = False
+        
 
 
         if acepta:
