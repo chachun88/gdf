@@ -14,11 +14,11 @@
             <button class="eliminarproducto" cart-id="{{d['id']}}"><img src="/static/images/carritoeliminar.png"></button>
             <p class="talla">talla {{d["size"]}}</p>
             <p class="cantidad">x{{d["quantity"]}}</p>
-            <p class="precio">$ {{d["subtotal"]}}</p>
+            <p class="precio">$ {{money_format(d["subtotal"])}}</p>
           </div>
         {% end %}
         <div class="total clearfix">
-          <p class="totalcarrrito">total &nbsp;$ {{suma}}</p>
+          <p class="totalcarrrito">total &nbsp;$ {{money_format(suma)}}</p>
         </div>
         <div class="acciones clearfix">
           <button class="iralcarro" onclick="location.href='/cart/getbyuserid?user_id='+localStorage.user_id+'&ajax=0'">

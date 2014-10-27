@@ -42,13 +42,13 @@ Giani Da Firenze - Carro de Compra
                     <div class="CartDescription">
                       <h4> <a href="/product/{{ d["sku"] }}">{{d["name"]}}</a> </h4>
                       <span class="size">{{d["size"]}}</span>
-                      <div class="price"> <span>$ {{d["sell_price"]}}</span></div>
+                      <div class="price"> <span>$ {{money_format(d["sell_price"])}}</span></div>
                     </div>
                   </td>
                   <td class="delete"><a title="Delete" class="borrarproducto" cart-id="{{d['id']}}"> <i class="glyphicon glyphicon-trash fa-2x"></i></a></td>
                   <td>{{ d['quantity'] }}<!-- <input class="quanitySniper" type="text" value="{{d['quantity']}}" name="quanitySniper"> --></td>
                   <!-- <td>0</td> -->
-                  <td class="price">${{d["subtotal"]}}</td>
+                  <td class="price">${{money_format(d["subtotal"])}}</td>
                 </tr>
                 {% end %}
               </tbody>
