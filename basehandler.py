@@ -59,7 +59,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def money_format(self, value):
 
-        locale.setlocale( locale.LC_NUMERIC, '' )
+        locale.setlocale(locale.LC_ALL,'es_ES.utf8')
         return locale.format('%d', value, True)
 
     @property
