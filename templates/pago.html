@@ -2,33 +2,33 @@
 
 <h1>Webpay Testing</h1>
 
-<form action="/pago" method="post" id="webpayplus">
+<form action="/xt_compra" method="post" id="webpayplus">
 
 
-	<input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
+	<!-- <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" /> -->
 
 	<div class="margin-bottom">
 		<label>Monto</label>
-		<input type="text" name="TBK_MONTO" value="300000" />
+		<input type="text" name="TBK_MONTO" value="x" />
+	</div>
+	<div class="margin-bottom">
+		<label>Nº Orden de Compra</label>
+		<input type="text" name="TBK_ORDEN_COMPRA" value="x" />
+	</div>
+	<div class="margin-bottom">
+		<input type="hidden" name="TBK_ID_SESION" value="20141015235139" />
 	</div>
 <!-- 	<div class="margin-bottom">
-		<label>Nº Orden de Compra</label>
-		<input type="text" name="TBK_ORDEN_COMPRA" value="3212" />
-	</div> -->
-	<div class="margin-bottom">
-		<input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}" />
-	</div>
-	<div class="margin-bottom">
 		<label>Pagina exito</label>
 		<input type="text" name="TBK_URL_EXITO" value="http://giani.ondev.today/store/success" />
 	</div>
 	<div class="margin-bottom">
 		<label>Pagina fracaso</label>
 		<input type="text" name="TBK_URL_FRACASO" value="http://giani.ondev.today/store/failure" />
-	</div>
+	</div>-->
 	<div class="margin-bottom">
 		<input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" />
-	</div>
+	</div> 
 
 </form>
 <style>

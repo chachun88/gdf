@@ -302,7 +302,9 @@ class XtCompraHandler(BaseHandler):
 
 class ExitoHandler(BaseHandler):
 
-    # def get(self):
+    def get(self):
+
+        self.render("pago.html")
 
     #     TBK_ID_SESION = self.get_argument("TBK_ID_SESION","20141015235139")
     #     TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","133")

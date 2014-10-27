@@ -60,14 +60,16 @@ Giani Da Firenze - Home
         </table>
         <table>
             <tr>
-                <td style="width:55%;text-align:left;">Producto</td>
+                <td style="width:45%;text-align:left;">Producto</td>
+                <td style="width:10%;text-align:center;">Talla</td>
                 <td style="width:15%;text-align:center;">Cantidad</td>
                 <td style="width:15%;text-align:right;">Precio Unitario</td>
                 <td style="width:15%;text-align: right;">Subtotal</td>
             </tr>
             {% for d in detalle %}
             <tr>
-                <td style="width:55%">{{d["name"]}}</td>
+                <td style="width:45%">{{d["name"]}}</td>
+                <td style="width:10%;text-align:center;">{{d["size"]}}</td>
                 <td style="width:15%;text-align:center;">{{d["quantity"]}}</td>
                 <td style="width:15%;text-align:right;">${{money_format(d["sell_price"])}}</td>
                 <td style="width:15%;text-align:right;">${{money_format(d["subtotal"])}}</td>
@@ -76,7 +78,7 @@ Giani Da Firenze - Home
             <tr>
                 <td colspan="2"></td>
                 <td style="text-align: right; border-top: 1px solid grey;">Costo Env&iacute;o</td>
-                <td style="text-align: right; border-top: 1px solid grey;">0</td>
+                <td style="text-align: right; border-top: 1px solid grey;">Gratis</td>
             </tr>
             <tr>
                 <td colspan="2"></td>
