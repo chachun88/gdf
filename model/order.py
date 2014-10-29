@@ -33,11 +33,11 @@ class Order(BaseModel):
         self._subtotal = value
 
     @property
-    def discount(self):
-        return self._discount
-    @discount.setter
-    def discount(self, value):
-        self._discount = value
+    def shipping(self):
+        return self._shipping
+    @shipping.setter
+    def shipping(self, value):
+        self._shipping = value
     
     @property
     def tax(self):
@@ -164,7 +164,7 @@ class Order(BaseModel):
         self._salesman               = ""
         self._user_id                = ""
         self._subtotal               = ""
-        self._discount               = ""
+        self._shipping               = ""
         self._tax                    = ""
         self._total                  = ""
         self._address                = ""
@@ -223,7 +223,7 @@ class Order(BaseModel):
         #     "salesman" : self.salesman,
         #     "customer" : self.customer,
         #     "subtotal" : self.subtotal,
-        #     "discount" : self.discount,
+        #     "shipping" : self.shipping,
         #     "tax" : self.tax,
         #     "total" : self.total,
         #     "address" : self.address,
@@ -236,15 +236,15 @@ class Order(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        query = '''insert into "Order" (voucher,date,type,subtotal,discount,tax,total,items_quantity,products_quantity,user_id,billing_id,shipping_id,payment_type) 
-        values (%(voucher)s,now(),%(type)s,%(subtotal)s,%(discount)s,%(tax)s,%(total)s,%(items_quantity)s,%(products_quantity)s,%(user_id)s,%(billing_id)s,%(shipping_id)s,%(payment_type)s) 
+        query = '''insert into "Order" (voucher,date,type,subtotal,shipping,tax,total,items_quantity,products_quantity,user_id,billing_id,shipping_id,payment_type) 
+        values (%(voucher)s,now(),%(type)s,%(subtotal)s,%(shipping)s,%(tax)s,%(total)s,%(items_quantity)s,%(products_quantity)s,%(user_id)s,%(billing_id)s,%(shipping_id)s,%(payment_type)s) 
         returning id'''
 
         parametros = {
         "voucher":self.voucher,
         "type":self.type,
         "subtotal":self.subtotal,
-        "discount":self.discount,
+        "shipping":self.shipping,
         "tax":self.tax,
         "total":self.total,
         "items_quantity":self.items_quantity,
@@ -305,14 +305,14 @@ class Order(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        query = '''update "Order" set voucher = %(voucher)s, type = %(type)s, subtotal = %(subtotal)s, discount = %(discount)s, tax = %(tax)s, total = %(total)s, 
+        query = '''update "Order" set voucher = %(voucher)s, type = %(type)s, subtotal = %(subtotal)s, shipping = %(shipping)s, tax = %(tax)s, total = %(total)s, 
         items_quantity = %(items_quantity)s, products_quantity = %(products_quantity)s, user_id = %(user_id)s, billing_id = %(billing_id)s, shipping_id = %(shipping_id)s, payment_type = %(payment_type)s, state = %(state)s where id = %(id)s'''
 
         parametros = {
         "voucher":self.voucher,
         "type":self.type,
         "subtotal":self.subtotal,
-        "discount":self.discount,
+        "shipping":self.shipping,
         "tax":self.tax,
         "total":self.total,
         "items_quantity":self.items_quantity,
@@ -394,7 +394,7 @@ class Order(BaseModel):
             self.date = order["date"]
             self.type = order["type"]
             self.subtotal = order["subtotal"]
-            self.discount = order["discount"]
+            self.shipping = order["shipping"]
             self.tax = order["tax"]
             self.total = order["total"]
             self.items_quantity = order["items_quantity"]

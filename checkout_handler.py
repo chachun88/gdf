@@ -392,6 +392,7 @@ class CheckoutSendHandler(BaseHandler):
                 pass
         
         payment_type = self.get_argument("payment_type",1)
+        shipping_price = int(self.get_argument("shipping_price",0))
 
         if self.current_user:
             user_id = self.current_user["id"]
@@ -413,7 +414,6 @@ class CheckoutSendHandler(BaseHandler):
             if len(lista) > 0:
 
                 subtotal = 0
-                descuento = 0
                 iva = 0
                 cantidad_items = 0
                 cantidad_productos = 0
@@ -435,7 +435,7 @@ class CheckoutSendHandler(BaseHandler):
                 order.date = datetime.now()
                 order.type = 1
                 order.subtotal = subtotal
-                order.discount = descuento
+                order.shipping = shipping_price
                 order.tax = iva
                 order.total = total
                 order.items_quantity = cantidad_items

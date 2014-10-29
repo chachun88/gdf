@@ -93,10 +93,11 @@ class PagoHandler(BaseHandler):
 
         TBK_TIPO_TRANSACCION = self.get_argument("TBK_TIPO_TRANSACCION","")
         TBK_MONTO = self.get_argument("TBK_MONTO","")
-        # TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO","")
         TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO","")
+
+        costo_despacho = int(self.get_argument("shipping_price",0))
 
         user_id = self.current_user["id"]
 
@@ -110,7 +111,6 @@ class PagoHandler(BaseHandler):
         if len(lista) > 0:
 
             subtotal = 0
-            descuento = 0
             iva = 0
             cantidad_items = 0
             cantidad_productos = 0
@@ -136,7 +136,7 @@ class PagoHandler(BaseHandler):
             order.date = datetime.now()
             order.type = 1
             order.subtotal = subtotal
-            order.discount = descuento
+            order.shipping = costo_despacho
             order.tax = iva
             order.total = total
             order.items_quantity = cantidad_items
@@ -675,7 +675,7 @@ class ExitoHandler(BaseHandler):
             status, msg = sg.send(message)
 
             if status == 200:
-                self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista)
+                self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista,order=order)
             else:
                 self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
 

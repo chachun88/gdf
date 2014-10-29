@@ -76,12 +76,12 @@ Giani Da Firenze - Home
             </tr>
             {% end %}
             <tr>
-                <td colspan="2"></td>
+                <td colspan="3"></td>
                 <td style="text-align: right; border-top: 1px solid grey;">Costo Env&iacute;o</td>
-                <td style="text-align: right; border-top: 1px solid grey;">Gratis</td>
+                <td style="text-align: right; border-top: 1px solid grey;">${{money_format(order.shipping)}}</td>
             </tr>
             <tr>
-                <td colspan="2"></td>
+                <td colspan="3"></td>
                 <td style="text-align: right;">Total</td>
                 <td style="text-align: right;">${{money_format(int(data["TBK_MONTO"] / 100))}}</td>
             </tr>
