@@ -519,7 +519,7 @@ class ExitoHandler(BaseHandler):
                         <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{price}</td>
                         <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{subtotal}</td>
                     </tr>
-                """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=l["sell_price"],subtotal=l["subtotal"])
+                """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]),subtotal=self.money_format(l["subtotal"]))
 
             cart = Cart()
             cart.user_id = self.current_user["id"]
@@ -670,7 +670,7 @@ class ExitoHandler(BaseHandler):
                 </div>
             </body>
             </html> 
-            """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=order.total+order.shipping,order_subtotal=order.subtotal,order_tax=order.tax,url_local=url_local,costo_despacho=order.shipping)
+            """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=order.total+order.shipping,order_subtotal=self.money_format(order.subtotal),order_tax=self.money_format(order.tax),url_local=url_local,costo_despacho=self.money_format(order.shipping))
 
             # email_confirmacion = "yichun212@gmail.com"
 
