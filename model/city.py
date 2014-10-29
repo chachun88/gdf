@@ -109,4 +109,20 @@ class City(BaseModel):
 			cur.close()
 
 
+	def ListByFromCityId(self):
 
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+		try:
+			query = '''select * from "City" where from_city_id = %(from_city_id)s'''
+			parameters = {
+			"from_city_id":self.from_city_id
+			}
+			cur.execute(query,parameters)
+			cities = cur.fetchall()
+			return self.ShowSuccessMessage(cities)
+		except Exception,e:
+			return self.ShowError(str(e))
+		finally:
+			cur.close()
+			self.connection.close()

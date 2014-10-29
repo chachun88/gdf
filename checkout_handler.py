@@ -57,8 +57,17 @@ class CheckoutAddressHandler(BaseHandler):
             for l in lista:
                 suma += l["subtotal"]
 
+            cellar = Cellar()
+            res_cellar = cellar.InitById(shipping_cellar)
+
+            cellar_city_id = 0
+
+            if "success" in res_cellar:
+                cellar_city_id = cellar.city_id
+
             city = City()
-            res_city = city.List()
+            city.from_city_id = cellar_city_id
+            res_city = city.ListByFromCityId()
 
             if suma > 0:
                 if "success" in res_city:
