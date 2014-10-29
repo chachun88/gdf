@@ -7,6 +7,7 @@ import tornado.web
 from globals import url_bodega
 import locale
 import urllib
+import os
 # from loadingplay.multilang.lang import lploadLanguage, lpautoSelectCurrentLang,\
 #     lptranslate, lpsetCurrentLang
 
@@ -59,7 +60,10 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def money_format(self, value):
 
-        locale.setlocale( locale.LC_NUMERIC, 'es_ES.utf8' )
+        if os.name != "nt":
+            locale.setlocale( locale.LC_NUMERIC, 'es_ES.utf8' )
+        else:
+            locale.setlocale( locale.LC_NUMERIC, 'Spanish_Spain.1252' )
         return locale.format('%d', value, True)
 
     @property

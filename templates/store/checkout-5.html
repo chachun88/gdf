@@ -58,86 +58,77 @@ Giani Da Firenze - Carro de Compra
             
             	<div class="col-xs-12 col-sm-12">
                       <div class="cartContent w100 checkoutReview ">
-                        <table class="cartTable table-responsive"   style="width:100%">
-                          <tbody>
+                        <table class="cartTable table-responsive table" style="width:100%">
+                          <thead>
                             <tr class="CartProduct cartTableHeader">
-                              <th style="width:15%"> Producto </th>
-                              <th class="checkoutReviewTdDetails"  >Detalles</th>
-                              <th style="width:10%" >Precio unitario</th>
-                              <th class="hidden-xs" style="width:5%">CTD</th>
-                              <th style="width:15%">Total</th>
+                              <th class="text-center">Producto</th>
+                              <th class="text-center">Detalles</th>
+                              <th class="text-center">Precio Unitario</th>
+                              <th class="text-center">Cantidad</th>
+                              <th class="text-center">Total</th>
                             </tr>
+                          </thead>
+                          <tbody>
                             {% for d in data %}
                             <tr class="CartProduct">
-                              <td  class="CartProductThumb"><div> <a href="product-details.html"><img src="{{url_bodega}}/image/{{d['image']}}?mw=86"></a> </div></td>
-                              <td ><div class="CartDescription">
-                                  <h4> <a href="product-details.html">{{d["name"]}} </a> </h4>
+                              <td class="CartProductThumb">
+                                <a href="product-details.html"><img src="{{url_bodega}}/image/{{d['image']}}?mw=86"></a>
+                              </td>
+                              <td>
+                                <div class="text-center">
+                                  <h4>{{d["name"]}}</h4>
                                   <span class="size">{{d["size"]}}</span>
-                                 
-                                </div></td>
+                                </div>
+                              </td>
                               <td class="delete"><div class="price ">${{money_format(d["sell_price"])}} </div></td>
                               <td class="hidden-xs">{{d['quantity']}}</td>
-                              <td class="price">${{money_format(d["subtotal"])}}</td>
+                              <td class="price">
+                                <div class="text-right">${{money_format(d["subtotal"])}}</div>
+                              </td>
                             </tr>
                             {% end %}
-                            <!-- <tr class="CartProduct">
-                              <td  class="CartProductThumb"><div> <a href="product-details.html"><img src="images/product/2.jpg"></a> </div></td>
-                              <td ><div class="CartDescription">
-                                  <h4> <a href="product-details.html">Denim T shirt </a> </h4>
-                                  <span class="size">12 x 1.5 L</span>
-                                
-                                </div></td>
-                              <td class="delete"><div class="price ">$50 </div></td>
-                              <td class="hidden-xs">1</td>
-                              <td class="hidden-xs">0</td>
-                              <td class="price" >$50</td>
-                            </tr>
-                            <tr class="CartProduct">
-                              <td  class="CartProductThumb"><div> <a href="product-details.html"><img src="images/product/5.jpg"></a> </div></td>
-                              <td ><div class="CartDescription">
-                                  <h4> <a href="product-details.html">Denim T shirt Red </a> </h4>
-                                  <span class="size">12 x 1.5 L</span>
-                                 
-                                </div></td>
-                              <td class="delete"><div class="price ">$50  </div></td>
-                              <td class="hidden-xs">1</td>
-                              <td class="hidden-xs">0</td>
-                              <td class="price">$50</td>
-                            </tr> -->
+                            <tfoot>
+                              <tr class="CartProduct">
+                                <td colspan="4">
+                                  <div class="text-right">Total productos</div>
+                                </td>
+                                <td class="price">
+                                  <div class="text-right">${{money_format(suma)}}</div>
+                                </td>
+                              </tr>
+                              <tr class="CartProduct">
+                                <td colspan="4">
+                                  <div class="text-right">Envío</div>
+                                </td>
+                                <td class="price text-right" >
+                                  <span class="success">
+                                    <div class="text-right">
+                                      {% if int(costo_despacho) == 0 %}
+                                      Gratis!
+                                      {% else %}
+                                      ${{money_format(costo_despacho)}}
+                                      {% end %}
+                                    </div>
+                                  </span>
+                                </td>
+                              </tr>
+                              <tr class="CartProduct">
+                                <td colspan="4">
+                                  <div class="text-right">Total</div>
+                                </td>
+                                <td id="total-price" class="price">
+                                  <div class="text-right">${{money_format(suma+costo_despacho)}}</div>
+                                </td>
+                              </tr>
+                            </tfoot>
                           </tbody>
                         </table>
                       </div>
                       <!--cartContent-->
-                      
-                      <div class="w100 costDetails">
-                        <div class="table-block" id="order-detail-content">
-                          <table class="std table" id="cart-summary">
-                            <!-- <tr >
-                              <td>Total productos</td>
-                              <td  class="price">$ {{suma}} </td>
-                            </tr> -->
-                            <!-- <tr style="" >
-                              <td>Despacho</td>
-                              <td  class="price"><span class="success">Despacho gratis!</span></td>
-                            </tr> -->
-<!--                             <tr class="cart-total-price ">
-                              <td>Total (+impuestos)</td>
-                              <td  class="price">$ {{suma}} </td>
-                            </tr>
-                            <tr >
-                              <td>Total impuestos</td>
-                              <td id="total-tax" class="price">0.00</td>
-                            </tr> -->
-                            <tr >
-                              <td > Total </td>
-                              <td id="total-price" class="price">${{money_format(suma)}} </td>
-                            </tr>
-                            <tbody>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                      <!--/costDetails-->
+
+<!--                       <table class="table-responsive cartTable table">
+                        
+                      </table> -->
                       
 
           
@@ -162,7 +153,14 @@ Giani Da Firenze - Carro de Compra
 
               <div class="pull-left"> <a class="btn btn-default" href="/store"> <i class="fa fa-arrow-left"></i> &nbsp; Volver a la tienda </a> </div>
               <!-- <div class="pull-left"> <a class="btn btn-default" href="/checkout/address"> <i class="fa fa-arrow-left"></i> &nbsp; Dirección </a> </div> -->
-              <div class="pull-right"> <a href="/checkout/payment" class="btn btn-primary btn-small " > Pago &nbsp; <i class="fa fa-arrow-circle-right"></i> </a> </div>
+              <div class="pull-right"> 
+
+                  <form action="/checkout/payment" method="post">
+                    <input type="hidden" name="shipping_price" value="{{costo_despacho}}">
+                    <button type="submit" class="btn btn-primary btn-small">Pago &nbsp; <i class="fa fa-arrow-circle-right"></i></button>
+                  </form>
+
+              </div>
                
                <!-- <div class="pull-right">
                 <a href="#" class="btn btn-primary btn-small " > 
@@ -203,25 +201,25 @@ Giani Da Firenze - Carro de Compra
                 <td>Total productos</td>
                 <td class="price">${{money_format(suma)}}</td>
               </tr>
-              <!-- <tr style="">
+              <tr>
                 <td>Envío</td>
-                <td class="price" ><span class="success">Envío gratis!</span></td>
-              </tr> -->
-<!--               <trclass="cart-total-price ">
-              <td>Total (+impuestos)</td>
-              <td class="price" >0</td>
-            </tr>
-            <tr>
-              <td>Total impuestos</td>
-              <td class="price" id="total-tax">$0.00</td>
-            </tr> -->
-            <tr>
-              <td > Total </td>
-              <td class=" site-color" id="total-price">${{money_format(suma)}}</td>
-            </tr>
-          </tbody>
-        </table> 
-      </div>
+                <td class="price" >
+                  <span class="success">
+                    {% if int(costo_despacho) == 0 %}
+                    Gratis!
+                    {% else %}
+                    ${{money_format(costo_despacho)}}
+                    {% end %}
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td > Total </td>
+                <td class=" site-color" id="total-price">${{money_format(suma+costo_despacho)}}</td>
+              </tr>
+            </tbody>
+          </table> 
+        </div>
 
     </div>
     <!--/rightSidebar--> 

@@ -154,7 +154,7 @@ class Contact(BaseModel):
 		"user_id": self.user_id,
 		"address": self.address,
 		"lastname": self.lastname,
-		"city": self.city,
+		"city_id": self.city,
 		"zip_code": self.zip_code,
 		"additional_info":self.additional_info,
 		"town":self.town,
@@ -175,8 +175,8 @@ class Contact(BaseModel):
 			
 		if self.id == "":
 
-			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city, zip_code,additional_info,town,rut)
-			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city)s,%(zip_code)s,%(additional_info)s,%(town)s,%(rut)s) returning id'''
+			query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city_id, zip_code,additional_info,town,rut)
+			values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city_id)s,%(zip_code)s,%(additional_info)s,%(town)s,%(rut)s) returning id'''
 		
 			# return self.ShowError(cur.mogrify(query,contact))
 
@@ -205,7 +205,7 @@ class Contact(BaseModel):
 		"user_id": self.user_id,
 		"address":self.address,
 		"id":self.id,
-		"city":self.city,
+		"city_id":self.city,
 		"zip_code":self.zip_code,
 		"lastname":self.lastname,
 		"additional_info":self.additional_info,
@@ -235,6 +235,7 @@ class Contact(BaseModel):
 										zip_code = %(zip_code)s,
 										additional_info = %(additional_info)s,
 										town = %(town)s,
+										city_id = %(city_id)s,
 										rut = %(rut)s
 						where id = %(id)s'''
 

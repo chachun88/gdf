@@ -68,7 +68,8 @@ var GetAddressById = function(_id){
 
 				if(obj.success){
 					$("#InputAddress").val(obj.success.address);
-					$("#InputCity").val(obj.success.city);
+					$("#InputCity").val(obj.success.city_id);
+					$('#InputCity').trigger('change');
 					$("#InputZip").val(obj.success.zip_code);
 					$("#InputMobile").val(obj.success.telephone);
 					$("#InputEmail").val(obj.success.email);

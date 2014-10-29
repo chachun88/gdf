@@ -39,6 +39,14 @@ class Cellar(BaseModel):
     def description(self, value):
         self._description = value
 
+    @property
+    def city_id(self):
+        return self._city_id
+    @city_id.setter
+    def city_id(self, value):
+        self._city_id = value
+    
+
     ## override
     def Remove(self):
         # #validate if cellar still has products
@@ -179,7 +187,8 @@ class Cellar(BaseModel):
                 "name" : self.name,
                 "description": self.description,
                 "total_price": self.GetTotalPrice(),
-                "total_units": self.GetTotalUnits()}
+                "total_units": self.GetTotalUnits(),
+                "city_id": self.city_id}
 
             return me
         except Exception,e:
@@ -269,11 +278,12 @@ class Cellar(BaseModel):
         if cellar:
 
             try:
-                query = '''update "Cellar" set description = %(description)s and name = %(name)s where id = %(id)s returning id'''
+                query = '''update "Cellar" set description = %(description)s, name = %(name)s, city_id = %(city_id)s where id = %(id)s returning id'''
                 parametros = {
                 "description": self.description,
                 "name": self.name,
-                "id":cellar['id']
+                "id":cellar['id'],
+                "city_id":self.city_id
                 }
                 cur.execute(query,parametros)
                 self.connection.commit()
@@ -288,10 +298,11 @@ class Cellar(BaseModel):
         else:
 
             try:
-                query = '''insert into "Cellar" (description, name) values (%(description)s,%(name)s) returning id'''
+                query = '''insert into "Cellar" (description, name, city_id) values (%(description)s,%(name)s,%(city_id)s) returning id'''
                 parametros = {
                 "description": self.description,
-                "name": self.name
+                "name": self.name,
+                "city_id": self.city_id
                 }
                 cur.execute(query,parametros)
                 self.connection.commit()
@@ -417,6 +428,7 @@ class Cellar(BaseModel):
             self.id = cellar['id']
             self.name = cellar['name']
             self.description = cellar['description']
+            self.city_id = cellar["city_id"]
 
             return self.ShowSuccessMessage("cellar initialized")
 
@@ -453,6 +465,7 @@ class Cellar(BaseModel):
             self.id = cellar['id']
             self.name = cellar['name']
             self.description = cellar['description']
+            self.city_id = cellar["city_id"]
 
             return self.ShowSuccessMessage("cellar initialized")
 

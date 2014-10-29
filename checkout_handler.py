@@ -19,6 +19,8 @@ from model.order_detail import OrderDetail
 from model.kardex import Kardex
 from model.cellar import Cellar
 from model.product import Product
+from model.city import City
+from model.shipping import Shipping
 
 from datetime import datetime
 from bson import json_util
@@ -39,6 +41,7 @@ class CheckoutAddressHandler(BaseHandler):
             response_obj = contact.ListByUserId(user_id)
 
             contactos = []
+            cities = []
 
             if "success" in response_obj:
                 contactos = json_util.loads(response_obj["success"])
@@ -54,8 +57,13 @@ class CheckoutAddressHandler(BaseHandler):
             for l in lista:
                 suma += l["subtotal"]
 
+            city = City()
+            res_city = city.List()
+
             if suma > 0:
-                self.render("store/checkout-1.html",contactos=contactos,data=lista,suma=suma)
+                if "success" in res_city:
+                    cities = res_city["success"]
+                self.render("store/checkout-1.html",contactos=contactos,data=lista,suma=suma,cities=cities)
             else:
                 self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
@@ -79,7 +87,7 @@ class CheckoutBillingHandler(BaseHandler):
             apellido = self.get_argument("lastname", self.current_user["lastname"])
             email = self.get_argument("email", self.current_user["email"])
             direccion = self.get_argument("address","")
-            ciudad = self.get_argument("city","")
+            ciudad = self.get_argument("city_id","")
             codigo_postal = self.get_argument("zip_code","")
             informacion_adicional = self.get_argument("additional_info","")
             telefono = self.get_argument("telephone","")
@@ -141,13 +149,37 @@ class CheckoutBillingHandler(BaseHandler):
                     suma += l["subtotal"]
 
                 contactos = []
+                cities = []
 
                 response_obj = contact.ListByUserId(user_id)
+
+                city = City()
+                res_city = city.List()
 
                 if "success" in response_obj:
                     contactos = json_util.loads(response_obj["success"])
 
-                self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
+                if "success" in res_city:
+                    cities = res_city["success"]
+
+                cellar = Cellar()
+                res_cellar = cellar.InitById(shipping_cellar)
+
+                cellar_city_id = 0
+
+                if "success" in res_cellar:
+                    cellar_city_id = cellar.city_id
+
+                shipping = Shipping()
+                shipping.from_city_id = int(cellar_city_id)
+                shipping.to_city_id = int(ciudad)
+
+                res = shipping.GetGianiPrice()
+
+                if "error" in res:
+                    self.render("beauty_error.html",message="Error al calcular costo de despacho, {}".format(res["error"]))
+                else:
+                    self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion,cities=cities,costo_despacho=shipping.price)
         else:
 
             self.redirect("/auth/login")
@@ -163,13 +195,13 @@ class CheckoutShippingHandler(BaseHandler):
 
         if self.current_user:
 
-
+            costo_despacho = int(self.get_argument("shipping_price",0))
             user_id = self.current_user["id"]
             nombre = self.get_argument("name", self.current_user["name"])
             apellido = self.get_argument("lastname", self.current_user["lastname"])
             email = self.get_argument("email", self.current_user["email"])
             direccion = self.get_argument("address","")
-            ciudad = self.get_argument("city","")
+            ciudad = self.get_argument("city_id","")
             codigo_postal = self.get_argument("zip_code","")
             informacion_adicional = self.get_argument("additional_info","")
             telefono = self.get_argument("telephone","")
@@ -227,8 +259,10 @@ class CheckoutShippingHandler(BaseHandler):
                         c.Edit()
                         suma += l["subtotal"]
 
+
+
                     # self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
-                    self.render("store/checkout-3.html",suma=suma)
+                    self.render("store/checkout-3.html",suma=suma,costo_despacho=costo_despacho)
             else:
 
                 cart = Cart()
@@ -246,7 +280,7 @@ class CheckoutShippingHandler(BaseHandler):
                     suma += l["subtotal"]
 
                 # self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
-                self.render("store/checkout-3.html",suma=suma)
+                self.render("store/checkout-3.html",suma=suma,costo_despacho=costo_despacho)
 
         else:
 
@@ -261,11 +295,12 @@ class CheckoutShippingHandler(BaseHandler):
 class CheckoutPaymentHandler(BaseHandler):
 
     @tornado.web.authenticated
-    def get(self):
+    def post(self):
 
         if self.current_user:
 
             shipping_type = self.get_argument("shipping_type",1)
+            costo_despacho = int(self.get_argument("shipping_price",0))          
 
             user_id = self.current_user["id"]
 
@@ -286,14 +321,14 @@ class CheckoutPaymentHandler(BaseHandler):
                 c.Edit()
                 suma += l["subtotal"]
 
-            self.render("store/checkout-4.html",suma=suma)
+            self.render("store/checkout-4.html",suma=suma,costo_despacho=costo_despacho)
         else:
             self.redirect("/auth/login")
 
 class CheckoutOrderHandler(BaseHandler):
 
     @tornado.web.authenticated
-    def get(self):
+    def post(self):
 
         if self.current_user:
 
@@ -312,7 +347,9 @@ class CheckoutOrderHandler(BaseHandler):
             for l in lista:
                 suma += l["subtotal"]
 
-            self.render("store/checkout-5.html",data=lista,suma=suma)
+            costo_despacho = int(self.get_argument("shipping_price",0))
+
+            self.render("store/checkout-5.html",data=lista,suma=suma,costo_despacho=costo_despacho)
         else:
             self.redirect("/auth/login")
 

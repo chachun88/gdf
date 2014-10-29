@@ -58,7 +58,7 @@ Giani Da Firenze - Carro de Compra
 
                           <form action="/pago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
                               <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
-                              <input type="hidden" name="TBK_MONTO" value="{{suma}}00" />
+                              <input type="hidden" name="TBK_MONTO" value="{{suma+costo_despacho}}00" />
                               <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}" />
                               <input type="hidden" name="TBK_URL_EXITO" value="http://giani.ondev.today/store/success" />
                               <input type="hidden" name="TBK_URL_FRACASO" value="http://giani.ondev.today/store/failure" />
@@ -233,21 +233,21 @@ Giani Da Firenze - Carro de Compra
               <td>Total productos</td>
               <td class="price">${{money_format(suma)}}</td>
             </tr>
-            <!-- <tr style="">
+            <tr>
               <td>Envío</td>
-              <td class="price" ><span class="success">Envío gratis!</span></td>
-            </tr> -->
-<!--             <trclass="cart-total-price ">
-              <td>Total (+impuestos)</td>
-              <td class="price" >0</td>
+              <td class="price" >
+                <span class="success">
+                  {% if int(costo_despacho) == 0 %}
+                  Gratis!
+                  {% else %}
+                  ${{money_format(costo_despacho)}}
+                  {% end %}
+                </span>
+              </td>
             </tr>
             <tr>
-              <td>Total impuestos</td>
-              <td class="price" id="total-tax">$0.00</td>
-            </tr> -->
-            <tr>
-              <td > Total </td>
-              <td class=" site-color" id="total-price">${{money_format(suma)}}</td>
+              <td>Total</td>
+              <td class=" site-color" id="total-price">${{money_format(suma+costo_despacho)}}</td>
             </tr>
           </tbody>
           <tbody>
