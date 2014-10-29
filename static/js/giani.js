@@ -75,4 +75,6 @@ $(document).ready(function(){
 		location.href="/checkout/address";
 	});
 
+	$("#same_address").trigger("change");
+
 });
