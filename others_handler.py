@@ -516,8 +516,8 @@ class ExitoHandler(BaseHandler):
                         <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
                         <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{color}</td>
                         <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{size}</td>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{price}</td>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{subtotal}</td>
+                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {price}</td>
+                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {subtotal}</td>
                     </tr>
                 """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]),subtotal=self.money_format(l["subtotal"]))
 
@@ -642,7 +642,7 @@ class ExitoHandler(BaseHandler):
                             <td></td>
                             <td></td>
                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
-                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_subtotal}</td>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_subtotal}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -650,7 +650,7 @@ class ExitoHandler(BaseHandler):
                             <td></td>
                             <td></td>
                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de Env&iacute;o</th>
-                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{costo_despacho}</td>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {costo_despacho}</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -658,7 +658,7 @@ class ExitoHandler(BaseHandler):
                             <td></td>
                             <td></td>
                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Total</th>
-                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_total}</td>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_total}</td>
                         </tr>
                     </table>
 
@@ -670,7 +670,7 @@ class ExitoHandler(BaseHandler):
                 </div>
             </body>
             </html> 
-            """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=order.total+order.shipping,order_subtotal=self.money_format(order.subtotal),order_tax=self.money_format(order.tax),url_local=url_local,costo_despacho=self.money_format(order.shipping))
+            """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=self.money_format(order.total+order.shipping),order_subtotal=self.money_format(order.subtotal),order_tax=self.money_format(order.tax),url_local=url_local,costo_despacho=self.money_format(order.shipping))
 
             # email_confirmacion = "yichun212@gmail.com"
 
