@@ -649,6 +649,14 @@ class ExitoHandler(BaseHandler):
                             <td></td>
                             <td></td>
                             <td></td>
+                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de Env&iacute;o</th>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{costo_despacho}</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Total</th>
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_total}</td>
                         </tr>
@@ -662,7 +670,7 @@ class ExitoHandler(BaseHandler):
                 </div>
             </body>
             </html> 
-            """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=order.total,order_subtotal=order.subtotal,order_tax=order.tax,url_local=url_local)
+            """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=order.total+order.shipping,order_subtotal=order.subtotal,order_tax=order.tax,url_local=url_local,costo_despacho=order.shipping)
 
             # email_confirmacion = "yichun212@gmail.com"
 
