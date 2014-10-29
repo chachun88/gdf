@@ -78,7 +78,13 @@ Giani Da Firenze - Home
             <tr>
                 <td colspan="3"></td>
                 <td style="text-align: right; border-top: 1px solid grey;">Costo Env&iacute;o</td>
-                <td style="text-align: right; border-top: 1px solid grey;">${{money_format(order.shipping)}}</td>
+                <td style="text-align: right; border-top: 1px solid grey;">
+                    {% if int(order.shipping) > 0 %}
+                    ${{money_format(order.shipping)}}
+                    {% else %}
+                    Gratis
+                    {% end %}
+                </td>
             </tr>
             <tr>
                 <td colspan="3"></td>
