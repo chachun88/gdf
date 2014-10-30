@@ -44,7 +44,7 @@ $(document).ready(function(){
 
 					var rtn_pair = $.parseJSON(rtn)
 
-					if (rtn_pair["status"] == "ok") 
+					if (rtn_pair.status == "ok") 
 					{
 						localStorage.user_id = rtn_pair["user_id"];
 						window.parent.document.location.href = rtn_pair["next"];
