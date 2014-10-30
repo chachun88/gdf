@@ -66,6 +66,7 @@ Giani Da Firenze - Home
                 <td style="width:15%;text-align:right;">Precio Unitario</td>
                 <td style="width:15%;text-align: right;">Subtotal</td>
             </tr>
+            {% set suma = 0 %}
             {% for d in detalle %}
             <tr>
                 <td style="width:45%">{{d["name"]}}</td>
@@ -74,12 +75,13 @@ Giani Da Firenze - Home
                 <td style="width:15%;text-align:right;">${{money_format(d["sell_price"])}}</td>
                 <td style="width:15%;text-align:right;">${{money_format(d["subtotal"])}}</td>
             </tr>
+            {% set suma = d["subtotal"] + suma %}
             {% end %}
             <tr>
                 <td colspan="3"></td>
                 <td style="text-align: right; border-top: 1px solid grey;">Total Productos</td>
                 <td style="text-align: right; border-top: 1px solid grey;">
-                    ${{money_format(int(data["TBK_MONTO"])-order.shipping)}}
+                    ${{money_format(suma)}}
                 </td>
             </tr>
             <tr>
