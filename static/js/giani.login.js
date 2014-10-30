@@ -113,7 +113,7 @@ $(document).ready(function(){
 					 "user_id":user_id,
 					 "tos":tos}
 
-		$.post( $( this ).attr( 'action' ), data, function(rtn){
+		/*$.post( $( this ).attr( 'action' ), data, function(rtn){
 
 			var rtn_pair = $.parseJSON(rtn);
 
@@ -125,6 +125,31 @@ $(document).ready(function(){
 			{
 				fancyAlert( rtn_pair.error );
 			}
+		});*/
+
+		$.ajax({ 
+
+			url: $( this ).attr( 'action' ), 
+			type: "post",
+			data: data,
+			beforeSend: function(objeto){
+	            $("div.cargando").fadeIn();
+	        },
+			success: function(rtn){
+
+				var rtn_pair = $.parseJSON(rtn);
+
+				if (rtn_pair.success) 
+				{
+					window.parent.document.location.href = rtn_pair.success;
+				}
+				else
+				{
+					alert( rtn_pair.error );
+				}
+
+				$("div.cargando").fadeOut();
+			} 
 		});
 
 		return false;
