@@ -53,7 +53,7 @@ $(document).ready(function(){
 					}
 					else
 					{
-						fancyAlert( rtn_pair.message );
+						alert( rtn_pair.message );
 					}
 				},
 				completed: function(){
