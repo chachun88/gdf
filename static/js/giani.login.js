@@ -44,6 +44,8 @@ $(document).ready(function(){
 
 					var rtn_pair = $.parseJSON(rtn)
 
+					console.log(rtn_pair);
+
 					if (rtn_pair.status == "ok") 
 					{
 						localStorage.user_id = rtn_pair["user_id"];
