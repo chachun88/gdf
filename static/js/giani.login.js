@@ -42,9 +42,7 @@ $(document).ready(function(){
 		        },
 				success: function(rtn){
 
-					var rtn_pair = $.parseJSON(rtn)
-
-					console.log(rtn_pair);
+					var rtn_pair = $.parseJSON(rtn);
 
 					if (rtn_pair.status == "ok") 
 					{
@@ -55,13 +53,12 @@ $(document).ready(function(){
 					{
 						alert( rtn_pair.message );
 					}
-				},
-				completed: function(){
+
 					$("div.cargando").fadeOut();
 				} 
 			});
 		} else {
-			fancyAlert("Debe ingresar email y contrase\xF1a");
+			alert("Debe ingresar email y contrase\xF1a");
 		}
 		return false;
 	});
