@@ -35,6 +35,41 @@
 	</div> 
 
 </form>
+
+<form action="/store/success" method="post">
+
+
+	<!-- <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" /> -->
+
+	<div class="margin-bottom">
+		<label>Monto</label>
+		<input type="text" name="TBK_MONTO" value="57800" />
+	</div>
+	<div class="margin-bottom">
+		<label>Nº Orden de Compra</label>
+		<input type="text" name="TBK_ORDEN_COMPRA" value="165" />
+	</div>
+	<div class="margin-bottom">
+		<input type="hidden" name="TBK_ID_SESION" value="20141030012236" />
+	</div>
+	<div class="margin-bottom">
+		<label>TBK_RESPUESTA</label>
+		<input type="text" name="TBK_RESPUESTA" value="-1">
+	</div>
+<!-- 	<div class="margin-bottom">
+		<label>Pagina exito</label>
+		<input type="text" name="TBK_URL_EXITO" value="http://giani.ondev.today/store/success" />
+	</div>
+	<div class="margin-bottom">
+		<label>Pagina fracaso</label>
+		<input type="text" name="TBK_URL_FRACASO" value="http://giani.ondev.today/store/failure" />
+	</div>-->
+	<div class="margin-bottom">
+		<input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" />
+	</div> 
+
+</form>
+
 <style>
 	.margin-bottom{
 		margin-bottom: 15px;
