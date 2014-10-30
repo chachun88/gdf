@@ -13,7 +13,7 @@ import tornado.web
 from tornado.options import define, options
 from basehandler import BaseHandler
 
-from globals import cellar_id
+from globals import cellar_id, url_bodega
 
 #libreria prescindible
 from bson import json_util
@@ -148,7 +148,7 @@ class GetCartByUserIdHandler(BaseHandler):
 				suma += l["subtotal"]
 
 			if ajax:
-				self.render("store/carro_ajax.html",data=lista,suma=suma)
+				self.render("store/carro_ajax.html",data=lista,suma=suma,url_bodega=url_bodega)
 			else:
 				self.render("store/cart.html",data=lista,suma=suma)
 		else:

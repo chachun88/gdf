@@ -7,7 +7,7 @@
         {% for d in data %}
           <div class="productosencola clearfix">
             <div class="fotoproductoencola">
-              <img class="image" src="/static/images/producto-70x70.png" data-rimage data-src="/static/images/producto-70x70.png">
+              <img class="image" src="{{url_bodega}}/image/{{d['image']}}?mw=70" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=70">
             </div>
             <p class="nombreproductoencola">{{d["name"]}}</p>
             <p class="color">color: {{d["color"]}}</p>

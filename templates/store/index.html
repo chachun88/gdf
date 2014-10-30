@@ -16,12 +16,12 @@ Giani Da Firenze - Home
     <div class="slider-small">
     <img class="slide" src="/static/images/banermovil.png" data-rimage data-src="/static/images/banermovil.png">
   </div>
-    <div class="contenedor-productos clearfix">
+    <div class="contenedor-productos clearfix" id="contenedor">
       <div class="cuerpo-categorias clearfix">
         <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
         <div class="categorias clearfix">
           {% for t in tags %}
-          <a class="categoria" href="/store/getproductsbytags?tags={{t['name']}}">{{t['name']}}</a>
+          <a class="categoria" href="/store/getproductsbytags?tags={{t['name']}}#contenedor">{{t['name']}}</a>
           {% end %}
         </div>
       </div>
@@ -65,7 +65,8 @@ Giani Da Firenze - Home
         prevText: '<',
         nextText: '>',
         currentPage: {{page}},
-        hrefTextPrefix:'?page='
+        hrefTextPrefix:'?page=',
+        hrefTextSuffix: '#contenedor'
     });
 </script>
 {% end %}

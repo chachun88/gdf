@@ -348,6 +348,20 @@ body {
 .reg-strate-fb a img {
   max-width: 165px;
 }
+div.cargando{
+  width:100%;
+  opacity:0.5;
+  background-color:#333333;
+  position:fixed;
+  height:100%;
+  z-index:200;
+  text-align:center;
+  display: none;
+}
+img.cargando{
+  position: absolute;
+  top: 50%;
+}
 @media(max-width: 1200px) {
 .reg-strate-fb a {
   margin-left: 17%;

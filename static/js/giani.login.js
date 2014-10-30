@@ -31,20 +31,33 @@ $(document).ready(function(){
 						 "password":password,
 						 "user_id":localStorage.user_id };
 
-			$.post( $( this ).attr( 'action' ), data, function(rtn){
 
-				var rtn_pair = $.parseJSON(rtn)
+			$.ajax({ 
 
-				if (rtn_pair["status"] == "ok") 
-				{
-					localStorage.user_id = rtn_pair["user_id"];
-					window.parent.document.location.href = rtn_pair["next"]; // TODO:poner aqui redirect a pagina anterior
-				}
-				else
-				{
-					fancyAlert( rtn_pair["message"] );
-				}
-			} );
+				url: $( this ).attr( 'action' ), 
+				type: "post",
+				data: data,
+				beforeSend: function(objeto){
+		            $("div.cargando").fadeIn();
+		        },
+				success: function(rtn){
+
+					var rtn_pair = $.parseJSON(rtn)
+
+					if (rtn_pair["status"] == "ok") 
+					{
+						localStorage.user_id = rtn_pair["user_id"];
+						window.parent.document.location.href = rtn_pair["next"];
+					}
+					else
+					{
+						fancyAlert( rtn_pair["message"] );
+					}
+				},
+				completed: function(){
+					$("div.cargando").fadeOut();
+				} 
+			});
 		} else {
 			fancyAlert("Debe ingresar email y contrase\xF1a");
 		}
