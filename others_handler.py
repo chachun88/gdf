@@ -397,9 +397,17 @@ class ExitoHandler(BaseHandler):
 
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
+        pathSubmit = "http://giani.ondev.today"
+
+        order = Order()
+        init_by_id = order.InitById(TBK_ORDEN_COMPRA)
+
+        if "success" in init_by_id:
+            if int(order.state) != 2:
+                self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
 
         myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
-        pathSubmit = "http://giani.ondev.today"
+        
 
         f = open(myPath,"r")
         linea = ""
@@ -413,9 +421,6 @@ class ExitoHandler(BaseHandler):
         # json_util.dumps(urlparse.parse_qs(linea))
 
         dict_parametros = urlparse.parse_qs(linea)
-
-        order = Order()
-        init_by_id = order.InitById(TBK_ORDEN_COMPRA)
         
 
         TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]

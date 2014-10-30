@@ -77,8 +77,15 @@ Giani Da Firenze - Home
             {% end %}
             <tr>
                 <td colspan="3"></td>
-                <td style="text-align: right; border-top: 1px solid grey;">Costo Env&iacute;o</td>
+                <td style="text-align: right; border-top: 1px solid grey;">Total Productos</td>
                 <td style="text-align: right; border-top: 1px solid grey;">
+                    ${{money_format(int(data["TBK_MONTO"])-order.shipping)}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td style="text-align: right;">Costo Env&iacute;o</td>
+                <td style="text-align: right;">
                     {% if int(order.shipping) > 0 %}
                     ${{money_format(order.shipping)}}
                     {% else %}
@@ -137,6 +144,8 @@ Giani Da Firenze - Home
                                 Sin inter&eacute;s
                                 {% elif data["TBK_TIPO_CUOTA"] == "CI" %}
                                 Cuotas Comercio
+                                {% elif data["TBK_TIPO_CUOTA"] == "VD" %}
+                                D&eacute;bito
                                 {% end %}
                             </td>
                         </tr>
