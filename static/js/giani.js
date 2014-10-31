@@ -93,6 +93,6 @@ $(document).ready(function(){
 
 	$('html, body').animate({
         scrollTop: $("#contenedor").offset().top
-    }, 500);
+    }, 1000);
 
 });
