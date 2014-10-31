@@ -4,12 +4,14 @@ Giani Da Firenze - {{data.name}}
 {% end %}
 
 {% block css %}
+<link rel="stylesheet" href="/static/css/simple_tab.css">
 <link rel="stylesheet" href="/static/css/detalle-producto.css">
 <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
 {% end %}
 
 {% block javascript %}
 <script src="/static/js/detalle-producto.js"></script>
+<script type="text/javascript" src="/static/js/simple.tab.js" ></script>
 <script type="text/javascript">
     ifvoted({{data.id}});
 </script>
@@ -113,12 +115,27 @@ Giani Da Firenze - {{data.name}}
       {% end %}
       <div class="container container-13">
         <div class="container container-14 clearfix">
-          <div class="container container-15 clearfix">
+          <!-- <div class="container container-15 clearfix">
             <p class="text text-2">Descripción</p>
             <p class="text text-3">Delivery</p>
             <p class="text text-4">Cual es tu talla</p>
+          </div> -->
+          <div id="tabs-container">
+            <ul class="tabs-menu">
+              <li class="current"><a href="#tab-1">Descripci&oacute;n</a></li>
+              <li><a href="#tab-2">Delivery</a></li>
+              <li><a href="#tab-3">Cu&aacute;l es tu talla</a></li>
+            </ul>
+            <div class="tab">
+              <div id="tab-1" class="tab-content">
+                {{data.description}}
+              </div>
+              <div id="tab-2" class="tab-content">
+              </div>
+              <div id="tab-3" class="tab-content">
+              </div>
+            </div>
           </div>
-          <!-- <p class="text text-5">{{data.description}}</p>-->
         </div>
       </div>
     </div>
