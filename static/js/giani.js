@@ -91,8 +91,10 @@ $(document).ready(function(){
 		console.log("completed fade");
 	});	
 
-	$('html, body').animate({
-        scrollTop: $("#contenedor").offset().top
-    }, 1000);
+	if($("#contenedor").length>0){
+		$('html, body').animate({
+	        scrollTop: $("#contenedor").offset().top
+	    }, 1000);
+	}
 
 });
