@@ -84,7 +84,7 @@ $(document).ready(function(){
 		console.log("completed fade");
 	});*/
 
-	$("body").css("display","none");
-	$("body").fadeIn(2000);
+	$(document).css("display","none");
+	$(document).fadeIn(2000);
 
 });
