@@ -21,12 +21,12 @@ Giani Da Firenze - Home
         <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
         <div class="categorias clearfix">
           {% for t in tags %}
-          <a class="categoria" href="/store/getproductsbytags?tags={{t['name']}}#contenedor">{{t['name']}}</a>
+          <a class="categoria" href="/store/getproductsbytags?tags={{t['name']}}">{{t['name']}}</a>
           {% end %}
         </div>
       </div>
       {% for d in data %}
-      <div onClick="window.location='/product/{{d['sku']}}';" class="cuerpo-producto clearfix">
+      <div onClick="window.location='/product/{{d['sku']}}';" class="cuerpo-producto clearfix contenedor_productos">
         <div class="producto-foto">
           <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
         </div>

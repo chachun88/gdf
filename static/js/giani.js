@@ -84,11 +84,15 @@ $(document).ready(function(){
 		console.log("completed fade");
 	});*/
 
-	$("#contenedor").css("opacity",0);
-	$("#contenedor").animate({
+	$(".contenedor_productos").css("opacity",0);
+	$(".contenedor_productos").animate({
 		opacity: 1
 	}, 2000, function() {
 		console.log("completed fade");
 	});	
+
+	$('html, body').animate({
+        scrollTop: $("#contenedor").offset().top
+    }, 500);
 
 });
