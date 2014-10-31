@@ -24,7 +24,6 @@
 </div>
 
 <script>
-    $(".paginador").pagination("destroy");
     $(".paginador").pagination({
         items: {{items}},
         itemsOnPage: 7,
@@ -32,6 +31,9 @@
         nextText: '>',
         currentPage: {{page}},
         hrefTextPrefix:'?page=',
-        hrefTextSuffix: '#contenedor'
+        hrefTextSuffix: '#contenedor',
+        onPageClick: function(pageNumber){
+          console.log(pageNumber);
+        }
     });
 </script>
