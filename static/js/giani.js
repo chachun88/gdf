@@ -77,4 +77,14 @@ $(document).ready(function(){
 
 	$("#same_address").trigger("change");
 
+
+	/*$( "body" ).animate({
+		opacity: 1
+	}, 5000, function() {
+		console.log("completed fade");
+	});*/
+
+	$("body").css("display","none");
+	$("body").fadeIn(2000);
+
 });
