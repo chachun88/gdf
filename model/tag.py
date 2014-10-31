@@ -28,16 +28,18 @@ class Tag(BaseModel):
 		items = int(items)
 		offset = (page-1)*items
 
-		query = '''select product_id from "Tag_Product" tp left join "Tag" t on t.id = tp.tag_id where t.name = any(%(tags)s)'''
+		query = '''select tp.product_id from "Tag_Product" tp left join "Tag" t on t.id = tp.tag_id where t.name = any(%(tags)s)'''
 		parameters = {
 		"tags":_tags
 		}
 
+		productos = []
+		id_productos = []
+
 		try:
 			cur.execute(query,parameters)
 			id_productos = cur.fetchall()
-
-			productos = []
+		
 
 			for p in id_productos:
 				productos.append(p['product_id'])
@@ -61,16 +63,18 @@ class Tag(BaseModel):
 				self.connection.close()
 
 		except Exception,e:
-			return self.ShowError("Error al lista de product_id por tags, {}".format(str(e)))
+			return self.ShowError("Error al listar product_id por tags, {}".format(str(e)))
 		finally:
 			cur.close()
 			self.connection.close()
+
+		
 
 	def GetItemsByTags(self,_tags):
 	
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-		query = '''select product_id from "Tag_Product" tp left join "Tag" t on t.id = tp.tag_id where t.name = any(%(tags)s)'''
+		query = '''select tp.product_id from "Tag_Product" tp left join "Tag" t on t.id = tp.tag_id where t.name = any(%(tags)s)'''
 		parameters = {
 		"tags":_tags
 		}
@@ -82,7 +86,7 @@ class Tag(BaseModel):
 			productos = []
 
 			for p in id_productos:
-				productos.append(p['id'])
+				productos.append(p['product_id'])
 
 			q = '''select count(*) as cantidad from "Product" where id = any(%(productos)s)'''
 			p = {
@@ -102,7 +106,7 @@ class Tag(BaseModel):
 				self.connection.close()
 
 		except Exception,e:
-			return self.ShowError("Error al lista de product_id por tags, {}".format(str(e)))
+			return self.ShowError("Error al listar product_id por tags, {}".format(str(e)))
 
 		finally:
 			cur.close()
