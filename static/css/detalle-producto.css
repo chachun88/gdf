@@ -883,6 +883,9 @@ margin-top: 18px;
 .main-container{
   width: 1100px;
 }
+#tabs-container{
+  margin-top: 10px;
+}
 .tabs-menu li{
   margin-right: 0;
 }
