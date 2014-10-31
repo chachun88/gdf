@@ -115,15 +115,7 @@ $(document).ready(function(){
 
 					$(".paginador").pagination('destroy');
 
-					$(".paginador").pagination({
-				        items: items,
-				        itemsOnPage: 7,
-				        prevText: '<',
-				        nextText: '>',
-				        currentPage: page,
-				        hrefTextPrefix:'?page=',
-				        hrefTextSuffix: '#contenedor'
-				    });
+					$(".paginador").pagination("redraw");
 
 				    $(".contenedor_productos").animate({
 						opacity: 1
