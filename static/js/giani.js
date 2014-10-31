@@ -80,6 +80,7 @@ $(document).ready(function(){
 
 
 	if($("#contenedor").length>0){
+		$(document).scrollTop(0);
 		$('html, body').animate({
 	        scrollTop: $("#contenedor").offset().top
 	    }, 1000);
