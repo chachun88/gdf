@@ -87,7 +87,7 @@ $(document).ready(function(){
 	$(".contenedor_productos").css("opacity",0);
 	$(".contenedor_productos").animate({
 		opacity: 1
-	}, 1000, function() {
+	}, 1500, function() {
 		console.log("completed fade");
 	});	
 
