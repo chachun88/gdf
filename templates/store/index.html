@@ -14,8 +14,8 @@ Giani Da Firenze - Home
       <img class="slide" src="/static/images/baner.png" data-rimage data-src="/static/images/baner.png">
     </div>
     <div class="slider-small">
-    <img class="slide" src="/static/images/banermovil.png" data-rimage data-src="/static/images/banermovil.png">
-  </div>
+      <img class="slide" src="/static/images/banermovil.png" data-rimage data-src="/static/images/banermovil.png">
+    </div>
     <div class="contenedor-productos clearfix" id="contenedor">
       <div class="cuerpo-categorias clearfix">
         <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
@@ -25,33 +25,36 @@ Giani Da Firenze - Home
           {% end %}
         </div>
       </div>
-      {% for d in data %}
-      <div onClick="window.location='/product/{{d['sku']}}';" class="cuerpo-producto clearfix contenedor_productos">
-        <div class="producto-foto">
-          <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
-        </div>
-        <div class="producto-info clearfix">
-          <p class="producto-nombre">{{d['name']}}</p>
-          <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>
-        </div>
+      <div id="ajax_productos">
+        {% for d in data %}
+        <div onClick="window.location='/product/{{d['sku']}}';" class="cuerpo-producto clearfix contenedor_productos">
+          <div class="producto-foto">
+            <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
+          </div>
+          <div class="producto-info clearfix">
+            <p class="producto-nombre">{{d['name']}}</p>
+            <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>
+          </div>
 
-        <div class="sobre-producto">
-          <div class="boton_comprar"><li><a href="/product/{{d['sku']}}">COMPRAR</a></li></div>
+          <div class="sobre-producto">
+            <div class="boton_comprar"><li><a href="/product/{{d['sku']}}">COMPRAR</a></li></div>
+          </div>
+          <span class="_button">
+            <p></p>
+          </span>
+          
         </div>
-        <span class="_button">
-          <p></p>
-        </span>
-        
-      </div>
-      {% end %}
-      <div class="paginador clearfix">
-        <!-- <p class="paginas">
-          <span>&lt;</span> &nbsp; 
-          <a href="/store?page=1"><span>1</span></a> &nbsp; 
-          <a href="/store?page=2"><span>2</span></a> &nbsp; 
-          <a href="/store?page=3"><span>3</span></a> &nbsp;
-          <span>... &gt;</span>
-        </p> -->
+        {% end %}
+
+        <div class="paginador clearfix">
+          <!-- <p class="paginas">
+            <span>&lt;</span> &nbsp; 
+            <a href="/store?page=1"><span>1</span></a> &nbsp; 
+            <a href="/store?page=2"><span>2</span></a> &nbsp; 
+            <a href="/store?page=3"><span>3</span></a> &nbsp;
+            <span>... &gt;</span>
+          </p> -->
+        </div>
       </div>
     </div>
   </div>

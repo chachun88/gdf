@@ -1,0 +1,22 @@
+{% for d in data %}
+<div onClick="window.location='/product/{{d['sku']}}';" class="cuerpo-producto clearfix contenedor_productos">
+  <div class="producto-foto">
+    <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
+  </div>
+  <div class="producto-info clearfix">
+    <p class="producto-nombre">{{d['name']}}</p>
+    <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>
+  </div>
+
+  <div class="sobre-producto">
+    <div class="boton_comprar"><li><a href="/product/{{d['sku']}}">COMPRAR</a></li></div>
+  </div>
+  <span class="_button">
+    <p></p>
+  </span>
+  
+</div>
+{% end %}
+
+<div class="paginador clearfix">
+</div>

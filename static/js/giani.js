@@ -84,7 +84,7 @@ $(document).ready(function(){
 		console.log("completed fade");
 	});*/
 
-	$(".contenedor_productos").css("opacity",0);
+	/*$(".contenedor_productos").css("opacity",0);
 	$(".contenedor_productos").animate({
 		opacity: 1
 	}, 1500, function() {
@@ -95,6 +95,46 @@ $(document).ready(function(){
 		$('html, body').animate({
 	        scrollTop: $("#contenedor").offset().top
 	    }, 1000);
-	}
+	}*/
+
+	$(document).on("click",".page-link",function(e){
+
+		e.preventDefault();
+
+		var url = $(this).attr("href");
+
+		$.ajax({
+			url: url,
+			data: "ajax=1",
+			type: "get",
+			success: function(respuesta){
+
+				objeto = $.parseJSON(respuesta);
+
+				console.log(objeto);
+
+				if(objeto.error){
+					alert(objeto.error);
+					
+				} else {
+
+					$("#ajax_productos").html(objeto.html);
+
+					var items = objeto.items;
+					var page = objeto.page
+
+					$(".paginador").pagination({
+				        items: items,
+				        itemsOnPage: 7,
+				        prevText: '<',
+				        nextText: '>',
+				        currentPage: page,
+				        hrefTextPrefix:'?page=',
+				        hrefTextSuffix: '#contenedor'
+				    });
+				}
+			}
+		});
+	});
 
 });

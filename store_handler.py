@@ -30,6 +30,7 @@ class IndexHandler(BaseHandler):
 	def get(self):
 		product = Product()
 		page = int(self.get_argument("page","1"))
+		ajax = int(self.get_argument("ajax",0))
 		lista = product.GetList(page,7)
 
 		items = 0
@@ -45,7 +46,10 @@ class IndexHandler(BaseHandler):
 		if "success" in tags_visibles:
 			tags = tags_visibles["success"]
 
-		self.render("store/index.html",data=lista,items=items,page=page,tags=tags)
+		if ajax == 0:
+			self.render("store/index.html",data=lista,items=items,page=page,tags=tags)
+		else:
+			self.write(json_util.dumps({"html":self.render_string("store/ajax_productos.html",data=lista,url_bodega=url_bodega,money_format=self.money_format),"items":items,"page":page}))
 
 	def post(self):
 
