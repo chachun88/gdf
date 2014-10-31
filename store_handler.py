@@ -49,7 +49,7 @@ class IndexHandler(BaseHandler):
 		if ajax == 0:
 			self.render("store/index.html",data=lista,items=items,page=page,tags=tags)
 		else:
-			self.write(json_util.dumps({"html":self.render_string("store/ajax_productos.html",data=lista,url_bodega=url_bodega,money_format=self.money_format),"items":items,"page":page}))
+			self.render("store/ajax_productos.html",data=lista,items=items,page=page,tags=tags)
 
 	def post(self):
 
