@@ -59,20 +59,3 @@ Giani Da Firenze - Home
     </div>
   </div>
 {% end %}
-{% block javascript %}
-<script src="/static/js/jquery.simplePagination.js"></script>
-<script>
-    $.ajax({
-      url: "/store",
-      data: "ajax=1",
-      type: "get",
-      success: function(respuesta){
-
-        $(".paginador").pagination("destroy");
-
-        $("#ajax_productos").html(respuesta);
-
-      }
-    });
-</script>
-{% end %}
