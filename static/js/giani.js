@@ -119,10 +119,7 @@ $(document).ready(function(){
 				} else {
 
 					$(".contenedor_productos").css("opacity",0);
-					$(".contenedor_productos").animate({
-						opacity: 1
-					}, 1500, function() {
-					});	
+						
 
 					$("#ajax_productos").html(objeto.html);
 
@@ -138,6 +135,11 @@ $(document).ready(function(){
 				        hrefTextPrefix:'?page=',
 				        hrefTextSuffix: '#contenedor'
 				    });
+
+				    $(".contenedor_productos").animate({
+						opacity: 1
+					}, 1500, function() {
+					});
 				}
 			}
 		});
