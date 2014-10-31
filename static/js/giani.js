@@ -113,6 +113,8 @@ $(document).ready(function(){
 					var items = objeto.items;
 					var page = objeto.page
 
+					$(".paginador").pagination('destroy');
+
 					$(".paginador").pagination({
 				        items: items,
 				        itemsOnPage: 7,
