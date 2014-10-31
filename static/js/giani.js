@@ -118,10 +118,9 @@ $(document).ready(function(){
 					
 				} else {
 
-					$(".contenedor_productos").css("opacity",0);
-						
-
 					$("#ajax_productos").html(objeto.html);
+
+					$(".contenedor_productos").css("opacity",0);
 
 					var items = objeto.items;
 					var page = objeto.page
