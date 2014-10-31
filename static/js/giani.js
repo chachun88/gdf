@@ -78,24 +78,12 @@ $(document).ready(function(){
 	$("#same_address").trigger("change");
 
 
-	/*$( "body" ).animate({
-		opacity: 1
-	}, 5000, function() {
-		console.log("completed fade");
-	});*/
-
-	/*$(".contenedor_productos").css("opacity",0);
-	$(".contenedor_productos").animate({
-		opacity: 1
-	}, 1500, function() {
-		console.log("completed fade");
-	});	
 
 	if($("#contenedor").length>0){
 		$('html, body').animate({
 	        scrollTop: $("#contenedor").offset().top
 	    }, 1000);
-	}*/
+	}
 
 	$(document).on("click",".page-link",function(e){
 
