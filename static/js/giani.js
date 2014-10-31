@@ -84,7 +84,11 @@ $(document).ready(function(){
 		console.log("completed fade");
 	});*/
 
-	$(document).css("display","none");
-	$(document).fadeIn(2000);
+	$("body").css("opacity",0);
+	$("body").animate({
+		opacity: 1
+	}, 5000, function() {
+		console.log("completed fade");
+	});	
 
 });
