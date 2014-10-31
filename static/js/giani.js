@@ -97,6 +97,8 @@ $(document).ready(function(){
 			type: "get",
 			success: function(respuesta){
 
+				$(".paginador").pagination("destroy");
+
 				$("#ajax_productos").html(respuesta);
 
 				/*objeto = $.parseJSON(respuesta);
