@@ -84,8 +84,8 @@ $(document).ready(function(){
 		console.log("completed fade");
 	});*/
 
-	$("body").css("opacity",0);
-	$("body").animate({
+	$("#contenedor").css("opacity",0);
+	$("#contenedor").animate({
 		opacity: 1
 	}, 2000, function() {
 		console.log("completed fade");
