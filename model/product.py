@@ -28,6 +28,8 @@ class Product(BaseModel):
 		self._upc = '' #articulo
 		self._price='' #precio compra
 		self._sell_price = 0 #precio venta
+		self._delivery = "" #delivery
+		self._which_size = "" #cual es tu talla
 
 	@property
 	def upc(self):
@@ -162,6 +164,21 @@ class Product(BaseModel):
 	def sell_price(self, value):
 	    self._sell_price = value
 
+	@property
+	def delivery(self):
+	    return self._delivery
+	@delivery.setter
+	def delivery(self, value):
+	    self._delivery = value
+	
+	@property
+	def which_size(self):
+	    return self._which_size
+	@which_size.setter
+	def which_size(self, value):
+	    self._which_size = value
+	
+
 	def GetList(self, page=1, items=30):
 
 		page = int(page)
@@ -216,6 +233,8 @@ class Product(BaseModel):
 				self.upc = producto['upc']
 				self.category = producto['category']
 				self.currency = producto['currency']
+				self.delivery = producto["delivery"]
+				self.which_size = producto["which_size"]
 
 				return self.ShowSuccessMessage("{}".format(self.id))
 			else:
@@ -260,6 +279,8 @@ class Product(BaseModel):
 				self.upc = producto['upc']
 				self.category = producto['category']
 				self.currency = producto['currency']
+				self.delivery = producto["delivery"]
+				self.which_size = producto["which_size"]
 
 				return self.ShowSuccessMessage("{}".format(self.id))
 			else:
