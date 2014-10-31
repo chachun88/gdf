@@ -227,6 +227,8 @@ class GetProductsByTagsHandler(BaseHandler):
 
 		if "success" in res:
 			items = int(res["success"])
+		else:
+			self.render("beauty_error.html",message=res["error"])
 
 		res = tag.GetProductsByTags(tags_arr,page)
 
