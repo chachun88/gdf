@@ -97,7 +97,9 @@ $(document).ready(function(){
 			type: "get",
 			success: function(respuesta){
 
-				objeto = $.parseJSON(respuesta);
+				$("#ajax_productos").html(respuesta);
+
+				/*objeto = $.parseJSON(respuesta);
 
 				console.log(objeto);
 
@@ -131,7 +133,7 @@ $(document).ready(function(){
 						opacity: 1
 					}, 1500, function() {
 					});
-				}
+				}*/
 			}
 		});
 	});

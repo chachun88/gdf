@@ -239,7 +239,8 @@ class GetProductsByTagsHandler(BaseHandler):
 			if ajax == 0:
 				self.render("store/index.html",data=res["success"],items=items,page=page,tags=tags)
 			else:
-				self.write(json_util.dumps({"html":self.render_string("store/ajax_productos.html",data=res["success"],url_bodega=url_bodega,money_format=self.money_format),"items":items,"page":page}))
+				self.render("store/ajax_productos.html",data=res["success"],items=items,page=page,tags=tags)
+				#self.write(json_util.dumps({"html":self.render_string("store/ajax_productos.html",data=res["success"],url_bodega=url_bodega,money_format=self.money_format),"items":items,"page":page}))
 		else:
 			self.render("beauty_error.html",message=res["error"])
 

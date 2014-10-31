@@ -1,3 +1,5 @@
+<script src="/static/js/jquery-min.js"></script>
+<script src="/static/js/jquery.simplePagination.js"></script>
 {% for d in data %}
 <div onClick="window.location='/product/{{d['sku']}}';" class="cuerpo-producto clearfix contenedor_productos">
   <div class="producto-foto">
@@ -20,3 +22,15 @@
 
 <div class="paginador clearfix">
 </div>
+
+<script>
+    $(".paginador").pagination({
+        items: {{items}},
+        itemsOnPage: 7,
+        prevText: '<',
+        nextText: '>',
+        currentPage: {{page}},
+        hrefTextPrefix:'?page=',
+        hrefTextSuffix: '#contenedor'
+    });
+</script>
