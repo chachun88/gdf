@@ -32,7 +32,8 @@
         currentPage: {{page}},
         hrefTextPrefix:'?page=',
         hrefTextSuffix: '#contenedor',
-        onPageClick: function(pageNumber){
+        onPageClick: function(pageNumber, e){
+          e.preventDefault();
           console.log(pageNumber);
         }
     });
