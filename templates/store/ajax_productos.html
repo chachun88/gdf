@@ -34,8 +34,14 @@
         hrefTextSuffix: '#contenedor',
         onPageClick: function(pageNumber, e){
           e.preventDefault();
-          var url = '{{request.uri}}';
-          console.log(url);
-        }
+          var url = '{{request.uri}}'+"&page="+pageNumber;
+          console.log(url+"&page="+pageNumber);
+          $.ajax({
+            url: url,
+            type: "get",
+            success: function(respuesta){
+              $("#ajax_productos").html(respuesta);
+              }
+          });
     });
 </script>
