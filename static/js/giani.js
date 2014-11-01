@@ -96,45 +96,9 @@ $(document).ready(function(){
 			data: "ajax=1",
 			type: "get",
 			success: function(respuesta){
-
-				$("#ajax_productos").html("");
+				$(".paginador").pagination("destroy");
+				$(".paginador").remove();
 				$("#ajax_productos").html(respuesta);
-
-				/*objeto = $.parseJSON(respuesta);
-
-				console.log(objeto);
-
-				if(objeto.error){
-					alert(objeto.error);
-					
-				} else {
-
-					$("#ajax_productos").html(objeto.html);
-
-					$(".contenedor_productos").css("opacity",0);
-
-					var items = objeto.items;
-					var page = objeto.page
-
-					$(".paginador").pagination('destroy');
-
-					$(".paginador").pagination({
-				        items: items,
-				        itemsOnPage: 7,
-				        prevText: '<',
-				        nextText: '>',
-				        currentPage: page,
-				        hrefTextPrefix:'?page=',
-				        hrefTextSuffix: '#contenedor'
-				    });
-
-				    $(".paginador").pagination("redraw");
-
-				    $(".contenedor_productos").animate({
-						opacity: 1
-					}, 1500, function() {
-					});
-				}*/
 			}
 		});
 	});
