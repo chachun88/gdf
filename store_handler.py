@@ -228,7 +228,7 @@ class GetProductsByTagsHandler(BaseHandler):
 		if "success" in res:
 			items = int(res["success"])
 
-		res = tag.GetProductsByTags(tags_arr,page)
+		res = tag.GetProductsByTags(tags_arr,page,7)
 
 		tags_visibles = tag.ListVisibleTags()
 
