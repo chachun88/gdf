@@ -34,7 +34,8 @@
         hrefTextSuffix: '#contenedor',
         onPageClick: function(pageNumber, e){
           e.preventDefault();
-          console.log({{request.uri}});
+          var url = '{{request.uri}}';
+          console.log(url);
         }
     });
 </script>
