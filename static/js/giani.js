@@ -97,7 +97,9 @@ $(document).ready(function(){
 			type: "get",
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
+				console.log("destroy");
 				$(".paginador").remove();
+				console.log("remove");
 				$("#ajax_productos").html(respuesta);
 			}
 		});
