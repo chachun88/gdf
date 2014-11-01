@@ -97,6 +97,7 @@ $(document).ready(function(){
 			type: "get",
 			success: function(respuesta){
 
+				$("#ajax_productos").html("");
 				$("#ajax_productos").html(respuesta);
 
 				/*objeto = $.parseJSON(respuesta);
