@@ -24,14 +24,15 @@
 </div>
 
 <script>
-
+    var str = '{{request.uri}}';
+    var new_str = str.replace(/page=\d+/i,"");
     $(".paginador").pagination({
         items: {{items}},
         itemsOnPage: 7,
         prevText: '<',
         nextText: '>',
         currentPage: {{page}},
-        hrefTextPrefix: '{{request.uri}}?page=',
+        hrefTextPrefix: new_str+'?page=',
         hrefTextSuffix: '#contenedor'
     });
 </script>
