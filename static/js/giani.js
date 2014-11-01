@@ -97,10 +97,13 @@ $(document).ready(function(){
 			type: "get",
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
-				console.log("destroy");
 				$(".paginador").remove();
-				console.log("remove");
 				$("#ajax_productos").html(respuesta);
+				$(".contenedor_productos").css("opacity",0);
+				$(".contenedor_productos").animate({
+                        opacity: 1
+                    }, 1500, function() {
+                });
 			}
 		});
 	});
