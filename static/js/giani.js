@@ -79,11 +79,11 @@ $(document).ready(function(){
 
 
 
-	if($("#contenedor").length>0){
+/*	if($("#contenedor").length>0){
 		$("body").animate({
 	        scrollTop: $("#contenedor").offset().top
 	    }, 1000);
-	}
+	}*/
 
 	$(document).on("click",".page-link",function(e){
 
