@@ -22,3 +22,27 @@
 
 <div class="paginador clearfix">
 </div>
+
+<script>
+    $(".paginador").pagination({
+        items: {{items}},
+        itemsOnPage: 7,
+        prevText: '<',
+        nextText: '>',
+        currentPage: {{page}},
+        hrefTextPrefix:'?page=',
+        hrefTextSuffix: '#contenedor',
+        onPageClick: function(pageNumber, e){
+          e.preventDefault();
+          var url = '{{request.uri}}'+"&page="+pageNumber;
+          console.log(url+"&page="+pageNumber);
+          $.ajax({
+            url: url,
+            type: "get",
+            success: function(respuesta){
+              $("#ajax_productos").html(respuesta);
+              }
+          });
+        }
+    });
+</script>
