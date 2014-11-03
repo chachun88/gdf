@@ -402,10 +402,10 @@ class ExitoHandler(BaseHandler):
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
         pathSubmit = "http://giani.ondev.today"
 
-        referer = self.request.headers.get('Referer').replace(self.request.headers.get('Origin'),"")
+        # referer = self.request.headers.get('Referer').replace(self.request.headers.get('Origin'),"")
 
-        if referer != "/xt_compra":
-            self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
+        # if referer != "/xt_compra":
+        #     self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
 
         order = Order()
         init_by_id = order.InitById(TBK_ORDEN_COMPRA)
@@ -413,6 +413,8 @@ class ExitoHandler(BaseHandler):
         if "success" in init_by_id:
             if int(order.state) == 1:
                 self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
+        else:
+            self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
 
         
         if os.name != "nt":
