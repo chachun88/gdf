@@ -94,7 +94,8 @@ $(document).ready(function(){
 		$.ajax({
 			url: url,
 			data: "ajax=1",
-			type: "get"success: function(respuesta){
+			type: "get",
+			success: function(respuesta){
 				$(".paginador").pagination("destroy");
 				$(".paginador").remove();
 				$("#ajax_productos").html(respuesta);
