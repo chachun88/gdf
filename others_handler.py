@@ -614,7 +614,7 @@ class ExitoHandler(BaseHandler):
                     <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{email}</td>
                 </tr>
             </table>
-            """.format(order_id=order.id,name=despacho["name"].encode("utf-8"),address=despacho["address"].encode("utf-8"),town="",city=despacho["city"].encode("utf-8"),country="",telephone=despacho["telephone"],email=despacho["email"])
+            """.format(order_id=order.id,name=despacho["name"],address=despacho["address"],town="",city=despacho["city"],country="",telephone=despacho["telephone"],email=despacho["email"])
 
             html = """\
             <!DOCTYPE html>
