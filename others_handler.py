@@ -538,7 +538,7 @@ class ExitoHandler(BaseHandler):
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {price}</td>
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {subtotal}</td>
                         </tr>
-                    """.format(name=l["name"].encode("utf-8"),size=l["size"],quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]),subtotal=self.money_format(l["subtotal"]))
+                    """.format(name=l["name"].encode("utf-8"),size=l["size"].encode("utf-8"),quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]).encode("utf-8"),subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
 
                 cart = Cart()
                 cart.user_id = self.current_user["id"]
