@@ -94,19 +94,15 @@ $(document).ready(function(){
 		$.ajax({
 			url: url,
 			data: "ajax=1",
-			type: "get",
-			beforeSend: function(){
-				$(".contenedor_productos").css("opacity",0);
-			},
-			success: function(respuesta){
+			type: "get"success: function(respuesta){
 				$(".paginador").pagination("destroy");
 				$(".paginador").remove();
 				$("#ajax_productos").html(respuesta);
-				$(".contenedor_productos").css("opacity",0);
+				/*$(".contenedor_productos").css("opacity",0);
 				$(".contenedor_productos").animate({
                         opacity: 1
                     }, 1500, function() {
-                });
+                });*/
 			}
 		});
 
