@@ -586,7 +586,7 @@ class ExitoHandler(BaseHandler):
                         <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{email}</td>
                     </tr>
                 </table>
-                """.format(order_id=order.id,name=facturacion["name"].encode("iso-8859-1"),address=facturacion["address"].encode("iso-8859-1"),town="",city=facturacion["city"].encode("iso-8859-1"),country="",telephone=facturacion["telephone"],email=facturacion["email"])
+                """.format(order_id=order.id,name=unicode(facturacion["name"]).encode("utf-8"),address=unicode(facturacion["address"]).encode("utf-8"),town="",city=unicode(facturacion["city"]).encode("utf-8"),country="",telephone=facturacion["telephone"],email=facturacion["email"])
 
                 datos_despacho = """\
                 <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
@@ -614,7 +614,7 @@ class ExitoHandler(BaseHandler):
                         <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{email}</td>
                     </tr>
                 </table>
-                """.format(order_id=order.id,name=despacho["name"].encode("iso-8859-1"),address=despacho["address"].encode("iso-8859-1"),town="",city=despacho["city"].encode("iso-8859-1"),country="",telephone=despacho["telephone"],email=despacho["email"])
+                """.format(order_id=order.id,name=unicode(despacho["name"]).encode("utf-8"),address=unicode(despacho["address"]).encode("utf-8"),town="",city=unicode(despacho["city"]).encode("utf-8"),country="",telephone=despacho["telephone"],email=despacho["email"])
 
                 html = """\
                 <!DOCTYPE html>
