@@ -95,6 +95,9 @@ $(document).ready(function(){
 			url: url,
 			data: "ajax=1",
 			type: "get",
+			beforeSend: function(){
+				$(".contenedor_productos").css("opacity",0);
+			},
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
 				$(".paginador").remove();
