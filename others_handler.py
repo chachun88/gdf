@@ -549,6 +549,7 @@ class ExitoHandler(BaseHandler):
 
                 if "success" in facturacion_response:
                     facturacion = facturacion_response["success"]
+                    print "FACTURACION:        ".format(facturacion["address"].encode("utf-8"))
                 else:
                     self.render("beauty_error.html",message="Error al obtener datos de facturación, {}".format(facturacion_response["error"]))
 
@@ -588,7 +589,7 @@ class ExitoHandler(BaseHandler):
                 </table>
                 """.format(order_id=order.id,name=facturacion["name"].encode("utf-8"),address=facturacion["address"].encode("utf-8"),town="",city=facturacion["city"].encode("utf-8"),country="",telephone=facturacion["telephone"],email=facturacion["email"])
 
-                print facturacion["address"].encode("utf-8")
+
 
                 datos_despacho = """\
                 <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
