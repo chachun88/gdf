@@ -549,7 +549,7 @@ class ExitoHandler(BaseHandler):
 
                 if "success" in facturacion_response:
                     facturacion = facturacion_response["success"]
-                    print "FACTURACION:        ".format(facturacion["address"].encode("utf-8"))
+                    print "FACTURACION:        ".format(repr(facturacion["address"].encode("utf-8")))
                 else:
                     self.render("beauty_error.html",message="Error al obtener datos de facturación, {}".format(facturacion_response["error"]))
 
