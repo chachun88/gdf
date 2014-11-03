@@ -538,7 +538,7 @@ class ExitoHandler(BaseHandler):
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {price}</td>
                             <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {subtotal}</td>
                         </tr>
-                    """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]),subtotal=self.money_format(l["subtotal"]))
+                    """.format(name=l["name"].encode("utf-8"),size=l["size"],quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]),subtotal=self.money_format(l["subtotal"]))
 
                 cart = Cart()
                 cart.user_id = self.current_user["id"]
@@ -549,7 +549,6 @@ class ExitoHandler(BaseHandler):
 
                 if "success" in facturacion_response:
                     facturacion = facturacion_response["success"]
-                    print "FACTURACION:        ".format(repr(facturacion["address"].encode("utf-8")))
                 else:
                     self.render("beauty_error.html",message="Error al obtener datos de facturación, {}".format(facturacion_response["error"]))
 
@@ -588,8 +587,6 @@ class ExitoHandler(BaseHandler):
                     </tr>
                 </table>
                 """.format(order_id=order.id,name=facturacion["name"].encode("utf-8"),address=facturacion["address"].encode("utf-8"),town="",city=facturacion["city"].encode("utf-8"),country="",telephone=facturacion["telephone"],email=facturacion["email"])
-
-
 
                 datos_despacho = """\
                 <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
