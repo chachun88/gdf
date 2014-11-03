@@ -95,14 +95,18 @@ $(document).ready(function(){
 			url: url,
 			data: "ajax=1",
 			type: "get",
+			beforeSend: function(){
+				$("#ajax_productos").fadeOut();
+			},
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
 				$(".paginador").remove();
 				$("#ajax_productos").html(respuesta);
-				/*$(".contenedor_productos").css("opacity",0);
-				$(".contenedor_productos").animate({
+				$("#ajax_productos").fadeIn();
+				
+				/*$("#ajax_productos").animate({
                         opacity: 1
-                    }, 1500, function() {
+                    }, 3000, function() {
                 });*/
 			}
 		});
