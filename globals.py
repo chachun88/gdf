@@ -48,7 +48,7 @@ if enviroment == Enviroment.LOCAL:
 	facebook_api_key = "839778829389863"
 	facebook_secret = "5e533cd56091707c73e88c2113ffb13d"
 
-	email_giani = "contact@loadingplay.com"
+	email_giani = "yi.neko@gmail.com"
 
 elif enviroment == Enviroment.ONDEV:
 	port = DEBUG_PORT
@@ -58,7 +58,7 @@ elif enviroment == Enviroment.ONDEV:
 	facebook_api_key = "839753546059058"
 	facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
 
-	email_giani = "contact@loadingplay.com"
+	email_giani = "yi.neko@gmail.com"
 
 	# define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
 	# define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
@@ -94,9 +94,9 @@ define("facebook_secret", help="your Facebook application secret", default=faceb
 define("port", default=port, help="run on the given port", type=int)
 define("protocol", default="https", help="run on the given port", type=str)
 
-define("email", help="remitente email", default="ricardo.silva.16761@gmail.com")
-define("user", help="cuenta usuario remitente", default="ricardo.silva.16761@gmail.com")
-define("password", help="clave remitente", default="yichunTAM")
+define("email", help="remitente email", default="info@loadingplay.com")
+define("user", help="cuenta usuario remitente", default="info@loadingplay.com")
+define("password", help="clave remitente", default="loadingplay007")
 
 
 print "Debug Mode:{} Port:{}".format(debugMode,port)
