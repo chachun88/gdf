@@ -1,8 +1,25 @@
 $(document).ready(function(){
 
 	$(".carritoicono").click(function(){
-		$(".carritoproductos").slideToggle();
+		if($(".carritoproductos").css("display")=="none"){
+			$(".carritoproductos").slideDown();
+		} else {
+			$(".carritoproductos").slideUp();
+		}
 	});
+
+	$("body").mouseup(function (e)
+	{
+		var container = $(".carritoproductos");
+
+	    if (!container.is(e.target) // if the target of the click isn't the container...
+	        && container.has(e.target).length === 0) // ... nor a descendant of the container
+	    {
+	    	if(!$(".fancybox-overlay").length)
+	    		container.slideUp();
+	    }
+	});
+
 
 
 	if(typeof(Storage) !== "undefined") {
