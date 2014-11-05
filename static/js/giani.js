@@ -92,15 +92,17 @@ $(document).ready(function(){
 		location.href="/checkout/address";
 	});
 
-	$("#same_address").trigger("change");
-
-
-
-/*	if($("#contenedor").length>0){
-		$("body").animate({
+	if($("#contenedor").length>0){
+		$("body,html").animate({
 	        scrollTop: $("#contenedor").offset().top
 	    }, 1000);
-	}*/
+	}
+
+	if($("div.userInfo").length>0){
+		$("body,html").animate({
+	        scrollTop: $("div.userInfo").offset().top
+	    }, 1000);
+	}
 
 	$(document).on("click",".page-link",function(e){
 
@@ -130,5 +132,7 @@ $(document).ready(function(){
 
 		return false;
 	});
+
+
 
 });

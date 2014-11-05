@@ -47,7 +47,8 @@ $(document).ready(function(){
 	};
 
 	$("#size").change(size_changed);
-	$("#size").trigger( "change" )
+	$("#size").trigger( "change" );
+
 	//$("#size").ready(size_changed);
 
 
@@ -78,6 +79,8 @@ $(document).ready(function(){
 			$("#formulario_direccion").fadeIn();
 		}
 	});
+
+	$("#same_address").trigger("change");
 
 	$("img.otro-angulo").click(function(){
 		var image_src = $(this).attr("data-src");
