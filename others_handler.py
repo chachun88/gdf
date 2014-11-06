@@ -27,6 +27,7 @@ from model.order_detail import OrderDetail
 from model.kardex import Kardex
 from model.product import Product
 from model.contact import Contact
+from model.webpay import Webpay
 
 class ContactHandler(BaseHandler):
 
@@ -297,7 +298,23 @@ class XtCompraHandler(BaseHandler):
                     # rechaza si no puede actualizar la orden
                     if "error" in save_order:
                         acepta = False
-
+                        
+                    webpay = Webpay()
+                    webpay.order_id = order.id
+                    webpay.TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA")
+                    webpay.TBK_TIPO_TRANSACCION = self.get_argument("TBK_TIPO_TRANSACCION")
+                    webpay.TBK_MONTO = self.get_argument("TBK_MONTO")
+                    webpay.TBK_CODIGO_AUTORIZACION = self.get_argument("TBK_CODIGO_AUTORIZACION")
+                    webpay.TBK_FINAL_NUMERO_TARJETA = self.get_argument("TBK_FINAL_NUMERO_TARJETA")
+                    webpay.TBK_FECHA_CONTABLE = self.get_argument("TBK_FECHA_CONTABLE")
+                    webpay.TBK_FECHA_TRANSACCION = self.get_argument("TBK_FECHA_TRANSACCION")
+                    webpay.TBK_HORA_TRANSACCION = self.get_argument("TBK_HORA_TRANSACCION")
+                    webpay.TBK_ID_SESION = self.get_argument("TBK_ID_SESION")
+                    webpay.TBK_ID_TRANSACCION = self.get_argument("TBK_ID_TRANSACCION")
+                    webpay.TBK_TIPO_PAGO = self.get_argument("TBK_TIPO_PAGO")
+                    webpay.TBK_NUMERO_CUOTAS = self.get_argument("TBK_NUMERO_CUOTAS")
+                    webpay.Save()
+            
 
         if acepta:
             # print "si acepto"
@@ -426,7 +443,7 @@ class ExitoHandler(BaseHandler):
             myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt".format(TBK_ID_SESION)
 
         try:
-            
+
             f = open(myPath,"r")
             linea = ""
 
