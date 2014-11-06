@@ -279,21 +279,24 @@ class XtCompraHandler(BaseHandler):
             else:
                 acepta = False
 
-        order = Order()
-        init_by_id = order.InitById(TBK_ORDEN_COMPRA)
 
-        
-        if "success" in init_by_id:
-            # rechaza si orden no esta pendiente
-            if order.state != 1:
-                acepta = False
-            # si esta pendiente actualizar a pagado
-            elif order.state == 1:
-                order.state = 2
-                save_order = order.Edit()
-                # rechaza si no puede actualizar la orden
-                if "error" in save_order:
+        if acepta:
+            
+            order = Order()
+            init_by_id = order.InitById(TBK_ORDEN_COMPRA)
+
+            
+            if "success" in init_by_id:
+                # rechaza si orden no esta pendiente
+                if order.state != 1:
                     acepta = False
+                # si esta pendiente actualizar a pagado
+                elif order.state == 1:
+                    order.state = 2
+                    save_order = order.Edit()
+                    # rechaza si no puede actualizar la orden
+                    if "error" in save_order:
+                        acepta = False
 
 
         if acepta:
