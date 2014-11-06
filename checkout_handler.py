@@ -192,8 +192,8 @@ class CheckoutBillingHandler(BaseHandler):
                     if shipping.charge_type == 1:
                         costo_despacho = shipping.price * items
                     else:
-                        costo_despacho = shipping_price
-                        
+                        costo_despacho = shipping.price
+
                     self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion,cities=cities,costo_despacho=costo_despacho)
         else:
 

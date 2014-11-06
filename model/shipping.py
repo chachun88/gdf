@@ -263,8 +263,9 @@ class Shipping(BaseModel):
 
             try:
                 cur.execute(query,parameters)
-                self.price = cur.fetchone()["price"]
-                self.charge_type = cur.fetchone()["charge_type"]
+                s = cur.fetchone()
+                self.price = s["price"]
+                self.charge_type = s["charge_type"]
                 return self.ShowSuccessMessage(self.price)
             except Exception,e:
                 return self.ShowError(str(e))
