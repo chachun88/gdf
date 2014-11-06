@@ -142,7 +142,7 @@ class CheckoutBillingHandler(BaseHandler):
             else:
 
                 
-
+                items = 0
                 suma = 0
 
                 for l in lista:
@@ -156,6 +156,7 @@ class CheckoutBillingHandler(BaseHandler):
                         print response_obj["error"]
 
                     suma += l["subtotal"]
+                    items += l["quantity"]
 
                 contactos = []
                 cities = []
@@ -188,7 +189,12 @@ class CheckoutBillingHandler(BaseHandler):
                 if "error" in res:
                     self.render("beauty_error.html",message="Error al calcular costo de despacho, {}".format(res["error"]))
                 else:
-                    self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion,cities=cities,costo_despacho=shipping.price)
+                    if shipping.charge_type == 1:
+                        costo_despacho = shipping.price * items
+                    else:
+                        costo_despacho = shipping_price
+                        
+                    self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion,cities=cities,costo_despacho=costo_despacho)
         else:
 
             self.redirect("/auth/login")

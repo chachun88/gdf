@@ -68,12 +68,20 @@ class Shipping(BaseModel):
     def edited(self, value):
         self._edited = value
 
+    @property
+    def charge_type(self):
+        return self._charge_type
+    @charge_type.setter
+    def charge_type(self, value):
+        self._charge_type = value
+    
+
     def List(self):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         try:
-            cur.execute('''select s.id,c.name as origen, c2.name as destino, s.correos_price, s.chilexpress_price, s.price, s.edited from "Shipping" s left join "City" c on c.id = s.from_city_id left join "City" c2 on c2.id = s.to_city_id''')
+            cur.execute('''select s.id,c.name as origen, c2.name as destino, s.correos_price, s.chilexpress_price, s.price, s.edited, s.charge_type from "Shipping" s left join "City" c on c.id = s.from_city_id left join "City" c2 on c2.id = s.to_city_id''')
             lista = cur.fetchall()
             return self.ShowSuccessMessage(lista)
         except Exception,e:
@@ -87,7 +95,7 @@ class Shipping(BaseModel):
         if self.identifier != 0:
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-            query = '''update "Shipping" set from_city_id = %(from_city_id)s, to_city_id = %(to_city_id)s, correos_price = %(correos_price)s, chilexpress_price = %(chilexpress_price)s, price = %(price)s, edited = %(edited)s where id = %(id)s'''
+            query = '''update "Shipping" set from_city_id = %(from_city_id)s, to_city_id = %(to_city_id)s, correos_price = %(correos_price)s, chilexpress_price = %(chilexpress_price)s, price = %(price)s, edited = %(edited)s, charge_type = %(charge_type)s where id = %(id)s'''
             parameters = {
             "id":self.identifier,
             "from_city_id":self.from_city_id,
@@ -95,7 +103,8 @@ class Shipping(BaseModel):
             "correos_price":self.correos_price,
             "chilexpress_price":self.chilexpress_price,
             "price":self.price,
-            "edited":self.edited
+            "edited":self.edited,
+            "charge_type":self.charge_type
             }
 
             try:
@@ -111,14 +120,15 @@ class Shipping(BaseModel):
         else:
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-            query = '''insert into "Shipping" (from_city_id,to_city_id,correos_price,chilexpress_price,price,edited) values (%(from_city_id)s,%(to_city_id)s,%(correos_price)s,%(chilexpress_price)s,%(price)s,%(edited)s) returning id'''
+            query = '''insert into "Shipping" (from_city_id,to_city_id,correos_price,chilexpress_price,price,edited,charge_type) values (%(from_city_id)s,%(to_city_id)s,%(correos_price)s,%(chilexpress_price)s,%(price)s,%(edited)s,%(charge_type)s) returning id'''
             parameters = {
             "from_city_id":self.from_city_id,
             "to_city_id":self.to_city_id,
             "correos_price":self.correos_price,
             "chilexpress_price":self.chilexpress_price,
             "price":self.price,
-            "edited":self.edited
+            "edited":self.edited,
+            "charge_type":self.charge_type
             }
 
             try:
@@ -245,7 +255,7 @@ class Shipping(BaseModel):
         if self.from_city_id != 0 and self.to_city_id != 0:
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-            query = '''select price from "Shipping" where from_city_id = %(from_city_id)s and to_city_id = %(to_city_id)s'''
+            query = '''select price, charge_type from "Shipping" where from_city_id = %(from_city_id)s and to_city_id = %(to_city_id)s'''
             parameters = {
             "from_city_id":self.from_city_id,
             "to_city_id":self.to_city_id
@@ -254,6 +264,7 @@ class Shipping(BaseModel):
             try:
                 cur.execute(query,parameters)
                 self.price = cur.fetchone()["price"]
+                self.charge_type = cur.fetchone()["charge_type"]
                 return self.ShowSuccessMessage(self.price)
             except Exception,e:
                 return self.ShowError(str(e))
