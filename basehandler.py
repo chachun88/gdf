@@ -60,9 +60,9 @@ class BaseHandler(tornado.web.RequestHandler):
 
     def money_format(self, value):
 
-        if os.name != "nt":
-            locale.setlocale( locale.LC_NUMERIC, 'es_ES.utf8' )
-        else:
+        if os.name == "posix":
+            locale.setlocale( locale.LC_NUMERIC, 'es_ES.UTF-8' )
+        elif os.name == "nt":
             locale.setlocale( locale.LC_NUMERIC, 'Spanish_Spain.1252' )
         return locale.format('%d', value, True)
 
