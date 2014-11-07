@@ -121,7 +121,7 @@ $(document).ready(function(){
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
 				$(".paginador").remove();
-				$("#ajax_productos").html(respuesta).delay(1000).fadeIn();
+				$("#ajax_productos").html(respuesta).delay(200).fadeIn();
 				console.log("fade in");
 				
 				/*$("#ajax_productos").animate({
