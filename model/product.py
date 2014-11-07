@@ -334,3 +334,49 @@ class Product(BaseModel):
 			return self.ShowSuccessMessage(total_items)
 		except Exception,e:
 			return self.ShowError(str(e))
+
+	def GetProductCatNameColor(self,cat,name,color):
+
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+		q = '''select p.*,c.name as category from "Product" p left join "Category" c on c.id = p.category_id where p.name = %(name)s and c.name = %(cat)s and p.color = %(color)s limit 1'''
+		p = {
+		"name":name,
+		"cat":cat,
+		"color":color
+		}
+		try:
+			cur.execute(q,p)
+			producto = cur.fetchone()
+
+			if cur.rowcount > 0:
+				self.id = producto['id']
+				self.name = producto['name']
+				self.price = producto['price']
+				self.sell_price = producto['sell_price']
+				self.image = producto['image']
+				self.image_2 = producto['image_2']
+				self.image_3 = producto['image_3']
+				self.bullet_1 = producto['bullet_1']
+				self.bullet_2 = producto['bullet_2']
+				self.bullet_3 = producto['bullet_3']
+				self.sku = producto['sku']
+				self.description = producto['description']
+				self.size = producto['size']
+				self.color = producto['color']
+				self.material = producto['material']
+				self.manufacturer = producto['manufacturer']
+				self.upc = producto['upc']
+				self.category = producto['category']
+				self.currency = producto['currency']
+				self.delivery = producto["delivery"]
+				self.which_size = producto["which_size"]
+
+				return self.ShowSuccessMessage("{}".format(self.id))
+			else:
+				return self.ShowError("product not found")
+		except Exception,e:
+			return self.ShowError("product cannot be initialized:{}".format(str(e)))
+		finally:
+			cur.close()
+			self.connection.close()

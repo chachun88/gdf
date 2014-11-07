@@ -58,7 +58,7 @@ class IndexHandler(BaseHandler):
 
 class ProductHandler(BaseHandler):
 
-	def get(self,category,name,sku="",color=""):
+	def get(self,category,name,color=""):
 
 		id_bodega = cellar_id
 		cellar = Cellar()
@@ -72,7 +72,7 @@ class ProductHandler(BaseHandler):
 
 		if sku != "":
 
-			response_obj = prod.InitBySku(sku)
+			response_obj = prod.GetProductCatNameColor(category,name,color)
 
 			if "error" in response_obj:
 				self.render("error.html",msg="Producto no encontrado, error:{}".format(producto["error"]))
