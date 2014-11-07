@@ -58,7 +58,7 @@ class IndexHandler(BaseHandler):
 
 class ProductHandler(BaseHandler):
 
-	def get(self,category,name,color=""):
+	def get(self,category,name,color):
 
 		id_bodega = cellar_id
 		cellar = Cellar()
@@ -70,45 +70,41 @@ class ProductHandler(BaseHandler):
 		# sku = self.get_argument("sku","")
 		prod = Product()
 
-		if sku != "":
+		response_obj = prod.GetProductCatNameColor(category,name,color)
 
-			response_obj = prod.GetProductCatNameColor(category,name,color)
-
-			if "error" in response_obj:
-				self.render("error.html",msg="Producto no encontrado, error:{}".format(producto["error"]))
-			else:
-
-				tallas_disponibles = []
-
-				for s in prod.size:
-
-					kardex = Kardex()
-					response_obj = kardex.GetUnitsBySize(prod.sku,id_bodega,s)
-
-					if "success" in response_obj:
-						if kardex.balance_units > 0:
-							tallas_disponibles.append(s)
-					# else:
-					# 	self.write(json_util.dumps(response_obj["error"]))
-
-				prod.size = tallas_disponibles
-
-				vote = Vote()
-				print "PRODUCT ID:{}".format(prod.id)
-				res = vote.GetVotes(prod.id)
-				votos = 0
-
-				combinaciones = prod.GetCombinations(prod.name)
-				relacionados = prod.GetRandom()
-
-				
-
-				if "success" in res:
-					votos = res["success"]
-
-				self.render("store/detalle-producto.html",data=prod,combinations=combinaciones,related=relacionados,votos=votos)
+		if "error" in response_obj:
+			self.render("error.html",msg="Producto no encontrado, error:{}".format(producto["error"]))
 		else:
-			self.render("error.html",msg="Producto no encontrado")
+
+			tallas_disponibles = []
+
+			for s in prod.size:
+
+				kardex = Kardex()
+				response_obj = kardex.GetUnitsBySize(prod.sku,id_bodega,s)
+
+				if "success" in response_obj:
+					if kardex.balance_units > 0:
+						tallas_disponibles.append(s)
+				# else:
+				# 	self.write(json_util.dumps(response_obj["error"]))
+
+			prod.size = tallas_disponibles
+
+			vote = Vote()
+			print "PRODUCT ID:{}".format(prod.id)
+			res = vote.GetVotes(prod.id)
+			votos = 0
+
+			combinaciones = prod.GetCombinations(prod.name)
+			relacionados = prod.GetRandom()
+
+			
+
+			if "success" in res:
+				votos = res["success"]
+
+			self.render("store/detalle-producto.html",data=prod,combinations=combinaciones,related=relacionados,votos=votos)
 
 class AddToCartHandler(BaseHandler):
 
