@@ -28,7 +28,7 @@ class Tag(BaseModel):
 		items = int(items)
 		offset = (page-1)*items
 
-		query = '''select tp.product_id from "Tag_Product" tp left join "Tag" t on t.id = tp.tag_id where t.name = any(%(tags)s)'''
+		query = '''select tp.product_id from "Tag_Product" tp left join "Tag" t on t.id = tp.tag_id left join "Product" p on p.id = tp.product_id where t.name = any(%(tags)s) and p.for_sale = 1'''
 		parameters = {
 		"tags":_tags
 		}
@@ -74,7 +74,7 @@ class Tag(BaseModel):
 	
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-		query = '''select tp.product_id from "Tag_Product" tp left join "Tag" t on t.id = tp.tag_id where t.name = any(%(tags)s)'''
+		query = '''select tp.product_id from "Tag_Product" tp left join "Tag" t on t.id = tp.tag_id left join "Product" p on p.id = tp.product_id where t.name = any(%(tags)s) and p.for_sale = 1'''
 		parameters = {
 		"tags":_tags
 		}
