@@ -115,14 +115,12 @@ $(document).ready(function(){
 			data: "ajax=1",
 			type: "get",
 			beforeSend: function(){
-				$("#ajax_productos").fadeOut().hide();
-				console.log("fade out");
+				$("#ajax_productos").fadeOut(200).hide();
 			},
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
 				$(".paginador").remove();
-				$("#ajax_productos").html(respuesta).delay(200).fadeIn();
-				console.log("fade in");
+				$("#ajax_productos").html(respuesta).delay(100).fadeIn(200);
 				
 				/*$("#ajax_productos").animate({
                         opacity: 1
