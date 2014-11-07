@@ -35,6 +35,18 @@
 .icon-thumbs-up-alt {
 	color: rgb(215, 106, 96);
 }
+#ajax_productos{
+	-webkit-transition: opacity 0.25s ease-in;
+	-moz-transition: opacity 0.25s ease-in;
+	-o-transition: opacity 0.25s ease-in;
+	transition: opacity 0.25s ease-in;
+}
+#ajax_productos.active{
+	opacity: 1;
+}
+#ajax_productos.disable{
+	opacity: 0;
+}
 @media(max-width: 479px) {
 .slider {
 	display: none;
