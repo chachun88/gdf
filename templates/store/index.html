@@ -20,8 +20,9 @@ Giani Da Firenze - Home
       <div class="cuerpo-categorias clearfix">
         <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
         <div class="categorias clearfix">
+        <div class="espacio_superior"></div>
           {% for t in tags %}
-          <a class="categoria page-link" href="/store/getproductsbytags?tags={{t['name']}}#contenedor">{{t['name']}}</a>
+          <a class="categoria page-link activo" href="/store/getproductsbytags?tags={{t['name']}}#contenedor">{{t['name']}}</a>
           {% end %}
         </div>
       </div>
