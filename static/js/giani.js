@@ -115,14 +115,14 @@ $(document).ready(function(){
 			data: "ajax=1",
 			type: "get",
 			beforeSend: function(){
-				$("#ajax_productos").fadeOut();
+				$("#ajax_productos").fadeOut().hide();
 				console.log("fade out");
 			},
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
 				$(".paginador").remove();
 				$("#ajax_productos").html(respuesta);
-				$("#ajax_productos").hide().fadeIn();
+				$("#ajax_productos").fadeIn();
 				console.log("fade in");
 				
 				/*$("#ajax_productos").animate({
