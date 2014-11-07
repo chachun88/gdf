@@ -116,12 +116,14 @@ $(document).ready(function(){
 			type: "get",
 			beforeSend: function(){
 				$("#ajax_productos").fadeOut();
+				console.log("fade out");
 			},
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
 				$(".paginador").remove();
 				$("#ajax_productos").html(respuesta);
 				$("#ajax_productos").fadeIn();
+				console.log("fade in");
 				
 				/*$("#ajax_productos").animate({
                         opacity: 1
