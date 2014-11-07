@@ -36,10 +36,10 @@
 	color: rgb(215, 106, 96);
 }
 #ajax_productos{
-	-webkit-transition: opacity 0.25s ease-in;
-	-moz-transition: opacity 0.25s ease-in;
-	-o-transition: opacity 0.25s ease-in;
-	transition: opacity 0.25s ease-in;
+	-webkit-transition: opacity 0.1s ease-in;
+	-moz-transition: opacity 0.1s ease-in;
+	-o-transition: opacity 0.1s ease-in;
+	transition: opacity 0.1s ease-in;
 }
 #ajax_productos.active{
 	opacity: 1;
