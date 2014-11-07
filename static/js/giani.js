@@ -121,8 +121,7 @@ $(document).ready(function(){
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
 				$(".paginador").remove();
-				$("#ajax_productos").html(respuesta);
-				$("#ajax_productos").fadeIn();
+				$("#ajax_productos").html(respuesta).delay(1000).fadeIn();
 				console.log("fade in");
 				
 				/*$("#ajax_productos").animate({
