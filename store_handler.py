@@ -58,7 +58,7 @@ class IndexHandler(BaseHandler):
 
 class ProductHandler(BaseHandler):
 
-	def get(self,sku=""):
+	def get(self,category,name,sku="",color=""):
 
 		id_bodega = cellar_id
 		cellar = Cellar()
