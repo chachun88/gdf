@@ -312,7 +312,7 @@ class Product(BaseModel):
 	def GetRandom(self):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-		q = '''SELECT * FROM "Product" OFFSET random()*(select count(*) from "Product") where for_sale = 1 LIMIT 4'''
+		q = '''SELECT * FROM "Product" where for_sale = 1 OFFSET random()*(select count(*) from "Product") LIMIT 4'''
 		try:
 			cur.execute(q)
 			randomized = cur.fetchall()
