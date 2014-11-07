@@ -59,6 +59,13 @@ class ProductHandler(BaseHandler):
 
 	def get(self,sku=""):
 
+		id_bodega = cellar_id
+		cellar = Cellar()
+		res_cellar = cellar.GetWebCellar()
+
+		if "success" in res_cellar:
+			id_bodega = res_cellar["success"]
+
 		# sku = self.get_argument("sku","")
 		prod = Product()
 
@@ -75,7 +82,7 @@ class ProductHandler(BaseHandler):
 				for s in prod.size:
 
 					kardex = Kardex()
-					response_obj = kardex.GetUnitsBySize(prod.sku,cellar_id,s)
+					response_obj = kardex.GetUnitsBySize(prod.sku,id_bodega,s)
 
 					if "success" in response_obj:
 						if kardex.balance_units > 0:

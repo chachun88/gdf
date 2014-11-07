@@ -25,7 +25,7 @@ from model.shipping import Shipping
 from datetime import datetime
 from bson import json_util
 import sendgrid
-from globals import url_local, email_giani, cellar_id, shipping_cellar
+from globals import url_local, email_giani, shipping_cellar, cellar_id
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -379,6 +379,12 @@ class CheckoutSendHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
 
+        id_bodega = cellar_id
+        cellar = Cellar()
+        res_cellar = cellar.GetWebCellar()
+        if "success" in res_cellar:
+            id_bodega = res_cellar["cellar_id"]
+
         cart = Cart()
         cart.user_id = user_id
 
@@ -485,7 +491,7 @@ class CheckoutSendHandler(BaseHandler):
                         if "success" in response:
 
                             kardex.product_sku = producto.sku
-                            kardex.cellar_identifier = cellar_id
+                            kardex.cellar_identifier = id_bodega
                             kardex.operation_type = Kardex.OPERATION_SELL
                             kardex.sell_price = producto.sell_price
                             kardex.size = detail.size

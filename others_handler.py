@@ -510,6 +510,13 @@ class ExitoHandler(BaseHandler):
             "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
             "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
             }
+
+            id_bodega = cellar_id
+            cellar = Cellar()
+            res_cellar = cellar.GetWebCellar()
+
+            if "success" in res_cellar:
+                id_bodega = res_cellar["success"]
             
             detail = OrderDetail()
 
@@ -529,7 +536,7 @@ class ExitoHandler(BaseHandler):
                     if "success" in response:
 
                         kardex.product_sku = producto.sku
-                        kardex.cellar_identifier = cellar_id
+                        kardex.cellar_identifier = id_bodega
                         kardex.operation_type = Kardex.OPERATION_SELL
                         kardex.sell_price = producto.sell_price
                         kardex.size = l["size"]

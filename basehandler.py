@@ -4,7 +4,7 @@ Created on 25/02/2013
 @author: Yi Chun
 '''
 import tornado.web
-from globals import url_bodega
+from globals import url_bodega, cellar_id
 import locale
 import urllib
 import os

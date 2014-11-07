@@ -27,14 +27,12 @@ port = 0
 url_bodega = ""
 url_local = ""
 email_giani = ""
-cellar_id = 5
 shipping_cellar = 8
-
+cellar_id = 5
  
 
 facebook_api_key = ""
 facebook_secret = ""
-
 
 
 if enviroment == Enviroment.LOCAL:
