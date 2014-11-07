@@ -115,7 +115,7 @@ $(document).ready(function(){
 			data: "ajax=1",
 			type: "get",
 			beforeSend: function(){
-				$("#ajax_productos").fadeOut(200).hide();
+				$("#ajax_productos").hide();
 			},
 			success: function(respuesta){
 				$(".paginador").pagination("destroy");
