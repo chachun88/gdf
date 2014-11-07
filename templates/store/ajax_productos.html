@@ -1,7 +1,7 @@
 <script src="/static/js/jquery-min.js"></script>
 <script src="/static/js/jquery.simplePagination.js"></script>
 {% for d in data %}
-<div onClick="window.location='/product/{{d['sku']}}';" class="cuerpo-producto clearfix contenedor_productos">
+<div class="cuerpo-producto clearfix contenedor_productos">
   <div class="producto-foto">
     <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
     <!-- <img class="foto-producto" src="/static/img/0_GDF-OI14-7841-20-C1.png?mw=263" data-rimage data-src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263"> -->

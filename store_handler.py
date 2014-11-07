@@ -24,6 +24,7 @@ from model.cart import Cart
 from model.kardex import Kardex
 from model.vote import Vote
 from model.tag import Tag
+from model.cellar import Cellar
 
 class IndexHandler(BaseHandler):
 
