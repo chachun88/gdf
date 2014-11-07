@@ -73,7 +73,7 @@ class ProductHandler(BaseHandler):
 		response_obj = prod.GetProductCatNameColor(category,name,color)
 
 		if "error" in response_obj:
-			self.render("error.html",msg="Producto no encontrado, error:{}".format(response_obj["error"]))
+			self.render("beauty_error.html",msg="Producto no encontrado, error:{}".format(response_obj["error"]))
 		else:
 
 			tallas_disponibles = []
