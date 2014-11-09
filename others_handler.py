@@ -28,6 +28,7 @@ from model.kardex import Kardex
 from model.product import Product
 from model.contact import Contact
 from model.webpay import Webpay
+from model.cellar import Cellar
 
 class ContactHandler(BaseHandler):
 
