@@ -126,18 +126,18 @@ class Webpay(BaseModel):
 			"TBK_ID_SESION":self.tbk_id_sesion
 		}
 
-		query = ''' insert into "Webpay" (order_id,
-										TBK_ORDEN_COMPRA,
-										TBK_MONTO,
-										TBK_CODIGO_AUTORIZACION,
-										TBK_FINAL_NUMERO_TARJETA,
-										TBK_FECHA_CONTABLE,
-										TBK_FECHA_TRANSACCION,
-										TBK_HORA_TRANSACCION,
-										TBK_ID_TRANSACCION,
-										TBK_TIPO_PAGO,
-										TBK_NUMERO_CUOTAS,
-										TBK_ID_SESION)
+		query = ''' insert into "Webpay" ("ORDER_ID",
+										"TBK_ORDEN_COMPRA",
+										"TBK_MONTO",
+										"TBK_CODIGO_AUTORIZACION",
+										"TBK_FINAL_NUMERO_TARJETA",
+										"TBK_FECHA_CONTABLE",
+										"TBK_FECHA_TRANSACCION",
+										"TBK_HORA_TRANSACCION",
+										"TBK_ID_TRANSACCION",
+										"TBK_TIPO_PAGO",
+										"TBK_NUMERO_CUOTAS",
+										"TBK_ID_SESION")
 					values (%(order_id)s,
 							%(TBK_ORDEN_COMPRA)s,
 							%(TBK_MONTO)s,
