@@ -438,6 +438,7 @@ class ExitoHandler(BaseHandler):
             if int(order.state) == 1:
                 self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
         else:
+            print init_by_id["error"]
             self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
 
         
