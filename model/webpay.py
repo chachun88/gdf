@@ -153,6 +153,7 @@ class Webpay(BaseModel):
 					returning id'''
 
 		try:
+			print cur.mogrify(query,parameters)
 			cur.execute(query,parameters)
 			self.connection.commit()
 			self.id = cur.fetchone()["id"]
