@@ -314,7 +314,10 @@ class XtCompraHandler(BaseHandler):
                     webpay.tbk_id_transaccion = self.get_argument("TBK_ID_TRANSACCION")
                     webpay.tbk_tipo_pago = self.get_argument("TBK_TIPO_PAGO")
                     webpay.tbk_numero_cuotas = self.get_argument("TBK_NUMERO_CUOTAS")
-                    webpay.Save()
+                    res = webpay.Save()
+
+                    if "error" in res:
+                        print res["error"]
             
 
         if acepta:
