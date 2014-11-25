@@ -24,30 +24,30 @@ $(document).ready(function(){
 
 	if(typeof(Storage) !== "undefined") {
 
-		if(!window.localStorage.user_id){
-			window.localStorage.user_id = 0;
+		if(!window.localStorage.getItem("user_id")){
+			window.localStorage.setItem("user_id","0");
 		}
 
 		$.ajax({
 			url: '/user/save-guess',
-			data: "user_id="+window.localStorage.user_id,
+			data: "user_id="+window.localStorage.getItem("user_id"),
 			success: function(html){
 				//console.log("success");
 				var objeto = $.parseJSON(html);
 				if(objeto.success){
-					window.localStorage.user_id = objeto.success;
+					window.localStorage.setItem("user_id",objeto.success.toString());
 				}
 			}
 		});
 
 		
-		GetCartByUserId(window.localStorage.user_id);
+		GetCartByUserId(window.localStorage.getItem("user_id"));
 		
 	}
 
 	$("a.logout").click(function(){
 		if(typeof(Storage) !== "undefined") {
-			window.localStorage.user_id = 0;
+			window.localStorage.setItem("user_id","0");
 		}
 	});
 
@@ -76,7 +76,7 @@ $(document).ready(function(){
 				if(html=="ok"){
 					fancyAlert("Producto ha sido eliminado del carro");
 					if(from_cart){
-						GetCartByUserId(window.localStorage.user_id);
+						GetCartByUserId(window.localStorage.getItem("user_id"));
 					} else {
 						location.reload()
 					}
