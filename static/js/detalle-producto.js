@@ -9,12 +9,12 @@ $(document).ready(function(){
 		var quantity = $("#quantity").val()
 		$.ajax({
 			url:"/cart/add",
-			data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+localStorage.user_id,
+			data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+window.localStorage.user_id,
 			success:function(html){
 				if(html!="ok"){
 					fancyAlert(html);
 				} else {
-					GetCartByUserId(localStorage.user_id);
+					GetCartByUserId(window.localStorage.user_id);
 					fancyAlert("Producto ha sido a\xF1adido al carro");
 					$('html,body').animate({ scrollTop: 0 }, 'slow');
 					$(".carritoproductos").slideDown();
