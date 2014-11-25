@@ -123,7 +123,7 @@ var ifvoted = function(product_id){
 		data: "product_id="+product_id+"&user_id="+localStorage.user_id,
 		success: function(html){
 			response = $.parseJSON(html)
-			console.log(response.success);
+			//console.log(response.success);
 			if(response.success){
 				$(".fotomegusta").removeClass("enabled");
 				$(".fotomegusta img").attr("src","/static/images/corazon2.png");

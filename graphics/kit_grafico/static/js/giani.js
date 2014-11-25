@@ -15,7 +15,7 @@ $(document).ready(function(){
 			url: '/user/save-guess',
 			data: "user_id="+localStorage.user_id,
 			success: function(html){
-				console.log("success");
+				//console.log("success");
 				var objeto = $.parseJSON(html);
 				if(objeto.success){
 					localStorage.user_id = objeto.success;

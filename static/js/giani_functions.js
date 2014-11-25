@@ -18,18 +18,22 @@ var fancyAlert = function(msg) {
 }
 
 
-var GetCartByUserId = function(user_id){
+var GetCartByUserId = function(){
 
-	$.ajax({
-		url:"/cart/getbyuserid",
-		data:"user_id="+user_id,
-		success: function(html){
-			if(html.indexOf("error") > -1 )
-				fancyAlert("Se produjo un error al intentar obtener el carro de compra");
-			else
-				$(".carritoproductos").html(html);
-		}
-	});
+	if(Storage !== "undefined") {
+
+		$.ajax({
+			cache: false,
+			url:"/cart/getbyuserid",
+			data:"user_id="+window.localStorage.getItem("user_id"),
+			success: function(html){
+				if(html.indexOf("error") > -1 )
+					fancyAlert("Se produjo un error al intentar obtener el carro de compra");
+				else
+					$(".carritoproductos").html(html);
+			}
+		});
+	}
 }
 
 var ValidateCheckoutPayment = function(){
@@ -59,6 +63,7 @@ var GetAddressById = function(_id){
 	$.ajax({
 		url:"/checkout/getaddressbyid",
 		data:"id="+_id,
+		cache: false,
 		success: function(html){
 			var obj = jQuery.parseJSON( html );
 
@@ -127,6 +132,7 @@ var votar = function(product_id){
 
 		$.ajax({
 			url:"/store/voteproduct",
+			cache: false,
 			data: "product_id="+product_id+"&user_id="+window.localStorage.getItem("user_id"),
 			success: function(html){
 				response = $.parseJSON(html)
@@ -144,6 +150,7 @@ var votar = function(product_id){
 var ifvoted = function(product_id){
 	$.ajax({
 		url:"/store/product/ifvoted",
+		cache: false,
 		data: "product_id="+product_id+"&user_id="+window.localStorage.getItem("user_id"),
 		success: function(html){
 			response = $.parseJSON(html)
@@ -159,6 +166,7 @@ var getvotes = function(product_id){
 	$.ajax({
 		url:"/store/product/getvotes",
 		data: "product_id="+product_id,
+		cache: false,
 		success: function(html){
 			response = $.parseJSON(html)
 			if(response.success){

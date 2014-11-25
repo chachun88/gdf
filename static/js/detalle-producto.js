@@ -9,6 +9,7 @@ $(document).ready(function(){
 		var quantity = $("#quantity").val()
 		$.ajax({
 			url:"/cart/add",
+			cache: false,
 			data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+window.localStorage.getItem("user_id"),
 			success:function(html){
 				if(html!="ok"){
@@ -28,6 +29,7 @@ $(document).ready(function(){
 		var size = $(this).val();
 		$.ajax({
 			url:"/kardex/getunitsbysize",
+			cache: false,
 			data:"sku="+sku+"&size="+size,
 			success:function(html){
 				if(html.indexOf("error") > -1){

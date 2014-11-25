@@ -30,6 +30,7 @@ $(document).ready(function(){
 
 		$.ajax({
 			url: '/user/save-guess',
+			cache: false,
 			data: "user_id="+window.localStorage.getItem("user_id"),
 			success: function(html){
 				var objeto = $.parseJSON(html);
@@ -71,6 +72,7 @@ $(document).ready(function(){
 		$.ajax({
 			url:"/cart/remove",
 			data:"cart_id="+cart_id,
+			cache: false,
 			success:function(html){
 				if(html=="ok"){
 					fancyAlert("Producto ha sido eliminado del carro");
@@ -113,6 +115,7 @@ $(document).ready(function(){
 			url: url,
 			data: "ajax=1",
 			type: "get",
+			cache: false,
 			beforeSend: function(){
 				$("#ajax_productos").addClass("disable");
 			},

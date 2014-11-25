@@ -37,6 +37,7 @@ $(document).ready(function(){
 				url: $( this ).attr( 'action' ), 
 				type: "post",
 				data: data,
+				cache: false,
 				beforeSend: function(objeto){
 		            $("div.cargando").fadeIn();
 		        },
@@ -132,6 +133,7 @@ $(document).ready(function(){
 			url: $( this ).attr( 'action' ), 
 			type: "post",
 			data: data,
+			cache: false,
 			beforeSend: function(objeto){
 	            $("div.cargando").fadeIn();
 	        },
