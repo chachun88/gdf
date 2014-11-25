@@ -81,8 +81,6 @@
                 originalinput.data("alreadyinitialized", true);
 
                 if (!originalinput.is("input")) {
-                    if(typeof(console) != "undefined")
-                        console.log("Must be an input.");
                     return;
                 }
 

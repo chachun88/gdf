@@ -32,8 +32,6 @@ $(document).ready(function(){
 			url: '/user/save-guess',
 			data: "user_id="+window.localStorage.getItem("user_id"),
 			success: function(html){
-				if(typeof(console) != "undefined")
-					console.log("success");
 				var objeto = $.parseJSON(html);
 				if(objeto.success){
 					window.localStorage.setItem("user_id",objeto.success.toString());
