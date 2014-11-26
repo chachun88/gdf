@@ -214,6 +214,9 @@ class XtCompraHandler(BaseHandler):
 
         acepta=False;
 
+        if TBK_RESPUESTA == "0":
+            acepta = True
+
         try:
             f=open(myPath,"r")
 
@@ -261,14 +264,6 @@ class XtCompraHandler(BaseHandler):
         except Exception,e:
             self.write("RECHAZADO")
             return
-
-        if TBK_RESPUESTA == "0":
-            acepta = True
-        else:
-            acepta = False
-
-        
-
 
         if acepta:
 
@@ -320,7 +315,7 @@ class XtCompraHandler(BaseHandler):
                         print res["error"]
             
 
-        if acepta:
+        if acepta or TBK_RESPUESTA != "0":
             # print "si acepto"
             self.write("ACEPTADO")
         else:
