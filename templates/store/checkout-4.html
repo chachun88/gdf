@@ -85,7 +85,7 @@ Giani Da Firenze - Carro de Compra
                         <h4 class="panel-title"> <a class="cashOnDelivery" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <span class="numberCircuil"></span> <strong> Transferencia bancaria</strong> </a> </h4>
                       </div>
                       <div id="collapseOne" class="panel-collapse collapse">
-                        <form action="/checkout/send" onsubmit="return ValidateCheckoutPayment()">
+                        <form action="/checkout/send" onsubmit="return ValidateCheckoutPayment()" enctype="multipart/form-data">
                           <div class="panel-body">
                             <p>Envíe el comprobante de transferencia.</p>
                             <br>
