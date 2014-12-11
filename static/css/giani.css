@@ -47,6 +47,7 @@
 #ajax_productos.disable{
 	opacity: 0;
 }
+
 @media(max-width: 479px) {
 .slider {
 	display: none;
