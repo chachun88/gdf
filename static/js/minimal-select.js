@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	$("#address").minimalect({
-		placeholder:"Agregar nueva direcci&oacute;n",
+		placeholder:"Agregar nueva dirección",
 		theme: "bubble",
 		searchable: false,
 		onchange: function(){
