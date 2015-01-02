@@ -24,6 +24,9 @@ class Product(BaseModel):
 		self._image = '' #imagen 1
 		self._image_2 = '' #imagen 2
 		self._image_3 = '' #imagen 3
+		self._image_4 = '' #imagen 3
+		self._image_5 = '' #imagen 3
+		self._image_6 = '' #imagen 3
 		self._category = '' #categoria
 		self._upc = '' #articulo
 		self._price='' #precio compra
@@ -142,6 +145,28 @@ class Product(BaseModel):
 	@image_3.setter
 	def image_3(self, value):
 		self._image_3 = value
+
+	@property
+	def image_4(self):
+	    return self._image_4
+	@image_4.setter
+	def image_4(self, value):
+	    self._image_4 = value
+	
+	@property
+	def image_5(self):
+	    return self._image_5
+	@image_5.setter
+	def image_5(self, value):
+	    self._image_5 = value
+	
+	@property
+	def image_6(self):
+	    return self._image_6
+	@image_6.setter
+	def image_6(self, value):
+	    self._image_6 = value
+	
 
 	@property
 	def category(self):
@@ -357,6 +382,9 @@ class Product(BaseModel):
 				self.image = producto['image']
 				self.image_2 = producto['image_2']
 				self.image_3 = producto['image_3']
+				self.image_4 = producto['image_4']
+				self.image_5 = producto['image_5']
+				self.image_6 = producto['image_6']
 				self.bullet_1 = producto['bullet_1']
 				self.bullet_2 = producto['bullet_2']
 				self.bullet_3 = producto['bullet_3']

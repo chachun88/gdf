@@ -63,12 +63,21 @@ Giani Da Firenze - {{data.name}}
           <img class="image image-12 otro-angulo" src="{{url_bodega}}/image/{{data.image_3}}?mw=75" data-src="{{url_bodega}}/image/{{data.image_3}}?mw=547">
         </div>
         {% end %}
-<!--         <div class="container container-8">
-          <img class="image image-13" src="images/2(2)-75x49-25.jpg" data-rimage data-src="images/2(2)-75x49-25.jpg">
+        {% if data.image_4 != "" %}
+        <div class="container">
+          <img class="image image-13" src="{{url_bodega}}/image/{{data.image_4}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_4}}?mw=547">
         </div>
-        <div class="container container-9">
-          <img class="image image-14" src="images/2(2)-75x49-20.jpg" data-rimage data-src="images/2(2)-75x49-20.jpg">
-        </div> -->
+        {% end %}
+        {% if data.image_5 != "" %}
+        <div class="container">
+          <img class="image image-14" src="{{url_bodega}}/image/{{data.image_5}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_5}}?mw=547">
+        </div>
+        {% end %}
+        {% if data.image_6 != "" %}
+        <div class="container">
+          <img class="image image-14" src="{{url_bodega}}/image/{{data.image_6}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_6}}?mw=547">
+        </div>
+        {% end %}
       </div>
     </div>
     <div class="container container-10 clearfix">
