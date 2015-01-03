@@ -17,5 +17,9 @@ $(document).ready(function(){
 		}
 	});
 
-	$(".minict_wrapper ul li.minict_empty").parent().css("display","none");
+	$(".minict_wrapper").click(function(){
+		$(".minict_wrapper.active ul li.minict_empty").parent().css("display","none");
+	});
+
+	
 });
