@@ -3,7 +3,6 @@ $(document).ready(function(){
 		placeholder:"Agregar nueva dirección",
 		theme: "bubble",
 		searchable: false,
-		remove_empty_option: false,
 		onchange: function(){
 			$('#address').trigger('change');
 		}
@@ -13,9 +12,10 @@ $(document).ready(function(){
 		placeholder:"Seleccione una ciudad",
 		theme: "bubble",
 		searchable: false,
-		remove_empty_option: false,
 		onchange: function(){
 			$('#InputCity').trigger('change');
 		}
 	});
+
+	$(".minict_wrapper ul li.minict_empty").parent().css("display","none");
 });
