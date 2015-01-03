@@ -18,7 +18,8 @@ $(document).ready(function(){
 	});
 
 	$(".minict_wrapper").click(function(){
-		$(".minict_wrapper.active ul li.minict_empty").parent().css("display","none");
+		if($(".minict_wrapper.active ul li.minict_empty").hasClass('minict_first'))
+			$(".minict_wrapper.active ul li.minict_empty").parent().css("display","none");
 	});
 
 	
