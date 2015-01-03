@@ -18,8 +18,7 @@ $(document).ready(function(){
 	});
 
 	$(".minict_wrapper").click(function(){
-		if($(".minict_wrapper.active ul li.minict_empty").hasClass('minict_first'))
-			$(".minict_wrapper.active ul li.minict_empty").parent().css("display","none");
+		$(".minict_wrapper.active ul li.minict_empty.minict_first").parent().css("display","none");
 	});
 
 	
