@@ -130,7 +130,7 @@
 	line-height: 50px;
 	line-height: 3.3rem
 }
-.minict_wrapper ul li.minict_empty:before{
+.minict_wrapper ul < li.minict_empty{
 	display: none;
 }
 .minict_wrapper ul li.disabled {
