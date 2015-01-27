@@ -687,15 +687,15 @@ body {
   }
 
   .tienda .image {
-    width: 99.8274889692%;
+    width: 100%;
     height: auto;
-    margin-left: -0.02991%;
+    margin-left: 0%;
   }
 
   .timeline .image {
-    width: 99.8274889692%;
+    width: 100%;
     height: auto;
-    margin-left: -0.01662%;
+    margin-left: 0%;
   }
 
   .total .totalcarrrito {
@@ -1288,9 +1288,9 @@ body {
   }
 
   .tienda .image {
-    width: 99.9755859375%;
+    width: 100%;
     height: auto;
-    margin-left: -0.1343100001%;
+    margin-left: 0%;
   }
 
   .total .totalcarrrito {
@@ -1862,7 +1862,7 @@ body {
   .tienda .image {
     width: 100%;
     height: auto;
-    margin-left: -0.09539%;
+    margin-left: 0%;
   }
 
   .timeline .image {
