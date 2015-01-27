@@ -27,15 +27,14 @@
 
 <script>
     var str = '{{request.path}}';
-    var new_str = str.replace(/[&amp;|?]+page=\d+/g,"");
-    new_str = new_str.replace(/&ajax=1/i,"");
+
     $(".paginador").pagination({
         items: {{items}},
         itemsOnPage: 7,
         prevText: '<',
         nextText: '>',
         currentPage: {{page}},
-        hrefTextPrefix: new_str+'&page=',
+        hrefTextPrefix: str+'&page=',
         hrefTextSuffix: '#contenedor'
     });
 </script>
