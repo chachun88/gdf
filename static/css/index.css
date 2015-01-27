@@ -534,11 +534,13 @@ body {
     z-index: 56;
     width: 25.5212677231%;
     margin-left: 10.00834%;
+    display: inline;
   }
 
   .header-content .header-menu {
     width: 79.9976542952%;
     margin-left: 10.00834%;
+    display: inline;
   }
 
   .header-content .header-rigth-cont {
@@ -1602,7 +1604,6 @@ body {
     clear: both;
     z-index: 37;
     width: 100%;
-    margin-top: 9px;
     margin-left: 0%;
   }
 
@@ -2181,7 +2182,6 @@ body {
     position: relative;
     z-index: 37;
     width: 100%;
-    margin-top: 8px;
     margin-left: 0%;
   }
 
@@ -2203,7 +2203,6 @@ body {
     position: relative;
     z-index: 39;
     width: 100%;
-    margin-top: 16px;
     margin-left: 0%;
   }
 
@@ -2231,7 +2230,7 @@ body {
     position: relative;
     clear: both;
     z-index: 18;
-    width: 89.5615866388%;
+    width: 89.5615866388% !important;
     margin-top: 16px;
     margin-left: 4.99413%;
   }
@@ -2239,7 +2238,7 @@ body {
   .footer .footer-left-cont {
     position: relative;
     z-index: 15;
-    width: 89.770354906%;
+    width: 89.770354906% !important;
     margin-left: 5.01044%;
   }
 
@@ -2247,7 +2246,7 @@ body {
     position: relative;
     clear: both;
     z-index: 21;
-    width: 89.5615866388%;
+    width: 89.5615866388% !important;
     margin-top: 22px;
     margin-left: 4.99413%;
   }
@@ -2301,7 +2300,6 @@ body {
   .header-content {
     position: relative;
     z-index: 62;
-    height: 526px;
   }
 
   .header-content .header-left-cont {
@@ -2311,6 +2309,7 @@ body {
     height: 63px;
     margin-top: 447px;
     margin-left: 5.01044%;
+    display: none;
   }
 
   .header-content .header-menu {
@@ -2319,6 +2318,7 @@ body {
     height: 345px;
     margin-top: -324px;
     margin-left: 5.01044%;
+    display: none;
   }
 
   .header-content .header-rigth-cont {
@@ -2327,7 +2327,6 @@ body {
     z-index: 61;
     width: 89.9791231732%;
     height: 58px;
-    margin-top: -510px;
     margin-left: 5.01044%;
   }
 
