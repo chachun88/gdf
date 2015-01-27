@@ -111,9 +111,16 @@ $(document).ready(function(){
 
 		var url = $(this).attr("href");
 
+		var n = url.indexOf("?");
+
+		if n != -1:
+			url = url + "?ajax=1"
+		else:
+			url = url + "&ajax=1"
+
+
 		$.ajax({
 			url: url,
-			data: "ajax=1",
 			type: "get",
 			cache: false,
 			beforeSend: function(){
