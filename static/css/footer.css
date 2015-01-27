@@ -3,30 +3,43 @@
   float: left;
   clear: both;
   width: 100%;
-  margin-top: 120px;
-  background-color: rgb(196, 196, 196);
+  margin-top: 20px;
+  background-color: #f7f4f2;
+  background-image: url(/static/images/footer.png);
+  background-repeat: no-repeat;
+  background-position: center top;
+  font-family: 'PT Sans Caption', sans-serif;
+  text-transform: uppercase;
+
 }
 
 .footer-left-center-cont {
-  position: relative;
-  float: left;
-  z-index: 18;
-  width: 18.7857142857%;
-  height: 253px;
-  margin: 18px 0 0 0.82813%;
-  border: 1px solid rgb(255, 255, 255);
-}
+position: relative;
+float: left;
+z-index: 18;
+width: 30%;
+height: 253px;
+margin: 18px 0 0 0.82813%;
+/* border: 1px solid rgb(255, 255, 255); */
+background-color: #fefefe;}
 
 .footer-left-center-cont .text {
   clear: both;
   width: 80.2921455938%;
   min-height: 84px;
   margin: 51px 0 0 10.88961%;
-  font: 1.167em/1.48 'Playfair Display';
+  font: 1.167em;
   text-align: center;
   color: rgb(77, 77, 77);
 }
-
+.footer-left-cont, .footer-left-center-cont, .footer-right-center-cont{
+  margin-top: 40px !important;
+  width: 25% !important;
+  height: auto !important;
+}
+.footer-left-center-cont, .footer-right-center-cont{
+  border: 1px solid rgb(217, 217, 217)!important;
+}
 .footer-left-cont {
   position: relative;
   float: left;
@@ -41,7 +54,7 @@
   position: relative;
   width: 58.8178349752%;
   min-height: 15px;
-  font: 1em/1.2 'Playfair Display';
+  font: 1em;
   color: rgb(77, 77, 77);
 }
 
@@ -88,10 +101,11 @@
   position: relative;
   float: left;
   z-index: 21;
-  width: 18.7857142857%;
+  width:30%;
   height: 253px;
   margin: 18px 0 0 1.57143%;
   border: 1px solid rgb(255, 255, 255);
+  background-color: #fefefe;
 }
 
 .footer-right-center-cont .image {
@@ -112,7 +126,7 @@
   width: 75.8271169067%;
   min-height: 24px;
   margin: 28px 0 0 11.9754%;
-  font: italic 900 1.333em/1.38 'Playfair Display';
+  font: italic 900 1.333em;
   text-align: center;
   letter-spacing: 2px;
   color: rgb(77, 77, 77);
@@ -170,23 +184,22 @@
 
 .footer-left-center-cont ._button {
   width: 200px;
-  height: 40px;
-  margin: 23px auto 0;
-  border-width: 2px;
-  border-color: rgb(255, 255, 255);
-  font-size: 1.167em;
-  font-weight: 300;
-  line-height: 2.68;
-  text-align: center;
-  letter-spacing: 4px;
-  color: rgb(255, 255, 255);
+height: 40px;
+margin: 23px auto 0;
+border-width: 0;
+/* border-color: rgb(255, 255, 255); */
+font-size: 1.167em;
+font-weight: 300;
+line-height: 2.68;
+text-align: center;
+letter-spacing: 4px;
+color: gray;
 }
 
 .footer-left-cont ._button {
   width: 150px;
   height: 32px;
   border-width: 2px;
-  border-color: rgb(255, 255, 255);
   font-size: 1.167em;
   font-weight: 300;
   line-height: 2.18;
@@ -196,6 +209,8 @@
   float:left;
   margin-top: 20px;
   margin-left: 20%;
+  background-color: #d55d7c;
+  border: 0px;
 }
 
 .footer-left-cont ._button:hover {

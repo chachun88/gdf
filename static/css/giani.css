@@ -56,9 +56,9 @@
 	display: inline;
 	position: relative;
   float: left;
-  width: 90%;
+  width: 100%;
   margin-top: 20px;
-  margin-left: 5%;
+  margin-left: 0%;
 }
 .queeslonuevo {
 	display: none;

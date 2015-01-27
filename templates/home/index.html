@@ -18,9 +18,6 @@
   </div>
   <div class="estilodevida clearfix">
   <img class="image" src="/static/images/poster-video.png" data-rimage data-src="/static/images/poster-video.png">
-  <!--<video loop controls muted preload poster=""id="">
-<source src="/static/images/giani.mp4" type="video/mp4">
-</video>-->
   </div>
   <div class="queeslonuevo clearfix">
     <a href="/store/getproductsbytags?tags=lo%20nuevo">
@@ -35,10 +32,14 @@
   <div class="comunidad clearfix">
     <img class="image" src="/static/images/comunidad.png" data-rimage data-src="/static/images/comunidad.png">
   </div>
-  <div class="tienda clearfix">
-    <a href="/store">
-      <img class="image" src="/static/images/002-549x475.jpg" data-rimage data-src="/static/images/ir-a-la.png">
-    </a>
+  <div id="videohome"class="tienda clearfix">
+     <img id="videoimg"class="image" src="/static/images/ir-a-la.png" data-rimage data-src="/static/images/ir-a-la.png" style="position:relative;">
+     <video loop preload poster=""id="video" style="width:100%;margin-top: -60%;float: left;">
+        <source src="/static/images/giani.mp4" type="video/mp4">
+     </video>
+    
+      
+  
   </div>
 </div>
 {% end %}

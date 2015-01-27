@@ -2432,7 +2432,6 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 	position: relative;
 	text-align: center;
 	width: 100%;
-	max-height: 240px;
 	transition: all 0.5s ease 0s;
 	-moz-transition: all 0.5s ease 0s;
 	-webkit-transition: all 0.5s ease 0s;
@@ -2744,45 +2743,7 @@ h5.parallaxSubtitle {
 	clear: both;
 	display: block;
 }
-.footer {
-	background: #EDEFF1;
-	height: auto;
-	padding-bottom: 30px;
-	position: relative;
-	width: 100%;
-	border-bottom: 1px solid #CCCCCC;
-	border-top: 1px solid #DDDDDD;
-}
-.footer p {
-	margin: 0;
-}
-.footer img {
-	max-width: 100%;
-}
-.footer h3 {
-	border-bottom: 1px solid #BAC1C8;
-	color: #54697E;
-	font-size: 18px;
-	font-weight: 600;
-	line-height: 27px;
-	padding: 40px 0 10px;
-	text-transform: uppercase;
-}
-.footer ul {
-	font-size: 13px;
-	list-style-type: none;
-	margin-left: 0;
-	padding-left: 0;
-	margin-top: 15px;
-	color: #7F8C8D;
-}
-.footer ul li a {
-	padding: 0 0 5px 0;
-	display: block;
-}
-.footer a {
-	color: #78828D
-}
+
 .supportLi h4 {
 	font-size: 20px;
 	font-weight: lighter;
