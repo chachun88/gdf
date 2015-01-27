@@ -49,12 +49,16 @@
   
 <script>
 $("#videohome").click(function(){
+
   if($("#videoimg").css("opacity")!=0){
-   $("#videoimg").fadeTo( "slow", 0, function(){
+   $("#videoimg, #videoimg-1").fadeTo( "slow", 0, function(){
     document.getElementById('video').play();
     console.log("jhsdjhfdsk");
    } );
    }
+   $("#video").removeClass("mostrar-1");
+   $("#video").addClas("mostrar");
+
  });
 $("video").click(function(e){
 

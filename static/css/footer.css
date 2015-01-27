@@ -153,7 +153,9 @@ background-color: #fefefe;}
   font-size: 1em;
   font-weight: 300;
   text-align: center;
-  color: rgb(255, 255, 255);
+  color: gray;
+padding-top: 20px;
+border-top: 1px solid rgb(196, 196, 196);
 }
 
 .footer-contact-text p {
@@ -230,7 +232,7 @@ color: gray;
   line-height: 2.68;
   text-align: center;
   letter-spacing: 7px;
-  color: rgb(255, 255, 255);
+  color: gray;
 }
 
 .footer-left-center-cont ._button:hover,

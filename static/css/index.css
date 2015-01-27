@@ -2746,3 +2746,16 @@ body {
     font-size: NaNem;
   }
 }
+
+#videohome ul li ul {
+  display: none;
+}
+#videohome ul li:hover >ul {
+  display: inline;
+}
+.mostrar {
+  display: inline;
+}
+.mostrar-1 {
+  display: none;
+}
