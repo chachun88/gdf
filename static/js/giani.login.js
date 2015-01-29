@@ -45,10 +45,12 @@ $(document).ready(function(){
 
 					var rtn_pair = $.parseJSON(rtn);
 
-					if (rtn_pair["status"] == "ok") 
-					{
-						window.localStorage.setItem("user_id",rtn_pair["user_id"].toString());
-						window.parent.document.location.href = rtn_pair["next"];
+					if ("status" in rtn_pair) {
+						if (rtn_pair["status"] == "ok") 
+						{
+							window.localStorage.setItem("user_id",rtn_pair["user_id"].toString());
+							window.parent.document.location.href = rtn_pair["next"];
+						}
 					}
 					else
 					{
@@ -141,7 +143,7 @@ $(document).ready(function(){
 
 				var rtn_pair = $.parseJSON(rtn);
 
-				if (rtn_pair["success"]) 
+				if ("success" in rtn_pair) 
 				{
 					window.parent.document.location.href = rtn_pair["success"];
 				}
