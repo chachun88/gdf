@@ -74,7 +74,7 @@ $(document).ready(function(){
 		var password = $("input[name=password]", tthis).val().trim();
 		var name = $("input[name=name]", tthis).val().trim();
 		var repassword = $("input[name=re-password]", tthis).val().trim();
-		var tos = $("input[name=tos]", tthis).val();
+		var tos = $("input[name=tos]:checked", tthis).val();
 		var user_id = 0;
 
 		if(window.localStorage.getItem("user_id")){

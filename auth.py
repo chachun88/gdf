@@ -34,6 +34,8 @@ class UserRegistrationHandler(BaseHandler):
         ajax = self.get_argument("ajax", "false")
         user_id = int(self.get_argument("user_id",0))
 
+        print tos
+
         if name == "":
             self.write(json_util.dumps({"error":"debe ingresar su nombre"}))
             return
@@ -49,10 +51,18 @@ class UserRegistrationHandler(BaseHandler):
         elif tos != "on":
             self.write(json_util.dumps({"error":"debe aceptar las condiciones de uso"}))
             return
-        elif User().Exist(email)["success"]:
-            self.write(json_util.dumps({"error":"ya existe un usuario registrado con este email"}))
-            return
         else:
+
+            response = User().Exist(email)
+
+            if "success" in response:
+                if response["success"]:
+                    self.write(json_util.dumps({"error":"ya existe un usuario registrado con este email"}))
+                    return
+            else:
+                self.write(json_util.dumps({"error":"se ha producido un error"}))
+                return
+
             ### perform login
 
             user = User()

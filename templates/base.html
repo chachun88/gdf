@@ -22,9 +22,8 @@
   <link rel="stylesheet" href="/static/css/footer.css">
   <link rel="stylesheet" href="/static/css/giani.css">
   <link rel="stylesheet" href="/static/css/order.step.css">
-  <link rel="stylesheet" href="/static/css/menumovil.css">
+  <link rel="stylesheet" href="/static/css/menumovil.css"> 
   <!-- css para login, agregar para visualizar -->
-  <link rel="stylesheet" href="/static/css/login.css"> 
   <link rel="stylesheet" href="/static/css/simple_tab.css"> 
   <!-- css para login -->
   <script src="/static/js/fix_ie9.js"></script>
@@ -37,8 +36,6 @@
 </head>
 
 <body class="body index clearfix">
-  <!-- menu movil 
-  {% module Template('menumovil.html') %} -->
   <!-- login movil -->
   {% module Template('loginmovil.html') %} 
   <div id="cuerpo"> 
@@ -66,13 +63,20 @@
 //para ejecutar menumovil.html
 $(document).ready(function(){
   $("button#tellmeboton").click(function(){
-    $("#div4").fadeIn(1000);
+    $("#menu_movil").fadeIn(1000);
+            // para agregar y quitar blur del fondo
+            $("#cuerpo").addClass("descripcion_blur");
+            $(".boton_busqueda_movil").addClass("b_blur");
+          });
+  $("a.button_register").click(function(evt){
+    evt.preventDefault();
+    $("#form-register-login").fadeIn(1000);
             // para agregar y quitar blur del fondo
             $("#cuerpo").addClass("descripcion_blur");
             $(".boton_busqueda_movil").addClass("b_blur");
           });
   $("button#tellmeboton2").click(function(){
-    $("#div4").fadeOut(100);
+    $("#menu_movil,#form-register-login").fadeOut(100);
         // para agregar y quitar blur del fondo
         $("#cuerpo").removeClass("descripcion_blur");
         $(".boton_busqueda_movil").removeClass("b_blur");
