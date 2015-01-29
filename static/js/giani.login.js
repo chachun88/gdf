@@ -143,7 +143,7 @@ $(document).ready(function(){
 
 				var rtn_pair = $.parseJSON(JSON.stringify(rtn));
 
-				console.info(rtn_pair);
+				console.info(typeof(rtn_pair));
 
 				if (rtn_pair["success"]!=undefined) 
 				{
