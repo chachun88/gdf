@@ -1,3 +1,16 @@
+Object.prototype.isKeyIn = function( key_name )
+{
+	try
+	{
+		console.log( this[key_name] );
+		return true;
+	}
+	catch(ex)
+	{
+		return false;
+	}
+}
+
 // pasar a giani.js
 $(document).ready(function(){
 
@@ -145,7 +158,7 @@ $(document).ready(function(){
 
 				console.info(rtn_pair);
 
-				if (rtn_pair.success) 
+				if (rtn_pair.isKeyIn( "success" )) 
 				{
 					window.parent.document.location.href = rtn_pair["success"];
 				}
