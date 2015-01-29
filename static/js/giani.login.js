@@ -145,7 +145,7 @@ $(document).ready(function(){
 
 				console.info(rtn_pair);
 
-				if (rtn_pair["success"]) 
+				if (rtn_pair["success"]!=undefined) 
 				{
 					window.location.href = rtn_pair["success"];
 				}
