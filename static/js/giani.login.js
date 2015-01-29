@@ -1,4 +1,4 @@
-Object.prototype.isKeyIn = function( key_name )
+var isKeyIn = function( key_name )
 {
 	try
 	{
