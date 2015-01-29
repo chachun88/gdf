@@ -45,14 +45,14 @@ $(document).ready(function(){
 
 					var rtn_pair = $.parseJSON(rtn);
 
-					if (rtn_pair.status == "ok") 
+					if (rtn_pair["status"] == "ok") 
 					{
 						window.localStorage.setItem("user_id",rtn_pair["user_id"].toString());
 						window.parent.document.location.href = rtn_pair["next"];
 					}
 					else
 					{
-						alert( rtn_pair.message );
+						alert( rtn_pair["message"] );
 					}
 
 					$("div.cargando").fadeOut();
