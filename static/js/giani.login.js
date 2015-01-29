@@ -43,7 +43,7 @@ $(document).ready(function(){
 		        },
 				success: function(rtn){
 
-					var rtn_pair = $.parseJSON(JSON.stringify(rtn));
+					var rtn_pair = $.parseJSON(rtn);
 
 					if (rtn_pair["status"]) {
 						if (rtn_pair["status"] == "ok") 
@@ -141,7 +141,7 @@ $(document).ready(function(){
 	        },
 			success: function(rtn){
 
-				var rtn_pair = $.parseJSON(JSON.stringify(rtn));
+				var rtn_pair = $.parseJSON(rtn);
 
 				console.info(typeof(rtn_pair));
 
