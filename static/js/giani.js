@@ -113,10 +113,12 @@ $(document).ready(function(){
 
 		var n = url.indexOf("?");
 
-		if n != -1:
+		if (n != -1){
 			url = url + "?ajax=1"
-		else:
+		}
+		else{
 			url = url + "&ajax=1"
+		}
 
 
 		$.ajax({
