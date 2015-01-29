@@ -145,7 +145,7 @@ $(document).ready(function(){
 
 				console.info(rtn_pair);
 
-				if ("success" in rtn_pair) 
+				if (rtn_pair.hasOwnProperty("success")) 
 				{
 					window.parent.document.location.href = rtn_pair["success"];
 				}
