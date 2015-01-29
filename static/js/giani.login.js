@@ -38,6 +38,7 @@ $(document).ready(function(){
 				type: "post",
 				data: data,
 				cache: false,
+				dataType: "json",
 				beforeSend: function(objeto){
 		            $("div.cargando").fadeIn();
 		        },
@@ -145,11 +146,6 @@ $(document).ready(function(){
 				var str_ = JSON.stringify(rtn);
 
 				var rtn_pair = $.parseJSON(str_);
-
-				console.info(typeof(rtn));
-				console.info(rtn);
-				console.info(typeof(rtn_pair));
-				console.info(typeof(str_));
 
 				if (rtn_pair["success"]!=undefined) 
 				{
