@@ -1,8 +1,8 @@
-var isKeyIn = function( key_name )
+var isKeyIn = function( obj, key_name )
 {
 	try
 	{
-		console.log( this[key_name] );
+		console.log( obj[key_name] );
 		return true;
 	}
 	catch(ex)
@@ -158,7 +158,7 @@ $(document).ready(function(){
 
 				console.info(rtn_pair);
 
-				if (rtn_pair.isKeyIn( "success" )) 
+				if (isKeyIn( rtn_pair, "success" )) 
 				{
 					window.parent.document.location.href = rtn_pair["success"];
 				}
