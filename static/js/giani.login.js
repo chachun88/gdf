@@ -141,13 +141,13 @@ $(document).ready(function(){
 
 				var rtn_pair = $.parseJSON(rtn);
 
-				if (rtn_pair.success) 
+				if (rtn_pair["success"]) 
 				{
-					window.parent.document.location.href = rtn_pair.success;
+					window.parent.document.location.href = rtn_pair["success"];
 				}
 				else
 				{
-					alert( rtn_pair.error );
+					alert( rtn_pair["error"] );
 				}
 
 				$("div.cargando").fadeOut();
