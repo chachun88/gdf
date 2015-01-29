@@ -145,6 +145,8 @@ $(document).ready(function(){
 
 				var rtn_pair = $.parseJSON(str_);
 
+				console.info(typeof(rtn));
+				console.info(rtn);
 				console.info(typeof(rtn_pair));
 				console.info(typeof(str_));
 
