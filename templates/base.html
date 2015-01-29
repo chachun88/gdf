@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/static/css/bootstrap/bootstrap.css">
   <link rel="stylesheet" href="/static/css/standardize.css">
   <link rel="stylesheet" href="/static/css/header.css">
-   <link rel="stylesheet" href="/static/css/index.css">
+  <link rel="stylesheet" href="/static/css/index.css">
   <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css"/>
   <link rel="stylesheet" type="text/css" href="/static/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
   <link href='http://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
@@ -22,44 +22,79 @@
   <link rel="stylesheet" href="/static/css/footer.css">
   <link rel="stylesheet" href="/static/css/giani.css">
   <link rel="stylesheet" href="/static/css/order.step.css">
+  <link rel="stylesheet" href="/static/css/menumovil.css">
+  <!-- css para login, agregar para visualizar
+  <link rel="stylesheet" href="/static/css/login.css"> 
+  <link rel="stylesheet" href="/static/css/simple_tab.css"> -->
+  <!-- css para login -->
   <script src="/static/js/fix_ie9.js"></script>
   <script src="/static/js/jquery-min.js"></script>
+  <script src="/static/js/jquery-min.js"></script>
+  <!-- js para login 
+  <script type="text/javascript" src="/static/js/simple.tab.js" ></script>
+  <script src="/static/js/giani_functions.js"></script>
+  <script type="text/javascript" src="/static/js/giani.login.js" ></script>-->
   
 </head>
+
 <body class="body index clearfix">
-  <!-- header -->
-  {% module Template('header.html') %}
-  <!-- registration -->
-  {% module Template('registration.html') %}
+  <!-- menu movil -->
+  {% module Template('menumovil.html') %} 
+  <!-- login movil 
+  {% module Template('loginmovil.html') %} -->
+  <div id="cuerpo"> 
+    <!-- header -->
+    {% module Template('header.html') %}
+    <!-- registration -->
+    {% module Template('registration.html') %}
 
-  {% block body %}
-  
-  {% end %}
-  
-  {% module Template('carrodecompra.html') %}
-  {% module Template('footer.html') %}
+    {% block body %}
 
-  
-  <script src="/static/js/rimages.js"></script>
-  <script src="/static/js/giani_functions.js"></script>
-  <script src="/static/js/giani.js"></script>
-  <script type="text/javascript" src="/static/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
-  {% block javascript %}{% end %}
+    {% end %}
 
-  
-<script>
+    {% module Template('carrodecompra.html') %}
+    {% module Template('footer.html') %}
+
+
+    <script src="/static/js/rimages.js"></script>
+    <script src="/static/js/giani_functions.js"></script>
+    <script src="/static/js/giani.js"></script>
+    <script type="text/javascript" src="/static/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+    {% block javascript %}{% end %}
+
+
+    <script>
+//para ejecutar menumovil.html
+$(document).ready(function(){
+  $("button#tellmeboton").click(function(){
+    $("#div4").fadeIn(1000);
+            // para agregar y quitar blur del fondo
+            $("#cuerpo").addClass("descripcion_blur");
+            $(".boton_busqueda_movil").addClass("b_blur");
+          });
+  $("button#tellmeboton2").click(function(){
+    $("#div4").fadeOut(100);
+        // para agregar y quitar blur del fondo
+        $("#cuerpo").removeClass("descripcion_blur");
+        $(".boton_busqueda_movil").removeClass("b_blur");
+      });
+});
+
+// para poner poster sobre video en index.html
 $("#videohome").click(function(){
 
   if($("#videoimg").css("opacity")!=0){
    $("#videoimg, #videoimg-1").fadeTo( "slow", 0, function(){
     document.getElementById('video').play();
     console.log("jhsdjhfdsk");
-   } );
-   }
+  } );
+ }
+   // para que funcione bien el hover
    $("#video").removeClass("mostrar-1");
    $("#video").addClas("mostrar");
 
  });
+// para todos los videos del sitio
 $("video").click(function(e){
 
         // get click position 
@@ -73,24 +108,25 @@ $("video").click(function(e){
         // toggles play / pause
         this.paused ? this.play() : this.pause();
 
-    });
- 
+      });
 
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '348231912006000',
-      xfbml      : true,
-      version    : 'v2.1'
-    });
-  };
 
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "//connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '348231912006000',
+    xfbml      : true,
+    version    : 'v2.1'
+  });
+};
+
+(function(d, s, id){
+ var js, fjs = d.getElementsByTagName(s)[0];
+ if (d.getElementById(id)) {return;}
+ js = d.createElement(s); js.id = id;
+ js.src = "//connect.facebook.net/en_US/sdk.js";
+ fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
 </script>
+</div> 
 </body>
 </html>

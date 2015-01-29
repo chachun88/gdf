@@ -325,7 +325,7 @@ body {
 
 .text-22 a {
   font-weight: inherit;
-  color: #ffffff;
+  color: rgb(255, 255, 255);
 }
 
 .text-4 a {
@@ -2125,7 +2125,6 @@ body {
   }
 
   .aceptar-condiciones .point-text {
-    clear: both;
     margin-left: 6px;
   }
 
@@ -2285,6 +2284,8 @@ body {
   .footer-right-cont .footer-redes,
   .header-rigth-cont ._button {
     width: 100%;
+background-color: transparent;
+border: 0px;
   }
 
   .footer-right-cont .text {
@@ -2322,12 +2323,13 @@ body {
   }
 
   .header-content .header-rigth-cont {
-    position: relative;
+   position: fixed;
     clear: both;
-    z-index: 61;
-    width: 89.9791231732%;
-    height: 58px;
-    margin-left: 5.01044%;
+    z-index: 118;
+    width: 100%;
+    height: 50px;
+    margin-left: 0%;
+    background-color: rgba(213, 93, 124, 0.67);
   }
 
   .header-content .logo-content {
@@ -2350,7 +2352,8 @@ body {
   }
 
   .header-rigth-cont .carritoicono {
-    margin-left: 10%;
+    margin-left: 10px;
+    margin-top: 10px;
   }
 
   .loginpopup .reg-strate-correo {
@@ -2359,16 +2362,19 @@ body {
   }
 
   .loginpopup .reg-strate-fb {
-    width: 96.2703962703%;
+   width: 100%;
     margin-top: 23px;
-    margin-left: 1.86116%;
+    margin-left: 0%;
+    height: 60px;
+    background-color: rgb(70, 104, 249);
+    border: 3px solid white;
   }
 
   .loginpopup .reg-strate-login {
     position: relative;
     z-index: 99;
-    width: 96.2703962703%;
-    margin-left: 1.86116%;
+    width: 100%;
+    margin-left: 0%;
   }
 
   .logo-content .image {
@@ -2449,8 +2455,9 @@ body {
   }
 
   .reg-strate-login .radio-label {
-    width: 100.2936465563%;
-    margin-left: -0.29131%;
+    width: 100%;
+    margin-left: 0%;
+    margin-top: 10px;
   }
 
   .reg-strate-login .text {
@@ -2519,8 +2526,16 @@ body {
   }
 
   .header-rigth-cont ._container {
-    width: 43.6194895591%;
-    margin-right: 29.23434%;
+    width: auto;
+    margin-left: 20px;
+    margin-right: 0px;
+    float: left;
+    color: white;
+    margin-top: 8px;
+    margin-bottom: 0px;
+  }
+  .header-rigth-cont ._container a p {
+    color: white !important;
   }
 
   .reg-strate-correo ._button {

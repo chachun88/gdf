@@ -324,7 +324,7 @@ body {
 .point-text span {
   font-size: NaNem;
   font-weight: inherit;
-  color: rgb(77, 77, 77);
+  color: white;;
 }
 
 .text-22 a {
@@ -333,14 +333,14 @@ body {
 }
 
 .text-4 a {
-  color: gray;
+  color: white;
 }
 .text-4 a:hover {
   color: rgb(232, 169, 156);
 
 }
 .new_input {
-  height: 48px !important;
+  height: 35px !important;
 }
 .reg-strate-fb a {
   margin-left: 30%;
@@ -375,5 +375,6 @@ img.cargando{
 @media(max-width: 400px) {
 .reg-strate-fb a {
   margin-left: 17%;
+  display: none;
 }  
 }
