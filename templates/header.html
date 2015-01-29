@@ -26,7 +26,7 @@
 		</div>
 		<div class="_container clearfix salir_registro">
 			{% if current_user == None %}
-				<a class="_button button_register fancybox fancybox.iframe" href="/auth/login?next={{url_escape(request.uri)}}">
+				<a class="_button button_register" href="/auth/login?next={{url_escape(request.uri)}}">
 					<p>REGISTRO</p>
 				</a>
 			{% else %}
