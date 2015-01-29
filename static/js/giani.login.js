@@ -141,9 +141,12 @@ $(document).ready(function(){
 	        },
 			success: function(rtn){
 
-				var rtn_pair = $.parseJSON(JSON.stringify(rtn));
+				var str_ = JSON.stringify(rtn);
+
+				var rtn_pair = $.parseJSON(str_);
 
 				console.info(typeof(rtn_pair));
+				console.info(typeof(str_));
 
 				if (rtn_pair["success"]!=undefined) 
 				{
