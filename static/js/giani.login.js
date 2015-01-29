@@ -43,16 +43,18 @@ $(document).ready(function(){
 		        },
 				success: function(rtn){
 
-					var rtn_pair = $.parseJSON(rtn);
+					var rtn_pair = $.parseJSON(JSON.stringify(rtn));
 
-					if (rtn_pair.status == "ok") 
-					{
-						window.localStorage.setItem("user_id",rtn_pair["user_id"].toString());
-						window.parent.document.location.href = rtn_pair["next"];
+					if (rtn_pair["status"]) {
+						if (rtn_pair["status"] == "ok") 
+						{
+							window.localStorage.setItem("user_id",rtn_pair["user_id"].toString());
+							window.parent.document.location.href = rtn_pair["next"];
+						}
 					}
 					else
 					{
-						alert( rtn_pair.message );
+						alert( rtn_pair["message"] );
 					}
 
 					$("div.cargando").fadeOut();
@@ -139,15 +141,17 @@ $(document).ready(function(){
 	        },
 			success: function(rtn){
 
-				var rtn_pair = $.parseJSON(rtn);
+				var rtn_pair = $.parseJSON(JSON.stringify(rtn));
+
+				console.info(rtn_pair);
 
 				if (rtn_pair.success) 
 				{
-					window.parent.document.location.href = rtn_pair.success;
+					window.parent.document.location.href = rtn_pair["success"];
 				}
 				else
 				{
-					alert( rtn_pair.error );
+					alert( rtn_pair["error"] );
 				}
 
 				$("div.cargando").fadeOut();
