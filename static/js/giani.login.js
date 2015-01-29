@@ -136,6 +136,7 @@ $(document).ready(function(){
 			type: "post",
 			data: data,
 			cache: false,
+			dataType: "json",
 			beforeSend: function(objeto){
 	            $("div.cargando").fadeIn();
 	        },
