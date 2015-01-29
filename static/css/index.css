@@ -2522,13 +2522,14 @@ border: 0px;
   }
 
   .header-rigth-cont ._container {
-    width: auto;
-    margin-left: 20px;
-    margin-right: 0px;
-    float: left;
-    color: white;
-    margin-top: 8px;
-    margin-bottom: 0px;
+  width: 70%;
+/* margin-left: 20px; */
+/* margin-right: 0px; */
+float: left;
+color: white;
+margin-top: 8px;
+margin-bottom: 0px;
+
   }
   .header-rigth-cont ._container a p {
     color: white !important;
