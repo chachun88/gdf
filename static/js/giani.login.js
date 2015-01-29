@@ -45,7 +45,7 @@ $(document).ready(function(){
 
 					var rtn_pair = $.parseJSON(JSON.stringify(rtn));
 
-					if ("status" in rtn_pair) {
+					if (rtn_pair["status"]) {
 						if (rtn_pair["status"] == "ok") 
 						{
 							window.localStorage.setItem("user_id",rtn_pair["user_id"].toString());
@@ -143,7 +143,7 @@ $(document).ready(function(){
 
 				var rtn_pair = $.parseJSON(JSON.stringify(rtn));
 
-				if ("success" in rtn_pair) 
+				if (rtn_pair["success"]) 
 				{
 					window.parent.document.location.href = rtn_pair["success"];
 				}
