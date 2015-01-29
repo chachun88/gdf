@@ -84,7 +84,7 @@ class UserRegistrationHandler(BaseHandler):
 
             ##redirect is the request isn't aajx
             if ajax == "false":
-                self.redirect( self.next )
+                self.write(json_util.dumps({"success":self.next}))
 
 class AuthHandler(BaseHandler):
 
