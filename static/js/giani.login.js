@@ -143,6 +143,8 @@ $(document).ready(function(){
 
 				var rtn_pair = $.parseJSON(JSON.stringify(rtn));
 
+				console.info(rtn_pair);
+
 				if (rtn_pair["success"]) 
 				{
 					window.parent.document.location.href = rtn_pair["success"];
