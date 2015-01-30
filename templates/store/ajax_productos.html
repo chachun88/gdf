@@ -26,7 +26,7 @@
 </div>
 
 <script>
-    var str = '{{request.uri}}';
+    var str = '{{request.path}}';
 
     $(".paginador").pagination({
         items: {{items}},
@@ -34,7 +34,7 @@
         prevText: '<',
         nextText: '>',
         currentPage: {{page}},
-        hrefTextPrefix: str+'&page=',
+        hrefTextPrefix: str+'?ajax=1&page=',
         hrefTextSuffix: '#contenedor'
     });
 </script>

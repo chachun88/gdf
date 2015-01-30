@@ -105,21 +105,40 @@ $(document).ready(function(){
 	    }, 1000);
 	}
 
+	
+
 	$(document).on("click",".page-link",function(e){
 
 		e.preventDefault();
 
 		var url = $(this).attr("href");
+		
+		/*var parts = url.split("#");
 
-		var n = url.indexOf("?");
+		var uri = "";
 
-		if (n != -1){
-			url = url + "?ajax=1"
+		var query = "";
+
+		if(parts.length){
+			uri = url.split("#")[0].replace(/[?|&]/g,"&").replace("&","?");
+		} else {
+			uri = url.replace(/[?|&]/g,"&").replace("&","?");
+			if(uri.indexOf("ajax")==-1){
+				url = uri+"&ajax=1";	
+			}
 		}
-		else{
-			url = url + "&ajax=1"
-		}
 
+		try{
+			query = parts[1];
+		} catch(e){
+			console.info(e);
+		}*/
+
+		
+
+			
+
+		console.info(url);
 
 		$.ajax({
 			url: url,
@@ -142,7 +161,5 @@ $(document).ready(function(){
 
 		return false;
 	});
-
-
 
 });
