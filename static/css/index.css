@@ -2358,11 +2358,11 @@ border: 0px;
   }
 
   .loginpopup .reg-strate-fb {
-    margin-top: 23px;
+    margin-top: 10px;
     margin-left: 0%;
     /* height: 60px; */
     /* background-color: rgb(70, 104, 249); */
-    border: 3px solid white;
+    border: 0px solid white;
     width: 100%;
   }
 

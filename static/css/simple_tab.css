@@ -80,8 +80,12 @@ display: none;
 }
 .tab-2 {
     border:0px !important;
+    margin-top: 20px;
 }
 .reg-strate-login a {
     color: white;
     float: right;
+}
+.tab-2 .tab-content {
+    color: gray;
 }
