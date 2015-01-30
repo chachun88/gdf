@@ -20,7 +20,7 @@ $(document).ready(function(){
 		var email = $("input[name=email]", tthis).val().trim();
 		var password = $("input[name=password]", tthis).val().trim();
 
-		evt.preventDefault();
+		//evt.preventDefault();
 
 		if(email!=""&&password!=""){
 
@@ -46,17 +46,18 @@ $(document).ready(function(){
 
 					var rtn_pair = $.parseJSON(JSON.stringify(rtn));
 
-					if (rtn_pair["status"]) {
+					if (rtn_pair["status"]!=undefined) {
 						if (rtn_pair["status"] == "ok") 
 						{
 							window.localStorage.setItem("user_id",rtn_pair["user_id"].toString());
 							window.parent.document.location.href = rtn_pair["next"];
 						}
+						else
+						{
+							alert( rtn_pair["message"] );
+						}
 					}
-					else
-					{
-						alert( rtn_pair["message"] );
-					}
+					
 
 					$("div.cargando").fadeOut();
 				} 
