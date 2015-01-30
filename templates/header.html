@@ -27,7 +27,7 @@
 		<div class="_container clearfix salir_registro">
 			{% if current_user == None %}
 				<a class="_button button_register" href="/auth/login?next={{url_escape(request.uri)}}">
-					<p>REGISTRO</p>
+					<p>LOG IN / REGISTRO</p>
 				</a>
 			{% else %}
 				<!-- la clase logout es funcional no borrar -->
