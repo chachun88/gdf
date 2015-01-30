@@ -62,8 +62,8 @@ text-align: center;
   float: left;
   clear: both;
   width: 99.9958989501%;
-  border: 1px solid rgb(172, 110, 97);
-  background-color: rgb(255, 248, 246);
+  border: 1px solid #FEBEBD;
+  background-color: white;
   min-height: 100px;
 }
 
@@ -115,7 +115,7 @@ text-align: center;
   width: 93.9352710781%;
   height: 107px;
   margin: 1px 0 0 2.63451%;
-  border-bottom: 1px solid rgb(232, 169, 156);
+  border-bottom: 1px solid #FEBEBD;
 }
 .total {
   float: left;
@@ -160,13 +160,12 @@ text-align: center;
 }
 
 .opcionesregistro .text {
-  width: 100%;
-  min-height: 28px;
-  font-size: 1em;
-  font-weight: 400;
-  line-height: 2.38;
-  text-align: center;
-  color: rgb(172, 110, 97);
+  float: left;
+  clear: both;
+  width: 99.9958989501%;
+  border: 1px solid #FEBEBD;
+  background-color: rgb(255, 255, 255);
+  min-height: 100px;
 }
 .header-clearfix{
   clear: both;
@@ -332,18 +331,18 @@ text-align: center;
   width: 40.8987837559%;
   height: 41px;
   margin: 10px 0 0 5.80499%;
-  border: 1px solid rgb(172, 110, 97);
-  background-color: rgb(255, 224, 218);
+  background-color: rgb(231, 169, 156);
   font-size: 1.333em;
   font-weight: 300;
   line-height: 1.38;
   text-align: center;
-  color: rgb(172, 110, 97);
+  color: white;
 }
 .comprar:hover,
 .iralcarro:hover {
-  background-color: rgb(232, 169, 156);
-  color: rgb(255, 255, 255);
+   background-color: #FEBEBD;
+  border-color: #f78684;
+  color: #FFFFFF;
 }
 .header-content {
   position: relative;
@@ -429,17 +428,22 @@ text-align: center;
   float: right;
   width: 100%;
   height: 30px;
-  border-width: 1px;
-  border-color: rgb(172, 110, 97) rgb(172, 110, 97) rgb(231, 169, 156);
-  background-color: rgb(255, 224, 218);
+  border-width: 0px;
+  background-color: rgb(231, 169, 156);
   font-size: 1em;
   font-weight: 300;
   line-height: 2.38;
   text-align: center;
   letter-spacing: 1px;
-  color: rgb(231, 169, 156);
+  color: white;
   overflow: hidden;
 }
+.header-rigth-cont ._button:hover {
+background-color: #FEBEBD;
+border-color: #f78684;
+color: #FFFFFF; 
+}
+
 
 .header-rigth-cont ._container {
   float: left;
@@ -482,8 +486,8 @@ text-align: center;
   border: 2px solid white;
 }
 .reg-strate-login ._button:hover {
-  background-color: rgb(255, 224, 218);
-  color: rgb(172, 110, 97);
+  background-color: white;
+color: gray;
 }
 
 .reg-strate-login ._input {
@@ -667,4 +671,7 @@ color: white;
 }
 .radio-label {
   margin-top: 10px;
+}
+.iconos:hover {
+  color: #FEBEBD;
 }
