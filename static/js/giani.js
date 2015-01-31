@@ -93,9 +93,9 @@ $(document).ready(function(){
 		location.href="/checkout/address";
 	});
 
-	if($("#contenedor").length>0){
+	if($("#ajax_productos").length>0){
 		$("body,html").animate({
-	        scrollTop: $("#contenedor").offset().top
+	        scrollTop: $("#ajax_productos").offset().top
 	    }, 1000);
 	}
 
