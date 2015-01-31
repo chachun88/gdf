@@ -100,7 +100,7 @@ $(document).ready(function(){
 			}, 1000);
 		} else {
 			$("body,html").animate({
-				scrollTop: $("#contenedor #ajax_productos").offset().top + $(".categorias").height()
+				scrollTop: $("#contenedor").offset().top + $(".categorias").height()
 			}, 1000);
 
 		}
