@@ -36,7 +36,7 @@ class Application(tornado.web.Application):
             (r"/store/voteproduct", store_handler.VoteProductHandler),
             (r"/store/product/ifvoted", store_handler.IfVotedHandler),
             (r"/store/product/getvotes", store_handler.GetVotesHandler),
-            (r"/store/getproductsbytags", store_handler.GetProductsByTagsHandler),
+            (r"/store/getproductsbytags/([^/]+)", store_handler.GetProductsByTagsHandler),
 
             (r"/checkout/address", checkout_handler.CheckoutAddressHandler),
             (r"/checkout/billing", checkout_handler.CheckoutBillingHandler),

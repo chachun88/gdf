@@ -22,7 +22,7 @@ Giani Da Firenze - Home
         <div class="categorias clearfix">
         <div class="espacio_superior"></div>
           {% for t in tags %}
-          <a class="categoria page-link activo" href="/store/getproductsbytags?tags={{t['name']}}#contenedor">{{t['name']}}</a>
+          <a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a>
           {% end %}
         </div>
       </div>

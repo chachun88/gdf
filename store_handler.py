@@ -215,13 +215,15 @@ class GetVotesHandler(BaseHandler):
 
 class GetProductsByTagsHandler(BaseHandler):
 
-	def get(self):
+	def get(self,tags=""):
 
-		_tags = self.get_argument("tags","")
+		
 		page = int(self.get_argument("page","1"))
 		ajax = int(self.get_argument("ajax",0))
 
-		tags_arr = _tags.split(",")
+		tags = tags.replace("_","")
+
+		tags_arr = tags.split(",")
 
 		items = 0
 
