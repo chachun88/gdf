@@ -93,10 +93,17 @@ $(document).ready(function(){
 		location.href="/checkout/address";
 	});
 
-	if($("#ajax_productos").length>0){
-		$("body,html").animate({
-	        scrollTop: $("#ajax_productos").offset().top
-	    }, 1000);
+	if($("#contenedor").length>0){
+		if($(window).width()>480){
+			$("body,html").animate({
+				scrollTop: $("#contenedor").offset().top
+			}, 1000);
+		} else {
+			$("body,html").animate({
+				scrollTop: $("#contenedor").offset().top + $(".cuerpo-categorias").height()
+			}, 1000);
+			
+		}
 	}
 
 	if($("div.userInfo").length>0){
