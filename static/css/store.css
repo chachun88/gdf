@@ -36,6 +36,7 @@ width: 99.9287580147%;
 height: 274px;
 border: 1px solid rgb(207, 207, 207);
 /* background-color: rgb(245, 245, 245); */
+padding-top: 10px;
 }
 
 .contenedor-productos {
@@ -247,7 +248,7 @@ max-width: 1200px;
   margin-left: 10%;
   padding-top: 10px;
   padding-bottom: 10px;
-  margin-top: 45%;
+  margin-top: 10%;
   background-color: #FEBEBD;
   /* border: 1px solid white; */
 }
@@ -844,4 +845,8 @@ font-size: 15px;
     margin-left: 0%;
   }
 
+}
+
+.cuerpo-categorias .categorias a:first-child{
+  margin-top: 10px;
 }

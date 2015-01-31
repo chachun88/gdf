@@ -2774,3 +2774,7 @@ text-align: center;
 .reg-strate-fb img {
   width: 100%;
 }
+
+.cuerpo-categorias .categorias a:first-child{
+  margin-top: 10px;
+}
