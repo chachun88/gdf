@@ -54,7 +54,7 @@ $(document).ready(function(){
 						}
 						else
 						{
-							alert( rtn_pair["message"] );
+							fancyAlert( rtn_pair["message"] );
 						}
 					}
 					
@@ -63,7 +63,7 @@ $(document).ready(function(){
 				} 
 			});
 		} else {
-			alert("Debe ingresar email y contrase\xF1a");
+			fancyAlert("Debe ingresar email y contrase\xF1a");
 		}
 		return false;
 	});
@@ -154,7 +154,7 @@ $(document).ready(function(){
 				}
 				else
 				{
-					alert( rtn_pair["error"] );
+					fancyAlert( rtn_pair["error"] );
 				}
 
 				$("div.cargando").fadeOut();

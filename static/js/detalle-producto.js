@@ -89,5 +89,7 @@ $(document).ready(function(){
 		$("img.foto-producto").attr("src",image_src);
 	});
 
+	$("ul.tabs-menu-li li:first a").addClass("active").trigger("click");
+
 });
 
