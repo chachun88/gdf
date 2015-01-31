@@ -17,8 +17,14 @@ $(document).ready(function(){
 				} else {
 					GetCartByUserId(window.localStorage.getItem("user_id"));
 					//fancyAlert("Producto ha sido a\xF1adido al carro");
-					$('html,body').animate({ scrollTop: 0 }, 'slow');
-					$(".carritoproductos").slideDown();
+					$("#icono-carro-movil").addClass("parpadea");
+
+					if($(window).width()>460){
+						$('html,body').animate({ scrollTop: 0 }, 'slow');
+						if($(".carritoproductos").css("display")=="none"){
+							$(".carritoproductos").slideDown();
+						}
+					}
 				}
 			}
 		})
@@ -88,6 +94,8 @@ $(document).ready(function(){
 		var image_src = $(this).attr("data-src");
 		$("img.foto-producto").attr("src",image_src);
 	});
+
+	$("ul.tabs-menu-li li:first a").addClass("active").trigger("click");
 
 });
 
