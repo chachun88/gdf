@@ -56,7 +56,6 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  width: 100%;
   margin: auto;
   max-height: 65px;
 }
@@ -2086,4 +2085,7 @@ text-align: left;
   .selects {
 width: 25%;
 }
+}
+.producto-info img {
+  width: 100%;
 }
