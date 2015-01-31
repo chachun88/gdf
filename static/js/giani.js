@@ -100,7 +100,7 @@ $(document).ready(function(){
 			}, 1000);
 		} else {
 			$("body,html").animate({
-				scrollTop: $("#ajax_productos").offset().top
+				scrollTop: $("#contenedor #ajax_productos").offset().top
 			}, 1000);
 
 		}
