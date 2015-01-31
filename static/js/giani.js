@@ -100,7 +100,7 @@ $(document).ready(function(){
 			}, 1000);
 		} else {
 			$("body,html").animate({
-				scrollTop: 300
+				scrollTop: $(".footer").offset()
 			}, 1000);
 
 		}
