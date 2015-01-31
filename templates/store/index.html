@@ -74,17 +74,5 @@ Giani Da Firenze - Home
         hrefTextPrefix:'?ajax=1&page=',
         hrefTextSuffix: '#contenedor'
     });
-    if($("#contenedor").length>0){
-      if($(window).width()>480){
-        $("body,html").animate({
-          scrollTop: $("#contenedor").offset().top
-        }, 1000);
-      } else {
-        $("body,html").animate({
-          scrollTop: $("#ajax_productos").offset().top
-        }, 1000);
-
-      }
-    }
 </script>
 {% end %}
