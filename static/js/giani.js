@@ -94,7 +94,7 @@ $(document).ready(function(){
 	});
 
 	if($("#contenedor").length>0){
-		if($(document).width()>480){
+		if($(document).width()>=480){
 			$("body,html").animate({
 				scrollTop: $("#contenedor").offset().top
 			}, 1000);
