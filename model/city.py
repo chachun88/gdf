@@ -114,7 +114,7 @@ class City(BaseModel):
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 		try:
-			query = '''select distinct c.* from "City" c left join "Shipping" s on s.to_city_id = c.id where s.from_city_id = %(from_city_id)s'''
+			query = '''select distinct c.* from "City" c inner join "Shipping" s on s.to_city_id = c.id where s.from_city_id = %(from_city_id)s'''
 			parameters = {
 			"from_city_id":self.from_city_id
 			}

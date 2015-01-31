@@ -27,7 +27,7 @@ port = 0
 url_bodega = ""
 url_local = ""
 email_giani = ""
-shipping_cellar = 8
+shipping_cellar = 5
 cellar_id = 5
  
 
