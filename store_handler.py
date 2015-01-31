@@ -32,7 +32,7 @@ class IndexHandler(BaseHandler):
 		product = Product()
 		page = int(self.get_argument("page","1"))
 		ajax = int(self.get_argument("ajax",0))
-		lista = product.GetList(page,7)
+		lista = product.GetList(page,15)
 
 		items = 0
 		tags = {}
@@ -234,7 +234,7 @@ class GetProductsByTagsHandler(BaseHandler):
 		if "success" in res:
 			items = int(res["success"])
 
-		res = tag.GetProductsByTags(tags_arr,page,7)
+		res = tag.GetProductsByTags(tags_arr,page,15)
 
 		tags_visibles = tag.ListVisibleTags()
 
