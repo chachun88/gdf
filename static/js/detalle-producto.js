@@ -16,7 +16,7 @@ $(document).ready(function(){
 					fancyAlert(html);
 				} else {
 					GetCartByUserId(window.localStorage.getItem("user_id"));
-					fancyAlert("Producto ha sido a\xF1adido al carro");
+					//fancyAlert("Producto ha sido a\xF1adido al carro");
 					$('html,body').animate({ scrollTop: 0 }, 'slow');
 					$(".carritoproductos").slideDown();
 				}
