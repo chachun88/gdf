@@ -56,12 +56,16 @@
     <script src="/static/js/giani_functions.js"></script>
     <script src="/static/js/giani.js"></script>
     <script type="text/javascript" src="/static/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+    <script type="text/javascript" src="/static/js/lp.preload.image.js" ></script>
     {% block javascript %}{% end %}
 
 
     <script>
 //para ejecutar menumovil.html
 $(document).ready(function(){
+
+  $( "img" ).preload_image();
+
   $("button#tellmeboton").click(function(){
     $("#menu_movil").fadeIn(1000);
             // para agregar y quitar blur del fondo
