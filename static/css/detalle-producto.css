@@ -295,7 +295,6 @@ color: white;
   float: left;
   clear: both;
   width: 100%;
-  height: 213px;
   margin: 27px 0 0 -0.25018%;
   padding: 0;
 }
@@ -304,7 +303,6 @@ color: white;
   position: relative;
   float: left;
   width: 100%;
-  height: 213px;
   background-color: rgb(229, 229, 229);
 }
 
@@ -810,7 +808,7 @@ color: rgb(255, 255, 255);
 
   .cuerpo-producto .container {
     float: left;
-    width: 17.6935229067%;
+    width: 12%;
     height: 93px;
   }
 
@@ -1183,6 +1181,7 @@ color: rgb(255, 255, 255);
 
   .container ._button {
     margin-top: 285px;
+    font-size: 14px;
   }
 
   .container ._select {
@@ -1221,7 +1220,6 @@ color: rgb(255, 255, 255);
 
   .container .container-14 {
     width: 100%;
-    height: 238px;
   }
 
   .container .container-15 {
@@ -1535,14 +1533,12 @@ margin-left: 1.53218%;
   }
 
   .container .container-13 {
-    height: 290px;
     margin-top: 18px;
     margin-left: 0.11468%;
   }
 
   .container .container-14 {
-    height: 290px;
-    margin-left: -0.25803%;
+    margin-left: 0%;
   }
 
   .container .container-15 {
