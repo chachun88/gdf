@@ -1,63 +1,54 @@
-.salir_registro div{
+.salir_registro div {
   display: none;
-
 }
 .salir_registro:hover div {
   display: inline;
-
 }
 .salir_registro_1 {
-background-color: rgb(248, 167, 151);
-color: white;
-width: 30px;
-height: 30px;
-display: block;
-float: right;
-font-size: 16px;
-margin-top: -30px;
-z-index: 300;
-border-radius: 15px;
-line-height: 1.8em;
-margin-right: -12px;
-text-align: center;
+  background-color: rgb(248, 167, 151);
+  color: white;
+  width: 30px;
+  height: 30px;
+  display: block;
+  float: right;
+  font-size: 16px;
+  margin-top: -30px;
+  z-index: 300;
+  border-radius: 15px;
+  line-height: 1.8em;
+  margin-right: -12px;
+  text-align: center;
 }
-.header-left-social{
+.header-left-social {
   width: 80%;
   height: auto;
   float: left;
   margin-top: 13px;
 }
-
 .iconos {
   float: left;
   color: rgb(77, 77, 77);
   text-align: center;
 }
-
-.iconos i{
+.iconos i {
   font-size: 25px;
 }
-
 .iconos-left {
   margin-left: 15%;
 }
-.margin-left-2{
+.margin-left-2 {
   margin-left: 0%;
-
 }
-
 .carritoicono {
   float: left;
   height: 30px;
   margin: 16px 0 0 29.63997%;
 }
-
 .carritoicono .image {
   float: left;
   width: 30px;
   margin-left: -3.28125%;
 }
-
 .carritoinfo {
   float: left;
   clear: both;
@@ -66,7 +57,6 @@ text-align: center;
   background-color: white;
   min-height: 100px;
 }
-
 .carritoproductos {
   display: none;
   position: absolute;
@@ -75,7 +65,6 @@ text-align: center;
   z-index: 80;
   width: 27.2142857142%;
 }
-
 .flecha {
   float: left;
   width: 100%;
@@ -83,13 +72,11 @@ text-align: center;
   margin-top: -1px;
   position: relative;
 }
-
 .flecha .image {
   float: left;
   width: 15px;
   margin: 1px 0 0 53.5269%;
 }
-
 .flecharegistro {
   position: relative;
   float: left;
@@ -99,13 +86,11 @@ text-align: center;
   height: 15px;
   margin-top: -128px;
 }
-
 .flecharegistro .image {
   float: left;
   width: 15px;
   margin-left: 45.53065%;
 }
-
 .text {
   float: left;
 }
@@ -158,7 +143,6 @@ text-align: center;
   border: 1px solid rgb(232, 169, 156);
   background-color: rgb(255, 224, 218);
 }
-
 .opcionesregistro .text {
   float: left;
   clear: both;
@@ -167,7 +151,7 @@ text-align: center;
   background-color: rgb(255, 255, 255);
   min-height: 100px;
 }
-.header-clearfix{
+.header-clearfix {
   clear: both;
 }
 .body-login {
@@ -182,11 +166,15 @@ text-align: center;
 .loginpopup {
   float: left;
   width: 100%;
-  /* margin: 20px auto; */
-  /* height: 100%; */
-  /* margin-left: 10%; */
-  /* margin-top: 20px; */
-  }
+  /* margin: 20px auto;
+  */
+  /* height: 100%;
+  */
+  /* margin-left: 10%;
+  */
+  /* margin-top: 20px;
+  */
+}
 .reg-strate-correo {
   float: left;
   clear: both;
@@ -194,20 +182,18 @@ text-align: center;
   margin-left: 1.66667%;
   padding-bottom: 30px;
 }
-
 .reg-strate-correo .text {
   line-height: 1.38;
   color: rgb(0, 0, 0);
 }
-
 .reg-strate-fb {
- float: left;
+  float: left;
   width: 37.2789115646%;
-  /* height: 269px; */
+  /* height: 269px;
+  */
   margin: 27px 0 0 7%;
   border: 0px solid white;
 }
-
 .reg-strate-login {
   position: relative;
   float: left;
@@ -217,12 +203,12 @@ text-align: center;
   padding-bottom: 30px;
 }
 .reg-strate-login-1 {
-position: relative;
-float: none;
-z-index: 99;
-width: 46.8113975576%;
-margin: 13px auto;
-padding-bottom: 30px;
+  position: relative;
+  float: none;
+  z-index: 99;
+  width: 46.8113975576%;
+  margin: 13px auto;
+  padding-bottom: 30px;
 }
 .reg-strate-login .text {
   margin-left: -0.1317%;
@@ -237,7 +223,6 @@ padding-bottom: 30px;
   height: 70px;
   margin: 16px 0 0 3.65169%;
 }
-
 .fotoproductoencola .image {
   position: absolute;
   top: 0;
@@ -258,19 +243,19 @@ padding-bottom: 30px;
   color: rgb(0, 0, 0);
 }
 .color {
-    clear: both;
-    color: rgb(0, 0, 0);
-    float: left;
-    font-size: 1em;
-    font-weight: 400;
-    height: 15px;
-    line-height: 1.38;
-    margin: -57px 0 0 30.8594%;
-    min-height: 16.5px;
-    overflow: hidden;
-    position: relative;
-    width: 36.9393%;
-    z-index: 71;
+  clear: both;
+  color: rgb(0, 0, 0);
+  float: left;
+  font-size: 1em;
+  font-weight: 400;
+  height: 15px;
+  line-height: 1.38;
+  margin: -57px 0 0 30.8594%;
+  min-height: 16.5px;
+  overflow: hidden;
+  position: relative;
+  width: 36.9393%;
+  z-index: 71;
 }
 .eliminarproducto {
   display: block;
@@ -287,7 +272,6 @@ padding-bottom: 30px;
   text-align: center;
   color: rgb(172, 110, 97);
 }
-
 .eliminarproducto:hover {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -345,9 +329,8 @@ padding-bottom: 30px;
   text-align: center;
   color: white;
 }
-.comprar:hover,
-.iralcarro:hover {
-   background-color: #FEBEBD;
+.comprar:hover, .iralcarro:hover {
+  background-color: #FEBEBD;
   border-color: #f78684;
   color: #FFFFFF;
 }
@@ -361,7 +344,6 @@ padding-bottom: 30px;
   background-repeat: no-repeat;
   background-position: center top;
 }
-
 .header-left-cont {
   position: relative;
   float: left;
@@ -370,7 +352,6 @@ padding-bottom: 30px;
   height: 135px;
   margin-left: 10%;
 }
-
 .header-menu {
   float: left;
   clear: both;
@@ -379,7 +360,6 @@ padding-bottom: 30px;
   margin-left: 10%;
   border-bottom: 1px solid rgb(77, 77, 77);
 }
-
 .header-rigth-cont {
   position: relative;
   float: left;
@@ -391,32 +371,24 @@ padding-bottom: 30px;
 .categoria-1 {
   display: block;
   float: left;
-  width: 20%;  
+  width: 20%;
   font-size: 1em;
   text-align: center;
   letter-spacing: 0.8px;
   margin-top: 20px;
 }
-
 .categoria-1:hover {
   color: rgb(232, 169, 156);
 }
-.categoria-1-1,
-.categoria-1-2,
-.categoria-1-3,
-.categoria-1-4 {
+.categoria-1-1, .categoria-1-2, .categoria-1-3, .categoria-1-4 {
   color: rgb(77, 77, 77);
 }
-
 .categoria-1-4:hover {
   background-color: rgba(0, 0, 0, 0);
 }
-
 .categoria-1-5 {
   color: #4d4d4d;
 }
-
-
 .header-left-cont ._button {
   float: left;
   width: 68.8212927756%;
@@ -430,7 +402,6 @@ padding-bottom: 30px;
   text-align: justify;
   color: rgb(176, 176, 176);
 }
-
 .header-rigth-cont ._button {
   float: right;
   width: 100%;
@@ -445,18 +416,15 @@ padding-bottom: 30px;
   overflow: hidden;
 }
 .header-rigth-cont ._button:hover {
-background-color: #FEBEBD;
-border-color: #f78684;
-color: #FFFFFF; 
+  background-color: #FEBEBD;
+  border-color: #f78684;
+  color: #FFFFFF;
 }
-
-
 .header-rigth-cont ._container {
   float: left;
   width: 53.2319391634%;
   margin: 16px 0 0 5.69154%;
 }
-
 .reg-strate-correo ._button {
   float: left;
   clear: both;
@@ -473,16 +441,16 @@ color: #FFFFFF;
   text-align: center;
   color: rgb(172, 110, 97);
 }
-
 .reg-strate-login ._button {
- float: left;
+  float: left;
   clear: both;
   width: 100%;
   height: 39px;
   margin: 30px 0 0 -0.1317%;
   border-width: 0px;
   border-color: rgb(172, 110, 97);
-  /* background-color: rgb(255, 255, 255); */
+  /* background-color: rgb(255, 255, 255);
+  */
   font-size: 1.333em;
   font-weight: 400;
   line-height: 1.38;
@@ -493,13 +461,11 @@ color: #FFFFFF;
 }
 .reg-strate-login ._button:hover {
   background-color: white;
-color: gray;
+  color: gray;
 }
-
 .reg-strate-login ._input {
   margin-left: -0.1317%;
 }
-
 .logo-content {
   position: absolute;
   top: 0;
@@ -510,7 +476,6 @@ color: gray;
   height: 135px;
   margin: 0 auto;
 }
-
 .logo-content .image {
   position: absolute;
   left: 0;
@@ -519,7 +484,6 @@ color: gray;
   margin-left: auto;
   max-width: 260px;
 }
-
 .image-1 {
   top: 0;
   bottom: 0;
@@ -527,14 +491,12 @@ color: gray;
   width: 260px;
   margin: auto 0;
 }
-
 .image-2 {
   visibility: hidden;
   top: 0;
   z-index: 112;
   width: 268px;
 }
-
 .image-3 {
   visibility: hidden;
   top: 0;
@@ -543,14 +505,12 @@ color: gray;
   width: 242px;
   margin: auto 0;
 }
-
 .image-4 {
   visibility: hidden;
   top: 23px;
   z-index: 110;
   width: 373px;
 }
-
 .image-5 {
   visibility: hidden;
   top: 0;
@@ -559,114 +519,22 @@ color: gray;
   width: 373px;
   margin: auto 0;
 }
-
-a.redes_sociales{  
+a.redes_sociales {
   color: rgb(77, 77, 77);
   cursor: pointer;
 }
-@media(max-width: 1199px) {
-  .carritoproductos {
-  display: none;
-  position: absolute;
-  top: 46px;
-  left: 55.784598%;
-  z-index: 80;
-  width: 34.214286%;
-  }
-  .flecha .image {
-  float: left;
-  width: 15px;
-  margin: 1px 0 0 49.5269%;
-  }
-  .header-left-cont ._button, .header-rigth-cont ._button {
-  width: 100%;
-
-}
-@media(max-width: 979px) {
-  .flecha .image {
-  float: left;
-  width: 15px;
-  margin: 1px 0 0 49.5269%;
-  }
-
-}
-@media(max-width: 767px) {
-  .carritoproductos {
-  display: none;
-  position: absolute;
-  top: 46px;
-  left: 42.784598%;
-  z-index: 80;
-  width: 47.214286%;
-  }
-  .flecha .image {
-  float: left;
-  width: 15px;
-  margin: 1px 0 0 63.5269%;
-  }
-  .categoria-1 {
-  margin-top: 10px;
-}
-  .loginpopup .reg-strate-login {
-position: relative;
-z-index: 99;
-width: 80.6192138412%;
-margin-left: 9.69495%;
-}
-
-}
-@media(max-width: 479px) {
-  .header-left-social {
-width: 100%;
-height: auto;
-float: left;
-margin-top: 30px;
-}
-.iconos i {
-font-size: 28px;
-color: white;
-}
-.margin-left-2{
-  margin-left: 24%;
-
-}
-  .carritoproductos {
-  display: none;
-  position: absolute;
-  top: 46px;
-  left: 5%;
-  z-index: 80;
-  width: 90%;
-  }
-  .flecha .image {
-  float: left;
-  width: 15px;
-  margin: 1px 0 0 2%;
-  }
-  .carritoicono {
-  float: left;
-  height: 30px;
-  margin: 16px 0 0 0%;
-  }
-  .header-rigth-cont ._container {
-  float: none;
-  width: 53.2319391634%;
-  margin: 16px auto;
-  }
-}
 /* para activo de tienda */
-
-.activo{
+.activo {
   color: #F26663 !important;
 }
-.espacio_superior{
+.espacio_superior {
   width: 100%;
   height: 10px;
 }
 .cargando {
   display: none;
 }
-.reg-strate-login a{
+.reg-strate-login a {
   color: white;
   float: right;
   text-decoration: underline;
@@ -681,3 +549,91 @@ color: white;
 .iconos:hover {
   color: #FEBEBD;
 }
+@media(max-width:1199px) {
+  .carritoproductos {
+    display: none;
+    position: absolute;
+    top: 46px;
+    left: 55.784598%;
+    z-index: 80;
+    width: 34.214286%;
+  }
+  .flecha .image {
+    float: left;
+    width: 15px;
+    margin: 1px 0 0 49.5269%;
+  }
+  .header-left-cont ._button, .header-rigth-cont ._button {
+    width: 100%;
+  }
+  @media(max-width:979px) {
+    .flecha .image {
+      float: left;
+      width: 15px;
+      margin: 1px 0 0 49.5269%;
+    }
+  }
+  @media(max-width:767px) {
+    .carritoproductos {
+      display: none;
+      position: absolute;
+      top: 46px;
+      left: 42.784598%;
+      z-index: 80;
+      width: 47.214286%;
+    }
+    .flecha .image {
+      float: left;
+      width: 15px;
+      margin: 1px 0 0 63.5269%;
+    }
+    .categoria-1 {
+      margin-top: 10px;
+    }
+    .loginpopup .reg-strate-login {
+      position: relative;
+      z-index: 99;
+      width: 80.6192138412%;
+      margin-left: 9.69495%;
+    }
+  }
+  @media(max-width:479px) {
+    .header-left-social {
+      width: 100%;
+      height: auto;
+      float: left;
+      margin-top: 30px;
+    }
+    .iconos i {
+      font-size: 28px;
+      color: white;
+    }
+    .margin-left-2 {
+      margin-left: 24%;
+    }
+    .carritoproductos {
+      display: none;
+      position: absolute;
+      top: 46px;
+      left: 5%;
+      z-index: 80;
+      width: 90%;
+    }
+    .flecha .image {
+      float: left;
+      width: 15px;
+      margin: 1px 0 0 2%;
+    }
+    .carritoicono {
+      float: left;
+      height: 30px;
+      margin: 16px 0 0 0%;
+    }
+    .header-rigth-cont ._container {
+      float: none;
+      width: 53.2319391634%;
+      margin: 16px auto;
+    }
+  }
+}
+

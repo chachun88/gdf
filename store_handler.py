@@ -48,9 +48,9 @@ class IndexHandler(BaseHandler):
 			tags = tags_visibles["success"]
 
 		if ajax == 0:
-			self.render("store/index.html",data=lista,items=items,page=page,tags=tags)
+			self.render("store/index.html",data=lista,items=items,page=page,tags=tags,tags_arr=None)
 		else:
-			self.render("store/ajax_productos.html",data=lista,items=items,page=page,tags=tags)
+			self.render("store/ajax_productos.html",data=lista,items=items,page=page,tags=tags,tags_arr=None)
 
 	def post(self):
 
@@ -221,7 +221,7 @@ class GetProductsByTagsHandler(BaseHandler):
 		page = int(self.get_argument("page","1"))
 		ajax = int(self.get_argument("ajax",0))
 
-		tags = tags.replace("_","")
+		tags = tags.replace("_"," ")
 
 		tags_arr = tags.split(",")
 
@@ -243,9 +243,9 @@ class GetProductsByTagsHandler(BaseHandler):
 
 		if "success" in res:
 			if ajax == 0:
-				self.render("store/index.html",data=res["success"],items=items,page=page,tags=tags)
+				self.render("store/index.html",data=res["success"],items=items,page=page,tags=tags,tags_arr=tags_arr)
 			else:
-				self.render("store/ajax_productos.html",data=res["success"],items=items,page=page,tags=tags)
+				self.render("store/ajax_productos.html",data=res["success"],items=items,page=page,tags=tags,tags_arr=None)
 				#self.write(json_util.dumps({"html":self.render_string("store/ajax_productos.html",data=res["success"],url_bodega=url_bodega,money_format=self.money_format),"items":items,"page":page}))
 		else:
 			self.render("beauty_error.html",message=res["error"])
