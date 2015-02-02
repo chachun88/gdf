@@ -874,3 +874,12 @@ class WSCorreosChileHandler(BaseHandler):
 
         self.write(response)
 
+class AboutusHandler(BaseHandler):
+
+    def get(self):
+        self.render( "aboutus.html" )
+
+class HistoryHandler(BaseHandler):
+
+    def get(self):
+        self.render( "history.html" )

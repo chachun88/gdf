@@ -66,6 +66,8 @@ class Application(tornado.web.Application):
             (r"/xt_compra", others_handler.XtCompraHandler),
             (r"/store/success", others_handler.ExitoHandler),
             (r"/store/failure", others_handler.FracasoHandler),
+            (r"/aboutus", others_handler.AboutusHandler),
+            (r"/history", others_handler.HistoryHandler),
             (r"/wscc", others_handler.WSCorreosChileHandler)
             
         ]
