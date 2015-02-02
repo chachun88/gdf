@@ -67,6 +67,12 @@ Giani Da Firenze - Home
     });
   </script>
   {% end %}
+{% else %}
+  <script>
+    $(document).ready(function(){
+      $(".header-menu .zapatos").addClass("activo");
+    });
+  </script>
 {% end %}
 {% end %}
 
