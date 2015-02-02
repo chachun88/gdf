@@ -59,12 +59,14 @@ Giani Da Firenze - Home
       </div>
     </div>
   </div>
-{% if "lo nuevo" in tags_arr %}
-<script>
-  $(document).ready(function(){
-    $(".header-menu .que-es-lo-nuevo").addClass("activo");
-  });
-</script>
+{% if tags_arr is not None %}
+  {% if "lo nuevo" in tags_arr %}
+  <script>
+    $(document).ready(function(){
+      $(".header-menu .que-es-lo-nuevo").addClass("activo");
+    });
+  </script>
+  {% end %}
 {% end %}
 {% end %}
 
