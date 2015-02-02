@@ -164,4 +164,5 @@ $(document).ready(function(){
 		return false;
 	});
 
+	$(".header-menu .que-es-lo-nuevo").addClass("activo");
 });

@@ -59,7 +59,15 @@ Giani Da Firenze - Home
       </div>
     </div>
   </div>
+{% if "lo nuevo" in tags_arr %}
+<script>
+  $(document).ready(function(){
+    $(".header-menu .que-es-lo-nuevo").addClass("activo");
+  });
+</script>
 {% end %}
+{% end %}
+
 {% block javascript %}
 <script src="/static/js/jquery.simplePagination.js"></script>
 <script>
@@ -73,7 +81,4 @@ Giani Da Firenze - Home
         hrefTextSuffix: '#contenedor'
     });
 </script>
-{% if "lo nuevo" in tags_arr %}
-nuevo
-{% end %}
 {% end %}

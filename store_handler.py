@@ -221,7 +221,7 @@ class GetProductsByTagsHandler(BaseHandler):
 		page = int(self.get_argument("page","1"))
 		ajax = int(self.get_argument("ajax",0))
 
-		tags = tags.replace("_","")
+		tags = tags.replace("_"," ")
 
 		tags_arr = tags.split(",")
 
