@@ -63,3 +63,6 @@
 	display: none;
 }
 }
+.minict_wrapper ul li {
+white-space: nowrap;
+}
