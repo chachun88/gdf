@@ -66,6 +66,12 @@ Giani Da Firenze - Home
       $(".header-menu .que-es-lo-nuevo").addClass("activo");
     });
   </script>
+  {% elif "campaña".decode("utf-8") in tags_arr %}
+  <script>
+    $(document).ready(function(){
+      $(".header-menu .campana").addClass("activo");
+    });
+  </script>
   {% end %}
 {% else %}
   <script>
