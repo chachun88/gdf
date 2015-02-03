@@ -2107,7 +2107,18 @@ body {
   body {
     font-size: 0.75em;
   }
+  .paginador ul {
+     width: auto !important;
+     float: none !important;
+  }
+  .paginador ul li {
+    width: auto;
+    margin: 0 4% 0 4%;
 
+  }
+  .paginador ul li a {
+    font-size: 25px !important;
+  }
   .acciones .comprar {
     width: 40.8536984865%;
     margin-top: 10px;

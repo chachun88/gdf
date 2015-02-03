@@ -95,12 +95,13 @@
   float: left;
 }
 .productosencola {
-  position: relative;
-  float: left;
-  width: 93.9352710781%;
-  height: 107px;
-  margin: 1px 0 0 2.63451%;
-  border-bottom: 1px solid #FEBEBD;
+ position: relative;
+float: left;
+width: 93.9352710781%;
+height: 107px;
+margin: 1px 0 0 2.63451%;
+border-bottom: 1px solid #FEBEBD;
+color: rgb(104, 104, 104) !important;
 }
 .total {
   float: left;
@@ -240,11 +241,9 @@
   font-size: 1.167em;
   font-weight: 400;
   line-height: 1.38;
-  color: rgb(0, 0, 0);
 }
 .color {
   clear: both;
-  color: rgb(0, 0, 0);
   float: left;
   font-size: 1em;
   font-weight: 400;
@@ -289,7 +288,6 @@
   font-size: 1em;
   font-weight: 400;
   line-height: 1.38;
-  color: rgb(0, 0, 0);
 }
 .cantidad {
   position: relative;
@@ -301,7 +299,6 @@
   font-size: 1em;
   font-weight: 400;
   line-height: 1.38;
-  color: rgb(0, 0, 0);
 }
 .precio {
   position: relative;
@@ -314,7 +311,6 @@
   font-weight: 400;
   line-height: 1.38;
   text-align: right;
-  color: rgb(0, 0, 0);
 }
 .comprar, .iralcarro {
   display: block;
