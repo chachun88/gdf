@@ -191,6 +191,8 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
         user_id = self.get_argument("user_id","")
 
+        print user_id
+
         usr = User()
 
         usr.name = user["name"]
@@ -214,7 +216,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
             current_user_id = json_util.loads(response_obj["success"])["id"]
 
-            if user_id != "undefined":
+            if user_id != "":
 
                 if str(user_id) != str(current_user_id):
 
@@ -325,18 +327,19 @@ class NewPasswordHandler(BaseHandler):
         try:
             user = (User()).InitById( id )
 
-
             clave_ant = self.get_argument("claveant", "")
             clave_nva = self.get_argument("clavenva", "")
             clave_nva_rep = self.get_argument("clavenvarep", "")
 
 
             if clave_ant == user["password"] and clave_nva == clave_nva_rep and clave_nva != "":
-                (User()).ChangePassword( id, clave_nva )
-                self.render( "auth/fail.html", message="se ha cambiado correctamente" )
-                return
-
-            raise Exception( "no se puedo cambiar el usuario" )
+                try:
+                    (User()).ChangePassword( id, clave_nva )
+                    self.render( "auth/fail.html", message="se ha cambiado correctamente" )
+                except Exception,e:
+                    print str( e )
+                    self.render( "auth/fail.html", message="error al cambiar contrasña" )
+            
         except Exception, e:
             print str( e )
             self.render( "auth/fail.html", message="error al cambiar contrasña" )

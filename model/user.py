@@ -8,7 +8,7 @@ import psycopg2
 import psycopg2.extras
 
 from sendpassword import Email
-# from customer import Customer
+import random
 
 from bson import json_util
 
@@ -402,6 +402,17 @@ class User(BaseModel):
 		except Exception, e:
 			return self.ShowError(str(e))
 
+	def RandomPass(self):
+
+		alphabet = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		pw_length = 8
+		mypw = ""
+
+		for i in range(pw_length):
+		    next_index = random.randrange(len(alphabet))
+		    mypw = mypw + alphabet[next_index]
+
+		return mypw
 
 	def PassRecovery( self, email ):
 		try:
@@ -413,15 +424,19 @@ class User(BaseModel):
 				p = ''' select password, id from "User" where email = %(email)s '''
 				q = {"email": email}
 
-				cur = self.connection.cursor(  cursor_factory=psycopg2.extras.DictCursor )
+				cur = self.connection.cursor(  cursor_factory=psycopg2.extras.RealDictCursor )
 
 				cur.execute(p,q)
 				data = cur.fetchone()
 
-				password = data[0]
-				user_id = "{}".format(data[1])
+				password = data["password"]
+				user_id = "{}".format(data["id"])
 
-				Email( email, user_id, password )
+				new_password = self.RandomPass()
+
+				self.ChangePassword(user_id,new_password)
+
+				Email( email, user_id, new_password )
 
 				return True
 
@@ -441,7 +456,7 @@ class User(BaseModel):
 
 			cur = self.connection.cursor( cursor_factory=psycopg2.extras.DictCursor )
 			cur.execute( p,q )
-
+			self.connection.commit()
 
 		except Exception, e:
 			print str( e )
