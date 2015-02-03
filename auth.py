@@ -331,10 +331,23 @@ class NewPasswordHandler(BaseHandler):
             clave_nva = self.get_argument("clavenva", "")
             clave_nva_rep = self.get_argument("clavenvarep", "")
 
+            m = hashlib.md5()
 
-            if clave_ant == user["password"] and clave_nva == clave_nva_rep and clave_nva != "":
+            m.update(clave_ant)
+
+            password = m.hexdigest()
+
+
+            if password == user["password"] and clave_nva == clave_nva_rep and clave_nva != "":
                 try:
-                    (User()).ChangePassword( id, clave_nva )
+
+                    m = hashlib.md5()
+
+                    m.update(clave_nva)
+
+                    new_password = m.hexdigest()
+
+                    (User()).ChangePassword( id, new_password )
                     self.render( "auth/fail.html", message="se ha cambiado correctamente" )
                 except Exception,e:
                     print str( e )
