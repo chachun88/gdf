@@ -364,7 +364,7 @@ class Product(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-		q = '''select p.*,c.name as category from "Product" p left join "Category" c on c.id = p.category_id where p.name = %(name)s and c.name = %(cat)s and p.color = %(color)s limit 1'''
+		q = '''select p.*,c.name as category from "Product" p left join "Category" c on c.id = p.category_id where p.name = %(name)s and c.name = %(cat)s and p.color = %(color)s and p.for_sale = 1 limit 1'''
 		p = {
 		"name":name,
 		"cat":cat,
