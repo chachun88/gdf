@@ -22,7 +22,9 @@ var GetCartByUserId = function(){
 
 	if(Storage !== "undefined") {
 
-		if(window.localStorage.getItem("user_id")){
+		if(!window.localStorage.getItem("user_id")){
+			window.localStorage.setItem("user_id","0");
+		} else {
 
 			$.ajax({
 				cache: false,
