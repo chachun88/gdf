@@ -415,10 +415,10 @@ class ExitoHandler(BaseHandler):
     # TBK_ORDEN_COMPRA:133
 
 
-    def post(self):
+    def get(self):
 
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","20141206123155")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","260")
         pathSubmit = "http://giani.ondev.today"
 
         # referer = self.request.headers.get('Referer').replace(self.request.headers.get('Origin'),"")
@@ -434,7 +434,7 @@ class ExitoHandler(BaseHandler):
             if int(order.state) == 1:
                 self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
         else:
-            print init_by_id["error"]
+            print init_by_id["error"] + "wertyui"
             self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
 
         
@@ -559,14 +559,14 @@ class ExitoHandler(BaseHandler):
                     
 
                     detalle_orden += """\
-                        <tr>
-                            <td style="line-height: 2.5;border-left: 1px solid #d6d6d6; margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{quantity}</td>
-                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
-                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{color}</td>
-                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{size}</td>
-                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {price}</td>
-                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {subtotal}</td>
-                        </tr>
+                        <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <td style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid; border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{quantity}</td>
+                            <td style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid; border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
+                            <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{color}</td>
+                            <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{size}</td>
+                            <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {price}</td>
+                            <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {subtotal}</td>
+                          </tr>
                     """.format(name=l["name"].encode("utf-8"),size=l["size"].encode("utf-8"),quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]).encode("utf-8"),subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
 
                 cart = Cart()
@@ -590,134 +590,550 @@ class ExitoHandler(BaseHandler):
                     self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
 
                 datos_facturacion = """\
-                <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos de Facturaci&oacute;n </th>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">N&deg; Orden </th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_id}</td>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Nombre </th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{address} - {town} - {city} - {country}</td>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Teléfono</th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{telephone}</td>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Correo</th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{email}</td>
-                    </tr>
-                </table>
+                <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;"><tbody>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos de Facturaci&oacute;n </th>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">N&deg; Orden </th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_id}</td>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Nombre </th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{address} - {town} - {city} - {country}</td>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Teléfono</th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{telephone}</td>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Correo</th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{email}</td>
+                  </tr>
+                </tbody></table>
                 """.format(order_id=order.id,name=facturacion["name"],address=facturacion["address"],town="",city=facturacion["city"],country="",telephone=facturacion["telephone"],email=facturacion["email"])
 
                 datos_despacho = """\
-                <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos de Despacho</th>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">N&deg; Orden </th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_id}</td>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Nombre </th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{address} - {town} - {city} - {country}</td>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Teléfono</th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{telephone}</td>
-                    </tr>
-                    <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Correo</th>
-                        <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{email}</td>
-                    </tr>
-                </table>
+                <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin-top:20px;"><tbody>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos de Despacho</th>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">N&deg; Orden </th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_id}</td>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Nombre </th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Direcci&oacute;n</th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{address} - {town} - {city} - {country}</td>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Teléfono</th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{telephone}</td>
+                  </tr>
+                  <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Correo</th>
+                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{email}</td>
+                  </tr>
+                </tbody></table>
                 """.format(order_id=order.id,name=despacho["name"],address=despacho["address"],town="",city=despacho["city"],country="",telephone=despacho["telephone"],email=despacho["email"])
 
                 html = """\
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title></title>
-                </head>
-                <body style="text-align:center; font-family:Arial; width:100%; margin: 0px;">
-                    <div style="">
-                        <div style="background-color:rgb(239, 239, 239); height:100px;padding-top:10px;">
-                            <img style="display:block;margin:0 auto;max-height:90px;" src="{url_local}/static/img/giani-logo-2-gris-260x119.png" />
-                        </div>
-                            <p style="margin:0px;font-family: Arial;color:#999;font-size:16px;text-align: left;padding: 24px 13px 0 27px;">
-                                Hola {name}
-                            </p>
+                <html xmlns=""><head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                <meta name="viewport" content="initial-scale=1.0"> 
+                <meta name="format-detection" content="telephone=no">
+                <link href="http://fonts.googleapis.com/css?family=Roboto:300,100,400" rel="stylesheet" type="text/css">
+                
+                <body style="font-size:12px; font-family:Roboto,Open Sans,Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; background-color:#ffffff; ">
 
-                        <p style="margin:0 0 20px 0; font-family:Arial; color:#999;font-size:12px;text-align: left;padding: 5px 13px 0 27px">"Gracias por comprar en Giani da Firenze"</p>
+                  <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ecebeb;">  
+                   <!--START TOP NAVIGATION ​LAYOUT-->
+                   <tr>
+                    <td valign="top">
+                      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
 
 
-                        {datos_facturacion}
-                        {datos_despacho}
+                        <!-- START CONTAINER NAVIGATION -->
+                        <tbody><tr>
+                          <td align="center" valign="top">
 
-                        <table cellspacing=0 style="width:80%; margin:10px auto; background:#efefef;color:#999999;-webkit-text-stroke: 1px transparent;font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <!-- start top navigation container -->
+                            <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
+
+                              <tbody><tr>
+                                <td valign="top">
+
+
+                                  <!-- start top navigaton -->
+                                  <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+
+                                    <!-- start space -->
+                                    <tbody><tr>
+                                      <td valign="top" height="20">
+                                      </td>
+                                    </tr>
+                                    <!-- end space -->
+
+                                    <tr>
+                                      <td valign="middle">
+
+                                        <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+
+                                          <tbody><tr>
+                                            <td align="center" valign="top">
+                                             <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                           </td>
+
+                                         </tr>
+
+
+                                         <!-- start space -->
+                                         <tr>
+                                          <td valign="top" class="increase-Height-20">
+
+                                          </td>
+                                        </tr>
+                                        <!-- end space -->
+
+                                      </tbody></table>
+
+                                      <!--start content nav -->
+                                      <!--end content nav -->
+
+                                    </td>
+                                  </tr>
+
+                                  <!-- start space -->
+                                  <tr>
+                                    <td valign="top" height="20">
+                                    </td>
+                                  </tr>
+                                  <!-- end space -->
+
+                                </tbody></table>
+                                <!-- end top navigaton -->
+                              </td>
+                            </tr>
+                          </tbody></table>
+                          <!-- end top navigation container -->
+
+                        </td>
+                      </tr>
+
+
+                      <!-- END CONTAINER NAVIGATION -->
+
+                    </tbody></table>
+                  </td>
+                </tr>
+                <!--END TOP NAVIGATION ​LAYOUT-->
+                <!-- START LAYOUT-1/1 --> 
+
+                <tr>
+                 <td align="center" valign="top" class="fix-box">
+
+                   <!-- start  container width 600px --> 
+                   <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
+
+
+                     <tbody><tr>
+                       <td valign="top">
+
+                         <!-- start container width 560px --> 
+                         <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin-top:10px;">
+
+
+                           <!-- start text content --> 
+                           <tbody><tr>
+                             <td valign="top">
+                               <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                                 <tbody><tr>
+                                   <td valign="top" width="auto" align="center">
+                                     <!-- start button -->                         
+                                     <table border="0" align="center" cellpadding="0" cellspacing="0">
+                                       <tbody><tr>
+                                         <td width="auto" align="center" valign="middle" height="28" style=" background-color:#ffffff; border:1px solid #ececed; background-clip: padding-box; font-size:18px; font-family:Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; text-align:center;  color:#a3a2a2; font-weight: 300; padding-left:18px; padding-right:18px; ">
+
+                                           <span style="color: #a3a2a2; font-weight: 300;">
+                                             <a href="#" style="text-decoration: none; color: #a3a2a2; font-weight: 300;">
+                                               HOLA <span style="color: #FEBEBD; font-weight: 300;">{name}</span>
+                                             </a>
+                                           </span>
+                                         </td>
+                                       </tr>
+                                     </tbody></table>
+                                     <!-- end button -->   
+                                   </td>
+                                 </tr>
+
+
+
+                               </tbody></table>
+                             </td>
+                           </tr>
+                           <!-- end text content --> 
+
+
+                         </tbody></table>
+                         <!-- end  container width 560px --> 
+                       </td>
+                     </tr>
+                   </tbody></table>
+                   <!-- end  container width 600px --> 
+                 </td>
+                </tr>
+
+                <!-- END LAYOUT-1/1 --> 
+
+
+                <!-- START LAYOUT-1/2 --> 
+
+                <tr>
+                 <td align="center" valign="top" class="fix-box">
+
+                   <!-- start  container width 600px --> 
+                   <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
+
+
+                     <tbody><tr>
+                       <td valign="top">
+
+                         <!-- start container width 560px --> 
+                         <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;">
+
+
+                           <!-- start text content --> 
+                           <tbody><tr>
+                             <td valign="top">
+                               <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+
+                                 <!-- start text content --> 
+                                 <tbody><tr>
+                                   <td valign="top">
+                                     <table border="0" cellspacing="0" cellpadding="0" align="center">
+
+
+                                       <!--start space height --> 
+                                       <tbody><tr>
+                                         <td height="15"></td>
+                                       </tr>
+                                       <!--end space height --> 
+
+                                       <tr>
+                                         <td style="font-size: 13px; line-height: 22px; font-family:Roboto,Open Sans,Arial,Tahoma, Helvetica, sans-serif; color:#a3a2a2; font-weight:300; text-align:center; ">
+
+
+                                           Gracias por comprar en Giani da Firenze
+
+
+                                         </td>
+                                       </tr>
+
+                                       <!--start space height --> 
+                                       <tr>
+                                         <td height="15"></td>
+                                       </tr>
+                                       <!--end space height --> 
+
+
+
+                                     </tbody></table>
+                                   </td>
+                                 </tr>
+                                 <!-- end text content -->
+
+                                 <tr>
+                                   <td valign="top" width="auto" align="center">
+
+                                   </td>
+
+                                 </tr>
+
+                               </tbody></table>
+                             </td>
+                           </tr>
+                           <!-- end text content --> 
+
+                           <!--start space height --> 
+                           <tr>
+                             <td height="20"></td>
+                           </tr>
+                           <!--end space height --> 
+
+
+                         </tbody></table>
+                         <!-- end  container width 560px --> 
+                       </td>
+                     </tr>
+                   </tbody></table>
+                   <!-- end  container width 600px --> 
+                 </td>
+                </tr>
+
+                <!-- END LAYOUT-1/2 --> 
+
+                <!-- START LAYOUT-1/2 --> 
+
+                <tr>
+                 <td align="center" valign="top" class="fix-box">
+
+                   <!-- start  container width 600px --> 
+                   <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; padding-bottom:20px; ">
+
+
+                     <tbody><tr>
+                       <td valign="top">
+
+                         <!-- start container width 560px --> 
+                         <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;">
+
+
+                           <!-- start text content --> 
+                           <tbody><tr>
+                             <td valign="top">
+                               <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+
+                                 <!-- start text content --> 
+                                 <tbody><tr>
+                                   <td valign="top">
+                                     <table border="0" cellspacing="0" cellpadding="0" align="center">
+
+
+                                       <!--start space height --> 
+                                       <tbody><tr>
+                                         <td height="15"></td>
+                                       </tr>
+                                       <!--end space height --> 
+
+                                       <tr>
+                                         <td style="font-size: 13px; line-height: 22px; font-family:Roboto,Open Sans,Arial,Tahoma, Helvetica, sans-serif; color:#a3a2a2; font-weight:300; text-align:center; ">
+
+
+
+
+
+                                         </td>
+                                       </tr>
+
+                                       <!--start space height --> 
+                                       <tr>
+                                         <td height="15"></td>
+                                       </tr>
+                                       <!--end space height --> 
+
+
+
+                                     </tbody></table>
+                                   </td>
+                                 </tr>
+                                 <!-- end text content -->
+
+                                 <tr>
+                                   <td valign="top" width="auto" align="center">
+
+                                   </td>
+
+                                 </tr>
+
+                               </tbody></table>
+                             </td>
+                           </tr>
+                           <!-- end text content --> 
+
+                           <!--start space height --> 
+                           <tr>
+                             <td height="20"></td>
+                           </tr>
+                           <!--end space height --> 
+
+
+                         </tbody></table>
+
+
+                                        {datos_facturacion}
+                                        {datos_despacho}
+
+                                        <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin-top:20px;"><tbody>
+                                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                                            <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos compra</th>
+                                          </tr>
+                                        </tbody></table>
+                                        <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;"><tbody>
+                                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Cantidad</th>
+                                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Nombre producto</th>
+                                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid; border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Color</th>
+                                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Talla</th>
+                                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Precio</th>
+                                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
+                                          </tr>
+                                            
+                                            {detalle_orden}
+
+                                            </tbody></table>
+
+                        <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin-top:20px;"><tbody>
+                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Resumen</th>
+                          </tr>
+                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal </th>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_subtotal}</td>
+                          </tr>
+                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de Env&iacute;o</th>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {costo_despacho}</td>
+                          </tr>
+                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Total</th>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_total}</td>
+                          </tr>
+                        </tbody></table>
+                        <!-- end  container width 560px --> 
+                      </td>
+                    </tr>
+                  </tbody></table>
+                  <!-- end  container width 600px --> 
+                </td>
+                </tr>
+
+                <!-- END LAYOUT-1/2 --> 
+
+
+
+
+
+
+
+                <!--START FOOTER LAYOUT-->
+                <tr>
+                  <td valign="top">
+                    <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+
+
+                      <!-- START CONTAINER  -->
+                      <tbody><tr>
+                        <td align="center" valign="top">
+
+                          <!-- start footer container -->
+                          <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
+
+                            <tbody><tr>
+                              <td valign="top">
+
+
+                                <!-- start footer -->
+                                <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+
+                                  <!-- start space -->
+                                  <tbody><tr>
+                                    <td valign="top" height="20">
+                                    </td>
+                                  </tr>
+                                  <!-- end space -->
+
+                                  <tr>
+                                    <td valign="middle">
+
+                                      <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+
+                                        <tbody><tr>
+                                          <td align="center" valign="top">
+                                           <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                         </td>
+                                         
+                                       </tr>
+
+                                       <!-- start space -->
+                                       <tr>
+                                        <td valign="top" class="increase-Height-20">
+                                        </td>
+                                      </tr>
+                                      <!-- end space -->
+
+                                    </tbody></table>
+
+                                  </td>
+                                </tr>
+
+                                <!-- start space -->
+                                <tr>
+                                  <td valign="top" height="20">
+                                  </td>
+                                </tr>
+                                <!-- end space -->
+
+                              </tbody></table>
+                              <!-- end footer -->
+                            </td>
+                          </tr>
+                        </tbody></table>
+                        <!-- end footer container -->
+
+                      </td>
+                    </tr>
                     
-                            <tr>
-                                <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos compra</th>
+
+                    <!-- END CONTAINER  -->
+                    
+                  </tbody></table>
+                </td>
+                </tr>
+                <!--END FOOTER ​LAYOUT-->
+
+
+
+                <!--  START FOOTER COPY RIGHT -->
+
+                <tr>
+                  <td align="center" valign="top" style="background-color:#FEBEBD;">
+                    <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
+                      <tbody><tr>
+                        <td valign="top">
+                          <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
+
+                            <!--start space height -->                      
+                            <tbody><tr>
+                              <td height="10"></td>
                             </tr>
-                        </table>
-                        <table cellspacing=0 style="width:80%; margin:10px auto; background:#efefef;color:#999999;-webkit-text-stroke: 1px transparent;font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                            <tr>
-                                <th style="border: 1px solid #d6d6d6;line-height: 2.5;">Cantidad</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Nombre producto</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Color</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Talla</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Precio</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Subtotal</th>
-                            </tr>
-                            
-                            {detalle_orden}
+                            <!--end space height --> 
 
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_subtotal}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de Env&iacute;o</th>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {costo_despacho}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Total</th>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_total}</td>
-                            </tr>
-                        </table>
+                              <!-- start COPY RIGHT content -->  
+                              <td valign="top" style="font-size: 13px; line-height: 22px; font-family:Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; color:#ffffff; font-weight:300; text-align:center; ">
+                               GIANI DA FIRENZE 2014 ®
+                             </td>
+                             <!-- end COPY RIGHT content --> 
+                           </tr>
 
-                        <table style="width:100%; height: 40px; background-color: rgb(255, 224, 218);">
-                            <tr>
-                                <td colspan=2   style="padding: 24px;background-color:rgb(255, 224, 218);width:100%"><img style="display:block;margin:0 auto 0 auto;" src="" /></td>
-                            </tr>
-                        </table>
-                    </div>
-                </body>
-                </html> 
+                           <!--start space height -->                      
+                           <tr>
+                            <td height="10"></td>
+                          </tr>
+                          <!--end space height --> 
+
+
+                        </tbody></table>
+                      </td>
+                    </tr>
+                  </tbody></table>
+                </td>
+                </tr>
+                <!--  END FOOTER COPY RIGHT -->
+                </table>
+
+                </table>
+                </body></html>
                 """.format(name=self.current_user["name"].encode("utf-8"),order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=self.money_format(order.total+order.shipping),order_subtotal=self.money_format(order.subtotal),order_tax=self.money_format(order.tax),url_local=url_local,costo_despacho=self.money_format(order.shipping))
 
                 # email_confirmacion = "yichun212@gmail.com"
@@ -731,78 +1147,494 @@ class ExitoHandler(BaseHandler):
                 status, msg = sg.send(message)
 
                 html = """\
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title></title>
-                </head>
-                <body style="text-align:center; font-family:Arial; width:100%; margin: 0px;">
-                    <div style="">
-                        <div style="background-color:rgb(239, 239, 239); height:100px;padding-top:10px;">
-                            <img style="display:block;margin:0 auto;max-height:90px;" src="{url_local}/static/img/giani-logo-2-gris-260x119.png" />
-                        </div>
-                            <p style="margin:0px;font-family: Arial;color:#999;font-size:16px;text-align: left;padding: 24px 13px 0 27px;">
-                                Ha llegado un pedido de {name}
-                            </p>
+                <html xmlns=""><head>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                <meta name="viewport" content="initial-scale=1.0"> 
+                <meta name="format-detection" content="telephone=no">
+                <link href="http://fonts.googleapis.com/css?family=Roboto:300,100,400" rel="stylesheet" type="text/css">
+                
+                <body style="font-size:12px; font-family:Roboto,Open Sans,Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; background-color:#ffffff; ">
 
-                        <p style="margin:0 0 20px 0; font-family:Arial; color:#999;font-size:12px;text-align: left;padding: 5px 13px 0 27px"></p>
+                  <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ecebeb;">  
+                   <!--START TOP NAVIGATION ​LAYOUT-->
+                   <tr>
+                    <td valign="top">
+                      <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
 
 
-                        {datos_facturacion}
-                        {datos_despacho}
+                        <!-- START CONTAINER NAVIGATION -->
+                        <tbody><tr>
+                          <td align="center" valign="top">
 
-                        <table cellspacing=0 style="width:80%; margin:10px auto; background:#efefef;color:#999999;-webkit-text-stroke: 1px transparent;font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <!-- start top navigation container -->
+                            <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
+
+                              <tbody><tr>
+                                <td valign="top">
+
+
+                                  <!-- start top navigaton -->
+                                  <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+
+                                    <!-- start space -->
+                                    <tbody><tr>
+                                      <td valign="top" height="20">
+                                      </td>
+                                    </tr>
+                                    <!-- end space -->
+
+                                    <tr>
+                                      <td valign="middle">
+
+                                        <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+
+                                          <tbody><tr>
+                                            <td align="center" valign="top">
+                                             <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                           </td>
+
+                                         </tr>
+
+
+                                         <!-- start space -->
+                                         <tr>
+                                          <td valign="top" class="increase-Height-20">
+
+                                          </td>
+                                        </tr>
+                                        <!-- end space -->
+
+                                      </tbody></table>
+
+                                      <!--start content nav -->
+                                      <!--end content nav -->
+
+                                    </td>
+                                  </tr>
+
+                                  <!-- start space -->
+                                  <tr>
+                                    <td valign="top" height="20">
+                                    </td>
+                                  </tr>
+                                  <!-- end space -->
+
+                                </tbody></table>
+                                <!-- end top navigaton -->
+                              </td>
+                            </tr>
+                          </tbody></table>
+                          <!-- end top navigation container -->
+
+                        </td>
+                      </tr>
+
+
+                      <!-- END CONTAINER NAVIGATION -->
+
+                    </tbody></table>
+                  </td>
+                </tr>
+                <!--END TOP NAVIGATION ​LAYOUT-->
+                <!-- START LAYOUT-1/1 --> 
+
+                <tr>
+                 <td align="center" valign="top" class="fix-box">
+
+                   <!-- start  container width 600px --> 
+                   <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
+
+
+                     <tbody><tr>
+                       <td valign="top">
+
+                         <!-- start container width 560px --> 
+                         <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin-top:10px;">
+
+
+                           <!-- start text content --> 
+                           <tbody><tr>
+                             <td valign="top">
+                               <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                                 <tbody><tr>
+                                   <td valign="top" width="auto" align="center">
+                                     <!-- start button -->                         
+                                     <table border="0" align="center" cellpadding="0" cellspacing="0">
+                                       <tbody><tr>
+                                         <td width="auto" align="center" valign="middle" height="28" style=" background-color:#ffffff; border:1px solid #ececed; background-clip: padding-box; font-size:18px; font-family:Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; text-align:center;  color:#a3a2a2; font-weight: 300; padding-left:18px; padding-right:18px; ">
+
+                                           <span style="color: #a3a2a2; font-weight: 300;">
+                                             <a href="#" style="text-decoration: none; color: #a3a2a2; font-weight: 300;">
+                                               HOLA <span style="color: #FEBEBD; font-weight: 300;">{name}</span>
+                                             </a>
+                                           </span>
+                                         </td>
+                                       </tr>
+                                     </tbody></table>
+                                     <!-- end button -->   
+                                   </td>
+                                 </tr>
+
+
+
+                               </tbody></table>
+                             </td>
+                           </tr>
+                           <!-- end text content --> 
+
+
+                         </tbody></table>
+                         <!-- end  container width 560px --> 
+                       </td>
+                     </tr>
+                   </tbody></table>
+                   <!-- end  container width 600px --> 
+                 </td>
+                </tr>
+
+                <!-- END LAYOUT-1/1 --> 
+
+
+                <!-- START LAYOUT-1/2 --> 
+
+                <tr>
+                 <td align="center" valign="top" class="fix-box">
+
+                   <!-- start  container width 600px --> 
+                   <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
+
+
+                     <tbody><tr>
+                       <td valign="top">
+
+                         <!-- start container width 560px --> 
+                         <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;">
+
+
+                           <!-- start text content --> 
+                           <tbody><tr>
+                             <td valign="top">
+                               <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+
+                                 <!-- start text content --> 
+                                 <tbody><tr>
+                                   <td valign="top">
+                                     <table border="0" cellspacing="0" cellpadding="0" align="center">
+
+
+                                       <!--start space height --> 
+                                       <tbody><tr>
+                                         <td height="15"></td>
+                                       </tr>
+                                       <!--end space height --> 
+
+                                       <tr>
+                                         <td style="font-size: 13px; line-height: 22px; font-family:Roboto,Open Sans,Arial,Tahoma, Helvetica, sans-serif; color:#a3a2a2; font-weight:300; text-align:center; ">
+
+
+                                           Ha llegado un pedido de {name}
+
+
+                                         </td>
+                                       </tr>
+
+                                       <!--start space height --> 
+                                       <tr>
+                                         <td height="15"></td>
+                                       </tr>
+                                       <!--end space height --> 
+
+
+
+                                     </tbody></table>
+                                   </td>
+                                 </tr>
+                                 <!-- end text content -->
+
+                                 <tr>
+                                   <td valign="top" width="auto" align="center">
+
+                                   </td>
+
+                                 </tr>
+
+                               </tbody></table>
+                             </td>
+                           </tr>
+                           <!-- end text content --> 
+
+                           <!--start space height --> 
+                           <tr>
+                             <td height="20"></td>
+                           </tr>
+                           <!--end space height --> 
+
+
+                         </tbody></table>
+                         <!-- end  container width 560px --> 
+                       </td>
+                     </tr>
+                   </tbody></table>
+                   <!-- end  container width 600px --> 
+                 </td>
+                </tr>
+
+                <!-- END LAYOUT-1/2 --> 
+
+                <!-- START LAYOUT-1/2 --> 
+
+                <tr>
+                 <td align="center" valign="top" class="fix-box">
+
+                   <!-- start  container width 600px --> 
+                   <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; padding-bottom:20px; ">
+
+
+                     <tbody><tr>
+                       <td valign="top">
+
+                         <!-- start container width 560px --> 
+                         <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;">
+
+
+                           <!-- start text content --> 
+                           <tbody><tr>
+                             <td valign="top">
+                               <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+
+
+                                 <!-- start text content --> 
+                                 <tbody><tr>
+                                   <td valign="top">
+                                     <table border="0" cellspacing="0" cellpadding="0" align="center">
+
+
+                                       <!--start space height --> 
+                                       <tbody><tr>
+                                         <td height="15"></td>
+                                       </tr>
+                                       <!--end space height --> 
+
+                                       <tr>
+                                         <td style="font-size: 13px; line-height: 22px; font-family:Roboto,Open Sans,Arial,Tahoma, Helvetica, sans-serif; color:#a3a2a2; font-weight:300; text-align:center; ">
+
+
+
+
+
+                                         </td>
+                                       </tr>
+
+                                       <!--start space height --> 
+                                       <tr>
+                                         <td height="15"></td>
+                                       </tr>
+                                       <!--end space height --> 
+
+
+
+                                     </tbody></table>
+                                   </td>
+                                 </tr>
+                                 <!-- end text content -->
+
+                                 <tr>
+                                   <td valign="top" width="auto" align="center">
+
+                                   </td>
+
+                                 </tr>
+
+                               </tbody></table>
+                             </td>
+                           </tr>
+                           <!-- end text content --> 
+
+                           <!--start space height --> 
+                           <tr>
+                             <td height="20"></td>
+                           </tr>
+                           <!--end space height --> 
+
+
+                         </tbody></table>
+
+
+                                        {datos_facturacion}
+                                        {datos_despacho}
+
+                                        <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin-top:20px;"><tbody>
+                                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                                            <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos compra</th>
+                                          </tr>
+                                        </tbody></table>
+                                        <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;"><tbody>
+                                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Cantidad</th>
+                                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Nombre producto</th>
+                                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid; border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Color</th>
+                                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Talla</th>
+                                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Precio</th>
+                                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
+                                          </tr>
+                                            
+                                            {detalle_orden}
+
+                                            </tbody></table>
+
+                        <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin-top:20px;"><tbody>
+                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Resumen</th>
+                          </tr>
+                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal </th>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_subtotal}</td>
+                          </tr>
+                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de Env&iacute;o</th>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {costo_despacho}</td>
+                          </tr>
+                          <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Total</th>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_total}</td>
+                          </tr>
+                        </tbody></table>
+                        <!-- end  container width 560px --> 
+                      </td>
+                    </tr>
+                  </tbody></table>
+                  <!-- end  container width 600px --> 
+                </td>
+                </tr>
+
+                <!-- END LAYOUT-1/2 --> 
+
+
+
+
+
+
+
+                <!--START FOOTER LAYOUT-->
+                <tr>
+                  <td valign="top">
+                    <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+
+
+                      <!-- START CONTAINER  -->
+                      <tbody><tr>
+                        <td align="center" valign="top">
+
+                          <!-- start footer container -->
+                          <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
+
+                            <tbody><tr>
+                              <td valign="top">
+
+
+                                <!-- start footer -->
+                                <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+
+                                  <!-- start space -->
+                                  <tbody><tr>
+                                    <td valign="top" height="20">
+                                    </td>
+                                  </tr>
+                                  <!-- end space -->
+
+                                  <tr>
+                                    <td valign="middle">
+
+                                      <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+
+                                        <tbody><tr>
+                                          <td align="center" valign="top">
+                                           <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                         </td>
+                                         
+                                       </tr>
+
+                                       <!-- start space -->
+                                       <tr>
+                                        <td valign="top" class="increase-Height-20">
+                                        </td>
+                                      </tr>
+                                      <!-- end space -->
+
+                                    </tbody></table>
+
+                                  </td>
+                                </tr>
+
+                                <!-- start space -->
+                                <tr>
+                                  <td valign="top" height="20">
+                                  </td>
+                                </tr>
+                                <!-- end space -->
+
+                              </tbody></table>
+                              <!-- end footer -->
+                            </td>
+                          </tr>
+                        </tbody></table>
+                        <!-- end footer container -->
+
+                      </td>
+                    </tr>
                     
-                            <tr>
-                                <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos compra</th>
+
+                    <!-- END CONTAINER  -->
+                    
+                  </tbody></table>
+                </td>
+                </tr>
+                <!--END FOOTER ​LAYOUT-->
+
+
+
+                <!--  START FOOTER COPY RIGHT -->
+
+                <tr>
+                  <td align="center" valign="top" style="background-color:#FEBEBD;">
+                    <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
+                      <tbody><tr>
+                        <td valign="top">
+                          <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
+
+                            <!--start space height -->                      
+                            <tbody><tr>
+                              <td height="10"></td>
                             </tr>
-                        </table>
-                        <table cellspacing=0 style="width:80%; margin:10px auto; background:#efefef;color:#999999;-webkit-text-stroke: 1px transparent;font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                            <tr>
-                                <th style="border: 1px solid #d6d6d6;line-height: 2.5;">Cantidad</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Nombre producto</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Color</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Talla</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Precio</th>
-                                <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Subtotal</th>
-                            </tr>
-                            
-                            {detalle_orden}
+                            <!--end space height --> 
 
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_subtotal}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de Env&iacute;o</th>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {costo_despacho}</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Total</th>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_total}</td>
-                            </tr>
-                        </table>
+                              <!-- start COPY RIGHT content -->  
+                              <td valign="top" style="font-size: 13px; line-height: 22px; font-family:Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; color:#ffffff; font-weight:300; text-align:center; ">
+                               GIANI DA FIRENZE 2014 ®
+                             </td>
+                             <!-- end COPY RIGHT content --> 
+                           </tr>
 
-                        <table style="width:100%; height: 40px; background-color: rgb(255, 224, 218);">
-                            <tr>
-                                <td colspan=2   style="padding: 24px;background-color:rgb(255, 224, 218);width:100%"><img style="display:block;margin:0 auto 0 auto;" src="" /></td>
-                            </tr>
-                        </table>
-                    </div>
-                </body>
-                </html> 
+                           <!--start space height -->                      
+                           <tr>
+                            <td height="10"></td>
+                          </tr>
+                          <!--end space height --> 
+
+
+                        </tbody></table>
+                      </td>
+                    </tr>
+                  </tbody></table>
+                </td>
+                </tr>
+                <!--  END FOOTER COPY RIGHT -->
+                </table>
+
+                </table>
+                </body></html>
                 """.format(name=self.current_user["name"].encode("utf-8"),order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=self.money_format(order.total+order.shipping),order_subtotal=self.money_format(order.subtotal),order_tax=self.money_format(order.tax),url_local=url_local,costo_despacho=self.money_format(order.shipping))
 
                 mensaje = sendgrid.Mail()
@@ -825,7 +1657,7 @@ class ExitoHandler(BaseHandler):
                 self.render("beauty_error.html",message="Carro se encuentra vacío")
 
         except Exception,e:
-            print str(e)
+            print str(e) + "wertyukjnbgdfgh"
             self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)        
 
 

@@ -456,7 +456,7 @@ class User(BaseModel):
 				password = ""
 				user_id = ""
 
-				p = ''' select password, id from "User" where email = %(email)s '''
+				p = ''' select name, password, id from "User" where email = %(email)s '''
 				q = {"email": email}
 
 				cur = self.connection.cursor(  cursor_factory=psycopg2.extras.RealDictCursor )
@@ -466,6 +466,7 @@ class User(BaseModel):
 
 				password = data["password"]
 				user_id = "{}".format(data["id"])
+				name = data["name"]
 
 				new_password = self.RandomPass()
 
@@ -477,7 +478,7 @@ class User(BaseModel):
 
 				self.ChangePassword(user_id,password)
 
-				Email( email, user_id, new_password )
+				Email( email, user_id, new_password, name )
 
 				return True
 

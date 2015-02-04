@@ -45,7 +45,7 @@ class EnviarClaveHandler(BaseHandler):
             self.write("Ingrese email por favor")
 
 
-def RegistrationEmail():
+def RegistrationEmail(username,email):
 
     html = """\
           <html xmlns="">
@@ -159,7 +159,7 @@ def RegistrationEmail():
                                         <td width="auto" align="center" valign="middle" height="28" style=" background-color:#ffffff; border:1px solid #ececed; background-clip: padding-box; font-size:18px; font-family:Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; text-align:center;  color:#a3a2a2; font-weight: 300; padding-left:18px; padding-right:18px; ">
                                           <span style="color: #a3a2a2; font-weight: 300;">
                                           <a href="#" style="text-decoration: none; color: #a3a2a2; font-weight: 300;">
-                                            HOLA <span style="color: #FEBEBD; font-weight: 300;">JULIAN</span>
+                                            HOLA <span style="color: #FEBEBD; font-weight: 300;">{name}</span>
                                           </a>
                                           </span>
                                         </td>
@@ -229,7 +229,7 @@ def RegistrationEmail():
                                       <tbody><tr>
                                         <td width="auto" align="center" valign="middle" height="32" style=" background-color:#FEBEBD;  border-radius:5px; background-clip: padding-box;font-size:13px; font-family:Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; text-align:center;  color:#ffffff; font-weight: 300; padding-left:18px; padding-right:18px; ">
                                           <span style="color: #ffffff; font-weight: 300;">
-                                          <a href="http://localhost:8502/auth/nuevaclave/620" style="text-decoration: none; color: #FFFFFF; font-weight: 300;">
+                                          <a href="{url_local}" style="text-decoration: none; color: #FFFFFF; font-weight: 300;">
                                             Visita nuestro store
                                           </a>
                                           </span>
@@ -382,14 +382,14 @@ def RegistrationEmail():
             </tbody></table>
             <!-- end 100% wrapper (white background) -->
           </body></html>
-          """
+          """.format(name=username,url_local=url_local)
     sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
 
     message = sendgrid.Mail()
     message.set_from("{nombre} <{mail}>".format(
         nombre="Giani Da Firenze", mail="notification@tellmecuando.com"))
-    message.add_to(["jose@loadingplay.com", "yichun212@gmail.com"])
-    message.set_subject("Bienvenido")
+    message.add_to(email)
+    message.set_subject("Bienvenida a Giani Da Firenze")
     message.set_html(html)
 
     status, msg = sg.send(message)
@@ -663,7 +663,7 @@ def Email(to, userid, clave, name=""):
                            <td width="auto" align="center" valign="middle" height="32" style=" background-color:#FEBEBD;  border-radius:5px; background-clip: padding-box;font-size:13px; font-family:Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; text-align:center;  color:#ffffff; font-weight: 300; padding-left:18px; padding-right:18px; ">
 
                              <span style="color: #ffffff; font-weight: 300;">
-                               <a href="{url_local}/auth/nuevaclave/{userid}" style="text-decoration: none; color: #FFFFFF; font-weight: 300;">
+                               <a href="{url_local}/auth/nuevaclave/{userid}?clave={clave}" style="text-decoration: none; color: #FFFFFF; font-weight: 300;">
                                 link
                                </a>
                              </span>
@@ -743,7 +743,7 @@ def Email(to, userid, clave, name=""):
                 
                    <td align="left" style="font-size: 18px; line-height: 22px; font-family:Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; color:#555555; font-weight:300; text-align:left;">
                      <span style="color: #555555; font-weight:300;">
-                       <a href="#" style="text-decoration: none; color: #555555; font-weight: 300;">Nueva Contrase&ntilde;a: {clave}</a>
+                       <span style="text-decoration: none; color: #555555; font-weight: 300;">Nueva Contrase&ntilde;a: {clave}</span>
                      </span>
                    </td>
 
@@ -968,8 +968,8 @@ def Email(to, userid, clave, name=""):
     message = sendgrid.Mail()
     message.set_from("{nombre} <{mail}>".format(
         nombre="Giani Da Firenze", mail="notification@tellmecuando.com"))
-    message.add_to(["jose@loadingplay.com", "yichun212@gmail.com"])
-    message.set_subject("Reset contraseña")
+    message.add_to(to)
+    message.set_subject("Reestablece tu contraseña")
     message.set_html(html)
 
     status, msg = sg.send(message)

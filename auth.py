@@ -78,6 +78,8 @@ class UserRegistrationHandler(BaseHandler):
                 
             user.Save()
 
+            RegistrationEmail(user.name,user.email)
+
             response_obj = user.Login( user.email, user.password )
 
             if "success" in response_obj:
@@ -207,7 +209,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         if "success" in response:
             if not response["success"]:
                 res = usr.Save()
-                RegistrationEmail()
+                RegistrationEmail(usr.name,usr.email)
                 if "error" in res:
                     print res["error"]
 
@@ -327,7 +329,8 @@ class NewPasswordHandler(BaseHandler):
 
     def get(self, id):
         try:
-            self.render( "auth/change_password.html", id=id )
+            clave_ant = self.get_argument("clave", "")
+            self.render( "auth/change_password.html", id=id, old_pass=clave_ant )
 
         except Exception, e:
             print str( e )
