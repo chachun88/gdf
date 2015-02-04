@@ -335,11 +335,10 @@ class Cart(BaseModel):
 
 				try:
 					cur.execute(query,parameters)
+					self.connection.commit()
+					return self.ShowSuccessMessage("Cart has been move to logged user")
 				except Exception,e:
 					return self.ShowError(str(e))
-
-				self.connection.commit()
-				return self.ShowSuccessMessage("Cart has been move to logged user")
 
 			else:
 

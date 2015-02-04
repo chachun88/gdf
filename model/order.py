@@ -374,7 +374,7 @@ class Order(BaseModel):
             self.connection.commit()
             return self.ShowSuccessMessage(user_id)
         except Exception,e:
-            return self.ShowError("Error deleting contacts by user_id {user_id}, error:{error}".format(user_id=user_id,error=str(e)))
+            return self.ShowError("Error deleting orders by user_id {user_id}, error:{error}".format(user_id=user_id,error=str(e)))
 
     def InitById(self, _id):
 
