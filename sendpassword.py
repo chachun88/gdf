@@ -86,7 +86,7 @@ def RegistrationEmail(username,email):
                                 <tr>
                                   <td valign="middle">
                                     
-                                    <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2">
+                                    <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2" style="margin: 0px auto;">
                                       
                                       <tbody><tr>
                                         <td align="center" valign="top">
@@ -146,7 +146,7 @@ def RegistrationEmail(username,email):
                     <tbody><tr>
                       <td valign="top">
                         <!-- start container width 560px -->
-                        <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;">
+                        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin: 0px auto;">
                           <!-- start text content -->
                           <tbody><tr>
                             <td valign="top">
@@ -189,11 +189,11 @@ def RegistrationEmail(username,email):
                     <tbody><tr>
                       <td valign="top">
                         <!-- start container width 560px -->
-                        <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;">
+                        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin: 0px auto;">
                           <!-- start text content -->
                           <tbody><tr>
                             <td valign="top">
-                              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                              <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" style="margin: 0px auto;">
                                 
                                 <!-- start text content -->
                                 <tbody><tr>
@@ -552,7 +552,7 @@ def Email(to, userid, clave, name=""):
          <td valign="top">
 
            <!-- start container width 560px --> 
-           <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;">
+           <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin: 0px auto;">
 
 
              <!-- start text content --> 
@@ -611,13 +611,13 @@ def Email(to, userid, clave, name=""):
          <td valign="top">
 
            <!-- start container width 560px --> 
-           <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;">
+           <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin: 0px auto;">
 
 
              <!-- start text content --> 
              <tbody><tr>
                <td valign="top">
-                 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                 <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center" margin: style="0px auto;">
                    
 
                    <!-- start text content --> 
