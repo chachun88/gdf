@@ -561,7 +561,7 @@ class ExitoHandler(BaseHandler):
                     detalle_orden += """\
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
                             <td style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid; border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{quantity}</td>
-                            <td style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid; border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
+                            <td style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid; border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6; border-top:1px solid #d6d6d6;">{name}</td>
                             <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{color}</td>
                             <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{size}</td>
                             <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {price}</td>
@@ -654,7 +654,7 @@ class ExitoHandler(BaseHandler):
                 
                 <body style="font-size:12px; font-family:Roboto,Open Sans,Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; background-color:#ffffff; ">
 
-                  <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ecebeb;">  
+                  <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ffffff;">  
                    <!--START TOP NAVIGATION ​LAYOUT-->
                    <tr>
                     <td valign="top">
@@ -673,7 +673,7 @@ class ExitoHandler(BaseHandler):
 
 
                                   <!-- start top navigaton -->
-                                  <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+                                  <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" >
 
                                     <!-- start space -->
                                     <tbody><tr>
@@ -685,7 +685,7 @@ class ExitoHandler(BaseHandler):
                                     <tr>
                                       <td valign="middle">
 
-                                        <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+                                        <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2">
 
                                           <tbody><tr>
                                             <td align="center" valign="top">
@@ -970,7 +970,7 @@ class ExitoHandler(BaseHandler):
                                         </tbody></table>
                                         <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;"><tbody>
                                           <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Cantidad</th>
+                                            <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;border-right: 1px solid #d6d6d6; ">Cantidad</th>
                                             <th style="line-height: 2.5;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Nombre producto</th>
                                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid; border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Color</th>
                                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Talla</th>
@@ -980,7 +980,7 @@ class ExitoHandler(BaseHandler):
                                             
                                             {detalle_orden}
 
-                                            </tbody></table>
+                                        </tbody></table>
 
                         <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;margin-top:20px;"><tbody>
                           <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -1045,7 +1045,7 @@ class ExitoHandler(BaseHandler):
                                   <tr>
                                     <td valign="middle">
 
-                                      <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+                                      <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2">
 
                                         <tbody><tr>
                                           <td align="center" valign="top">
@@ -1155,7 +1155,7 @@ class ExitoHandler(BaseHandler):
                 
                 <body style="font-size:12px; font-family:Roboto,Open Sans,Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; background-color:#ffffff; ">
 
-                  <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ecebeb;">  
+                  <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ffffff;">  
                    <!--START TOP NAVIGATION ​LAYOUT-->
                    <tr>
                     <td valign="top">
@@ -1186,7 +1186,7 @@ class ExitoHandler(BaseHandler):
                                     <tr>
                                       <td valign="middle">
 
-                                        <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+                                        <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2">
 
                                           <tbody><tr>
                                             <td align="center" valign="top">
@@ -1546,7 +1546,7 @@ class ExitoHandler(BaseHandler):
                                   <tr>
                                     <td valign="middle">
 
-                                      <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+                                      <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2">
 
                                         <tbody><tr>
                                           <td align="center" valign="top">
