@@ -31,6 +31,7 @@ $(document).ready(function(){
 		$.ajax({
 			url: '/user/save-guess',
 			cache: false,
+			async: false,
 			data: "user_id="+window.localStorage.getItem("user_id"),
 			success: function(html){
 				var objeto = $.parseJSON(html);
