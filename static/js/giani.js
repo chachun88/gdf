@@ -35,15 +35,14 @@ $(document).ready(function(){
 				data: "user_id="+window.localStorage.getItem("user_id"),
 				success: function(html){
 					var objeto = $.parseJSON(html);
-					if(objeto.success){
-						window.localStorage.setItem("user_id",objeto.success.toString());
+					if(objeto["success"]){
+						window.localStorage.setItem("user_id",objeto["success"].toString());
 					}
 				}
 			});
-
-			
-			GetCartByUserId(window.localStorage.getItem("user_id"));
 		}
+
+		GetCartByUserId(window.localStorage.getItem("user_id"));
 	}
 
 	$("a.logout").click(function(){
