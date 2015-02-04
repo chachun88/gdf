@@ -14,6 +14,8 @@ import hashlib
 from model.user import User, UserType
 from model.cart import Cart
 
+from sendpassword import RegistrationEmail
+
 class UserRegistrationHandler(BaseHandler):    
 
     def get(self):
@@ -191,8 +193,6 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
         user_id = self.get_argument("user_id","")
 
-        print user_id
-
         usr = User()
 
         usr.name = user["name"]
@@ -207,8 +207,12 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         if "success" in response:
             if not response["success"]:
                 res = usr.Save()
+                RegistrationEmail()
                 if "error" in res:
                     print res["error"]
+
+        else:
+            self.render( "auth/fail.html", message=response["error"] )
         
         response_obj = usr.InitByEmail(user["email"])
 
@@ -216,22 +220,28 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
             current_user_id = json_util.loads(response_obj["success"])["id"]
 
+            # print "user_id: {} current_user_id: {}".format(str(user_id),str(current_user_id))
+
             if user_id != "":
 
                 if str(user_id) != str(current_user_id):
 
                     cart = Cart()
 
-                    response = cart.MoveTempToLoggedUser(user_id,current_user_id)          
+                    response = cart.MoveTempToLoggedUser(user_id,current_user_id)
+
+                    if "error" in response:
+                        print "Error moving cart detail: {}".format(response["error"])
 
             self.set_secure_cookie("user_giani", response_obj["success"])
+
+            
 
             self.redirect( self.next )
 
         else:
 
-            print response_obj["error"]
-            self.redirect("/auth/login")
+            self.render( "auth/fail.html", message=response_obj["error"] )
 
         # else:
 
