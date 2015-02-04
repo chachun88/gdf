@@ -383,7 +383,7 @@ class CheckoutSendHandler(BaseHandler):
         cellar = Cellar()
         res_cellar = cellar.GetWebCellar()
         if "success" in res_cellar:
-            id_bodega = res_cellar["cellar_id"]
+            id_bodega = res_cellar["success"]
 
         cart = Cart()
         cart.user_id = user_id
