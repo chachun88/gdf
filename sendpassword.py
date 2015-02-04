@@ -70,13 +70,13 @@ def RegistrationEmail(username,email):
                       <td align="center" valign="top">
                         
                         <!-- start top navigation container -->
-                        <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
+                        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
                           
                           <tbody><tr>
                             <td valign="top">
                               
                               <!-- start top navigaton -->
-                              <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+                              <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
                                 <!-- start space -->
                                 <tbody><tr>
                                   <td valign="top" height="20">
@@ -129,7 +129,7 @@ def RegistrationEmail(username,email):
               <!-- START HEIGHT SPACE 20PX LAYOUT-1 -->
               <tr>
                 <td valign="top" align="center" class="fix-box">
-                  <table width="600" height="20" align="center" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff;" class="full-width">
+                  <table width="100%" height="20" align="center" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff;" class="full-width">
                     <tbody><tr>
                       <td valign="top" height="20">
                       </td>
@@ -142,7 +142,7 @@ def RegistrationEmail(username,email):
               <tr>
                 <td align="center" valign="top" class="fix-box">
                   <!-- start  container width 600px -->
-                  <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
+                  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
                     <tbody><tr>
                       <td valign="top">
                         <!-- start container width 560px -->
@@ -185,7 +185,7 @@ def RegistrationEmail(username,email):
               <tr>
                 <td align="center" valign="top" class="fix-box">
                   <!-- start  container width 600px -->
-                  <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
+                  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
                     <tbody><tr>
                       <td valign="top">
                         <!-- start container width 560px -->
@@ -272,11 +272,11 @@ def RegistrationEmail(username,email):
               <tr>
                 <td align="center" valign="top" class="fix-box">
                   <!-- start HEADER LAYOUT-container width 600px -->
-                  <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+                  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
                     <tbody><tr>
                       <td valign="top" class="image-100-percent">
                         
-                        <img src="http://giani.ondev.today/static/images/banermovil.png" width="600" alt="header-image" style="display:block !important;  max-width:600px;">
+                        <img src="http://giani.ondev.today/static/images/banermovil.png" width="100%" alt="header-image" style="display:block !important;  max-width:600px;">
                         
                       </td>
                     </tr>
@@ -294,13 +294,13 @@ def RegistrationEmail(username,email):
                       <td align="center" valign="top">
                         
                         <!-- start footer container -->
-                        <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
+                        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
                           
                           <tbody><tr>
                             <td valign="top">
                               
                               <!-- start footer -->
-                              <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+                              <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
                                 <!-- start space -->
                                 <tbody><tr>
                                   <td valign="top" height="20">
@@ -351,10 +351,10 @@ def RegistrationEmail(username,email):
               <!--  START FOOTER COPY RIGHT -->
               <tr>
                 <td align="center" valign="top" style="background-color:#FEBEBD;">
-                  <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
+                  <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
                     <tbody><tr>
                       <td valign="top">
-                        <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
+                        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
                           <!--start space height -->
                           <tbody><tr>
                             <td height="10"></td>
@@ -453,14 +453,14 @@ def Email(to, userid, clave, name=""):
         <td align="center" valign="top">
           
           <!-- start top navigation container -->
-          <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
             
             <tbody><tr>
               <td valign="top">
                   
 
                 <!-- start top navigaton -->
-                <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+                <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
 
                   <!-- start space -->
                   <tbody><tr>
@@ -528,7 +528,7 @@ def Email(to, userid, clave, name=""):
 <!-- START HEIGHT SPACE 20PX LAYOUT-1 -->
  <tr>
    <td valign="top" align="center" class="fix-box">
-     <table width="600" height="20" align="center" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff;" class="full-width">
+     <table width="100%" height="20" align="center" border="0" cellspacing="0" cellpadding="0" style="background-color: #ffffff;" class="full-width">
        <tbody><tr>
          <td valign="top" height="20">  
            </td>
@@ -545,7 +545,7 @@ def Email(to, userid, clave, name=""):
    <td align="center" valign="top" class="fix-box">
 
      <!-- start  container width 600px --> 
-     <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
+     <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
 
 
        <tbody><tr>
@@ -604,7 +604,7 @@ def Email(to, userid, clave, name=""):
    <td align="center" valign="top" class="fix-box">
 
      <!-- start  container width 600px --> 
-     <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
+     <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; ">
 
 
        <tbody><tr>
@@ -721,14 +721,14 @@ def Email(to, userid, clave, name=""):
         <td align="center" valign="top">
           
           <!-- start footer container -->
-          <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container">
             
             <tbody><tr>
               <td valign="top">
                   
 
                 <!-- start footer -->
-                <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
+                <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width">
 
                   <!-- start space -->
                   <tbody><tr>
@@ -792,10 +792,10 @@ def Email(to, userid, clave, name=""):
 
 <tr>
   <td align="center" valign="top" style="background-color:#FEBEBD;">
-    <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
+    <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
       <tbody><tr>
         <td valign="top">
-          <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color:#FEBEBD;">
 
               <!--start space height -->                      
               <tbody><tr>
