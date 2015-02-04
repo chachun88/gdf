@@ -415,10 +415,10 @@ class ExitoHandler(BaseHandler):
     # TBK_ORDEN_COMPRA:133
 
 
-    def get(self):
+    def post(self):
 
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","20141206123155")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","260")
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
         pathSubmit = "http://giani.ondev.today"
 
         # referer = self.request.headers.get('Referer').replace(self.request.headers.get('Origin'),"")
