@@ -8,7 +8,8 @@ import psycopg2
 import psycopg2.extras
 
 from sendpassword import Email
-# from customer import Customer
+import random
+import hashlib
 
 from bson import json_util
 
@@ -36,10 +37,10 @@ class User(BaseModel):
 
 	@property
 	def salesman_id(self):
-	    return self._salesman_id
+		return self._salesman_id
 	@salesman_id.setter
 	def salesman_id(self, value):
-	    self._salesman_id = value	
+		self._salesman_id = value	
 
 	@property
 	def name(self):
@@ -64,45 +65,45 @@ class User(BaseModel):
 
 	@property
 	def permissions(self):
-	    return self._permissions
+		return self._permissions
 	@permissions.setter
 	def permissions(self, value):
-	    self._permissions = value
+		self._permissions = value
 
 	@property
 	def user_type(self):
-	    return self._user_type
+		return self._user_type
 	@user_type.setter
 	def user_type(self, value):
-	    self._user_type = value
+		self._user_type = value
 	
 	@property
 	def permissions_name(self):
-	    return self._permissions_name
+		return self._permissions_name
 	@permissions_name.setter
 	def permissions_name(self, value):
-	    self._permissions_name = value
+		self._permissions_name = value
 
 	@property
 	def cellars(self):
-	    return self._cellars
+		return self._cellars
 	@cellars.setter
 	def cellars(self, value):
-	    self._cellars = value
+		self._cellars = value
 
 	@property
 	def cellars_name(self):
-	    return self._cellars_name
+		return self._cellars_name
 	@cellars_name.setter
 	def cellars_name(self, value):
-	    self._cellars_name = value
+		self._cellars_name = value
 	
 	@property
 	def user_type(self):
-	    return self._user_type
+		return self._user_type
 	@user_type.setter
 	def user_type(self, value):
-	    self._user_type = value
+		self._user_type = value
 	
 	
 
@@ -136,6 +137,12 @@ class User(BaseModel):
 		# 	self.InitByEmail(username) ## init user
 		# 	return True
 		# return False
+
+		m = hashlib.md5()
+
+		m.update(password)
+
+		password = m.hexdigest()
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 		q = '''select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, STRING_AGG(distinct c.name, ',') as cellars_name from "User" u left join "Permission" p on p.id = any(u.permissions) left join "Cellar" c on c.id = any(u.cellar_permissions) where u.email = %(email)s and u.password = %(password)s group by u.id limit 1'''
@@ -269,12 +276,19 @@ class User(BaseModel):
 
 				if cur.rowcount > 0:
 					self.id = usuario['id']
+
+					m = hashlib.md5()
+
+					m.update(self.password)
+
+					password = m.hexdigest()
+
 					q = '''update "User" set name = %(name)s, password = %(password)s, email = %(email)s, permissions = %(permissions)s, type_id = %(type_id)s where id = %(id)s'''
 					p = {
 					"name":self.name,
 					"email":self.email,
 					"permissions":permisos,
-					"password":self.password,
+					"password":password,
 					"id":self.id,
 					"type_id":tipo_usuario
 					}
@@ -289,12 +303,18 @@ class User(BaseModel):
 
 						print "update user"
 
+						m = hashlib.md5()
+
+						m.update(self.password)
+
+						password = m.hexdigest()
+
 						q = '''update "User" set name = %(name)s, password = %(password)s, email = %(email)s,permissions = %(permissions)s, type_id = %(type_id)s where id = %(id)s'''
 						p = {
 						"name":self.name,
 						"email":self.email,
 						"permissions":permisos,
-						"password":self.password,
+						"password":password,
 						"type_id":tipo_usuario,
 						"id":self.id
 						}
@@ -308,12 +328,20 @@ class User(BaseModel):
 							
 
 					else:
+
+						m = hashlib.md5()
+
+						m.update(self.password)
+
+						password = m.hexdigest()
+
+
 						q = '''insert into "User" (name,password,email,permissions,type_id) values (%(name)s,%(password)s,%(email)s,%(permissions)s,%(type_id)s) returning id'''
 						p = {
 						"name":self.name,
 						"email":self.email,
 						"permissions":permisos,
-						"password":self.password,
+						"password":password,
 						"type_id":tipo_usuario
 						}
 						cur.execute(q,p)
@@ -327,12 +355,19 @@ class User(BaseModel):
 		else:
 
 			try:
+
+				m = hashlib.md5()
+
+				m.update(self.password)
+
+				password = m.hexdigest()
+
 				q = '''insert into "User" (name,password,email,permissions,type_id) values (%(name)s,%(password)s,%(email)s,%(permissions)s,%(type_id)s) returning id'''
 				p = {
 				"name":self.name,
 				"email":self.email,
 				"permissions":permisos,
-				"password":self.password,
+				"password":password,
 				"type_id":tipo_usuario
 				}
 				cur.execute(q,p)
@@ -402,6 +437,17 @@ class User(BaseModel):
 		except Exception, e:
 			return self.ShowError(str(e))
 
+	def RandomPass(self):
+
+		alphabet = "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		pw_length = 8
+		mypw = ""
+
+		for i in range(pw_length):
+			next_index = random.randrange(len(alphabet))
+			mypw = mypw + alphabet[next_index]
+
+		return mypw
 
 	def PassRecovery( self, email ):
 		try:
@@ -413,15 +459,25 @@ class User(BaseModel):
 				p = ''' select password, id from "User" where email = %(email)s '''
 				q = {"email": email}
 
-				cur = self.connection.cursor(  cursor_factory=psycopg2.extras.DictCursor )
+				cur = self.connection.cursor(  cursor_factory=psycopg2.extras.RealDictCursor )
 
 				cur.execute(p,q)
 				data = cur.fetchone()
 
-				password = data[0]
-				user_id = "{}".format(data[1])
+				password = data["password"]
+				user_id = "{}".format(data["id"])
 
-				Email( email, user_id, password )
+				new_password = self.RandomPass()
+
+				m = hashlib.md5()
+
+				m.update(new_password)
+
+				password = m.hexdigest()
+
+				self.ChangePassword(user_id,password)
+
+				Email( email, user_id, new_password )
 
 				return True
 
@@ -441,7 +497,7 @@ class User(BaseModel):
 
 			cur = self.connection.cursor( cursor_factory=psycopg2.extras.DictCursor )
 			cur.execute( p,q )
-
+			self.connection.commit()
 
 		except Exception, e:
 			print str( e )
