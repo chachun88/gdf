@@ -386,7 +386,7 @@ class CheckoutSendHandler(BaseHandler):
             id_bodega = res_cellar["success"]
 
         cart = Cart()
-        cart.user_id = user_id
+        cart.user_id = self.current_user["id"]
 
         lista = cart.GetCartByUserId()
 
