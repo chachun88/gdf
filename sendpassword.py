@@ -86,7 +86,7 @@ def RegistrationEmail(username,email):
                                 <tr>
                                   <td valign="middle">
                                     
-                                    <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+                                    <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2">
                                       
                                       <tbody><tr>
                                         <td align="center" valign="top">
@@ -310,7 +310,7 @@ def RegistrationEmail(username,email):
                                 <tr>
                                   <td valign="middle">
                                     
-                                    <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+                                    <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2">
                                       
                                       <tbody><tr>
                                         <td align="center" valign="top">
@@ -430,7 +430,7 @@ def Email(to, userid, clave, name=""):
 <body style="font-size:12px; font-family:Roboto,Open Sans,Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; background-color:#ffffff; ">
 
 <!--start 100% wrapper (white background) -->
-<table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ecebeb;">  
+<table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ffffff;">  
 
 
    <!--START VIEW ONLINE AND ICON SOCAIL -->
@@ -472,7 +472,7 @@ def Email(to, userid, clave, name=""):
                   <tr>
                     <td valign="middle">
                     
-                    <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+                    <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2">
                      
                       <tbody><tr>
                         <td align="center" valign="top">
@@ -710,114 +710,7 @@ def Email(to, userid, clave, name=""):
  </tr>
 
  <!-- END LAYOUT-1/2 --> 
-
-<!-- START LAYOUT-9 --> 
-
- <tr>
-   <td align="center" valign="top" class="fix-box">
-
-     <!-- start  container width 600px --> 
-     <table width="600" align="center" border="0" cellspacing="0" cellpadding="0" class="container" style="background-color: #ffffff; border-bottom:1px solid #c7c7c7; border-top:1px solid #c7c7c7;">
-
-      <!--start space height --> 
-       <tbody><tr>
-         <td height="20" valign="top"></td>
-       </tr>
-       <!--end space height --> 
-
-       <tr>
-         <td valign="top">
-
-           <!-- start container width 560px --> 
-           <table width="560" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;">
-
-
-
-
-           <!-- start heading -->               
-           <tbody><tr>     
-             <td valign="top">
-               <table width="100%" border="0" cellspacing="0" cellpadding="0" align="left">
-                 <tbody><tr>
-                   
-                
-                   <td align="left" style="font-size: 18px; line-height: 22px; font-family:Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; color:#555555; font-weight:300; text-align:left;">
-                     <span style="color: #555555; font-weight:300;">
-                       <span style="text-decoration: none; color: #555555; font-weight: 300;">Nueva Contrase&ntilde;a: {clave}</span>
-                     </span>
-                   </td>
-
-                 </tr>
-               </tbody></table>
-             </td>
-           </tr>
-           <!-- end heading -->  
-
-            <!--start space height --> 
-             <tr>
-               <td height="15"></td>
-             </tr>
-             <!--end space height --> 
-            
-            <!-- start text content -->
-             <tr>
-               <td valign="top">
-                 <table border="0" cellspacing="0" cellpadding="0" align="left">
-                   
-
-                   <tbody><tr>
-                     <td style="font-size: 13px; line-height: 22px; font-family:Roboto,Open Sans,Arial,Tahoma, Helvetica, sans-serif; color:#a3a2a2; font-weight:300; text-align:left; ">
-                      
-                         Gracias.
-
-                     </td>
-                   </tr>
-
-
-                 </tbody></table>
-               </td>
-               
-             </tr>
-
-             <!-- end text content -->
-
-             <!--start space height --> 
-             <tr>
-               <td height="15"></td>
-             </tr>
-             <!--end space height --> 
-
-             <!--start space height --> 
-             <tr>
-               <td height="20" valign="top"></td>
-             </tr>
-             <!--end space height --> 
-
- 
-
-           </tbody></table>
-           <!-- end  container width 560px --> 
-         </td>
-       </tr>
-     </tbody></table>
-     <!-- end  container width 600px --> 
-   </td>
- </tr>
-
- <!-- END LAYOUT-9 --> 
-
-
-
-  
-
-
-
-
-
-
-
-
-    <!--START FOOTER LAYOUT-->
+ <!--START FOOTER LAYOUT-->
   <tr>
     <td valign="top">
       <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
@@ -847,7 +740,7 @@ def Email(to, userid, clave, name=""):
                   <tr>
                     <td valign="middle">
                     
-                    <table align="left" border="0" cellspacing="0" cellpadding="0" class="container2">
+                    <table align="center" border="0" cellspacing="0" cellpadding="0" class="container2">
                      
                       <tbody><tr>
                         <td align="center" valign="top">
