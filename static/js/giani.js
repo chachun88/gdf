@@ -22,28 +22,7 @@ $(document).ready(function(){
 
 
 
-	if(typeof(Storage) !== "undefined") {
-
-		if(!window.localStorage.getItem("user_id")){
-			window.localStorage.setItem("user_id","0");
-		} else {
-
-			$.ajax({
-				url: '/user/save-guess',
-				cache: false,
-				async: false,
-				data: "user_id="+window.localStorage.getItem("user_id"),
-				success: function(html){
-					var objeto = $.parseJSON(html);
-					if(objeto["success"]){
-						window.localStorage.setItem("user_id",objeto["success"].toString());
-					}
-				}
-			});
-		}
-
-		GetCartByUserId(window.localStorage.getItem("user_id"));
-	}
+	
 
 	$("a.logout").click(function(){
 		if(typeof(Storage) !== "undefined") {
@@ -163,4 +142,27 @@ $(document).ready(function(){
 
 		return false;
 	});
+
+	if(typeof(Storage) !== "undefined") {
+
+		if(!window.localStorage.getItem("user_id")){
+			window.localStorage.setItem("user_id","0");
+		} else {
+
+			$.ajax({
+				url: '/user/save-guess',
+				cache: false,
+				async: false,
+				data: "user_id="+window.localStorage.getItem("user_id"),
+				success: function(html){
+					var objeto = $.parseJSON(html);
+					if(objeto["success"]){
+						window.localStorage.setItem("user_id",objeto["success"].toString());
+					}
+				}
+			});
+		}
+
+		GetCartByUserId(window.localStorage.getItem("user_id"));
+	}
 });

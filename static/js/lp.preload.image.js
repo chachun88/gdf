@@ -4,28 +4,33 @@
 
         $(this).each(function()
         {
-            var image_src = $(this).attr( "lp-load-big" );
-            var _img = $(this);
 
-            var newImg = new Image;
+            if($(this).attr("lp-load-big") !== undefined){
 
-            newImg.onload = function() 
-            {
-                var new_src = this.src;
+                var image_src = $(this).attr( "lp-load-big" );
+                var _img = $(this);
 
-                // fadeout animation 
-                _img.fadeOut( 250, function()
+                var newImg = new Image;
+
+                newImg.onload = function() 
                 {
-                    _img.attr("src", new_src);
+                    var new_src = this.src;
 
-                    // fadein animation
-                    _img.fadeIn( 250, function()
+                    // fadeout animation 
+                    _img.fadeOut( 250, function()
                     {
-                        // nothing here
+                        _img.attr("src", new_src);
+
+                        // fadein animation
+                        _img.fadeIn( 250, function()
+                        {
+                            // nothing here
+                        });
                     });
-                });
+                }
+                newImg.src = image_src;
             }
-            newImg.src = image_src;
+            
         });
     };
 

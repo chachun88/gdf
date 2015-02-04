@@ -32,16 +32,34 @@
   <script type="text/javascript" src="/static/js/simple.tab.js" ></script>
   <script src="/static/js/giani_functions.js"></script>
   <script type="text/javascript" src="/static/js/giani.login.js" ></script>
-
-  <script src="/static/js/giani_functions.js"></script>
-  <script src="/static/js/giani.js"></script>
   <script type="text/javascript" src="/static/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
   <script type="text/javascript" src="/static/js/lp.preload.image.js" ></script>
+  <script src="/static/js/giani.js"></script>
   {% block javascript %}{% end %}
   
 </head>
 
 <body class="body index clearfix">
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '348231912006000',
+        xfbml: true,
+        version: 'v2.1'
+      });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk')); 
+  </script>
   <!-- login movil -->
   {% module Template('loginmovil.html') %} 
   <div id="cuerpo" style="width: 100%;"> 
@@ -64,77 +82,60 @@
 
     <script>
 //para ejecutar menumovil.html
-$(document).ready(function(){
+$(document).ready(function() {
 
+  
   $( "img" ).preload_image();
 
-  $("button#tellmeboton").click(function(){
+  $("button#tellmeboton").click(function() {
     $("#menu_movil").fadeIn(1000);
-            // para agregar y quitar blur del fondo
-            $("#cuerpo").addClass("descripcion_blur");
-            $(".boton_busqueda_movil").addClass("b_blur");
-          });
-  $("a.button_register").click(function(evt){
+    // para agregar y quitar blur del fondo
+    $("#cuerpo").addClass("descripcion_blur");
+    $(".boton_busqueda_movil").addClass("b_blur");
+  });
+  $("a.button_register").click(function(evt) {
     evt.preventDefault();
     $("#form-register-login").fadeIn(1000);
-            // para agregar y quitar blur del fondo
-            $("#cuerpo").addClass("descripcion_blur");
-            $(".boton_busqueda_movil").addClass("b_blur");
-          });
-  $("button#tellmeboton2").click(function(){
-    $("#menu_movil,#form-register-login").fadeOut(100);
-        // para agregar y quitar blur del fondo
-        $("#cuerpo").removeClass("descripcion_blur");
-        $(".boton_busqueda_movil").removeClass("b_blur");
-      });
-});
-
-// para poner poster sobre video en index.html
-$("#videohome").click(function(){
-
-  if($("#videoimg").css("opacity")!=0){
-   $("#videoimg, #videoimg-1").fadeTo( "slow", 0, function(){
-    document.getElementById('video').play();
-    console.log("jhsdjhfdsk");
-  } );
- }
-   // para que funcione bien el hover
-   $("#video").removeClass("mostrar-1");
-   $("#video").addClas("mostrar");
-
- });
-// para todos los videos del sitio
-$("video").click(function(e){
-
-        // get click position 
-        var clickY = (e.pageY - $(this).offset().top);
-        var height = parseFloat( $(this).height() );
-
-        
-        // avoids interference with controls
-        if(clickY > 0.82*height) return;
-
-        // toggles play / pause
-        this.paused ? this.play() : this.pause();
-
-      });
-
-
-window.fbAsyncInit = function() {
-  FB.init({
-    appId      : '348231912006000',
-    xfbml      : true,
-    version    : 'v2.1'
+    // para agregar y quitar blur del fondo
+    $("#cuerpo").addClass("descripcion_blur");
+    $(".boton_busqueda_movil").addClass("b_blur");
   });
-};
+  $("button#tellmeboton2").click(function() {
+    $("#menu_movil,#form-register-login").fadeOut(100);
+    // para agregar y quitar blur del fondo
+    $("#cuerpo").removeClass("descripcion_blur");
+    $(".boton_busqueda_movil").removeClass("b_blur");
+  });
+  // para poner poster sobre video en index.html
+  $("#videohome").click(function() {
 
-(function(d, s, id){
- var js, fjs = d.getElementsByTagName(s)[0];
- if (d.getElementById(id)) {return;}
- js = d.createElement(s); js.id = id;
- js.src = "//connect.facebook.net/en_US/sdk.js";
- fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));
+    if ($("#videoimg").css("opacity") != 0) {
+      $("#videoimg, #videoimg-1").fadeTo("slow", 0, function() {
+        document.getElementById('video').play();
+        console.log("jhsdjhfdsk");
+      });
+    }
+    // para que funcione bien el hover
+    $("#video").removeClass("mostrar-1");
+    $("#video").addClas("mostrar");
+
+  });
+  // para todos los videos del sitio
+  $("video").click(function(e) {
+
+    // get click position 
+    var clickY = (e.pageY - $(this).offset().top);
+    var height = parseFloat($(this).height());
+
+
+    // avoids interference with controls
+    if (clickY > 0.82 * height) return;
+
+    // toggles play / pause
+    this.paused ? this.play() : this.pause();
+
+  });
+});
 </script>
 </div> 
 </body>
