@@ -22,17 +22,22 @@ var GetCartByUserId = function(){
 
 	if(Storage !== "undefined") {
 
-		$.ajax({
-			cache: false,
-			url:"/cart/getbyuserid",
-			data:"user_id="+window.localStorage.getItem("user_id"),
-			success: function(html){
-				if(html.indexOf("error") > -1 )
-					fancyAlert("Se produjo un error al intentar obtener el carro de compra");
-				else
-					$(".carritoproductos").html(html);
-			}
-		});
+		if(!window.localStorage.getItem("user_id")){
+			window.localStorage.setItem("user_id","0");
+		} else {
+
+			$.ajax({
+				cache: false,
+				url:"/cart/getbyuserid",
+				data:"user_id="+window.localStorage.getItem("user_id"),
+				success: function(html){
+					if(html.indexOf("error") > -1 )
+						fancyAlert("Se produjo un error al intentar obtener el carro de compra");
+					else
+						$(".carritoproductos").html(html);
+				}
+			});
+		}
 	}
 }
 
