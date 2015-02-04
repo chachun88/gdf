@@ -57,7 +57,7 @@ def RegistrationEmail(username,email):
           </head>
         <body style="font-size:12px; font-family:Roboto,Open Sans,Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; background-color:#ffffff; ">
           <!--start 100% wrapper (white background) -->
-          <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ecebeb;">
+          <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ffffff;">
             <!--START VIEW ONLINE AND ICON SOCAIL -->
             <tbody>
               <!--END VIEW ONLINE AND ICON SOCAIL-->
@@ -276,7 +276,7 @@ def RegistrationEmail(username,email):
                     <tbody><tr>
                       <td valign="top" class="image-100-percent">
                         
-                        <img src="http://giani.ondev.today/static/images/banermovil.png" width="100%" alt="header-image" style="display:block !important;  max-width:600px;">
+                        <img src="http://giani.ondev.today/static/images/baner.png" width="100%" alt="header-image" style="display:block !important;">
                         
                       </td>
                     </tr>
