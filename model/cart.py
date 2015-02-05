@@ -247,7 +247,9 @@ class Cart(BaseModel):
 		offset = (page-1)*items
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 		try:
-			q = '''select tc.id, p.sku, p.name,tc.size,p.color,tc.quantity,tc.subtotal,p.sell_price, p.image, tc.billing_id, tc.shipping_id, tc.shipping_type, tc.payment_type, tc.product_id from "Temp_Cart" tc left join "Product" p on tc.product_id = p.id left join "Category" c on c.id = p.category_id where tc.user_id = %(user_id)s limit %(limit)s offset %(offset)s'''
+			q = '''select tc.id, p.sku, p.name, c.name as category, tc.size,p.color,tc.quantity,tc.subtotal,p.sell_price, p.image, tc.billing_id, tc.shipping_id, 
+			tc.shipping_type, tc.payment_type, tc.product_id from "Temp_Cart" tc left join "Product" p on tc.product_id = p.id 
+			left join "Category" c on c.id = p.category_id where tc.user_id = %(user_id)s limit %(limit)s offset %(offset)s'''
 			p = {
 			"user_id":self.user_id,
 			"limit":items,
@@ -346,6 +348,18 @@ class Cart(BaseModel):
 		else:
 			return self.ShowError(response_obj["error"])
 
+	def UpdateCartQuantity(self,cart_id,quantity):
 
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+		query = '''update "Temp_Cart" set quantity = %(quantity)s where id = %(cart_id)s'''
+		parameters = {"quantity":quantity,"cart_id":cart_id}
+
+		try:
+			cur.execute(query,parameters)
+			self.connection.commit()
+			return self.ShowSuccessMessage("{}".format(cart_id))
+		except Exception, e:
+			return self.ShowError(str(e))
 
 
