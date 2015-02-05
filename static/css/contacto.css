@@ -64,3 +64,7 @@ color: #FFFFFF; }
 	max-width: 500px;
 	margin: 0 auto;
 }
+
+.conditions-titulos h1, .conditions-titulos h2 {
+	margin-top: 20px;
+}

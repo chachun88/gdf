@@ -15,6 +15,11 @@ Giani Da Firenze - {{data.name}}
 <script type="text/javascript">
     ifvoted({{data.id}});
 </script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(".fancybox").fancybox();
+  });
+</script>
 {% end %}
 
 {% block body %}
@@ -133,7 +138,7 @@ Giani Da Firenze - {{data.name}}
             <ul class="tabs-menu tabs-descripcion tabs-menu-li">
               <li class="current"><a href="#tab-4">Descripci&oacute;n</a></li>
               <li><a href="#tab-5">Delivery</a></li>
-              <li><a href="#tab-6">Cu&aacute;l es tu talla</a></li>
+              <li><a class="fancybox" href="/static/img/tallas.png">Cu&aacute;l es tu talla</a></li>
             </ul>
             <div class="tab tab-2">
               <div id="tab-4" class="tab-content-desc tab-content">
@@ -186,4 +191,5 @@ Giani Da Firenze - {{data.name}}
       </div> -->
     </div>
   </div>
+
   {% end %}
