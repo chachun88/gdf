@@ -37,16 +37,16 @@ Giani Da Firenze - Carro de Compra
                 
                 {% for d in data %}
                 <tr class="CartProduct">
-                  <td  class="CartProductThumb"><div> <a href="/product/{{ d["sku"] }}"><img src="{{url_bodega}}/image/{{d['image']}}?mw=86" alt="img"></a> </div></td>
+                  <td  class="CartProductThumb"><div> <a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}"><img src="{{url_bodega}}/image/{{d['image']}}?mw=86" alt="img"></a> </div></td>
                   <td>
                     <div class="CartDescription">
-                      <h4> <a href="/product/{{ d["sku"] }}">{{d["name"]}}</a> </h4>
+                      <h4> <a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}">{{d["name"]}}</a> </h4>
                       <span class="size">{{d["size"]}}</span>
                       <div class="price"> <span>$ {{money_format(d["sell_price"])}}</span></div>
                     </div>
                   </td>
                   <td class="delete"><a title="Delete" class="borrarproducto" cart-id="{{d['id']}}"> <i class="glyphicon glyphicon-trash fa-2x"></i></a></td>
-                  <td>{{ d['quantity'] }}<!-- <input class="quanitySniper" type="text" value="{{d['quantity']}}" name="quanitySniper"> --></td>
+                  <td><input id="demo_vertical2" type="text" value="{{ d['quantity'] }}" cart-id="{{d['id']}}" name="demo_vertical2"><!-- <input class="quanitySniper" type="text" value="{{d['quantity']}}" name="quanitySniper"> --></td>
                   <!-- <td>0</td> -->
                   <td class="price">${{money_format(d["subtotal"])}}</td>
                 </tr>
@@ -116,5 +116,15 @@ Giani Da Firenze - Carro de Compra
   
   <div style="clear:both"></div>
 </div><!-- /.main-container -->
+<script>
+  $("input[name='demo_vertical2']").TouchSpin({
+    verticalbuttons: true,
+    verticalupclass: 'glyphicon glyphicon-plus',
+    verticaldownclass: 'glyphicon glyphicon-minus',
+    min: 1
+  }).on('change', function(){
+    console.log($(this).attr("cart-id"));
+  });
+</script>
 {% end %}
 

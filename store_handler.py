@@ -263,3 +263,15 @@ class GetProductsByTagsHandler(BaseHandler):
 		# 	items = response["success"]
 
 		# self.render("store/index.html",data=lista,items=items,page=page)
+
+class UpdateCartQuantityHandler(BaseHandler):
+
+	def post(self):
+
+		cart_id = self.get_argument("cart_id","")
+		quantity = self.get_argument("quantity","")
+
+		cart = Cart()
+		response = cart.UpdateCartQuantity(cart_id,quantity)
+
+		self.write(json_util.dumps(response))
