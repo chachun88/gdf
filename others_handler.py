@@ -1715,3 +1715,8 @@ class HistoryHandler(BaseHandler):
 
     def get(self):
         self.render( "history.html" )
+
+class ConditionsHandler(BaseHandler):
+
+    def get(self):
+        self.render( "conditions.html" )
