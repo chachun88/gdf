@@ -122,8 +122,23 @@ Giani Da Firenze - Carro de Compra
     verticalupclass: 'glyphicon glyphicon-plus',
     verticaldownclass: 'glyphicon glyphicon-minus',
     min: 1
-  }).on('change', function(){
-    console.log($(this).attr("cart-id"));
+  }).on('change', function() {
+    var cart_id = $(this).attr("cart-id");
+    var quantity = $(this).val();
+    $.ajax({
+      type: 'post',
+      url: '/cart/update',
+      data: 'cart_id=' + cart_id + '&quantity=' + quantity,
+      dataType: 'json',
+      success: function(response) {
+        var response_json = $.parseJSON(JSON.stringify(response));
+        if ("error" in response_json) {
+          alert(response_json["error"]);
+        } else {
+          alert("ok");
+        }
+      }
+    });
   });
 </script>
 {% end %}

@@ -352,13 +352,27 @@ class Cart(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-		query = '''update "Temp_Cart" set quantity = %(quantity)s where id = %(cart_id)s'''
-		parameters = {"quantity":quantity,"cart_id":cart_id}
+		query = '''select tc.quantity, p.price from "Product" p inner join "Temp_Cart" tc on tc.product_id = p.id where tc.id = %(cart_id)s'''
+		parameters = {"cart_id":cart_id}
+
+		price = 0
+		old_quantity = 0
+
+		try:
+			cur.execute(query,parameters)
+			res = cur.fetchone()["price"]
+			price = res["price"]
+			old_quantity = res["quantity"]
+		except Exception, e:
+			print str(e)
+
+		query = '''update "Temp_Cart" set quantity = %(quantity)s, subtotal = %(quantity)s * %(price)s where id = %(cart_id)s'''
+		parameters = {"quantity":quantity,"cart_id":cart_id,"price":price}
 
 		try:
 			cur.execute(query,parameters)
 			self.connection.commit()
-			return self.ShowSuccessMessage("{}".format(cart_id))
+			return self.ShowSuccessMessage("{}".format(old_quantity+price))
 		except Exception, e:
 			return self.ShowError(str(e))
 
