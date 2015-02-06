@@ -70,6 +70,8 @@ class Application(tornado.web.Application):
             (r"/aboutus", others_handler.AboutusHandler),
             (r"/history", others_handler.HistoryHandler),
             (r"/conditions", others_handler.ConditionsHandler),
+            (r"/faq", others_handler.FaqHandler),
+            (r"/user", others_handler.UserHandler),
             (r"/wscc", others_handler.WSCorreosChileHandler)
             
         ]

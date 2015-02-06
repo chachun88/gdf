@@ -1720,3 +1720,14 @@ class ConditionsHandler(BaseHandler):
 
     def get(self):
         self.render( "conditions.html" )
+
+class FaqHandler(BaseHandler):
+
+    def get(self):
+        self.render( "faq.html" )
+
+class UserHandler(BaseHandler):
+
+    def get(self):
+        self.render( "user.html" )
+
