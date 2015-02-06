@@ -58,7 +58,8 @@ class BaseHandler(tornado.web.RequestHandler):
         
         return _int
 
-    def money_format(self, value):
+    @staticmethod
+    def money_format(value):
 
         if os.name == "posix":
             locale.setlocale( locale.LC_NUMERIC, 'es_ES.UTF-8' )

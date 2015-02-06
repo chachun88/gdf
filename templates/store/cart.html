@@ -42,13 +42,13 @@ Giani Da Firenze - Carro de Compra
                     <div class="CartDescription">
                       <h4> <a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}">{{d["name"]}}</a> </h4>
                       <span class="size">{{d["size"]}}</span>
-                      <div class="price"> <span>$ {{money_format(d["sell_price"])}}</span></div>
+                      <div class="price sell_price"> <span>$ {{money_format(d["sell_price"])}}</span></div>
                     </div>
                   </td>
                   <td class="delete"><a title="Delete" class="borrarproducto" cart-id="{{d['id']}}"> <i class="glyphicon glyphicon-trash fa-2x"></i></a></td>
                   <td><input id="demo_vertical2" type="text" value="{{ d['quantity'] }}" cart-id="{{d['id']}}" name="demo_vertical2"><!-- <input class="quanitySniper" type="text" value="{{d['quantity']}}" name="quanitySniper"> --></td>
                   <!-- <td>0</td> -->
-                  <td class="price">${{money_format(d["subtotal"])}}</td>
+                  <td class="subtotal price {{d['id']}}">${{money_format(d["subtotal"])}}</td>
                 </tr>
                 {% end %}
               </tbody>
@@ -83,7 +83,7 @@ Giani Da Firenze - Carro de Compra
                 <tbody>
                   <tr >
                     <td>Total productos</td>
-                    <td class="price" >${{suma}}</td>
+                    <td class="price sum-subtotal" >${{money_format(suma)}}</td>
                   </tr>
                   <!-- <tr  style="">
                     <td>Envío</td>
@@ -91,7 +91,7 @@ Giani Da Firenze - Carro de Compra
                   </tr> --> 
                   <tr >
                     <td > Total </td>
-                    <td class=" site-color" id="total-price">${{suma}}</td>
+                    <td class=" site-color" id="total-price">${{money_format(suma)}}</td>
                   </tr>
 <!--                   <tr >
                     <td colspan="2"  ><div class="input-append couponForm">
@@ -122,8 +122,25 @@ Giani Da Firenze - Carro de Compra
     verticalupclass: 'glyphicon glyphicon-plus',
     verticaldownclass: 'glyphicon glyphicon-minus',
     min: 1
-  }).on('change', function(){
-    console.log($(this).attr("cart-id"));
+  }).on('change', function() {
+    var cart_id = $(this).attr("cart-id");
+    var quantity = $(this).val();
+    $.ajax({
+      type: 'post',
+      url: '/cart/update',
+      data: 'cart_id=' + cart_id + '&quantity=' + quantity,
+      dataType: 'json',
+      success: function(response) {
+        var response_json = $.parseJSON(JSON.stringify(response));
+        if ("error" in response_json) {
+          alert(response_json["error"]);
+        } else {
+          $('#total-price').text('$ '+response["success"]["total"]);
+          $('.sum-subtotal').text('$ '+response["success"]["total"]);
+          $('.subtotal.'+cart_id).text('$ '+response["success"]["subtotal"]);
+        }
+      }
+    });
   });
 </script>
 {% end %}
