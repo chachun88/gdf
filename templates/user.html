@@ -3,6 +3,52 @@
 <link rel="stylesheet" href="/static/css/contacto.css">
 {% end %}
 {% block body %}
-<div class="contenedor-contacto-form conditions-titulos">
+<div class="contenedor-contacto-form conditions-titulos user-page">
+	<h1 >Datos de usuario</h1>
+	<div style="margin-top: 10px;">
+	<div class="salir_registro" style="width: 150px;"><p>Julian</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+		<button>cambiar contraseña</button>
+	</div>
+	<h1 >Datos de compra</h1>
+	<div style="margin-top: 10px;">
+		<div class="salir_registro" style="width: 150px;"><p>Julian</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+		<div class="salir_registro" style="width: 150px;"><p>larrea</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+		<div class="salir_registro" style="width: 150px;"><p>julian@gmail.com</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+		<div class="salir_registro" style="width: 150px;"><p>16.323.861-6</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+	</div>
+	<h1 >Direcciones</h1>
+	<div class="user-direcciones">
+		<div>
+			<p>Nombre dirección</p>
+		</div>
+		<div>
+			<p>direccion</p>
+			<p>Comuna</p>
+			<p>Ciudad</p>
+			<p>codigo postal</p>
+			<p>telefono</p>
+			<button>Editar</button>
+			<button>Eliminar</button>
+		</div>
+	</div>
+	<div class="user-direcciones">
+		<div>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="nombre dirección" value>
+		</div>
+
+		<div>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Direccion" value>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Comuna" value>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Ciudad" value>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Codigo postal" value>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Telefono" value>
+			<button>Editar</button>
+			<button>Eliminar</button>
+		</div>
+	</div>
+	<div class="user-direcciones">
+		<button>AGREGAR DIRECCIONES</button>
+	</div>
+
 </div>
 {% end %}

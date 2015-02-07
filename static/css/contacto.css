@@ -68,3 +68,59 @@ color: #FFFFFF; }
 .conditions-titulos h1, .conditions-titulos h2 {
 	margin-top: 20px;
 }
+
+.user-direcciones {
+	width: 100%;
+	float: left;
+}
+.user-direcciones div{
+	width: 50%;
+	float: left;
+	padding: 10px;
+}
+.user-direcciones input{
+	margin-top: 10px;
+}
+
+.user-page button {
+	border: 1px solid gray;
+	padding: 10px;
+	margin: 10px 10px 10px 0px;
+
+}
+
+.user-page button:hover {
+	border: 1px solid gray;
+	color: white;
+	background-color: gray;
+	
+}
+.user-page p {
+	padding: 5px;
+}
+.user-page {
+}
+
+.user-page h1 {
+	font-size: 24px !important;
+line-height: 17px !important;
+border-bottom: 1px solid gray !important;
+margin-top: 40px;
+
+}
+.user_editar {
+width: 30px;
+height: 30px;
+display: block;
+float: right;
+font-size: 16px;
+margin-top: -30px;
+z-index: 300;
+border-radius: 15px;
+line-height: 1.8em;
+text-align: center;
+padding: 6.4px 0px 0px 4px;
+}
+
+
+
