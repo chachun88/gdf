@@ -5,49 +5,78 @@ Giani Da Firenze - Home
 
 {% block css %}
 <link rel="stylesheet" href="/static/css/store.css">
+<link rel="stylesheet" href="/static/css/menu-material.css">
 <link rel="stylesheet" href="/static/css/simplePagination.css">
 {% end %}
 
 {% block body %}
+
 <div class="cuerpo clearfix">
-    {% include ../slider.html %}
-    <div class="slider-small">
-      <img class="slide" src="/static/images/banermovil.png" data-rimage data-src="/static/images/banermovil.png">
-    </div>
-    <div class="contenedor-productos clearfix" id="contenedor">
-      <div class="cuerpo-categorias clearfix">
-        <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
-        <div class="categorias clearfix">
-        <div class="espacio_superior"></div>
-          {% for t in tags %}
-          <a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a>
-          {% end %}
-        </div>
-      </div>
-      <div id="ajax_productos">
-        {% for d in data %}
-        <div class="cuerpo-producto clearfix contenedor_productos">
-          <div class="producto-foto">
-            <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
-            <!-- <img class="foto-producto" src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263" data-rimage data-src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263"> -->
-            
-          </div>
-          <div class="producto-info clearfix">
-            <p class="producto-nombre">{{d['name']}}</p>
-            <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>
-          </div>
-
-          <div class="sobre-producto">
-            <a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}" class="url_producto"></a>
-            <div class="boton_comprar"><li><a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}">COMPRAR</a></li></div>
-          </div>
-          <span class="_button">
-            <p></p>
-          </span>
-        </div>
+<div id="menu-m" class="menu-material"><i class="icon-pencil"></i>
+    <ul>
+      <li style="border-bottom: 1px solid rgb(233, 233, 233);"><span>Categorias</span></li>
+      {% for t in tags %}
+        <li><a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a></li>
         {% end %}
+      <li><a>categoria 1</a></li>
+      <li><a>categoria 1</a></li>
+      <li><a>categoria 1</a></li>
+      <li><a>categoria 1</a></li>
+      <li><a>categoria 1</a></li>
+      <li style="border-top: 1px solid rgb(233, 233, 233);">
+        <span>filtral por tu talla</span> 
+        <select class="menu-material-select">
+          <option value="35">35</option>
+          <option value="36">36</option>
+          <option value="37">37</option>
+          <option value="38">38</option>
+          <option value="39">39</option>
+          <option value="40">40</option>
+        </select>
+      </li>
+      <li ><button>filtrar</button></li>
+    </ul>
+    
+  </div>
+  {% include ../slider.html %}
+  <div class="slider-small">
+    <img class="slide" src="/static/images/banermovil.png" data-rimage data-src="/static/images/banermovil.png">
+  </div>
 
-        <div class="paginador clearfix">
+  <div class="contenedor-productos clearfix" id="contenedor">
+    <div class="cuerpo-categorias clearfix" style="display: none">
+      <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
+      <div class="categorias clearfix">
+        <div class="espacio_superior"></div>
+        {% for t in tags %}
+        <a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a>
+        {% end %}
+      </div>
+    </div>
+    <div id="ajax_productos">
+      {% for d in data %}
+      <div class="cuerpo-producto clearfix contenedor_productos">
+        <div class="producto-foto">
+          <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
+          <!-- <img class="foto-producto" src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263" data-rimage data-src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263"> -->
+
+        </div>
+        <div class="producto-info clearfix">
+          <p class="producto-nombre">{{d['name']}}</p>
+          <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>
+        </div>
+
+        <div class="sobre-producto">
+          <a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}" class="url_producto"></a>
+          <div class="boton_comprar"><li><a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}">COMPRAR</a></li></div>
+        </div>
+        <span class="_button">
+          <p></p>
+        </span>
+      </div>
+      {% end %}
+
+      <div class="paginador clearfix">
           <!-- <p class="paginas">
             <span>&lt;</span> &nbsp; 
             <a href="/store?page=1"><span>1</span></a> &nbsp; 
@@ -59,7 +88,7 @@ Giani Da Firenze - Home
       </div>
     </div>
   </div>
-{% if tags_arr is not None %}
+  {% if tags_arr is not None %}
   {% if "lo nuevo" in tags_arr %}
   <script>
     $(document).ready(function(){
@@ -73,26 +102,49 @@ Giani Da Firenze - Home
     });
   </script>
   {% end %}
-{% else %}
+  {% else %}
   <script>
     $(document).ready(function(){
       $(".header-menu .zapatos").addClass("activo");
     });
   </script>
-{% end %}
-{% end %}
+  {% end %}
+  {% end %}
 
-{% block javascript %}
-<script src="/static/js/jquery.simplePagination.js"></script>
-<script>
+  {% block javascript %}
+  <script src="/static/js/jquery.simplePagination.js"></script>
+  <script>
     $(".paginador").pagination({
-        items: {{items}},
-        itemsOnPage: 15,
-        prevText: '<',
-        nextText: '>',
-        currentPage: {{page}},
-        hrefTextPrefix:'?ajax=1&page=',
-        hrefTextSuffix: '#contenedor'
+      items: {{items}},
+      itemsOnPage: 15,
+      prevText: '<',
+      nextText: '>',
+      currentPage: {{page}},
+      hrefTextPrefix:'?ajax=1&page=',
+      hrefTextSuffix: '#contenedor'
     });
-</script>
-{% end %}
+    $(document).ready(
+      function() {
+        var expanded = true;
+        // When clicked on the menu-trigger
+        $("#menu-m ul").hide();
+        $("#menu-m").click(
+          function(event) {
+
+                // Slide down menu if hidden
+                if (!expanded) {
+                  event.stopPropagation();
+                  $("#menu-m ul").slideUp("slow");
+                  expanded = true;
+                }
+                // Slide up menu if shown
+                else {
+                  $("#menu-m ul").slideDown("fast");
+                  expanded = false;
+                }
+              }
+              );
+      }
+      );
+  </script>
+  {% end %}
