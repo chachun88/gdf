@@ -4,17 +4,30 @@
 {% end %}
 {% block body %}
 <div class="contenedor-contacto-form conditions-titulos user-page">
-	<h1 >Datos de usuario</h1>
-	<div style="margin-top: 10px;">
-	<div class="salir_registro" style="width: 150px;"><p>Julian</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
-		<button>cambiar contraseña</button>
+	<div style="width:50%; float: left; padding-right: 10px;">
+		<h1 >Datos de usuario</h1>
+		<div style="margin-top: 10px;">
+			<div class="salir_registro" style="width: 150px;"><p>Julian</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+			<button class="btn_left">Cambiar contraseña</button>
+		</div>
 	</div>
-	<h1 >Datos de compra</h1>
-	<div style="margin-top: 10px;">
-		<div class="salir_registro" style="width: 150px;"><p>Julian</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
-		<div class="salir_registro" style="width: 150px;"><p>larrea</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
-		<div class="salir_registro" style="width: 150px;"><p>julian@gmail.com</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
-		<div class="salir_registro" style="width: 150px;"><p>16.323.861-6</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+	<div style="width:50%; float: left;">
+		<h1 >Datos de compra</h1>
+		<div style="margin-top: 10px;">
+			<div class="salir_registro" style="width: 150px;"><strong>Nombre</strong><p>Julian</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+			<div class="salir_registro" style="width: 150px;"><strong>Apellido</strong><p>larrea</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+			<div class="salir_registro" style="width: 150px;"><strong>Correo</strong><p>julian@gmail.com</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+			<div class="salir_registro" style="width: 150px;"><strong>Rut</strong><p>16.323.861-6</p><div class="user_editar"><i class="icon-pencil"></i></div></div>
+			<button>Editar</button>
+		</div>
+		<div>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Nombre" value>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Apellido" value>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Correo" value>
+			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="rut" value>
+			<button>Eliminar</button>
+			<button>Guardar</button>
+		</div>
 	</div>
 	<h1 >Direcciones</h1>
 	<div class="user-direcciones">
@@ -27,9 +40,13 @@
 			<p>Ciudad</p>
 			<p>codigo postal</p>
 			<p>telefono</p>
-			<button>Editar</button>
 			<button>Eliminar</button>
+			<button>Editar</button>
 		</div>
+	</div>
+	
+	<div class="user-direcciones">
+		<button class="btn_left">AGREGAR DIRECCIONES</button>
 	</div>
 	<div class="user-direcciones">
 		<div>
@@ -42,13 +59,9 @@
 			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Ciudad" value>
 			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Codigo postal" value>
 			<input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Telefono" value>
-			<button>Editar</button>
 			<button>Eliminar</button>
+			<button>Guardar</button>
 		</div>
 	</div>
-	<div class="user-direcciones">
-		<button>AGREGAR DIRECCIONES</button>
-	</div>
-
 </div>
 {% end %}
