@@ -131,7 +131,7 @@ class PagoHandler(BaseHandler):
                 cantidad_productos += 1
                 id_facturacion = l["billing_id"]
                 id_despacho = l["shipping_id"]
-                tipo_pago = l["shipping_type"]
+                tipo_pago = l["payment_type"]
                 total += l["subtotal"]
 
 
