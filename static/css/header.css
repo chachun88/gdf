@@ -528,8 +528,27 @@ a.redes_sociales {
   width: 100%;
   height: 10px;
 }
-.cargando {
-  display: none;
+div.cargando {
+display: none;
+z-index: 7000;
+position: fixed;
+background-color: rgba(133, 133, 133, 0.53);
+width: 100%;
+height: 100%;
+top: 0;
+left: 0;
+-webkit-transition: background-color 500ms ease-out 1s;
+    -moz-transition: background-color 500ms ease-out 1s;
+    -o-transition: background-color 500ms ease-out 1s;
+    transition: background-color 500ms ease-out 1s;
+}
+img.cargando{
+  width: 30px;
+  height: 30px;
+  margin-top: 20%;
+  margin-left: 50%;
+}
+
 }
 .reg-strate-login a {
   color: white;
