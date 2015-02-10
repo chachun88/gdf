@@ -30,7 +30,7 @@ background-color: white;
 -moz-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
 box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
 color: gray;
-font-size: 15px;
+font-size: 17px;
 text-align: left;
 height: auto;
 }
@@ -62,20 +62,20 @@ height: auto;
 .menu-material button {
   padding: 5px 15px;
   float: right;
-  border:1px solid white;
-  color: white;
+  border:1px solid gray;
+  color: gray;
 
 }
 .menu-material button:hover {
-  color: rgb(255, 180, 180) !important;
-  background-color: white;
+  color: white !important;
+  background-color: gray;
 
 }
 .menu-material ul li:last-child {
 height: 51px;
-/*border-top: 1px solid gray;*/
+border-top: 1px solid rgb(229, 229, 229);
 padding: 10px 10px 10px 0px;
-background-color: rgb(255, 180, 180);
+/*background-color: rgb(255, 180, 180);*/
 }
 .menu-material-select {
 display: block;
@@ -93,4 +93,17 @@ background-position: right center;
 font: 400 1.083em/1.38 Helvetica;
 color: rgb(147, 147, 147);
 margin-left: 10px;
+}
+
+.color-white-m {
+	color: white !important;
+}
+.menu-material-tallas {
+	float: left;
+	width: 16% !important;
+	font-size: 15px !important;
+}
+.menu-material ul li input {
+    float: left;
+    margin-right: 5px;
 }

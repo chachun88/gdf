@@ -13,27 +13,32 @@ Giani Da Firenze - Home
 
 <div class="cuerpo clearfix">
 <div id="menu-m" class="menu-material"><i class="icon-pencil"></i>
-    <ul>
-      <li style="border-bottom: 1px solid rgb(233, 233, 233);"><span>Categorias</span></li>
-      {% for t in tags %}
-        <li><a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a></li>
-        {% end %}
-      <li><a>categoria 1</a></li>
-      <li><a>categoria 1</a></li>
-      <li><a>categoria 1</a></li>
-      <li><a>categoria 1</a></li>
-      <li><a>categoria 1</a></li>
-      <li style="border-top: 1px solid rgb(233, 233, 233);">
-        <span>filtral por tu talla</span> 
-        <select class="menu-material-select">
+    <ul style="background-image:url(/static/images/menu-material-2.png);background-repeat: no-repeat;
+    background-position: center top;background-size: 100%; ">
+       <li style="border-bottom: 1px solid rgb(193, 193, 193)">
+        <span >¿Cual es tu talla?</span> 
+        <!-- <select class="menu-material-select">
           <option value="35">35</option>
           <option value="36">36</option>
           <option value="37">37</option>
           <option value="38">38</option>
           <option value="39">39</option>
           <option value="40">40</option>
-        </select>
+        </select> -->
       </li>
+      <li class="menu-material-tallas "><lavel><input type="checkbox">35</lavel></li>
+      <li class="menu-material-tallas "><lavel><input type="checkbox">36</lavel></li>
+      <li class="menu-material-tallas "><lavel><input type="checkbox">37</lavel></li>
+      <li class="menu-material-tallas "><lavel><input type="checkbox">38</lavel></li>
+      <li class="menu-material-tallas "><lavel><input type="checkbox">39</lavel></li>
+      <li class="menu-material-tallas "><lavel><input type="checkbox">40</lavel></li>
+      <li style="border-bottom: 1px solid rgb(193, 193, 193);border-top: 1px solid rgb(193, 193, 193)"><span>Categorias</span></li>
+      {% for t in tags %}
+        <li><input type="checkbox"><a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a></li>
+        {% end %}
+      <li><input type="checkbox"><a>categoria 1</a></li>
+      <li><input type="checkbox"><a>categoria 1</a></li>
+      <li><input type="checkbox"><a>categoria 1</a></li>
       <li ><button>filtrar</button></li>
     </ul>
     
