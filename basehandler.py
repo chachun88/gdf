@@ -8,6 +8,9 @@ from globals import url_bodega, cellar_id
 import locale
 import urllib
 import os
+import unicodedata
+import re
+
 # from loadingplay.multilang.lang import lploadLanguage, lpautoSelectCurrentLang,\
 #     lptranslate, lpsetCurrentLang
 
@@ -30,13 +33,22 @@ class BaseHandler(tornado.web.RequestHandler):
         else:
             return None
 
-    def canonical_url(self,url):
+    def canonical_url(self, url):
 
         _url = ""
 
-        _url = url.replace(" ","-")
+        pattern = re.compile(r"[^a-zA-Z\d_]+")
+
+        _url = self.strip_accents(url).encode("utf-8")
+        _url = _url.replace(" ","_")
+
+        _url = re.sub(pattern,"",_url)
 
         return _url
+
+    def strip_accents(self, s):
+        _s = s.decode("utf-8")
+        return ''.join(c for c in unicodedata.normalize('NFD', _s) if unicodedata.category(c) != 'Mn')
 
 
     def truncate_decimal(self, decimal):

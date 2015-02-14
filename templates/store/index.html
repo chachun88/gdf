@@ -73,8 +73,8 @@ Giani Da Firenze - Home
         </div>
 
         <div class="sobre-producto">
-          <a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}" class="url_producto"></a>
-          <div class="boton_comprar"><li><a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}">COMPRAR</a></li></div>
+          <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" class="url_producto"></a>
+          <div class="boton_comprar"><li><a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}">COMPRAR</a></li></div>
         </div>
         <span class="_button">
           <p></p>

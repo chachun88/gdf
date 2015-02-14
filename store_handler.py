@@ -60,6 +60,10 @@ class ProductHandler(BaseHandler):
 
 	def get(self,category,name,color):
 
+		category = category.replace("_","|")
+		name = name.replace("_","|")
+		color = color.replace("_","|")
+
 		id_bodega = cellar_id
 		cellar = Cellar()
 		res_cellar = cellar.GetWebCellar()

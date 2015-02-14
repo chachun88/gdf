@@ -37,10 +37,10 @@ Giani Da Firenze - Carro de Compra
                 
                 {% for d in data %}
                 <tr class="CartProduct">
-                  <td  class="CartProductThumb"><div> <a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}"><img src="{{url_bodega}}/image/{{d['image']}}?mw=86" alt="img"></a> </div></td>
+                  <td  class="CartProductThumb"><div> <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}"><img src="{{url_bodega}}/image/{{d['image']}}?mw=86" alt="img"></a> </div></td>
                   <td>
                     <div class="CartDescription">
-                      <h4> <a href="/product/{{d['category']}}/{{d['name']}}/{{d['color']}}">{{d["name"]}}</a> </h4>
+                      <h4> <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}">{{d["name"]}}</a> </h4>
                       <span class="size">{{d["size"]}}</span>
                       <div class="price sell_price"> <span>$ {{money_format(d["sell_price"])}}</span></div>
                     </div>

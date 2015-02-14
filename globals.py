@@ -6,6 +6,7 @@ from tornado.options import define, options
 
 import socket
 
+
 host_name = socket.gethostname()
 
 class Enviroment(object):
@@ -83,6 +84,7 @@ elif enviroment == Enviroment.PRODUCTION:
 
 	# define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
 	# define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
+
 
 
 

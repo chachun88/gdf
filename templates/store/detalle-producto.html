@@ -30,7 +30,7 @@ Giani Da Firenze - {{data.name}}
         {% for c in combinations %}
           {% if c["image"] != "" %}
           <div class="container">
-            <a href="/product/{{c['category']}}/{{c['name']}}/{{c['color']}}">
+            <a href="/product/{{canonical_url(c['category'])}}/{{canonical_url(c['name'])}}/{{canonical_url(c['color'])}}">
               <img class="image image-7 otro-angulo-mas-combinaciones" src="{{url_bodega}}/image/{{c['image']}}?mw=159" data-rimage data-src="{{url_bodega}}/image/{{c['image']}}?mw=159">
             </a>
           </div>
@@ -158,7 +158,7 @@ Giani Da Firenze - {{data.name}}
     <div class="container container-16 clearfix">
       <p class="text text-6">Productos Relacionados</p>
       {% for r in related %}
-      <a href="/product/{{r['category']}}/{{r['name']}}/{{r['color']}}">
+      <a href="/product/{{canonical_url(r['category'])}}/{{canonical_url(r['name'])}}/{{canonical_url(r['color'])}}">
         <div class="container container-17 clearfix">
           <div class="container container-18 otro-angulo-mas-combinaciones">
             <img class="image image-15" src="{{url_bodega}}/image/{{r['image']}}?mw=165" data-rimage data-src="{{url_bodega}}/image/{{r['image']}}?mw=165">
