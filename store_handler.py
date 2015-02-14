@@ -102,7 +102,7 @@ class ProductHandler(BaseHandler):
 
 			prod_name = prod.sku.split("-")[-2]
 
-			print "prod_name:{}".format(prod_name)
+			# print "prod_name:{}".format(prod_name)
 
 			combinaciones = prod.GetCombinations(prod_name)
 			relacionados = prod.GetRandom()

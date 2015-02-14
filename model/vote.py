@@ -97,7 +97,7 @@ class Vote(BaseModel):
 		}
 
 		try:
-			print cursor.mogrify(query,parameters)
+			# print cursor.mogrify(query,parameters)
 			cursor.execute(query,parameters)
 			cantidad = cursor.fetchone()["cantidad"]
 			return self.ShowSuccessMessage(cantidad)

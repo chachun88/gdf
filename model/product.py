@@ -375,7 +375,7 @@ class Product(BaseModel):
 		"color":color
 		}
 		try:
-			print cur.mogrify(q,p)
+			# print cur.mogrify(q,p)
 			cur.execute(q,p)
 			producto = cur.fetchone()
 
