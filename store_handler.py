@@ -60,8 +60,8 @@ class ProductHandler(BaseHandler):
 
 	def get(self,category,name,color):
 
-		category = category.replace("_","|")
-		name = name.replace("_","|")
+		category = category.replace("_","&")
+		name = name.replace("_","&")
 		color = color.replace("_","&")
 
 		id_bodega = cellar_id
