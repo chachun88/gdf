@@ -92,11 +92,15 @@ class ProductHandler(BaseHandler):
 			prod.size = tallas_disponibles
 
 			vote = Vote()
-			print "PRODUCT ID:{}".format(prod.id)
+			
 			res = vote.GetVotes(prod.id)
 			votos = 0
 
-			combinaciones = prod.GetCombinations(prod.name)
+			prod_name = prod.sku.split("-")[-2]
+
+			print "prod_name:{}".format(prod_name)
+
+			combinaciones = prod.GetCombinations(prod_name)
 			relacionados = prod.GetRandom()
 
 			

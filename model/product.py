@@ -211,7 +211,7 @@ class Product(BaseModel):
 		offset = (page-1)*items
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 		try:
-			q = '''select p.*,c.name as category from "Product" p left join "Category" c on c.id = p.category_id where p.for_sale = 1 limit %(items)s offset %(offset)s'''
+			q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.for_sale = 1 limit %(items)s offset %(offset)s'''
 			p = {
 				"items":items,
 				"offset":offset
@@ -230,7 +230,7 @@ class Product(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-		q = '''select p.*,c.name as category from "Product" p left join "Category" c on c.id = p.category_id where p.sku = %(sku)s limit 1'''
+		q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.sku = %(sku)s limit 1'''
 		p = {
 		"sku":sku
 		}
@@ -275,7 +275,7 @@ class Product(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-		q = '''select p.*,c.name as category from "Product" p left join "Category" c on c.id = p.category_id where p.id = %(id)s limit 1'''
+		q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.id = %(id)s limit 1'''
 		p = {
 		"id":identifier
 		}
@@ -319,11 +319,12 @@ class Product(BaseModel):
 	def GetCombinations(self,name):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-		q = '''select p.*,c.name as category from "Product" p left join "Category" c on c.id = p.category_id where p.name = %(name)s and p.for_sale = 1 limit 4'''
+		q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.name like %(name)s and p.for_sale = 1 limit 4'''
 		p = {
-		"name":name
+		"name":"%"+name+"%"
 		}
 		try:
+			print cur.mogrify(q,p)
 			cur.execute(q,p)
 			combinations = cur.fetchall()
 			return combinations
@@ -337,7 +338,7 @@ class Product(BaseModel):
 	def GetRandom(self):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-		q = '''SELECT p.*, c.name as category FROM "Product" p left join "Category" c on c.id = p.category_id where p.for_sale = 1 OFFSET random()*(select count(*) from "Product") LIMIT 4'''
+		q = '''SELECT p.*, c.name as category FROM "Product" p inner join "Category" c on c.id = p.category_id where p.for_sale = 1 OFFSET random()*(select count(*) from "Product") LIMIT 4'''
 		try:
 			cur.execute(q)
 			randomized = cur.fetchall()
@@ -364,7 +365,7 @@ class Product(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-		q = '''select p.*,c.name as category from "Product" p left join "Category" c on c.id = p.category_id where p.name = %(name)s and c.name = %(cat)s and p.color = %(color)s and p.for_sale = 1 limit 1'''
+		q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.name = %(name)s and c.name = %(cat)s and p.color = %(color)s and p.for_sale = 1 limit 1'''
 		p = {
 		"name":name,
 		"cat":cat,
