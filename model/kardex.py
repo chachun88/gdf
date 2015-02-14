@@ -25,7 +25,8 @@ class Kardex(BaseModel):
 
 	OPERATION_BUY = "buy"
 	OPERATION_SELL= "sell"
-	OPERATION_MOV = "mov"
+	OPERATION_MOV_IN = "mov_in"
+	OPERATION_MOV_OUT = "mov_out"
 
 	@property
 	def user(self):
@@ -349,14 +350,14 @@ class Kardex(BaseModel):
 		self.units = int(self.units)
 
 		## doing maths...
-		if self.operation_type == Kardex.OPERATION_SELL:
+		if self.operation_type == Kardex.OPERATION_SELL or self.operation_type == Kardex.OPERATION_MOV_OUT:
 			self.price = prev_kardex.balance_price ## calculate price
 		if self.price == "0":
 			self.price = prev_kardex.balance_price
 
 		self.total = self.units * self.price
 
-		if self.operation_type == Kardex.OPERATION_BUY:
+		if self.operation_type == Kardex.OPERATION_BUY or self.operation_type == Kardex.OPERATION_MOV_IN:
 			self.sell_price = "0"
 			self.balance_units = prev_kardex.balance_units + self.units
 			self.balance_total = prev_kardex.balance_total + self.total

@@ -492,7 +492,7 @@ class CheckoutSendHandler(BaseHandler):
 
                             kardex.product_sku = producto.sku
                             kardex.cellar_identifier = id_bodega
-                            kardex.operation_type = Kardex.OPERATION_SELL
+                            kardex.operation_type = Kardex.OPERATION_MOVE
                             kardex.sell_price = producto.sell_price
                             kardex.size = detail.size
                             kardex.date = str(datetime.now().isoformat()) 
@@ -502,7 +502,7 @@ class CheckoutSendHandler(BaseHandler):
                             kardex.Insert()
 
                             kardex.cellar_identifier = shipping_cellar
-                            kardex.operation_type = Kardex.OPERATION_BUY
+                            kardex.operation_type = Kardex.OPERATION_MOVE
 
                             kardex.Insert()
 
