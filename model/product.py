@@ -324,7 +324,6 @@ class Product(BaseModel):
 		"name":"%"+name+"%"
 		}
 		try:
-			print cur.mogrify(q,p)
 			cur.execute(q,p)
 			combinations = cur.fetchall()
 			return combinations
@@ -366,9 +365,9 @@ class Product(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-		q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where to_tsvector(p.name) @@ to_tsquery('spanish',%(name)s) 
-		and to_tsvector(c.name) @@ to_tsquery('spanish',%(cat)s) 
-		and to_tsvector(p.color) @@ to_tsquery('spanish', %(color)s) 
+		q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where to_tsvector('spanish', p.name) @@ to_tsquery('spanish',%(name)s) 
+		and to_tsvector('spanish', c.name) @@ to_tsquery('spanish',%(cat)s) 
+		and to_tsvector('spanish', p.color) @@ to_tsquery('spanish', %(color)s) 
 		and p.for_sale = 1 limit 1'''
 		p = {
 		"name":name,
@@ -376,6 +375,7 @@ class Product(BaseModel):
 		"color":color
 		}
 		try:
+			print cur.mogrify(q,p)
 			cur.execute(q,p)
 			producto = cur.fetchone()
 
