@@ -303,9 +303,7 @@ class CheckoutShippingHandler(BaseHandler):
 
     @tornado.web.authenticated
     def post(self):
-        self.get()
-
-        
+        self.get()        
 
 class CheckoutPaymentHandler(BaseHandler):
 
@@ -339,6 +337,11 @@ class CheckoutPaymentHandler(BaseHandler):
             self.render("store/checkout-4.html",suma=suma,costo_despacho=costo_despacho)
         else:
             self.redirect("/auth/login")
+
+    def get(self):
+
+        self.redirect("/auth/login")
+
 
 class CheckoutOrderHandler(BaseHandler):
 
@@ -702,10 +705,7 @@ class CheckoutSendHandler(BaseHandler):
                 self.render("beauty_error.html",message="Carro se encuentra vacío")
 
         # pass
-
-
-
-        
+    
 class GetAddressByIdHandler(BaseHandler):
 
     def get(self):
