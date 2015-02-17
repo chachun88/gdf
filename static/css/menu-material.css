@@ -1,124 +1,131 @@
 .menu-material {
-background-color: #d55d7c;
-width: 60px;
-height: 60px;
-position: fixed;
-bottom: 30;
-right: 50px;
-z-index: 60;
-border-radius: 30px;
-font-size: 34px;
-text-align: center;
-padding: 12px 0px;
-box-shadow: aqua;
--webkit-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
--moz-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
+    background-color: #d55d7c;
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 30;
+    right: 50px;
+    z-index: 60;
+    border-radius: 30px;
+    font-size: 34px;
+    text-align: center;
+    padding: 12px 0px;
+    box-shadow: aqua;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
+    box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
 }
-
 .menu-material ul {
-  width: 280px;
-/* height: 500px; */
-position: fixed;
-bottom: 120px;
-right: 49px;
-z-index: 8000;
-display: block;
-overflow: hidden;
-background-color: white;
--webkit-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
--moz-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
-color: gray;
-font-size: 17px;
-text-align: left;
-height: auto;
+    width: 280px;
+    position: fixed;
+    bottom: 120px;
+    right: 49px;
+    z-index: 8000;
+    
+    overflow: hidden;
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
+    -moz-box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
+    box-shadow: 0px 0px 10px 0px rgba(136, 136, 136, 0.77);
+    color: gray;
+    font-size: 17px;
+    text-align: left;
+    height: auto;
+    background-image: url(/static/images/menu-material-2.png);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 100%;
+    /*display: none;*/
 }
 .menu-material li {
-  height: auto;
-  width: 100%;
-  padding: 10px 5px 10px 15px;
-  float: left;
+    height: auto;
+    width: 100%;
+    padding: 10px 5px 10px 15px;
+    float: left;
 }
-.menu-material li a{
-  display: block;
-	float: none;
-	margin-left: 0%;
-	font-size: 0.9em;
-	color: rgb(103, 101, 100);
-	text-transform: none;
-	font-weight: 100;
-	letter-spacing: 1px;
-	width: 100%;
-	padding: 0px 0px 0px 10px;
+.menu-material li a {
+    display: block;
+    float: none;
+    margin-left: 0%;
+    font-size: 0.9em;
+    color: rgb(103, 101, 100);
+    text-transform: none;
+    font-weight: 100;
+    letter-spacing: 1px;
+    width: 100%;
+    padding: 0px 0px 0px 10px;
 }
-.menu-material li a:hover{
-	color: black;
+.menu-material li a:hover {
+    color: black;
 }
 .menu-material li span {
-	color: black;
+    color: black;
     float: left;
 }
 .menu-material button {
-  padding: 5px 15px;
-  float: right;
-  border:1px solid gray;
-  color: gray;
-
+    padding: 5px 15px;
+    float: right;
+    border: 1px solid gray;
+    color: gray;
 }
 .menu-material button:hover {
-  color: white !important;
-  background-color: gray;
-
+    color: white !important;
+    background-color: gray;
 }
 .menu-material ul li:last-child {
-height: 51px;
-border-top: 1px solid rgb(229, 229, 229);
-padding: 10px 10px 10px 0px;
-/*background-color: rgb(255, 180, 180);*/
+    height: 51px;
+    border-top: 1px solid rgb(229, 229, 229);
+    padding: 10px 10px 10px 0px;
+    /* background-color: rgb(255, 180, 180);
+    */
 }
 .menu-material-select {
-display: block;
-position: relative;
-float: left;
-width: 60;
-height: 22px;
-padding-left: 10px;
-border: 1px solid rgb(119, 119, 119);
-border-radius: 3px;
-background: url('../images/select-arrows.svg') rgb(255, 255, 255);
-background-repeat: no-repeat;
-background-size: auto auto;
-background-position: right center;
-font: 400 1.083em/1.38 Helvetica;
-color: rgb(147, 147, 147);
-margin-left: 10px;
+    display: block;
+    position: relative;
+    float: left;
+    width: 60;
+    height: 22px;
+    padding-left: 10px;
+    border: 1px solid rgb(119, 119, 119);
+    border-radius: 3px;
+    background: url('../images/select-arrows.svg') rgb(255, 255, 255);
+    background-repeat: no-repeat;
+    background-size: auto auto;
+    background-position: right center;
+    font: 400 1.083em/1.38 Helvetica;
+    color: rgb(147, 147, 147);
+    margin-left: 10px;
 }
-
 .color-white-m {
-	color: white !important;
+    color: white !important;
 }
 .menu-material-tallas {
-	float: left;
-	width: 16% !important;
-	font-size: 15px !important;
+    float: left;
+    width: 16% !important;
+    font-size: 15px !important;
 }
 .menu-material ul li input {
     float: left;
     margin-right: 5px;
 }
-@media (max-width: 480px) {
-	.menu-material {
-		right: 10%;
-		bottom: 12px;
-		z-index: 80;
+.cover-material{
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    top: 0;
 }
-	.menu-material ul{
-		width: 80%;
-		right: 10%;
-		height: 80%;
-		overflow-y: scroll !important;
-		bottom: 85px;
-		z-index: 80;
-}
+@media (max-width:480px) {
+    .menu-material {
+        right: 10%;
+        bottom: 12px;
+        z-index: 80;
+    }
+    .menu-material ul {
+        width: 80%;
+        right: 10%;
+        height: 80%;
+        overflow-y: scroll !important;
+        bottom: 85px;
+        z-index: 80;
+    }
 }

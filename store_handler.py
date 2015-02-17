@@ -250,8 +250,6 @@ class GetProductsByTagsHandler(BaseHandler):
 
 		res = tag.GetProductsByTags(tags_arr,page,15)
 
-		tags_visibles = tag.ListVisibleTags()
-
 		if "success" in tags_visibles:
 			tags = tags_visibles["success"]
 
@@ -259,7 +257,7 @@ class GetProductsByTagsHandler(BaseHandler):
 			if ajax == 0:
 				self.render("store/index.html",data=res["success"],items=items,page=page,tags=tags,tags_arr=tags_arr)
 			else:
-				self.render("store/ajax_productos.html",data=res["success"],items=items,page=page,tags=tags,tags_arr=None)
+				self.render("store/ajax_productos.html",data=res["success"],items=items,page=page)
 				#self.write(json_util.dumps({"html":self.render_string("store/ajax_productos.html",data=res["success"],url_bodega=url_bodega,money_format=self.money_format),"items":items,"page":page}))
 		else:
 			self.render("beauty_error.html",message=res["error"])
@@ -289,3 +287,30 @@ class UpdateCartQuantityHandler(BaseHandler):
 		response = cart.UpdateCartQuantity(cart_id,quantity)
 
 		self.write(json_util.dumps(response))
+
+
+class FilterHandler(BaseHandler):
+	""" retorna via ajax """
+
+	def get(self):
+		""" metodo get"""
+
+		categories = self.get_arguments("categories")
+		sizes = self.get_arguments("size")
+		page = int(self.get_argument("page","1"))
+
+		items = 0
+
+		product = Product()
+		res = product.filter(categories, sizes, page)
+		res_items = product.getFilterItems(categories, sizes)
+
+		if "success" in res_items:
+			items = res_items["success"]
+
+		if "success" in res:
+			# print res["success"]
+			self.write(self.render_string("store/ajax_productos.html",data=res["success"],items=items,page=page, canonical_url=self.canonical_url, 
+				url_bodega=url_bodega,money_format=self.money_format))
+		else:
+			self.write(res["error"])

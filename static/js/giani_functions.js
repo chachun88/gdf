@@ -180,3 +180,18 @@ var getvotes = function(product_id){
 		}
 	});
 }
+
+var filtrar = function(object){
+	$.ajax({
+		url: object.attr("action"),
+		type: object.attr("method"),
+		cache: false,
+		data: object.serialize(),
+		success: function(res){
+			//response = $.parseJSON(JSON.stringify(res));
+			$("#ajax_productos").html(res);
+		}
+	});
+
+	//console.info("log");
+}
