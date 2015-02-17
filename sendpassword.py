@@ -17,7 +17,7 @@ from tornado.options import define, options
 import sendgrid
 import json
 
-from globals import url_local
+from globals import url_local, email_giani
 
 
 class EnviarClaveHandler(BaseHandler):
@@ -387,7 +387,7 @@ def RegistrationEmail(username,email):
 
     message = sendgrid.Mail()
     message.set_from("{nombre} <{mail}>".format(
-        nombre="Giani Da Firenze", mail="notification@tellmecuando.com"))
+        nombre="Giani Da Firenze", mail=email_giani))
     message.add_to(email)
     message.set_subject("Bienvenida a Giani Da Firenze")
     message.set_html(html)
@@ -860,7 +860,7 @@ def Email(to, userid, clave, name=""):
 
     message = sendgrid.Mail()
     message.set_from("{nombre} <{mail}>".format(
-        nombre="Giani Da Firenze", mail="notification@tellmecuando.com"))
+        nombre="Giani Da Firenze", mail=email_giani))
     message.add_to(to)
     message.set_subject("Reestablece tu contraseña")
     message.set_html(html)
