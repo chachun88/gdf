@@ -444,7 +444,7 @@ class Product(BaseModel):
                offset %(offset)s limit %(limit)s'''
         p = {"categories":categories,"sizes":sizes,"limit":limit,"offset":offset}
         try:
-            print cur.mogrify(q,p)
+            # print cur.mogrify(q,p)
             cur.execute(q,p)
             products = cur.fetchall()
             return self.ShowSuccessMessage(products)
