@@ -10,6 +10,9 @@ Giani Da Firenze - Home
 {% end %}
 
 {% block body %}
+<input type="hidden" id="total-items" value="{{items}}">
+<input type="hidden" id="page" value="{{page}}">
+
 <div id="menu-m" class="menu-material"><i class="icon-pencil"></i>
     <ul style="background-image:url(/static/images/menu-material-2.png);background-repeat: no-repeat;
     background-position: center top;background-size: 100%; ">
@@ -24,19 +27,13 @@ Giani Da Firenze - Home
           <option value="40">40</option>
         </select> -->
       </li>
-      <li class="menu-material-tallas "><lavel><input type="checkbox">35</lavel></li>
-      <li class="menu-material-tallas "><lavel><input type="checkbox">36</lavel></li>
-      <li class="menu-material-tallas "><lavel><input type="checkbox">37</lavel></li>
-      <li class="menu-material-tallas "><lavel><input type="checkbox">38</lavel></li>
-      <li class="menu-material-tallas "><lavel><input type="checkbox">39</lavel></li>
-      <li class="menu-material-tallas "><lavel><input type="checkbox">40</lavel></li>
+      {% for t in tallas %}
+      <li class="menu-material-tallas "><lavel><input type="checkbox" value="{{t}}">{{t}}</lavel></li>
+      {% end %}
       <li style="border-bottom: 1px solid rgb(193, 193, 193);border-top: 1px solid rgb(193, 193, 193)"><span>Categorias</span></li>
       {% for t in tags %}
         <li><input type="checkbox"><a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a></li>
-        {% end %}
-      <li><input type="checkbox"><a>categoria 1</a></li>
-      <li><input type="checkbox"><a>categoria 1</a></li>
-      <li><input type="checkbox"><a>categoria 1</a></li>
+      {% end %}
       <li ><button>filtrar</button></li>
     </ul>
     
@@ -119,38 +116,5 @@ Giani Da Firenze - Home
 
   {% block javascript %}
   <script src="/static/js/jquery.simplePagination.js"></script>
-  <script>
-    $(".paginador").pagination({
-      items: {{items}},
-      itemsOnPage: 15,
-      prevText: '<',
-      nextText: '>',
-      currentPage: {{page}},
-      hrefTextPrefix:'?ajax=1&page=',
-      hrefTextSuffix: '#contenedor'
-    });
-    $(document).ready(
-      function() {
-        var expanded = true;
-        // When clicked on the menu-trigger
-        $("#menu-m ul").hide();
-        $("#menu-m").click(
-          function(event) {
-
-                // Slide down menu if hidden
-                if (!expanded) {
-                  event.stopPropagation();
-                  $("#menu-m ul").slideUp("slow");
-                  expanded = true;
-                }
-                // Slide up menu if shown
-                else {
-                  $("#menu-m ul").slideDown("fast");
-                  expanded = false;
-                }
-              }
-              );
-      }
-      );
-  </script>
+  <script src="/static/js/store.js"></script>
   {% end %}

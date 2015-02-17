@@ -413,3 +413,17 @@ class Product(BaseModel):
 		finally:
 			cur.close()
 			self.connection.close()
+
+	def getAllSizes(self):
+		"""
+		get products all existing sizes
+		"""
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+		q = '''select size from "Product" group by size having array_length(size,1) = (select max(array_length(size,1)) from "Product" where for_sale = 1)'''
+		try:
+			cur.execute(q)
+			sizes = cur.fetchone()["size"]
+			return self.ShowSuccessMessage(sizes)
+		except Exception,e:
+			return self.ShowError(str(e))
+		

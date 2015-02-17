@@ -32,10 +32,11 @@ class IndexHandler(BaseHandler):
 		product = Product()
 		page = int(self.get_argument("page","1"))
 		ajax = int(self.get_argument("ajax",0))
-		lista = product.GetList(page,15)
+		lista = product.GetList(page,16)
 
 		items = 0
 		tags = {}
+		tallas = []
 
 		response = product.GetItems()
 		if "success" in response:
@@ -47,10 +48,15 @@ class IndexHandler(BaseHandler):
 		if "success" in tags_visibles:
 			tags = tags_visibles["success"]
 
+		tallas_res = product.getAllSizes()
+
+		if "success" in tallas_res:
+			tallas = tallas_res["success"]
+
 		if ajax == 0:
-			self.render("store/index.html",data=lista,items=items,page=page,tags=tags,tags_arr=None)
+			self.render("store/index.html",data=lista,items=items,page=page,tags=tags,tags_arr=None, tallas=tallas)
 		else:
-			self.render("store/ajax_productos.html",data=lista,items=items,page=page,tags=tags,tags_arr=None)
+			self.render("store/ajax_productos.html",data=lista,items=items,page=page,tags=tags,tags_arr=None, tallas=tallas)
 
 	def post(self):
 
