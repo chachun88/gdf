@@ -437,12 +437,31 @@ class Product(BaseModel):
         offset = (page - 1) * limit
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''select p.*,c.name as category from "Product" p 
-               inner join "Category" c on c.id = p.category_id
-               inner join "Tag_Product" tp on tp.product_id = p.id
-               where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and %(sizes)s::text[] && p.size
-               offset %(offset)s limit %(limit)s'''
-        p = {"categories":categories,"sizes":sizes,"limit":limit,"offset":offset}
+
+        if len(categories) > 0 and len(sizes) > 0:
+            q = '''select p.*,c.name as category from "Product" p 
+                   inner join "Category" c on c.id = p.category_id
+                   inner join "Tag_Product" tp on tp.product_id = p.id
+                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and %(sizes)s::text[] && p.size
+                   offset %(offset)s limit %(limit)s'''
+            p = {"categories":categories,"sizes":sizes,"limit":limit,"offset":offset}
+
+        elif len(sizes) > 0:
+            q = '''select p.*,c.name as category from "Product" p 
+                   inner join "Category" c on c.id = p.category_id
+                   inner join "Tag_Product" tp on tp.product_id = p.id
+                   where p.for_sale = 1 and %(sizes)s::text[] && p.size
+                   offset %(offset)s limit %(limit)s'''
+            p = {"sizes":sizes,"limit":limit,"offset":offset}
+
+        else:
+            q = '''select p.*,c.name as category from "Product" p 
+                   inner join "Category" c on c.id = p.category_id
+                   inner join "Tag_Product" tp on tp.product_id = p.id
+                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])
+                   offset %(offset)s limit %(limit)s'''
+            p = {"categories":categories,"limit":limit,"offset":offset}            
+
         try:
             # print cur.mogrify(q,p)
             cur.execute(q,p)
@@ -458,11 +477,28 @@ class Product(BaseModel):
         """
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''select count(1) as items from "Product" p 
-               inner join "Category" c on c.id = p.category_id
-               inner join "Tag_Product" tp on tp.product_id = p.id
-               where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and %(sizes)s::text[] && p.size'''
-        p = {"categories":categories,"sizes":sizes}
+
+        if len(categories) > 0 and len(sizes) > 0:
+            q = '''select count(1) as items from "Product" p 
+                   inner join "Category" c on c.id = p.category_id
+                   inner join "Tag_Product" tp on tp.product_id = p.id
+                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and %(sizes)s::text[] && p.size'''
+            p = {"categories":categories,"sizes":sizes}
+
+        elif len(sizes) > 0:
+            q = '''select count(1) as items from "Product" p 
+                   inner join "Category" c on c.id = p.category_id
+                   inner join "Tag_Product" tp on tp.product_id = p.id
+                   where p.for_sale = 1 and %(sizes)s::text[] && p.size'''
+            p = {"sizes":sizes}
+
+        else:
+            q = '''select count(1) as items from "Product" p 
+                   inner join "Category" c on c.id = p.category_id
+                   inner join "Tag_Product" tp on tp.product_id = p.id
+                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])'''
+            p = {"categories":categories}
+            
         try:
             cur.execute(q,p)
             items = cur.fetchone()["items"]
