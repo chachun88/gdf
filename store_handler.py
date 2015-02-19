@@ -241,6 +241,8 @@ class GetProductsByTagsHandler(BaseHandler):
 
 		items = 0
 
+		tallas = []
+
 		tag = Tag()
 
 		res = tag.GetItemsByTags(tags_arr)
@@ -250,12 +252,21 @@ class GetProductsByTagsHandler(BaseHandler):
 
 		res = tag.GetProductsByTags(tags_arr,page,15)
 
+		tags_visibles = tag.ListVisibleTags()
+
 		if "success" in tags_visibles:
 			tags = tags_visibles["success"]
 
+		product = Product()
+
+		tallas_res = product.getAllSizes()
+
+		if "success" in tallas_res:
+			tallas = tallas_res["success"]
+
 		if "success" in res:
 			if ajax == 0:
-				self.render("store/index.html",data=res["success"],items=items,page=page,tags=tags,tags_arr=tags_arr)
+				self.render("store/index.html",data=res["success"],items=items,page=page,tags=tags,tags_arr=tags_arr,tallas=tallas)
 			else:
 				self.render("store/ajax_productos.html",data=res["success"],items=items,page=page)
 				#self.write(json_util.dumps({"html":self.render_string("store/ajax_productos.html",data=res["success"],url_bodega=url_bodega,money_format=self.money_format),"items":items,"page":page}))
