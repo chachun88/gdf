@@ -20,4 +20,4 @@ from basehandler import BaseHandler
 class ProfileHandler(BaseHandler):
 
     def get(self):
-        self.render("user.html")
+        self.render("profile/index.html")
