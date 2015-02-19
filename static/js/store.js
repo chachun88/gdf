@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+
 	console.info($("#total-items").val());
 
 	$(".paginador").pagination({
@@ -38,7 +39,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#menu-m").click(function(){
+	$("#menu-m").click(function(event){
 		event.stopPropagation();
 	});
 	
@@ -50,5 +51,7 @@ $(document).ready(function(){
 			expanded = false;	
 		}
 	});
+	
+	
 
 });

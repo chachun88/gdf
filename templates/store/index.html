@@ -12,25 +12,32 @@ Giani Da Firenze - Home
 {% block body %}
 <input type="hidden" id="total-items" value="{{items}}">
 <input type="hidden" id="page" value="{{page}}">
-
+<!-- inicio menu-material -->
 <div id="menu-m" class="menu-material"><i class="icon-pencil"></i>
   <div class="cover-material"></div>
   <form method="get" action="/store/filter" id="filtro">
     <ul class="ul-filtro">
+     <!-- tallas -->
       <li style="border-bottom: 1px solid rgb(193, 193, 193)">
         <span>¿Cual es tu talla?</span> 
       </li>
       {% for t in tallas %}
       <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t}}">{{int(t)}}</lavel></li>
       {% end %}
+      <!-- tallas -->
+      <!-- enlacen categorías -->
       <li style="border-bottom: 1px solid rgb(193, 193, 193);border-top: 1px solid rgb(193, 193, 193)"><span>Categorias</span></li>
       {% for t in tags %}
         <li><input type="checkbox" name="categories" value="{{t['id']}}"><a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a></li>
       {% end %}
+      <!-- enlacen categorías -->
+      <!-- boton para filtrar -->
       <li><button type="button" onclick="filtrar($('#filtro'))">filtrar</button></li>
+      <!-- boton para filtrar -->
     </ul>
   </form>
 </div>
+<!-- fin menu-material -->
 
 <div class="cuerpo clearfix">
 
@@ -49,7 +56,7 @@ Giani Da Firenze - Home
         {% end %}
       </div>
     </div>
-    <div id="ajax_productos">
+    <div id="ajax_productos" class="filtro-actualizar">
       {% for d in data %}
       <div class="cuerpo-producto clearfix contenedor_productos">
         <div class="producto-foto">
