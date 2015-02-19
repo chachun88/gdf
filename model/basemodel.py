@@ -19,7 +19,7 @@ class BaseModel(object):
     def __init__(self):
 
         if debugMode:
-            self._connection = psycopg2.connect("host='162.209.84.208' dbname='giani' user='yichun' password='chachun88'")
+            self._connection = psycopg2.connect("host='localhost' dbname='giani' user='yichun' password='chachun88'")
         else:
             self._connection = psycopg2.connect("host='localhost' dbname='giani' user='yichun' password='chachun88'")
 

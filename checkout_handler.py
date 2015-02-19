@@ -58,24 +58,33 @@ class CheckoutAddressHandler(BaseHandler):
             # k.checkStock(lista, )
 
             suma = 0
+
             for l in lista:
                 suma += l["subtotal"]
 
             c = Cellar()
-            res_cellar = c.GetWebCellar()
+            res_cellar_id = c.GetWebCellar()
 
-            cellar_city_id = cellar_id
+            web_cellar_id = cellar_id
 
-            if "success" in res_cellar:
-                cellar_city_id = res_cellar["success"]
+            if "success" in res_cellar_id:
+                web_cellar_id = res_cellar_id["success"]
+
+            res_web_cellar = c.InitById(web_cellar_id)
+
+            if "success" in res_web_cellar:
+                cellar_city_id = c.city_id
 
             city = City()
             city.from_city_id = cellar_city_id
             res_city = city.ListByFromCityId()
+            print res_city
+
 
             if suma > 0:
                 if "success" in res_city:
                     cities = res_city["success"]
+
                 self.render("store/checkout-1.html",contactos=contactos,data=lista,suma=suma,cities=cities)
             else:
                 self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
@@ -177,16 +186,21 @@ class CheckoutBillingHandler(BaseHandler):
                     cities = res_city["success"]
 
                 c = Cellar()
-                res_cellar = c.GetWebCellar()
+                res_cellar_id = c.GetWebCellar()
 
-                cellar_city_id = 0
+                web_cellar_id = cellar_id
 
-                if "success" in res_cellar:
-                    cellar_city_id = res_cellar["success"]
+                if "success" in res_cellar_id:
+                    web_cellar_id = res_cellar_id["success"]
 
-                shipping = Shipping()
-                shipping.from_city_id = int(cellar_city_id)
-                shipping.to_city_id = int(ciudad)
+                res_web_cellar = c.InitById(web_cellar_id)
+
+                if "success" in res_web_cellar:
+                    cellar_city_id = c.city_id
+
+                    shipping = Shipping()
+                    shipping.from_city_id = int(cellar_city_id)
+                    shipping.to_city_id = int(ciudad)
 
                 res = shipping.GetGianiPrice()
 
