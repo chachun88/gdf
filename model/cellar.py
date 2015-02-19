@@ -725,3 +725,18 @@ class Cellar(BaseModel):
         finally:
             self.connection.close()
             cur.close()
+
+    def GetReservationCellar(self):
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+        try:
+            query = '''select id from "Cellar" where reservation = 1 limit 1'''
+            cur.execute(query)
+            cellar = cur.fetchone()["id"]
+            return self.ShowSuccessMessage(cellar)
+        except Exception,e:
+            return self.ShowError(str(e))
+        finally:
+            self.connection.close()
+            cur.close()

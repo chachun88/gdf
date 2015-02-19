@@ -135,29 +135,6 @@ class Kardex(BaseModel):
 		return ''
 		
 	def FindKardex(self, product_sku, cellar_identifier,size):
-		# try:
-		# 	data = self.collection.find({
-		# 						"product_sku":product_sku,
-		# 						"cellar_identifier":cellar_identifier
-		# 						}).sort("_id",-1)
-
-		# 	self.identifier = str(data[0]["_id"])
-		# 	self.product_sku = str(data[0]["product_sku"])
-		# 	self.operation_type = data[0]["operation_type"]
-		# 	self.units = data[0]["units"]
-		# 	self.price = data[0]["price"]
-		# 	self.sell_price = data[0]["sell_price"]
-		# 	self.size =data[0]["size"]
-		# 	self.color = data[0]["color"]
-		# 	self.total = data[0]["total"]
-		# 	self.balance_units = data[0]["balance_units"]
-		# 	self.balance_price = data[0]["balance_price"]
-		# 	self.balance_total = data[0]["balance_total"]
-		# 	self.date = data[0]["date"]
-		# 	if "user" in data[0]:
-		# 		self.user = data[0]["user"]
-		# except:
-		# 	return self.ShowError("kardex not found")
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
@@ -253,7 +230,6 @@ class Kardex(BaseModel):
 				return self.ShowError("kardex not found")
 		except Exception,e:
 			return self.ShowError(str(e))
-
 
 	#take care of an infinite loop
 	# return last kardex in the database
@@ -433,8 +409,6 @@ class Kardex(BaseModel):
 		# 		"user":self.user
 		# 	})
 
-		
-
 	## only for debugging.
 	def Debug(self, product_sku, cellar_identifier,size):
 
@@ -473,3 +447,4 @@ class Kardex(BaseModel):
 			print str(e)
 			pass
 
+	# def 

@@ -53,17 +53,20 @@ class CheckoutAddressHandler(BaseHandler):
             cart.user_id = user_id
 
             lista = cart.GetCartByUserId()
+
+            # k = Kardex()
+
             suma = 0
             for l in lista:
                 suma += l["subtotal"]
 
             cellar = Cellar()
-            res_cellar = cellar.InitById(shipping_cellar)
+            res_cellar = cellar.GetWebCellar()
 
             cellar_city_id = 0
 
             if "success" in res_cellar:
-                cellar_city_id = cellar.city_id
+                cellar_city_id = res_cellar["success"]
 
             city = City()
             city.from_city_id = cellar_city_id
@@ -173,12 +176,12 @@ class CheckoutBillingHandler(BaseHandler):
                     cities = res_city["success"]
 
                 cellar = Cellar()
-                res_cellar = cellar.InitById(shipping_cellar)
+                res_cellar = cellar.GetWebCellar()
 
                 cellar_city_id = 0
 
                 if "success" in res_cellar:
-                    cellar_city_id = cellar.city_id
+                    cellar_city_id = res_cellar["success"]
 
                 shipping = Shipping()
                 shipping.from_city_id = int(cellar_city_id)
@@ -495,7 +498,7 @@ class CheckoutSendHandler(BaseHandler):
 
                             kardex.product_sku = producto.sku
                             kardex.cellar_identifier = id_bodega
-                            kardex.operation_type = Kardex.OPERATION_MOVE
+                            kardex.operation_type = Kardex.OPERATION_MOV_OUT
                             kardex.sell_price = producto.sell_price
                             kardex.size = detail.size
                             kardex.date = str(datetime.now().isoformat()) 
@@ -504,8 +507,16 @@ class CheckoutSendHandler(BaseHandler):
 
                             kardex.Insert()
 
-                            kardex.cellar_identifier = shipping_cellar
-                            kardex.operation_type = Kardex.OPERATION_MOVE
+                            c = Cellar()
+                            res_reservation = c.GetReservationCellar()
+
+                            reservation_cellar = shipping_cellar
+
+                            if "success" in res_reservation:
+                                reservation_cellar = res_reservation["success"]
+
+                            kardex.cellar_identifier = reservation_cellar
+                            kardex.operation_type = Kardex.OPERATION_MOV_IN
 
                             kardex.Insert()
 

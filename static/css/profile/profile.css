@@ -1,5 +1,18 @@
-.cambiar-contrasena{
+.datos-usuario{
     width:50%;
     float: left;
     padding-right: 10px;
+}
+
+.datos-compra{
+    width:50%;
+    float: left;
+}
+
+.margen{
+    margin-top: 10px;
+}
+
+.campo{
+    width: 150px;
 }
