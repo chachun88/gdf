@@ -20,6 +20,7 @@ import checkout_handler
 import error_handler
 import server_handler
 import others_handler
+import profile_handler
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -62,6 +63,8 @@ class Application(tornado.web.Application):
             (r"/getserver", server_handler.ServerHandler),
             (r"/contact", others_handler.ContactHandler),
             (r"/kardextest", others_handler.KardexTestHandler),
+
+            (r"/profile", profile_handler.ProfileHandler),
 
             (r"/tos", others_handler.TosHandler),
             (r"/pago", others_handler.PagoHandler),
