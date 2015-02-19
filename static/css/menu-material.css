@@ -117,15 +117,16 @@
 @media (max-width:480px) {
     .menu-material {
         right: 10%;
-        bottom: 12px;
+        bottom: 25px;
         z-index: 80;
+
     }
     .menu-material ul {
         width: 80%;
         right: 10%;
         height: 80%;
         overflow-y: scroll !important;
-        bottom: 85px;
+        bottom: 100px;
         z-index: 80;
     }
 }

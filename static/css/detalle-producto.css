@@ -1735,8 +1735,11 @@ margin-left: 1.53218%;
   }
   .categorias .container {
     position: relative;
-    height: 72px;
-    margin-top: 24px;
+    height: 60px;
+    margin-top: 0px;
+    margin: 10px 2.5%;
+    width: 20%;
+
   }
 
   .categorias .titulo-categorias {
@@ -1766,6 +1769,8 @@ margin-left: 1.53218%;
     z-index: 40;
     width: 89.9791231732%;
     margin-left: 5.01044%;
+    height: auto;
+
   }
 
   .cuerpo .cuerpo-producto {
@@ -1778,7 +1783,7 @@ margin-left: 1.53218%;
 
   .cuerpo-categorias .categorias {
     width: 100%;
-    height: 156px;
+    height: auto;
     margin-top: 25px;
     margin-left: 0;
   }
@@ -1873,13 +1878,11 @@ text-align: left;
   }
 
   .container .container-13 {
-    height: 232px;
     margin-top: 17px;
     margin-left: -0.22946%;
   }
 
   .container .container-14 {
-    height: 232px;
     margin-left: 0;
   }
 
