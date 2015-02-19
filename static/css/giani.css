@@ -36,25 +36,15 @@
 	color: rgb(215, 106, 96);
 }
 #ajax_productos{
-	opacity: 1;
-	-webkit-transition: opacity 0.1s ease-in;
-	-moz-transition: opacity 0.1s ease-in;
-	-o-transition: opacity 0.1s ease-in;
-	transition: opacity 0.1s ease-in;
 }
 #ajax_productos.active{
-	-webkit-transition: opacity 1s ease-in;
-	-moz-transition: opacity 1s ease-in;
-	-o-transition: opacity 0.1s ease-in;
-	transition: opacity 1s ease-in;
-	opacity: 1;
+	
 }
 #ajax_productos.disable{
-	-webkit-transition: opacity 1s ease-out;
-	-moz-transition: opacity 1s ease-out;
-	-o-transition: opacity 0.1s ease-out;
-	transition: opacity 1s ease-out;
-	opacity: 0;
+}
+.desaparece {
+    display: none;
+   
 }
 
 @media(max-width: 479px) {

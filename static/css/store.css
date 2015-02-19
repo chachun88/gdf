@@ -717,3 +717,14 @@ body {
 .cuerpo-categorias .categorias a:first-child {
     margin-top: 10px;
 }
+
+
+.aparece-a {
+    opacity: 1 !important;
+   
+     -webkit-transition: opacity 0.5s ease-in;
+    -moz-transition: opacity 0.5s ease-in;
+    -o-transition: opacity 0.5s ease-in;
+    transition: opacity 0.5s ease-in;
+
+}

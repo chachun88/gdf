@@ -1,5 +1,6 @@
 $(document).ready(function(){
 
+
 	console.info($("#total-items").val());
 
 	$(".paginador").pagination({
@@ -50,5 +51,7 @@ $(document).ready(function(){
 			expanded = false;	
 		}
 	});
+	
+	
 
 });

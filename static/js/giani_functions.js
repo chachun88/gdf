@@ -190,6 +190,9 @@ var filtrar = function(object){
 		success: function(res){
 			//response = $.parseJSON(JSON.stringify(res));
 			$("#ajax_productos").html(res);
+			$("#ajax_productos").css("display","none");
+			$("#ajax_productos").fadeIn("slow");
+		
 		}
 	});
 
