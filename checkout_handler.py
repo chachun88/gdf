@@ -55,6 +55,7 @@ class CheckoutAddressHandler(BaseHandler):
             lista = cart.GetCartByUserId()
 
             # k = Kardex()
+            # k.checkStock(lista, )
 
             suma = 0
             for l in lista:
@@ -63,7 +64,7 @@ class CheckoutAddressHandler(BaseHandler):
             cellar = Cellar()
             res_cellar = cellar.GetWebCellar()
 
-            cellar_city_id = 0
+            cellar_city_id = cellar_id
 
             if "success" in res_cellar:
                 cellar_city_id = res_cellar["success"]
