@@ -61,8 +61,8 @@ class CheckoutAddressHandler(BaseHandler):
             for l in lista:
                 suma += l["subtotal"]
 
-            cellar = Cellar()
-            res_cellar = cellar.GetWebCellar()
+            c = Cellar()
+            res_cellar = c.GetWebCellar()
 
             cellar_city_id = cellar_id
 
@@ -176,8 +176,8 @@ class CheckoutBillingHandler(BaseHandler):
                 if "success" in res_city:
                     cities = res_city["success"]
 
-                cellar = Cellar()
-                res_cellar = cellar.GetWebCellar()
+                c = Cellar()
+                res_cellar = c.GetWebCellar()
 
                 cellar_city_id = 0
 
