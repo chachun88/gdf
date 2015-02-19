@@ -447,4 +447,12 @@ class Kardex(BaseModel):
 			print str(e)
 			pass
 
-	# def 
+	# def checkStock(self, lista, cellar_id):
+
+	# 	for l in lista:
+	# 		product_sku = l["sku"]
+	# 		product_size = l["size"]
+
+	# 		self.FindKardex(product_sku, product_size, cellar_id)
+			
+
