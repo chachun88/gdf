@@ -38,7 +38,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#menu-m").click(function(){
+	$("#menu-m").click(function(event){
 		event.stopPropagation();
 	});
 	
