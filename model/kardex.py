@@ -408,7 +408,7 @@ class Kardex(BaseModel):
 
 				errors.append({"sku": product_sku, "error": "no queda stock"})
 
-		if len(errors):
+		if len(errors) > 0:
 			return self.ShowError(errors)
 		else:
 			return self.ShowSuccessMessage("ok")
