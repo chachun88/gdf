@@ -9,7 +9,7 @@ import urllib
 
 from tornado.options import define, options
 
-from globals import port, debugMode
+from globals import debugMode
 
 import home_handler
 import store_handler
@@ -22,17 +22,18 @@ import server_handler
 import others_handler
 import profile_handler
 
+
 class Application(tornado.web.Application):
     def __init__(self):
         handlers = [
-            (r"/", home_handler.HomeHandler), #home
-            (r"/store", store_handler.IndexHandler), #home de la tienda
-            (r"/product/([^/]+)/([^/]+)/(.+)", store_handler.ProductHandler), #detalle producto
-            (r"/user/save-guess", user_handler.AddAnonimousHandler), #crear anonimo
-            (r"/user/exists", user_handler.UserExistHandler), #verifica si usuario temporal existe
-            (r"/kardex/getunitsbysize", kardex_handler.GetUnitsBySizeHandler), # stock segun item y sku
-            (r"/cart/add",store_handler.AddToCartHandler), # agregar item al carro
-            (r"/cart/getbyuserid", store_handler.GetCartByUserIdHandler), #traer carro del usuario,
+            (r"/", home_handler.HomeHandler),  # home
+            (r"/store", store_handler.IndexHandler),  # home de la tienda
+            (r"/product/([^/]+)/([^/]+)/(.+)", store_handler.ProductHandler),  # detalle producto
+            (r"/user/save-guess", user_handler.AddAnonimousHandler),  # crear anonimo
+            (r"/user/exists", user_handler.UserExistHandler),  # verifica si usuario temporal existe
+            (r"/kardex/getunitsbysize", kardex_handler.GetUnitsBySizeHandler),  # stock segun item y sku
+            (r"/cart/add",store_handler.AddToCartHandler),  # agregar item al carro
+            (r"/cart/getbyuserid", store_handler.GetCartByUserIdHandler),  # traer carro del usuario,
             (r"/cart/remove", store_handler.RemoveCartByIdHandler),
             (r"/cart/update", store_handler.UpdateCartQuantityHandler),
             (r"/store/voteproduct", store_handler.VoteProductHandler),
@@ -53,13 +54,13 @@ class Application(tornado.web.Application):
 
             (r"/auth/login", auth.AuthHandler),
             (r"/auth/logout", auth.LogoutHandler),
-            (r"/auth/registro", auth.UserRegistrationHandler), ## registro de usuarios
+            (r"/auth/registro", auth.UserRegistrationHandler),  # registro de usuarios
             (r"/auth/recuperar-contrasena", auth.PasswordRecovery),
             (r"/auth/nuevaclave/([^/]+)", auth.NewPasswordHandler),
             (r"/auth/facebook", auth.AuthFacebookHandler),
             (r"/auth/checkout", auth.ValidateUserCheckoutHandler),
             (r"/checkout/success", auth.CheckoutSuccessHandler),
-            
+
             (r"/error", error_handler.BeautyError),
             (r"/getserver", server_handler.ServerHandler),
             (r"/contact", others_handler.ContactHandler),
@@ -79,7 +80,6 @@ class Application(tornado.web.Application):
             (r"/faq", others_handler.FaqHandler),
             (r"/user", others_handler.UserHandler),
             (r"/wscc", others_handler.WSCorreosChileHandler)
-            
         ]
         settings = dict(
             blog_title=u"Giani Da Firenze",
@@ -91,11 +91,11 @@ class Application(tornado.web.Application):
             login_url="/auth/login",
             autoescape=None,
             debug=True,
-            xsrf_cookies= False
+            xsrf_cookies=False
         )
         tornado.web.Application.__init__(self, handlers, **settings) 
 
-        
+
 def main():
     tornado.options.parse_command_line()
     http_server = tornado.httpserver.HTTPServer(Application())

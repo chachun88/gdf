@@ -4,9 +4,8 @@ Created on 25/02/2013
 @author: Yi Chun
 '''
 import tornado.web
-from globals import url_bodega, cellar_id
+from globals import url_bodega
 import locale
-import urllib
 import os
 import unicodedata
 import re
@@ -14,18 +13,19 @@ import re
 # from loadingplay.multilang.lang import lploadLanguage, lpautoSelectCurrentLang,\
 #     lptranslate, lpsetCurrentLang
 
+
 class BaseHandler(tornado.web.RequestHandler):
     @property
     def db(self):
         return self.application.db
-    
+
     def __init__(self, application, request, **kwargs):
         tornado.web.RequestHandler.__init__(self, application, request, **kwargs)
-        
+
         # detecto el lenguage del navegador del usuario
         # lpautoSelectCurrentLang(self)
-        #lpsetCurrentLang("en", self)
-    
+        # lpsetCurrentLang("en", self)
+
     def get_current_user(self):
         user_json = self.get_secure_cookie("user_giani")        
         if user_json:
@@ -50,7 +50,6 @@ class BaseHandler(tornado.web.RequestHandler):
         _s = s.decode("utf-8")
         return ''.join(c for c in unicodedata.normalize('NFD', _s) if unicodedata.category(c) != 'Mn')
 
-
     def truncate_decimal(self, decimal):
 
         _int = 0
@@ -67,7 +66,6 @@ class BaseHandler(tornado.web.RequestHandler):
             _float = float(_string)
             _int = int(_float)
 
-        
         return _int
 
     @staticmethod
@@ -95,8 +93,3 @@ class BaseHandler(tornado.web.RequestHandler):
         kwargs["money_format"] = self.money_format
 
         tornado.web.RequestHandler.render(self, template_name, **kwargs)
-
-
-
-
-

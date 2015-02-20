@@ -1,32 +1,20 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import os.path
-
-
-
-import tornado.auth
-import tornado.httpserver
-import tornado.ioloop
-import tornado.options
-import tornado.web
-from tornado.options import define, options
 from basehandler import BaseHandler
 
-#libreria prescindible
+# libreria prescindible
 from bson import json_util
 
 from model.user import User
-from model.contact import Contact
-from model.order import Order
-#from model.customer import Customer
+
 
 class AddAnonimousHandler(BaseHandler):
 
     def get(self):
 
         user_id = int(self.get_argument("user_id",0))
-            
+
         user = User()
 
         if user_id != 0:
@@ -52,6 +40,7 @@ class AddAnonimousHandler(BaseHandler):
             else:
                 response_obj = user.Save()
                 self.write(json_util.dumps(response_obj))
+
 
 class UserExistHandler(BaseHandler):
 

@@ -259,8 +259,7 @@ class Contact(BaseModel):
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 		try:
-
-			query = '''select * from "Contact" where user_id = %(user_id)s'''
+			query = '''select c1.*, c2.name as city from "Contact" c1 left join "City" c2 on c1.city_id = c2.id where c1.user_id = %(user_id)s'''
 			parametros = {
 			"user_id":_user_id
 			}
