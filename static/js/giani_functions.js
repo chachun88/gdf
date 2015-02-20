@@ -17,6 +17,25 @@ var fancyAlert = function(msg) {
     });
 }
 
+var fancyAlertStock = function(msg) {
+
+
+	var html = "<div class=\"iconosalarmas\">"
+			 + "<i class=\"icon-thumbs-up-alt\"></i>"
+			 + "</div>"
+			 +"<div style=\"width: 100%; height: 100%; margin:0px;width:240px;text-align:center;\">"
+	         + msg
+	         + "<div style=\"text-align:center;margin-top:15px; width: 100%;\">"
+	         + "<input style=\"text-transform:uppercase;background-color: rgb(198, 198, 198);margin:0px;padding:5px;width:70%; height: 40px; border: 1px solid white; color: white; font-size: 15px;\" type=\"button\" onclick=\"location.href='/auth/checkout?next=/checkout/address';\" value=\"Pagar\">"
+	         + "<input style=\"text-transform:uppercase;background-color: rgb(198, 198, 198);margin:0px;padding:5px;width:70%; height: 40px; border: 1px solid white; color: white; font-size: 15px;\" type=\"button\" onclick=\"location.href='/store';\" value=\"Seguir comprando\">"
+	         + "</div>"
+	         + "</div>";
+
+    jQuery.fancybox({
+        'modal' : true,
+        'content' : html
+    });
+}
 
 var GetCartByUserId = function(){
 
@@ -197,4 +216,31 @@ var filtrar = function(object){
 	});
 
 	//console.info("log");
+}
+
+var checkStock = function(){
+
+	$.ajax({
+		url: "/checkout/checkstock",
+		dataType: "json",
+		async: false,
+		success: function(html){
+			response_str = JSON.stringify(html);
+			response = $.parseJSON(response_str);
+			if(response.error){
+				errores = response.error;
+
+				res = ""
+
+				for(var i = 0; i < errores.length; i++){
+					res += errores[i]["sku"] + " "+ errores[i]["error"] + "<br/>";
+				}
+
+				fancyAlert(res);
+
+			} else {
+				location.href = '/auth/checkout?next=/checkout/address';
+			}
+		}
+	});
 }

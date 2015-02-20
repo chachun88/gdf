@@ -68,9 +68,6 @@ $(document).ready(function(){
 		
 	});
 
-	$(document).on("click","button.comprar", function(){
-		location.href="/checkout/address";
-	});
 
 	if($("#contenedor").length>0){
 		if($(document).width()>480){

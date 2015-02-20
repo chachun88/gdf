@@ -325,3 +325,5 @@ class FilterHandler(BaseHandler):
 				url_bodega=url_bodega,money_format=self.money_format))
 		else:
 			self.write(res["error"])
+
+
