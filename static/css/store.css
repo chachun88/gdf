@@ -688,7 +688,7 @@ body {
         height: 342px;
         margin-top: -342px;
         margin-left: 0;
-        display: none;
+        opacity: 0;
     }
     .header-content {
     }
