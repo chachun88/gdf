@@ -41,6 +41,7 @@ class Application(tornado.web.Application):
             (r"/store/getproductsbytags/([^/]+)", store_handler.GetProductsByTagsHandler),
             (r"/store/filter", store_handler.FilterHandler),
 
+            (r"/checkout/checkstock", checkout_handler.CheckStockHandler),
             (r"/checkout/address", checkout_handler.CheckoutAddressHandler),
             (r"/checkout/billing", checkout_handler.CheckoutBillingHandler),
             (r"/checkout/shipping", checkout_handler.CheckoutShippingHandler),
