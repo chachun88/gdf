@@ -334,7 +334,7 @@ color: rgb(104, 104, 104) !important;
 .header-content {
   position: relative;
   float: left;
-  z-index: 62;
+  z-index: 60;
   width: 100%;
   height: 180px;
   background-image: url(/static/images/up.png);
