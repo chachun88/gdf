@@ -36,15 +36,15 @@
             <th></th>
         </tr>
         {% for c in contactos %}
-        <tr>
+        <tr id-contacto="{{c["id"]}}">
             <td>{{c["name"]}}</td>
             <td>{{c["address"]}}</td>
             <td>{{c["town"]}}</td>
             <td>{{c["city"]}}</td>
             <td>{{c["zip_code"]}}</td>
             <td>{{c["telephone"]}}</td>
-            <th><button>Editar</button></th>
-            <th><button>Eliminar</button></th>
+            <td><button class="btn-editar-contacto">Editar</button></td>
+            <td><button>Eliminar</button></td>
         </tr>
         {% end %}
     </table>

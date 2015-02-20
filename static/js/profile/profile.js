@@ -13,6 +13,11 @@ $(document).ready(function(){
         $(".btn-cambiar-contrasena").show();
     });
 
+    $(".btn-editar-contacto").click(function(){
+        var id_contacto = $(this).parent().parent().attr("id-contacto");
+        alert("este es el id del contacto " + id_contacto);
+    });
+
     $(".btn-guardar-contrasena").click(function(evt){
 
         evt.preventDefault();
