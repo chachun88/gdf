@@ -35,11 +35,14 @@ class ChangePassHandler(BaseHandler):
             user_id = self.current_user["id"]
             usuario = User().InitById(user_id)
 
+            # codificar la contrasena ingresada
             m = hashlib.md5()
             m.update(oldpass)
             password = m.hexdigest()
 
+            # compara la clave del usuario con la clave almacenada
             if password == usuario["password"]:
+                # si la clave esta ingresada correctamente
                 if newpass == confirmpass:
                     m = hashlib.md5()
                     m.update(newpass)
