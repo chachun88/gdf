@@ -75,10 +75,6 @@ class CheckoutAddressHandler(BaseHandler):
             for l in lista:
                 suma += l["subtotal"]
 
-            
-
-            
-
             res_web_cellar = c.InitById(web_cellar_id)
 
             if "success" in res_web_cellar:

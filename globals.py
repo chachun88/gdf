@@ -57,7 +57,7 @@ elif enviroment == Enviroment.ONDEV:
 	facebook_api_key = "839753546059058"
 	facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
 
-	email_giani = "info@gianidafirenze.com"
+	email_giani = "contacto@gianidafirenze.cl"
 
 	# define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
 	# define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
@@ -80,7 +80,7 @@ elif enviroment == Enviroment.PRODUCTION:
 	url_bodega = "http://giani.loadingplay.com"
 	url_local = "http://giani.ondev.today"
 
-	email_giani = "info@gianidafirenze.com"
+	email_giani = "contacto@gianidafirenze.cl"
 
 	# define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
 	# define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
