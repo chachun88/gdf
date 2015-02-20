@@ -349,53 +349,41 @@ class Cart(BaseModel):
 
 	def UpdateCartQuantity(self,cart_id,quantity):
 
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-
-		query = '''select tc.quantity, p.sell_price, tc.user_id from "Product" p inner join "Temp_Cart" tc on tc.product_id = p.id where tc.id = %(cart_id)s'''
-		parameters = {"cart_id":cart_id}
-
-		price = 0
-		old_quantity = 0
-		total = 0
-		user_id = None
-
 		try:
+
+			cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+			query = '''select tc.quantity, p.sell_price, tc.user_id from "Product" p inner join "Temp_Cart" tc on tc.product_id = p.id where tc.id = %(cart_id)s'''
+			parameters = {"cart_id":cart_id}
+
+			price = 0
+			old_quantity = 0
+			total = 0
+			user_id = None
+
 			cur.execute(query,parameters)
 			res = cur.fetchone()
 			price = res["sell_price"]
 			old_quantity = res["quantity"]
 			user_id = res["user_id"]
-		except Exception, e:
-			print str(e)
-		finally:
-			self.connection.close()
-			cur.close()
 
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+			query = '''update "Temp_Cart" set quantity = %(quantity)s, subtotal = %(quantity)s * %(price)s where id = %(cart_id)s'''
+			parameters = {"quantity":int(quantity),"cart_id":cart_id,"price":price}
 
-		query = '''update "Temp_Cart" set quantity = %(quantity)s, subtotal = %(quantity)s * %(price)s where id = %(cart_id)s'''
-		parameters = {"quantity":quantity,"cart_id":cart_id,"price":price}
-
-		try:
 			cur.execute(query,parameters)
 			self.connection.commit()
-		except Exception, e:
-			return self.ShowError(str(e))
-		finally:
-			self.connection.close()
-			cur.close()
 
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+			query = '''select sum(subtotal) as total from "Temp_Cart" where user_id = %(user_id)s'''
+			parameters = {"user_id":user_id}
 
-		query = '''select sum(subtotal) as total from "Temp_Cart" where user_id = %(user_id)s'''
-		parameters = {"user_id":user_id}
+			cur.execute(query, parameters)
 
-		try:
-			cur.execute(query,parameters)
 			total = cur.fetchone()["total"]
+
 			return self.ShowSuccessMessage({"subtotal":BaseHandler.money_format(int(quantity)*int(price)), "total":BaseHandler.money_format(total)})
+
 		except Exception, e:
-			return self.ShowError(str(e))
+			return self.ShowError("obtener cantidad: {}".format(str(e)))
 		finally:
 			self.connection.close()
 			cur.close()

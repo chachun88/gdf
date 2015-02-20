@@ -28,15 +28,18 @@ Giani Da Firenze - Home
       <!-- enlacen categorías -->
       <li style="border-bottom: 1px solid rgb(193, 193, 193);border-top: 1px solid rgb(193, 193, 193)"><span>Categorias</span></li>
       {% for t in tags %}
-        <li><input type="checkbox" name="categories" value="{{t['id']}}"><a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a></li>
+        <li><input type="checkbox" name="categories" value="{{t['id']}}"><a class="categoria page-link activo" >{{t['name']}}</a></li>
       {% end %}
       <!-- enlacen categorías -->
       <!-- boton para filtrar -->
-      <li><button type="button" onclick="filtrar($('#filtro'))">filtrar</button></li>
+      <li><button type="button" onclick="filtrar($('#filtro'))" class="cerrar-filtrar-btn-menu">filtrar</button></li>
+
       <!-- boton para filtrar -->
     </ul>
   </form>
+  <div id="filtrar-btn-menu" class="cerrar-filtrar-btn-menu"style=""><button type="button" onclick="filtrar($('#filtro'))">filtrar</button> </div>
 </div>
+
 <!-- fin menu-material -->
 
 <div class="cuerpo clearfix">
