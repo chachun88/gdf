@@ -25,6 +25,7 @@ $(document).ready(function(){
 
 		// Slide down menu if hidden
 		if (!expanded) {
+			if($(window).width() <= 480){$("#filtrar-btn-menu").fadeIn("slow");}
 			$("#menu-m ul").animate({
 				"height": original_height
 			}, "slow");
@@ -32,11 +33,15 @@ $(document).ready(function(){
 		}
 		// Slide up menu if shown
 		else {
+			$("#filtrar-btn-menu").fadeOut("slow");
 			$("#menu-m ul").animate({
 				"height": 0
 			}, "slow");
 			expanded = false;
 		}
+
+		
+
 	});
 
 	$("#menu-m").click(function(event){
@@ -45,9 +50,19 @@ $(document).ready(function(){
 	
 	$(document).click(function(){
 		if(expanded){
+			$("#filtrar-btn-menu").fadeOut("slow");
 			$("#menu-m ul").animate({
 				"height": 0
 			}, "slow");
+			expanded = false;	
+		}
+	});
+	$(".cerrar-filtrar-btn-menu").click(function(){
+		if(expanded){
+			$("#filtrar-btn-menu").fadeOut("fast");
+			$("#menu-m ul").animate({
+				"height": 0
+			}, "fast");
 			expanded = false;	
 		}
 	});
