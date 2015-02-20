@@ -20,6 +20,8 @@ enviroment = Enviroment.LOCAL
 
 if host_name == "development":
     enviroment = Enviroment.ONDEV
+elif host_name == "production":
+    enviroment = Enviroment.PRODUCTION
 
 
 PORT = 8502
@@ -66,7 +68,7 @@ elif enviroment == Enviroment.ONDEV:
 
 elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
-    url_bodega = "http://giani.loadingplay.com"
+    url_bodega = "http://bgiani.loadingplay.com"
     url_local = "http://giani.ondev.today"
 
     facebook_api_key = "839753546059058"
