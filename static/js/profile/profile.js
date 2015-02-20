@@ -1,14 +1,15 @@
 $(document).ready(function(){
     
-    $(".campo-contrasena").hide();
+    $(".formulario-contrasena").hide();
+    $(".formulario-direccion").hide();
 
     $(".btn-cambiar-contrasena").click(function(){
         $(this).hide();
-        $(".campo-contrasena").show();
+        $(".formulario-contrasena").show();
     });
 
     $(".btn-cancelar-cambio-contrasena").click(function(){
-        $(".campo-contrasena").hide();
+        $(".formulario-contrasena").hide();
         $(".btn-cambiar-contrasena").show();
     });
 

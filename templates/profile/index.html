@@ -8,12 +8,12 @@
         <h1 >Datos de usuario</h1>
         <div class="margen">
             <div class="campo">
-                <p>Julian</p>
+                <p>{{current_user["name"]}}</p>
             </div>
             <button class="btn_left btn-cambiar-contrasena">Cambiar contraseña
             </button>
         </div>
-        <div class="margen campo-contrasena">
+        <div class="margen formulario-contrasena">
             <form class="cambiar-contrasena">
                 <input required type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Contraseña Actual">
                 <input required type="password" class="form-control" id="newpass" name="newpass" placeholder="Contraseña Nueva">
@@ -23,7 +23,57 @@
             </form>
         </div>
     </div>
-    <!-- div class="datos-compra">
+    <h1 >Contacto</h1>
+    <table style="width:100%">
+        <tr>
+            <th>Nombre dirección</th>
+            <th>direccion</th>
+            <th>Comuna</th>
+            <th>Ciudad</th>
+            <th>codigo postal</th>
+            <th>telefono</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for c in contactos %}
+        <tr>
+            <td>{{c["name"]}}</td>
+            <td>{{c["address"]}}</td>
+            <td>{{c["town"]}}</td>
+            <td>{{c["city"]}}</td>
+            <td>{{c["zip_code"]}}</td>
+            <td>{{c["telephone"]}}</td>
+            <th><button>Editar</button></th>
+            <th><button>Eliminar</button></th>
+        </tr>
+        {% end %}
+    </table>
+    <div class="user-direcciones">
+        <button class="btn_left btn-agregar-direccion">AGREGAR DIRECCIONES</button>
+    </div>
+    <div class="user-direcciones formulario-direccion">
+        <div>
+            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="nombre dirección" value>
+        </div>
+
+        <div>
+            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Direccion" value>
+            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Comuna" value>
+            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Ciudad" value>
+            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Codigo postal" value>
+            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Telefono" value>
+            <button>Eliminar</button>
+            <button>Guardar</button>
+        </div>
+    </div>
+</div>
+{% end %}
+
+{% block javascript %}
+<script src="/static/js/profile/profile.js"></script>
+{% end %}
+
+<!--     <div class="datos-compra">
         <h1 >Datos de compra</h1>
         <div class="margen">
             <div class="campo">
@@ -52,8 +102,7 @@
             <button>Eliminar</button>
             <button>Guardar</button>
         </div>
-    </div> -->
-    <h1 >Direcciones</h1>
+    </div>
     <div class="user-direcciones">
         <div>
             <p>Nombre dirección</p>
@@ -67,29 +116,4 @@
             <button>Eliminar</button>
             <button>Editar</button>
         </div>
-    </div>
-    
-    <div class="user-direcciones">
-        <button class="btn_left">AGREGAR DIRECCIONES</button>
-    </div>
-    <div class="user-direcciones">
-        <div>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="nombre dirección" value>
-        </div>
-
-        <div>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Direccion" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Comuna" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Ciudad" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Codigo postal" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Telefono" value>
-            <button>Eliminar</button>
-            <button>Guardar</button>
-        </div>
-    </div>
-</div>
-{% end %}
-
-{% block javascript %}
-<script src="/static/js/profile/profile.js"></script>
-{% end %}
+    </div> -->

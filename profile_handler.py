@@ -17,11 +17,24 @@ from tornado.options import define, options
 
 from basehandler import BaseHandler
 from model.user import User
+from model.contact import Contact
+from bson import json_util
 
 class ProfileHandler(BaseHandler):
 
     def get(self):
-        self.render("profile/index.html")
+        
+        if self.current_user:
+            user_id = self.current_user["id"]
+            contact = Contact()
+            lista_contacto = contact.ListByUserId(user_id)
+
+            contactos = []
+
+            if "success" in lista_contacto:
+                contactos = json_util.loads(lista_contacto["success"])
+
+        self.render("profile/index.html", contactos = contactos)
 
 class ChangePassHandler(BaseHandler):
 
@@ -33,7 +46,8 @@ class ChangePassHandler(BaseHandler):
 
         if self.current_user:
             user_id = self.current_user["id"]
-            usuario = User().InitById(user_id)
+            user = User()
+            usuario = user.InitById(user_id)
 
             # codificar la contrasena ingresada
             m = hashlib.md5()
@@ -47,7 +61,7 @@ class ChangePassHandler(BaseHandler):
                     m = hashlib.md5()
                     m.update(newpass)
                     password = m.hexdigest()
-                    User().ChangePassword(user_id, password)
+                    user.ChangePassword(user_id, password)
                     self.write("exito")
                 else:
                     self.write("claves ingresado no coinciden")
