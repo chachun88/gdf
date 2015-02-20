@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from basemodel import BaseModel
+from cart import Cart
 import psycopg2
 import psycopg2.extras
 
@@ -168,68 +169,6 @@ class Kardex(BaseModel):
 			return self.ShowSuccessMessage("kardex has been initialized")
 		except:
 			return self.ShowError("kardex not found")
-
-
-	def GetUnitsBySize(self, product_sku, cellar_identifier, size):
-		# try:
-		# 	data = self.collection.find({
-		# 						"product_sku":product_sku,
-		# 						"cellar_identifier":cellar_identifier
-		# 						}).sort("_id",-1)
-
-		# 	self.identifier = str(data[0]["_id"])
-		# 	self.product_sku = str(data[0]["product_sku"])
-		# 	self.operation_type = data[0]["operation_type"]
-		# 	self.units = data[0]["units"]
-		# 	self.price = data[0]["price"]
-		# 	self.sell_price = data[0]["sell_price"]
-		# 	self.size =data[0]["size"]
-		# 	self.color = data[0]["color"]
-		# 	self.total = data[0]["total"]
-		# 	self.balance_units = data[0]["balance_units"]
-		# 	self.balance_price = data[0]["balance_price"]
-		# 	self.balance_total = data[0]["balance_total"]
-		# 	self.date = data[0]["date"]
-		# 	if "user" in data[0]:
-		# 		self.user = data[0]["user"]
-		# except:
-		# 	return self.ShowError("kardex not found")
-
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
-
-		query = '''select * from "Kardex" where product_sku = %(product_sku)s and cellar_id = %(cellar_id)s and size = %(size)s order by id desc limit 1'''
-
-		parametros = {
-		"product_sku":product_sku,
-		"cellar_id":cellar_identifier,
-		"size":size
-		}
-
-		try:
-			cur.execute(query,parametros)
-			kardex = cur.fetchone()
-
-			if cur.rowcount > 0:
-				self.id = kardex["id"]
-				self.product_sku = kardex["product_sku"]
-				self.operation_type = kardex["operation_type"]
-				self.units = kardex["units"]
-				self.price = kardex["price"]
-				self.sell_price = kardex["sell_price"]
-				self.size =kardex["size"]
-				self.color = kardex["color"]
-				self.total = kardex["total"]
-				self.balance_units = kardex["balance_units"]
-				self.balance_price = kardex["balance_price"]
-				self.balance_total = kardex["balance_total"]
-				self.date = kardex["date"]
-				self.user = kardex["user"]
-				self.cellar_identifier = kardex["cellar_id"]
-				return self.ShowSuccessMessage("kardex has been initialized")
-			else:
-				return self.ShowError("kardex not found")
-		except Exception,e:
-			return self.ShowError(str(e))
 
 	#take care of an infinite loop
 	# return last kardex in the database
@@ -447,12 +386,33 @@ class Kardex(BaseModel):
 			print str(e)
 			pass
 
-	# def checkStock(self, lista, cellar_id):
+	def checkStock(self, lista, cellar_id):
 
-	# 	for l in lista:
-	# 		product_sku = l["sku"]
-	# 		product_size = l["size"]
+		errors = []
 
-	# 		self.FindKardex(product_sku, product_size, cellar_id)
+		for l in lista:
+			product_sku = l["sku"]
+			product_size = l["size"]
+			quantity = l["quantity"]
+
+			self.FindKardex(product_sku, product_size, cellar_id)
+
+			if self.balance_units < quantity:
+
+				cart = Cart()
+				cart.id = l["id"]
+				res_remove = cart.Remove()
+
+				if "error" in res_remove:
+					print res_remove["error"]
+
+				errors.append({"sku": product_sku, "error": "no queda stock"})
+
+		if len(errors):
+			return self.ShowError(errors)
+		else:
+			return self.ShowSuccessMessage("ok")
+
+
 			
 

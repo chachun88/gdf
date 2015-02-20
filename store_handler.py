@@ -91,7 +91,7 @@ class ProductHandler(BaseHandler):
 			for s in prod.size:
 
 				kardex = Kardex()
-				response_obj = kardex.GetUnitsBySize(prod.sku,id_bodega,s)
+				response_obj = kardex.FindKardex(prod.sku,id_bodega,s)
 
 				if "success" in response_obj:
 					if kardex.balance_units > 0:

@@ -36,7 +36,7 @@ class GetUnitsBySizeHandler(BaseHandler):
 		sku = self.get_argument("sku","")
 		size = self.get_argument("size","")
 		kardex = Kardex()
-		response_obj = kardex.GetUnitsBySize(sku,id_bodega,size)
+		response_obj = kardex.FindKardex(sku,id_bodega,size)
 
 		if "success" in response_obj:
 			self.write("{}".format(kardex.balance_units))

@@ -49,26 +49,35 @@ class CheckoutAddressHandler(BaseHandler):
             #     self.render("beauty_error.html",message="Error al obtener la lista de contactos:{}".format(response_obj["error"]))
             #     return
 
+            # use globals default to avoid exception
+            web_cellar_id = cellar_id
+
+            c = Cellar()
+            res_cellar_id = c.GetWebCellar()
+
+
+            if "success" in res_cellar_id:
+                web_cellar_id = res_cellar_id["success"]
+
             cart = Cart()
             cart.user_id = user_id
 
             lista = cart.GetCartByUserId()
 
-            # k = Kardex()
-            # k.checkStock(lista, )
+            k = Kardex()
+            res_checkstock = k.checkStock(lista, web_cellar_id)
+
+            if "error" in res_checkstock:
+                self.render("beauty_error.html",message="Falta stock")
 
             suma = 0
 
             for l in lista:
                 suma += l["subtotal"]
 
-            c = Cellar()
-            res_cellar_id = c.GetWebCellar()
+            
 
-            web_cellar_id = cellar_id
-
-            if "success" in res_cellar_id:
-                web_cellar_id = res_cellar_id["success"]
+            
 
             res_web_cellar = c.InitById(web_cellar_id)
 
