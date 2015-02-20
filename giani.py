@@ -65,6 +65,7 @@ class Application(tornado.web.Application):
             (r"/kardextest", others_handler.KardexTestHandler),
 
             (r"/profile", profile_handler.ProfileHandler),
+            (r"/profile/change_pass", profile_handler.ChangePassHandler),
 
             (r"/tos", others_handler.TosHandler),
             (r"/pago", others_handler.PagoHandler),
