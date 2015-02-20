@@ -1,6 +1,5 @@
 {% extends "../base.html" %}
 {% block css %}
-<link rel="stylesheet" href="/static/css/contacto.css">
 <link rel="stylesheet" href="/static/css/profile/profile.css">
 {% end %}
 {% block body %}
@@ -11,8 +10,20 @@
             <div class="campo">
                 <p>Julian</p>
             </div>
-            <button class="btn_left">Cambiar contraseña</button>
+            <button class="btn_left btn-cambiar-contrasena">Cambiar contraseña
+            </button>
         </div>
+        
+        <div class="margen campo-contrasena">
+            <form action="/profile/change_pass" method="post">
+                <input required type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Contraseña Actual">
+                <input required type="password" class="form-control" id="newpass" name="newpass" placeholder="Contraseña Nueva">
+                <input required type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Confirmar Nueva Contraseña">
+                <button class="btn-cancelar-cambio-contrasena">Cancelar</button>
+                <button class="btn-guardar-contrasena">Guardar</button>
+            </form>
+        </div>
+        
     </div>
     <!-- div class="datos-compra">
         <h1 >Datos de compra</h1>
@@ -79,4 +90,8 @@
         </div>
     </div>
 </div>
+{% end %}
+
+{% block javascript %}
+<script src="/static/js/profile/profile.js"></script>
 {% end %}

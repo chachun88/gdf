@@ -21,3 +21,8 @@ class ProfileHandler(BaseHandler):
 
     def get(self):
         self.render("profile/index.html")
+
+class ChangePassHandler(BaseHandler):
+
+    def post(self):
+        self.render("profile/index.html")
