@@ -19,6 +19,7 @@ class City(BaseModel):
 	def name(self, value):
 		self._name = value
 
+
 	def List(self):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
@@ -118,7 +119,7 @@ class City(BaseModel):
 			parameters = {
 			"from_city_id":self.from_city_id
 			}
-			print cur.mogrify(query,parameters)
+			# print cur.mogrify(query,parameters)
 			cur.execute(query,parameters)
 			cities = cur.fetchall()
 			return self.ShowSuccessMessage(cities)

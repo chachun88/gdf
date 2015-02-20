@@ -61,14 +61,7 @@ class CheckoutAddressHandler(BaseHandler):
 
             cart = Cart()
             cart.user_id = user_id
-
             lista = cart.GetCartByUserId()
-
-            k = Kardex()
-            res_checkstock = k.checkStock(lista, web_cellar_id)
-
-            if "error" in res_checkstock:
-                self.render("beauty_error.html",message="Falta stock")
 
             suma = 0
 
@@ -83,7 +76,7 @@ class CheckoutAddressHandler(BaseHandler):
             city = City()
             city.from_city_id = cellar_city_id
             res_city = city.ListByFromCityId()
-            print res_city
+            # print res_city
 
 
             if suma > 0:
@@ -747,3 +740,34 @@ class GetAddressByIdHandler(BaseHandler):
             contact = Contact()
             json_str_contactos = contact.InitById(contact_id)
             self.write(json_util.dumps(json_str_contactos))
+
+
+class CheckStockHandler(BaseHandler):
+    """ verifica que todos los productos del carro tengan stock
+        los sin stock se borran del carro
+        @author : Yi Chun Lin
+
+    """
+
+    def get(self):
+        
+        if self.current_user:
+
+            cart = Cart()
+            cart.user_id = self.current_user["id"]
+
+            lista = cart.GetCartByUserId()
+
+            cellar = Cellar()
+            res_web_cellar = cellar.GetWebCellar()
+
+            if "success" in res_web_cellar:
+                web_cellar_id = res_web_cellar["success"]
+
+            k = Kardex()
+            res_checkstock = k.checkStock(lista, web_cellar_id)
+
+            self.write(json_util.dumps(res_checkstock))
+
+            # if "error" in res_checkstock:
+            #     self.render("beauty_error.html",message="Falta stock, {}".format(res_checkstock["error"]))

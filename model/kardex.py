@@ -167,8 +167,8 @@ class Kardex(BaseModel):
 			self.user = kardex["user"]
 			self.cellar_identifier = kardex["cellar_id"]
 			return self.ShowSuccessMessage("kardex has been initialized")
-		except:
-			return self.ShowError("kardex not found")
+		except Exception, e:
+			return self.ShowError("kardex not found, {}".format(str(e)))
 
 	#take care of an infinite loop
 	# return last kardex in the database
@@ -395,18 +395,28 @@ class Kardex(BaseModel):
 			product_size = l["size"]
 			quantity = l["quantity"]
 
-			self.FindKardex(product_sku, product_size, cellar_id)
+			res_kardex = self.FindKardex(product_sku, cellar_id, product_size)
 
-			if self.balance_units < quantity:
+			if "success" in res_kardex:
 
-				cart = Cart()
-				cart.id = l["id"]
-				res_remove = cart.Remove()
+				print "quantity: {} units: {}\n".format(quantity, self.balance_units)
 
-				if "error" in res_remove:
-					print res_remove["error"]
+				if self.balance_units < quantity:
 
-				errors.append({"sku": product_sku, "error": "no queda stock"})
+					# cart = Cart()
+					# cart.id = l["id"]
+					# res_remove = cart.Remove()
+
+					# if "error" in res_remove:
+					# 	print res_remove["error"]
+
+					if self.balance_units > 0:
+						errors.append({"sku": product_sku, "error": "queda {} unidades".format(self.balance_units)})
+					else:
+						errors.append({"sku": product_sku, "error": "agotado"})					
+			else:
+
+				errors.append({"sku": product_sku, "error": res_kardex["error"]})
 
 		if len(errors) > 0:
 			return self.ShowError(errors)
