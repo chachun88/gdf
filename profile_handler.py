@@ -1,29 +1,19 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-import os.path
-
-import psycopg2
-import psycopg2.extras
-
-import tornado.auth
-import tornado.httpserver
-import tornado.ioloop
-import tornado.options
-import tornado.web
 import hashlib
 
-from tornado.options import define, options
 
 from basehandler import BaseHandler
 from model.user import User
 from model.contact import Contact
 from bson import json_util
 
+
 class ProfileHandler(BaseHandler):
 
     def get(self):
-        
+
         if self.current_user:
             user_id = self.current_user["id"]
             contact = Contact()
@@ -34,7 +24,8 @@ class ProfileHandler(BaseHandler):
             if "success" in lista_contacto:
                 contactos = json_util.loads(lista_contacto["success"])
 
-        self.render("profile/index.html", contactos = contactos)
+        self.render("profile/index.html", contactos=contactos)
+
 
 class ChangePassHandler(BaseHandler):
 
