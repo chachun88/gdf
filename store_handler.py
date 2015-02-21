@@ -46,9 +46,21 @@ class IndexHandler(BaseHandler):
             tallas = tallas_res["success"]
 
         if ajax == 0:
-            self.render("store/index.html",data=lista,items=items,page=page,tags=tags,tags_arr=None, tallas=tallas)
+            self.render("store/index.html",
+                        data=lista,
+                        items=items,
+                        page=page,
+                        tags=tags,
+                        tags_arr=None,
+                        tallas=tallas)
         else:
-            self.render("store/ajax_productos.html",data=lista,items=items,page=page,tags=tags,tags_arr=None, tallas=tallas)
+            self.render("store/ajax_productos.html",
+                        data=lista,
+                        items=items,
+                        page=page,
+                        tags=tags,
+                        tags_arr=None,
+                        tallas=tallas)
 
     def post(self):
         self.write(json_util.dumps(self.request.arguments))
@@ -75,7 +87,9 @@ class ProductHandler(BaseHandler):
         response_obj = prod.GetProductCatNameColor(category,name,color)
 
         if "error" in response_obj:
-            self.render("beauty_error.html",message="Producto no encontrado, error:{}".format(response_obj["error"]))
+            self.render("beauty_error.html",
+                        message="Producto no encontrado, error:{}"
+                        .format(response_obj["error"]))
         else:
 
             tallas_disponibles = []
@@ -88,8 +102,6 @@ class ProductHandler(BaseHandler):
                 if "success" in response_obj:
                     if kardex.balance_units > 0:
                         tallas_disponibles.append(s)
-                # else:
-                #   self.write(json_util.dumps(response_obj["error"]))
 
             prod.size = tallas_disponibles
 
@@ -108,7 +120,11 @@ class ProductHandler(BaseHandler):
             if "success" in res:
                 votos = res["success"]
 
-            self.render("store/detalle-producto.html",data=prod,combinations=combinaciones,related=relacionados,votos=votos)
+            self.render("store/detalle-producto.html",
+                        data=prod,
+                        combinations=combinaciones,
+                        related=relacionados,
+                        votos=votos)
 
 
 class AddToCartHandler(BaseHandler):
@@ -162,7 +178,10 @@ class GetCartByUserIdHandler(BaseHandler):
                 suma += l["subtotal"]
 
             if ajax:
-                self.render("store/carro_ajax.html",data=lista,suma=suma,url_bodega=url_bodega)
+                self.render("store/carro_ajax.html",
+                            data=lista,
+                            suma=suma,
+                            url_bodega=url_bodega)
             else:
                 self.render("store/cart.html",data=lista,suma=suma)
         else:
@@ -261,9 +280,17 @@ class GetProductsByTagsHandler(BaseHandler):
 
         if "success" in res:
             if ajax == 0:
-                self.render("store/index.html",data=res["success"],items=items,page=page,tags=tags,tags_arr=tags_arr,tallas=tallas)
+                self.render("store/index.html",
+                            data=res["success"],
+                            items=items,
+                            page=page,
+                            tags=tags,
+                            tags_arr=tags_arr,
+                            tallas=tallas)
             else:
-                self.render("store/ajax_productos.html",data=res["success"],items=items,page=page)
+                self.render("store/ajax_productos.html",
+                            data=res["success"],
+                            items=items,page=page)
         else:
             self.render("beauty_error.html",message=res["error"])
 
