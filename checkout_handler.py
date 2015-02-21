@@ -764,10 +764,38 @@ class CheckStockHandler(BaseHandler):
             if "success" in res_web_cellar:
                 web_cellar_id = res_web_cellar["success"]
 
-            k = Kardex()
-            res_checkstock = k.checkStock(lista, web_cellar_id)
+                k = Kardex()
+                res_checkstock = k.checkStock(lista, web_cellar_id)
 
-            self.write(json_util.dumps(res_checkstock))
+                self.write(json_util.dumps(res_checkstock))
+
+            else:
+
+                self.write(json_util.dumps(res_web_cellar))
+
+        else:
+
+            user_id = self.get_argument("user_id", 0)
+
+            cart = Cart()
+            cart.user_id = user_id
+
+            lista = cart.GetCartByUserId()
+
+            cellar = Cellar()
+            res_web_cellar = cellar.GetWebCellar()
+
+            if "success" in res_web_cellar:
+                web_cellar_id = res_web_cellar["success"]
+
+                k = Kardex()
+                res_checkstock = k.checkStock(lista, web_cellar_id)
+
+                self.write(json_util.dumps(res_checkstock))
+
+            else:
+
+                self.write(json_util.dumps(res_web_cellar))
 
             # if "error" in res_checkstock:
             #     self.render("beauty_error.html",message="Falta stock, {}".format(res_checkstock["error"]))

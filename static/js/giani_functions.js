@@ -222,9 +222,12 @@ var checkStock = function(){
 
 	$.ajax({
 		url: "/checkout/checkstock",
+		data: "user_id=" + window.localStorage.getItem("user_id"),
 		dataType: "json",
+		type: "get",
 		async: false,
 		success: function(html){
+
 			response_str = JSON.stringify(html);
 			response = $.parseJSON(response_str);
 			if(response.error){
