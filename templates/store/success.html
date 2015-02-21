@@ -13,13 +13,14 @@ Giani Da Firenze - Home
 <div class="contenedor_formularios">
 <div class="mensaje-error_succes">
     <!-- mensaje pago tarjeta -->
-	<h1>gracias por comprar en Giani Da firenze, procederemos con el despacho de tu pedido, te mantendremos informado del status.</h1>
-    <p>Cualquier duda o consulta escríbenos a <a><span>contacto@gianidafirenze.cl</span></a></p>
+	
      <!-- mensaje pago transferencia -->
-    <h1>Gracias por comprar en Giani dafirenze, confirmameremos su deposito, y procederemos con el despacho.  Le estaremos informando el status de su pedido</h1>
+    
     
 
     {% if webpay == "si" %}
+        <h1>gracias por comprar en Giani Da firenze, procederemos con el despacho de tu pedido, te mantendremos informado del status.</h1>
+        <p>Cualquier duda o consulta escríbenos a <a><span>contacto@gianidafirenze.cl</span></a></p>
     	<p align="center" style="margin: 20px;">Transaccion Normal - EXITO</p>
         <table align="center">
             <tr>
@@ -169,6 +170,13 @@ Giani Da Firenze - Home
             </tr>
         </table>
     <form action="{{pathSubmit}}" method="get">
+        <center>
+            <input type="submit" value="Volver a Inicio">
+        </center>
+    </form>
+    {% else %}
+        <h1>Gracias por comprar en Giani dafirenze, confirmameremos su deposito, y procederemos con el despacho.  Le estaremos informando el status de su pedido</h1>
+        <form action="/" method="get">
         <center>
             <input type="submit" value="Volver a Inicio">
         </center>
