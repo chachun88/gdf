@@ -4,7 +4,7 @@ Created on 25/02/2013
 @author: Yi Chun
 '''
 import tornado.web
-from globals import url_bodega
+from globals import url_bodega, url_local, url_cgi
 import locale
 import os
 import unicodedata
@@ -90,6 +90,8 @@ class BaseHandler(tornado.web.RequestHandler):
         # kwargs["admin_url"] = admin_url
         kwargs["current_user"] = self.get_current_user()
         kwargs["url_bodega"] = url_bodega
+        kwargs["url_local"] = url_local
+        kwargs["url_cgi"] = url_cgi
         kwargs["money_format"] = self.money_format
 
         tornado.web.RequestHandler.render(self, template_name, **kwargs)

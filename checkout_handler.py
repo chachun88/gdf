@@ -11,7 +11,6 @@ from basehandler import BaseHandler
 import uuid
 
 from model.cart import Cart
-from model.user import User
 from model.contact import Contact
 # from model.customer import Customer
 from model.order import Order
@@ -36,7 +35,7 @@ class CheckoutAddressHandler(BaseHandler):
         if self.current_user:
 
             user_id = self.current_user["id"]
-            
+
             contact = Contact()
             response_obj = contact.ListByUserId(user_id)
 
@@ -54,7 +53,6 @@ class CheckoutAddressHandler(BaseHandler):
 
             c = Cellar()
             res_cellar_id = c.GetWebCellar()
-
 
             if "success" in res_cellar_id:
                 web_cellar_id = res_cellar_id["success"]
@@ -78,7 +76,6 @@ class CheckoutAddressHandler(BaseHandler):
             res_city = city.ListByFromCityId()
             # print res_city
 
-
             if suma > 0:
                 if "success" in res_city:
                     cities = res_city["success"]
@@ -93,15 +90,13 @@ class CheckoutAddressHandler(BaseHandler):
         # else:
         #   self.write(response_obj["error"])
 
+
 class CheckoutBillingHandler(BaseHandler):
 
     @tornado.web.authenticated
     def get(self):
 
         if self.current_user:
-
-            
-
             user_id = self.current_user["id"]
             nombre = self.get_argument("name", self.current_user["name"])
             apellido = self.get_argument("lastname", self.current_user["lastname"])
@@ -122,7 +117,6 @@ class CheckoutBillingHandler(BaseHandler):
 
             if len(lista) <= 0:
                 self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
-
 
             contact = Contact()
 
@@ -152,7 +146,6 @@ class CheckoutBillingHandler(BaseHandler):
                 self.render("beauty_error.html",message="Error al {} contacto {}".format(operacion,response_obj["error"]))
             else:
 
-                
                 items = 0
                 suma = 0
 
@@ -219,6 +212,7 @@ class CheckoutBillingHandler(BaseHandler):
     def post(self):
         self.get()
 
+
 class CheckoutShippingHandler(BaseHandler):
 
     @tornado.web.authenticated
@@ -278,9 +272,6 @@ class CheckoutShippingHandler(BaseHandler):
                 if "error" in response_obj:
                     self.render("beauty_error.html",message="Error al {} contacto {}".format(operacion,response_obj["error"]))
                 else:
-
-                    
-
                     suma = 0
 
                     for l in lista:
@@ -289,8 +280,6 @@ class CheckoutShippingHandler(BaseHandler):
                         c.billing_id = contact.id
                         c.Edit()
                         suma += l["subtotal"]
-
-
 
                     # self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
                     self.render("store/checkout-3.html",suma=suma,costo_despacho=costo_despacho)
@@ -319,7 +308,8 @@ class CheckoutShippingHandler(BaseHandler):
 
     @tornado.web.authenticated
     def post(self):
-        self.get()        
+        self.get()
+
 
 class CheckoutPaymentHandler(BaseHandler):
 
@@ -393,8 +383,9 @@ class CheckoutOrderHandler(BaseHandler):
         # data = cart.GetCartByUserId()
         # self.render("store/checkout-5.html",data=data)
 
+
 class CheckoutSendHandler(BaseHandler):
-    
+
     @tornado.web.authenticated
     def get(self):
 
@@ -419,18 +410,17 @@ class CheckoutSendHandler(BaseHandler):
             imagedata = self.request.files['image'][0]
 
             final_name = "{filename}.{extension}".format(filename=uuid.uuid4(),extension="png")
-            
             # final_name = "{}_{}.png".format( image_number, sku )
 
             try:
-                fn = imagedata["filename"]
+                # fn = imagedata["filename"]
                 file_path = 'uploads/images/' + final_name
 
                 open(file_path, 'wb').write(imagedata["body"])
             except Exception, e:
                 print str(e)
                 pass
-        
+
         payment_type = self.get_argument("payment_type",1)
         shipping_price = int(self.get_argument("shipping_price",0))
 
@@ -438,8 +428,6 @@ class CheckoutSendHandler(BaseHandler):
             user_id = self.current_user["id"]
 
         order = Order()
-        
-
 
         if len(lista) > 0:
 
@@ -471,7 +459,6 @@ class CheckoutSendHandler(BaseHandler):
                     tipo_pago = l["shipping_type"]
                     total += l["subtotal"]
 
-
                 order.date = datetime.now()
                 order.type = 1
                 order.subtotal = subtotal
@@ -500,7 +487,8 @@ class CheckoutSendHandler(BaseHandler):
                         detail.subtotal = l["subtotal"]
                         detail.product_id = l["product_id"]
                         detail.size = l["size"]
-                        res_obj = detail.Save()
+                        # res_obj = detail.Save()
+                        detail.Save()
 
                         kardex = Kardex()
 
@@ -536,8 +524,6 @@ class CheckoutSendHandler(BaseHandler):
                         # if "error" in res_obj:
                         #     print "{}".format(res_obj["error"])
 
-                        
-
                         detalle_orden += """\
                             <tr>
                                 <td style="line-height: 2.5;border-left: 1px solid #d6d6d6; margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{quantity}</td>
@@ -557,14 +543,12 @@ class CheckoutSendHandler(BaseHandler):
                     else:
                         self.render("beauty_error.html",message="Error al obtener datos de facturación, {}".format(facturacion_response["error"]))
 
-
                     despacho_response = contact.InitById(order.shipping_id)
 
                     if "success" in despacho_response:
                         despacho = despacho_response["success"]
                     else:
                         self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
-
 
                     datos_facturacion = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
@@ -644,7 +628,7 @@ class CheckoutSendHandler(BaseHandler):
                             {datos_despacho}
 
                             <table cellspacing=0 style="width:80%; margin:10px auto; background:#efefef;color:#999999;-webkit-text-stroke: 1px transparent;font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        
+
                                 <tr>
                                     <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos compra</th>
                                 </tr>
@@ -658,7 +642,6 @@ class CheckoutSendHandler(BaseHandler):
                                     <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Precio</th>
                                     <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Subtotal</th>
                                 </tr>
-                                
                                 {detalle_orden}
 
                                 <tr>
@@ -707,8 +690,6 @@ class CheckoutSendHandler(BaseHandler):
                     message.set_html(html)
                     status, msg = sg.send(message)
 
-
-
                     if status == 200:
                         for l in lista:
                             cart.id = l["id"]
@@ -727,9 +708,9 @@ class CheckoutSendHandler(BaseHandler):
         else:
 
                 self.render("beauty_error.html",message="Carro se encuentra vacío")
-
         # pass
-    
+
+
 class GetAddressByIdHandler(BaseHandler):
 
     def get(self):
@@ -744,13 +725,12 @@ class GetAddressByIdHandler(BaseHandler):
 
 class CheckStockHandler(BaseHandler):
     """ verifica que todos los productos del carro tengan stock
-        los sin stock se borran del carro
         @author : Yi Chun Lin
 
     """
 
     def get(self):
-        
+
         if self.current_user:
 
             cart = Cart()
