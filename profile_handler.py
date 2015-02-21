@@ -14,12 +14,12 @@ class ProfileHandler(BaseHandler):
 
     def get(self):
 
+        contactos = []
+
         if self.current_user:
             user_id = self.current_user["id"]
             contact = Contact()
             lista_contacto = contact.ListByUserId(user_id)
-
-            contactos = []
 
             if "success" in lista_contacto:
                 contactos = json_util.loads(lista_contacto["success"])
