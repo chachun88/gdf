@@ -5,7 +5,7 @@ Giani Da Firenze - Transbank
 
 {% block body %}
 
-<form action="{{ cgi_url }}/cgi-bin/tbk_bp_pago.cgi" method="post" id="webpayplus">
+<form action="{{ url_cgi }}/cgi-bin/tbk_bp_pago.cgi" method="post" id="webpayplus">
   <input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" />
 
   <input type="hidden" name="TBK_TIPO_TRANSACCION" value="{{data['TBK_TIPO_TRANSACCION']}}" />
