@@ -39,6 +39,9 @@ cellar_id = 5
 facebook_api_key = ""
 facebook_secret = ""
 
+project_path = "/var/www/giani.ondev/"
+cgi_path = "/var/www/cgiani.loadingplay.com/"
+
 
 if enviroment == Enviroment.LOCAL:
 

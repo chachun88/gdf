@@ -10,7 +10,12 @@ from model.kardex import Kardex
 from datetime import datetime
 import urlparse
 
-from globals import email_giani, cellar_id, url_local, shipping_cellar
+from globals import email_giani, \
+                    cellar_id, \
+                    url_local, \
+                    shipping_cellar, \
+                    project_path, \
+                    cgi_path
 
 import sendgrid
 
@@ -167,8 +172,8 @@ class PagoHandler(BaseHandler):
                     #     print "{}".format(res_obj["error"])
 
         if os.name != "nt":
-            myPath = "/var/www/giani.ondev/webpay/dato{}.log" \
-                    .format(TBK_ID_SESION)
+            myPath = "{}webpay/dato{}.log" \
+                    .format(project_path, TBK_ID_SESION)
         else:
             myPath = "C:\Users\YiChun\Documents\giani\webpay\dato{}.log" \
                     .format(TBK_ID_SESION)
@@ -201,7 +206,6 @@ class XtCompraHandler(BaseHandler):
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA")
         TBK_MONTO = self.get_argument("TBK_MONTO")
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION")
-
 
         myPath = "{}webpay/dato{}.log".format(project_path,TBK_ID_SESION)
 
@@ -423,15 +427,26 @@ class ExitoHandler(BaseHandler):
         if "success" in init_by_id:
             # print str(order.state)
             if int(order.state) == 1:
-                self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
+                self.render(
+                    "store/failure.html",
+                    TBK_ID_SESION=TBK_ID_SESION,
+                    TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+                    PATHSUBMIT=pathSubmit)
         else:
             print init_by_id["error"] + "wertyui"
-            self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
+            self.render(
+                "store/failure.html",
+                TBK_ID_SESION=TBK_ID_SESION,
+                TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+                PATHSUBMIT=pathSubmit)
 
         if os.name != "nt":
-            myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
+            myPath = "{}webpay/MAC01Normal{}.txt".format(
+                                                    project_path, 
+                                                    TBK_ID_SESION)
         else:
-            myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt".format(TBK_ID_SESION)
+            myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt"\
+                .format(TBK_ID_SESION)
 
         try:
 
@@ -1695,7 +1710,7 @@ class FracasoHandler(BaseHandler):
 
     def post(self):
 
-        PATHSUBMIT = "http://giani.ondev.today"
+        PATHSUBMIT = url_local
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
 
