@@ -2,7 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 import hashlib
-
+import tornado
 
 from basehandler import BaseHandler
 from model.user import User
@@ -12,6 +12,7 @@ from bson import json_util
 
 class ProfileHandler(BaseHandler):
 
+    @tornado.web.authenticated
     def get(self):
 
         contactos = []
