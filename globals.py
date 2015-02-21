@@ -101,7 +101,7 @@ elif enviroment == Enviroment.PRODUCTION:
 
     email_giani = "contacto@gianidafirenze.cl"
 
-    project_path = "/var/www/gianidafirenze.cl/giani"
+    project_path = "/var/www/gianidafirenze.cl/giani/"
     cgi_path = "/var/www/cgiani.loadingplay.com/"
 
     # define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
