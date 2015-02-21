@@ -226,6 +226,9 @@ var checkStock = function(){
 		async: false,
 		success: function(html){
 			response_str = JSON.stringify(html);
+
+            console.log("llega");
+            console.log(response_str);
 			response = $.parseJSON(response_str);
 			if(response.error){
 				errores = response.error;

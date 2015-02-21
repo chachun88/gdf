@@ -628,7 +628,7 @@ class CheckoutSendHandler(BaseHandler):
                             {datos_despacho}
 
                             <table cellspacing=0 style="width:80%; margin:10px auto; background:#efefef;color:#999999;-webkit-text-stroke: 1px transparent;font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
-                        
+
                                 <tr>
                                     <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos compra</th>
                                 </tr>
@@ -725,7 +725,6 @@ class GetAddressByIdHandler(BaseHandler):
 
 class CheckStockHandler(BaseHandler):
     """ verifica que todos los productos del carro tengan stock
-        los sin stock se borran del carro
         @author : Yi Chun Lin
 
     """
