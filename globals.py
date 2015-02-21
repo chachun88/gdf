@@ -50,6 +50,7 @@ if enviroment == Enviroment.LOCAL:
     port = DEBUG_PORT
     url_bodega = "http://giani.loadingplay.com"
     url_local = "http://localhost:8502"
+    url_cgi = "http://cgiani.ondev.today"
 
     facebook_api_key = "839778829389863"
     facebook_secret = "5e533cd56091707c73e88c2113ffb13d"
@@ -63,6 +64,7 @@ elif enviroment == Enviroment.ONDEV:
     port = DEBUG_PORT
     url_bodega = "http://bgiani.ondev.today"
     url_local = "http://giani.ondev.today"
+    url_cgi = "http://cgiani.ondev.today"
 
     facebook_api_key = "839753546059058"
     facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
@@ -79,6 +81,7 @@ elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
     url_bodega = "http://bgiani.loadingplay.com"
     url_local = "http://giani.ondev.today"
+    url_cgi = "http://cgiani.ondev.today"
 
     facebook_api_key = "839753546059058"
     facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
@@ -95,6 +98,7 @@ elif enviroment == Enviroment.PRODUCTION:
     port = PORT
     url_bodega = "http://bgiani.loadingplay.com"
     url_local = "http://giani.loadingplay.com"
+    url_cgi = "http://cgiani.loadingplay.com"
 
     facebook_api_key = "839753546059058"
     facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
