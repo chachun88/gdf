@@ -4,12 +4,8 @@
 import os
 import tornado.httpserver
 import tornado.web
-import urllib
 
-
-from tornado.options import define, options
-
-from globals import debugMode
+from tornado.options import options
 
 import home_handler
 import store_handler
