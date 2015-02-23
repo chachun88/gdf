@@ -132,7 +132,7 @@ class Contact(BaseModel):
         query = '''select c1.*, c2.name as city from "Contact" c1 left join "City" c2 on c1.city_id = c2.id where c1.id = %(id)s limit 1'''
 
         parametros = {
-        "id":_id
+            "id":_id
         }
 
         try:
@@ -189,28 +189,25 @@ class Contact(BaseModel):
 
                 return self.ShowError(str(e))
 
-        
-
-        
 
     def Edit(self):
 
         #print "Edit WS id:{}\n".format(self.id)
 
         contact = {
-        "name": self.name,
-        "type_id": self.type,
-        "telephone": self.telephone,
-        "email": self.email,
-        "user_id": self.user_id,
-        "address":self.address,
-        "id":self.id,
-        "city_id":self.city,
-        "zip_code":self.zip_code,
-        "lastname":self.lastname,
-        "additional_info":self.additional_info,
-        "town":self.town,
-        "rut":self.rut
+            "name": self.name,
+            "type_id": self.type,
+            "telephone": self.telephone,
+            "email": self.email,
+            "user_id": self.user_id,
+            "address":self.address,
+            "id":self.id,
+            "city_id":self.city,
+            "zip_code":self.zip_code,
+            "lastname":self.lastname,
+            "additional_info":self.additional_info,
+            "town":self.town,
+            "rut":self.rut
         }
 
         # try:
@@ -309,3 +306,27 @@ class Contact(BaseModel):
             return self.ShowSuccessMessage(user_id)
         except Exception,e:
             return self.ShowError("Error deleting contacts by user_id {user_id}, error:{error}".format(user_id=user_id,error=str(e)))
+
+    def initialize(self, datos):
+        """
+        Funcion que carga los datos a la clase contact que llama a esta funcion
+        @param {objeto} datos En este objeto debe contener todos los datos de
+                              un contacto
+        @return No retorna nada
+        @author : Chien-Hung
+        """
+
+        BaseModel.__init__(self)
+        self._id = datos["id"]
+        self._name = datos["name"]
+        self._type = 3
+        self._telephone = datos["telephone"]
+        self._email = datos["email"]
+        self._address = datos["address"]
+        self._user_id = datos["user_id"]
+        self._lastname = datos["lastname"]
+        self._city = datos["city_id"]
+        self._zip_code = datos["zip_code"]
+        self._additional_info = datos["additional_info"]
+        self._town = datos["town"]
+        self._rut = datos["rut"]
