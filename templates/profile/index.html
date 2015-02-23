@@ -37,12 +37,12 @@
         </tr>
         {% for c in contactos %}
         <tr class="contactos" id-contacto="{{c["id"]}}" name="{{c["name"]}}" address="{{c["address"]}}" town="{{c["town"]}}" city="{{c["city"]}}" zipcode="{{c["zip_code"]}}" telephone="{{c["telephone"]}}">
-            <td>{{c["name"]}}</td>
-            <td>{{c["address"]}}</td>
-            <td>{{c["town"]}}</td>
-            <td>{{c["city"]}}</td>
-            <td>{{c["zip_code"]}}</td>
-            <td>{{c["telephone"]}}</td>
+            <td id="name-{{c["id"]}}">{{c["name"]}}</td>
+            <td id="address-{{c["id"]}}">{{c["address"]}}</td>
+            <td id="town-{{c["id"]}}">{{c["town"]}}</td>
+            <td id="city-{{c["id"]}}">{{c["city"]}}</td>
+            <td id="zip-code-{{c["id"]}}">{{c["zip_code"]}}</td>
+            <td id="telephone-{{c["id"]}}">{{c["telephone"]}}</td>
             <td><button class="btn-editar-contacto">Editar</button></td>
             <td><button>Eliminar</button></td>
         </tr>
