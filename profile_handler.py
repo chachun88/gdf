@@ -55,16 +55,18 @@ class ChangePassHandler(BaseHandler):
                     m.update(newpass)
                     password = m.hexdigest()
                     user.ChangePassword(user_id, password)
-                    self.write("exito")
+                    self.write("El cambio fue exitoso")
                 else:
-                    self.write("claves ingresado no coinciden")
+                    self.write("Claves ingresado no coinciden")
             else:
-                self.write("clave incorrecta")
+                self.write("Clave incorrecta")
 
 
 class EditContactHandler(BaseHandler):
 
     def post(self):
+
+        id = self.get_argument("id-contacto","")
         name = self.get_argument("name","")
         address = self.get_argument("address","")
         town = self.get_argument("town","")
@@ -73,14 +75,30 @@ class EditContactHandler(BaseHandler):
         telephone = self.get_argument("telephone","")
 
         ciudad = City()
-        respuesta = ciudad.getIdByName(city)
+        res_city = ciudad.getIdByName(city)
 
-        if "success" in respuesta:
-            city_id = respuesta["success"]
+        if "success" in res_city:
+            city_id = res_city["success"]
 
-        print "name: ", name, "\n"
-        print "address: ", address, "\n"
-        print "town: ", town, "\n"
-        print "city: ", city, "\n"
-        print "zip_code: ", zip_code, "\n"
-        print "telephone: ", telephone, "\n"
+            contacto = Contact()
+            res_contact = contacto.InitById(id)
+
+            if "success" in res_contact:
+                datos = res_contact["success"]
+
+                contacto.initialize(datos)
+
+                contacto.name = name
+                contacto.address = address
+                contacto.town = town
+                contacto.city = city_id
+                contacto.zip_code = zip_code
+                contacto.telephone = telephone
+
+                contacto.Edit()
+
+                self.write("El cambio fue exitoso")
+            else:
+                self.write("No existe contacto con tal id")
+        else:
+            self.write("Ciudad ingresada no es correcta")
