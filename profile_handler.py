@@ -57,7 +57,7 @@ class ChangePassHandler(BaseHandler):
                     user.ChangePassword(user_id, password)
                     self.write("El cambio fue exitoso")
                 else:
-                    self.write("Claves ingresado no coinciden")
+                    self.write("Claves ingresadas no coinciden")
             else:
                 self.write("Clave incorrecta")
 
