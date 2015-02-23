@@ -1,14 +1,31 @@
 $(document).ready(function(){
-    
+
+    // Funcion que limpia todos los formulario 
+    var limpiarFormulario = function(){
+        $("#oldpass").val("");
+        $("#newpass").val("");
+        $("#confirmpass").val("");
+        $(".formulario-contacto #id-contacto").val("");
+        $(".formulario-contacto #name").val("");
+        $(".formulario-contacto #address").val("");
+        $(".formulario-contacto #town").val("");
+        $(".formulario-contacto #city").val("");
+        $(".formulario-contacto #zip-code").val("");
+        $(".formulario-contacto #telephone").val("");
+    };
+
+    // Al cargar la pagina los formulario deben quedar oculto
     $(".formulario-contrasena").hide();
     $(".formulario-contacto").hide();
 
+    // Muestra el formulario para cambiar clave y oculta el boton
     $(".btn-cambiar-contrasena").on( "click", function()
     {
         $(this).hide();
         $(".formulario-contrasena").show();
     });
 
+    // Oculta el formulario y muestra el boton para cambiar clave
     $(".btn-cancelar-cambio-contrasena").on( "click", function(evt)
     {
         evt.preventDefault();
@@ -17,6 +34,9 @@ $(document).ready(function(){
         $(".btn-cambiar-contrasena").show();
     });
 
+    /* Manda los claves al handler, ahi es donde se valida 
+     * Si tiene exito, limpia los formularios y cierra el formulario
+     */
     $(".btn-guardar-contrasena").on( "click", function(evt)
     {
         evt.preventDefault();
@@ -27,8 +47,16 @@ $(document).ready(function(){
             url: "/profile/change_pass",
             type: "post",
             data: data,
-            success: function(html){
-                alert(html);
+            success: function(html)
+            {
+                limpiarFormulario();
+                fancyAlert(html);
+
+                if(html == "El cambio fue exitoso")
+                {
+                    $(".formulario-contrasena").hide();
+                    $(".btn-cambiar-contrasena").show();
+                }
             }
         });
 
@@ -76,8 +104,6 @@ $(document).ready(function(){
         var zipcode = $(".formulario-contacto #zip-code").val();
         var telephone = $(".formulario-contacto #telephone").val();
 
-        var exito = false;
-
         var data = $("form.editar-contacto").serialize();
 
         $.ajax({
@@ -85,26 +111,28 @@ $(document).ready(function(){
             type: "post",
             data: data,
             async: false,
-            success: function(html){
-                if(html == "El cambio fue exitoso"){
-                    exito = true;
-                }else{
-                    alert(html);
+            success: function(html)
+            {
+                if(html == "El cambio fue exitoso")
+                {
+                    $("#name-" + id).html(name);
+                    $("#address-" + id).html(address);
+                    $("#town-" + id).html(town);
+                    $("#city-" + id).html(city);
+                    $("#zip-code-" + id).html(zipcode);
+                    $("#telephone-" + id).html(telephone);
+                    
+                    limpiarFormulario();
+
+                    $(".formulario-contacto").hide();
+                    $(".contactos").show();
+                    fancyAlert(html);
+
+                }else
+                {
+                    fancyAlert(html);
                 }
             }
         });
-
-        if(exito)
-        {
-            $("#name-" + id).html(name);
-            $("#address-" + id).html(address);
-            $("#town-" + id).html(town);
-            $("#city-" + id).html(city);
-            $("#zip-code-" + id).html(zipcode);
-            $("#telephone-" + id).html(telephone);
-
-            $(".formulario-contacto").hide();
-            $(".contactos").show();
-        }
     });
 });
