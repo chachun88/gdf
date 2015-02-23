@@ -83,7 +83,7 @@ elif enviroment == Enviroment.ONTEST:
     facebook_api_key = "940357995998612"
     facebook_secret = "cf2e025731e33f686bc8c37493c7ee74"
 
-    email_giani = "info@gianidafirenze.com"
+    email_giani = "contacto@gianidafirenze.cl"
 
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.loadingplay.com/"
