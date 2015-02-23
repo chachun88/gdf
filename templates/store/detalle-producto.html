@@ -36,18 +36,6 @@ Giani Da Firenze - {{data.name}}
           </div>
           {% end %}
         {% end %}
-<!--         <div class="container container-1">
-          <img class="image image-6" src="images/2(2)-141x94-60.jpg" data-rimage data-src="images/2(2)-141x94-60.jpg">
-        </div>
-        <div class="container container-2">
-          <img class="image image-7" src="images/2(2)-141x94-55.jpg" data-rimage data-src="images/2(2)-141x94-55.jpg">
-        </div>
-        <div class="container container-3">
-          <img class="image image-8" src="images/2(2)-141x94-50.jpg" data-rimage data-src="images/2(2)-141x94-50.jpg">
-        </div>
-        <div class="container container-4">
-          <img class="image image-9" src="images/2(2)-141x94-45.jpg" data-rimage data-src="images/2(2)-141x94-45.jpg">
-        </div> -->
       </div>
     </div>
     <div class="cuerpo-producto clearfix">
@@ -121,8 +109,8 @@ Giani Da Firenze - {{data.name}}
           </div>
         </div>
         {% if data.promotion_price > 0 %}
-          <span class="producto-precio tachado">$ {{money_format(data.sell_price)}}</span>
-          <span class="producto-precio">$ {{money_format(data.promotion_price)}}</span>
+          <span class="producto-precio precio-ant-zapato">$ {{money_format(data.sell_price)}}</span>
+          <span class="producto-precio precio-ofert-zapato" >$ {{money_format(data.promotion_price)}}</span>
         {% else %}
           <span class="producto-precio">$ {{money_format(data.sell_price)}}</span>
         {% end %}
