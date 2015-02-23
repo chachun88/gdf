@@ -270,7 +270,6 @@ class Contact(BaseModel):
 
         except Exception,e:
             return self.ShowError(str(e))
-            
 
     def Remove(self,ids):
         print ids
