@@ -4,6 +4,7 @@ Created on 25/02/2013
 @author: Yi Chun
 '''
 import tornado.web
+from tornado.options import options
 from globals import url_bodega, url_local, url_cgi
 import locale
 import os
@@ -87,7 +88,7 @@ class BaseHandler(tornado.web.RequestHandler):
         kwargs["truncate_decimal"] = self.truncate_decimal
         kwargs["canonical_url"] = self.canonical_url
         kwargs["nxt"] = self.get_argument("next", "/")
-        # kwargs["admin_url"] = admin_url
+        kwargs["facebook_api_key"] = options.facebook_api_key
         kwargs["current_user"] = self.get_current_user()
         kwargs["url_bodega"] = url_bodega
         kwargs["url_local"] = url_local
