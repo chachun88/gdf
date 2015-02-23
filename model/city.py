@@ -136,6 +136,7 @@ class City(BaseModel):
         @param {string} name esta variable corresponde al nombre de la ciudad
         @return {int} city_id el valor de esta variable corresponde a id de la 
                 ciudad
+        @author : Chien-Hung
         """
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
