@@ -4300,3 +4300,15 @@ h1.x2large {
  overflow: hidden !important;
 }
 }
+/* --clases para precios ---*/
+
+.precio-ant-zapato
+{
+    
+    text-decoration: line-through !important;      
+}
+
+.precio-ofert-zapato 
+{
+    color: rgb(240, 77, 77) !important;
+}
