@@ -73,8 +73,12 @@ Giani Da Firenze - Home
         </div>
         <div class="producto-info clearfix">
           <p class="producto-nombre">{{d['name']}}</p>
-          <p class="producto-precio precio-ant-zapato" style="">$ {{money_format(d['sell_price'])}}</p>
-          <p class="producto-precio precio-ofert-zapato" style="">$ {{money_format(d['sell_price'])}}</p>
+          {% if d['promotion_price'] > 0 %}
+            <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
+            <p class="producto-precio precio-ofert-zapato">$ {{money_format(d['promotion_price'])}}</p>
+          {% else %}
+            <p class="producto-precio precio-ofert-zapato">$ {{money_format(d['sell_price'])}}</p>  
+          {% end %}
         </div>
 
         <div class="sobre-producto">

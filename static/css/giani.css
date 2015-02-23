@@ -47,6 +47,10 @@
    
 }
 
+.price.tachado{
+    text-decoration: line-through;
+}
+
 @media(max-width: 479px) {
 .slider {
 	display: none;
