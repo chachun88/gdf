@@ -74,25 +74,20 @@ elif enviroment == Enviroment.ONDEV:
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.loadingplay.com/"
 
-    # define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
-    # define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
-
 elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
     url_bodega = "http://bgiani.loadingplay.com"
     url_local = "http://giani.ondev.today"
     url_cgi = "http://cgiani.ondev.today"
 
-    facebook_api_key = "839753546059058"
-    facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
+    facebook_api_key = "940357995998612"
+    facebook_secret = "cf2e025731e33f686bc8c37493c7ee74"
 
-    email_giani = "info@gianidafirenze.com"
+    email_giani = "contacto@gianidafirenze.cl"
 
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.loadingplay.com/"
 
-    # define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
-    # define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
 
 elif enviroment == Enviroment.PRODUCTION:
     port = PORT
@@ -107,9 +102,6 @@ elif enviroment == Enviroment.PRODUCTION:
 
     project_path = "/var/www/gianidafirenze.cl/giani/"
     cgi_path = "/var/www/c.gianidafirenze.cl/cgiani.ondev/"
-
-    # define("facebook_api_key", help="your Facebook application API key", default="839753546059058")
-    # define("facebook_secret", help="your Facebook application secret", default="26bbd6af2dad046a3dd17b14ab81da67")
 
 
 define("facebook_api_key", help="your Facebook application API key", default=facebook_api_key)
