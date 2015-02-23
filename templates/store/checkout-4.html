@@ -60,8 +60,8 @@ Giani Da Firenze - Carro de Compra
                               <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
                               <input type="hidden" name="TBK_MONTO" value="{{suma+costo_despacho}}00" />
                               <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}" />
-                              <input type="hidden" name="TBK_URL_EXITO" value="http://giani.ondev.today/store/success" />
-                              <input type="hidden" name="TBK_URL_FRACASO" value="http://giani.ondev.today/store/failure" />
+                              <input type="hidden" name="TBK_URL_EXITO" value="{{ url_local }}/store/success" />
+                              <input type="hidden" name="TBK_URL_FRACASO" value="{{ url_local }}/store/failure" />
                               <input type="hidden" name="shipping_price" value="{{costo_despacho}}" />
                               <!-- <input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" /> -->
                           

@@ -4,40 +4,36 @@
 import os.path
 import os
 
-import tornado.auth
-import tornado.httpserver
-import tornado.ioloop
-import tornado.options
-import tornado.web
-from tornado.options import define, options
 from basehandler import BaseHandler
 
 from model.kardex import Kardex
 from datetime import datetime
 import urlparse
-from bson import json_util
 
-from globals import email_giani, cellar_id, url_local, shipping_cellar
+from globals import email_giani, \
+                    cellar_id, \
+                    url_local, \
+                    shipping_cellar, \
+                    project_path, \
+                    cgi_path
 
 import sendgrid
 
 from model.cart import Cart
 from model.order import Order
 from model.order_detail import OrderDetail
-from model.kardex import Kardex
 from model.product import Product
 from model.contact import Contact
 from model.webpay import Webpay
 from model.cellar import Cellar
 
+
 class ContactHandler(BaseHandler):
 
     def get(self):
-
         self.render("auth/contacto.html")
 
     def post(self):
-
         name = self.get_argument("name","").encode("utf-8")
         email = self.get_argument("email","").encode("utf-8")
         subject = self.get_argument("subject","").encode("utf-8")
@@ -58,9 +54,16 @@ class ContactHandler(BaseHandler):
             status, msg = sg.send(mensaje)
 
             if status == 200:
-                self.render("message.html",message="Gracias por contactarte con nosotros, su mensaje ha sido enviado exitosamente")
+                self.render(
+                    "message.html",
+                    message="Gracias por contactarte con nosotros, su mensaje \
+                            ha sido enviado exitosamente")
             else:
-                self.render("beauty_error.html",message="Ha ocurrido un error al enviar su mensaje, {}".format(msg))
+                self.render(
+                    "beauty_error.html",
+                    message="Ha ocurrido un error al enviar su mensaje, {}"
+                    .format(msg))
+
 
 class KardexTestHandler(BaseHandler):
 
@@ -80,10 +83,10 @@ class KardexTestHandler(BaseHandler):
 
 
 class TosHandler(BaseHandler):
-    
 
     def get(self):
         self.render( "tos.html" )
+
 
 class PagoHandler(BaseHandler):
 
@@ -104,7 +107,7 @@ class PagoHandler(BaseHandler):
         user_id = self.current_user["id"]
 
         order = Order()
-        
+
         cart = Cart()
         cart.user_id = user_id
 
@@ -134,7 +137,6 @@ class PagoHandler(BaseHandler):
                 tipo_pago = l["payment_type"]
                 total += l["subtotal"]
 
-
             order.date = datetime.now()
             order.type = 1
             order.subtotal = subtotal
@@ -162,35 +164,37 @@ class PagoHandler(BaseHandler):
                     detail.subtotal = l["subtotal"]
                     detail.product_id = l["product_id"]
                     detail.size = l["size"]
-                    res_obj = detail.Save()
 
+                    detail.Save()
+
+                    # res_obj = detail.Save()
                     # if "error" in res_obj:
                     #     print "{}".format(res_obj["error"])
 
         if os.name != "nt":
-            myPath = "/var/www/giani.ondev/webpay/dato{}.log".format(TBK_ID_SESION)
+            myPath = "{}webpay/dato{}.log" \
+                    .format(project_path, TBK_ID_SESION)
         else:
-            myPath = "C:\Users\YiChun\Documents\giani\webpay\dato{}.log".format(TBK_ID_SESION)
+            myPath = "C:\Users\YiChun\Documents\giani\webpay\dato{}.log" \
+                    .format(TBK_ID_SESION)
 
-        f = open(myPath, "w+");
+        f = open(myPath, "w+")
         linea = "{};{}".format(TBK_MONTO,order.id)
-        f.write(linea);
-        f.close();
+        f.write(linea)
+        f.close()
 
         data = {
-        "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
-        "TBK_MONTO":TBK_MONTO,
-        "TBK_ORDEN_COMPRA":order.id,
-        "TBK_ID_SESION":TBK_ID_SESION,
-        "TBK_URL_EXITO":TBK_URL_EXITO,
-        "TBK_URL_FRACASO":TBK_URL_FRACASO
+            "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
+            "TBK_MONTO":TBK_MONTO,
+            "TBK_ORDEN_COMPRA":order.id,
+            "TBK_ID_SESION":TBK_ID_SESION,
+            "TBK_URL_EXITO":TBK_URL_EXITO,
+            "TBK_URL_FRACASO":TBK_URL_FRACASO
         }
-
 
         # self.write(json_util.dumps(data))
         self.render("transbank.html",data=data)
 
-        
 
 class XtCompraHandler(BaseHandler):
 
@@ -198,27 +202,26 @@ class XtCompraHandler(BaseHandler):
         self.write("RECHAZADO")
 
     def post(self):
+        TBK_RESPUESTA = self.get_argument("TBK_RESPUESTA")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA")
+        TBK_MONTO = self.get_argument("TBK_MONTO")
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION")
 
+        myPath = "{}webpay/dato{}.log".format(project_path,TBK_ID_SESION)
 
-        TBK_RESPUESTA=self.get_argument("TBK_RESPUESTA")
-        TBK_ORDEN_COMPRA=self.get_argument("TBK_ORDEN_COMPRA")
-        TBK_MONTO=self.get_argument("TBK_MONTO")
-        TBK_ID_SESION=self.get_argument("TBK_ID_SESION")
+        filename_txt = "{}webpay/MAC01Normal{}.txt".format(
+                project_path, 
+                TBK_ID_SESION)
 
-        myPath = "/var/www/giani.ondev/webpay/dato{}.log".format(TBK_ID_SESION)
+        cmdline = "{}cgi-bin/tbk_check_mac.cgi {}".format(cgi_path,filename_txt)
 
-        filename_txt = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
-
-        cmdline = "/var/www/cgiani.ondev/cgi-bin/tbk_check_mac.cgi {}".format(filename_txt)
-
-
-        acepta=False;
+        acepta = False
 
         if TBK_RESPUESTA == "0":
             acepta = True
 
         try:
-            f=open(myPath,"r")
+            f = open(myPath,"r")
 
             linea = ""
 
@@ -228,15 +231,15 @@ class XtCompraHandler(BaseHandler):
 
             f.close()
 
-            detalle=linea.split(";")
+            detalle = linea.split(";")
 
             # print "linea:{}".format(linea)
 
-            if len(detalle)>0:
+            if len(detalle) > 0:
                 monto = detalle[0]
                 ordenCompra = detalle[1]
 
-            f=open(filename_txt,"wt")
+            f = open(filename_txt,"wt")
 
             f.write("{}={}&".format("TBK_ORDEN_COMPRA",self.get_argument("TBK_ORDEN_COMPRA")))
             f.write("{}={}&".format("TBK_TIPO_TRANSACCION",self.get_argument("TBK_TIPO_TRANSACCION")))
@@ -256,12 +259,14 @@ class XtCompraHandler(BaseHandler):
 
             f.close()
 
-            if TBK_MONTO == monto and TBK_ORDEN_COMPRA == ordenCompra and acepta == True:
+            if (TBK_MONTO == monto and 
+                    TBK_ORDEN_COMPRA == ordenCompra and 
+                    acepta):
                 acepta = True
             else:
                 acepta = False
 
-        except Exception,e:
+        except:
             self.write("RECHAZADO")
             return
 
@@ -270,19 +275,16 @@ class XtCompraHandler(BaseHandler):
             resultado = os.popen(cmdline).read()
 
             # print "RESULTADO:-----{}----".format(resultado.strip())
-            
             if resultado.strip() == "CORRECTO":
                 acepta = True
             else:
                 acepta = False
-
 
         if acepta:
 
             order = Order()
             init_by_id = order.InitById(TBK_ORDEN_COMPRA)
 
-            
             if "success" in init_by_id:
                 # rechaza si orden no esta pendiente
                 if order.state != 1:
@@ -294,7 +296,7 @@ class XtCompraHandler(BaseHandler):
                     # rechaza si no puede actualizar la orden
                     if "error" in save_order:
                         acepta = False
-                        
+
                     webpay = Webpay()
                     webpay.order_id = order.id
                     webpay.tbk_orden_compra = self.get_argument("TBK_ORDEN_COMPRA")
@@ -313,7 +315,6 @@ class XtCompraHandler(BaseHandler):
 
                     if "error" in res:
                         print res["error"]
-            
 
         if acepta or TBK_RESPUESTA != "0":
             # print "si acepto"
@@ -321,6 +322,7 @@ class XtCompraHandler(BaseHandler):
         else:
             # print "no acepto"
             self.write("RECHAZADO")
+
 
 class ExitoHandler(BaseHandler):
 
@@ -337,8 +339,6 @@ class ExitoHandler(BaseHandler):
 
     #     order = Order()
     #     pedido = order.GetOrderById(TBK_ORDEN_COMPRA)
-
-
 
     #     myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
     #     pathSubmit = "http://giani.ondev.today"
@@ -364,7 +364,6 @@ class ExitoHandler(BaseHandler):
     #     TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
     #     TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
     #     TBK_MAC = dict_parametros["TBK_MAC"][0]
-        
     #     TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0] # ej: 1006
 
     #     # aqui se repite la misma operacion para obtener mes y dia
@@ -405,21 +404,17 @@ class ExitoHandler(BaseHandler):
     #     "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
     #     "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
     #     }
-        
-        
 
     #     self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista)
 
-
     # TBK_ID_SESION:20141015235139
     # TBK_ORDEN_COMPRA:133
-
 
     def post(self):
 
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
-        pathSubmit = "http://giani.ondev.today"
+        pathSubmit = url_local
 
         # referer = self.request.headers.get('Referer').replace(self.request.headers.get('Origin'),"")
 
@@ -432,16 +427,26 @@ class ExitoHandler(BaseHandler):
         if "success" in init_by_id:
             # print str(order.state)
             if int(order.state) == 1:
-                self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
+                self.render(
+                    "store/failure.html",
+                    TBK_ID_SESION=TBK_ID_SESION,
+                    TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+                    PATHSUBMIT=pathSubmit)
         else:
             print init_by_id["error"] + "wertyui"
-            self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
+            self.render(
+                "store/failure.html",
+                TBK_ID_SESION=TBK_ID_SESION,
+                TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+                PATHSUBMIT=pathSubmit)
 
-        
         if os.name != "nt":
-            myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
+            myPath = "{}webpay/MAC01Normal{}.txt".format(
+                                                    project_path, 
+                                                    TBK_ID_SESION)
         else:
-            myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt".format(TBK_ID_SESION)
+            myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt"\
+                .format(TBK_ID_SESION)
 
         try:
 
@@ -457,7 +462,6 @@ class ExitoHandler(BaseHandler):
             # json_util.dumps(urlparse.parse_qs(linea))
 
             dict_parametros = urlparse.parse_qs(linea)
-            
 
             TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
             TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
@@ -470,15 +474,19 @@ class ExitoHandler(BaseHandler):
             TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
             TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
             TBK_MAC = dict_parametros["TBK_MAC"][0]
-            
-            TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0] # ej: 1006
+
+            # ej: 1006
+            TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0]
 
             # aqui se repite la misma operacion para obtener mes y dia
 
             mes_transaccion = TBK_FECHA_TRANSACCION[:2]
             dia_transaccion = TBK_FECHA_TRANSACCION[2:]
 
-            TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(year=order.date.year,mes=mes_transaccion,dia=dia_transaccion)
+            TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(
+                                                year=order.date.year,
+                                                mes=mes_transaccion,
+                                                dia=dia_transaccion)
 
             TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
 
@@ -486,7 +494,10 @@ class ExitoHandler(BaseHandler):
             minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
             segundo_transaccion = TBK_HORA_TRANSACCION[4:]
 
-            TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
+            TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(
+                                                hora=hora_transaccion,
+                                                minutos=minutos_transaccion,
+                                                segundos=segundo_transaccion)
 
             TBK_TIPO_CUOTA = TBK_TIPO_PAGO
 
@@ -496,20 +507,20 @@ class ExitoHandler(BaseHandler):
                 TBK_TIPO_PAGO = "Cr&eacute;dito"
 
             data = {
-            "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
-            "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
-            "TBK_RESPUESTA":TBK_RESPUESTA,
-            "TBK_MONTO":int(TBK_MONTO),
-            "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
-            "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
-            "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-            "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
-            "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
-            "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
-            "TBK_MAC":TBK_MAC,
-            "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
-            "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-            "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
+                "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
+                "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
+                "TBK_RESPUESTA":TBK_RESPUESTA,
+                "TBK_MONTO":int(TBK_MONTO),
+                "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
+                "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
+                "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+                "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
+                "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
+                "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
+                "TBK_MAC":TBK_MAC,
+                "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
+                "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+                "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
             }
 
             id_bodega = cellar_id
@@ -518,7 +529,7 @@ class ExitoHandler(BaseHandler):
 
             if "success" in res_cellar:
                 id_bodega = res_cellar["success"]
-            
+
             detail = OrderDetail()
 
             lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
@@ -545,7 +556,6 @@ class ExitoHandler(BaseHandler):
                         kardex.user = self.current_user["email"]
                         kardex.units = l["quantity"]
 
-
                         kardex.Insert()
 
                         kardex.cellar_identifier = shipping_cellar
@@ -555,8 +565,6 @@ class ExitoHandler(BaseHandler):
 
                     # if "error" in res_obj:
                     #     print "{}".format(res_obj["error"])
-
-                    
 
                     detalle_orden += """\
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -580,7 +588,6 @@ class ExitoHandler(BaseHandler):
                     facturacion = facturacion_response["success"]
                 else:
                     self.render("beauty_error.html",message="Error al obtener datos de facturación, {}".format(facturacion_response["error"]))
-
 
                 despacho_response = contact.InitById(order.shipping_id)
 
@@ -651,7 +658,7 @@ class ExitoHandler(BaseHandler):
                 <meta name="viewport" content="initial-scale=1.0"> 
                 <meta name="format-detection" content="telephone=no">
                 <link href="http://fonts.googleapis.com/css?family=Roboto:300,100,400" rel="stylesheet" type="text/css">
-                
+
                 <body style="font-size:12px; font-family:Roboto,Open Sans,Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; background-color:#ffffff; ">
 
                   <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ffffff;">  
@@ -977,7 +984,6 @@ class ExitoHandler(BaseHandler):
                                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Precio</th>
                                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
                                           </tr>
-                                            
                                             {detalle_orden}
 
                                         </tbody></table>
@@ -1051,7 +1057,7 @@ class ExitoHandler(BaseHandler):
                                           <td align="center" valign="top">
                                            <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                          </td>
-                                         
+
                                        </tr>
 
                                        <!-- start space -->
@@ -1082,10 +1088,9 @@ class ExitoHandler(BaseHandler):
 
                       </td>
                     </tr>
-                    
 
                     <!-- END CONTAINER  -->
-                    
+
                   </tbody></table>
                 </td>
                 </tr>
@@ -1134,15 +1139,30 @@ class ExitoHandler(BaseHandler):
 
                 </table>
                 </body></html>
-                """.format(name=self.current_user["name"].encode("utf-8"),order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=self.money_format(order.total+order.shipping),order_subtotal=self.money_format(order.subtotal),order_tax=self.money_format(order.tax),url_local=url_local,costo_despacho=self.money_format(order.shipping))
+                """.format(
+                    name=self.current_user["name"].encode("utf-8"),
+                    order_id=order.id,
+                    datos_facturacion=datos_facturacion,
+                    datos_despacho=datos_despacho,
+                    detalle_orden=detalle_orden,
+                    order_total=self.money_format(order.total+order.shipping),
+                    order_subtotal=self.money_format(order.subtotal),
+                    order_tax=self.money_format(order.tax),
+                    url_local=url_local,
+                    costo_despacho=self.money_format(order.shipping))
 
                 # email_confirmacion = "yichun212@gmail.com"
 
                 sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
                 message = sendgrid.Mail()
-                message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail=email_giani))
+                message.set_from("{nombre} <{mail}>".format(
+                    nombre="Giani Da Firenze",
+                    mail=email_giani))
                 message.add_to(self.current_user["email"])
-                message.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
+
+                message.set_subject("Giani Da Firenze - Compra Nº {}"
+                                    .format(order.id))
+
                 message.set_html(html)
                 status, msg = sg.send(message)
 
@@ -1152,7 +1172,7 @@ class ExitoHandler(BaseHandler):
                 <meta name="viewport" content="initial-scale=1.0"> 
                 <meta name="format-detection" content="telephone=no">
                 <link href="http://fonts.googleapis.com/css?family=Roboto:300,100,400" rel="stylesheet" type="text/css">
-                
+
                 <body style="font-size:12px; font-family:Roboto,Open Sans,Roboto,Open Sans, Arial,Tahoma, Helvetica, sans-serif; background-color:#ffffff; ">
 
                   <table width="100%" id="mainStructure" border="0" cellspacing="0" cellpadding="0" style="background-color:#ffffff;">  
@@ -1478,7 +1498,7 @@ class ExitoHandler(BaseHandler):
                                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Precio</th>
                                             <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
                                           </tr>
-                                            
+
                                             {detalle_orden}
 
                                             </tbody></table>
@@ -1509,11 +1529,6 @@ class ExitoHandler(BaseHandler):
                 </tr>
 
                 <!-- END LAYOUT-1/2 --> 
-
-
-
-
-
 
 
                 <!--START FOOTER LAYOUT-->
@@ -1552,7 +1567,7 @@ class ExitoHandler(BaseHandler):
                                           <td align="center" valign="top">
                                            <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                          </td>
-                                         
+
                                        </tr>
 
                                        <!-- start space -->
@@ -1583,10 +1598,9 @@ class ExitoHandler(BaseHandler):
 
                       </td>
                     </tr>
-                    
 
                     <!-- END CONTAINER  -->
-                    
+
                   </tbody></table>
                 </td>
                 </tr>
@@ -1635,12 +1649,26 @@ class ExitoHandler(BaseHandler):
 
                 </table>
                 </body></html>
-                """.format(name=self.current_user["name"].encode("utf-8"),order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=self.money_format(order.total+order.shipping),order_subtotal=self.money_format(order.subtotal),order_tax=self.money_format(order.tax),url_local=url_local,costo_despacho=self.money_format(order.shipping))
+                """.format(
+                    name=self.current_user["name"].encode("utf-8"),
+                    order_id=order.id,
+                    datos_facturacion=datos_facturacion,
+                    datos_despacho=datos_despacho,
+                    detalle_orden=detalle_orden,
+                    order_total=self.money_format(order.total+order.shipping),
+                    order_subtotal=self.money_format(order.subtotal),
+                    order_tax=self.money_format(order.tax),
+                    url_local=url_local,
+                    costo_despacho=self.money_format(order.shipping))
 
                 mensaje = sendgrid.Mail()
-                mensaje.set_from("{nombre} <{mail}>".format(nombre=self.current_user["name"],mail=self.current_user["email"]))
+                mensaje.set_from("{nombre} <{mail}>"
+                                 .format(
+                                    nombre=self.current_user["name"],
+                                    mail=self.current_user["email"]))
                 mensaje.add_to(email_giani)
-                mensaje.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
+                mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
+                                    .format(order.id))
                 mensaje.set_html(html)
                 estado, msj = sg.send(mensaje)
 
@@ -1648,33 +1676,49 @@ class ExitoHandler(BaseHandler):
                     print msj
 
                 if status == 200:
-                    self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista,order=order)
+                    self.render("store/success.html",
+                                data=data,
+                                pathSubmit=pathSubmit,
+                                webpay="si",
+                                detalle=lista,
+                                order=order)
                 else:
-                    self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
+                    self.render(
+                        "beauty_error.html",
+                        message="Error al enviar correo de confirmación, {}"
+                                .format(msg))
 
             else:
 
-                self.render("beauty_error.html",message="Carro se encuentra vacío")
+                self.render("beauty_error.html",
+                            message="Carro se encuentra vacío")
 
         except Exception,e:
             print str(e) + "wertyukjnbgdfgh"
-            self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)        
+            self.render("store/failure.html",
+                        TBK_ID_SESION=TBK_ID_SESION,
+                        TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+                        PATHSUBMIT=pathSubmit)
 
+        # self.render("store/success.html",
+        #               data=data,
+        #               pathSubmit=pathSubmit, 
+        #               webpay="si")
 
-        
-
-
-        # self.render("store/success.html",data=data,pathSubmit=pathSubmit, webpay="si")
 
 class FracasoHandler(BaseHandler):
 
     def post(self):
 
-        PATHSUBMIT = "http://giani.ondev.today"
+        PATHSUBMIT = url_local
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
 
-        self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=PATHSUBMIT)
+        self.render(
+            "store/failure.html",
+            TBK_ID_SESION=TBK_ID_SESION,
+            TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+            PATHSUBMIT=PATHSUBMIT)
 
     # def get(self):
 
@@ -1682,15 +1726,17 @@ class FracasoHandler(BaseHandler):
     #     TBK_ID_SESION = self.get_argument("TBK_ID_SESION","201410141634")
     #     TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","120")
 
-    #     self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=PATHSUBMIT)
+    #     self.render("store/failure.html",
+    #                 TBK_ID_SESION=TBK_ID_SESION,
+    #                 TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+    #                 PATHSUBMIT=PATHSUBMIT)
+
 
 class WSCorreosChileHandler(BaseHandler):
 
     def get(self):
 
         from suds.client import Client
-
-        #client = Client(url='http://www.webservicex.com/globalweather.asmx?WSDL')
 
         client = Client(url='http://b2b.correos.cl:8008/ServicioTarificadorPersonasExterno/cch/ws/tarificacion/externo/implementacion/ServicioExternoTarificadorPersonas.asmx?WSDL')
 
@@ -1706,28 +1752,32 @@ class WSCorreosChileHandler(BaseHandler):
 
         self.write(response)
 
+
 class AboutusHandler(BaseHandler):
 
     def get(self):
         self.render( "aboutus.html" )
+
 
 class HistoryHandler(BaseHandler):
 
     def get(self):
         self.render( "history.html" )
 
+
 class ConditionsHandler(BaseHandler):
 
     def get(self):
         self.render( "conditions.html" )
+
 
 class FaqHandler(BaseHandler):
 
     def get(self):
         self.render( "faq.html" )
 
+
 class UserHandler(BaseHandler):
 
     def get(self):
         self.render( "user.html" )
-

@@ -399,7 +399,7 @@ class Kardex(BaseModel):
 
 			if "success" in res_kardex:
 
-				print "quantity: {} units: {}\n".format(quantity, self.balance_units)
+				# print "quantity: {} units: {}\n".format(quantity, self.balance_units)
 
 				if self.balance_units < quantity:
 
@@ -418,6 +418,8 @@ class Kardex(BaseModel):
 
 				errors.append({"sku": product_sku, "error": res_kardex["error"]})
 
+		print errors
+		
 		if len(errors) > 0:
 			return self.ShowError(errors)
 		else:
