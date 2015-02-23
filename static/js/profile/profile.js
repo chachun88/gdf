@@ -38,6 +38,7 @@ $(document).ready(function(){
         var zipcode = $(this).parent().parent().attr("zipcode");
         var telephone = $(this).parent().parent().attr("telephone");
         
+        $(".formulario-contacto #id-contacto").val(id);
         $(".formulario-contacto #name").val(name);
         $(".formulario-contacto #address").val(address);
         $(".formulario-contacto #town").val(town);
