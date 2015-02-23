@@ -120,7 +120,12 @@ Giani Da Firenze - {{data.name}}
             {% end %}
           </div>
         </div>
-        <p class="producto-precio">$ {{money_format(data.sell_price)}}</p>
+        {% if data.promotion_price > 0 %}
+          <span class="producto-precio tachado">$ {{money_format(data.sell_price)}}</span>
+          <span class="producto-precio">$ {{money_format(data.promotion_price)}}</span>
+        {% else %}
+          <span class="producto-precio">$ {{money_format(data.sell_price)}}</span>
+        {% end %}
       </div>
       {% if len(data.size) > 0 %}
       <button class="_button add-to-cart" product-id="{{data.id}}">
