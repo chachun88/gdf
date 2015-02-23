@@ -10,7 +10,7 @@
             <div class="campo">
                 <p>{{current_user["name"]}}</p>
             </div>
-            <button class="btn_left btn-cambiar-contrasena">Cambiar contraseña
+            <button class="btn-left btn-cambiar-contrasena">Cambiar contraseña
             </button>
         </div>
         <div class="margen formulario-contrasena">
@@ -27,16 +27,16 @@
     <table style="width:100%">
         <tr>
             <th>Nombre dirección</th>
-            <th>direccion</th>
+            <th>Direccion</th>
             <th>Comuna</th>
             <th>Ciudad</th>
-            <th>codigo postal</th>
-            <th>telefono</th>
+            <th>Codigo Postal</th>
+            <th>Telefono</th>
             <th></th>
             <th></th>
         </tr>
         {% for c in contactos %}
-        <tr id-contacto="{{c["id"]}}">
+        <tr class="contactos" id-contacto="{{c["id"]}}" name="{{c["name"]}}" address="{{c["address"]}}" town="{{c["town"]}}" city="{{c["city"]}}" zipcode="{{c["zip_code"]}}" telephone="{{c["telephone"]}}">
             <td>{{c["name"]}}</td>
             <td>{{c["address"]}}</td>
             <td>{{c["town"]}}</td>
@@ -47,24 +47,22 @@
             <td><button>Eliminar</button></td>
         </tr>
         {% end %}
+        <tr class="formulario-contacto">
+            <form class="editar-contacto">
+                <td><input required type="text" id="name" name="name" placeholder="Nombre">
+                </td>
+                <td><input required type="text" id="address" name="address" placeholder="Direccion"></td>
+                <td><input required type="text" id="town" name="town" placeholder="Comuna"></td>
+                <td><input required type="text" id="city" name="city" placeholder="Ciudad"></td>
+                <td><input required type="text" id="zip-code" name="zip_code" placeholder="Codigo Postal"></td>
+                <td><input required type="text" id="telephone" name="telephone" placeholder="Telefono"></td>
+                <td><button class="btn-guardar-contacto">Guardar</button></td>
+                <td><button class="btn-cancelar-editar-contacto">Cancelar</button></td>
+            </form>
+        </tr>
     </table>
     <div class="user-direcciones">
-        <button class="btn_left btn-agregar-direccion">AGREGAR DIRECCIONES</button>
-    </div>
-    <div class="user-direcciones formulario-direccion">
-        <div>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="nombre dirección" value>
-        </div>
-
-        <div>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Direccion" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Comuna" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Ciudad" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Codigo postal" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Telefono" value>
-            <button>Eliminar</button>
-            <button>Guardar</button>
-        </div>
+        <button class="btn-left btn-agregar-direccion">AGREGAR DIRECCIONES</button>
     </div>
 </div>
 {% end %}
@@ -72,48 +70,3 @@
 {% block javascript %}
 <script src="/static/js/profile/profile.js"></script>
 {% end %}
-
-<!--     <div class="datos-compra">
-        <h1 >Datos de compra</h1>
-        <div class="margen">
-            <div class="campo">
-                <strong>Nombre</strong>
-                <p>Julian</p>
-            </div>
-            <div class="campo">
-                <strong>Apellido</strong>
-                <p>larrea</p>
-            </div>
-            <div class="campo">
-                <strong>Correo</strong>
-                <p>julian@gmail.com</p>
-            </div>
-            <div class="campo">
-                <strong>Rut</strong>
-                <p>16.323.861-6</p>
-            </div>
-            <button>Editar</button>
-        </div>
-        <div>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Nombre" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Apellido" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Correo" value>
-            <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="rut" value>
-            <button>Eliminar</button>
-            <button>Guardar</button>
-        </div>
-    </div>
-    <div class="user-direcciones">
-        <div>
-            <p>Nombre dirección</p>
-        </div>
-        <div>
-            <p>direccion</p>
-            <p>Comuna</p>
-            <p>Ciudad</p>
-            <p>codigo postal</p>
-            <p>telefono</p>
-            <button>Eliminar</button>
-            <button>Editar</button>
-        </div>
-    </div> -->
