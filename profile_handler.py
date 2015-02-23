@@ -7,6 +7,7 @@ import tornado
 from basehandler import BaseHandler
 from model.user import User
 from model.contact import Contact
+from model.city import City
 from bson import json_util
 
 
@@ -70,6 +71,12 @@ class EditContactHandler(BaseHandler):
         city = self.get_argument("city","")
         zip_code = self.get_argument("zip_code","")
         telephone = self.get_argument("telephone","")
+
+        ciudad = City()
+        respuesta = ciudad.getIdByName(city)
+
+        if "success" in respuesta:
+            city_id = respuesta["success"]
 
         print "name: ", name, "\n"
         print "address: ", address, "\n"
