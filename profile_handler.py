@@ -59,3 +59,21 @@ class ChangePassHandler(BaseHandler):
                     self.write("claves ingresado no coinciden")
             else:
                 self.write("clave incorrecta")
+
+
+class EditContactHandler(BaseHandler):
+
+    def post(self):
+        name = self.get_argument("name","")
+        address = self.get_argument("address","")
+        town = self.get_argument("town","")
+        city = self.get_argument("city","")
+        zip_code = self.get_argument("zip_code","")
+        telephone = self.get_argument("telephone","")
+
+        print "name: ", name, "\n"
+        print "address: ", address, "\n"
+        print "town: ", town, "\n"
+        print "city: ", city, "\n"
+        print "zip_code: ", zip_code, "\n"
+        print "telephone: ", telephone, "\n"
