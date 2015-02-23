@@ -15,9 +15,9 @@
         </div>
         <div class="margen formulario-contrasena">
             <form class="cambiar-contrasena">
-                <input required type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Contraseña Actual">
-                <input required type="password" class="form-control" id="newpass" name="newpass" placeholder="Contraseña Nueva">
-                <input required type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Confirmar Nueva Contraseña">
+                <input type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Contraseña Actual">
+                <input type="password" class="form-control" id="newpass" name="newpass" placeholder="Contraseña Nueva">
+                <input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Confirmar Nueva Contraseña">
                 <button class="btn-cancelar-cambio-contrasena">Cancelar</button>
                 <button class="btn-guardar-contrasena">Guardar</button>
             </form>
@@ -36,13 +36,13 @@
             <th></th>
         </tr>
         {% for c in contactos %}
-        <tr class="contactos" id-contacto="{{c["id"]}}" name="{{c["name"]}}" address="{{c["address"]}}" town="{{c["town"]}}" city="{{c["city"]}}" zipcode="{{c["zip_code"]}}" telephone="{{c["telephone"]}}">
-            <td>{{c["name"]}}</td>
-            <td>{{c["address"]}}</td>
-            <td>{{c["town"]}}</td>
-            <td>{{c["city"]}}</td>
-            <td>{{c["zip_code"]}}</td>
-            <td>{{c["telephone"]}}</td>
+        <tr class="contactos" id-contacto="{{c["id"]}}">
+            <td id="name-{{c["id"]}}">{{c["name"]}}</td>
+            <td id="address-{{c["id"]}}">{{c["address"]}}</td>
+            <td id="town-{{c["id"]}}">{{c["town"]}}</td>
+            <td id="city-{{c["id"]}}">{{c["city"]}}</td>
+            <td id="zip-code-{{c["id"]}}">{{c["zip_code"]}}</td>
+            <td id="telephone-{{c["id"]}}">{{c["telephone"]}}</td>
             <td><button class="btn-editar-contacto">Editar</button></td>
             <td><button>Eliminar</button></td>
         </tr>
