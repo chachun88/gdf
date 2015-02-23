@@ -22,7 +22,11 @@ Giani Da Firenze - Home
         <span>¿Cual es tu talla?</span> 
       </li>
       {% for t in tallas %}
-      <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t}}">{{int(float(t))}}</lavel></li>
+        {% if t.isnumeric() %}
+        <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t}}">{{int(float(t))}}</lavel></li>
+        {% else %}
+        <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t}}">{{t}}</lavel></li>
+        {% end %}
       {% end %}
       <!-- tallas -->
       <!-- enlacen categorías -->
