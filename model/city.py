@@ -133,9 +133,9 @@ class City(BaseModel):
     def getIdByName(self, name):
         """
         Funcion que por medio del nombre obtiene id de la ciudad 
-        @param {string} name esta variable corresponde al nombre de la ciudad
-        @return {int} city_id el valor de esta variable corresponde a id de la 
-                ciudad
+        @param {string} name Esta variable corresponde al nombre de la ciudad
+        @return {int} city_id El valor de esta variable corresponde a id de la 
+                              ciudad
         @author : Chien-Hung
         """
 
@@ -147,7 +147,7 @@ class City(BaseModel):
                 "name": name
             }
 
-            cur.execute(query,parameters)
+            cur.execute(query, parameters)
             city_id = cur.fetchone()["id"]
 
             return self.ShowSuccessMessage(city_id);
