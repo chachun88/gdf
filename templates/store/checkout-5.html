@@ -80,7 +80,9 @@ Giani Da Firenze - Carro de Compra
                                   <span class="size">{{d["size"]}}</span>
                                 </div>
                               </td>
-                              <td class="delete"><div class="price ">${{money_format(d["sell_price"])}} </div></td>
+                              <td class="delete"><div class="price precio-ant-zapato">${{money_format(d["sell_price"])}} </div>
+                                                 <div class="price precio-ofert-zapato ">${{money_format(d["sell_price"])}} </div>
+                              </td>
                               <td class="hidden-xs">{{d['quantity']}}</td>
                               <td class="price">
                                 <div class="text-right">${{money_format(d["subtotal"])}}</div>

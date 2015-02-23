@@ -1702,3 +1702,23 @@ body {
 .producto-info img {
     width: 100%;
 }
+
+/* --clases para precios ---*/
+
+.precio-ant-zapato
+{
+    float: left !important;
+    width: 100% !important;
+    clear: none !important;
+    text-decoration: line-through !important;
+    font-size: 18px !important;  
+}
+
+.precio-ofert-zapato 
+{
+    float: left !important;
+    width: 100% !important;
+    clear: none !important;
+    /* padding-left: 10px !important; */
+    color: rgb(240, 77, 77) !important;
+    }

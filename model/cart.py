@@ -246,7 +246,7 @@ class Cart(BaseModel):
         offset = (page-1)*items
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         try:
-            q = '''select tc.id, p.sku, p.name, c.name as category, tc.size,p.color,tc.quantity,tc.subtotal,p.sell_price, p.image, tc.billing_id, tc.shipping_id, 
+            q = '''select tc.id, p.sku, p.name, c.name as category, tc.size,p.color,tc.quantity,tc.subtotal,p.sell_price, p.promotion_price, p.image, tc.billing_id, tc.shipping_id, 
             tc.shipping_type, tc.payment_type, tc.product_id from "Temp_Cart" tc left join "Product" p on tc.product_id = p.id 
             left join "Category" c on c.id = p.category_id where tc.user_id = %(user_id)s limit %(limit)s offset %(offset)s'''
             p = {
@@ -353,7 +353,7 @@ class Cart(BaseModel):
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-            query = '''select tc.quantity, p.sell_price, tc.user_id from "Product" p inner join "Temp_Cart" tc on tc.product_id = p.id where tc.id = %(cart_id)s'''
+            query = '''select tc.quantity, p.sell_price, tc.user_id, p.promotion_price from "Product" p inner join "Temp_Cart" tc on tc.product_id = p.id where tc.id = %(cart_id)s'''
             parameters = {"cart_id":cart_id}
 
             price = 0
@@ -363,7 +363,14 @@ class Cart(BaseModel):
 
             cur.execute(query,parameters)
             res = cur.fetchone()
-            price = res["sell_price"]
+            
+            promotion_price = res["promotion_price"]
+
+            if promotion_price != 0:
+                price = promotion_price
+            else:
+                price = res["sell_price"]
+                
             old_quantity = res["quantity"]
             user_id = res["user_id"]
 
