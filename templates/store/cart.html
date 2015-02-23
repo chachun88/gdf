@@ -44,7 +44,7 @@ Giani Da Firenze - Carro de Compra
                       <span class="size">{{d["size"]}}</span>
                       {% if d["promotion_price"] > 0 %}
                         <div class="price sell_price tachado"> <span>$ {{money_format(d["sell_price"])}}</span></div>
-                        <div class="price sell_price"> <span>$ {{money_format(d["sell_price"])}}</span></div>
+                        <div class="price sell_price"> <span>$ {{money_format(d["promotion_price"])}}</span></div>
                       {% else %}
                         <div class="price sell_price"> <span>$ {{money_format(d["sell_price"])}}</span></div>
                       {% end %}
