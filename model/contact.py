@@ -147,18 +147,18 @@ class Contact(BaseModel):
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         contact = {
-        "name": self.name,
-        "type_id": self.type,
-        "telephone": self.telephone,
-        "email": self.email,
-        "user_id": self.user_id,
-        "address": self.address,
-        "lastname": self.lastname,
-        "city_id": self.city,
-        "zip_code": self.zip_code,
-        "additional_info":self.additional_info,
-        "town":self.town,
-        "rut":self.rut
+            "name": self.name,
+            "type_id": self.type,
+            "telephone": self.telephone,
+            "email": self.email,
+            "user_id": self.user_id,
+            "address": self.address,
+            "lastname": self.lastname,
+            "city_id": self.city,
+            "zip_code": self.zip_code,
+            "additional_info":self.additional_info,
+            "town":self.town,
+            "rut":self.rut
         }
 
         query = '''select id from "Contact" where name = %(name)s and email = %(email)s and address = %(address)s'''
@@ -280,7 +280,7 @@ class Contact(BaseModel):
         query = '''delete from "Contact" where id in %(id)s'''
 
         parametros = {
-        "id":[int(n) for n in ids.split(",")]
+            "id":[int(n) for n in ids.split(",")]
         }
 
         try:
@@ -296,7 +296,7 @@ class Contact(BaseModel):
         query = '''delete from "Contact" where user_id = %(user_id)s'''
 
         parametros = {
-        "user_id":user_id
+            "user_id":user_id
         }
 
         try:
@@ -329,3 +329,29 @@ class Contact(BaseModel):
         self._additional_info = datos["additional_info"]
         self._town = datos["town"]
         self._rut = datos["rut"]
+
+    def RemoveOneContact(self, id):
+        """
+        Funcion que elimina contacto que coincide con el id
+        @param {int} Id del contacto que deseamos eliminar
+        @return {Objeto} Es un objeto que tiene un propiedad llamado success
+                         y en ella se encuentra los datos que se le pasa como
+                         argumento, este se obtiene mediante el metodo
+                         ShowSuccessMessage()
+        @author : Chien-Hung
+        """
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+
+        query = '''delete from "Contact" where id = %(id)s'''
+
+        parametros = {
+            "id": id
+        }
+
+        try:
+            cur.execute(query,parametros)
+            self.connection.commit()
+            return self.ShowSuccessMessage(id)
+        except Exception,e:
+            return self.ShowError("Error deleting contacts {contact_id}, error:{error}".format(contact_id=id,error=str(e)))
