@@ -102,3 +102,19 @@ class EditContactHandler(BaseHandler):
                 self.write("No existe contacto con tal id")
         else:
             self.write("Ciudad ingresada no es correcta")
+
+
+class DeleteContactHandler(BaseHandler):
+
+    def post(self):
+
+        id = self.get_argument("id","")
+
+        contacto = Contact()
+
+        response = contacto.RemoveOneContact(id)
+
+        if "success" in response:
+            self.write("El contacto fue eliminado exitosamente")
+        else:
+            self.write("No fue posible eliminar el contacto")
