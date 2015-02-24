@@ -84,6 +84,15 @@ $(document).ready(function(){
 		$("#user_id").val(window.localStorage.getItem("user_id"));
 	}
 
+	$(document).on("click",".loginfb",function(e){
+
+		e.preventDefault();
+
+		var link = $(this).attr("href");
+
+		location.href = link + "&user_id=" + $("#user_id").val()
+	});
+
 	$(document).on("click",".page-link",function(e){
 
 		e.preventDefault();
