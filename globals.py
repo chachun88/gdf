@@ -92,7 +92,7 @@ elif enviroment == Enviroment.ONTEST:
 elif enviroment == Enviroment.PRODUCTION:
     port = PORT
     url_bodega = "http://bgiani.gianidafirenze.cl"
-    url_local = "http://giani.gianidafirenze.cl"
+    url_local = "http://www.gianidafirenze.cl"
     url_cgi = "http://cgiani.gianidafirenze.cl"
 
     facebook_api_key = "1067063349985852"
