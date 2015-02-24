@@ -19,21 +19,6 @@ $(document).ready(function(){
 	    		container.slideUp();
 	    }
 	});
-
-
-	$(document).on('click', "a.loginfb", function(){
-		if(typeof(Storage) !== "undefined") {
-
-			var url = $(this).attr("href");
-
-			if(url.indexOf("?") != -1){
-				url += "?user_id=" + window.localStorage.getItem("user_id");
-			} else {
-				url += "&user_id=" + window.localStorage.getItem("user_id");
-				
-			}
-		}
-	});
 	
 
 	$("a.logout").click(function(){
@@ -95,7 +80,9 @@ $(document).ready(function(){
 	    }, 1000);
 	}
 
-	
+	if($("#user_id").length>0){
+		$("#user_id").val(window.localStorage.getItem("user_id"));
+	}
 
 	$(document).on("click",".page-link",function(e){
 
