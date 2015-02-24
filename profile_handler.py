@@ -17,16 +17,24 @@ class ProfileHandler(BaseHandler):
     def get(self):
 
         contactos = []
+        cities = []
 
         if self.current_user:
             user_id = self.current_user["id"]
+
             contact = Contact()
-            lista_contacto = contact.ListByUserId(user_id)
+            response_contacto = contact.ListByUserId(user_id)
 
-            if "success" in lista_contacto:
-                contactos = json_util.loads(lista_contacto["success"])
+            if "success" in response_contacto:
+                contactos = json_util.loads(response_contacto["success"])
 
-        self.render("profile/index.html", contactos=contactos)
+            city = City()
+            response_city = city.List()
+
+            if "success" in response_city:
+                cities = response_city["success"]
+
+        self.render("profile/index.html", contactos=contactos, ciudades=cities)
 
 
 class ChangePassHandler(BaseHandler):
@@ -74,34 +82,27 @@ class EditContactHandler(BaseHandler):
         zip_code = self.get_argument("zip_code","")
         telephone = self.get_argument("telephone","")
 
-        ciudad = City()
-        res_city = ciudad.getIdByName(city)
+        contacto = Contact()
+        res_contact = contacto.InitById(id)
 
-        if "success" in res_city:
-            city_id = res_city["success"]
+        if "success" in res_contact:
+            datos = res_contact["success"]
 
-            contacto = Contact()
-            res_contact = contacto.InitById(id)
+            contacto.initialize(datos)
 
-            if "success" in res_contact:
-                datos = res_contact["success"]
+            contacto.name = name
+            contacto.address = address
+            contacto.town = town
+            contacto.city = city
+            contacto.zip_code = zip_code
+            contacto.telephone = telephone
 
-                contacto.initialize(datos)
+            ciudad = City()
+            res_city = ciudad.getNameById(city)
 
-                contacto.name = name
-                contacto.address = address
-                contacto.town = town
-                contacto.city = city_id
-                contacto.zip_code = zip_code
-                contacto.telephone = telephone
-
+            if "success" in res_city:
                 contacto.Edit()
-
-                self.write("El cambio fue exitoso")
-            else:
-                self.write("No existe contacto con tal id")
-        else:
-            self.write("Ciudad ingresada no es correcta")
+                self.write(json_util.dumps(res_city))
 
 
 class DeleteContactHandler(BaseHandler):

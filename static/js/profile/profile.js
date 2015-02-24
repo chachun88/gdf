@@ -68,7 +68,7 @@ $(document).ready(function(){
         var name = $("#name-" + id).html();
         var address = $("#address-" + id).html();
         var town = $("#town-" + id).html();
-        var city = $("#city-" + id).html();
+        var city = $("#city-" + id).attr("id-ciudad");
         var zipcode = $("#zip-code-" + id).html();
         var telephone = $("#telephone-" + id).html();
 
@@ -104,6 +104,8 @@ $(document).ready(function(){
         var zipcode = $(".formulario-contacto #zip-code").val();
         var telephone = $(".formulario-contacto #telephone").val();
 
+        var ciudad = document.getElementById("city-" + id);
+
         var data = $("form.editar-contacto").serialize();
 
         $.ajax({
@@ -113,22 +115,29 @@ $(document).ready(function(){
             async: false,
             success: function(html)
             {
-                if(html == "El cambio fue exitoso")
+                var obj = jQuery.parseJSON( html );
+
+                if(obj.success)
                 {
                     $("#name-" + id).html(name);
                     $("#address-" + id).html(address);
                     $("#town-" + id).html(town);
-                    $("#city-" + id).html(city);
+                    $("#city-" + id).html(obj.success.name);
                     $("#zip-code-" + id).html(zipcode);
                     $("#telephone-" + id).html(telephone);
-                    
+
+                    ciudad.setAttribute("id-ciudad", city);
                     limpiarFormulario();
 
                     $(".formulario-contacto").hide();
                     $(".contactos").show();
-                }
 
-                fancyAlert(html);
+                    fancyAlert("El cambio fue exitoso");
+                }
+                else
+                {
+                    fancyAlert("No es posible realizar el cambio");
+                }
             }
         });
     });

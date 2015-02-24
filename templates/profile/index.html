@@ -38,7 +38,7 @@
             <td id="name-{{c["id"]}}">{{c["name"]}}</td>
             <td id="address-{{c["id"]}}">{{c["address"]}}</td>
             <td id="town-{{c["id"]}}">{{c["town"]}}</td>
-            <td id="city-{{c["id"]}}">{{c["city"]}}</td>
+            <td id="city-{{c["id"]}}" id-ciudad="{{c["city_id"]}}">{{c["city"]}}</td>
             <td id="zip-code-{{c["id"]}}">{{c["zip_code"]}}</td>
             <td id="telephone-{{c["id"]}}">{{c["telephone"]}}</td>
             <td><button class="btn-editar-contacto">Editar</button></td>
@@ -52,7 +52,14 @@
                 </td>
                 <td><input required type="text" id="address" name="address" placeholder="Direccion"></td>
                 <td><input required type="text" id="town" name="town" placeholder="Comuna"></td>
-                <td><input required type="text" id="city" name="city" placeholder="Ciudad"></td>
+                <td>
+                    <select required id="city" name="city">
+                        <option value="">Seleccione</option>
+                        {% for c in ciudades %}
+                        <option value="{{c["id"]}}">{{c["name"]}}</option>
+                        {% end %}
+                    </select>
+                </td>
                 <td><input required type="text" id="zip-code" name="zip_code" placeholder="Codigo Postal"></td>
                 <td><input required type="text" id="telephone" name="telephone" placeholder="Telefono"></td>
                 <td><button class="btn-guardar-contacto">Guardar</button></td>
