@@ -10,18 +10,13 @@ import tornado.web
 import psycopg2
 import psycopg2.extras
 
-from globals import debugMode
-
 from basehandler import BaseHandler
 
 class BaseModel(object):
 
     def __init__(self):
 
-        if debugMode:
-            self._connection = psycopg2.connect("host='ondev.today' dbname='giani' user='yichun' password='chachun88'")
-        else:
-            self._connection = psycopg2.connect("host='localhost' dbname='giani' user='yichun' password='chachun88'")
+        self._connection = psycopg2.connect("host='localhost' dbname='giani' user='yichun' password='chachun88'")
 
         self._table = ""
         self._id = ""
@@ -44,10 +39,7 @@ class BaseModel(object):
     def connection(self):
         
         if self._connection.closed != 0:
-            if debugMode:
-                self._connection = psycopg2.connect("host='localhost' dbname='giani' user='yichun' password='chachun88'")
-            else:
-                self._connection = psycopg2.connect("host='localhost' dbname='giani' user='yichun' password='chachun88'")
+            self._connection = psycopg2.connect("host='localhost' dbname='giani' user='yichun' password='chachun88'")
 
         return self._connection
     
