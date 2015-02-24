@@ -1,10 +1,14 @@
-$(document).ready(function(){
-
+$(document).ready(function()
+{
     // Funcion que limpia todos los formulario 
-    var limpiarFormulario = function(){
+    var limpiarFormulario = function()
+    {
+        // Los campos de formulario contrasena
         $("#oldpass").val("");
         $("#newpass").val("");
         $("#confirmpass").val("");
+
+        // Los campos de formulario contacto
         $("#id-contacto").val("");
         $("#name").val("");
         $("#address").val("");
@@ -34,25 +38,39 @@ $(document).ready(function(){
     {
         evt.preventDefault();
 
-        var data = $("form.cambiar-contrasena").serialize();
+        var vacio = false;
 
-        $.ajax({
-            url: "/profile/change_pass",
-            type: "post",
-            data: data,
-            success: function(html)
-            {
-                limpiarFormulario();
-                fancyAlert(html);
-
-                if(html == "El cambio fue exitoso")
-                {
-                    $(".formulario-contrasena").hide();
-                    $(".btn-cambiar-contrasena").show();
-                }
-            }
+        $(".contrasena-requerido").each(function() {
+            if ($( this ).val()==="")
+                vacio = true;
         });
 
+        if(!vacio)
+        {
+            var data = $("form.cambiar-contrasena").serialize();
+
+            $.ajax({
+                url: "/profile/change_pass",
+                type: "post",
+                data: data,
+                success: function(html)
+                {
+                    limpiarFormulario();
+                    fancyAlert(html);
+
+                    if(html == "El cambio fue exitoso")
+                    {
+                        $(".formulario-contrasena").hide();
+                        $(".btn-cambiar-contrasena").show();
+                    }
+                }
+            });
+        }
+        else
+        {
+            limpiarFormulario();
+            fancyAlert("Debes completar todos los campos");
+        }
     });
 
     // Oculta el formulario y muestra el boton para cambiar clave
@@ -113,50 +131,64 @@ $(document).ready(function(){
     {
         evt.preventDefault();
 
-        var id = $("#id-contacto").val();
-        var name = $("#name").val();
-        var address = $("#address").val();
-        var town = $("#town").val();
-        var city = $("#city").val();
-        var zipcode = $("#zip-code").val();
-        var telephone = $("#telephone").val();
+        var vacio = false;
 
-        var ciudad = document.getElementById("city-" + id);
-
-        var data = $("form.editar-contacto").serialize();
-
-        $.ajax({
-            url: "/profile/edit_contact",
-            type: "post",
-            data: data,
-            async: false,
-            success: function(html)
-            {
-                var obj = jQuery.parseJSON( html );
-
-                if(obj.success)
-                {
-                    $("#name-" + id).html(name);
-                    $("#address-" + id).html(address);
-                    $("#town-" + id).html(town);
-                    $("#city-" + id).html(obj.success.name);
-                    $("#zip-code-" + id).html(zipcode);
-                    $("#telephone-" + id).html(telephone);
-
-                    ciudad.setAttribute("id-ciudad", city);
-                    limpiarFormulario();
-
-                    $(".formulario-contacto").hide();
-                    $(".contactos").show();
-
-                    fancyAlert("El cambio fue exitoso");
-                }
-                else
-                {
-                    fancyAlert("No es posible realizar el cambio");
-                }
-            }
+        $(".dato-requerido").each(function() {
+            if ($( this ).val()==="")
+                vacio = true;
         });
+
+        if(!vacio)
+        {
+            var id = $("#id-contacto").val();
+            var name = $("#name").val();
+            var address = $("#address").val();
+            var town = $("#town").val();
+            var city = $("#city").val();
+            var zipcode = $("#zip-code").val();
+            var telephone = $("#telephone").val();
+
+            var ciudad = document.getElementById("city-" + id);
+
+            var data = $("form.editar-contacto").serialize();
+
+            $.ajax({
+                url: "/profile/edit_contact",
+                type: "post",
+                data: data,
+                async: false,
+                success: function(html)
+                {
+                    var obj = jQuery.parseJSON( html );
+
+                    if(obj.success)
+                    {
+                        $("#name-" + id).html(name);
+                        $("#address-" + id).html(address);
+                        $("#town-" + id).html(town);
+                        $("#city-" + id).html(obj.success.name);
+                        $("#zip-code-" + id).html(zipcode);
+                        $("#telephone-" + id).html(telephone);
+
+                        ciudad.setAttribute("id-ciudad", city);
+                        limpiarFormulario();
+
+                        $(".formulario-contacto").hide();
+                        $(".contactos").show();
+
+                        fancyAlert("El cambio fue exitoso");
+                    }
+                    else
+                    {
+                        fancyAlert("No es posible realizar el cambio");
+                    }
+                }
+            });
+        }
+        else
+        {
+            fancyAlert("Debes completar todos los campos");
+        }
     });
 
     $(".btn-cancelar-editar-contacto").on( "click", function(evt)
@@ -183,5 +215,40 @@ $(document).ready(function(){
         $(".formulario-agregar-contacto").hide();
     });
 
+    $(".btn-agregar").on( "click", function(evt)
+    {
+        evt.preventDefault();
+        var vacio = false;
 
+        $(".info-requerido").each(function() {
+            if ($( this ).val()==="")
+                vacio = true;
+        });
+
+        if(!vacio)
+        {
+            var name = $("#InputName").val();
+            var address = $("#InputAddress").val();
+            var town = $("#InputTown").val();
+            var city = $("#InputCity").val();
+            var zipcode = $("#InputZip").val();
+            var telephone = $("#InputMobile").val();
+
+            var data = $("form.agregar-contacto").serialize();
+
+            // $.ajax({
+            //     url: "/profile/edit_contact",
+            //     type: "post",
+            //     data: data,
+            //     async: false,
+            //     success: function(html)
+            //     {
+            //     }
+            // });
+        }
+        else
+        {
+            fancyAlert("Debes completar los campos requeridos");
+        }
+    });
 });
