@@ -77,7 +77,7 @@ Giani Da Firenze - Home
             <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
             <p class="producto-precio precio-ofert-zapato">$ {{money_format(d['promotion_price'])}}</p>
           {% else %}
-            <p class="producto-precio">$ {{money_format(d['promotion_price'])}}</p>  
+            <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>  
           {% end %}
         </div>
 
