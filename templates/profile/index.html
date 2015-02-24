@@ -66,26 +66,71 @@
             </form>
         </tr>
     </table>
-    <!-- <div class="user-direcciones">
+    <div class="user-direcciones">
         <button class="btn-left btn-agregar-direccion">AGREGAR DIRECCIONES</button>
-    </div> -->
-    <!-- <div class="user-direcciones">
-        <form class="agregar-contacto">
-            <input required type="text" id="name" name="name" placeholder="Nombre">
-            <input required type="text" id="address" name="address" placeholder="Direccion">
-            <input required type="text" id="town" name="town" placeholder="Comuna">
-            <select required id="city" name="city">
-                <option value="">Seleccione</option>
-                {% for c in ciudades %}
-                <option value="{{c["id"]}}">{{c["name"]}}</option>
-                {% end %}
-            </select>
-            <input required type="text" id="zip-code" name="zip_code" placeholder="Codigo Postal">
-            <input required type="text" id="telephone" name="telephone" placeholder="Telefono">
-            <button class="btn-guardar-contacto">Guardar</button>
-            <button class="btn-cancelar-editar-contacto">Cancelar</button></td>
-        </form>
-    </div> -->
+    </div>
+    <div class="formulaario-agregar-contacto clearfix">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="block-title-2"> llene el formulario de abajo para agregar una dirección </h2>
+            </div>
+            <form class="editar-contacto">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="form-group required">
+                        <label for="InputName">Nombre <sup>*</sup> </label>
+                        <input required type="text" class="form-control" id="InputName" name="name" placeholder="Nombre" value="">
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputLastName">Apellido <sup>*</sup> </label>
+                        <input required type="text" class="form-control" id="InputLastName" name="lastname" placeholder="Apellido" value="">
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputEmail">Email <sup>*</sup> </label>
+                        <input required type="text" class="form-control" id="InputEmail" placeholder="Email" value="" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputRut">Rut </label>
+                        <input type="text" class="form-control" id="InputRut" placeholder="Rut" name="rut">
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputAddress">Dirección <sup>*</sup> </label>
+                        <input required type="text" class="form-control" id="InputAddress" placeholder="Dirección" value="" name="address">
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputTown">Comuna <sup>*</sup> </label>
+                        <input required type="text" class="form-control" id="InputTown" placeholder="Comuna" value="" name="town">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="form-group required">
+                        <label for="InputCity">Ciudad <sup>*</sup> </label>
+                        <select name="city_id" id="InputCity" class="form-control">
+                            <option value="">Seleccione</option>
+                            {% for c in ciudades %}
+                            <option value="{{c['id']}}">{{c['name']}}</option>
+                            {% end %}
+                        </select>
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputZip">Código postal <sup>*</sup> </label>
+                        <label for="InputZip"><a target="_blank" href="http://www.correos.cl/SitePages/home.aspx">conocer mi código postal</a></label>
+                        <input required type="text" class="form-control" id="InputZip" placeholder="Código postal" name="zip_code">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputAdditionalInformation">Información adicional</label>
+                        <textarea rows="3" cols="26" class="form-control" id="InputAdditionalInformation" name="additional_info"></textarea>
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputMobile">Teléfono <sup>*</sup></label>
+                        <input required type="tel"  name="telephone" class="form-control" id="InputMobile">
+                    </div>
+                    <button class="btn-cancelar-agregar-contacto">Cancelar</button>
+                    <button class="btn-agregar-contacto">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
 {% end %}
 
