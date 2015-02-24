@@ -550,6 +550,10 @@ class ExitoHandler(BaseHandler):
                         kardex.product_sku = producto.sku
                         kardex.cellar_identifier = id_bodega
                         kardex.operation_type = Kardex.OPERATION_MOV_OUT
+
+                        if l["promotion_price"] > 0:
+                            producto.sell_price = l["promotion_price"]
+
                         kardex.sell_price = producto.sell_price
                         kardex.size = l["size"]
                         kardex.date = str(datetime.now().isoformat()) 
@@ -575,7 +579,7 @@ class ExitoHandler(BaseHandler):
                             <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {price}</td>
                             <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {subtotal}</td>
                           </tr>
-                    """.format(name=l["name"].encode("utf-8"),size=l["size"].encode("utf-8"),quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]).encode("utf-8"),subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
+                    """.format(name=l["name"].encode("utf-8"),size=l["size"].encode("utf-8"),quantity=l["quantity"],color=l["color"],price=self.money_format(producto.sell_price).encode("utf-8"),subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
 
                 cart = Cart()
                 cart.user_id = self.current_user["id"]
