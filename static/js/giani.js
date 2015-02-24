@@ -21,7 +21,18 @@ $(document).ready(function(){
 	});
 
 
+	$(document).on('click', "a.loginfb", function(){
+		if(typeof(Storage) !== "undefined") {
 
+			var url = $(this).attr("href");
+
+			if(url.indexOf("?")!=-1){
+				url += "&user_id=" + window.localStorage.getItem("user_id");
+			} else {
+				url += "?user_id=" + window.localStorage.getItem("user_id");
+			}
+		}
+	});
 	
 
 	$("a.logout").click(function(){
