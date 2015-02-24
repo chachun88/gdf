@@ -16,6 +16,18 @@ $(document).ready(function()
         $("#city").val("");
         $("#zip-code").val("");
         $("#telephone").val("");
+
+        // Los campos de formulario agregar contacto
+        $("#InputName").val("");
+        $("#InputLastName").val("");
+        $("#InputEmail").val("");
+        $("#InputRut").val("");
+        $("#InputAddress").val("");
+        $("#InputTown").val("");
+        $("#InputCity").val("");
+        $("#InputZip").val("");
+        $("#InputAdditionalInformation").val("");
+        $("#InputMobile").val("");
     };
 
     // Al cargar la pagina los formulario deben quedar oculto
@@ -210,6 +222,7 @@ $(document).ready(function()
     {
         evt.preventDefault();
 
+        limpiarFormulario();
         $(".btn-agregar-contacto").show();
         $(".tabla").show();
         $(".formulario-agregar-contacto").hide();
