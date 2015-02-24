@@ -32,8 +32,6 @@
             <th>Ciudad</th>
             <th>Codigo Postal</th>
             <th>Telefono</th>
-            <th></th>
-            <!-- <th></th> -->
         </tr>
         {% for c in contactos %}
         <tr class="contactos" id-contacto="{{c["id"]}}">
@@ -44,7 +42,7 @@
             <td id="zip-code-{{c["id"]}}">{{c["zip_code"]}}</td>
             <td id="telephone-{{c["id"]}}">{{c["telephone"]}}</td>
             <td><button class="btn-editar-contacto">Editar</button></td>
-            <!-- <td><button>Eliminar</button></td> -->
+            <td><button class="btn-eliminar-contacto">Eliminar</button></td>
         </tr>
         {% end %}
         <tr class="formulario-contacto">
