@@ -95,8 +95,8 @@ elif enviroment == Enviroment.PRODUCTION:
     url_local = "http://giani.gianidafirenze.cl"
     url_cgi = "http://cgiani.gianidafirenze.cl"
 
-    facebook_api_key = "839753546059058"
-    facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
+    facebook_api_key = "1067063349985852"
+    facebook_secret = "bbf044ebf55c524f9791e0fb23db610e"
 
     email_giani = "contacto@gianidafirenze.cl"
 
