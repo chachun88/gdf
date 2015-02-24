@@ -126,13 +126,33 @@ $(document).ready(function(){
 
                     $(".formulario-contacto").hide();
                     $(".contactos").show();
-                    fancyAlert(html);
-
-                }else
-                {
-                    fancyAlert(html);
                 }
+
+                fancyAlert(html);
             }
         });
+    });
+
+    $(".btn-eliminar-contacto").on( "click", function(evt)
+    {
+        evt.preventDefault();
+
+        var fila_tabla = $(this).parent().parent();
+
+        if(confirm("Estas seguro de que desea eliminar este contacto?"))
+        {
+            var id = fila_tabla.attr("id-contacto");
+
+            $.ajax({
+                url: "/profile/delete?id=" + id,
+                type: "post",
+                success: function(html)
+                {
+                    if (html =="El contacto fue eliminado exitosamente")
+                        fila_tabla.remove();
+                    fancyAlert(html);
+                }
+            });
+        }
     });
 });
