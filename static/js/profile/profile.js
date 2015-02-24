@@ -17,21 +17,14 @@ $(document).ready(function(){
     // Al cargar la pagina los formulario deben quedar oculto
     $(".formulario-contrasena").hide();
     $(".formulario-contacto").hide();
+    $(".formulario-agregar-contacto").hide();
+
 
     // Muestra el formulario para cambiar clave y oculta el boton
     $(".btn-cambiar-contrasena").on( "click", function()
     {
         $(this).hide();
         $(".formulario-contrasena").show();
-    });
-
-    // Oculta el formulario y muestra el boton para cambiar clave
-    $(".btn-cancelar-cambio-contrasena").on( "click", function(evt)
-    {
-        evt.preventDefault();
-
-        $(".formulario-contrasena").hide();
-        $(".btn-cambiar-contrasena").show();
     });
 
     /* Manda los claves al handler, ahi es donde se valida 
@@ -62,6 +55,15 @@ $(document).ready(function(){
 
     });
 
+    // Oculta el formulario y muestra el boton para cambiar clave
+    $(".btn-cancelar-cambio-contrasena").on( "click", function(evt)
+    {
+        evt.preventDefault();
+
+        $(".formulario-contrasena").hide();
+        $(".btn-cambiar-contrasena").show();
+    });
+
     $(".btn-editar-contacto").on( "click", function()
     {
         var id = $(this).parent().parent().attr("id-contacto");
@@ -84,12 +86,27 @@ $(document).ready(function(){
         $(".formulario-contacto").show();
     });
 
-    $(".btn-cancelar-editar-contacto").on( "click", function(evt)
+    $(".btn-eliminar-contacto").on( "click", function(evt)
     {
         evt.preventDefault();
 
-        $(".formulario-contacto").hide();
-        $(".contactos").show();
+        var fila_tabla = $(this).parent().parent();
+
+        if(confirm("Estas seguro de que desea eliminar este contacto?"))
+        {
+            var id = fila_tabla.attr("id-contacto");
+
+            $.ajax({
+                url: "/profile/delete?id=" + id,
+                type: "post",
+                success: function(html)
+                {
+                    if (html =="El contacto fue eliminado exitosamente")
+                        fila_tabla.remove();
+                    fancyAlert(html);
+                }
+            });
+        }
     });
 
     $(".btn-guardar-contacto").on( "click", function(evt)
@@ -142,26 +159,29 @@ $(document).ready(function(){
         });
     });
 
-    $(".btn-eliminar-contacto").on( "click", function(evt)
+    $(".btn-cancelar-editar-contacto").on( "click", function(evt)
     {
         evt.preventDefault();
 
-        var fila_tabla = $(this).parent().parent();
-
-        if(confirm("Estas seguro de que desea eliminar este contacto?"))
-        {
-            var id = fila_tabla.attr("id-contacto");
-
-            $.ajax({
-                url: "/profile/delete?id=" + id,
-                type: "post",
-                success: function(html)
-                {
-                    if (html =="El contacto fue eliminado exitosamente")
-                        fila_tabla.remove();
-                    fancyAlert(html);
-                }
-            });
-        }
+        $(".formulario-contacto").hide();
+        $(".contactos").show();
     });
+
+    $(".btn-agregar-contacto").on( "click", function()
+    {
+        $(this).hide();
+        $(".tabla").hide();
+        $(".formulario-agregar-contacto").show();
+    });
+
+    $(".btn-cancelar-agregar-contacto").on( "click", function(evt)
+    {
+        evt.preventDefault();
+
+        $(".btn-agregar-contacto").show();
+        $(".tabla").show();
+        $(".formulario-agregar-contacto").hide();
+    });
+
+
 });
