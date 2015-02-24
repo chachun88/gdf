@@ -40,7 +40,7 @@ facebook_api_key = ""
 facebook_secret = ""
 
 project_path = "/var/www/giani.ondev/"
-cgi_path = "/var/www/cgiani.loadingplay.com/"
+cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
 
 
 if enviroment == Enviroment.LOCAL:
@@ -48,7 +48,7 @@ if enviroment == Enviroment.LOCAL:
     print "local enviroment"
 
     port = DEBUG_PORT
-    url_bodega = "http://giani.loadingplay.com"
+    url_bodega = "http://giani.gianidafirenze.cl"
     url_local = "http://localhost:8502"
     url_cgi = "http://cgiani.ondev.today"
 
@@ -58,7 +58,7 @@ if enviroment == Enviroment.LOCAL:
     email_giani = "yi.neko@gmail.com"
 
     project_path = "/var/www/giani.ondev/"
-    cgi_path = "/var/www/cgiani.loadingplay.com/"
+    cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
 
 elif enviroment == Enviroment.ONDEV:
     port = DEBUG_PORT
@@ -72,11 +72,11 @@ elif enviroment == Enviroment.ONDEV:
     email_giani = "contacto@gianidafirenze.cl"
 
     project_path = "/var/www/giani.ondev/"
-    cgi_path = "/var/www/cgiani.loadingplay.com/"
+    cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
 
 elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
-    url_bodega = "http://bgiani.loadingplay.com"
+    url_bodega = "http://bgiani.gianidafirenze.cl"
     url_local = "http://giani.ondev.today"
     url_cgi = "http://cgiani.ondev.today"
 
@@ -86,14 +86,14 @@ elif enviroment == Enviroment.ONTEST:
     email_giani = "contacto@gianidafirenze.cl"
 
     project_path = "/var/www/giani.ondev/"
-    cgi_path = "/var/www/cgiani.loadingplay.com/"
+    cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
 
 
 elif enviroment == Enviroment.PRODUCTION:
     port = PORT
-    url_bodega = "http://bgiani.loadingplay.com"
-    url_local = "http://giani.loadingplay.com"
-    url_cgi = "http://cgiani.loadingplay.com"
+    url_bodega = "http://bgiani.gianidafirenze.cl"
+    url_local = "http://giani.gianidafirenze.cl"
+    url_cgi = "http://cgiani.gianidafirenze.cl"
 
     facebook_api_key = "839753546059058"
     facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
@@ -110,8 +110,8 @@ define("facebook_secret", help="your Facebook application secret", default=faceb
 define("port", default=port, help="run on the given port", type=int)
 define("protocol", default="https", help="run on the given port", type=str)
 
-define("email", help="remitente email", default="info@loadingplay.com")
-define("user", help="cuenta usuario remitente", default="info@loadingplay.com")
+define("email", help="remitente email", default="info@gianidafirenze.cl")
+define("user", help="cuenta usuario remitente", default="info@gianidafirenze.cl")
 define("password", help="clave remitente", default="loadingplay007")
 
 print "Debug Mode:{} Port:{}".format(debugMode,port)
