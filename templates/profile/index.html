@@ -48,8 +48,7 @@
         <tr class="formulario-contacto">
             <form class="editar-contacto">
                 <input type="hidden" id="id-contacto" name="id-contacto">
-                <td><input required type="text" id="name" name="name" placeholder="Nombre">
-                </td>
+                <td><input required type="text" id="name" name="name" placeholder="Nombre"></td>
                 <td><input required type="text" id="address" name="address" placeholder="Direccion"></td>
                 <td><input required type="text" id="town" name="town" placeholder="Comuna"></td>
                 <td>
@@ -69,6 +68,23 @@
     </table>
     <!-- <div class="user-direcciones">
         <button class="btn-left btn-agregar-direccion">AGREGAR DIRECCIONES</button>
+    </div> -->
+    <!-- <div class="user-direcciones">
+        <form class="agregar-contacto">
+            <input required type="text" id="name" name="name" placeholder="Nombre">
+            <input required type="text" id="address" name="address" placeholder="Direccion">
+            <input required type="text" id="town" name="town" placeholder="Comuna">
+            <select required id="city" name="city">
+                <option value="">Seleccione</option>
+                {% for c in ciudades %}
+                <option value="{{c["id"]}}">{{c["name"]}}</option>
+                {% end %}
+            </select>
+            <input required type="text" id="zip-code" name="zip_code" placeholder="Codigo Postal">
+            <input required type="text" id="telephone" name="telephone" placeholder="Telefono">
+            <button class="btn-guardar-contacto">Guardar</button>
+            <button class="btn-cancelar-editar-contacto">Cancelar</button></td>
+        </form>
     </div> -->
 </div>
 {% end %}

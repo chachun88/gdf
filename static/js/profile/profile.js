@@ -5,13 +5,13 @@ $(document).ready(function(){
         $("#oldpass").val("");
         $("#newpass").val("");
         $("#confirmpass").val("");
-        $(".formulario-contacto #id-contacto").val("");
-        $(".formulario-contacto #name").val("");
-        $(".formulario-contacto #address").val("");
-        $(".formulario-contacto #town").val("");
-        $(".formulario-contacto #city").val("");
-        $(".formulario-contacto #zip-code").val("");
-        $(".formulario-contacto #telephone").val("");
+        $("#id-contacto").val("");
+        $("#name").val("");
+        $("#address").val("");
+        $("#town").val("");
+        $("#city").val("");
+        $("#zip-code").val("");
+        $("#telephone").val("");
     };
 
     // Al cargar la pagina los formulario deben quedar oculto
@@ -72,13 +72,13 @@ $(document).ready(function(){
         var zipcode = $("#zip-code-" + id).html();
         var telephone = $("#telephone-" + id).html();
 
-        $(".formulario-contacto #id-contacto").val(id);
-        $(".formulario-contacto #name").val(name);
-        $(".formulario-contacto #address").val(address);
-        $(".formulario-contacto #town").val(town);
-        $(".formulario-contacto #city").val(city);
-        $(".formulario-contacto #zip-code").val(zipcode);
-        $(".formulario-contacto #telephone").val(telephone);
+        $("#id-contacto").val(id);
+        $("#name").val(name);
+        $("#address").val(address);
+        $("#town").val(town);
+        $("#city").val(city);
+        $("#zip-code").val(zipcode);
+        $("#telephone").val(telephone);
         
         $(".contactos").hide();
         $(".formulario-contacto").show();
@@ -96,13 +96,13 @@ $(document).ready(function(){
     {
         evt.preventDefault();
 
-        var id = $(".formulario-contacto #id-contacto").val();
-        var name = $(".formulario-contacto #name").val();
-        var address = $(".formulario-contacto #address").val();
-        var town = $(".formulario-contacto #town").val();
-        var city = $(".formulario-contacto #city").val();
-        var zipcode = $(".formulario-contacto #zip-code").val();
-        var telephone = $(".formulario-contacto #telephone").val();
+        var id = $("#id-contacto").val();
+        var name = $("#name").val();
+        var address = $("#address").val();
+        var town = $("#town").val();
+        var city = $("#city").val();
+        var zipcode = $("#zip-code").val();
+        var telephone = $("#telephone").val();
 
         var ciudad = document.getElementById("city-" + id);
 
