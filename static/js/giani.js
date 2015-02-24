@@ -26,7 +26,7 @@ $(document).ready(function(){
 
 			var url = $(this).attr("href");
 
-			if(url.indexOf("?")!=-1){
+			if(url.indexOf("?") != -1){
 				url += "&user_id=" + window.localStorage.getItem("user_id");
 			} else {
 				url += "?user_id=" + window.localStorage.getItem("user_id");
