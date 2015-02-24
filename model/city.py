@@ -129,28 +129,26 @@ class City(BaseModel):
             cur.close()
             self.connection.close()
 
-
-    def getIdByName(self, name):
+    def getNameById(self, id):
         """
-        Funcion que por medio del nombre obtiene id de la ciudad 
-        @param {string} name Esta variable corresponde al nombre de la ciudad
-        @return {int} city_id El valor de esta variable corresponde a id de la 
-                              ciudad
+        Funcion que por medio del id obtiene nombre de la ciudad 
+        @param {int} id El valor de esta variable corresponde a id de la ciudad
+        @return {string} name Esta variable corresponde al nombre de la ciudad
         @author : Chien-Hung
         """
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         try:
-            query = '''SELECT id FROM "City" WHERE name = %(name)s'''
+            query = '''SELECT name FROM "City" WHERE id = %(id)s'''
             parameters = {
-                "name": name
+                "id": id
             }
 
             cur.execute(query, parameters)
-            city_id = cur.fetchone()["id"]
+            name = cur.fetchone()
 
-            return self.ShowSuccessMessage(city_id);
+            return self.ShowSuccessMessage(name)
 
         except Exception,e:
             return self.ShowError(str(e))
