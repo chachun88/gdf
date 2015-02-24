@@ -50,6 +50,7 @@
 
 .fancybox-inner {
 	overflow: hidden;
+	height: auto !important;
 }
 
 .fancybox-type-iframe .fancybox-inner {
