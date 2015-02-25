@@ -77,7 +77,7 @@ class Application(tornado.web.Application):
             (r"/conditions", others_handler.ConditionsHandler),
             (r"/faq", others_handler.FaqHandler),
             (r"/user", others_handler.UserHandler),
-            (r"/wscc", others_handler.WSCorreosChileHandler)
+            (r"/sitemap.xml()", tornado.web.StaticFileHandler, {'path':settings['static_path']+"/sitemap.xml"})
         ]
         settings = dict(
             blog_title=u"Giani Da Firenze",
