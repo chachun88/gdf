@@ -119,3 +119,46 @@ class DeleteContactHandler(BaseHandler):
             self.write("El contacto fue eliminado exitosamente")
         else:
             self.write("No fue posible eliminar el contacto")
+
+
+class AddContactHandler(BaseHandler):
+
+    def post(self):
+
+        name = self.get_argument("name","")
+        lastname = self.get_argument("lastname","")
+        email = self.get_argument("email","")
+        rut = self.get_argument("rut","")
+        address = self.get_argument("address","")
+        town = self.get_argument("town","")
+        city = self.get_argument("city_id","")
+        zip_code = self.get_argument("zip_code","")
+        additional_info = self.get_argument("additional_info","")
+        telephone = self.get_argument("telephone","")
+
+        if self.current_user:
+            user_id = self.current_user["id"]
+            contacto = Contact()
+
+            contacto.name = name
+            contacto.lastname = lastname
+            contacto.email = email
+            contacto.rut = rut
+            contacto.address = address
+            contacto.town = town
+            contacto.city = city
+            contacto.zip_code = zip_code
+            contacto.additional_info = additional_info
+            contacto.telephone = telephone
+            contacto.user_id = user_id
+
+            response = contacto.Save()
+
+            if "success" in response:
+                id = response["success"]
+                ciudad = City()
+                res_city = ciudad.getNameById(city)
+
+                if "success" in res_city:
+                    res_city["success"]["id_contact"] = id
+                    self.write(json_util.dumps(res_city))

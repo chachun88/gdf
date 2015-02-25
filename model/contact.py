@@ -167,23 +167,21 @@ class Contact(BaseModel):
             cur.execute(query,contact)
             if cur.rowcount > 0:
                 self.id = int(cur.fetchone()["id"])
-                return self.ShowSuccessMessage("{}".format(self.id))
+                return self.ShowSuccessMessage("Contacto ingresado ya existe")
         except Exception,e:
             return self.ShowError("Error al obtener contacto {}".format(str(e)))
 
-        
-            
         if self.id == "":
 
             query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city_id, zip_code,additional_info,town,rut)
             values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city_id)s,%(zip_code)s,%(additional_info)s,%(town)s,%(rut)s) returning id'''
-        
+
             # return self.ShowError(cur.mogrify(query,contact))
 
             try:
                 cur.execute(query,contact)
                 self.connection.commit()
-                self.id = cur.fetchone()["id"]
+                self.id = int(cur.fetchone()["id"])
                 return self.ShowSuccessMessage("{}".format(self.id))
             except Exception, e:
 

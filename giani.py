@@ -66,6 +66,7 @@ class Application(tornado.web.Application):
             (r"/profile/change_pass", profile_handler.ChangePassHandler),
             (r"/profile/edit_contact", profile_handler.EditContactHandler),
             (r"/profile/delete", profile_handler.DeleteContactHandler),
+            (r"/profile/add_contact", profile_handler.AddContactHandler),
 
             (r"/tos", others_handler.TosHandler),
             (r"/pago", others_handler.PagoHandler),
