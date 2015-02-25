@@ -524,11 +524,18 @@ class ExitoHandler(BaseHandler):
             }
 
             id_bodega = cellar_id
+            id_bodega_reserva = shipping_cellar
+
             cellar = Cellar()
             res_cellar = cellar.GetWebCellar()
 
             if "success" in res_cellar:
                 id_bodega = res_cellar["success"]
+
+            res_reservation_cellar = cellar.GetReservationCellar()
+
+            if "success" in res_reservation_cellar:
+                id_bodega_reserva = res_reservation_cellar["success"]
 
             detail = OrderDetail()
 
@@ -562,7 +569,7 @@ class ExitoHandler(BaseHandler):
 
                         kardex.Insert()
 
-                        kardex.cellar_identifier = shipping_cellar
+                        kardex.cellar_identifier = id_bodega_reserva
                         kardex.operation_type = Kardex.OPERATION_MOV_IN
 
                         kardex.Insert()
