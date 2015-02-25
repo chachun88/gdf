@@ -72,7 +72,7 @@ elif enviroment == Enviroment.ONDEV:
     email_giani = "yi.neko@gmail.com"
 
     project_path = "/var/www/giani.ondev/"
-    cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
+    cgi_path = "/var/www/cgiani.ondev/"
 
 elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
