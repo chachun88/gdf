@@ -94,7 +94,7 @@ $(document).ready(function()
         $(".btn-cambiar-contrasena").show();
     });
 
-    $(".btn-editar-contacto").on( "click", function()
+    $(document).on( "click", ".btn-editar-contacto", function()
     {
         var id = $(this).parent().parent().attr("id-contacto");
         var name = $("#name-" + id).html();
