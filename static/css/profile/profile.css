@@ -113,3 +113,19 @@
 .campo{
     width: 150px;
 }
+
+.tabla-contacto{
+    width: 100%;
+}
+
+.formulario-contacto{
+    display: none;
+}
+
+.editar-contacto{
+    float: none;
+}
+
+.formulario-contacto input, .formulario-contacto select{
+    width: 100%;
+}

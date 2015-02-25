@@ -32,7 +32,7 @@ $(document).ready(function()
 
     // Al cargar la pagina los formulario deben quedar oculto
     $(".formulario-contrasena").hide();
-    $(".formulario-contacto").hide();
+    //$(".formulario-contacto").hide();
     $(".formulario-agregar-contacto").hide();
 
 
@@ -112,7 +112,7 @@ $(document).ready(function()
         $("#zip-code").val(zipcode);
         $("#telephone").val(telephone);
         
-        $(".contactos").hide();
+        $(".tabla-contacto").hide();
         $(".formulario-contacto").show();
     });
 
@@ -186,7 +186,7 @@ $(document).ready(function()
                         limpiarFormulario();
 
                         $(".formulario-contacto").hide();
-                        $(".contactos").show();
+                        $(".tabla-contacto").show();
 
                         fancyAlert("El cambio fue exitoso");
                     }
@@ -208,7 +208,7 @@ $(document).ready(function()
         evt.preventDefault();
 
         $(".formulario-contacto").hide();
-        $(".contactos").show();
+        $(".tabla-contacto").show();
     });
 
     $(".btn-agregar-contacto").on( "click", function()
