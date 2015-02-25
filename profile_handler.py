@@ -156,9 +156,14 @@ class AddContactHandler(BaseHandler):
 
             if "success" in response:
                 id = response["success"]
-                ciudad = City()
-                res_city = ciudad.getNameById(city)
 
-                if "success" in res_city:
-                    res_city["success"]["id_contact"] = id
-                    self.write(json_util.dumps(res_city))
+                res_contact = contacto.InitById(id)
+
+                if "success" in res_contact:
+                    datos = res_contact["success"]
+
+                    self.write(self.render_string(
+                        "profile/nuevafila.html",
+                        id=id,
+                        contacto=datos)
+                    )

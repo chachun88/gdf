@@ -256,38 +256,37 @@ $(document).ready(function()
                 async: false,
                 success: function(html)
                 {
-                    var obj = jQuery.parseJSON( html );
 
-                    if(obj.success)
-                    {
-                        var city_name = obj.success.name;
-                        var id = obj.success.id_contact;
+                    // if(obj.success)
+                    // {
+                    //     var city_name = obj.success.name;
+                    //     var id = obj.success.id_contact;
 
-                        var nuevafila = "<tr class=\"contactos\" id-contacto=\"";
-                        nuevafila += id + "\">";
-                        nuevafila += "<td id=\"name-" + id + "\">" + name + "</td>";
-                        nuevafila += "<td id=\"address-" + id + "\">" + address + "</td>";
-                        nuevafila += "<td id=\"town-" + id + "\">" + town + "</td>";
-                        nuevafila += "<td id=\"city-" + id + "\" id-ciudad=\"" + city + "\">" + city_name + "</td>";
-                        nuevafila += "<td id=\"zip-code-" + id + "\">" + zipcode + "</td>";
-                        nuevafila += "<td id=\"telephone-" + id + "\">" + telephone + "</td>";
-                        nuevafila += "<td><button class=\"btn-editar-contacto\">Editar</button></td>";
-                        nuevafila += "<td><button class=\"btn-eliminar-contacto\">Eliminar</button></td>";
-                        nuevafila += "</tr>";
+                    //     var nuevafila = "<tr class=\"contactos\" id-contacto=\"";
+                    //     nuevafila += id + "\">";
+                    //     nuevafila += "<td id=\"name-" + id + "\">" + name + "</td>";
+                    //     nuevafila += "<td id=\"address-" + id + "\">" + address + "</td>";
+                    //     nuevafila += "<td id=\"town-" + id + "\">" + town + "</td>";
+                    //     nuevafila += "<td id=\"city-" + id + "\" id-ciudad=\"" + city + "\">" + city_name + "</td>";
+                    //     nuevafila += "<td id=\"zip-code-" + id + "\">" + zipcode + "</td>";
+                    //     nuevafila += "<td id=\"telephone-" + id + "\">" + telephone + "</td>";
+                    //     nuevafila += "<td><button class=\"btn-editar-contacto\">Editar</button></td>";
+                    //     nuevafila += "<td><button class=\"btn-eliminar-contacto\">Eliminar</button></td>";
+                    //     nuevafila += "</tr>";
 
-                        $(".tabla").append(nuevafila);
+                    $(".tabla").append(html);
 
-                        limpiarFormulario();
-                        $(".btn-agregar-contacto").show();
-                        $(".tabla").show();
-                        $(".formulario-agregar-contacto").hide();
+                    limpiarFormulario();
+                    $(".btn-agregar-contacto").show();
+                    $(".tabla").show();
+                    $(".formulario-agregar-contacto").hide();
 
-                        fancyAlert("El contacto ha sido agregado correctamente");
-                    }
-                    else
-                    {
-                        fancyAlert("No es posible agregar el contacto");
-                    }
+                    fancyAlert("El contacto ha sido agregado correctamente");
+                    // }
+                    // else
+                    // {
+                    //     fancyAlert("No es posible agregar el contacto");
+                    // }
                 }
             });
         }
