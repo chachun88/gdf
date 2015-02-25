@@ -78,7 +78,14 @@ Giani Da Firenze - Home
                 <td style="width:45%">{{d["name"]}}</td>
                 <td style="width:10%;text-align:center;">{{d["size"]}}</td>
                 <td style="width:15%;text-align:center;">{{d["quantity"]}}</td>
-                <td style="width:15%;text-align:right;">${{money_format(d["sell_price"])}}</td>
+                <td style="width:15%;text-align:right;">
+                    {% if d["promotion_price"] > 0 and d["promotion_price"] >= int(d["subtotal"]) %}
+                        ${{money_format(d["promotion_price"])}}
+                    {% else %}
+                        ${{money_format(d["sell_price"])}}
+                    {% end %}
+                    
+                </td>
                 <td style="width:15%;text-align:right;">${{money_format(d["subtotal"])}}</td>
             </tr>
             {% set suma = d["subtotal"] + suma %}

@@ -69,10 +69,10 @@ elif enviroment == Enviroment.ONDEV:
     facebook_api_key = "839753546059058"
     facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
 
-    email_giani = "contacto@gianidafirenze.cl"
+    email_giani = "yi.neko@gmail.com"
 
     project_path = "/var/www/giani.ondev/"
-    cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
+    cgi_path = "/var/www/cgiani.ondev/"
 
 elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
