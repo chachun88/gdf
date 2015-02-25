@@ -394,6 +394,7 @@ class Kardex(BaseModel):
 			product_sku = l["sku"]
 			product_size = l["size"]
 			quantity = l["quantity"]
+			name = l["name"]
 
 			res_kardex = self.FindKardex(product_sku, cellar_id, product_size)
 
@@ -411,9 +412,9 @@ class Kardex(BaseModel):
 					# 	print res_remove["error"]
 
 					if self.balance_units > 0:
-						errors.append({"sku": product_sku, "error": "queda {} unidades".format(self.balance_units)})
+						errors.append({"sku": name, "error": "queda {} unidades".format(self.balance_units)})
 					else:
-						errors.append({"sku": product_sku, "error": "agotado"})					
+						errors.append({"sku": name, "error": "agotado"})					
 			else:
 
 				errors.append({"sku": product_sku, "error": res_kardex["error"]})

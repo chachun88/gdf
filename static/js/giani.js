@@ -171,6 +171,8 @@ $(document).ready(function(){
 		GetCartByUserId(window.localStorage.getItem("user_id"));
 	}
 
+
+	// codigo analytics
 	if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
 		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
