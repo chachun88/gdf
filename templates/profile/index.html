@@ -15,16 +15,16 @@
         </div>
         <div class="margen formulario-contrasena">
             <form class="cambiar-contrasena">
-                <input type="password" class="form-control" id="oldpass" name="oldpass" placeholder="Contraseña Actual">
-                <input type="password" class="form-control" id="newpass" name="newpass" placeholder="Contraseña Nueva">
-                <input type="password" class="form-control" id="confirmpass" name="confirmpass" placeholder="Confirmar Nueva Contraseña">
+                <input type="password" class="form-control contrasena-requerido" id="oldpass" name="oldpass" placeholder="Contraseña Actual">
+                <input type="password" class="form-control contrasena-requerido" id="newpass" name="newpass" placeholder="Contraseña Nueva">
+                <input type="password" class="form-control contrasena-requerido" id="confirmpass" name="confirmpass" placeholder="Confirmar Nueva Contraseña">
                 <button class="btn-cancelar-cambio-contrasena">Cancelar</button>
                 <button class="btn-guardar-contrasena">Guardar</button>
             </form>
         </div>
     </div>
     <h1 >Contacto</h1>
-    <table style="width:100%">
+    <table class="tabla" style="width:100%">
         <tr>
             <th>Nombre dirección</th>
             <th>Direccion</th>
@@ -48,28 +48,87 @@
         <tr class="formulario-contacto">
             <form class="editar-contacto">
                 <input type="hidden" id="id-contacto" name="id-contacto">
-                <td><input required type="text" id="name" name="name" placeholder="Nombre">
-                </td>
-                <td><input required type="text" id="address" name="address" placeholder="Direccion"></td>
-                <td><input required type="text" id="town" name="town" placeholder="Comuna"></td>
+                <td><input class="dato-requerido" required type="text" id="name" name="name" placeholder="Nombre"></td>
+                <td><input class="dato-requerido" required type="text" id="address" name="address" placeholder="Direccion"></td>
+                <td><input class="dato-requerido" required type="text" id="town" name="town" placeholder="Comuna"></td>
                 <td>
-                    <select required id="city" name="city">
+                    <select class="dato-requerido" required id="city" name="city">
                         <option value="">Seleccione</option>
                         {% for c in ciudades %}
                         <option value="{{c["id"]}}">{{c["name"]}}</option>
                         {% end %}
                     </select>
                 </td>
-                <td><input required type="text" id="zip-code" name="zip_code" placeholder="Codigo Postal"></td>
-                <td><input required type="text" id="telephone" name="telephone" placeholder="Telefono"></td>
+                <td><input class="dato-requerido" required type="text" id="zip-code" name="zip_code" placeholder="Codigo Postal"></td>
+                <td><input class="dato-requerido" required type="text" id="telephone" name="telephone" placeholder="Telefono"></td>
                 <td><button class="btn-guardar-contacto">Guardar</button></td>
                 <td><button class="btn-cancelar-editar-contacto">Cancelar</button></td>
             </form>
         </tr>
     </table>
-    <!-- <div class="user-direcciones">
-        <button class="btn-left btn-agregar-direccion">AGREGAR DIRECCIONES</button>
-    </div> -->
+    <!-- <button class="btn-left btn-agregar-contacto">AGREGAR DIRECCIONES</button> -->
+    <div class="formulario-agregar-contacto clearfix">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="block-title-2"> llene el formulario de abajo para agregar una dirección </h2>
+            </div>
+            <form class="agregar-contacto">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="form-group required">
+                        <label for="InputName">Nombre <sup>*</sup> </label>
+                        <input required type="text" class="form-control info-requerido" id="InputName" name="name" placeholder="Nombre" value="">
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputLastName">Apellido <sup>*</sup> </label>
+                        <input required type="text" class="form-control info-requerido" id="InputLastName" name="lastname" placeholder="Apellido" value="">
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputEmail">Email <sup>*</sup> </label>
+                        <input required type="text" class="form-control info-requerido" id="InputEmail" placeholder="Email" value="" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputRut">Rut </label>
+                        <input type="text" class="form-control" id="InputRut" placeholder="Rut" name="rut">
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputAddress">Dirección <sup>*</sup> </label>
+                        <input required type="text" class="form-control info-requerido" id="InputAddress" placeholder="Dirección" value="" name="address">
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputTown">Comuna <sup>*</sup> </label>
+                        <input required type="text" class="form-control info-requerido" id="InputTown" placeholder="Comuna" value="" name="town">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <div class="form-group required">
+                        <label for="InputCity">Ciudad <sup>*</sup> </label>
+                        <select required name="city_id" id="InputCity" class="form-control info-requerido">
+                            <option value="">Seleccione</option>
+                            {% for c in ciudades %}
+                            <option value="{{c['id']}}">{{c['name']}}</option>
+                            {% end %}
+                        </select>
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputZip">Código postal <sup>*</sup> </label>
+                        <label for="InputZip"><a target="_blank" href="http://www.correos.cl/SitePages/home.aspx">conocer mi código postal</a></label>
+                        <input required type="text" class="form-control info-requerido" id="InputZip" placeholder="Código postal" name="zip_code">
+                    </div>
+                    <div class="form-group">
+                        <label for="InputAdditionalInformation">Información adicional</label>
+                        <textarea rows="3" cols="26" class="form-control" id="InputAdditionalInformation" name="additional_info"></textarea>
+                    </div>
+                    <div class="form-group required">
+                        <label for="InputMobile">Teléfono <sup>*</sup></label>
+                        <input required type="tel"  name="telephone" class="form-control info-requerido" id="InputMobile">
+                    </div>
+                    <button class="btn-cancelar-agregar-contacto">Cancelar</button>
+                    <button class="btn-agregar">Agregar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
 {% end %}
 
