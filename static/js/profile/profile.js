@@ -214,7 +214,6 @@ $(document).ready(function()
     $(".btn-agregar-contacto").on( "click", function()
     {
         $(this).hide();
-        $(".tabla").hide();
         $(".formulario-agregar-contacto").show();
     });
 
@@ -224,7 +223,6 @@ $(document).ready(function()
 
         limpiarFormulario();
         $(".btn-agregar-contacto").show();
-        $(".tabla").show();
         $(".formulario-agregar-contacto").hide();
     });
 
@@ -278,7 +276,6 @@ $(document).ready(function()
 
                     limpiarFormulario();
                     $(".btn-agregar-contacto").show();
-                    $(".tabla").show();
                     $(".formulario-agregar-contacto").hide();
 
                     fancyAlert("El contacto ha sido agregado correctamente");
