@@ -21,6 +21,20 @@ import profile_handler
 
 class Application(tornado.web.Application):
     def __init__(self):
+
+        settings = dict(
+            blog_title=u"Giani Da Firenze",
+            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            static_path=os.path.join(os.path.dirname(__file__), "static"),
+            cookie_secret="12oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
+            facebook_api_key=options.facebook_api_key,
+            facebook_secret=options.facebook_secret,
+            login_url="/auth/login",
+            autoescape=None,
+            debug=True,
+            xsrf_cookies=False
+        )
+        
         handlers = [
             (r"/", home_handler.HomeHandler),  # home
             (r"/store", store_handler.IndexHandler),  # home de la tienda
@@ -79,18 +93,7 @@ class Application(tornado.web.Application):
             (r"/user", others_handler.UserHandler),
             (r"/sitemap.xml()", tornado.web.StaticFileHandler, {'path':settings['static_path']+"/sitemap.xml"})
         ]
-        settings = dict(
-            blog_title=u"Giani Da Firenze",
-            template_path=os.path.join(os.path.dirname(__file__), "templates"),
-            static_path=os.path.join(os.path.dirname(__file__), "static"),
-            cookie_secret="12oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
-            facebook_api_key=options.facebook_api_key,
-            facebook_secret=options.facebook_secret,
-            login_url="/auth/login",
-            autoescape=None,
-            debug=True,
-            xsrf_cookies=False
-        )
+        
         tornado.web.Application.__init__(self, handlers, **settings) 
 
 
