@@ -24,7 +24,7 @@
         </div>
     </div>
     <h1 >Contacto</h1>
-    <table class="tabla tabla-contacto">
+    <table class="tabla" style="width:100%">
         <tr>
             <th>Nombre dirección</th>
             <th>Direccion</th>
@@ -32,8 +32,6 @@
             <th>Ciudad</th>
             <th>Codigo Postal</th>
             <th>Telefono</th>
-            <th></th>
-            <th></th>
         </tr>
         {% for c in contactos %}
         <tr class="contactos" id-contacto="{{c["id"]}}">
@@ -47,21 +45,8 @@
             <td><button class="btn-eliminar-contacto">Eliminar</button></td>
         </tr>
         {% end %}
-    </table>
-
-    <form class="editar-contacto">
-        <table class="tabla formulario-contacto">
-            <tr>
-                <th>Nombre dirección</th>
-                <th>Direccion</th>
-                <th>Comuna</th>
-                <th>Ciudad</th>
-                <th>Codigo Postal</th>
-                <th>Telefono</th>
-                <th></th>
-                <th></th>
-            </tr>
-            <tr>
+        <tr class="formulario-contacto">
+            <form class="editar-contacto">
                 <input type="hidden" id="id-contacto" name="id-contacto">
                 <td><input class="dato-requerido" required type="text" id="name" name="name" placeholder="Nombre"></td>
                 <td><input class="dato-requerido" required type="text" id="address" name="address" placeholder="Direccion"></td>
@@ -70,7 +55,7 @@
                     <select class="dato-requerido" required id="city" name="city">
                         <option value="">Seleccione</option>
                         {% for c in ciudades %}
-                            <option value="{{c["id"]}}">{{c["name"]}}</option>
+                        <option value="{{c["id"]}}">{{c["name"]}}</option>
                         {% end %}
                     </select>
                 </td>
@@ -78,11 +63,9 @@
                 <td><input class="dato-requerido" required type="text" id="telephone" name="telephone" placeholder="Telefono"></td>
                 <td><button class="btn-guardar-contacto">Guardar</button></td>
                 <td><button class="btn-cancelar-editar-contacto">Cancelar</button></td>
-                
-            </tr>
-        </table>
-    </form>
-
+            </form>
+        </tr>
+    </table>
     <button class="btn-left btn-agregar-contacto">AGREGAR DIRECCIONES</button>
     <div class="formulario-agregar-contacto clearfix">
         <div class="row">
