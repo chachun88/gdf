@@ -173,7 +173,8 @@ $(document).ready(function(){
 
 
     // codigo analytics
-    if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
+    // if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
+    if ( document.location.href.indexOf("localhost:8502") != -1) { //Para trabajar en localhost
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -184,4 +185,23 @@ $(document).ready(function(){
 
         console.info("google analytics");
     }
+
+    // Cuando hace click en tienda se realiza ga, luego se direcciona a la tienda
+    $(".btn-tienda").on( "click", function()
+    {
+
+        ga('ec:addImpression', {
+          // 'id': 'P12345',                   // Product details are provided in an impressionFieldObject.
+          'name': 'Pagina Tienda',
+          // 'category': 'Apparel/T-Shirts',
+          // 'brand': 'Google',
+          // 'variant': 'black',
+          // 'list': 'Search Results',
+          // 'position': 1                     // 'position' indicates the product position in the list.
+        });
+
+        ga('send', 'pageview');
+
+        window.location.href='/store';
+    });
 });
