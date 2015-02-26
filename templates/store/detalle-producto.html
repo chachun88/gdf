@@ -184,5 +184,14 @@ Giani Da Firenze - {{data.name}}
       </div> -->
     </div>
   </div>
-
-  {% end %}
+  <!-- Datos para google analytic -->
+  <div class="ga-category">{{data.category}}</div>
+  <div class="ga-variant">{{data.color}}</div>
+  <div class="ga-price">
+    {% if data.promotion_price > 0 %}
+        {{data.promotion_price}}
+    {% else %}
+        {{data.sell_price}}
+    {% end %}
+  </div>
+{% end %}
