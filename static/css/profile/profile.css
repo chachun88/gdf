@@ -117,3 +117,18 @@
 .tabla-contacto{
     width: 100%;
 }
+
+.formulario-contrasena
+{
+    display: none;
+}
+
+.formulario-contacto
+{
+    display: none;
+}
+
+.formulario-agregar-contacto
+{
+    display: none;
+}

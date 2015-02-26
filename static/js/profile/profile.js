@@ -30,12 +30,6 @@ $(document).ready(function()
         $("#InputMobile").val("");
     };
 
-    // Al cargar la pagina los formulario deben quedar oculto
-    $(".formulario-contrasena").hide();
-    $(".formulario-contacto").hide();
-    $(".formulario-agregar-contacto").hide();
-
-
     // Muestra el formulario para cambiar clave y oculta el boton
     $(".btn-cambiar-contrasena").on( "click", function()
     {
