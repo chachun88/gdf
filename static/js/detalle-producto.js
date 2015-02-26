@@ -5,8 +5,8 @@ $(document).ready(function(){
 
     $("button.add-to-cart").click(function(){
         var product_id = $(this).attr("product-id");
-        var size = $("#size").val()
-        var quantity = $("#quantity").val()
+        var size = $("#size").val();
+        var quantity = $("#quantity").val();
         $.ajax({
             url:"/cart/add",
             cache: false,
