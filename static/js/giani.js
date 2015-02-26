@@ -191,13 +191,14 @@ $(document).ready(function(){
     {
 
         ga('ec:addImpression', {
-          // 'id': 'P12345',                   // Product details are provided in an impressionFieldObject.
-          'name': 'Pagina Tienda',
-          // 'category': 'Apparel/T-Shirts',
-          // 'brand': 'Google',
-          // 'variant': 'black',
-          // 'list': 'Search Results',
-          // 'position': 1                     // 'position' indicates the product position in the list.
+            // 'id': 'P12345',
+            'name': 'Pagina Tienda',
+            // 'list': 'Search Results',
+            // 'brand': 'Giani Da Firenze',
+            // 'category': 'Apparel/T-Shirts',
+            // 'variant': 'black',
+            // 'position': 1,
+            // 'price': '',
         });
 
         ga('send', 'pageview');
