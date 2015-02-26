@@ -25,6 +25,21 @@ $(document).ready(function(){
                             $(".carritoproductos").slideDown();
                         }
                     }
+
+                    ga('ec:addProduct', {
+                        'id': ga_id,
+                        'name': ga_name,
+                        'brand': 'Giani Da Firenze',
+                        'category': ga_category,
+                        'variant': ga_variant,
+                        'price': ga_price,
+                        'quantity': quantity,
+                        // 'coupon': 'SUMMER2013',
+                        // 'position': 1
+                    });
+
+                    ga('ec:setAction', 'add');
+                    ga('send', 'event', 'click', 'add to cart');
                 }
             }
         })
