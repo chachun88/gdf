@@ -28,7 +28,7 @@ $(document).ready(function(){
     });
 
 
-    var device_touch = false
+    var device_touch = false;
 
     try {
         document.createEvent("TouchEvent");
@@ -55,7 +55,7 @@ $(document).ready(function(){
                     if(from_cart){
                         GetCartByUserId(window.localStorage.getItem("user_id"));
                     } else {
-                        location.reload()
+                        location.reload();
                     }
                 } else {
                     fancyAlert(html);
@@ -90,7 +90,7 @@ $(document).ready(function(){
 
         var link = $(this).attr("href");
 
-        location.href = link + "&user_id=" + $("#user_id").val()
+        location.href = link + "&user_id=" + $("#user_id").val();
     });
 
     $(document).on("click",".page-link",function(e){
@@ -182,6 +182,6 @@ $(document).ready(function(){
         ga('create', 'UA-60108520-1', 'auto');
         ga('send', 'pageview');
 
-        console.info("google analytics")
+        console.info("google analytics");
     }
 });
