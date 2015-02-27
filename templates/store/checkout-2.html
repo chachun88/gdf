@@ -8,6 +8,7 @@ Giani Da Firenze - Carro de Compra
 <link rel="stylesheet" href="/static/css/bootstrap/style.css">
 <link rel="stylesheet" href="/static/css/bootstrap/skin-10.css">
 <link rel="stylesheet" href="/static/css/bootstrap/jquery.minimalect.min.css">
+<link rel="stylesheet" href="/static/css/oculta-dato.css">
 {% end %}
 
 {% block javascript %}
@@ -197,4 +198,20 @@ Giani Da Firenze - Carro de Compra
   <div style="clear:both"></div>
 </div>
 <!-- /.main-container-->
+
+<!-- Datos para google analytic -->
+<div class="datos-analytic">
+  <div class="numero-checkout">2</div>
+  {% for d in data %}
+  <div class="carro" car-id="{{d["id"]}}">
+    <div class="id-{{d["id"]}}">{{d["sku"]}}</div>
+    <div class="name-{{d["id"]}}">{{d["name"]}}</div>
+    <div class="category-{{d["id"]}}">{{d["category"]}}</div>
+    <div class="variant-{{d["id"]}}">{{d["color"]}}</div>
+    <div class="price-{{d["id"]}}">{{d["subtotal"]}}</div>
+    <div class="quantity-{{d["id"]}}">{{d["quantity"]}}</div>
+  </div>
+  {% end %}
+</div>
+
 {% end %}
