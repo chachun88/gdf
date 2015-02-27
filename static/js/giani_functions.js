@@ -222,30 +222,30 @@ var filtrar = function(object){
 
 var checkStock = function(){
 
-	$.ajax({
-		url: "/checkout/checkstock",
-		data: "user_id=" + window.localStorage.getItem("user_id"),
-		dataType: "json",
-		type: "get",
-		async: false,
-		success: function(html){
+    $.ajax({
+        url: "/checkout/checkstock",
+        data: "user_id=" + window.localStorage.getItem("user_id"),
+        dataType: "json",
+        type: "get",
+        async: false,
+        success: function(html){
 
-			response_str = JSON.stringify(html);
-			response = $.parseJSON(response_str);
-			if(response.error){
-				errores = response.error;
+            response_str = JSON.stringify(html);
+            response = $.parseJSON(response_str);
+            if(response.error){
+                errores = response.error;
 
-				res = ""
+                res = ""
 
-				for(var i = 0; i < errores.length; i++){
-					res += errores[i]["sku"] + " "+ errores[i]["error"] + "<br/>";
-				}
+                for(var i = 0; i < errores.length; i++){
+                    res += errores[i]["sku"] + " "+ errores[i]["error"] + "<br/>";
+                }
 
-				fancyAlert(res);
+                fancyAlert(res);
 
-			} else {
-				location.href = '/auth/checkout?next=/checkout/address';
-			}
-		}
-	});
+            } else {
+                location.href = '/auth/checkout?next=/checkout/address';
+            }
+        }
+    });
 }
