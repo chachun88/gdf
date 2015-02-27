@@ -76,7 +76,7 @@ $(document).ready(function(){
                     });
 
                     ga('ec:setAction', 'remove');
-                    ga('send', 'event', 'click', 'remove to cart');
+                    ga('send', 'event', 'UX', 'click', 'remove from cart');
 
                 } else {
                     fancyAlert(html);

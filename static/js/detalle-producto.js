@@ -39,7 +39,7 @@ $(document).ready(function(){
                     });
 
                     ga('ec:setAction', 'add');
-                    ga('send', 'event', 'click', 'add to cart');
+                    ga('send', 'event', 'UX', 'click', 'add to cart');
                 }
             }
         })
