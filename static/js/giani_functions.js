@@ -235,7 +235,7 @@ var checkStock = function(){
             if(response.error){
                 errores = response.error;
 
-                res = ""
+                res = "";
 
                 for(var i = 0; i < errores.length; i++){
                     res += errores[i]["sku"] + " "+ errores[i]["error"] + "<br/>";
@@ -248,4 +248,4 @@ var checkStock = function(){
             }
         }
     });
-}
+};
