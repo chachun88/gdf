@@ -16,7 +16,7 @@ $(document).ready(function()
         'category': ga_category,
         'variant': ga_variant,
         'price': ga_price,
-        'quantity': ga_quantity,
+        // 'quantity': ga_quantity,
         // 'coupon': 'SUMMER2013',
         // 'position': 1
     });
