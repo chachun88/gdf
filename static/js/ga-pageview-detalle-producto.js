@@ -9,16 +9,19 @@ $(document).ready(function()
     var ga_variant = $(".ga-variant").html();
     var ga_price = $(".ga-price").html();
 
-    ga('ec:addImpression', {
+    ga('ec:addProduct', {
         'id': ga_id,
         'name': ga_name,
-        // 'list': 'Search Results',
         'brand': 'Giani Da Firenze',
         'category': ga_category,
         'variant': ga_variant,
-        // 'position': 1,
         'price': ga_price,
+        'quantity': ga_quantity,
+        // 'coupon': 'SUMMER2013',
+        // 'position': 1
     });
+
+    ga('ec:setAction', 'detail');
 
     ga('send', 'pageview');
 
