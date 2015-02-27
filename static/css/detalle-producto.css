@@ -1723,9 +1723,7 @@ body {
     color: rgb(240, 77, 77) !important;
     }
 
-.ga-category,
-.ga-variant,
-.ga-price
+.datos-analytic
 {
     display: none;
 }
