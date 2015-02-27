@@ -44,7 +44,12 @@ $(document).ready(function(){
     $(document).on("click","button.eliminarproducto,a.borrarproducto",function(){
         var cart_id = $(this).attr("cart-id");
         var from_cart = $(this).hasClass("eliminarproducto");
-        
+
+        var ga_name = $(this).parent().find("p.nombreproductoencola").html();
+        var ga_variant = $(this).parent().find("p.color").html().replace("color: ", " ");
+        var ga_price = $(this).parent().find("p.precio").html().replace("$", " ").replace(".", "");
+        var ga_quantity = $(this).parent().find("p.cantidad").html().replace("x", " ");
+
         $.ajax({
             url:"/cart/remove",
             data:"cart_id="+cart_id,
@@ -57,6 +62,22 @@ $(document).ready(function(){
                     } else {
                         location.reload();
                     }
+
+                    ga('ec:addProduct', {
+                        // 'id': ga_id,
+                        'name': ga_name,
+                        'brand': 'Giani Da Firenze',
+                        // 'category': ga_category,
+                        'variant': ga_variant,
+                        'price': ga_price,
+                        'quantity': ga_quantity,
+                        // 'coupon': 'SUMMER2013',
+                        // 'position': 1
+                    });
+
+                    ga('ec:setAction', 'remove');
+                    ga('send', 'event', 'click', 'remove to cart');
+
                 } else {
                     fancyAlert(html);
                 }
