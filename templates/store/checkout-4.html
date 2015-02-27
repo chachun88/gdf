@@ -9,12 +9,15 @@ Giani Da Firenze - Carro de Compra
 <link rel="stylesheet" href="/static/css/index.css">
 <link rel="stylesheet" href="/static/css/bootstrap/style.css">
 <link rel="stylesheet" href="/static/css/bootstrap/skin-10.css">
+<link rel="stylesheet" href="/static/css/oculta-dato.css">
 {% end %}
 
 {% block javascript %}
 <script src="/static/js/detalle-producto.js"></script>
 <script src="/static/js/bootstrap/bootstrap.min.js"></script>
 <script src="/static/js/bootstrap/bootstrap.touchspin.js"></script>
+ <!-- Script para google analytics -->
+<script src="/static/js/ga-checkout.js"></script>
 {% end %}
 
 {% block body %}
@@ -56,7 +59,7 @@ Giani Da Firenze - Carro de Compra
                       <div id="collapseTwo" class="panel-collapse collapse in">
                         <div class="panel-body">
 
-                          <form action="/pago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
+                          <form id="form-pagar"action="/pago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
                               <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
                               <input type="hidden" name="TBK_MONTO" value="{{suma+costo_despacho}}00" />
                               <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}" />
@@ -74,7 +77,7 @@ Giani Da Firenze - Carro de Compra
                               <input name="checkboxes" id="term-1" value="1" type="checkbox">
                               Estoy de acuerdo y acepto los <a href="/tos" target="_blank" >Términos y condiciones</a> </label>
                           </div>
-                          <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small " > Pagar &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
+                          <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small btn-pagar" > Pagar &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
                           </form>
                         </div>
                       </div>
@@ -265,4 +268,22 @@ Giani Da Firenze - Carro de Compra
   <div style="clear:both"></div>
 </div>
 <!-- /.main-container -->
+
+<!-- Datos para google analytic -->
+<div class="datos-analytic">
+  <!-- Este valor es 5, puesto que es el ultimo paso de la compra, aunque 
+  checkout indica lo contrario -->
+  <div class="numero-checkout">5</div>
+  {% for d in data %}
+  <div class="carro" car-id="{{d["id"]}}">
+    <div class="id-{{d["id"]}}">{{d["sku"]}}</div>
+    <div class="name-{{d["id"]}}">{{d["name"]}}</div>
+    <div class="category-{{d["id"]}}">{{d["category"]}}</div>
+    <div class="variant-{{d["id"]}}">{{d["color"]}}</div>
+    <div class="price-{{d["id"]}}">{{d["subtotal"]}}</div>
+    <div class="quantity-{{d["id"]}}">{{d["quantity"]}}</div>
+  </div>
+  {% end %}
+</div>
+
 {% end %}

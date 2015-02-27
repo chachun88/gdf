@@ -119,4 +119,29 @@ $(document).ready(function(){
     });
 
     $("ul.tabs-menu-li li:first a").addClass("active").trigger("click");
+
+    // boton del step 3
+    $(".btn-resumen").on( "click", function(evt)
+    {
+        evt.preventDefault();
+        googleAnalyticsCheckout();
+        $("#form-resumen").submit();
+    });
+
+    // boton del step 4
+    $(".btn-pago").on( "click", function(evt)
+    {
+        evt.preventDefault();
+        googleAnalyticsCheckout();
+        $("#form-pago").submit();
+    });
+
+    // boton del step 5
+    $(".btn-pagar").on( "click", function(evt)
+    {
+        evt.preventDefault();
+        googleAnalyticsCheckout();
+        $("#form-pagar").submit();
+    });
+
 });

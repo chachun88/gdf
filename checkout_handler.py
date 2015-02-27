@@ -282,7 +282,7 @@ class CheckoutShippingHandler(BaseHandler):
                         suma += l["subtotal"]
 
                     # self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
-                    self.render("store/checkout-3.html",suma=suma,costo_despacho=costo_despacho)
+                    self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho)
             else:
 
                 cart = Cart()
@@ -300,7 +300,7 @@ class CheckoutShippingHandler(BaseHandler):
                     suma += l["subtotal"]
 
                 # self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
-                self.render("store/checkout-3.html",suma=suma,costo_despacho=costo_despacho)
+                self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho)
 
         else:
 
@@ -340,7 +340,7 @@ class CheckoutPaymentHandler(BaseHandler):
                 c.Edit()
                 suma += l["subtotal"]
 
-            self.render("store/checkout-4.html",suma=suma,costo_despacho=costo_despacho)
+            self.render("store/checkout-4.html",data=lista,suma=suma,costo_despacho=costo_despacho)
         else:
             self.redirect("/auth/login")
 
