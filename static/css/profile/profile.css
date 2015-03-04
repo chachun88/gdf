@@ -50,7 +50,7 @@
     padding: 10px;
 }
 
-.user-direcciones input, .user-page input{
+.user-page input, .user-page select{
     margin-top: 10px;
 }
 
@@ -106,11 +106,13 @@
     float: left;
 }
 
-.margen{
+.margen
+{
     margin-top: 10px;
 }
 
-.campo{
+.campo
+{
     width: 150px;
 }
 
@@ -118,14 +120,37 @@
     width: 100%;
 }
 
-.formulario-contacto{
+.formulario-contrasena
+{
     display: none;
 }
 
-.editar-contacto{
-    float: none;
+.formulario-contacto
+{
+    display: none;
 }
 
-.formulario-contacto input, .formulario-contacto select{
+.formulario-agregar-contacto
+{
+    display: none;
+}
+
+.formulario-contacto input, .formulario-contacto select
+{
     width: 100%;
+}
+
+#name
+{
+    margin-right: 50px;
+}
+
+#address
+{
+    width: 200px;
+}
+
+#city
+{
+    width: 90%;
 }

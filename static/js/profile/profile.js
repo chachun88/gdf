@@ -30,12 +30,6 @@ $(document).ready(function()
         $("#InputMobile").val("");
     };
 
-    // Al cargar la pagina los formulario deben quedar oculto
-    $(".formulario-contrasena").hide();
-    //$(".formulario-contacto").hide();
-    $(".formulario-agregar-contacto").hide();
-
-
     // Muestra el formulario para cambiar clave y oculta el boton
     $(".btn-cambiar-contrasena").on( "click", function()
     {
@@ -112,7 +106,7 @@ $(document).ready(function()
         $("#zip-code").val(zipcode);
         $("#telephone").val(telephone);
         
-        $(".tabla-contacto").hide();
+        $(".contactos").hide();
         $(".formulario-contacto").show();
     });
 
@@ -186,7 +180,7 @@ $(document).ready(function()
                         limpiarFormulario();
 
                         $(".formulario-contacto").hide();
-                        $(".tabla-contacto").show();
+                        $(".contactos").show();
 
                         fancyAlert("El cambio fue exitoso");
                     }
@@ -208,7 +202,7 @@ $(document).ready(function()
         evt.preventDefault();
 
         $(".formulario-contacto").hide();
-        $(".tabla-contacto").show();
+        $(".contactos").show();
     });
 
     $(".btn-agregar-contacto").on( "click", function()
