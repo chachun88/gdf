@@ -707,7 +707,7 @@ class ExitoHandler(BaseHandler):
 
                                           <tbody><tr>
                                             <td align="center" valign="top">
-                                             <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                             <a href="#"><img src="{url_local}/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                            </td>
 
                                          </tr>
@@ -1066,7 +1066,7 @@ class ExitoHandler(BaseHandler):
 
                                         <tbody><tr>
                                           <td align="center" valign="top">
-                                           <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                           <a href="#"><img src="{url_local}/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                          </td>
 
                                        </tr>
@@ -1221,7 +1221,7 @@ class ExitoHandler(BaseHandler):
 
                                           <tbody><tr>
                                             <td align="center" valign="top">
-                                             <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                             <a href="#"><img src="{url_local}/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                            </td>
 
                                          </tr>
@@ -1576,7 +1576,7 @@ class ExitoHandler(BaseHandler):
 
                                         <tbody><tr>
                                           <td align="center" valign="top">
-                                           <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                           <a href="#"><img src="{url_local}/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                          </td>
 
                                        </tr>
