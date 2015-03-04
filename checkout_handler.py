@@ -683,7 +683,7 @@ class CheckoutSendHandler(BaseHandler):
                         </div>
                     </body>
                     </html> 
-                    """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=order.total+order.shipping,order_subtotal=order.subtotal,order_shipping=order.shipping,url_local=url_local)
+                    """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=self.money_format(order.total+order.shipping),order_subtotal=self.money_format(order.subtotal),order_shipping=self.money_format(order.shipping),url_local=url_local)
 
                     # email_confirmacion = "yichun212@gmail.com"
 
