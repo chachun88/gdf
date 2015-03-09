@@ -490,41 +490,7 @@ class CheckoutSendHandler(BaseHandler):
                         # res_obj = detail.Save()
                         detail.Save()
 
-                        kardex = Kardex()
-
-                        producto = Product()
-                        response = producto.InitById(detail.product_id)
-
-                        if "success" in response:
-
-                            kardex.product_sku = producto.sku
-                            kardex.cellar_identifier = id_bodega
-                            kardex.operation_type = Kardex.OPERATION_MOV_OUT
-                            
-                            if l["promotion_price"] > 0:
-                                producto.sell_price = l["promotion_price"]
-
-                            kardex.sell_price = producto.sell_price
-
-                            kardex.size = detail.size
-                            kardex.date = str(datetime.now().isoformat()) 
-                            kardex.user = self.current_user["email"]
-                            kardex.units = detail.quantity
-
-                            kardex.Insert()
-
-                            c = Cellar()
-                            res_reservation = c.GetReservationCellar()
-
-                            reservation_cellar = shipping_cellar
-
-                            if "success" in res_reservation:
-                                reservation_cellar = res_reservation["success"]
-
-                            kardex.cellar_identifier = reservation_cellar
-                            kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                            kardex.Insert()
+                        
 
                         # if "error" in res_obj:
                         #     print "{}".format(res_obj["error"])
@@ -699,6 +665,42 @@ class CheckoutSendHandler(BaseHandler):
                         for l in lista:
                             cart.id = l["id"]
                             cart.Remove()
+
+                            kardex = Kardex()
+
+                            producto = Product()
+                            response = producto.InitById(l["product_id"])
+
+                            if "success" in response:
+
+                                kardex.product_sku = producto.sku
+                                kardex.cellar_identifier = id_bodega
+                                kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                                
+                                if l["promotion_price"] > 0:
+                                    producto.sell_price = l["promotion_price"]
+
+                                kardex.sell_price = producto.sell_price
+
+                                kardex.size = l["size"]
+                                kardex.date = str(datetime.now().isoformat()) 
+                                kardex.user = "Sistema - Reservar Producto"
+                                kardex.units = l["quantity"]
+
+                                kardex.Insert()
+
+                                c = Cellar()
+                                res_reservation = c.GetReservationCellar()
+
+                                reservation_cellar = shipping_cellar
+
+                                if "success" in res_reservation:
+                                    reservation_cellar = res_reservation["success"]
+
+                                kardex.cellar_identifier = reservation_cellar
+                                kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                                kardex.Insert()
                         self.render( "store/success.html",webpay="no" )
                     else:
                         self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
