@@ -25,7 +25,7 @@ $(document).ready(function(){
 
 		// Slide down menu if hidden
 		if (!expanded) {
-			if($(window).width() <= 480){$("#filtrar-btn-menu").fadeIn("slow");}
+			$("#filtrar-btn-menu").fadeIn("slow");
 			$("#menu-m ul").animate({
 				"height": original_height
 			}, "slow");
@@ -59,7 +59,7 @@ $(document).ready(function(){
 	});
 	$(".cerrar-filtrar-btn-menu").click(function(){
 		if(expanded){
-			$("#filtrar-btn-menu").fadeOut("fast");
+			$("#filtrar-btn-menu").fadeOut("slow");
 			$("#menu-m ul").animate({
 				"height": 0
 			}, "fast");
