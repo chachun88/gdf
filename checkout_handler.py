@@ -686,6 +686,7 @@ class CheckoutSendHandler(BaseHandler):
                                 kardex.date = str(datetime.now().isoformat()) 
                                 kardex.user = "Sistema - Reservar Producto"
                                 kardex.units = l["quantity"]
+                                kardex.price = producto.price
 
                                 kardex.Insert()
 

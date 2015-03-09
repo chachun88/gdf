@@ -566,6 +566,7 @@ class ExitoHandler(BaseHandler):
                         kardex.date = str(datetime.now().isoformat()) 
                         kardex.user = self.current_user["email"]
                         kardex.units = l["quantity"]
+                        kardex.price = producto.price
 
                         kardex.Insert()
 
