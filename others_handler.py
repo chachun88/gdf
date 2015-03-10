@@ -1737,16 +1737,9 @@ class FracasoHandler(BaseHandler):
             TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
             PATHSUBMIT=PATHSUBMIT)
 
-    # def get(self):
+    def get(self):
 
-    #     PATHSUBMIT = "http://giano.ondev.today"
-    #     TBK_ID_SESION = self.get_argument("TBK_ID_SESION","201410141634")
-    #     TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","120")
-
-    #     self.render("store/failure.html",
-    #                 TBK_ID_SESION=TBK_ID_SESION,
-    #                 TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
-    #                 PATHSUBMIT=PATHSUBMIT)
+        self.redirect("/")
 
 
 class WSCorreosChileHandler(BaseHandler):
