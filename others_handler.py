@@ -171,10 +171,10 @@ class PagoHandler(BaseHandler):
                     # if "error" in res_obj:
                     #     print "{}".format(res_obj["error"])
 
-            else:
+            # else:
 
-                self.write(response_obj["error"])
-                return
+            #     self.write(response_obj["error"])
+            #     return
 
         if os.name != "nt":
             myPath = "{}webpay/dato{}.log" \
