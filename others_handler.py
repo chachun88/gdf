@@ -102,6 +102,7 @@ class PagoHandler(BaseHandler):
         TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO","")
         TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO","")
 
+        payment_type = self.get_argument("payment_type",2)
         costo_despacho = int(self.get_argument("shipping_price",0))
 
         user_id = self.current_user["id"]
@@ -127,14 +128,13 @@ class PagoHandler(BaseHandler):
             for l in lista:
                 c = Cart()
                 c.InitById(l["id"])
-                c.payment_type = 2
+                c.payment_type = payment_type
                 c.Edit()
                 subtotal += l["subtotal"]
                 cantidad_items += l["quantity"]
                 cantidad_productos += 1
                 id_facturacion = l["billing_id"]
                 id_despacho = l["shipping_id"]
-                tipo_pago = l["payment_type"]
                 total += l["subtotal"]
 
             order.date = datetime.now()
@@ -148,7 +148,7 @@ class PagoHandler(BaseHandler):
             order.user_id = user_id
             order.billing_id = id_facturacion
             order.shipping_id = id_despacho
-            order.payment_type = tipo_pago
+            order.payment_type = payment_type
             order.voucher = ""
             order.state = Order.ESTADO_PENDIENTE
 
