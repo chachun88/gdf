@@ -138,7 +138,7 @@ class PagoHandler(BaseHandler):
                 total += l["subtotal"]
 
             order.date = datetime.now()
-            order.type = 1
+            order.type = Order.TIPO_WEB
             order.subtotal = subtotal
             order.shipping = costo_despacho
             order.tax = iva
@@ -150,7 +150,7 @@ class PagoHandler(BaseHandler):
             order.shipping_id = id_despacho
             order.payment_type = tipo_pago
             order.voucher = ""
-            order.state = 1
+            order.state = Order.ESTADO_PENDIENTE
 
             response_obj = order.Save()
 
@@ -170,6 +170,11 @@ class PagoHandler(BaseHandler):
                     # res_obj = detail.Save()
                     # if "error" in res_obj:
                     #     print "{}".format(res_obj["error"])
+
+            else:
+
+                self.write(response_obj["error"])
+                return
 
         if os.name != "nt":
             myPath = "{}webpay/dato{}.log" \
@@ -287,11 +292,11 @@ class XtCompraHandler(BaseHandler):
 
             if "success" in init_by_id:
                 # rechaza si orden no esta pendiente
-                if order.state != 1:
+                if order.state != Order.ESTADO_PENDIENTE:
                     acepta = False
                 # si esta pendiente actualizar a pagado
-                elif order.state == 1:
-                    order.state = 2
+                elif order.state == Order.ESTADO_PENDIENTE:
+                    order.state = Order.ESTADO_CONFIRMADO
                     save_order = order.Edit()
                     # rechaza si no puede actualizar la orden
                     if "error" in save_order:
@@ -426,7 +431,7 @@ class ExitoHandler(BaseHandler):
 
         if "success" in init_by_id:
             # print str(order.state)
-            if int(order.state) == 1:
+            if int(order.state) == Order.ESTADO_PENDIENTE:
                 self.render(
                     "store/failure.html",
                     TBK_ID_SESION=TBK_ID_SESION,
