@@ -48,7 +48,7 @@ if enviroment == Enviroment.LOCAL:
     print "local enviroment"
 
     port = DEBUG_PORT
-    url_bodega = "http://giani.gianidafirenze.cl"
+    url_bodega = "http://bgiani.ondev.today"
     url_local = "http://localhost:8502"
     url_cgi = "http://cgiani.ondev.today"
 
@@ -58,7 +58,7 @@ if enviroment == Enviroment.LOCAL:
     email_giani = "yi.neko@gmail.com"
 
     project_path = "/var/www/giani.ondev/"
-    cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
+    cgi_path = "/var/www/cgiani.ondev/"
 
 elif enviroment == Enviroment.ONDEV:
     port = DEBUG_PORT

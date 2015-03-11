@@ -102,6 +102,7 @@ class PagoHandler(BaseHandler):
         TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO","")
         TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO","")
 
+        payment_type = self.get_argument("payment_type",2)
         costo_despacho = int(self.get_argument("shipping_price",0))
 
         user_id = self.current_user["id"]
@@ -127,18 +128,17 @@ class PagoHandler(BaseHandler):
             for l in lista:
                 c = Cart()
                 c.InitById(l["id"])
-                c.payment_type = 2
+                c.payment_type = payment_type
                 c.Edit()
                 subtotal += l["subtotal"]
                 cantidad_items += l["quantity"]
                 cantidad_productos += 1
                 id_facturacion = l["billing_id"]
                 id_despacho = l["shipping_id"]
-                tipo_pago = l["payment_type"]
                 total += l["subtotal"]
 
             order.date = datetime.now()
-            order.type = 1
+            order.type = Order.TIPO_WEB
             order.subtotal = subtotal
             order.shipping = costo_despacho
             order.tax = iva
@@ -148,9 +148,9 @@ class PagoHandler(BaseHandler):
             order.user_id = user_id
             order.billing_id = id_facturacion
             order.shipping_id = id_despacho
-            order.payment_type = tipo_pago
+            order.payment_type = payment_type
             order.voucher = ""
-            order.state = 1
+            order.state = Order.ESTADO_PENDIENTE
 
             response_obj = order.Save()
 
@@ -170,6 +170,11 @@ class PagoHandler(BaseHandler):
                     # res_obj = detail.Save()
                     # if "error" in res_obj:
                     #     print "{}".format(res_obj["error"])
+
+            # else:
+
+            #     self.write(response_obj["error"])
+            #     return
 
         if os.name != "nt":
             myPath = "{}webpay/dato{}.log" \
@@ -287,11 +292,11 @@ class XtCompraHandler(BaseHandler):
 
             if "success" in init_by_id:
                 # rechaza si orden no esta pendiente
-                if order.state != 1:
+                if order.state != Order.ESTADO_PENDIENTE:
                     acepta = False
                 # si esta pendiente actualizar a pagado
-                elif order.state == 1:
-                    order.state = 2
+                elif order.state == Order.ESTADO_PENDIENTE:
+                    order.state = Order.ESTADO_CONFIRMADO
                     save_order = order.Edit()
                     # rechaza si no puede actualizar la orden
                     if "error" in save_order:
@@ -426,7 +431,7 @@ class ExitoHandler(BaseHandler):
 
         if "success" in init_by_id:
             # print str(order.state)
-            if int(order.state) == 1:
+            if int(order.state) == Order.ESTADO_PENDIENTE:
                 self.render(
                     "store/failure.html",
                     TBK_ID_SESION=TBK_ID_SESION,
@@ -566,6 +571,7 @@ class ExitoHandler(BaseHandler):
                         kardex.date = str(datetime.now().isoformat()) 
                         kardex.user = self.current_user["email"]
                         kardex.units = l["quantity"]
+                        kardex.price = producto.price
 
                         kardex.Insert()
 
@@ -707,7 +713,7 @@ class ExitoHandler(BaseHandler):
 
                                           <tbody><tr>
                                             <td align="center" valign="top">
-                                             <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                             <a href="#"><img src="{url_local}/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                            </td>
 
                                          </tr>
@@ -1066,7 +1072,7 @@ class ExitoHandler(BaseHandler):
 
                                         <tbody><tr>
                                           <td align="center" valign="top">
-                                           <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                           <a href="#"><img src="{url_local}/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                          </td>
 
                                        </tr>
@@ -1221,7 +1227,7 @@ class ExitoHandler(BaseHandler):
 
                                           <tbody><tr>
                                             <td align="center" valign="top">
-                                             <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                             <a href="#"><img src="{url_local}/static/images/giani-logo-2-gris-260x119.png" width="250" style="max-width:250px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                            </td>
 
                                          </tr>
@@ -1576,7 +1582,7 @@ class ExitoHandler(BaseHandler):
 
                                         <tbody><tr>
                                           <td align="center" valign="top">
-                                           <a href="#"><img src="http://giani.ondev.today/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
+                                           <a href="#"><img src="{url_local}/static/images/giani-logo-2-gris-260x119.png" width="114" style="max-width:114px;" alt="Logo" border="0" hspace="0" vspace="0"></a>
                                          </td>
 
                                        </tr>
@@ -1731,16 +1737,9 @@ class FracasoHandler(BaseHandler):
             TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
             PATHSUBMIT=PATHSUBMIT)
 
-    # def get(self):
+    def get(self):
 
-    #     PATHSUBMIT = "http://giano.ondev.today"
-    #     TBK_ID_SESION = self.get_argument("TBK_ID_SESION","201410141634")
-    #     TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","120")
-
-    #     self.render("store/failure.html",
-    #                 TBK_ID_SESION=TBK_ID_SESION,
-    #                 TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
-    #                 PATHSUBMIT=PATHSUBMIT)
+        self.redirect("/")
 
 
 class WSCorreosChileHandler(BaseHandler):

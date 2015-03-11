@@ -490,41 +490,7 @@ class CheckoutSendHandler(BaseHandler):
                         # res_obj = detail.Save()
                         detail.Save()
 
-                        kardex = Kardex()
-
-                        producto = Product()
-                        response = producto.InitById(detail.product_id)
-
-                        if "success" in response:
-
-                            kardex.product_sku = producto.sku
-                            kardex.cellar_identifier = id_bodega
-                            kardex.operation_type = Kardex.OPERATION_MOV_OUT
-                            
-                            if l["promotion_price"] > 0:
-                                producto.sell_price = l["promotion_price"]
-
-                            kardex.sell_price = producto.sell_price
-
-                            kardex.size = detail.size
-                            kardex.date = str(datetime.now().isoformat()) 
-                            kardex.user = self.current_user["email"]
-                            kardex.units = detail.quantity
-
-                            kardex.Insert()
-
-                            c = Cellar()
-                            res_reservation = c.GetReservationCellar()
-
-                            reservation_cellar = shipping_cellar
-
-                            if "success" in res_reservation:
-                                reservation_cellar = res_reservation["success"]
-
-                            kardex.cellar_identifier = reservation_cellar
-                            kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                            kardex.Insert()
+                        
 
                         # if "error" in res_obj:
                         #     print "{}".format(res_obj["error"])
@@ -535,10 +501,10 @@ class CheckoutSendHandler(BaseHandler):
                                 <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{name}</td>
                                 <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{color}</td>
                                 <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{size}</td>
-                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{price}</td>
+                                <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {price}</td>
                                 <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{subtotal}</td>
                             </tr>
-                        """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=l["sell_price"],subtotal=l["subtotal"])
+                        """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]),subtotal=l["subtotal"])
 
                     contact = Contact()
                     facturacion_response = contact.InitById(order.billing_id)
@@ -655,15 +621,15 @@ class CheckoutSendHandler(BaseHandler):
                                     <td></td>
                                     <td></td>
                                     <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
-                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_subtotal}</td>
+                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_subtotal}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">IVA</th>
-                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_tax}</td>
+                                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de env&iacute;o</th>
+                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_shipping}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -671,7 +637,7 @@ class CheckoutSendHandler(BaseHandler):
                                     <td></td>
                                     <td></td>
                                     <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Total</th>
-                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_total}</td>
+                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_total}</td>
                                 </tr>
                             </table>
 
@@ -683,7 +649,7 @@ class CheckoutSendHandler(BaseHandler):
                         </div>
                     </body>
                     </html> 
-                    """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=order.total,order_subtotal=order.subtotal,order_tax=order.tax,url_local=url_local)
+                    """.format(name=self.current_user["name"],order_id=order.id,datos_facturacion=datos_facturacion,datos_despacho=datos_despacho,detalle_orden=detalle_orden,order_total=self.money_format(order.total+order.shipping),order_subtotal=self.money_format(order.subtotal),order_shipping=self.money_format(order.shipping),url_local=url_local)
 
                     # email_confirmacion = "yichun212@gmail.com"
 
@@ -699,6 +665,43 @@ class CheckoutSendHandler(BaseHandler):
                         for l in lista:
                             cart.id = l["id"]
                             cart.Remove()
+
+                            kardex = Kardex()
+
+                            producto = Product()
+                            response = producto.InitById(l["product_id"])
+
+                            if "success" in response:
+
+                                kardex.product_sku = producto.sku
+                                kardex.cellar_identifier = id_bodega
+                                kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                                
+                                if l["promotion_price"] > 0:
+                                    producto.sell_price = l["promotion_price"]
+
+                                kardex.sell_price = producto.sell_price
+
+                                kardex.size = l["size"]
+                                kardex.date = str(datetime.now().isoformat()) 
+                                kardex.user = "Sistema - Reservar Producto"
+                                kardex.units = l["quantity"]
+                                kardex.price = producto.price
+
+                                kardex.Insert()
+
+                                c = Cellar()
+                                res_reservation = c.GetReservationCellar()
+
+                                reservation_cellar = shipping_cellar
+
+                                if "success" in res_reservation:
+                                    reservation_cellar = res_reservation["success"]
+
+                                kardex.cellar_identifier = reservation_cellar
+                                kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                                kardex.Insert()
                         self.render( "store/success.html",webpay="no" )
                     else:
                         self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))

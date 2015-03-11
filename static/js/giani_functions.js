@@ -64,10 +64,9 @@ var GetCartByUserId = function(){
 
 var ValidateCheckoutPayment = function(){
     var checked = $('#checkboxes-1:checked').val();
-    var comprobante = $("#comprobante").val().trim();
 
-    if(checked==undefined||comprobante==""){
-        fancyAlert("Debe ingresar comprobante y aceptar t\xE9rminos y condiciones");
+    if(checked==undefined){
+        fancyAlert("Debe aceptar t\xE9rminos y condiciones");
         return false;
     }
 
