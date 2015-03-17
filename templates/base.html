@@ -26,6 +26,8 @@
   <link rel="stylesheet" href="/static/css/menumovil.css"> 
   <!-- css para login, agregar para visualizar -->
   <link rel="stylesheet" href="/static/css/simple_tab.css"> 
+  <!-- css para slider home -->
+  <link rel="stylesheet" href="/static/css/swiper.min.css">
   <!-- css para login -->
   <script src="/static/js/fix_ie9.js"></script>
   <script src="/static/js/jquery-min.js"></script>
@@ -36,6 +38,9 @@
   <script type="text/javascript" src="/static/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
   <script type="text/javascript" src="/static/js/lp.preload.image.js" ></script>
   <script src="/static/js/giani.js"></script>
+  <!-- js slider home -->
+ <script src="/static/js/swiper.jquery.min.js"></script>
+
   {% block javascript %}{% end %}
   
 </head>
@@ -82,6 +87,15 @@
 
 
     <script>
+//slider home
+var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        autoplay: 2500,
+        loop: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev'
+    });
 //para ejecutar menumovil.html
 $(document).ready(function() {
 

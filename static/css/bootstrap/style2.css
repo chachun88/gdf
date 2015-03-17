@@ -1214,13 +1214,11 @@ legend {
 }
 .swiper-container {
 	width: 100%;
-	height: 100%;
-	height:490px;
 	color: #fff;
 	text-align: center;
 }
 .swiper-slide {
-	height: 100%;
+	
 }
 .swiper-slide .slider-content {
 	height:100%;
@@ -1444,7 +1442,7 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
  @media (max-width: 991px) {
  .swiper-container {
- 	height:490px;
+ 
 }
  .slide-2x, .slide-4x, .slide-1x {
 	width:490px;
@@ -1455,10 +1453,10 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 }
  @media (max-width: 767px) {
  .swiper-container {
-	height:350px;
+	
 }
  .slide-2x, .slide-4x, .slide-1x {
-	width:350px;
+	
 }
  .box-text {
 	bottom: 10%;
@@ -1501,7 +1499,6 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
 .banner, .slider-content, .slider, .slider-v2 {
 	width: 100%;
 	display: block;
-	max-height: 540px;
 	height: auto;
 	overflow: hidden;
 	position: relative;
@@ -3725,7 +3722,6 @@ tr.CartProduct td {
 
 @media (min-width: 1800px) {
 .banner, .slider-content, .slider, .slider-v2 {
- max-height: 700px;
 }
 .sliderImg {
  width: 100%;
