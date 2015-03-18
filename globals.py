@@ -91,7 +91,7 @@ elif enviroment == Enviroment.ONTEST:
 
 elif enviroment == Enviroment.PRODUCTION:
     port = PORT
-    url_bodega = "http://bgiani.gianidafirenze.cl"
+    url_bodega = "http://bodegas.gianidafirenze.cl"
     url_local = "http://www.gianidafirenze.cl"
     url_cgi = "http://c.gianidafirenze.cl"
 
