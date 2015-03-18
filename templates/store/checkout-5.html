@@ -9,12 +9,15 @@ Giani Da Firenze - Carro de Compra
 <link rel="stylesheet" href="/static/css/index.css">
 <link rel="stylesheet" href="/static/css/bootstrap/style.css">
 <link rel="stylesheet" href="/static/css/bootstrap/skin-10.css">
+<link rel="stylesheet" href="/static/css/oculta-dato.css">
 {% end %}
 
 {% block javascript %}
 <script src="/static/js/detalle-producto.js"></script>
 <script src="/static/js/bootstrap/bootstrap.min.js"></script>
 <script src="/static/js/bootstrap/bootstrap.touchspin.js"></script>
+ <!-- Script para google analytics -->
+<script src="/static/js/ga-checkout.js"></script>
 {% end %}
 
 {% block body %}
@@ -162,9 +165,9 @@ Giani Da Firenze - Carro de Compra
               <!-- <div class="pull-left"> <a class="btn btn-default" href="/checkout/address"> <i class="fa fa-arrow-left"></i> &nbsp; Dirección </a> </div> -->
               <div class="pull-right"> 
 
-                  <form action="/checkout/payment" method="post">
+                  <form id="form-pago" action="/checkout/payment" method="post">
                     <input type="hidden" name="shipping_price" value="{{costo_despacho}}">
-                    <button type="submit" class="btn btn-primary btn-small">Pago &nbsp; <i class="fa fa-arrow-circle-right"></i></button>
+                    <button type="submit" class="btn btn-primary btn-small btn-pago">Pago &nbsp; <i class="fa fa-arrow-circle-right"></i></button>
                   </form>
 
               </div>
@@ -237,4 +240,22 @@ Giani Da Firenze - Carro de Compra
   <div style="clear:both"></div>
 </div>
 <!-- /wrapper --> 
+
+<!-- Datos para google analytic -->
+<div class="datos-analytic">
+  <!-- Este valor es 4, puesto que es el penultimo paso de la compra, aunque 
+  checkout indica lo contrario -->
+  <div class="numero-checkout">4</div>
+  {% for d in data %}
+  <div class="carro" car-id="{{d["id"]}}">
+    <div class="id-{{d["id"]}}">{{d["sku"]}}</div>
+    <div class="name-{{d["id"]}}">{{d["name"]}}</div>
+    <div class="category-{{d["id"]}}">{{d["category"]}}</div>
+    <div class="variant-{{d["id"]}}">{{d["color"]}}</div>
+    <div class="price-{{d["id"]}}">{{d["subtotal"]}}</div>
+    <div class="quantity-{{d["id"]}}">{{d["quantity"]}}</div>
+  </div>
+  {% end %}
+</div>
+
 {% end %}

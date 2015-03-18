@@ -11,6 +11,8 @@ Giani Da Firenze - {{data.name}}
 
 {% block javascript %}
 <script src="/static/js/detalle-producto.js"></script>
+<!-- Google analytics -->
+<script src="/static/js/ga-pageview-detalle-producto.js"></script>
 <script type="text/javascript" src="/static/js/simple.tab.js" ></script>
 <script type="text/javascript">
     ifvoted({{data.id}});
@@ -184,5 +186,16 @@ Giani Da Firenze - {{data.name}}
       </div> -->
     </div>
   </div>
-
-  {% end %}
+  <!-- Datos para google analytic -->
+  <div class="datos-analytic">
+    <div class="ga-category">{{data.category}}</div>
+    <div class="ga-variant">{{data.color}}</div>
+    <div class="ga-price">
+      {% if data.promotion_price > 0 %}
+          {{data.promotion_price}}
+      {% else %}
+          {{data.sell_price}}
+      {% end %}
+    </div>
+  </div>
+{% end %}

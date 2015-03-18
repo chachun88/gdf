@@ -1722,3 +1722,8 @@ body {
     /* padding-left: 10px !important; */
     color: rgb(240, 77, 77) !important;
     }
+
+.datos-analytic
+{
+    display: none;
+}

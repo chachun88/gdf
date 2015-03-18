@@ -16,19 +16,23 @@ from tornado.options import define, options
 
 from basehandler import BaseHandler
 
+
 class HomeHandler(BaseHandler):
 
-	def get(self):
+    def get(self):
 
-		self.render("home/index.html")
+        self.render("home/index.html")
+
 
 class MainHandler(BaseHandler):
 
-	def get(self):
+    def get(self):
 
-		self.write("MainHandler")
-class MainHandler(BaseHandler):
+        self.write("MainHandler")
 
-	def get(self):
+# Creo que el MainHandler que se encuentra debajo esta de mas
+# class MainHandler(BaseHandler):
 
-		self.write("MainHandler")
+#     def get(self):
+
+#         self.write("MainHandler")
