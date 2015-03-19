@@ -26,7 +26,7 @@ from model.product import Product
 from model.contact import Contact
 from model.webpay import Webpay
 from model.cellar import Cellar
-
+from model.size import Size
 
 class ContactHandler(BaseHandler):
 
@@ -567,7 +567,14 @@ class ExitoHandler(BaseHandler):
                             producto.sell_price = l["promotion_price"]
 
                         kardex.sell_price = producto.sell_price
-                        kardex.size = l["size"]
+                        
+                        _s = Size()
+                        _s.name = l["size"]
+                        res_name = _s.initByName()
+
+                        if "success" in res_name:
+                            kardex.size_id = _s.id
+                                    
                         kardex.date = str(datetime.now().isoformat()) 
                         kardex.user = self.current_user["email"]
                         kardex.units = l["quantity"]

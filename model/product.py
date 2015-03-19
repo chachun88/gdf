@@ -36,6 +36,7 @@ class Product(BaseModel):
         self._delivery = ""  # delivery
         self._which_size = ""  # cual es tu talla
         self._promotion_price = 0
+        self._size_id = ""
 
     @property
     def upc(self):
@@ -237,6 +238,15 @@ class Product(BaseModel):
     def promotion_price(self, value):
         self._promotion_price = value
 
+    @property
+    def size_id(self):
+        return self._size_id
+        
+    @size_id.setter
+    def size_id(self, value):
+        self._size_id = value
+    
+
     def GetList(self, page=1, items=30):
 
         page = int(page)
@@ -411,10 +421,13 @@ class Product(BaseModel):
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
 
-        q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where to_tsvector('spanish', p.name) @@ to_tsquery('spanish',%(name)s) 
+        q = '''select string_agg(s.name,',') as size, array_agg(s.size_id) as size_id, p.*,c.name as category from "Product" p 
+        inner join "Category" c on c.id = p.category_id 
+        inner join sizes s on s.product_sku = p.sku
+        where to_tsvector('spanish', p.name) @@ to_tsquery('spanish',%(name)s) 
         and to_tsvector('spanish', c.name) @@ to_tsquery('spanish',%(cat)s) 
         and to_tsvector('spanish', p.color) @@ to_tsquery('spanish', %(color)s) 
-        and p.for_sale = 1 limit 1'''
+        and p.for_sale = 1 group by p.id, c.name limit 1'''
         p = {
             "name": name,
             "cat": cat,
@@ -442,6 +455,7 @@ class Product(BaseModel):
                 self.sku = producto['sku']
                 self.description = producto['description']
                 self.size = producto['size']
+                self.size_id = producto['size_id']
                 self.color = producto['color']
                 self.material = producto['material']
                 self.manufacturer = producto['manufacturer']
@@ -467,7 +481,7 @@ class Product(BaseModel):
         """
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''select size from "Product" group by size having array_length(size,1) = (select max(array_length(size,1)) from "Product" where for_sale = 1)'''
+        q = '''select * from "Size"'''
         try:
             cur.execute(q)
             sizes = cur.fetchone()["size"]

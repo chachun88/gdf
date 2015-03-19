@@ -16,6 +16,7 @@ from model.kardex import Kardex
 from model.vote import Vote
 from model.tag import Tag
 from model.cellar import Cellar
+from model.size import Size
 
 
 class IndexHandler(BaseHandler):
@@ -94,14 +95,29 @@ class ProductHandler(BaseHandler):
 
             tallas_disponibles = []
 
-            for s in prod.size:
+            print prod.size_id
+
+            for s in prod.size_id:
 
                 kardex = Kardex()
                 response_obj = kardex.FindKardex(prod.sku,id_bodega,s)
 
                 if "success" in response_obj:
+
+                    print kardex.balance_units
+
                     if kardex.balance_units > 0:
-                        tallas_disponibles.append(s)
+
+                        _size = Size()
+                        _size.id = s
+                        res_name = _size.initById()
+
+                        if "success" in res_name:
+                            tallas_disponibles.append({"id": _size.id, "name": _size.name})
+                        else:
+                            print res_name["error"]
+                else:
+                    print response_obj["error"]
 
             prod.size = tallas_disponibles
 
@@ -148,10 +164,21 @@ class AddToCartHandler(BaseHandler):
                 else:
                     subtotal = int(product.sell_price) * cart.quantity
 
+                size_id = self.get_argument("size","")
+
+                size = Size()
+                size.id = size_id
+                res_name = size.initById()
+
+                if "error" in res_name:
+                    self.write(res_name["error"])
+                else:
+                    cart.size = size.name
+
                 cart.date = datetime.now()
                 cart.subtotal = subtotal
                 cart.user_id = self.get_argument("user_id",-1)
-                cart.size = self.get_argument("size","")
+
                 response_obj = cart.Save()
 
                 if "success" in response_obj:

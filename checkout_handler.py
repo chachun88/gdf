@@ -12,7 +12,7 @@ import uuid
 
 from model.cart import Cart
 from model.contact import Contact
-# from model.customer import Customer
+from model.size import Size
 from model.order import Order
 from model.order_detail import OrderDetail
 from model.kardex import Kardex
@@ -24,7 +24,7 @@ from model.shipping import Shipping
 from datetime import datetime
 from bson import json_util
 import sendgrid
-from globals import url_local, email_giani, shipping_cellar, cellar_id
+from globals import url_local, email_giani, shipping_cellar, cellar_id, debugMode
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -504,7 +504,7 @@ class CheckoutSendHandler(BaseHandler):
                                 <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {price}</td>
                                 <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{subtotal}</td>
                             </tr>
-                        """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]),subtotal=l["subtotal"])
+                        """.format(name=l["name"],size=l["size"],quantity=l["quantity"],color=l["color"],price=self.money_format(l["sell_price"]),subtotal=self.money_format(l["subtotal"]))
 
                     contact = Contact()
                     facturacion_response = contact.InitById(order.billing_id)
@@ -682,7 +682,16 @@ class CheckoutSendHandler(BaseHandler):
 
                                 kardex.sell_price = producto.sell_price
 
-                                kardex.size = l["size"]
+                                _s = Size()
+                                _s.name = l["size"]
+                                res_name = _s.initByName()
+
+                                if "success" in res_name:
+                                    kardex.size_id = _s.id
+                                elif debugMode:
+                                    print res_name["error"]
+
+
                                 kardex.date = str(datetime.now().isoformat()) 
                                 kardex.user = "Sistema - Reservar Producto"
                                 kardex.units = l["quantity"]
@@ -697,11 +706,20 @@ class CheckoutSendHandler(BaseHandler):
 
                                 if "success" in res_reservation:
                                     reservation_cellar = res_reservation["success"]
+                                elif debugMode:
+                                    print res_reservation["error"]
 
                                 kardex.cellar_identifier = reservation_cellar
                                 kardex.operation_type = Kardex.OPERATION_MOV_IN
 
-                                kardex.Insert()
+                                res_kardex = kardex.Insert()
+
+                                if debugMode and "error" in res_kardex:
+                                    print res_kardex["error"]
+
+                            elif debugMode:
+                                print response["error"]
+
                         self.render( "store/success.html",webpay="no" )
                     else:
                         self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
