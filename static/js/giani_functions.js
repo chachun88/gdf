@@ -143,11 +143,11 @@ var enviarFormulario = function(id_formulario){
 
     if(!same_address){
         if(ValidateRequired(id_formulario)){
-            googleAnalyticsCheckout();
+            /*googleAnalyticsCheckout();*/
             $("#"+id_formulario).submit();
         }
     } else {
-        googleAnalyticsCheckout();
+        /*googleAnalyticsCheckout();*/
         $("#"+id_formulario).submit();
     }
 
