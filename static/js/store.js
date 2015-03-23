@@ -16,6 +16,7 @@ $(document).ready(function() {
     var expanded = false;
     var original_height = $("#menu-m ul").css('height')
     $("#menu-m ul").css('height', 0);
+    $("#menu-m ul").css('visibility', 'visible');
 
     //$("#menu-m ul").slideDown("fast");
 

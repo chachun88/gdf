@@ -35,9 +35,9 @@
     background-repeat: no-repeat;
     background-position: center top;
     background-size: 100%;
-    /*display: none;*/
     max-height: 600px;
     overflow-y: scroll !important;
+    visibility: hidden;
 }
 .menu-material li {
     height: auto;
