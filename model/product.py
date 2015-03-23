@@ -6,38 +6,42 @@ import json
 
 from basemodel import BaseModel
 
+
 class Product(BaseModel):
+
     def __init__(self):
         BaseModel.__init__(self)
-        self._name = '' #nombre de producto
-        self._sku = '' #id de producto
-        self._description = '' #descripcion de producto
-        self._brand = '' #marca de producto
-        self._manufacturer = '' #proveedor
-        self._size = [] #tallas
-        self._color = [] #color
-        self._material = '' #material
-        self._bullet_1 = '' #viñeta 1
-        self._bullet_2 = '' #viñeta 2
-        self._bullet_3 = '' #viñeta 3
-        self._currency = '' #divisa
-        self._image = '' #imagen 1
-        self._image_2 = '' #imagen 2
-        self._image_3 = '' #imagen 3
-        self._image_4 = '' #imagen 3
-        self._image_5 = '' #imagen 3
-        self._image_6 = '' #imagen 3
-        self._category = '' #categoria
-        self._upc = '' #articulo
-        self._price='' #precio compra
-        self._sell_price = 0 #precio venta
-        self._delivery = "" #delivery
-        self._which_size = "" #cual es tu talla
+        self._name = ''  # nombre de producto
+        self._sku = ''  # id de producto
+        self._description = ''  # descripcion de producto
+        self._brand = ''  # marca de producto
+        self._manufacturer = ''  # proveedor
+        self._size = []  # tallas
+        self._color = []  # color
+        self._material = ''  # material
+        self._bullet_1 = ''  # viñeta 1
+        self._bullet_2 = ''  # viñeta 2
+        self._bullet_3 = ''  # viñeta 3
+        self._currency = ''  # divisa
+        self._image = ''  # imagen 1
+        self._image_2 = ''  # imagen 2
+        self._image_3 = ''  # imagen 3
+        self._image_4 = ''  # imagen 3
+        self._image_5 = ''  # imagen 3
+        self._image_6 = ''  # imagen 3
+        self._category = ''  # categoria
+        self._upc = ''  # articulo
+        self._price = ''  # precio compra
+        self._sell_price = 0  # precio venta
+        self._delivery = ""  # delivery
+        self._which_size = ""  # cual es tu talla
         self._promotion_price = 0
+        self._size_id = ""
 
     @property
     def upc(self):
         return self._upc
+
     @upc.setter
     def upc(self, value):
         self._upc = value
@@ -45,6 +49,7 @@ class Product(BaseModel):
     @property
     def name(self):
         return self._name
+
     @name.setter
     def name(self, value):
         self._name = value
@@ -52,6 +57,7 @@ class Product(BaseModel):
     @property
     def sku(self):
         return self._sku
+
     @sku.setter
     def sku(self, value):
         self._sku = value
@@ -59,6 +65,7 @@ class Product(BaseModel):
     @property
     def description(self):
         return self._description
+
     @description.setter
     def description(self, value):
         self._description = value
@@ -66,6 +73,7 @@ class Product(BaseModel):
     @property
     def brand(self):
         return self._brand
+
     @brand.setter
     def brand(self, value):
         self._brand = value
@@ -73,6 +81,7 @@ class Product(BaseModel):
     @property
     def manufacturer(self):
         return self._manufacturer
+
     @manufacturer.setter
     def manufacturer(self, value):
         self._manufacturer = value
@@ -80,6 +89,7 @@ class Product(BaseModel):
     @property
     def size(self):
         return self._size
+
     @size.setter
     def size(self, value):
         self._size = value
@@ -87,6 +97,7 @@ class Product(BaseModel):
     @property
     def color(self):
         return self._color
+
     @color.setter
     def color(self, value):
         self._color = value
@@ -94,6 +105,7 @@ class Product(BaseModel):
     @property
     def material(self):
         return self._material
+
     @material.setter
     def material(self, value):
         self._material = value
@@ -101,6 +113,7 @@ class Product(BaseModel):
     @property
     def bullet_1(self):
         return self._bullet_1
+
     @bullet_1.setter
     def bullet_1(self, value):
         self._bullet_1 = value
@@ -108,6 +121,7 @@ class Product(BaseModel):
     @property
     def bullet_2(self):
         return self._bullet_2
+
     @bullet_2.setter
     def bullet_2(self, value):
         self._bullet_2 = value
@@ -115,6 +129,7 @@ class Product(BaseModel):
     @property
     def bullet_3(self):
         return self._bullet_3
+
     @bullet_3.setter
     def bullet_3(self, value):
         self._bullet_3 = value
@@ -122,6 +137,7 @@ class Product(BaseModel):
     @property
     def currency(self):
         return self._currency
+
     @currency.setter
     def currency(self, value):
         self._currency = value
@@ -129,6 +145,7 @@ class Product(BaseModel):
     @property
     def image(self):
         return self._image
+
     @image.setter
     def image(self, value):
         self._image = value
@@ -136,6 +153,7 @@ class Product(BaseModel):
     @property
     def image_2(self):
         return self._image_2
+
     @image_2.setter
     def image_2(self, value):
         self._image_2 = value
@@ -143,6 +161,7 @@ class Product(BaseModel):
     @property
     def image_3(self):
         return self._image_3
+
     @image_3.setter
     def image_3(self, value):
         self._image_3 = value
@@ -150,28 +169,31 @@ class Product(BaseModel):
     @property
     def image_4(self):
         return self._image_4
+
     @image_4.setter
     def image_4(self, value):
         self._image_4 = value
-    
+
     @property
     def image_5(self):
         return self._image_5
+
     @image_5.setter
     def image_5(self, value):
         self._image_5 = value
-    
+
     @property
     def image_6(self):
         return self._image_6
+
     @image_6.setter
     def image_6(self, value):
         self._image_6 = value
-    
 
     @property
     def category(self):
         return self._category
+
     @category.setter
     def category(self, value):
         self._category = value
@@ -179,6 +201,7 @@ class Product(BaseModel):
     @property
     def price(self):
         return self._price
+
     @price.setter
     def price(self, value):
         self._price = value
@@ -186,6 +209,7 @@ class Product(BaseModel):
     @property
     def sell_price(self):
         return self._sell_price
+
     @sell_price.setter
     def sell_price(self, value):
         self._sell_price = value
@@ -193,13 +217,15 @@ class Product(BaseModel):
     @property
     def delivery(self):
         return self._delivery
+
     @delivery.setter
     def delivery(self, value):
         self._delivery = value
-    
+
     @property
     def which_size(self):
         return self._which_size
+
     @which_size.setter
     def which_size(self, value):
         self._which_size = value
@@ -207,27 +233,35 @@ class Product(BaseModel):
     @property
     def promotion_price(self):
         return self._promotion_price
+
     @promotion_price.setter
     def promotion_price(self, value):
         self._promotion_price = value
-        
+
+    @property
+    def size_id(self):
+        return self._size_id
+
+    @size_id.setter
+    def size_id(self, value):
+        self._size_id = value
 
     def GetList(self, page=1, items=30):
 
         page = int(page)
         items = int(items)
-        offset = (page-1)*items
+        offset = (page - 1) * items
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
         try:
             q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.for_sale = 1 limit %(items)s offset %(offset)s'''
             p = {
-                "items":items,
-                "offset":offset
-                }
-            cur.execute(q,p)
+                "items": items,
+                "offset": offset
+            }
+            cur.execute(q, p)
             lista = cur.fetchall()
             return lista
-        except Exception,e:
+        except Exception, e:
             print str(e)
             return {}
         finally:
@@ -236,14 +270,18 @@ class Product(BaseModel):
 
     def InitBySku(self, sku):
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
 
-        q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.sku = %(sku)s limit 1'''
+        q = '''select string_agg(s.name,',') as size, array_agg(s.size_id) as size_id, p.*, c.name as category from "Product" p 
+                inner join "Category" c on c.id = p.category_id 
+                inner join sizes s on s.product_sku = p.sku
+                where p.sku = %(sku)s group by p.id, c.name limit 1'''
         p = {
-        "sku":sku
+            "sku": sku
         }
         try:
-            cur.execute(q,p)
+            cur.execute(q, p)
             producto = cur.fetchone()
 
             if cur.rowcount > 0:
@@ -273,23 +311,26 @@ class Product(BaseModel):
                 return self.ShowSuccessMessage("{}".format(self.id))
             else:
                 return self.ShowError("product not found")
-        except Exception,e:
-            return self.ShowError("product cannot be initialized:{}".format(str(e)))
+        except Exception, e:
+            return self.ShowError("product cannot be initialized sku:{}".format(str(e)))
         finally:
             cur.close()
             self.connection.close()
-        
 
     def InitById(self, identifier):
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
 
-        q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.id = %(id)s limit 1'''
+        q = '''select string_agg(s.name,',') as size, array_agg(s.size_id) as size_id, p.*, c.name as category from "Product" p 
+                inner join "Category" c on c.id = p.category_id 
+                inner join sizes s on s.product_sku = p.sku
+                where p.id = %(id)s group by p.id, c.name limit 1'''
         p = {
-        "id":identifier
+            "id": identifier
         }
         try:
-            cur.execute(q,p)
+            cur.execute(q, p)
             producto = cur.fetchone()
 
             if cur.rowcount > 0:
@@ -319,25 +360,26 @@ class Product(BaseModel):
 
                 return self.ShowSuccessMessage("{}".format(self.id))
             else:
-                return self.ShowError("product cannot be initialized")
-        except Exception,e:
-            return self.ShowError("product cannot be initialized, error: {}".format(str(e)))
+                return self.ShowError("product not found")
+        except Exception, e:
+            return self.ShowError("product cannot be initialized by id, error: {}".format(str(e)))
         finally:
             cur.close()
             self.connection.close()
 
-    def GetCombinations(self,name):
+    def GetCombinations(self, name):
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.name like %(name)s and p.for_sale = 1 limit 4'''
         p = {
-        "name":"%"+name+"%"
+            "name": "%" + name + "%"
         }
         try:
-            cur.execute(q,p)
+            cur.execute(q, p)
             combinations = cur.fetchall()
             return combinations
-        except Exception,e:
+        except Exception, e:
             print "cannot get combinations:{}".format(str(e))
             return {}
         finally:
@@ -346,13 +388,14 @@ class Product(BaseModel):
 
     def GetRandom(self):
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''SELECT p.*, c.name as category FROM "Product" p inner join "Category" c on c.id = p.category_id where p.for_sale = 1 OFFSET random()*(select count(*) from "Product") LIMIT 4'''
         try:
             cur.execute(q)
             randomized = cur.fetchall()
             return randomized
-        except Exception,e:
+        except Exception, e:
             print str(e)
             return {}
         finally:
@@ -361,32 +404,37 @@ class Product(BaseModel):
 
     def GetItems(self):
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''select count(*) as total_items from "Product" where for_sale = 1'''
         try:
             cur.execute(q)
             total_items = cur.fetchone()["total_items"]
             return self.ShowSuccessMessage(total_items)
-        except Exception,e:
+        except Exception, e:
             return self.ShowError(str(e))
 
     # get product detail
-    def GetProductCatNameColor(self,cat,name,color):
+    def GetProductCatNameColor(self, cat, name, color):
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
 
-        q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where to_tsvector('spanish', p.name) @@ to_tsquery('spanish',%(name)s) 
+        q = '''select string_agg(s.name,',') as size, array_agg(s.size_id) as size_id, p.*,c.name as category from "Product" p 
+        inner join "Category" c on c.id = p.category_id 
+        inner join sizes s on s.product_sku = p.sku
+        where to_tsvector('spanish', p.name) @@ to_tsquery('spanish',%(name)s) 
         and to_tsvector('spanish', c.name) @@ to_tsquery('spanish',%(cat)s) 
         and to_tsvector('spanish', p.color) @@ to_tsquery('spanish', %(color)s) 
-        and p.for_sale = 1 limit 1'''
+        and p.for_sale = 1 group by p.id, c.name limit 1'''
         p = {
-        "name":name,
-        "cat":cat,
-        "color":color
+            "name": name,
+            "cat": cat,
+            "color": color
         }
         try:
             # print cur.mogrify(q,p)
-            cur.execute(q,p)
+            cur.execute(q, p)
             producto = cur.fetchone()
 
             if cur.rowcount > 0:
@@ -406,6 +454,7 @@ class Product(BaseModel):
                 self.sku = producto['sku']
                 self.description = producto['description']
                 self.size = producto['size']
+                self.size_id = producto['size_id']
                 self.color = producto['color']
                 self.material = producto['material']
                 self.manufacturer = producto['manufacturer']
@@ -419,7 +468,7 @@ class Product(BaseModel):
                 return self.ShowSuccessMessage("{}".format(self.id))
             else:
                 return self.ShowError("product not found")
-        except Exception,e:
+        except Exception, e:
             return self.ShowError("product cannot be initialized:{}".format(str(e)))
         finally:
             cur.close()
@@ -429,17 +478,17 @@ class Product(BaseModel):
         """
         get products all existing sizes
         """
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''select size from "Product" group by size having array_length(size,1) = (select max(array_length(size,1)) from "Product" where for_sale = 1)'''
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
+        q = '''select * from "Size"'''
         try:
             cur.execute(q)
-            sizes = cur.fetchone()["size"]
+            sizes = cur.fetchall()
             return self.ShowSuccessMessage(sizes)
-        except Exception,e:
+        except Exception, e:
             return self.ShowError(str(e))
 
-
-    def filter(self, categories, sizes, page=1, limit=16):
+    def filter(self, categories, sizes, cellar_id, page=1, limit=16):
         """
         find products that match the selected categories and sizes
         """
@@ -447,72 +496,132 @@ class Product(BaseModel):
         limit = int(limit)
         offset = (page - 1) * limit
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
 
         if len(categories) > 0 and len(sizes) > 0:
-            q = '''select p.*,c.name as category from "Product" p 
-                   inner join "Category" c on c.id = p.category_id
-                   inner join "Tag_Product" tp on tp.product_id = p.id
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and %(sizes)s::text[] && p.size
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
+                    inner join "Category" c on c.id = p.category_id
+                    inner join "Tag_Product" tp on tp.product_id = p.id
+                    inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            size_id, 
+                            date desc) k on k.product_sku = p.sku
+                    where p.for_sale = 1
+                    and k.balance_units > 0 
+                   and tp.tag_id = any(%(categories)s::int[]) 
                    offset %(offset)s limit %(limit)s'''
-            p = {"categories":categories,"sizes":sizes,"limit":limit,"offset":offset}
+            p = {"categories": categories,
+                 "sizes": sizes,
+                 "limit": limit,
+                 "offset": offset,
+                 "cellar_id": cellar_id}
 
         elif len(sizes) > 0:
-            q = '''select p.*,c.name as category from "Product" p 
-                   inner join "Category" c on c.id = p.category_id
-                   inner join "Tag_Product" tp on tp.product_id = p.id
-                   where p.for_sale = 1 and %(sizes)s::text[] && p.size
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
+                    inner join "Category" c on c.id = p.category_id
+                    inner join "Tag_Product" tp on tp.product_id = p.id
+                    inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
+                            order by product_sku,
+                            date desc) k on k.product_sku = p.sku
+                    where p.for_sale = 1
+                    and k.balance_units > 0 
                    offset %(offset)s limit %(limit)s'''
-            p = {"sizes":sizes,"limit":limit,"offset":offset}
+            p = {"sizes": sizes,
+                 "limit": limit,
+                 "offset": offset,
+                 "cellar_id": cellar_id}
 
         else:
             q = '''select p.*,c.name as category from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
+                   inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            date desc) k on k.product_sku = p.sku
                    where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])
                    offset %(offset)s limit %(limit)s'''
-            p = {"categories":categories,"limit":limit,"offset":offset}            
+            p = {"categories": categories,
+                 "limit": limit,
+                 "offset": offset,
+                 "cellar_id": cellar_id}
 
         try:
-            # print cur.mogrify(q,p)
-            cur.execute(q,p)
+            print cur.mogrify(q,p)
+            cur.execute(q, p)
             products = cur.fetchall()
             return self.ShowSuccessMessage(products)
-        except Exception,e:
+        except Exception, e:
             return self.ShowError(str(e))
 
-
-    def getFilterItems(self, categories, sizes):
+    def getFilterItems(self, categories, sizes, cellar_id):
         """
         find products that match the selected categories and sizes
         """
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
 
         if len(categories) > 0 and len(sizes) > 0:
             q = '''select count(1) as items from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and %(sizes)s::text[] && p.size'''
-            p = {"categories":categories,"sizes":sizes}
+                   inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            size_id, 
+                            date desc) k on k.product_sku = p.sku
+                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])'''
+            p = {"categories": categories, "sizes": sizes}
 
         elif len(sizes) > 0:
             q = '''select count(1) as items from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
-                   where p.for_sale = 1 and %(sizes)s::text[] && p.size'''
-            p = {"sizes":sizes}
+                   inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            size_id, 
+                            date desc) k on k.product_sku = p.sku
+                   where p.for_sale = 1'''
+            p = {"sizes": sizes}
 
         else:
             q = '''select count(1) as items from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
+                   inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            size_id, 
+                            date desc) k on k.product_sku = p.sku
                    where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])'''
-            p = {"categories":categories}
-            
+            p = {"categories": categories}
+
         try:
-            cur.execute(q,p)
+            cur.execute(q, p)
             items = cur.fetchone()["items"]
             return self.ShowSuccessMessage(items)
-        except Exception,e:
-            return self.ShowError(str(e))        
+        except Exception, e:
+            return self.ShowError(str(e))

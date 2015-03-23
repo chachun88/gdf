@@ -96,7 +96,7 @@ Giani Da Firenze - {{data.name}}
             {% if len(data.size) > 0 %}
               <select class="_select _select-1" id="size" sku="{{data.sku}}">
                 {% for t in data.size %}
-                <option value="{{t}}">{{t}}</option>
+                <option value="{{t['id']}}">{{t['name']}}</option>
                 {% end %}
               </select>
               <select class="_select _select-2" id="quantity">

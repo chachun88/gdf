@@ -90,6 +90,7 @@ elif enviroment == Enviroment.ONTEST:
 
 
 elif enviroment == Enviroment.PRODUCTION:
+    debugMode = False
     port = PORT
     url_bodega = "http://bodegas.gianidafirenze.cl"
     url_local = "http://www.gianidafirenze.cl"

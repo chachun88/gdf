@@ -124,7 +124,7 @@ $(document).ready(function(){
     $(".btn-resumen").on( "click", function(evt)
     {
         evt.preventDefault();
-        googleAnalyticsCheckout();
+        /*googleAnalyticsCheckout();*/
         $("#form-resumen").submit();
     });
 
@@ -132,7 +132,7 @@ $(document).ready(function(){
     $(".btn-pago").on( "click", function(evt)
     {
         evt.preventDefault();
-        googleAnalyticsCheckout();
+        /*googleAnalyticsCheckout();*/
         $("#form-pago").submit();
     });
 
@@ -140,7 +140,7 @@ $(document).ready(function(){
     $(".btn-pagar").on( "click", function(evt)
     {
         evt.preventDefault();
-        googleAnalyticsCheckout();
+        /*googleAnalyticsCheckout();*/
         $("#form-pagar").submit();
     });
 
