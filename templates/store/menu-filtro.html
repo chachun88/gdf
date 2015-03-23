@@ -8,7 +8,7 @@
         <span>¿Cual es tu talla?</span> 
       </li>
       {% for t in tallas %}
-      <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t}}">{{t}}</lavel></li>
+      <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t['id']}}">{{t['name']}}</lavel></li>
       {% end %}
       <!-- tallas -->
       <!-- enlacen categorías -->
@@ -17,6 +17,7 @@
         <li><input type="checkbox" name="categories" value="{{t['id']}}"><a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a></li>
       {% end %}
       <!-- enlacen categorías -->
+      {{tallas}}
       <!-- boton para filtrar -->
       <li><button type="button" onclick="filtrar($('#filtro'))">filtrar</button></li>
       <!-- boton para filtrar -->

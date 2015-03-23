@@ -349,10 +349,17 @@ class FilterHandler(BaseHandler):
         page = int(self.get_argument("page","1"))
 
         items = 0
+        cellar_id = ""
+
+        cellar = Cellar()
+        res_cellar = cellar.GetWebCellar()
+
+        if "success" in res_cellar:
+            cellar_id = res_cellar["success"]
 
         product = Product()
-        res = product.filter(categories, sizes, page)
-        res_items = product.getFilterItems(categories, sizes)
+        res = product.filter(categories, sizes, cellar_id, page)
+        res_items = product.getFilterItems(categories, sizes, cellar_id)
 
         if "success" in res_items:
             items = res_items["success"]

@@ -23,9 +23,9 @@ Giani Da Firenze - Home
       </li>
       {% for t in tallas %}
         {% try %}
-        <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t}}">{{int(float(t))}}</lavel></li>
+        <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t['id']}}">{{int(float(t['name']))}}</lavel></li>
         {% except %}
-        <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t}}">{{t}}</lavel></li>
+        <li class="menu-material-tallas "><lavel><input type="checkbox" name="size" value="{{t['id']}}">{{t['name']}}</lavel></li>
         {% end %}
       {% end %}
       <!-- tallas -->

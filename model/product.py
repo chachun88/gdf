@@ -241,11 +241,10 @@ class Product(BaseModel):
     @property
     def size_id(self):
         return self._size_id
-        
+
     @size_id.setter
     def size_id(self, value):
         self._size_id = value
-    
 
     def GetList(self, page=1, items=30):
 
@@ -484,12 +483,12 @@ class Product(BaseModel):
         q = '''select * from "Size"'''
         try:
             cur.execute(q)
-            sizes = cur.fetchone()["size"]
+            sizes = cur.fetchall()
             return self.ShowSuccessMessage(sizes)
         except Exception, e:
             return self.ShowError(str(e))
 
-    def filter(self, categories, sizes, page=1, limit=16):
+    def filter(self, categories, sizes, cellar_id, page=1, limit=16):
         """
         find products that match the selected categories and sizes
         """
@@ -501,39 +500,73 @@ class Product(BaseModel):
             cursor_factory=psycopg2.extras.RealDictCursor)
 
         if len(categories) > 0 and len(sizes) > 0:
-            q = '''select p.*,c.name as category from "Product" p 
-                   inner join "Category" c on c.id = p.category_id
-                   inner join "Tag_Product" tp on tp.product_id = p.id
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and %(sizes)s::text[] && p.size
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
+                    inner join "Category" c on c.id = p.category_id
+                    inner join "Tag_Product" tp on tp.product_id = p.id
+                    inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            size_id, 
+                            date desc) k on k.product_sku = p.sku
+                    where p.for_sale = 1
+                    and k.balance_units > 0 
+                   and tp.tag_id = any(%(categories)s::int[]) 
                    offset %(offset)s limit %(limit)s'''
-            p = {"categories": categories, "sizes": sizes,
-                 "limit": limit, "offset": offset}
+            p = {"categories": categories,
+                 "sizes": sizes,
+                 "limit": limit,
+                 "offset": offset,
+                 "cellar_id": cellar_id}
 
         elif len(sizes) > 0:
-            q = '''select p.*,c.name as category from "Product" p 
-                   inner join "Category" c on c.id = p.category_id
-                   inner join "Tag_Product" tp on tp.product_id = p.id
-                   where p.for_sale = 1 and %(sizes)s::text[] && p.size
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
+                    inner join "Category" c on c.id = p.category_id
+                    inner join "Tag_Product" tp on tp.product_id = p.id
+                    inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
+                            order by product_sku,
+                            date desc) k on k.product_sku = p.sku
+                    where p.for_sale = 1
+                    and k.balance_units > 0 
                    offset %(offset)s limit %(limit)s'''
-            p = {"sizes": sizes, "limit": limit, "offset": offset}
+            p = {"sizes": sizes,
+                 "limit": limit,
+                 "offset": offset,
+                 "cellar_id": cellar_id}
 
         else:
             q = '''select p.*,c.name as category from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
+                   inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            date desc) k on k.product_sku = p.sku
                    where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])
                    offset %(offset)s limit %(limit)s'''
-            p = {"categories": categories, "limit": limit, "offset": offset}
+            p = {"categories": categories,
+                 "limit": limit,
+                 "offset": offset,
+                 "cellar_id": cellar_id}
 
         try:
-            # print cur.mogrify(q,p)
+            print cur.mogrify(q,p)
             cur.execute(q, p)
             products = cur.fetchall()
             return self.ShowSuccessMessage(products)
         except Exception, e:
             return self.ShowError(str(e))
 
-    def getFilterItems(self, categories, sizes):
+    def getFilterItems(self, categories, sizes, cellar_id):
         """
         find products that match the selected categories and sizes
         """
@@ -545,20 +578,44 @@ class Product(BaseModel):
             q = '''select count(1) as items from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and %(sizes)s::text[] && p.size'''
+                   inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            size_id, 
+                            date desc) k on k.product_sku = p.sku
+                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])'''
             p = {"categories": categories, "sizes": sizes}
 
         elif len(sizes) > 0:
             q = '''select count(1) as items from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
-                   where p.for_sale = 1 and %(sizes)s::text[] && p.size'''
+                   inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            size_id, 
+                            date desc) k on k.product_sku = p.sku
+                   where p.for_sale = 1'''
             p = {"sizes": sizes}
 
         else:
             q = '''select count(1) as items from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
+                   inner join (select distinct on(product_sku) product_sku, 
+                            size_id, 
+                            balance_units 
+                            from "Kardex" 
+                            where cellar_id = %(cellar_id)s
+                            order by product_sku, 
+                            size_id, 
+                            date desc) k on k.product_sku = p.sku
                    where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])'''
             p = {"categories": categories}
 
