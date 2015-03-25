@@ -95,9 +95,9 @@ class ProductHandler(BaseHandler):
 
             tallas_disponibles = []
 
-            print prod.size_id
+            # print prod.size_id
 
-            for s in prod.size_id:
+            for s in prod.size_id[::-1]:
 
                 kardex = Kardex()
                 response_obj = kardex.FindKardex(prod.sku,id_bodega,s)
