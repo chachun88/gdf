@@ -15,7 +15,8 @@ from globals import email_giani, \
                     url_local, \
                     shipping_cellar, \
                     project_path, \
-                    cgi_path
+                    cgi_path, \
+                    debugMode
 
 import sendgrid
 
@@ -552,40 +553,40 @@ class ExitoHandler(BaseHandler):
 
                 for l in lista:
 
-                    kardex = Kardex()
+                    # kardex = Kardex()
 
                     producto = Product()
                     response = producto.InitById(l["product_id"])
 
                     if "success" in response:
 
-                        kardex.product_sku = producto.sku
-                        kardex.cellar_identifier = id_bodega
-                        kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                        # kardex.product_sku = producto.sku
+                        # kardex.cellar_identifier = id_bodega
+                        # kardex.operation_type = Kardex.OPERATION_MOV_OUT
 
                         if l["promotion_price"] > 0:
                             producto.sell_price = l["promotion_price"]
 
-                        kardex.sell_price = producto.sell_price
+                        # kardex.sell_price = producto.sell_price
 
-                        _s = Size()
-                        _s.name = l["size"]
-                        res_name = _s.initByName()
+                        # _s = Size()
+                        # _s.name = l["size"]
+                        # res_name = _s.initByName()
 
-                        if "success" in res_name:
-                            kardex.size_id = _s.id
+                        # if "success" in res_name:
+                        #     kardex.size_id = _s.id
 
-                        kardex.date = str(datetime.now().isoformat()) 
-                        kardex.user = self.current_user["email"]
-                        kardex.units = l["quantity"]
-                        kardex.price = producto.price
+                        # kardex.date = str(datetime.now().isoformat()) 
+                        # kardex.user = self.current_user["email"]
+                        # kardex.units = l["quantity"]
+                        # kardex.price = producto.price
 
-                        kardex.Insert()
+                        # kardex.Insert()
 
-                        kardex.cellar_identifier = id_bodega_reserva
-                        kardex.operation_type = Kardex.OPERATION_MOV_IN
+                        # kardex.cellar_identifier = id_bodega_reserva
+                        # kardex.operation_type = Kardex.OPERATION_MOV_IN
 
-                        kardex.Insert()
+                        # kardex.Insert()
 
                     # if "error" in res_obj:
                     #     print "{}".format(res_obj["error"])
@@ -600,10 +601,6 @@ class ExitoHandler(BaseHandler):
                             <td style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {subtotal}</td>
                           </tr>
                     """.format(name=l["name"].encode("utf-8"),size=l["size"].encode("utf-8"),quantity=l["quantity"],color=l["color"],price=self.money_format(producto.sell_price).encode("utf-8"),subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
-
-                cart = Cart()
-                cart.user_id = self.current_user["id"]
-                cart.RemoveByUserId()
 
                 contact = Contact()
                 facturacion_response = contact.InitById(order.billing_id)
@@ -1700,6 +1697,69 @@ class ExitoHandler(BaseHandler):
                     print msj
 
                 if status == 200:
+
+
+                    for l in lista:
+
+                        cart.id = l["id"]
+                        cart.Remove()
+
+                        kardex = Kardex()
+
+                        producto = Product()
+                        response = producto.InitById(l["product_id"])
+
+                        if "success" in response:
+
+                            kardex.product_sku = producto.sku
+                            kardex.cellar_identifier = id_bodega
+                            kardex.operation_type = Kardex.OPERATION_MOV_OUT
+
+                            if l["promotion_price"] > 0:
+                                producto.sell_price = l["promotion_price"]
+
+                            kardex.sell_price = producto.sell_price
+
+                            _s = Size()
+                            _s.name = l["size"]
+                            res_name = _s.initByName()
+
+                            if "success" in res_name:
+                                kardex.size_id = _s.id
+                            elif debugMode:
+                                print res_name["error"]
+
+                            kardex.date = str(datetime.now().isoformat()) 
+                            kardex.user = "Sistema - Reservar Producto"
+                            kardex.units = l["quantity"]
+                            kardex.price = producto.price
+
+                            res_kardex = kardex.Insert()
+
+                            if debugMode and "error" in res_kardex:
+                                print res_kardex["error"]
+
+                            c = Cellar()
+                            res_reservation = c.GetReservationCellar()
+
+                            reservation_cellar = shipping_cellar
+
+                            if "success" in res_reservation:
+                                reservation_cellar = res_reservation["success"]
+                            elif debugMode:
+                                print res_reservation["error"]
+
+                            kardex.cellar_identifier = reservation_cellar
+                            kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                            res_kardex = kardex.Insert()
+
+                            if debugMode and "error" in res_kardex:
+                                print res_kardex["error"]
+
+                        elif debugMode:
+                            print response["error"]
+
                     self.render("store/success.html",
                                 data=data,
                                 pathSubmit=pathSubmit,
