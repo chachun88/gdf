@@ -653,7 +653,7 @@ class CheckoutSendHandler(BaseHandler):
 
                     # email_confirmacion = "yichun212@gmail.com"
 
-                    sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
+                    sg = sendgrid.SendGridClient('nailuj41', 'Equipo_2112')
                     message = sendgrid.Mail()
                     message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail=email_giani))
                     message.add_to(self.current_user["email"])
