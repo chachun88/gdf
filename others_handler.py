@@ -439,7 +439,7 @@ class ExitoHandler(BaseHandler):
                     TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
                     PATHSUBMIT=pathSubmit)
         else:
-            print init_by_id["error"] + "wertyui"
+
             self.render(
                 "store/failure.html",
                 TBK_ID_SESION=TBK_ID_SESION,
@@ -560,36 +560,8 @@ class ExitoHandler(BaseHandler):
 
                     if "success" in response:
 
-                        # kardex.product_sku = producto.sku
-                        # kardex.cellar_identifier = id_bodega
-                        # kardex.operation_type = Kardex.OPERATION_MOV_OUT
-
                         if l["promotion_price"] > 0:
                             producto.sell_price = l["promotion_price"]
-
-                        # kardex.sell_price = producto.sell_price
-
-                        # _s = Size()
-                        # _s.name = l["size"]
-                        # res_name = _s.initByName()
-
-                        # if "success" in res_name:
-                        #     kardex.size_id = _s.id
-
-                        # kardex.date = str(datetime.now().isoformat()) 
-                        # kardex.user = self.current_user["email"]
-                        # kardex.units = l["quantity"]
-                        # kardex.price = producto.price
-
-                        # kardex.Insert()
-
-                        # kardex.cellar_identifier = id_bodega_reserva
-                        # kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                        # kardex.Insert()
-
-                    # if "error" in res_obj:
-                    #     print "{}".format(res_obj["error"])
 
                     detalle_orden += """\
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -1036,12 +1008,6 @@ class ExitoHandler(BaseHandler):
 
                 <!-- END LAYOUT-1/2 --> 
 
-
-
-
-
-
-
                 <!--START FOOTER LAYOUT-->
                 <tr>
                   <td valign="top">
@@ -1116,8 +1082,6 @@ class ExitoHandler(BaseHandler):
                 </td>
                 </tr>
                 <!--END FOOTER ​LAYOUT-->
-
-
 
                 <!--  START FOOTER COPY RIGHT -->
 
@@ -1698,9 +1662,9 @@ class ExitoHandler(BaseHandler):
 
                 if status == 200:
 
-
                     for l in lista:
 
+                        cart = Cart()
                         cart.id = l["id"]
                         cart.Remove()
 
@@ -1739,17 +1703,7 @@ class ExitoHandler(BaseHandler):
                             if debugMode and "error" in res_kardex:
                                 print res_kardex["error"]
 
-                            c = Cellar()
-                            res_reservation = c.GetReservationCellar()
-
-                            reservation_cellar = shipping_cellar
-
-                            if "success" in res_reservation:
-                                reservation_cellar = res_reservation["success"]
-                            elif debugMode:
-                                print res_reservation["error"]
-
-                            kardex.cellar_identifier = reservation_cellar
+                            kardex.cellar_identifier = id_bodega_reserva
                             kardex.operation_type = Kardex.OPERATION_MOV_IN
 
                             res_kardex = kardex.Insert()
