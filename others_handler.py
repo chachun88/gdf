@@ -1671,9 +1671,7 @@ class ExitoHandler(BaseHandler):
 
                         if len(carro) > 0:
 
-                            cart2 = Cart()
-                            cart2.id = l["id"]
-                            print cart2.Remove()
+                            cart.RemoveByUserId()
 
                             kardex = Kardex()
 
