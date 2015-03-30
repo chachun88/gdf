@@ -1667,7 +1667,11 @@ class ExitoHandler(BaseHandler):
                         cart = Cart()
                         cart.user_id = self.current_user["id"]
 
-                        if len(cart.GetCartByUserId()) > 1:
+                        carro = cart.GetCartByUserId()
+
+                        print carro
+
+                        if len(carro) > 1:
 
                             cart.id = l["id"]
                             cart.Remove()
