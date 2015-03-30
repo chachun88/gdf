@@ -28,6 +28,7 @@ from model.webpay import Webpay
 from model.cellar import Cellar
 from model.size import Size
 
+
 class ContactHandler(BaseHandler):
 
     def get(self):
@@ -45,7 +46,7 @@ class ContactHandler(BaseHandler):
 
         else:
 
-            sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
+            sg = sendgrid.SendGridClient('nailuj41', 'Equipo_2112')
             mensaje = sendgrid.Mail()
             mensaje.set_from("{nombre} <{mail}>".format(nombre=name,mail=email))
             mensaje.add_to(email_giani)
@@ -122,7 +123,6 @@ class PagoHandler(BaseHandler):
             cantidad_productos = 0
             id_facturacion = 0
             id_despacho = 0
-            tipo_pago = 0
             total = 0
 
             for l in lista:
@@ -567,14 +567,14 @@ class ExitoHandler(BaseHandler):
                             producto.sell_price = l["promotion_price"]
 
                         kardex.sell_price = producto.sell_price
-                        
+
                         _s = Size()
                         _s.name = l["size"]
                         res_name = _s.initByName()
 
                         if "success" in res_name:
                             kardex.size_id = _s.id
-                                    
+
                         kardex.date = str(datetime.now().isoformat()) 
                         kardex.user = self.current_user["email"]
                         kardex.units = l["quantity"]
@@ -1177,7 +1177,7 @@ class ExitoHandler(BaseHandler):
 
                 # email_confirmacion = "yichun212@gmail.com"
 
-                sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
+                sg = sendgrid.SendGridClient('nailuj41', 'Equipo_2112')
                 message = sendgrid.Mail()
                 message.set_from("{nombre} <{mail}>".format(
                     nombre="Giani Da Firenze",
