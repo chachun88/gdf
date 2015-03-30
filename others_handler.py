@@ -1662,17 +1662,17 @@ class ExitoHandler(BaseHandler):
 
                 if status == 200:
 
+                    cart = Cart()
+                    cart.user_id = self.current_user["id"]
+
+                    carro = cart.GetCartByUserId()
+
                     for l in lista:
-
-                        cart = Cart()
-                        cart.user_id = self.current_user["id"]
-
-                        carro = cart.GetCartByUserId()
 
                         if len(carro) > 0:
 
                             cart.id = l["id"]
-                            cart.Remove()
+                            print cart.Remove()
 
                             kardex = Kardex()
 
