@@ -1671,8 +1671,9 @@ class ExitoHandler(BaseHandler):
 
                         if len(carro) > 0:
 
-                            cart.id = l["id"]
-                            print cart.Remove()
+                            cart2 = Cart()
+                            cart2.id = l["id"]
+                            print cart2.Remove()
 
                             kardex = Kardex()
 
@@ -1732,13 +1733,8 @@ class ExitoHandler(BaseHandler):
                         message="Error al enviar correo de confirmación, {}"
                                 .format(msg))
 
-            else:
+        except:
 
-                self.render("beauty_error.html",
-                            message="Carro se encuentra vacío")
-
-        except Exception,e:
-            print str(e) + "wertyukjnbgdfgh"
             self.render("store/failure.html",
                         TBK_ID_SESION=TBK_ID_SESION,
                         TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
