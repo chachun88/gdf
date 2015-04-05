@@ -2,7 +2,6 @@
 # -*- coding: UTF-8 -*-
 import psycopg2
 import psycopg2.extras
-import json
 
 from basemodel import BaseModel
 
@@ -262,7 +261,7 @@ class Product(BaseModel):
             lista = cur.fetchall()
             return lista
         except Exception, e:
-            print str(e)
+            # print str(e)
             return {}
         finally:
             cur.close()
@@ -380,7 +379,7 @@ class Product(BaseModel):
             combinations = cur.fetchall()
             return combinations
         except Exception, e:
-            print "cannot get combinations:{}".format(str(e))
+            # print "cannot get combinations:{}".format(str(e))
             return {}
         finally:
             cur.close()
@@ -396,7 +395,7 @@ class Product(BaseModel):
             randomized = cur.fetchall()
             return randomized
         except Exception, e:
-            print str(e)
+            # print str(e)
             return {}
         finally:
             cur.close()
@@ -559,7 +558,7 @@ class Product(BaseModel):
                  "cellar_id": cellar_id}
 
         try:
-            print cur.mogrify(q,p)
+            # print cur.mogrify(q,p)
             cur.execute(q, p)
             products = cur.fetchall()
             return self.ShowSuccessMessage(products)
