@@ -35,7 +35,7 @@
 }
 .fancybox-inner
 {
-	width: 100% !important
+	width: 100% !important;
 }
 .icon-thumbs-up-alt {
 	color: rgb(215, 106, 96);
@@ -56,7 +56,35 @@
     text-decoration: line-through;
 }
 
+.btn-vent-may
+{
+	margin-top: 10% !important;
+    border: 1px solid gray !important;
+    width: 65% !important;
+    line-height: 0 !important;
+}
+.btn-vent-may:hover
+{
+	background-color: gray !important;
+	color: white !important;
+}
 @media(max-width: 479px) {
+
+.btn-vent-may
+{
+	width: 80% !important;
+}
+
+.btn-default-3
+{
+	width: 100%;
+}
+
+.fancybox-wrap,  .fancybox-desktop, .fancybox-type-html, .fancybox-opened {
+	opacity: 0.4;
+	width: 90% !important;
+	left: 5% !important;
+}
 .slider {
 	display: none;
 }
