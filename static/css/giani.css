@@ -69,6 +69,10 @@
 	color: white !important;
 }
 @media(max-width: 479px) {
+.btn-close-movil
+{
+	margin-top: 30px;
+}
 
 .btn-vent-may
 {
