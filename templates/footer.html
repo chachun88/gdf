@@ -1,85 +1,111 @@
-  <div class="footer clearfix">
+<div class="footer clearfix">
     <div class="footer-left-cont clearfix">
-      <!--<a href="/"><img class="image logo-footer" src="/static/images/logo001-50x50.png" data-rimage data-src="/static/images/logo001-50x50.png"></a>-->
-      <img class="image right-arrow-footer" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
-      <a class="text first-text-items-footer" href="/store">¿Qu&eacute; es lo nuevo?</a>
-      <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
-      <a class="text text-items-footer" href="/store">Zapatos</a>
-      <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
-      <a class="text text-items-footer" href="/store">Campa&ntilde;as</a>
-      <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
-      <a class="text text-items-footer" href="/aboutus">Nosotros</a>
-      <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
-      <a class="text text-items-footer" href="/history">Historia</a>
-      <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
-      <a class="text last-text-items-footer" href="/store/getproductsbytags/estilo_de_vida">Estilo de vida</a>
-      <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
-      <a class="text last-text-items-footer" href="/faq">Preguntas Frecuentes</a>
-      <a class="_button" href="/contact">
-        <p>CONTACTO</p>
-      </a>
+        <!--<a href="/"><img class="image logo-footer" src="/static/images/logo001-50x50.png" data-rimage data-src="/static/images/logo001-50x50.png"></a>-->
+        <img class="image right-arrow-footer" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
+        <a class="text first-text-items-footer" href="/store">¿Qu&eacute; es lo nuevo?</a>
+        <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
+        <a class="text text-items-footer" href="/store">Zapatos</a>
+        <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
+        <a class="text text-items-footer" href="/store">Campa&ntilde;as</a>
+        <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
+        <a class="text text-items-footer" href="/aboutus">Nosotros</a>
+        <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
+        <a class="text text-items-footer" href="/history">Historia</a>
+        <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
+        <a class="text last-text-items-footer" href="/store/getproductsbytags/estilo_de_vida">Estilo de vida</a>
+        <img class="image right-arrow-footer-2" src="/static/images/flechas-15x15.png" data-rimage data-src="/static/images/flechas-15x15.png">
+        <a class="text last-text-items-footer" href="/faq">Preguntas Frecuentes</a>
+        <a class="_button" href="/contact">
+            <p>CONTACTO</p>
+        </a>
     </div>
+
+    <script type="text/javascript" src="/static/js/plugin-states-cities-towns.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#comuna").countries({
+                'city_selector':'.city',
+                'town_selector':'.town'
+            });
+        });
+    </script>
+
     <div class="footer-left-center-cont clearfix">
-      <button class="_button">VENTA MAYORISTA</button>
-      <button id="various1" href="#inline1" class=" _button btn-vent-may" style=" ">Registrate aquí</button>
-
-  
+        <button class="_button">VENTA MAYORISTA</button>
+        <button id="various1" href="#inline1" class=" _button btn-vent-may" style=" ">Registrate aquí</button>
+        
         <div style="display: none;">
-          <div id="inline1" notitle>
-              <div class="col-xs-12 col-sm-12">
-              <h3>Completar formulario venta mayorista</h3>
-<div class="form-group required">
-<label for="InputName">Nombre o razon social<sup>*</sup> </label>
-<input required="" type="text" class="form-control" id="InputName" name="name" placeholder="Nombre" value="">
-</div>
-<div class="form-group required">
-<label for="InputTown">Giro <sup>*</sup> </label>
-<input required="" type="text" class="form-control" id="InputTown" placeholder="Giro" value="" name="town">
-</div>
-<div class="form-group required">
-<label for="InputRut">Rut </label>
-<input type="text" class="form-control" id="InputRut" placeholder="Rut" name="rut">
-</div>
-<div class="form-group required">
-<label for="InputEmail">Email </label>
-<input type="text" class="form-control" id="InputEmail" placeholder="Email" value="" name="email">
-</div>
-
-<div class="form-group required">
-<label for="InputAddress">Dirección <sup>*</sup> </label>
-<input required="" type="text" class="form-control" id="InputAddress" placeholder="Dirección" value="" name="address">
-</div>
-<div class="form-group required">
-<label for="InputTown">Comuna <sup>*</sup> </label>
-<input required="" type="text" class="form-control" id="InputTown" placeholder="Comuna" value="" name="town">
-</div>
-<div class="form-group required">
-<label for="InputTown">Contraseña <sup>*</sup> </label>
-<input required="" type="text" class="form-control" id="InputTown" placeholder="Contraseña" value="" name="town">
-</div>
-<div class="pull-right btn-default-3" style="margin-top:20px;"> <a href="/store" class="btn btn-default btn-default-3"> Crear </a>
-<a href="/store" class="btn btn-default btn-default-3 btn-close-movil"> Cerrar </a></div>
-
-</div>
-          </div>
-       </div>
+            <div id="inline1" notitle>
+                <div class="col-xs-12 col-sm-12">
+                    <h3>Completar formulario venta mayorista</h3>
+                    <div class="form-group required">
+                        <label for="nombre">Nombre o Raz&oacute;n social</label>
+                        <input type="text" class="form-control" id="nombre" name="name" placeholder="Nombre">
+                    </div>
+                    <div class="form-group required">
+                        <label for="giro">Giro</label>
+                        <input type="text" class="form-control" id="giro" placeholder="Giro" name="bussiness">
+                    </div>
+                    <div class="form-group required">
+                        <label for="rut">Rut</label>
+                        <input type="text" class="form-control" id="rut" placeholder="Rut" name="rut">
+                    </div>
+                    <div class="form-group required">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" placeholder="Email" name="email">
+                    </div>
+                    <div class="form-group required">
+                        <label for="direccion">Direcci&oacute;n</label>
+                        <input type="text" class="form-control" id="direccion" placeholder="Dirección" name="address">
+                    </div>
+                    <div class="form-group required">
+                        <label for="comuna">Region</label>
+                        <!-- <input type="text" class="form-control" id="comuna" placeholder="Comuna" name="town"> -->
+                        <select class="form-control" id="comuna" name="town">
+                            
+                        </select>
+                    </div>
+                    <div class="form-group required">
+                        <label for="comuna">Provincia</label>
+                        <!-- <input type="text" class="form-control" id="comuna" placeholder="Comuna" name="town"> -->
+                        <select class="form-control city" name="town">
+                            
+                        </select>
+                    </div>
+                    <div class="form-group required">
+                        <label for="comuna">Comuna</label>
+                        <!-- <input type="text" class="form-control" id="comuna" placeholder="Comuna" name="town"> -->
+                        <select class="form-control town" name="town">
+                            
+                        </select>
+                    </div>
+                    <div class="form-group required">
+                        <label for="clave">Contraseña</label>
+                        <input type="text" class="form-control" id="clave" placeholder="Contraseña" name="town">
+                    </div>
+                    <div class="pull-right btn-default-3" style="margin-top:20px;">
+                        <button class="btn btn-default btn-default-3">Crear</button>
+                        <button class="btn btn-default btn-default-3 btn-close-movil">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="footer-right-center-cont clearfix">
-      <button class="_button btn-tienda">
+        <button class="_button btn-tienda">
         <p>TIENDA</p>
-      </button>
-      <img class="image" src="/static/images/zapato-giani-100x100.png" data-rimage data-src="/static/images/zapato-giani-100x100.png">
+        </button>
+        <img class="image" src="/static/images/zapato-giani-100x100.png" data-rimage data-src="/static/images/zapato-giani-100x100.png">
     </div>
     <!--<div class="footer-right-cont clearfix">
-      <p class="text">SÍGUENOS</p>
-      <div class="footer-redes clearfix">
-        <a href="http://www.pinterest.com/search/pins/?q=giani%20da%20firenze" target="_blank" > <img class="image image-23" src="/static/images/giani-pint-50x50.png" data-rimage data-src="/static/images/giani-pint-50x50.png"> </a>
-        <a href="https://www.facebook.com/giani.dafirenze" target="_blank" > <img class="image image-24" src="/static/images/giani-face-50x50.png" data-rimage data-src="/static/images/giani-face-50x50.png"> </a>
-        <a href="http://instagram.com/gianidafirenze" target="_blank" > <img class="image image-25" src="/static/images/giani-inst-50x50.png" data-rimage data-src="/static/images/giani-inst-50x50.png"> </a>
-        <a href="https://twitter.com/GianidaFirenze" target="_blank" > <img class="image image-26" src="/static/images/giani-tweet-50x50.png" data-rimage data-src="/static/images/giani-tweet-50x50.png"> </a>
-      </div>-->
-      <div class="text footer-contact-text">
-      <p>Giani Da Firenze 2014 ® Teléfono (+56) 2 2555 0328. Desarrollado por <a href="http://loadingplay.com" target="_blank">LoadingPlay</a></p>
-      </div>
+        <p class="text">SÍGUENOS</p>
+        <div class="footer-redes clearfix">
+            <a href="http://www.pinterest.com/search/pins/?q=giani%20da%20firenze" target="_blank" > <img class="image image-23" src="/static/images/giani-pint-50x50.png" data-rimage data-src="/static/images/giani-pint-50x50.png"> </a>
+            <a href="https://www.facebook.com/giani.dafirenze" target="_blank" > <img class="image image-24" src="/static/images/giani-face-50x50.png" data-rimage data-src="/static/images/giani-face-50x50.png"> </a>
+            <a href="http://instagram.com/gianidafirenze" target="_blank" > <img class="image image-25" src="/static/images/giani-inst-50x50.png" data-rimage data-src="/static/images/giani-inst-50x50.png"> </a>
+            <a href="https://twitter.com/GianidaFirenze" target="_blank" > <img class="image image-26" src="/static/images/giani-tweet-50x50.png" data-rimage data-src="/static/images/giani-tweet-50x50.png"> </a>
+        </div>-->
+        <div class="text footer-contact-text">
+            <p>Giani Da Firenze 2014 ® Teléfono (+56) 2 2555 0328. Desarrollado por <a href="http://loadingplay.com" target="_blank">LoadingPlay</a></p>
+        </div>
     </div>
-    
