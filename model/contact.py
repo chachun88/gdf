@@ -173,10 +173,32 @@ class Contact(BaseModel):
 
         if self.id == "":
 
-            query = '''insert into "Contact" (name,type_id,telephone,email,user_id,address, lastname, city_id, zip_code,additional_info,town,rut)
-            values (%(name)s,%(type_id)s,%(telephone)s,%(email)s,%(user_id)s,%(address)s,%(lastname)s,%(city_id)s,%(zip_code)s,%(additional_info)s,%(town)s,%(rut)s) returning id'''
-
-            # return self.ShowError(cur.mogrify(query,contact))
+            query = '''\
+                    insert into "Contact" (name,
+                                            type_id,
+                                            telephone,
+                                            email,
+                                            user_id,
+                                            address,
+                                            lastname,
+                                            city_id,
+                                            zip_code,
+                                            additional_info,
+                                            town,
+                                            rut)
+                    values (%(name)s,
+                            %(type_id)s,
+                            %(telephone)s,
+                            %(email)s,
+                            %(user_id)s,
+                            %(address)s,
+                            %(lastname)s,
+                            %(city_id)s,
+                            %(zip_code)s,
+                            %(additional_info)s,
+                            %(town)s,
+                            %(rut)s) 
+                    returning id'''
 
             try:
                 cur.execute(query,contact)

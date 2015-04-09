@@ -562,8 +562,7 @@ class ExitoHandler(BaseHandler):
 
                     if "success" in response:
 
-                        if l["promotion_price"] > 0:
-                            producto.sell_price = l["promotion_price"]
+                        producto.sell_price = l["price"]
 
                     detalle_orden += """\
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -1685,11 +1684,7 @@ class ExitoHandler(BaseHandler):
                                 kardex.product_sku = producto.sku
                                 kardex.cellar_identifier = id_bodega
                                 kardex.operation_type = Kardex.OPERATION_MOV_OUT
-
-                                if l["promotion_price"] > 0:
-                                    producto.sell_price = l["promotion_price"]
-
-                                kardex.sell_price = producto.sell_price
+                                kardex.sell_price = l['price']
 
                                 _s = Size()
                                 _s.name = l["size"]

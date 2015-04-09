@@ -265,8 +265,7 @@ class Cart(BaseModel):
                     p.color,
                     tc.quantity,
                     tc.subtotal,
-                    p.sell_price,
-                    p.promotion_price,
+                    tc.price,
                     p.image,
                     tc.billing_id,
                     tc.shipping_id,
@@ -383,7 +382,7 @@ class Cart(BaseModel):
             cur = self.connection.cursor(
                 cursor_factory=psycopg2.extras.RealDictCursor)
 
-            query = '''select tc.quantity, p.sell_price, tc.user_id, p.promotion_price from "Product" p inner join "Temp_Cart" tc on tc.product_id = p.id where tc.id = %(cart_id)s'''
+            query = '''select tc.quantity, tc.user_id, tc.price from "Product" p inner join "Temp_Cart" tc on tc.product_id = p.id where tc.id = %(cart_id)s'''
             parameters = {"cart_id": cart_id}
 
             price = 0
@@ -394,19 +393,14 @@ class Cart(BaseModel):
             cur.execute(query, parameters)
             res = cur.fetchone()
 
-            promotion_price = res["promotion_price"]
-
-            if promotion_price != 0:
-                price = promotion_price
-            else:
-                price = res["sell_price"]
+            price = res["price"]
 
             old_quantity = res["quantity"]
             user_id = res["user_id"]
 
-            query = '''update "Temp_Cart" set quantity = %(quantity)s, subtotal = %(quantity)s * %(price)s where id = %(cart_id)s'''
+            query = '''update "Temp_Cart" set quantity = %(quantity)s, subtotal = %(quantity)s * price where id = %(cart_id)s'''
             parameters = {
-                "quantity": int(quantity), "cart_id": cart_id, "price": price}
+                "quantity": int(quantity), "cart_id": cart_id}
 
             cur.execute(query, parameters)
             self.connection.commit()

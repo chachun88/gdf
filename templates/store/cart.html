@@ -42,11 +42,15 @@ Giani Da Firenze - Carro de Compra
                     <div class="CartDescription">
                       <h4> <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}">{{d["name"]}}</a> </h4>
                       <span class="size">{{d["size"]}}</span>
-                      {% if d["promotion_price"] > 0 %}
-                        <div class="price sell_price precio-ant-zapato"> <span>$ {{money_format(d["sell_price"])}}</span></div>
-                        <div class="price sell_price precio-ofert-zapato"> <span>$ {{money_format(d["promotion_price"])}}</span></div>
+                      {% if current_user is not None and int(current_user['type_id']) == 4 %}
+                          <p class="producto-precio">$ {{money_format(d['bulk_price'])}}</p>
                       {% else %}
-                        <div class="price sell_price"> <span>$ {{money_format(d["sell_price"])}}</span></div>
+                          {% if int(d['promotion_price']) > 0 %}
+                              <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
+                              <p class="producto-precio precio-ofert-zapato" >$ {{money_format(d['promotion_price'])}}</p>
+                          {% else %}
+                              <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>  
+                          {% end %}
                       {% end %}
                     </div>
                   </td>

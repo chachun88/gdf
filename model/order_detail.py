@@ -50,6 +50,13 @@ class OrderDetail(BaseModel):
 	def size(self, value):
 	    self._size = value
 	
+	@property
+	def price(self):
+	    return self._price
+
+	@price.setter
+	def price(self, value):
+	    self._price = value
 	
 
 	def __init__(self):
@@ -60,6 +67,7 @@ class OrderDetail(BaseModel):
 		self._product_id = ""
 		self._subtotal 	= ""
 		self._size = ""
+		self._price = ""
 
 	def Save(self):
 		#save the object and return the id
@@ -80,14 +88,28 @@ class OrderDetail(BaseModel):
 
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-		query = '''insert into "Order_Detail" (order_id,quantity,product_id,subtotal,size) values (%(order_id)s,%(quantity)s,%(product_id)s,%(subtotal)s,%(size)s) returning id'''
+		query = '''\
+				insert into "Order_Detail" (order_id,
+											quantity,
+											product_id,
+											subtotal,
+											size,
+											price) 
+				values (%(order_id)s,
+						%(quantity)s,
+						%(product_id)s,
+						%(subtotal)s,
+						%(size)s,
+						%(price)s) 
+				returning id'''
 
 		parametros = {
-		"order_id":self.order_id,
-		"quantity":self.quantity,
-		"product_id":self.product_id,
-		"subtotal":float(self.subtotal),
-		"size":self.size
+			"order_id":self.order_id,
+			"quantity":self.quantity,
+			"product_id":self.product_id,
+			"subtotal":float(self.subtotal),
+			"size":self.size,
+			"price": self.price
 		}
 
 		try:
@@ -112,7 +134,11 @@ class OrderDetail(BaseModel):
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 		try:
-			query = '''select od.*,p.name,p.color,p.sell_price, p.promotion_price from "Order_Detail" od 
+			query = '''\
+					select od.*,
+							p.name,
+							p.color 
+					from "Order_Detail" od 
 					left join "Product" p on od.product_id = p.id 
 					where order_id = %(order_id)s 
 					limit %(limit)s offset %(offset)s'''

@@ -161,8 +161,15 @@ class AddToCartHandler(BaseHandler):
 
                 if product.promotion_price != 0:
                     subtotal = int(product.promotion_price) * cart.quantity
+                    cart.price = product.promotion_price
                 else:
                     subtotal = int(product.sell_price) * cart.quantity
+                    cart.price = product.sell_price
+
+                if current_user:
+                    if current_user["type_id"] == 4:
+                        subtotal = int(product.bulk_price) * cart.quantity
+                        cart.price = product.bulk_price
 
                 size_id = self.get_argument("size","")
 

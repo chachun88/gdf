@@ -13,15 +13,19 @@ import hashlib
 
 from bson import json_util
 
+
 class UserType(object):
-    
-    VISITA = 'Visita'
-    CLIENTE = 'Cliente'
-    EMPRESA = 'Empresa'
 
-
+    VENDEDOR = "Vendedor"
+    ADMINISTRADOR = "Administrador"
+    CLIENTE = "Cliente"
+    EMPRESA = "Cliente Mayorista"
+    VISITA = "Visita"
 
 class User(BaseModel):
+
+    ACEPTADO = 2
+
     def __init__(self):
         BaseModel.__init__(self)
         # self.collection = db.salesman
@@ -34,11 +38,14 @@ class User(BaseModel):
         self._cellars = []
         self._permissions_name = []
         self._cellars_name = []
-        self._user_type = UserType.VISITA   ### se debe pasar el nombre del tipo de usuario, no el id
+        self._user_type = UserType.VISITA  # se debe pasar el nombre del tipo de usuario, no el id
+        self._bussiness = ''
+        self._rut = ''
 
     @property
     def salesman_id(self):
         return self._salesman_id
+
     @salesman_id.setter
     def salesman_id(self, value):
         self._salesman_id = value   
@@ -46,6 +53,7 @@ class User(BaseModel):
     @property
     def name(self):
         return self._name
+
     @name.setter
     def name(self, value):
         self._name = value
@@ -53,6 +61,7 @@ class User(BaseModel):
     @property
     def password(self):
         return self._password
+
     @password.setter
     def password(self, value):
         self._password = value
@@ -60,6 +69,7 @@ class User(BaseModel):
     @property
     def email(self):
         return self._email
+
     @email.setter
     def email(self, value):
         self._email = value
@@ -67,6 +77,7 @@ class User(BaseModel):
     @property
     def permissions(self):
         return self._permissions
+
     @permissions.setter
     def permissions(self, value):
         self._permissions = value
@@ -74,13 +85,15 @@ class User(BaseModel):
     @property
     def user_type(self):
         return self._user_type
+
     @user_type.setter
     def user_type(self, value):
         self._user_type = value
-    
+
     @property
     def permissions_name(self):
         return self._permissions_name
+
     @permissions_name.setter
     def permissions_name(self, value):
         self._permissions_name = value
@@ -88,6 +101,7 @@ class User(BaseModel):
     @property
     def cellars(self):
         return self._cellars
+
     @cellars.setter
     def cellars(self, value):
         self._cellars = value
@@ -95,18 +109,26 @@ class User(BaseModel):
     @property
     def cellars_name(self):
         return self._cellars_name
+
     @cellars_name.setter
     def cellars_name(self, value):
         self._cellars_name = value
-    
+
     @property
-    def user_type(self):
-        return self._user_type
-    @user_type.setter
-    def user_type(self, value):
-        self._user_type = value
-    
-    
+    def bussiness(self):
+        return self._bussiness
+
+    @bussiness.setter
+    def bussiness(self, value):
+        self._bussiness = value
+
+    @property
+    def rut(self):
+        return self._rut
+
+    @rut.setter
+    def rut(self, value):
+        self._rut = value
 
     def Print(self):
         return {
@@ -118,18 +140,16 @@ class User(BaseModel):
             "salesman_id":self.salesman_id,
             "permissions_name":self.permissions_name,
             "cellars":self.cellars,
-            "cellars_name":self.cellars_name
+            "cellars_name":self.cellars_name,
+            "bussiness": self.bussiness,
+            "rut": self.rut
         }
 
     def Remove(self):
         try:
-            #delete = self._permissions.RemoveAllByUser()
-            #if "error" in delete:
-            #   return delete
-
             return BaseModel.Remove(self)
         except Exception, e:
-            return self.ShowError("error removing user")
+            return self.ShowError("error removing user, {}".format(str(e)))
 
     def Login(self, username, password):
         # data = self.collection.find({"email":username, "password":password})
@@ -146,13 +166,22 @@ class User(BaseModel):
         password = m.hexdigest()
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, STRING_AGG(distinct c.name, ',') as cellars_name from "User" u left join "Permission" p on p.id = any(u.permissions) left join "Cellar" c on c.id = any(u.cellar_permissions) where u.email = %(email)s and u.password = %(password)s group by u.id limit 1'''
+        q = '''\
+            select u.*, 
+                STRING_AGG(distinct p.name, ',') as permissions_name, 
+                STRING_AGG(distinct c.name, ',') as cellars_name 
+            from "User" u 
+            left join "Permission" p on p.id = any(u.permissions) 
+            left join "Cellar" c on c.id = any(u.cellar_permissions) 
+            where u.email = %(email)s and 
+                u.password = %(password)s 
+            group by u.id limit 1'''
         p = {
-        "email":username,
-        "password":password
+            "email":username,
+            "password":password
         }
         try:
-            #print curs.mogrify( q, p )
+            # print curs.mogrify( q, p )
             cur.execute(q,p)
             user = cur.fetchone()
             if cur.rowcount > 0:
@@ -182,9 +211,17 @@ class User(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        q = '''select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, STRING_AGG(distinct c.name, ',') as cellars_name from "User" u left join "Permission" p on p.id = any(u.permissions) left join "Cellar" c on c.id = any(u.cellar_permissions) where u.email = %(email)s group by u.id limit 1'''
+        q = '''\
+            select u.*, 
+                STRING_AGG(distinct p.name, ',') as permissions_name, 
+                STRING_AGG(distinct c.name, ',') as cellars_name 
+            from "User" u 
+            left join "Permission" p on p.id = any(u.permissions) 
+            left join "Cellar" c on c.id = any(u.cellar_permissions) 
+            where u.email = %(email)s 
+            group by u.id limit 1'''
         p = {
-        "email":email
+            "email":email
         }
         try:
             cur.execute(q,p)
@@ -216,9 +253,17 @@ class User(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        q = '''select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, STRING_AGG(distinct c.name, ',') as cellars_name from "User" u left join "Permission" p on p.id = any(u.permissions) left join "Cellar" c on c.id = any(u.cellar_permissions) where u.id = %(id)s group by u.id limit 1'''
+        q = '''\
+            select u.*, 
+                STRING_AGG(distinct p.name, ',') as permissions_name, 
+                STRING_AGG(distinct c.name, ',') as cellars_name 
+            from "User" u 
+            left join "Permission" p on p.id = any(u.permissions) 
+            left join "Cellar" c on c.id = any(u.cellar_permissions) 
+            where u.id = %(id)s 
+            group by u.id limit 1'''
         p = {
-        "id":idd
+            "id":idd
         }
         try:
             cur.execute(q,p)
@@ -233,13 +278,11 @@ class User(BaseModel):
     def GetPermissions(self):
         return self._permissions.FindPermissions(self.id)
 
-
     def AssignPermission(self, permission):
-        ## TODO: validate if permission exist
+        # TODO: validate if permission exist
         self._permissions.salesman_id   = self.id
         self._permissions.permission_id = permission
         return self._permissions.Save()
-
 
     def RemovePermission(self, permission):
         self._permissions.salesman_id = self.id
@@ -252,14 +295,14 @@ class User(BaseModel):
 
         q = '''select id from "User_Types" where name = %(name)s'''
         p = {
-        "name": self.user_type
+            "name": self.user_type
         }
         cur.execute(q,p)
         tipo_usuario = cur.fetchone()[0]
 
         q = '''select id from "Permission" where name = any(%(permissions)s)'''
         p = {
-        "permissions":self.permissions
+            "permissions":self.permissions
         }
         cur.execute(q,p)
         permisos = cur.fetchall()
@@ -268,7 +311,7 @@ class User(BaseModel):
 
             q = '''select * from "User" where email = %(email)s limit 1'''
             p = {
-            "email":self.email
+                "email":self.email
             }
             cur.execute(q,p)
             usuario = cur.fetchone()
@@ -284,14 +327,25 @@ class User(BaseModel):
 
                     password = m.hexdigest()
 
-                    q = '''update "User" set name = %(name)s, password = %(password)s, email = %(email)s, permissions = %(permissions)s, type_id = %(type_id)s where id = %(id)s'''
+                    q = '''\
+                        update "User" 
+                        set name = %(name)s, 
+                            password = %(password)s, 
+                            email = %(email)s, 
+                            permissions = %(permissions)s, 
+                            type_id = %(type_id)s,
+                            rut = %(rut)s,
+                            bussiness = %(bussiness)s 
+                        where id = %(id)s'''
                     p = {
-                    "name":self.name,
-                    "email":self.email,
-                    "permissions":permisos,
-                    "password":password,
-                    "id":self.id,
-                    "type_id":tipo_usuario
+                        "name":self.name,
+                        "email":self.email,
+                        "permissions":permisos,
+                        "password":password,
+                        "id":self.id,
+                        "type_id":tipo_usuario,
+                        "rut": self.rut,
+                        "bussiness": self.bussiness
                     }
                     cur.execute(q,p)
                     self.connection.commit()
@@ -302,22 +356,31 @@ class User(BaseModel):
 
                     if self.id != "":
 
-                        print "update user"
-
                         m = hashlib.md5()
 
                         m.update(self.password)
 
                         password = m.hexdigest()
 
-                        q = '''update "User" set name = %(name)s, password = %(password)s, email = %(email)s,permissions = %(permissions)s, type_id = %(type_id)s where id = %(id)s'''
+                        q = '''\
+                            update "User" 
+                            set name = %(name)s, 
+                                password = %(password)s, 
+                                email = %(email)s,
+                                permissions = %(permissions)s, 
+                                type_id = %(type_id)s,
+                                rut = %(rut)s,
+                                bussiness = %(bussiness)s
+                            where id = %(id)s'''
                         p = {
-                        "name":self.name,
-                        "email":self.email,
-                        "permissions":permisos,
-                        "password":password,
-                        "type_id":tipo_usuario,
-                        "id":self.id
+                            "name":self.name,
+                            "email":self.email,
+                            "permissions":permisos,
+                            "password":password,
+                            "type_id":tipo_usuario,
+                            "id":self.id,
+                            "rut": self.rut,
+                            "bussiness": self.bussiness
                         }
 
                         try:
@@ -326,7 +389,6 @@ class User(BaseModel):
                             return self.ShowSuccessMessage(str(self.id))
                         except Exception,e:
                             return self.ShowError(str(e))
-                            
 
                     else:
 
@@ -336,14 +398,30 @@ class User(BaseModel):
 
                         password = m.hexdigest()
 
-
-                        q = '''insert into "User" (name,password,email,permissions,type_id) values (%(name)s,%(password)s,%(email)s,%(permissions)s,%(type_id)s) returning id'''
+                        q = '''\
+                            insert into "User" (name,
+                                                password,
+                                                email,
+                                                permissions,
+                                                type_id,
+                                                rut,
+                                                bussiness) 
+                            values (%(name)s,
+                                    %(password)s,
+                                    %(email)s,
+                                    %(permissions)s,
+                                    %(type_id)s,
+                                    %(rut)s,
+                                    %(bussiness)s) 
+                            returning id'''
                         p = {
-                        "name":self.name,
-                        "email":self.email,
-                        "permissions":permisos,
-                        "password":password,
-                        "type_id":tipo_usuario
+                            "name":self.name,
+                            "email":self.email,
+                            "permissions":permisos,
+                            "password":password,
+                            "type_id":tipo_usuario,
+                            "rut": self.rut,
+                            "bussiness": self.bussiness
                         }
                         cur.execute(q,p)
                         self.connection.commit()
@@ -363,13 +441,27 @@ class User(BaseModel):
 
                 password = m.hexdigest()
 
-                q = '''insert into "User" (name,password,email,permissions,type_id) values (%(name)s,%(password)s,%(email)s,%(permissions)s,%(type_id)s) returning id'''
+                q = '''\
+                    insert into "User" (name, 
+                                        password, 
+                                        email, 
+                                        permissions, 
+                                        type_id,
+                                        status) 
+                    values (%(name)s,
+                            %(password)s,
+                            %(email)s,
+                            %(permissions)s,
+                            %(type_id)s,
+                            %(status)s) 
+                    returning id'''
                 p = {
-                "name":self.name,
-                "email":self.email,
-                "permissions":permisos,
-                "password":password,
-                "type_id":tipo_usuario
+                    "name":self.name,
+                    "email":self.email,
+                    "permissions":permisos,
+                    "password":password,
+                    "type_id":tipo_usuario,
+                    "status":User.ACEPTADO
                 }
                 cur.execute(q,p)
                 self.connection.commit()
@@ -389,8 +481,8 @@ class User(BaseModel):
         try:
             q = '''select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, STRING_AGG(distinct c.name, ',') as cellars_name from "User" u left join "Permission" p on p.id = any(u.permissions) left join "Cellar" c on c.id = any(u.cellar_permissions) group by u.id limit %(limit)s offset %(offset)s'''
             p = {
-            "limit":items,
-            "offset":offset
+                "limit":items,
+                "offset":offset
             }
             cur.execute(q,p)
 
@@ -400,7 +492,6 @@ class User(BaseModel):
             print str(e)
             return {}
 
-
     def Exist(self, email='',id=0):
 
         try:
@@ -408,11 +499,11 @@ class User(BaseModel):
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
             if email != "":
-                
+
                 q = '''select count(*) as cnt from "User" where email = %(email)s'''
-                
+
                 p = { "email" : email }
-                
+
                 cur.execute( q, p )
 
                 data = cur.fetchone()
@@ -453,7 +544,7 @@ class User(BaseModel):
     def PassRecovery( self, email ):
         try:
             if self.Exist( email ):
-                
+
                 password = ""
                 user_id = ""
 
@@ -504,7 +595,6 @@ class User(BaseModel):
         except Exception, e:
             print str( e )
             raise Exception( "no se ha podido cambiar la contraseña" )
-
 
     def GetUserId( self, email ):
         try:

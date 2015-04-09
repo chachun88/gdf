@@ -36,6 +36,7 @@ class Product(BaseModel):
         self._which_size = ""  # cual es tu talla
         self._promotion_price = 0
         self._size_id = ""
+        self._bulk_price = 0
 
     @property
     def upc(self):
@@ -245,14 +246,27 @@ class Product(BaseModel):
     def size_id(self, value):
         self._size_id = value
 
+    @property
+    def bulk_price(self):
+        return self._bulk_price
+
+    @bulk_price.setter
+    def bulk_price(self, value):
+        self._bulk_price = value
+    
+
     def GetList(self, page=1, items=30):
 
         page = int(page)
         items = int(items)
         offset = (page - 1) * items
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         try:
-            q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.for_sale = 1 limit %(items)s offset %(offset)s'''
+            q = '''\
+                select p.*,c.name as category from "Product" p 
+                inner join "Category" c on c.id = p.category_id 
+                where p.for_sale = 1 
+                limit %(items)s offset %(offset)s'''
             p = {
                 "items": items,
                 "offset": offset
@@ -307,6 +321,7 @@ class Product(BaseModel):
                 self.delivery = producto["delivery"]
                 self.which_size = producto["which_size"]
                 self.promotion_price = producto["promotion_price"]
+                self.bulk_price = producto['bulk_price']
 
                 return self.ShowSuccessMessage("{}".format(self.id))
             else:
@@ -359,6 +374,7 @@ class Product(BaseModel):
                 self.delivery = producto["delivery"]
                 self.which_size = producto["which_size"]
                 self.promotion_price = producto["promotion_price"]
+                self.bulk_price = producto['bulk_price']
 
                 return self.ShowSuccessMessage("{}".format(self.id))
             else:
@@ -469,6 +485,7 @@ class Product(BaseModel):
                 self.delivery = producto["delivery"]
                 self.which_size = producto["which_size"]
                 self.promotion_price = producto["promotion_price"]
+                self.bulk_price = producto['bulk_price']
 
                 return self.ShowSuccessMessage("{}".format(self.id))
             else:

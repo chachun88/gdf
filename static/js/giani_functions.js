@@ -257,9 +257,9 @@ var enterpriseRegistration = function(form){
     var rut = $("input[name=rut]", form);
     var email = $("input[name=email]", form);
     var direccion = $("input[name=address]", form);
-    var region = $("select[name=state]", form);
-    var provincia = $("select[name=city]", form);
-    var comuna = $("select[name=town]", form);
+    var region = $("select[name=select-state] option:selected", form);
+    var provincia = $("select[name=select-city] option:selected", form);
+    var comuna = $("select[name=select-town] option:selected", form);
     var clave = $("input[name=password]", form);
     var rep_clave = $("input[name=re-password]", form);
 
@@ -284,5 +284,25 @@ var enterpriseRegistration = function(form){
     } else if(clave.val()!=rep_clave.val()){
         clave.addClass("alert-danger");
         rep_clave.addClass("alert-danger");
+    } else {
+        $("input[name=state]", form).val(region.text());
+        $("input[name=city]", form).val(provincia.text());
+        $("input[name=town]", form).val(comuna.text());
+        
+        $.ajax({
+            url: form.attr("action"),
+            data: form.serialize(),
+            type: form.attr("method"),
+            dataType: "json",
+            success: function(html){
+                response_str = JSON.stringify(html);
+                response = $.parseJSON(response_str);
+                if(response.error){
+                    alert(response.error);
+                } else {
+                    alert("Gracias por registrate. Pronto nos contactaremos contigo");
+                }
+            }
+        })   
     }
 };

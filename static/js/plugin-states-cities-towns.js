@@ -80,6 +80,7 @@ Cities.prototype.fillStates = function() {
         $.each(data, function(key, val) {
             $(self.element).append('<option value="' + val.id + '">' + val.name + '</option>');
         });
+        $(self.element).trigger("change");
     });
 };
 
@@ -98,6 +99,8 @@ Cities.prototype.fillCities = function(id_region) {
                 $(self.options.city_selector).append('<option value="' + val.id + '">' + val.name + '</option>');
             }
         });
+
+        $(self.options.city_selector).trigger("change");
     });
 }
 

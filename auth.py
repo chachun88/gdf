@@ -9,8 +9,10 @@ import tornado.auth
 from bson import json_util
 import hashlib
 
-from model.user import User
+from model.user import User, UserType
 from model.cart import Cart
+from model.contact import Contact
+from model.city import City
 
 from sendpassword import RegistrationEmail
 
@@ -198,7 +200,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
         usr.name = user["name"]
         usr.email = user["email"]
-        usr.user_type = 'Cliente'
+        usr.user_type = UserType.VISITA
 
         if user_id != "":
             usr.id = user_id
@@ -388,7 +390,7 @@ class CheckoutSuccessHandler(BaseHandler):
         self.render( "store/success.html" )
 
 
-class EnterpriseRegistration(BaseHandler):
+class EnterpriseRegistrationHandler(BaseHandler):
 
     def post(self):
 
@@ -422,17 +424,22 @@ class EnterpriseRegistration(BaseHandler):
         elif rep_clave.strip() != clave.strip():
             return json_util.dumps({"state": 0, "message": "Las claves ingresadas no coinciden"})
 
-        m = hashlib.md5(clave.strip())
-        clave_encriptada = m.hexdigest()
+        user = User()
+        user.name = nombre
+        user.password = clave
+        user.email = email
+        user.user_type = UserType.EMPRESA
+        user.bussiness = giro
+        user.rut = rut
+        res_save = user.Save()
 
-        print clave_encriptada
+        if "error" in res_save:
+            self.write(json_util.dumps(res_save))
 
-        # user = User()
-        # user.name = nombre
-        # user.password =  
-        # user.email = ''
-        # user.permissions = []
-        # user.cellars = []
-        # user.permissions_name = []
-        # user.cellars_name = []
-        # user.user_type = UserType.VISITA
+        contact = Contact()
+        contact.town = "{}, {}".format(comuna.encode("utf-8"),region.encode("utf-8")) 
+        contact.address = direccion
+        contact.user_id = user.id
+        contact.city = None
+        
+        self.write(json_util.dumps(contact.Save()))

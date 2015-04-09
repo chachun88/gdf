@@ -156,3 +156,22 @@ class City(BaseModel):
         finally:
             cur.close()
             self.connection.close()
+
+    def getIdByName(self, name):
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        query = '''select id from "City" where lower(name) = lower(%(name)s)'''
+        parameters = {
+            "name": name
+        }
+
+        try:
+            cur.execute(query,parameters)
+            if cur.rowcount > 0:
+                self.id = cur.fetchone()["id"]
+                return self.ShowSuccessMessage(self.id)
+        except Exception,e:
+            return self.ShowError(str(e))
+        finally:
+            self.connection.close()
+            cur.close()

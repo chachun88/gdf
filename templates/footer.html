@@ -72,31 +72,34 @@
                         <div class="form-group required">
                             <label for="comuna" class="col-sm-4">Region</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="region" name="state" placehold="Región"></select>
+                                <select class="form-control" id="region" name="select-state" placehold="Región"></select>
+                                <input type="hidden" class="form-control" id="state" name="state">
                             </div>
                         </div>
                         <div class="form-group required">
                             <label for="comuna" class="col-sm-4">Provincia</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="provincia" name="city" placeholder="Provincia"></select>
+                                <select class="form-control" id="provincia" name="select-city" placeholder="Provincia"></select>
+                                <input type="hidden" class="form-control" id="city" name="city">
                             </div>
                         </div>
                         <div class="form-group required">
                             <label for="comuna" class="col-sm-4">Comuna</label>
                             <div class="col-sm-8">
-                                <select class="form-control" id="comuna" name="town" placeholder="Comuna"></select>
+                                <select class="form-control" id="comuna" name="select-town" placeholder="Comuna"></select>
+                                <input type="hidden" class="form-control" id="town" name="town">
                             </div>
                         </div>
                         <div class="form-group required">
                             <label for="clave" class="col-sm-4">Contraseña</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="clave" name="password" placeholder="Contraseña">
+                                <input type="password" class="form-control" id="clave" name="password" placeholder="Contraseña">
                             </div>
                         </div>
                         <div class="form-group required">
                             <label for="clave" class="col-sm-4">Confirme contraseña</label>
                             <div class="col-sm-8">
-                                <input type="text" class="form-control" id="rep_clave" name="re-password" placeholder="Confirme contraseña">
+                                <input type="password" class="form-control" id="rep_clave" name="re-password" placeholder="Confirme contraseña">
                             </div>
                         </div>
                         <div class="pull-right btn-default-3" style="margin-top:20px;">

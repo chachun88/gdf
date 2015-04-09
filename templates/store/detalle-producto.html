@@ -1,201 +1,206 @@
 {% extends "../base.html" %}
 {% block title %}
-Giani Da Firenze - {{data.name}}
+    Giani Da Firenze - {{data.name}}
 {% end %}
-
 {% block css %}
-<link rel="stylesheet" href="/static/css/simple_tab.css">
-<link rel="stylesheet" href="/static/css/detalle-producto.css">
-<link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
-{% end %}
-
-{% block javascript %}
-<script src="/static/js/detalle-producto.js"></script>
-<!-- Google analytics -->
-<script src="/static/js/ga-pageview-detalle-producto.js"></script>
-<script type="text/javascript" src="/static/js/simple.tab.js" ></script>
-<script type="text/javascript">
-    ifvoted({{data.id}});
-</script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(".fancybox").fancybox();
-  });
-</script>
-{% end %}
-
-{% block body %}
-  <div class="cuerpo clearfix">
-    <div class="cuerpo-categorias clearfix">
-      <div class="categorias clearfix">
-        <p class="titulo-categorias"><span>Más combinaciones</span></p>
-        {% for c in combinations %}
-          {% if c["image"] != "" %}
-          <div class="container">
-            <a href="/product/{{canonical_url(c['category'])}}/{{canonical_url(c['name'])}}/{{canonical_url(c['color'])}}">
-              <img class="image image-7 otro-angulo-mas-combinaciones" src="{{url_bodega}}/image/{{c['image']}}?mw=159" data-rimage data-src="{{url_bodega}}/image/{{c['image']}}?mw=159">
-            </a>
-          </div>
-          {% end %}
-        {% end %}
-      </div>
-    </div>
-    <div class="cuerpo-producto clearfix">
-      <div class="producto-foto">
-        <img class="foto-producto" src="{{url_bodega}}/image/{{data.image}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
-      </div>
-      <div class="producto-info">
-        <div class="container">
-          <img class="image image-10 otro-angulo" src="{{url_bodega}}/image/{{data.image}}?mw=75" data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
-        </div>
-        {% if data.image_2 != "" %}
-        <div class="container">
-          <img class="image image-11 otro-angulo" src="{{url_bodega}}/image/{{data.image_2}}?mw=75" data-src="{{url_bodega}}/image/{{data.image_2}}?mw=547">
-        </div>
-        {% end %}
-        {% if data.image_3 != "" %}
-        <div class="container">
-          <img class="image image-12 otro-angulo" src="{{url_bodega}}/image/{{data.image_3}}?mw=75" data-src="{{url_bodega}}/image/{{data.image_3}}?mw=547">
-        </div>
-        {% end %}
-        {% if data.image_4 != "" %}
-        <div class="container">
-          <img class="image image-13 otro-angulo" src="{{url_bodega}}/image/{{data.image_4}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_4}}?mw=547">
-        </div>
-        {% end %}
-        {% if data.image_5 != "" %}
-        <div class="container">
-          <img class="image image-14 otro-angulo" src="{{url_bodega}}/image/{{data.image_5}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_5}}?mw=547">
-        </div>
-        {% end %}
-        {% if data.image_6 != "" %}
-        <div class="container">
-          <img class="image image-14 otro-angulo" src="{{url_bodega}}/image/{{data.image_6}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_6}}?mw=547">
-        </div>
-        {% end %}
-      </div>
-    </div>
-    <div class="container container-10 clearfix">
-      <div class="producto-info clearfix">
-        <p class="producto-nombre producto-nombre-1">{{data.name}}</p>
-        <div class="megusta clearfix">
-          <div class="fotomegusta enabled" onclick="votar({{data.id}})"><img src="/static/images/corazon.png"></div>
-          <p class="text" id="votes-quantity">{{votos}}</p>
-        </div>
-        <p class="producto-nombre producto-nombre-2">Línea de producto</p>
-        <p class="producto-nombre producto-nombre-3">Color : <span>{{data.color}}</span></p>
-        <p class="producto-nombre producto-nombre-3">
-          {% if len(data.size) > 0 %}
-            En stock
-          {% else %}
-            Sin stock
-          {% end %}
-        </p>
-        <div class="container container-11 clearfix">
-          <div class="selects">
-            {% if len(data.size) > 0 %}
-              <select class="_select _select-1" id="size" sku="{{data.sku}}">
-                {% for t in data.size %}
-                <option value="{{t['id']}}">{{t['name']}}</option>
-                {% end %}
-              </select>
-              <select class="_select _select-2" id="quantity">
-              </select>
-            {% end %}
-          </div>
-          <div class="container container-12 clearfix">
-            {% if len(data.size) > 0 %}
-              <p class="producto-nombre producto-nombre-4">Talla</p>
-              <p class="producto-nombre producto-nombre-5">Cantidad</p>
-            {% end %}
-          </div>
-        </div>
-        {% if data.promotion_price > 0 %}
-          <span class="producto-precio precio-ant-zapato">$ {{money_format(data.sell_price)}}</span>
-          <span class="producto-precio precio-ofert-zapato" >$ {{money_format(data.promotion_price)}}</span>
-        {% else %}
-          <span class="producto-precio">$ {{money_format(data.sell_price)}}</span>
-        {% end %}
-      </div>
-      {% if len(data.size) > 0 %}
-      <button class="_button add-to-cart" product-id="{{data.id}}">
-        <p>AGREGAR AL CARRO</p>
-      </button>
-      {% end %}
-      <div class="container container-13">
-        <div class="container container-14 clearfix">
-          <!-- <div class="container container-15 clearfix">
-            <p class="text text-2">Descripción</p>
-            <p class="text text-3">Delivery</p>
-            <p class="text text-4">Cual es tu talla</p>
-          </div> -->
-          <div id="tabs-container">
-            <ul class="tabs-menu tabs-descripcion tabs-menu-li">
-              <li class="current"><a href="#tab-4">Descripci&oacute;n</a></li>
-              <li><a href="#tab-5">Delivery</a></li>
-              <li><a class="fancybox" href="/static/img/tallas.png">Cu&aacute;l es tu talla</a></li>
-            </ul>
-            <div class="tab tab-2">
-              <div id="tab-4" class="tab-content-desc tab-content">
-                {{data.description}}
-              </div>
-              <div id="tab-5" class="tab-content-desc tab-content">
-                {{data.delivery}}
-              </div>
-              <div id="tab-6" class="tab-content-desc tab-content">
-                {{data.which_size}}
-              </div>
+    <link rel="stylesheet" href="/static/css/simple_tab.css">
+    <link rel="stylesheet" href="/static/css/detalle-producto.css">
+    <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+    {% end %}
+    {% block javascript %}
+        <script src="/static/js/detalle-producto.js"></script>
+        <!-- Google analytics -->
+        <script src="/static/js/ga-pageview-detalle-producto.js"></script>
+        <script type="text/javascript" src="/static/js/simple.tab.js" ></script>
+        <script type="text/javascript">
+        ifvoted({{data.id}});
+        </script>
+        <script type="text/javascript">
+        $(document).ready(function() {
+        $(".fancybox").fancybox();
+        });
+        </script>
+    {% end %}
+    {% block body %}
+        <div class="cuerpo clearfix">
+            <div class="cuerpo-categorias clearfix">
+                <div class="categorias clearfix">
+                    <p class="titulo-categorias"><span>Más combinaciones</span></p>
+                    {% for c in combinations %}
+                        {% if c["image"] != "" %}
+                            <div class="container">
+                                <a href="/product/{{canonical_url(c['category'])}}/{{canonical_url(c['name'])}}/{{canonical_url(c['color'])}}">
+                                    <img class="image image-7 otro-angulo-mas-combinaciones" src="{{url_bodega}}/image/{{c['image']}}?mw=159" data-rimage data-src="{{url_bodega}}/image/{{c['image']}}?mw=159">
+                                </a>
+                            </div>
+                        {% end %}
+                    {% end %}
+                </div>
             </div>
-          </div>
+            <div class="cuerpo-producto clearfix">
+                <div class="producto-foto">
+                    <img class="foto-producto" src="{{url_bodega}}/image/{{data.image}}?mw=547" data-rimage data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
+                </div>
+                <div class="producto-info">
+                    <div class="container">
+                        <img class="image image-10 otro-angulo" src="{{url_bodega}}/image/{{data.image}}?mw=75" data-src="{{url_bodega}}/image/{{data.image}}?mw=547">
+                    </div>
+                    {% if data.image_2 != "" %}
+                        <div class="container">
+                            <img class="image image-11 otro-angulo" src="{{url_bodega}}/image/{{data.image_2}}?mw=75" data-src="{{url_bodega}}/image/{{data.image_2}}?mw=547">
+                        </div>
+                    {% end %}
+                    {% if data.image_3 != "" %}
+                        <div class="container">
+                            <img class="image image-12 otro-angulo" src="{{url_bodega}}/image/{{data.image_3}}?mw=75" data-src="{{url_bodega}}/image/{{data.image_3}}?mw=547">
+                        </div>
+                    {% end %}
+                    {% if data.image_4 != "" %}
+                        <div class="container">
+                            <img class="image image-13 otro-angulo" src="{{url_bodega}}/image/{{data.image_4}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_4}}?mw=547">
+                        </div>
+                    {% end %}
+                    {% if data.image_5 != "" %}
+                        <div class="container">
+                            <img class="image image-14 otro-angulo" src="{{url_bodega}}/image/{{data.image_5}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_5}}?mw=547">
+                        </div>
+                    {% end %}
+                    {% if data.image_6 != "" %}
+                        <div class="container">
+                            <img class="image image-14 otro-angulo" src="{{url_bodega}}/image/{{data.image_6}}?mw=75" data-rimage data-src="{{url_bodega}}/image/{{data.image_6}}?mw=547">
+                        </div>
+                    {% end %}
+                </div>
+            </div>
+            <div class="container container-10 clearfix">
+                <div class="producto-info clearfix">
+                    <p class="producto-nombre producto-nombre-1">{{data.name}}</p>
+                    <div class="megusta clearfix">
+                        <div class="fotomegusta enabled" onclick="votar({{data.id}})"><img src="/static/images/corazon.png"></div>
+                        <p class="text" id="votes-quantity">{{votos}}</p>
+                    </div>
+                    <p class="producto-nombre producto-nombre-2">Línea de producto</p>
+                    <p class="producto-nombre producto-nombre-3">Color : <span>{{data.color}}</span></p>
+                    <p class="producto-nombre producto-nombre-3">
+                    {% if len(data.size) > 0 %}
+                        En stock
+                    {% else %}
+                        Sin stock
+                    {% end %}
+                    </p>
+                    <div class="container container-11 clearfix">
+                        <div class="selects">
+                            {% if len(data.size) > 0 %}
+                                <select class="_select _select-1" id="size" sku="{{data.sku}}">
+                                    {% for t in data.size %}
+                                        <option value="{{t['id']}}">{{t['name']}}</option>
+                                    {% end %}
+                                </select>
+                                <select class="_select _select-2" id="quantity">
+                                </select>
+                            {% end %}
+                        </div>
+                        <div class="container container-12 clearfix">
+                            {% if len(data.size) > 0 %}
+                                <p class="producto-nombre producto-nombre-4">Talla</p>
+                                <p class="producto-nombre producto-nombre-5">Cantidad</p>
+                            {% end %}
+                        </div>
+                    </div>
+                    {% if current_user != None and current_user['type_id'] == 4 %}
+                        <span class="producto-precio">$ {{money_format(data.bulk_price)}}</span>
+                    {% else %}
+                        {% if data.promotion_price > 0 %}
+                            <span class="producto-precio precio-ant-zapato">$ {{money_format(data.sell_price)}}</span>
+                            <span class="producto-precio precio-ofert-zapato" >$ {{money_format(data.promotion_price)}}</span>
+                        {% else %}
+                            <span class="producto-precio">$ {{money_format(data.sell_price)}}</span>
+                        {% end %}
+                    {% end %}
+                </div>
+                {% if len(data.size) > 0 %}
+                    <button class="_button add-to-cart" product-id="{{data.id}}">
+                    <p>AGREGAR AL CARRO</p>
+                    </button>
+                {% end %}
+                <div class="container container-13">
+                    <div class="container container-14 clearfix">
+                        <!-- <div class="container container-15 clearfix">
+                            <p class="text text-2">Descripción</p>
+                            <p class="text text-3">Delivery</p>
+                            <p class="text text-4">Cual es tu talla</p>
+                        </div> -->
+                        <div id="tabs-container">
+                            <ul class="tabs-menu tabs-descripcion tabs-menu-li">
+                                <li class="current"><a href="#tab-4">Descripci&oacute;n</a></li>
+                                <li><a href="#tab-5">Delivery</a></li>
+                                <li><a class="fancybox" href="/static/img/tallas.png">Cu&aacute;l es tu talla</a></li>
+                            </ul>
+                            <div class="tab tab-2">
+                                <div id="tab-4" class="tab-content-desc tab-content">
+                                    {{data.description}}
+                                </div>
+                                <div id="tab-5" class="tab-content-desc tab-content">
+                                    {{data.delivery}}
+                                </div>
+                                <div id="tab-6" class="tab-content-desc tab-content">
+                                    {{data.which_size}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container container-16 clearfix">
+                <p class="text text-6">Productos Relacionados</p>
+                {% for r in related %}
+                    <a href="/product/{{canonical_url(r['category'])}}/{{canonical_url(r['name'])}}/{{canonical_url(r['color'])}}">
+                        <div class="container container-17 clearfix">
+                            <div class="container container-18 otro-angulo-mas-combinaciones">
+                                <img class="image image-15" src="{{url_bodega}}/image/{{r['image']}}?mw=165" data-rimage data-src="{{url_bodega}}/image/{{r['image']}}?mw=165">
+                            </div>
+                            <p class="text text-7">{{r['name']}}</p>
+                            <p class="text text-8">$ {{money_format(r['sell_price'])}}</p>
+                        </div>
+                    </a>
+                {% end %}
+                <!-- <div class="container container-19 clearfix">
+                    <div class="container container-20">
+                        <img class="image image-16" src="images/2(2)-165x110-10.jpg" data-rimage data-src="images/2(2)-165x110-10.jpg">
+                    </div>
+                    <p class="text text-9">Nombre Producto</p>
+                    <p class="text text-10">$ 00.00</p>
+                </div>
+                <div class="container container-21 clearfix">
+                    <div class="container container-22">
+                        <img class="image image-17" src="images/2(2)-165x110-5.jpg" data-rimage data-src="images/2(2)-165x110-5.jpg">
+                    </div>
+                    <p class="text text-11">Nombre Producto</p>
+                    <p class="text text-12">$ 00.00</p>
+                </div>
+                <div class="container container-23 clearfix">
+                    <div class="container container-24">
+                        <img class="image image-18" src="images/2(2)-165x110.jpg" data-rimage data-src="images/2(2)-165x110.jpg">
+                    </div>
+                    <p class="text text-13">Nombre Producto</p>
+                    <p class="text text-14">$ 00.00</p>
+                </div> -->
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="container container-16 clearfix">
-      <p class="text text-6">Productos Relacionados</p>
-      {% for r in related %}
-      <a href="/product/{{canonical_url(r['category'])}}/{{canonical_url(r['name'])}}/{{canonical_url(r['color'])}}">
-        <div class="container container-17 clearfix">
-          <div class="container container-18 otro-angulo-mas-combinaciones">
-            <img class="image image-15" src="{{url_bodega}}/image/{{r['image']}}?mw=165" data-rimage data-src="{{url_bodega}}/image/{{r['image']}}?mw=165">
-          </div>
-          <p class="text text-7">{{r['name']}}</p>
-          <p class="text text-8">$ {{money_format(r['sell_price'])}}</p>
+        <!-- Datos para google analytic -->
+        <div class="datos-analytic">
+            <div class="ga-category">{{data.category}}</div>
+            <div class="ga-variant">{{data.color}}</div>
+            <div class="ga-price">
+            {% if current_user is not None and int(current_user['type_id']) == 4 %}
+                {{data.bulk_price}}
+            {% else %}
+                {% if data.promotion_price > 0 %}
+                    {{data.promotion_price}}
+                {% else %}
+                    {{data.sell_price}}
+                {% end %}
+            {% end %}
+            </div>
         </div>
-      </a>
-      {% end %}
-      <!-- <div class="container container-19 clearfix">
-        <div class="container container-20">
-          <img class="image image-16" src="images/2(2)-165x110-10.jpg" data-rimage data-src="images/2(2)-165x110-10.jpg">
-        </div>
-        <p class="text text-9">Nombre Producto</p>
-        <p class="text text-10">$ 00.00</p>
-      </div>
-      <div class="container container-21 clearfix">
-        <div class="container container-22">
-          <img class="image image-17" src="images/2(2)-165x110-5.jpg" data-rimage data-src="images/2(2)-165x110-5.jpg">
-        </div>
-        <p class="text text-11">Nombre Producto</p>
-        <p class="text text-12">$ 00.00</p>
-      </div>
-      <div class="container container-23 clearfix">
-        <div class="container container-24">
-          <img class="image image-18" src="images/2(2)-165x110.jpg" data-rimage data-src="images/2(2)-165x110.jpg">
-        </div>
-        <p class="text text-13">Nombre Producto</p>
-        <p class="text text-14">$ 00.00</p>
-      </div> -->
-    </div>
-  </div>
-  <!-- Datos para google analytic -->
-  <div class="datos-analytic">
-    <div class="ga-category">{{data.category}}</div>
-    <div class="ga-variant">{{data.color}}</div>
-    <div class="ga-price">
-      {% if data.promotion_price > 0 %}
-          {{data.promotion_price}}
-      {% else %}
-          {{data.sell_price}}
-      {% end %}
-    </div>
-  </div>
-{% end %}
+    {% end %}
