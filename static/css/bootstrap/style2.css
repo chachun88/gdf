@@ -38,8 +38,8 @@
 /* FOUNDATION
 /* =============================================================== */
 
-a {
-	color: #34495E;
+a { 
+	color: #34495E; 
 	text-decoration: none;
 	outline: none !important;
    -moz-transition: all .2s ease-in;
@@ -408,12 +408,12 @@ input[type="text"], input[type="password"], input[type="email"] {
 	background: none;
 }
 .btn-default {
-	background-color: #BDC3C7;
+	background-color: #A21A52;
 	color: #FFFFFF;
 }
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
-	background-color: #CACFD2;
-	border-color: #CACFD2;
+	background-color: #CE1863;
+	border-color: #CE1863;
 	color: #FFFFFF;
 }
 .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
