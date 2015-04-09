@@ -4,7 +4,7 @@
 
 from basehandler import BaseHandler
 
-from globals import cellar_id, url_bodega
+from globals import cellar_id, url_bodega, debugMode
 
 # libreria prescindible
 from bson import json_util
@@ -104,7 +104,7 @@ class ProductHandler(BaseHandler):
 
                 if "success" in response_obj:
 
-                    print kardex.balance_units
+                    # print kardex.balance_units
 
                     if kardex.balance_units > 0:
 
@@ -114,9 +114,9 @@ class ProductHandler(BaseHandler):
 
                         if "success" in res_name:
                             tallas_disponibles.append({"id": _size.id, "name": _size.name})
-                        else:
+                        elif debugMode:
                             print res_name["error"]
-                else:
+                elif debugMode:
                     print response_obj["error"]
 
             prod.size = tallas_disponibles

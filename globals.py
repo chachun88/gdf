@@ -63,6 +63,7 @@ if enviroment == Enviroment.LOCAL:
     cgi_path = "/var/www/cgiani.ondev/"
 
 elif enviroment == Enviroment.ONDEV:
+    debugMode = False
     port = DEBUG_PORT
     url_bodega = "http://bgiani.ondev.today"
     url_local = "http://giani.ondev.today"
