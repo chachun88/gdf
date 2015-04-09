@@ -252,5 +252,37 @@ var checkStock = function(){
 };
 
 var enterpriseRegistration = function(form){
-    alert($("input[name=rut]", form).val());
-}
+    var nombre = $("input[name=name]", form);
+    var giro = $("input[name=bussiness]", form);
+    var rut = $("input[name=rut]", form);
+    var email = $("input[name=email]", form);
+    var direccion = $("input[name=address]", form);
+    var region = $("select[name=state]", form);
+    var provincia = $("select[name=city]", form);
+    var comuna = $("select[name=town]", form);
+    var clave = $("input[name=password]", form);
+    var rep_clave = $("input[name=re-password]", form);
+
+    if(nombre.val()==""){
+        nombre.addClass("alert-danger");
+    } else if(giro.val()==""){
+        giro.addClass("alert-danger");
+    } else if(rut.val()==""){
+        rut.addClass("alert-danger");
+    } else if(email.val()==""){
+        email.addClass("alert-danger");
+    } else if(direccion.val()==""){
+        direccion.addClass("alert-danger");
+    } else if(region.val()==""){
+        region.addClass("alert-danger");
+    } else if(provincia.val()==""){
+        provincia.addClass("alert-danger");
+    } else if(comuna.val()==""){
+        comuna.addClass("alert-danger");
+    } else if(clave.val()==""){
+        clave.addClass("alert-danger");
+    } else if(clave.val()!=rep_clave.val()){
+        clave.addClass("alert-danger");
+        rep_clave.addClass("alert-danger");
+    }
+};

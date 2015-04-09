@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
 '''
 Created on 25/02/2013
 
@@ -96,3 +98,61 @@ class BaseHandler(tornado.web.RequestHandler):
         kwargs["money_format"] = self.money_format
 
         tornado.web.RequestHandler.render(self, template_name, **kwargs)
+
+"""
+Script para la validación de RUN Chileno.
+@author: felcontreras@gmail.com
+"""
+
+
+def filtra(rut):
+    """
+    Esta funcion cumple el trabajo de filtrar el RUN.
+    Omitiendo asi los puntos (.) y Guiones (-) y cualquier otro caracter
+    que no incluya la variable 'caracteres'.
+    """
+    caracteres = "1234567890k"
+    rutx = ""
+    for cambio in rut.lower():
+        if cambio in caracteres:
+            rutx += cambio
+    return rutx
+
+
+def valida(rut):
+    """
+    Esta funcion cumple el trabajo de realizar la logica de negocio,
+    ya sea matematica como logica.
+    """
+    rfiltro = filtra(rut)
+    rutx = str(rfiltro[0:len(rfiltro)-1])
+    digito = str(rfiltro[-1])
+    multiplo = 2
+    total = 0
+
+    for reverso in reversed(rutx):
+        total += int(reverso) * multiplo
+        if multiplo == 7:
+            multiplo = 2
+        else:
+            multiplo += 1
+        modulus = total % 11
+        verificador = 11 - modulus
+        if verificador == 10:
+            div = "k"
+        elif verificador == 11:
+            div = "0"
+        else:
+            if verificador < 10:
+                div = verificador
+
+    if str(div) == str(digito):
+        return True
+    else:
+        return False
+
+def isEmailValid(email):
+
+    pattern = r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)"
+
+    return bool(re.match(pattern, email))

@@ -31,7 +31,7 @@
 }
 .fancybox-wrap,  .fancybox-desktop, .fancybox-type-html, .fancybox-opened {
 	opacity: 0.4;
-	width: 50% !important;
+	/*width: 50% !important;*/
 }
 .fancybox-inner
 {

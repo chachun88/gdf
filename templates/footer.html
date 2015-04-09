@@ -37,47 +37,67 @@
         <div style="display: none;">
             <div id="inline1" notitle>
                 <div class="col-xs-12 col-sm-12">
-                    <form action="/auth/enterprise-registration" method="post" id="enterpriseRegistration">
+                    <form action="/auth/enterprise-registration" method="post" id="enterpriseRegistration" class="form-horizontal">
                         <h3>Completar formulario venta mayorista</h3>
                         <div class="form-group required">
-                            <label for="nombre">Nombre o Raz&oacute;n social</label>
-                            <input type="text" class="form-control" id="nombre" name="name" placeholder="Nombre">
+                            <label for="nombre" class="col-sm-4">Nombre o Raz&oacute;n social</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="nombre" name="name" placeholder="Nombre">
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label for="giro">Giro</label>
-                            <input type="text" class="form-control" id="giro" name="bussiness" placeholder="Giro">
+                            <label for="giro" class="col-sm-4">Giro</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="giro" name="bussiness" placeholder="Giro">
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label for="rut">Rut</label>
-                            <input type="text" class="form-control" id="rut" name="rut" placeholder="Rut">
+                            <label for="rut" class="col-sm-4">Rut</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="rut" name="rut" placeholder="Rut">
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                            <label for="email" class="col-sm-4">Email</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label for="direccion">Direcci&oacute;n</label>
-                            <input type="text" class="form-control" id="direccion" name="address" placeholder="Dirección">
+                            <label for="direccion" class="col-sm-4">Direcci&oacute;n</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="direccion" name="address" placeholder="Dirección">
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label for="comuna">Region</label>
-                            <select class="form-control" id="region" name="state" placehold="Región"></select>
+                            <label for="comuna" class="col-sm-4">Region</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="region" name="state" placehold="Región"></select>
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label for="comuna">Provincia</label>
-                            <select class="form-control" id="provincia" name="city" placeholder="Provincia"></select>
+                            <label for="comuna" class="col-sm-4">Provincia</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="provincia" name="city" placeholder="Provincia"></select>
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label for="comuna">Comuna</label>
-                            <select class="form-control" id="comuna" name="town" placeholder="Comuna"></select>
+                            <label for="comuna" class="col-sm-4">Comuna</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="comuna" name="town" placeholder="Comuna"></select>
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label for="clave">Contraseña</label>
-                            <input type="text" class="form-control" id="clave" name="password" placeholder="Contraseña">
+                            <label for="clave" class="col-sm-4">Contraseña</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="clave" name="password" placeholder="Contraseña">
+                            </div>
                         </div>
                         <div class="form-group required">
-                            <label for="clave">Confirme contraseña</label>
-                            <input type="text" class="form-control" id="clave" name="re-password" placeholder="Confirme contraseña">
+                            <label for="clave" class="col-sm-4">Confirme contraseña</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="rep_clave" name="re-password" placeholder="Confirme contraseña">
+                            </div>
                         </div>
                         <div class="pull-right btn-default-3" style="margin-top:20px;">
                             <button type="button" class="btn btn-default btn-default-3" onclick="enterpriseRegistration($('#enterpriseRegistration'))">Crear</button>

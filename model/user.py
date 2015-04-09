@@ -17,6 +17,7 @@ class UserType(object):
     
     VISITA = 'Visita'
     CLIENTE = 'Cliente'
+    EMPRESA = 'Empresa'
 
 
 

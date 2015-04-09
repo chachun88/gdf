@@ -1,20 +1,19 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
-from basehandler import BaseHandler
+from basehandler import BaseHandler, valida, isEmailValid
 
 from globals import url_local
 
-import psycopg2
-import psycopg2.extras
 import tornado.auth
 from bson import json_util
 import hashlib
 
-from model.user import User, UserType
+from model.user import User
 from model.cart import Cart
 
 from sendpassword import RegistrationEmail
+
 
 class UserRegistrationHandler(BaseHandler):    
 
@@ -65,7 +64,7 @@ class UserRegistrationHandler(BaseHandler):
                 self.write(json_util.dumps({"error":"se ha producido un error"}))
                 return
 
-            ### perform login
+            # perform login
 
             user = User()
             user.name = name
@@ -75,7 +74,7 @@ class UserRegistrationHandler(BaseHandler):
 
             if user_id != 0:
                 user.id = user_id
-                
+
             user.Save()
 
             RegistrationEmail(user.name,user.email)
@@ -86,10 +85,11 @@ class UserRegistrationHandler(BaseHandler):
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
                 self.write(json_util.dumps({"success":self.next}))
 
-            ##redirect is the request isn't aajx
+            # redirect is the request isn't aajx
             if ajax == "false":
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
                 self.write(json_util.dumps({"success":self.next}))
+
 
 class AuthHandler(BaseHandler):
 
@@ -101,17 +101,14 @@ class AuthHandler(BaseHandler):
         else:
             self.render( "auth/login.ajax.html" )
 
-
     def post(self):
 
         email = self.get_argument("email", "")
         password = self.get_argument("password", "")
-        stay_logged = self.get_argument("stay-logged", "")
         ajax = self.get_argument("ajax", "false")
         user_id = self.get_argument("user_id","")
 
-        print "user_id {}".format(user_id)
-
+        # print "user_id {}".format(user_id)
 
         if email == "":
             self.write( "debe ingresar el email" )
@@ -156,20 +153,22 @@ class FormLoginHandler(BaseHandler):
     def get(self):
         self.render("formulario-log-in.html")
 
+
 class FormRegisterHandler(BaseHandler):
     def get(self):
         self.render("form-register.html")
+
 
 class AuthLogoutHandler(BaseHandler):
     def get(self):        
         self.clear_cookie("user_giani")
         self.redirect(self.next)
 
+
 class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
     @tornado.web.asynchronous
     def get(self):
         my_url = url_local + self.request.uri
-
 
         if self.get_argument("code", False):
             self.get_authenticated_user(
@@ -182,7 +181,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         self.authorize_redirect(redirect_uri=my_url,
                                 client_id=self.settings["facebook_api_key"],
                                 extra_params={"scope": "email"})
-    
+
     def _on_auth(self, user):
         # print "lllllllllllll {}".format(user["access_token"])
         self.facebook_request("/me", access_token=user["access_token"], callback=self._save_user_profile)
@@ -215,7 +214,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
         else:
             self.render( "auth/fail.html", message=response["error"] )
-        
+
         response_obj = usr.InitByEmail(user["email"])
 
         if "success" in response_obj:
@@ -237,8 +236,6 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
             self.set_secure_cookie("user_giani", response_obj["success"])
 
-            
-
             self.redirect( self.next )
 
         else:
@@ -248,7 +245,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         # else:
 
         #     self.write(response_obj["error"])
-        
+
         # conn = psycopg2.connect(conn_string)
 
         # cursor = conn.cursor(cursor_factory=psycopg2.extras.DictCursor)
@@ -273,13 +270,13 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         #     print "ya existe"
         #     self.write("el usuario con el email ya existe")
         # else:            
-            
+
         #     parameters = {"email":user["email"],"name":user["name"],"type":"facebook"}
 
         #     try:
         #         cursor.execute("insert into \"user\" (email, name, type) values (%(email)s,%(name)s,%(type)s)",parameters)
         #         conn.commit()
-                
+
         #         try:
         #             cursor.execute("select * from \"user\" where email = %(email)s",{"email":user["email"]})
         #             data = cursor.fetchone()
@@ -293,16 +290,14 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
         #             self.write(str(e))
         #     except Exception,e:
         #         self.write(str(e))
-        
+
         # self.set_secure_cookie("user_giani", json_util.dumps(_user, sort_keys=True, indent=4, default=json_util.default))                                
         # self.redirect("/")
 
         pass
 
 
-
 class PasswordRecovery(BaseHandler):
-    
 
     def get(self):
 
@@ -325,7 +320,6 @@ class PasswordRecovery(BaseHandler):
 
 
 class NewPasswordHandler(BaseHandler):
-    
 
     def get(self, id):
         try:
@@ -350,7 +344,6 @@ class NewPasswordHandler(BaseHandler):
 
             password = m.hexdigest()
 
-
             if password == user["password"] and clave_nva == clave_nva_rep and clave_nva != "":
                 try:
 
@@ -365,34 +358,81 @@ class NewPasswordHandler(BaseHandler):
                 except Exception,e:
                     print str( e )
                     self.render( "auth/fail.html", message="error al cambiar contrasña" )
-            
+
         except Exception, e:
             print str( e )
             self.render( "auth/fail.html", message="error al cambiar contrasña" )
 
 
 class LogoutHandler(BaseHandler):
-    
+
     def get(self):
         self.clear_cookie( "user_giani" )
         self.redirect( self.next )
 
 
-        
 class ValidateUserCheckoutHandler(BaseHandler):
 
     def get(self):
         try:
             if self.get_current_user():
                 self.redirect( "/checkout/address" )
-        except Exception,e:
+        except:
             pass
 
-        next = self.get_argument("next", "/")
         self.redirect( "/auth/login?next={}".format( tornado.escape.url_escape(self.next) ) )
 
 
 class CheckoutSuccessHandler(BaseHandler):
     def get(self):
         self.render( "store/success.html" )
-        
+
+
+class EnterpriseRegistration(BaseHandler):
+
+    def post(self):
+
+        nombre = self.get_argument("name","")
+        giro = self.get_argument("bussiness","")
+        rut = self.get_argument("rut","")
+        email = self.get_argument("email","")
+        direccion = self.get_argument("address","")
+        region = self.get_argument("state","")
+        provincia = self.get_argument("city","")
+        comuna = self.get_argument("town","")
+        clave = self.get_argument("password","")
+        rep_clave = self.get_argument("re-password","")
+
+        if nombre.strip() == "":
+            return json_util.dumps({"state": 0, "message": "Debe ingresar nombre"})
+        elif giro.strip() == "":
+            return json_util.dumps({"state": 0, "message": "Debe ingresar giro"})
+        elif rut.strip() == "":
+            return json_util.dumps({"state": 0, "message": "Debe ingresar rut"})
+        elif not valida(rut.strip().replace("-","").replace(".","")):
+            return json_util.dumps({"state": 0, "message": "Rut ingresado no es válido"})
+        elif email.strip() == "":
+            return json_util.dumps({"state": 0, "message": "Debe ingresar email"})
+        elif not isEmailValid(email):
+            return json_util.dumps({"state": 0, "message": "Email ingresado no es válido"})
+        elif direccion.strip() == "" or region == "" or provincia == "" or comuna == "":
+            return json_util.dumps({"state": 0, "message": "Debe ingresar su dirección completa"})
+        elif clave.strip() == "":
+            return json_util.dumps({"state": 0, "message": "Debe ingresar clave"})
+        elif rep_clave.strip() != clave.strip():
+            return json_util.dumps({"state": 0, "message": "Las claves ingresadas no coinciden"})
+
+        m = hashlib.md5(clave.strip())
+        clave_encriptada = m.hexdigest()
+
+        print clave_encriptada
+
+        # user = User()
+        # user.name = nombre
+        # user.password =  
+        # user.email = ''
+        # user.permissions = []
+        # user.cellars = []
+        # user.permissions_name = []
+        # user.cellars_name = []
+        # user.user_type = UserType.VISITA
