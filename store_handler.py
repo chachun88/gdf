@@ -166,8 +166,8 @@ class AddToCartHandler(BaseHandler):
                     subtotal = int(product.sell_price) * cart.quantity
                     cart.price = product.sell_price
 
-                if current_user:
-                    if current_user["type_id"] == 4:
+                if self.current_user:
+                    if self.current_user["type_id"] == 4:
                         subtotal = int(product.bulk_price) * cart.quantity
                         cart.price = product.bulk_price
 
