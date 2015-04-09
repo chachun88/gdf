@@ -45,10 +45,10 @@ $(document).ready(function(){
         var cart_id = $(this).attr("cart-id");
         var from_cart = $(this).hasClass("eliminarproducto");
 
-        var ga_name = $(this).parent().find("p.nombreproductoencola").html();
+/*        var ga_name = $(this).parent().find("p.nombreproductoencola").html();
         var ga_variant = $(this).parent().find("p.color").html().replace("color: ", " ");
         var ga_price = $(this).parent().find("p.precio").html().replace("$", " ").replace(".", "");
-        var ga_quantity = $(this).parent().find("p.cantidad").html().replace("x", " ");
+        var ga_quantity = $(this).parent().find("p.cantidad").html().replace("x", " ");*/
 
         $.ajax({
             url:"/cart/remove",
@@ -63,7 +63,7 @@ $(document).ready(function(){
                         location.reload();
                     }
 
-                    if ( document.location.href.indexOf("localhost:8502") != -1) {
+                    /*if ( document.location.href.indexOf("localhost:8502") != -1) {
                         ga('ec:addProduct', {
                             // 'id': ga_id,
                             'name': ga_name,
@@ -78,7 +78,7 @@ $(document).ready(function(){
 
                         ga('ec:setAction', 'remove');
                         ga('send', 'event', 'UX', 'click', 'remove from cart');
-                    }
+                    }*/
                     
 
                 } else {

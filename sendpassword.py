@@ -17,7 +17,7 @@ from tornado.options import define, options
 import sendgrid
 import json
 
-from globals import url_local, email_giani
+from globals import url_local, email_giani, sendgrid_pass, sendgrid_user
 
 
 class EnviarClaveHandler(BaseHandler):
@@ -383,7 +383,7 @@ def RegistrationEmail(username,email):
             <!-- end 100% wrapper (white background) -->
           </body></html>
           """.format(name=username,url_local=url_local)
-    sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
+    sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
 
     message = sendgrid.Mail()
     message.set_from("{nombre} <{mail}>".format(
@@ -856,7 +856,7 @@ def Email(to, userid, clave, name=""):
     # server.sendmail(fromaddr, toaddrs, msg.as_string())
     # server.quit()
 
-    sg = sendgrid.SendGridClient('nailuj41', 'Equipo_1234')
+    sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
 
     message = sendgrid.Mail()
     message.set_from("{nombre} <{mail}>".format(

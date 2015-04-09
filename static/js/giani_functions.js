@@ -116,7 +116,7 @@ var GetAddressById = function(_id){
 
 var ValidateRequired = function(id_formulario){
     var valid = true;
-    $("div.required :text, div.required textarea").each(function(){
+    $("div.required :text, div.required textarea",$("#"+id_formulario)).each(function(){
         var valor = $(this).val().trim();
 
         if(valor==""){
@@ -250,3 +250,7 @@ var checkStock = function(){
         }
     });
 };
+
+var enterpriseRegistration = function(form){
+    alert($("input[name=rut]", form).val());
+}

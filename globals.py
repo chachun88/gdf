@@ -42,6 +42,8 @@ facebook_secret = ""
 project_path = "/var/www/giani.ondev/"
 cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
 
+sendgrid_user = 'nailuj41'
+sendgrid_pass = 'Equipo_2112'
 
 if enviroment == Enviroment.LOCAL:
 

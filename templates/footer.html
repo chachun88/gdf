@@ -23,9 +23,9 @@
     <script type="text/javascript" src="/static/js/plugin-states-cities-towns.js"></script>
     <script>
         $(document).ready(function(){
-            $("#comuna").countries({
-                'city_selector':'.city',
-                'town_selector':'.town'
+            $("#region").countries({
+                'city_selector':'#provincia',
+                'town_selector':'#comuna'
             });
         });
     </script>
@@ -37,56 +37,53 @@
         <div style="display: none;">
             <div id="inline1" notitle>
                 <div class="col-xs-12 col-sm-12">
-                    <h3>Completar formulario venta mayorista</h3>
-                    <div class="form-group required">
-                        <label for="nombre">Nombre o Raz&oacute;n social</label>
-                        <input type="text" class="form-control" id="nombre" name="name" placeholder="Nombre">
-                    </div>
-                    <div class="form-group required">
-                        <label for="giro">Giro</label>
-                        <input type="text" class="form-control" id="giro" placeholder="Giro" name="bussiness">
-                    </div>
-                    <div class="form-group required">
-                        <label for="rut">Rut</label>
-                        <input type="text" class="form-control" id="rut" placeholder="Rut" name="rut">
-                    </div>
-                    <div class="form-group required">
-                        <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" placeholder="Email" name="email">
-                    </div>
-                    <div class="form-group required">
-                        <label for="direccion">Direcci&oacute;n</label>
-                        <input type="text" class="form-control" id="direccion" placeholder="Dirección" name="address">
-                    </div>
-                    <div class="form-group required">
-                        <label for="comuna">Region</label>
-                        <!-- <input type="text" class="form-control" id="comuna" placeholder="Comuna" name="town"> -->
-                        <select class="form-control" id="comuna" name="town">
-                            
-                        </select>
-                    </div>
-                    <div class="form-group required">
-                        <label for="comuna">Provincia</label>
-                        <!-- <input type="text" class="form-control" id="comuna" placeholder="Comuna" name="town"> -->
-                        <select class="form-control city" name="town">
-                            
-                        </select>
-                    </div>
-                    <div class="form-group required">
-                        <label for="comuna">Comuna</label>
-                        <!-- <input type="text" class="form-control" id="comuna" placeholder="Comuna" name="town"> -->
-                        <select class="form-control town" name="town">
-                            
-                        </select>
-                    </div>
-                    <div class="form-group required">
-                        <label for="clave">Contraseña</label>
-                        <input type="text" class="form-control" id="clave" placeholder="Contraseña" name="town">
-                    </div>
-                    <div class="pull-right btn-default-3" style="margin-top:20px;">
-                        <button class="btn btn-default btn-default-3">Crear</button>
-                        <button class="btn btn-default btn-default-3 btn-close-movil">Cerrar</button>
-                    </div>
+                    <form action="/auth/enterprise-registration" method="post" id="enterpriseRegistration">
+                        <h3>Completar formulario venta mayorista</h3>
+                        <div class="form-group required">
+                            <label for="nombre">Nombre o Raz&oacute;n social</label>
+                            <input type="text" class="form-control" id="nombre" name="name" placeholder="Nombre">
+                        </div>
+                        <div class="form-group required">
+                            <label for="giro">Giro</label>
+                            <input type="text" class="form-control" id="giro" name="bussiness" placeholder="Giro">
+                        </div>
+                        <div class="form-group required">
+                            <label for="rut">Rut</label>
+                            <input type="text" class="form-control" id="rut" name="rut" placeholder="Rut">
+                        </div>
+                        <div class="form-group required">
+                            <label for="email">Email</label>
+                            <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                        </div>
+                        <div class="form-group required">
+                            <label for="direccion">Direcci&oacute;n</label>
+                            <input type="text" class="form-control" id="direccion" name="address" placeholder="Dirección">
+                        </div>
+                        <div class="form-group required">
+                            <label for="comuna">Region</label>
+                            <select class="form-control" id="region" name="state" placehold="Región"></select>
+                        </div>
+                        <div class="form-group required">
+                            <label for="comuna">Provincia</label>
+                            <select class="form-control" id="provincia" name="city" placeholder="Provincia"></select>
+                        </div>
+                        <div class="form-group required">
+                            <label for="comuna">Comuna</label>
+                            <select class="form-control" id="comuna" name="town" placeholder="Comuna"></select>
+                        </div>
+                        <div class="form-group required">
+                            <label for="clave">Contraseña</label>
+                            <input type="text" class="form-control" id="clave" name="password" placeholder="Contraseña">
+                        </div>
+                        <div class="form-group required">
+                            <label for="clave">Confirme contraseña</label>
+                            <input type="text" class="form-control" id="clave" name="re-password" placeholder="Confirme contraseña">
+                        </div>
+                        <div class="pull-right btn-default-3" style="margin-top:20px;">
+                            <button type="button" class="btn btn-default btn-default-3" onclick="enterpriseRegistration($('#enterpriseRegistration'))">Crear</button>
+                            <button class="btn btn-default btn-default-3 btn-close-movil">Cerrar</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

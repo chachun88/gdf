@@ -272,9 +272,10 @@ class Product(BaseModel):
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
 
-        q = '''select string_agg(s.name,',') as size, array_agg(s.size_id) as size_id, p.*, c.name as category from "Product" p 
+        q = '''select string_agg(s.name,',') as size, array_agg(s.id) as size_id, p.*, c.name as category from "Product" p 
                 inner join "Category" c on c.id = p.category_id 
-                inner join sizes s on s.product_sku = p.sku
+                inner join "Product_Size" ps on ps.product_sku = p.sku
+                inner join "Size" s on s.id = ps.size_id
                 where p.sku = %(sku)s group by p.id, c.name limit 1'''
         p = {
             "sku": sku
@@ -321,14 +322,16 @@ class Product(BaseModel):
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
 
-        q = '''select string_agg(s.name,',') as size, array_agg(s.size_id) as size_id, p.*, c.name as category from "Product" p 
+        q = '''select string_agg(s.name,',') as size, array_agg(s.id) as size_id, p.*, c.name as category from "Product" p 
                 inner join "Category" c on c.id = p.category_id 
-                inner join sizes s on s.product_sku = p.sku
+                inner join "Product_Size" ps on ps.product_sku = p.sku
+                inner join "Size" s on s.id = ps.size_id
                 where p.id = %(id)s group by p.id, c.name limit 1'''
         p = {
             "id": identifier
         }
         try:
+
             cur.execute(q, p)
             producto = cur.fetchone()
 
@@ -370,7 +373,9 @@ class Product(BaseModel):
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''select p.*,c.name as category from "Product" p inner join "Category" c on c.id = p.category_id where p.name like %(name)s and p.for_sale = 1 limit 4'''
+        q = '''select p.*,c.name as category from "Product" p 
+            inner join "Category" c on c.id = p.category_id 
+            where p.name like %(name)s and p.for_sale = 1 limit 4'''
         p = {
             "name": "%" + name + "%"
         }
@@ -419,9 +424,10 @@ class Product(BaseModel):
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
 
-        q = '''select string_agg(s.name,',') as size, array_agg(s.size_id) as size_id, p.*,c.name as category from "Product" p 
+        q = '''select string_agg(s.name,',') as size, array_agg(s.id) as size_id, p.*,c.name as category from "Product" p 
         inner join "Category" c on c.id = p.category_id 
-        inner join sizes s on s.product_sku = p.sku
+        inner join "Product_Size" ps on ps.product_sku = p.sku
+        inner join "Size" s on s.id = ps.size_id
         where to_tsvector('spanish', p.name) @@ to_tsquery('spanish',%(name)s) 
         and to_tsvector('spanish', c.name) @@ to_tsquery('spanish',%(cat)s) 
         and to_tsvector('spanish', p.color) @@ to_tsquery('spanish', %(color)s) 
@@ -432,7 +438,7 @@ class Product(BaseModel):
             "color": color
         }
         try:
-            # print cur.mogrify(q,p)
+            print cur.mogrify(q,p)
             cur.execute(q, p)
             producto = cur.fetchone()
 

@@ -16,7 +16,9 @@ from globals import email_giani, \
                     shipping_cellar, \
                     project_path, \
                     cgi_path, \
-                    debugMode
+                    debugMode, \
+                    sendgrid_pass, \
+                    sendgrid_user
 
 import sendgrid
 
@@ -47,7 +49,7 @@ class ContactHandler(BaseHandler):
 
         else:
 
-            sg = sendgrid.SendGridClient('nailuj41', 'Equipo_2112')
+            sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
             mensaje = sendgrid.Mail()
             mensaje.set_from("{nombre} <{mail}>".format(nombre=name,mail=email))
             mensaje.add_to(email_giani)
@@ -1138,7 +1140,7 @@ class ExitoHandler(BaseHandler):
 
                 # email_confirmacion = "yichun212@gmail.com"
 
-                sg = sendgrid.SendGridClient('nailuj41', 'Equipo_2112')
+                sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
                 message = sendgrid.Mail()
                 message.set_from("{nombre} <{mail}>".format(
                     nombre="Giani Da Firenze",

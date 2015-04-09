@@ -24,7 +24,13 @@ from model.shipping import Shipping
 from datetime import datetime
 from bson import json_util
 import sendgrid
-from globals import url_local, email_giani, shipping_cellar, cellar_id, debugMode
+from globals import url_local, \
+                    email_giani, \
+                    shipping_cellar, \
+                    cellar_id, \
+                    debugMode, \
+                    sendgrid_pass, \
+                    sendgrid_user
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -653,7 +659,7 @@ class CheckoutSendHandler(BaseHandler):
 
                     # email_confirmacion = "yichun212@gmail.com"
 
-                    sg = sendgrid.SendGridClient('nailuj41', 'Equipo_2112')
+                    sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
                     message = sendgrid.Mail()
                     message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail=email_giani))
                     message.add_to(self.current_user["email"])
