@@ -203,14 +203,29 @@ class Cart(BaseModel):
         if not existe:
 
             try:
-                q = '''insert into "Temp_Cart" (product_id,date,quantity,subtotal,user_id,size) values (%(product_id)s,%(date)s,%(quantity)s,%(subtotal)s,%(user_id)s,%(size)s) returning id'''
+                q = '''\
+                    insert into "Temp_Cart" (product_id,
+                                            date,
+                                            quantity,
+                                            subtotal,
+                                            user_id,
+                                            size) 
+                    values (%(product_id)s,
+                            %(date)s,
+                            %(quantity)s,
+                            %(subtotal)s,
+                            %(user_id)s,
+                            %(size)s,
+                            %(price)s) 
+                    returning id'''
                 p = {
                     "product_id": self.product_id,
                     "date": datetime.now(),
                     "quantity": self.quantity,
                     "subtotal": self.subtotal,
                     "user_id": self.user_id,
-                    "size": self.size
+                    "size": self.size,
+                    "price": self.price
                 }
 
                 cur.execute(q, p)
