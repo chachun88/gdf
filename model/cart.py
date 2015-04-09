@@ -209,7 +209,8 @@ class Cart(BaseModel):
                                             quantity,
                                             subtotal,
                                             user_id,
-                                            size) 
+                                            size,
+                                            price) 
                     values (%(product_id)s,
                             %(date)s,
                             %(quantity)s,
