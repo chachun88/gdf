@@ -527,6 +527,7 @@ class CheckoutSendHandler(BaseHandler):
                     else:
                         self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
 
+
                     datos_facturacion = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -560,7 +561,7 @@ class CheckoutSendHandler(BaseHandler):
                                 city=facturacion["city"].encode("utf-8"),
                                 country="",
                                 telephone=facturacion["telephone"],
-                                email=str(facturacion["email"]))
+                                email=repr(facturacion["email"]))
 
                     datos_despacho = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
