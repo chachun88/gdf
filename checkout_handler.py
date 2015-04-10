@@ -560,7 +560,7 @@ class CheckoutSendHandler(BaseHandler):
                                 city=facturacion["city"].encode("utf-8"),
                                 country="",
                                 telephone=facturacion["telephone"],
-                                email=unicode(facturacion["email"], 'utf-8'))
+                                email=unicode(facturacion["email"], 'utf-8').encode("utf-8"))
 
                     datos_despacho = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
