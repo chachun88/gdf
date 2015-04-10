@@ -189,7 +189,7 @@ class User(BaseModel):
             if cur.rowcount > 0:
                 return self.ShowSuccessMessage(json_util.dumps(user))
             else:
-                return self.ShowError("username and password do not match")
+                return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder")
         except Exception,e:
             return self.ShowError("cannot login user: {}".format(str(e)))
 
