@@ -12,6 +12,7 @@ import locale
 import os
 import unicodedata
 import re
+import urllib
 
 # from loadingplay.multilang.lang import lploadLanguage, lpautoSelectCurrentLang,\
 #     lptranslate, lpsetCurrentLang
@@ -40,12 +41,12 @@ class BaseHandler(tornado.web.RequestHandler):
 
         _url = ""
 
-        pattern = re.compile(r"[^a-zA-Z\d_]+")
+        # pattern = re.compile(r"[^a-zA-Z\d_]+")
 
-        _url = self.strip_accents(url).encode("utf-8")
+        _url = self.strip_accents(urllib.urlencode(url)).encode("utf-8")
         _url = _url.replace(" ","_")
 
-        _url = re.sub(pattern,"",_url)
+        # _url = re.sub(pattern,"",_url)
 
         return _url
 
