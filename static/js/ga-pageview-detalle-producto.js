@@ -3,7 +3,7 @@
 $(document).ready(function()
 {
     // Obtencion de datos para ga
-    var ga_id = $("select#size ").attr("sku");
+/*    var ga_id = $("select#size ").attr("sku");
     var ga_name = $(".producto-nombre-1").html();
     var ga_category = $(".ga-category").html();
     var ga_variant = $(".ga-variant").html();
@@ -24,5 +24,5 @@ $(document).ready(function()
     ga('ec:setAction', 'detail');
 
     ga('send', 'pageview');
-
+*/
 });
