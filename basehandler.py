@@ -43,7 +43,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
         # pattern = re.compile(r"[^a-zA-Z\d_]+")
 
-        _url = self.strip_accents(urllib.urlencode(url)).encode("utf-8")
+        _url = urllib.urlencode(self.strip_accents(url)).encode("utf-8")
         _url = _url.replace(" ","_")
 
         # _url = re.sub(pattern,"",_url)
