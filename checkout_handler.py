@@ -527,7 +527,7 @@ class CheckoutSendHandler(BaseHandler):
                     else:
                         self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
 
-                    self.render("beauty_error.html",message="tipo email, {}".format(facturacion["email"]))
+                    self.render("beauty_error.html",message="tipo email, {}".format(str(type(facturacion["email"]))))
 
                     datos_facturacion = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
