@@ -470,7 +470,7 @@ class CheckoutSendHandler(BaseHandler):
                 order.subtotal = subtotal
                 order.shipping = shipping_price
                 order.tax = iva
-                order.total = total
+                order.total = total + shipping_price
                 order.items_quantity = cantidad_items
                 order.products_quantity = cantidad_productos
                 order.user_id = user_id
@@ -495,8 +495,6 @@ class CheckoutSendHandler(BaseHandler):
                         detail.size = l["size"]
                         detail.price = l['price']
                         detail.Save()
-
-                        
 
                         # if "error" in res_obj:
                         #     print "{}".format(res_obj["error"])
