@@ -167,7 +167,7 @@ class PagoHandler(BaseHandler):
                     detail.subtotal = l["subtotal"]
                     detail.product_id = l["product_id"]
                     detail.size = l["size"]
-
+                    detail.price = l["price"]
                     detail.Save()
 
                     # res_obj = detail.Save()

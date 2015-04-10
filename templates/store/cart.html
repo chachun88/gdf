@@ -42,16 +42,7 @@ Giani Da Firenze - Carro de Compra
                     <div class="CartDescription">
                       <h4> <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}">{{d["name"]}}</a> </h4>
                       <span class="size">{{d["size"]}}</span>
-                      {% if current_user is not None and int(current_user['type_id']) == 4 %}
-                          <p class="producto-precio">$ {{money_format(d['bulk_price'])}}</p>
-                      {% else %}
-                          {% if int(d['promotion_price']) > 0 %}
-                              <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
-                              <p class="producto-precio precio-ofert-zapato" >$ {{money_format(d['promotion_price'])}}</p>
-                          {% else %}
-                              <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>  
-                          {% end %}
-                      {% end %}
+                        <p class="producto-precio">$ {{money_format(d['price'])}}</p>  
                     </div>
                   </td>
                   <td class="delete"><a title="Delete" class="borrarproducto" cart-id="{{d['id']}}"> <i class="glyphicon glyphicon-trash fa-2x"></i></a></td>

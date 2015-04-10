@@ -92,6 +92,15 @@ class Cart(BaseModel):
     def shipping_type(self, value):
         self._shipping_type = value
 
+    @property
+    def price(self):
+        return self._price
+
+    @price.setter
+    def price(self, value):
+        self._price = value
+    
+
     def __init__(self):
         BaseModel.__init__(self)
         self.table = 'Temp_Cart'
@@ -105,6 +114,7 @@ class Cart(BaseModel):
         self._billing_id = 0
         self._payment_type = 1
         self._shipping_type = 1
+        self._price = 0
 
     def Remove(self):
 
@@ -167,6 +177,7 @@ class Cart(BaseModel):
                 self.shipping_id = usuario["shipping_id"]
                 self.billing_id = usuario["billing_id"]
                 self.payment_type = usuario["payment_type"]
+                self.price = usuario["price"]
 
                 return self.ShowSuccessMessage("cart has been initizalized successfully")
             else:
@@ -316,7 +327,8 @@ class Cart(BaseModel):
             "billing_id": self.billing_id,
             "payment_type": self.payment_type,
             "id": self.id,
-            "shipping_type": self.shipping_type
+            "shipping_type": self.shipping_type,
+            "price": self.price
         }
 
         cur = self.connection.cursor(
@@ -330,7 +342,8 @@ class Cart(BaseModel):
                                           shipping_id = %(shipping_id)s,
                                           billing_id = %(billing_id)s,
                                           payment_type = %(payment_type)s,
-                                          shipping_type = %(shipping_type)s
+                                          shipping_type = %(shipping_type)s,
+                                          price = %(price)s
                                     where id = %(id)s and bought = 0'''
 
         try:
@@ -398,7 +411,13 @@ class Cart(BaseModel):
             cur = self.connection.cursor(
                 cursor_factory=psycopg2.extras.RealDictCursor)
 
-            query = '''select tc.quantity, tc.user_id, tc.price from "Product" p inner join "Temp_Cart" tc on tc.product_id = p.id where tc.id = %(cart_id)s'''
+            query = '''\
+                    select tc.quantity, 
+                        tc.user_id, 
+                        tc.price 
+                    from "Product" p 
+                    inner join "Temp_Cart" tc on tc.product_id = p.id 
+                    where tc.id = %(cart_id)s'''
             parameters = {"cart_id": cart_id}
 
             price = 0

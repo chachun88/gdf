@@ -1,5 +1,5 @@
 #!/usr/bin/python
-# -*- coding: UTF-8 -*-
+# -*- coding: utf-8 -*-
 
 import tornado.auth
 import tornado.httpserver
@@ -493,7 +493,7 @@ class CheckoutSendHandler(BaseHandler):
                         detail.subtotal = l["subtotal"]
                         detail.product_id = l["product_id"]
                         detail.size = l["size"]
-                        # res_obj = detail.Save()
+                        detail.price = l['price']
                         detail.Save()
 
                         
@@ -527,7 +527,6 @@ class CheckoutSendHandler(BaseHandler):
                     else:
                         self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
 
-
                     datos_facturacion = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -557,11 +556,11 @@ class CheckoutSendHandler(BaseHandler):
                     """.format( order_id=order.id,
                                 name=facturacion["name"].encode("utf-8"),
                                 address=facturacion["address"].encode("utf-8"),
-                                town=facturacion["town"].decode("utf-8"),
+                                town=facturacion["town"],
                                 city=facturacion["city"].encode("utf-8"),
                                 country="",
                                 telephone=facturacion["telephone"],
-                                email=repr(facturacion["email"]))
+                                email=facturacion["email"])
 
                     datos_despacho = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
@@ -592,7 +591,7 @@ class CheckoutSendHandler(BaseHandler):
                     """.format( order_id=order.id,
                                 name=despacho["name"].encode("utf-8"),
                                 address=despacho["address"].encode("utf-8"),
-                                town=despacho["town"].encode("utf-8"),
+                                town=despacho["town"],
                                 city=despacho["city"].encode("utf-8"),
                                 country="",
                                 telephone=despacho["telephone"],
