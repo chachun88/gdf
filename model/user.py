@@ -180,7 +180,7 @@ class User(BaseModel):
         p = {
             "email":username,
             "password":password,
-            "status": ACEPTADO
+            "status": self.ACEPTADO
         }
         try:
             # print curs.mogrify( q, p )
