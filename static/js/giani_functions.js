@@ -300,7 +300,7 @@ var enterpriseRegistration = function(form){
                 if(response.error){
                     alert(response.error);
                 } else {
-                    alert("Gracias por registrate. Pronto nos contactaremos contigo");
+                    alert("Gracias por registrarte. Pronto nos contactaremos contigo");
                 }
             }
         })   
