@@ -22,8 +22,10 @@ class UserType(object):
     EMPRESA = "Cliente Mayorista"
     VISITA = "Visita"
 
+
 class User(BaseModel):
 
+    PENDIENTE = 1
     ACEPTADO = 2
 
     def __init__(self):
@@ -407,14 +409,16 @@ class User(BaseModel):
                                                 permissions,
                                                 type_id,
                                                 rut,
-                                                bussiness) 
+                                                bussiness,
+                                                status) 
                             values (%(name)s,
                                     %(password)s,
                                     %(email)s,
                                     %(permissions)s,
                                     %(type_id)s,
                                     %(rut)s,
-                                    %(bussiness)s) 
+                                    %(bussiness)s,
+                                    %(status)s) 
                             returning id'''
                         p = {
                             "name":self.name,
@@ -423,7 +427,8 @@ class User(BaseModel):
                             "password":password,
                             "type_id":tipo_usuario,
                             "rut": self.rut,
-                            "bussiness": self.bussiness
+                            "bussiness": self.bussiness,
+                            "status": User.PENDIENTE
                         }
                         cur.execute(q,p)
                         self.connection.commit()

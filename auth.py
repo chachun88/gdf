@@ -441,5 +441,5 @@ class EnterpriseRegistrationHandler(BaseHandler):
         contact.address = direccion
         contact.user_id = user.id
         contact.city = None
-        
+
         self.write(json_util.dumps(contact.Save()))
