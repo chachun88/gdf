@@ -43,6 +43,7 @@ class User(BaseModel):
         self._user_type = UserType.VISITA  # se debe pasar el nombre del tipo de usuario, no el id
         self._bussiness = ''
         self._rut = ''
+        self._status = User.PENDIENTE
 
     @property
     def salesman_id(self):
@@ -131,6 +132,14 @@ class User(BaseModel):
     @rut.setter
     def rut(self, value):
         self._rut = value
+
+    @property
+    def status(self):
+        return self._status
+
+    @status.setter
+    def status(self, value):
+        self._status = value 
 
     def Print(self):
         return {
@@ -317,12 +326,13 @@ class User(BaseModel):
             p = {
                 "email":self.email
             }
-            cur.execute(q,p)
-            usuario = cur.fetchone()
 
             try:
+                cur.execute(q,p)
+                usuario = cur.fetchone()
 
                 if cur.rowcount > 0:
+
                     self.id = usuario['id']
 
                     m = hashlib.md5()
@@ -331,40 +341,47 @@ class User(BaseModel):
 
                     password = m.hexdigest()
 
-                    q = '''\
-                        update "User" 
-                        set name = %(name)s, 
-                            password = %(password)s, 
-                            email = %(email)s, 
-                            permissions = %(permissions)s, 
-                            type_id = %(type_id)s,
-                            rut = %(rut)s,
-                            bussiness = %(bussiness)s 
-                        where id = %(id)s'''
-                    p = {
-                        "name":self.name,
-                        "email":self.email,
-                        "permissions":permisos,
-                        "password":password,
-                        "id":self.id,
-                        "type_id":tipo_usuario,
-                        "rut": self.rut,
-                        "bussiness": self.bussiness
-                    }
-                    cur.execute(q,p)
-                    self.connection.commit()
+                    try:
 
-                    return self.ShowSuccessMessage(str(self.id))
+                        q = '''\
+                            update "User" 
+                            set name = %(name)s, 
+                                password = %(password)s, 
+                                email = %(email)s, 
+                                permissions = %(permissions)s, 
+                                type_id = %(type_id)s,
+                                rut = %(rut)s,
+                                bussiness = %(bussiness)s 
+                            where id = %(id)s'''
+                        p = {
+                            "name":self.name,
+                            "email":self.email,
+                            "permissions":permisos,
+                            "password":password,
+                            "id":self.id,
+                            "type_id":tipo_usuario,
+                            "rut": self.rut,
+                            "bussiness": self.bussiness
+                        }
+                        cur.execute(q,p)
+                        self.connection.commit()
 
-                else:
+                        return self.ShowSuccessMessage(str(self.id))
+                    except Exception, e:
+                        return self.ShowError(str(e))
+                    finally:
+                        self.connection.close()
+                        cur.close()
 
-                    if self.id != "":
+                elif self.id != "":
 
-                        m = hashlib.md5()
+                    m = hashlib.md5()
 
-                        m.update(self.password)
+                    m.update(self.password)
 
-                        password = m.hexdigest()
+                    password = m.hexdigest()
+
+                    try:
 
                         q = '''\
                             update "User" 
@@ -387,20 +404,24 @@ class User(BaseModel):
                             "bussiness": self.bussiness
                         }
 
-                        try:
-                            cur.execute(q,p)
-                            self.connection.commit()
-                            return self.ShowSuccessMessage(str(self.id))
-                        except Exception,e:
-                            return self.ShowError(str(e))
+                        cur.execute(q,p)
+                        self.connection.commit()
+                        return self.ShowSuccessMessage(str(self.id))
+                    except Exception,e:
+                        return self.ShowError(str(e))
+                    finally:
+                        self.connection.close()
+                        cur.close()
 
-                    else:
+                else:
 
-                        m = hashlib.md5()
+                    m = hashlib.md5()
 
-                        m.update(self.password)
+                    m.update(self.password)
 
-                        password = m.hexdigest()
+                    password = m.hexdigest()
+
+                    try:
 
                         q = '''\
                             insert into "User" (name,
@@ -434,10 +455,17 @@ class User(BaseModel):
                         self.connection.commit()
                         self.id = cur.fetchone()[0]
 
-                    return self.ShowSuccessMessage(str(self.id))
-            except Exception,e:
-                return self.ShowError("failed to save user {}, error:{}".format(self.email,str(e)))
-
+                        return self.ShowSuccessMessage(str(self.id))
+                    except Exception,e:
+                        return self.ShowError("failed to save user {}, error:{}".format(self.email,str(e)))
+                    finally:
+                        self.connection.close()
+                        cur.close()
+            except Exception, e:
+                return self.ShowError(str(e))
+            finally:
+                self.connection.close()
+                cur.close()
         else:
 
             try:
@@ -477,7 +505,10 @@ class User(BaseModel):
                 return self.ShowSuccessMessage(str(self.id))
 
             except Exception,e:
-                return self.ShowError("failed to save user {}, error:{}".format(self.email,str(e)))     
+                return self.ShowError("failed to save user {}, error:{}".format(self.email,str(e)))
+            finally:
+                self.connection.close()
+                cur.close()   
 
     def GetList(self, page, items):
 
