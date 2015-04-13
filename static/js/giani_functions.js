@@ -301,6 +301,7 @@ var enterpriseRegistration = function(form){
                     alert(response.error);
                 } else {
                     alert("Gracias por registrarte. Pronto nos contactaremos contigo");
+                    $('.fancybox-close').click();
                 }
             }
         })   
