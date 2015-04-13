@@ -161,7 +161,7 @@ class Contact(BaseModel):
             "rut":self.rut
         }
 
-        query = '''select id from "Contact" where name = %(name)s and email = %(email)s and address = %(address)s'''
+        query = '''select id from "Contact" where name = %(name)s and email = %(email)s and address = %(address)s and user_id = %(user_id)s'''
 
         try:
             cur.execute(query,contact)
