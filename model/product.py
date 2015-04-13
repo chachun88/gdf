@@ -410,7 +410,10 @@ class Product(BaseModel):
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''SELECT p.*, c.name as category FROM "Product" p inner join "Category" c on c.id = p.category_id where p.for_sale = 1 OFFSET random()*(select count(*) from "Product") LIMIT 4'''
+        q = '''\
+            SELECT p.*, c.name as category FROM "Product" p 
+            inner join "Category" c on c.id = p.category_id 
+            where p.for_sale = 1 OFFSET random()*(select count(*) from "Product") - 4 LIMIT 4'''
         try:
             cur.execute(q)
             randomized = cur.fetchall()
