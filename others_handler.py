@@ -442,11 +442,12 @@ class ExitoHandler(BaseHandler):
                     PATHSUBMIT=pathSubmit)
         else:
 
-            self.render(
-                "store/failure.html",
-                TBK_ID_SESION=TBK_ID_SESION,
-                TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
-                PATHSUBMIT=pathSubmit)
+            # self.render(
+            #     "store/failure.html",
+            #     TBK_ID_SESION=TBK_ID_SESION,
+            #     TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+            #     PATHSUBMIT=pathSubmit)
+            self.render("beauty_error.html",message="Error verificando estado del pedido, {}".format(init_by_id["error"]))
 
         if os.name != "nt":
             myPath = "{}webpay/MAC01Normal{}.txt".format(
