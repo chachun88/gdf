@@ -200,7 +200,7 @@ class Cart(BaseModel):
                 "size": self.size
             }
 
-            print cur.mogrify(q, p)
+            # print cur.mogrify(q, p)
 
             cur.execute(q, p)
 
