@@ -376,13 +376,10 @@ class LogoutHandler(BaseHandler):
 class ValidateUserCheckoutHandler(BaseHandler):
 
     def get(self):
-        try:
-            if self.get_current_user():
-                self.redirect( "/checkout/address" )
-        except:
-            pass
-
-        self.redirect( "/auth/login?next={}".format( tornado.escape.url_escape(self.next) ) )
+        if self.current_user:
+            self.redirect( "/checkout/address" )
+        else:
+            self.redirect( "/auth/login?next={}".format( tornado.escape.url_escape(self.next) ) )
 
 
 class CheckoutSuccessHandler(BaseHandler):
