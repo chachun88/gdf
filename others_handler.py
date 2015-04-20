@@ -1126,7 +1126,7 @@ class ExitoHandler(BaseHandler):
             </table>
             </body></html>
             """.format(
-                name=self.current_user["name"].encode("utf-8"),
+                name="Cliente",
                 order_id=order.id,
                 datos_facturacion=datos_facturacion,
                 datos_despacho=datos_despacho,
