@@ -470,7 +470,7 @@ class User(BaseModel):
 
             estado = User.ACEPTADO
 
-            if self.user_type == "Empresa":
+            if self.user_type == UserType.EMPRESA:
                 estado = User.PENDIENTE
 
             try:
