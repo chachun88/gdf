@@ -468,6 +468,11 @@ class User(BaseModel):
                 cur.close()
         else:
 
+            estado = User.ACEPTADO
+
+            if self.user_type == "Empresa":
+                estado = User.PENDIENTE
+
             try:
 
                 m = hashlib.md5()
@@ -496,7 +501,7 @@ class User(BaseModel):
                     "permissions":permisos,
                     "password":password,
                     "type_id":tipo_usuario,
-                    "status":User.ACEPTADO
+                    "status": estado
                 }
                 cur.execute(q,p)
                 self.connection.commit()
