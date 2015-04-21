@@ -320,11 +320,12 @@ class User(BaseModel):
         cur.execute(q,p)
         permisos = cur.fetchall()
 
-        if self.user_type != "Visita":          
+        if self.user_type != UserType.VISITA:          
 
-            q = '''select * from "User" where email = %(email)s limit 1'''
+            q = '''select * from "User" where email = %(email)s and type_id = %(type_id)s limit 1'''
             p = {
-                "email":self.email
+                "email":self.email,
+                "type_id": tipo_usuario
             }
 
             try:
@@ -468,11 +469,6 @@ class User(BaseModel):
                 cur.close()
         else:
 
-            estado = User.ACEPTADO
-
-            if self.user_type == UserType.EMPRESA:
-                estado = User.PENDIENTE
-
             try:
 
                 m = hashlib.md5()
@@ -501,7 +497,7 @@ class User(BaseModel):
                     "permissions":permisos,
                     "password":password,
                     "type_id":tipo_usuario,
-                    "status": estado
+                    "status":User.ACEPTADO
                 }
                 cur.execute(q,p)
                 self.connection.commit()
