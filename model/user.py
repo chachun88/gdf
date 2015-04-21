@@ -432,7 +432,8 @@ class User(BaseModel):
                                                 type_id,
                                                 rut,
                                                 bussiness,
-                                                status) 
+                                                status,
+                                                registration_date) 
                             values (%(name)s,
                                     %(password)s,
                                     %(email)s,
@@ -440,7 +441,8 @@ class User(BaseModel):
                                     %(type_id)s,
                                     %(rut)s,
                                     %(bussiness)s,
-                                    %(status)s) 
+                                    %(status)s,
+                                    current_date) 
                             returning id'''
                         p = {
                             "name":self.name,
