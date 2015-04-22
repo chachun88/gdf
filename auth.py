@@ -421,6 +421,8 @@ class EnterpriseRegistrationHandler(BaseHandler):
         elif rep_clave.strip() != clave.strip():
             return json_util.dumps({"state": 0, "message": "Las claves ingresadas no coinciden"})
 
+        rut = rut.strip().replace(".", "").replace("-", "").lower()
+
         user = User()
         user.name = nombre
         user.password = clave
@@ -444,3 +446,25 @@ class EnterpriseRegistrationHandler(BaseHandler):
         contact.city = None
 
         self.write(json_util.dumps(contact.Save()))
+
+
+class EnterpriseLoginHandler(BaseHandler):
+
+    def post(self):
+
+        rut = self.get_argument("rut","")
+        password = self.get_argument("password","")
+
+        if rut.strip() == "" or password.strip() == "":
+            return json_util.dumps({"state": 0, "message": "Debe ingresar rut y contraseña"})
+        else:
+            rut = rut.strip().replace(".", "").replace("-", "").lower()
+
+        user = User()
+        res_login = user.enterpriseLogin(rut, password)
+
+        if "success" in res_login:
+            self.set_secure_cookie( "user_giani", res_login["success"] )
+            self.write(json_util.dumps({"success":self.request.headers.get('Referer')}))
+        else:
+            self.write(json_util.dumps(res_login))

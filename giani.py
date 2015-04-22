@@ -70,6 +70,7 @@ class Application(tornado.web.Application):
             (r"/auth/facebook", auth.AuthFacebookHandler),
             (r"/auth/checkout", auth.ValidateUserCheckoutHandler),
             (r"/auth/enterprise-registration", auth.EnterpriseRegistrationHandler),
+            (r"/auth/enterprise", auth.EnterpriseLoginHandler),
             (r"/checkout/success", auth.CheckoutSuccessHandler),
 
             (r"/error", error_handler.BeautyError),

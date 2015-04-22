@@ -40,7 +40,7 @@
   <script src="/static/js/giani.js"></script>
   <!-- js slider home -->
  <script src="/static/js/swiper.jquery.min.js"></script>
-
+  <script type="text/javascript" src="/static/js/plugin-states-cities-towns.js"></script>
   {% block javascript %}{% end %}
   
 </head>
@@ -99,11 +99,17 @@ var swiper = new Swiper('.swiper-container', {
 //para ejecutar menumovil.html
 $(document).ready(function() {
 
+  $("#login-empresa").fancybox({
+    beforeShow: function(){
+      $(".alert").addClass("hidden");
+    }
+  });
+
   $("#various1").fancybox({
                 title     : '',
                 'transitionIn'      : 'none',
                 'transitionOut'     : 'none',
-                
+                showCloseButton: false
             });  
 
   

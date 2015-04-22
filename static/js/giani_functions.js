@@ -307,3 +307,33 @@ var enterpriseRegistration = function(form){
         })   
     }
 };
+
+var loginEnterprise = function(){
+    var form = $("#enterpriseLogin");
+    var alert = $("div.alert", form);
+    var rut = $("input[name=rut]", form);
+    var password = $("input[name=password]", form);
+
+    if(rut.val() == "" || password.val() == ""){
+        alert.html("Debe ingresar rut y clave");
+        alert.removeClass("hidden");
+    }
+
+    $.ajax({
+        url: form.attr("action"),
+        data: form.serialize(),
+        type: form.attr("method"),
+        dataType: "json",
+        success: function(html){
+            response_str = JSON.stringify(html);
+            response = $.parseJSON(response_str);
+            if(response.error){
+                alert.html(response.error);
+                alert.removeClass("hidden");
+            } else {
+                $('.fancybox-close').click();
+                location.href = response.success;
+            }
+        }
+    });
+}

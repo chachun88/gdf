@@ -8,6 +8,11 @@ $(document).ready(function(){
         }
     });
 
+    $("#region").countries({
+        'city_selector':'#provincia',
+        'town_selector':'#comuna'
+    });
+
     $("body").mouseup(function (e)
     {
         var container = $(".carritoproductos");

@@ -187,11 +187,13 @@ class User(BaseModel):
             where u.email = %(email)s and 
                 u.password = %(password)s and
                 u.status = %(status)s 
+                u.type_id = %(user_type)s
             group by u.id limit 1'''
         p = {
             "email":username,
             "password":password,
-            "status": self.ACEPTADO
+            "status": self.ACEPTADO,
+            "user_type": UserType.CLIENTE
         }
         try:
             # print curs.mogrify( q, p )
@@ -651,3 +653,39 @@ class User(BaseModel):
 
         except Exception,e:
             print str( e )
+
+    def enterpriseLogin(self, username, password):
+
+        m = hashlib.md5()
+
+        m.update(password)
+
+        password = m.hexdigest()
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        q = '''\
+            select u.*, 
+                STRING_AGG(distinct p.name, ',') as permissions_name, 
+                STRING_AGG(distinct c.name, ',') as cellars_name 
+            from "User" u 
+            left join "Permission" p on p.id = any(u.permissions) 
+            left join "Cellar" c on c.id = any(u.cellar_permissions) 
+            where u.rut = %(rut)s and 
+                u.password = %(password)s and
+                u.status = %(status)s 
+            group by u.id limit 1'''
+        p = {
+            "rut": username,
+            "password": password,
+            "status": self.ACEPTADO
+        }
+        try:
+            # print curs.mogrify( q, p )
+            cur.execute(q,p)
+            user = cur.fetchone()
+            if cur.rowcount > 0:
+                return self.ShowSuccessMessage(json_util.dumps(user))
+            else:
+                return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder")
+        except Exception,e:
+            return self.ShowError("cannot login user: {}".format(str(e)))
