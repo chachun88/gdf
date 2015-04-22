@@ -56,7 +56,7 @@ $(document).ready(function(){
             cache: false,
             success:function(html){
                 if(html=="ok"){
-                    fancyAlert("Producto ha sido eliminado del carro");
+                    //fancyAlert("Producto ha sido eliminado del carro");
                     if(from_cart){
                         GetCartByUserId(window.localStorage.getItem("user_id"));
                     } else {
