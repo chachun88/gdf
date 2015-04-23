@@ -29,7 +29,7 @@ $(document).ready(function(){
 			var data = { "ajax":"true",
 						 "email":email,
 						 "password":password,
-						 "user_id":window.localStorage.getItem("user_id") };
+						 "user_id":window.localStorage.getItem("userid") };
 
 
 			$.ajax({ 
@@ -81,8 +81,8 @@ $(document).ready(function(){
 		var tos = $("input[name=tos]:checked", tthis).val();
 		var user_id = 0;
 
-		if(window.localStorage.getItem("user_id")){
-			user_id = window.localStorage.getItem("user_id");
+		if(window.localStorage.getItem("userid")){
+			user_id = window.localStorage.getItem("userid");
 		}
 
 		if(name==""){
@@ -166,7 +166,7 @@ $(document).ready(function(){
 
 	$(".parent-link").click(function(evt){
 		evt.preventDefault();
-		var user_id = window.localStorage.getItem("user_id");
+		var user_id = window.localStorage.getItem("userid");
 		window.localStorage.setItem("user_id","0");
 		var url = $(this).attr( "href" ) + "?user_id=" + user_id;
 		/*fancyAlert("se va al login de fb " + url);*/

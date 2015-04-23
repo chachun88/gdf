@@ -18,12 +18,12 @@ $(document).ready(function(){
         $.ajax({
             url:"/cart/add",
             cache: false,
-            data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+window.localStorage.getItem("user_id"),
+            data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+window.localStorage.getItem("userid"),
             success:function(html){
                 if(html!="ok"){
                     fancyAlert(html);
                 } else {
-                    GetCartByUserId(window.localStorage.getItem("user_id"));
+                    GetCartByUserId(window.localStorage.getItem("userid"));
                     //fancyAlert("Producto ha sido a\xF1adido al carro");
                     $("#icono-carro-movil").addClass("parpadea");
 

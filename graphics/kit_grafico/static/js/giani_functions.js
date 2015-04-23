@@ -103,7 +103,7 @@ var votar = function(product_id){
 
 		$.ajax({
 			url:"/store/voteproduct",
-			data: "product_id="+product_id+"&user_id="+localStorage.user_id,
+			data: "product_id="+product_id+"&user_id="+localStorage.userid,
 			success: function(html){
 				response = $.parseJSON(html)
 				if(response.error){
@@ -120,7 +120,7 @@ var votar = function(product_id){
 var ifvoted = function(product_id){
 	$.ajax({
 		url:"/store/product/ifvoted",
-		data: "product_id="+product_id+"&user_id="+localStorage.user_id,
+		data: "product_id="+product_id+"&user_id="+localStorage.userid,
 		success: function(html){
 			response = $.parseJSON(html)
 			//console.log(response.success);
