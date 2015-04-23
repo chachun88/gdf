@@ -28,7 +28,7 @@ $(document).ready(function(){
 
     $("a.logout").click(function(){
         if(typeof(Storage) !== "undefined") {
-            window.localStorage.setItem("user_id","0");
+            window.localStorage.setItem("userid","0");
         }
     });
 
@@ -180,7 +180,7 @@ $(document).ready(function(){
     if(typeof(Storage) !== "undefined") {
 
         if(!window.localStorage.getItem("userid")){
-            window.localStorage.setItem("user_id","0");
+            window.localStorage.setItem("userid","0");
         } else {
 
             $.ajax({
@@ -191,7 +191,7 @@ $(document).ready(function(){
                 success: function(html){
                     var objeto = $.parseJSON(html);
                     if(objeto["success"]){
-                        window.localStorage.setItem("user_id",objeto["success"].toString());
+                        window.localStorage.setItem("userid",objeto["success"].toString());
                     }
                 }
             });

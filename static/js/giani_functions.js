@@ -44,7 +44,7 @@ var GetCartByUserId = function(){
     if(Storage !== "undefined") {
 
         if(!window.localStorage.getItem("userid")){
-            window.localStorage.setItem("user_id","0");
+            window.localStorage.setItem("userid","0");
         } else {
 
             $.ajax({
