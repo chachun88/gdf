@@ -1,4 +1,4 @@
-<div class="swiper-container" style="margin-top: 20px;">
+    <div class="swiper-container" style="margin-top: 20px;">
         <div class="swiper-wrapper">
             <div class="swiper-slide"> 
                 <img class="slider" u="image" src="/static/images/pronto1.jpg" />
@@ -19,4 +19,16 @@
         <div class="swiper-button-prev"></div>
         <div class="swiper-button-next"></div>
     </div>
-
+    <!-- js slider home -->
+    <script src="/static/js/swiper.jquery.min.js"></script>
+    <script>
+    //slider home
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        autoplay: 2500,
+        loop: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev'
+    });
+    </script>
