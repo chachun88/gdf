@@ -634,7 +634,7 @@ class Product(BaseModel):
                             order by product_sku, 
                             size_id, 
                             date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])'''
+                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and k.balance_units > 0'''
             p = {"categories": categories, "sizes": sizes}
 
         elif len(sizes) > 0:
@@ -649,7 +649,7 @@ class Product(BaseModel):
                             order by product_sku, 
                             size_id, 
                             date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1'''
+                   where p.for_sale = 1 and k.balance_units > 0'''
             p = {"sizes": sizes}
 
         else:
@@ -664,7 +664,7 @@ class Product(BaseModel):
                             order by product_sku, 
                             size_id, 
                             date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])'''
+                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and k.balance_units > 0'''
             p = {"categories": categories}
 
         try:
