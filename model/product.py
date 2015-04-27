@@ -599,7 +599,7 @@ class Product(BaseModel):
                             where cellar_id = %(cellar_id)s
                             order by product_sku, 
                             date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])
+                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and k.balance_units > 0
                    offset %(offset)s limit %(limit)s'''
             p = {"categories": categories,
                  "limit": limit,
