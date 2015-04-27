@@ -137,8 +137,8 @@ class ProductHandler(BaseHandler):
 
             # print "prod_name:{}".format(prod_name)
 
-            combinaciones = prod.GetCombinations(prod_name)
-            relacionados = prod.GetRandom()
+            combinaciones = prod.GetCombinations(id_bodega, prod_name)
+            relacionados = prod.GetRandom(id_bodega)
 
             if "success" in res:
                 votos = res["success"]

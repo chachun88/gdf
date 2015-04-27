@@ -392,15 +392,22 @@ class Product(BaseModel):
             cur.close()
             self.connection.close()
 
-    def GetCombinations(self, name):
+    def GetCombinations(self, id_bodega, name):
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''select p.*,c.name as category from "Product" p 
             inner join "Category" c on c.id = p.category_id 
-            where p.name like %(name)s and p.for_sale = 1 limit 4'''
+            inner join (select distinct on(product_sku) product_sku, 
+                                                            balance_units, 
+                                                            date 
+                            from "Kardex" 
+                            where cellar_id = %(cellar_id)s
+                            order by product_sku, date desc) k on k.product_sku = p.sku
+            where p.name like %(name)s and p.for_sale = 1 and k.balance_units > 0 limit 4'''
         p = {
-            "name": "%" + name + "%"
+            "name": "%" + name + "%",
+            "cellar_id": id_bodega
         }
         try:
             cur.execute(q, p)
@@ -413,16 +420,25 @@ class Product(BaseModel):
             cur.close()
             self.connection.close()
 
-    def GetRandom(self):
+    def GetRandom(self, cellar_id):
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''\
             SELECT p.*, c.name as category FROM "Product" p 
             inner join "Category" c on c.id = p.category_id 
+            inner join (select distinct on(product_sku) product_sku, 
+                                                            balance_units, 
+                                                            date 
+                        from "Kardex" 
+                        where cellar_id = %(cellar_id)s
+                        order by product_sku, date desc) k on k.product_sku = p.sku
             where p.for_sale = 1 OFFSET random()*(select count(*) from "Product") - 4 LIMIT 4'''
+        p = {
+            "cellar_id": cellar_id
+        }
         try:
-            cur.execute(q)
+            cur.execute(q, p)
             randomized = cur.fetchall()
             return randomized
         except Exception, e:
