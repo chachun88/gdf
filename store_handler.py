@@ -290,6 +290,15 @@ class GetVotesHandler(BaseHandler):
 class GetProductsByTagsHandler(BaseHandler):
 
     def get(self,tags=""):
+
+        cellar_id = None
+
+        cellar = Cellar()
+        res_web = cellar.GetWebCellar()
+
+        if "success" in res_web:
+            cellar_id = res_web["success"]
+
         page = int(self.get_argument("page","1"))
         ajax = int(self.get_argument("ajax",0))
 
@@ -308,7 +317,7 @@ class GetProductsByTagsHandler(BaseHandler):
         if "success" in res:
             items = int(res["success"])
 
-        res = tag.GetProductsByTags(tags_arr,page,15)
+        res = tag.GetProductsByTags(cellar_id, tags_arr,page,15)
 
         tags_visibles = tag.ListVisibleTags()
 

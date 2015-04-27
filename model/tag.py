@@ -20,7 +20,7 @@ class Tag(BaseModel):
         BaseModel.__init__(self)
         self.table = 'Tag'
 
-    def GetProductsByTags(self, cellar_id, _tags,page=1, items=30):
+    def GetProductsByTags(self, cellar_id, _tags, page=1, items=30):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
