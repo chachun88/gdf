@@ -30,7 +30,8 @@ from globals import url_local, \
                     cellar_id, \
                     debugMode, \
                     sendgrid_pass, \
-                    sendgrid_user
+                    sendgrid_user, \
+                    dir_image
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -393,7 +394,7 @@ class CheckoutOrderHandler(BaseHandler):
 class CheckoutSendHandler(BaseHandler):
 
     @tornado.web.authenticated
-    def get(self):
+    def post(self):
 
         id_bodega = cellar_id
         cellar = Cellar()
@@ -411,16 +412,18 @@ class CheckoutSendHandler(BaseHandler):
 
         final_name = ""
 
+        # print self.request.files
+
         if "image" in self.request.files:
 
             imagedata = self.request.files['image'][0]
 
             final_name = "{filename}.{extension}".format(filename=uuid.uuid4(),extension="png")
-            # final_name = "{}_{}.png".format( image_number, sku )
+            print final_name
 
             try:
                 # fn = imagedata["filename"]
-                file_path = 'uploads/images/' + final_name
+                file_path = dir_image + final_name
 
                 open(file_path, 'wb').write(imagedata["body"])
             except Exception, e:

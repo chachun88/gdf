@@ -44,6 +44,7 @@ cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
 
 sendgrid_user = 'nailuj41'
 sendgrid_pass = 'Equipo_2112'
+dir_image = 'uploads/images/'
 
 if enviroment == Enviroment.LOCAL:
 
@@ -61,6 +62,7 @@ if enviroment == Enviroment.LOCAL:
 
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.ondev/"
+    dir_image = '../bodegas/uploads/images/'
 
 elif enviroment == Enviroment.ONDEV:
     debugMode = False
@@ -76,6 +78,7 @@ elif enviroment == Enviroment.ONDEV:
 
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.ondev/"
+    dir_image = '../bgiani.ondev/uploads/images/'
 
 elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
@@ -90,6 +93,7 @@ elif enviroment == Enviroment.ONTEST:
 
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
+    dir_image = '/var/www/bgiani.ondev/uploads/images/'
 
 
 elif enviroment == Enviroment.PRODUCTION:
@@ -106,6 +110,7 @@ elif enviroment == Enviroment.PRODUCTION:
 
     project_path = "/var/www/gianidafirenze.cl/giani/"
     cgi_path = "/var/www/c.gianidafirenze.cl/cgiani.ondev/"
+    dir_image = '../bodegas/uploads/images/'
 
 
 define("facebook_api_key", help="your Facebook application API key", default=facebook_api_key)
