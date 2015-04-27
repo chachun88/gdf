@@ -255,7 +255,7 @@ class Product(BaseModel):
         self._bulk_price = value
     
 
-    def GetList(self, page=1, items=30):
+    def GetList(self, cellar_id, page=1, items=30):
 
         page = int(page)
         items = int(items)
@@ -265,11 +265,18 @@ class Product(BaseModel):
             q = '''\
                 select p.*,c.name as category from "Product" p 
                 inner join "Category" c on c.id = p.category_id 
-                where p.for_sale = 1 
+                inner join (select distinct on(product_sku) product_sku, 
+                                                            balance_units, 
+                                                            date 
+                            from "Kardex" 
+                            where cellar_id = %(cellar_id)s
+                            order by product_sku, date desc) k on k.product_sku = p.sku
+                where p.for_sale = 1 and k.balance_units > 0
                 limit %(items)s offset %(offset)s'''
             p = {
                 "items": items,
-                "offset": offset
+                "offset": offset,
+                "cellar_id": cellar_id
             }
             cur.execute(q, p)
             lista = cur.fetchall()

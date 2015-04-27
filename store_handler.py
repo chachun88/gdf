@@ -22,10 +22,17 @@ from model.size import Size
 class IndexHandler(BaseHandler):
 
     def get(self):
+        cellar = Cellar()
+        res_web = cellar.GetWebCellar()
+        cellar_id = None
+
+        if "success" in res_web:
+            cellar_id = res_web["success"]
+
         product = Product()
         page = int(self.get_argument("page","1"))
         ajax = int(self.get_argument("ajax",0))
-        lista = product.GetList(page,16)
+        lista = product.GetList(cellar_id, page,16)
 
         items = 0
         tags = {}
