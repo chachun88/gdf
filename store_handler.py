@@ -32,13 +32,13 @@ class IndexHandler(BaseHandler):
         product = Product()
         page = int(self.get_argument("page","1"))
         ajax = int(self.get_argument("ajax",0))
-        lista = product.GetList(cellar_id, page,16)
+        lista = product.GetList(cellar_id, page, 16)
 
         items = 0
         tags = {}
         tallas = []
 
-        response = product.GetItems()
+        response = product.GetItems(cellar_id)
         if "success" in response:
             items = response["success"]
 
@@ -312,7 +312,7 @@ class GetProductsByTagsHandler(BaseHandler):
 
         tag = Tag()
 
-        res = tag.GetItemsByTags(tags_arr)
+        res = tag.GetItemsByTags(cellar_id, tags_arr)
 
         if "success" in res:
             items = int(res["success"])

@@ -38,7 +38,7 @@ class Tag(BaseModel):
                             from "Kardex" 
                             where cellar_id = %(cellar_id)s
                             order by product_sku, date desc) k on k.product_sku = p.sku
-                where t.name = any(%(tags)s) and p.for_sale = 1'''
+                where t.name = any(%(tags)s) and p.for_sale = 1 and k.balance_units > 0'''
         parameters = {
             "tags":_tags,
             "cellar_id": cellar_id
@@ -78,13 +78,24 @@ class Tag(BaseModel):
             cur.close()
             self.connection.close()
 
-    def GetItemsByTags(self,_tags):
+    def GetItemsByTags(self, cellar_id, _tags):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-        query = '''select tp.product_id from "Tag_Product" tp left join "Tag" t on t.id = tp.tag_id left join "Product" p on p.id = tp.product_id where t.name = any(%(tags)s) and p.for_sale = 1'''
+        query = '''\
+                select tp.product_id from "Tag_Product" tp 
+                left join "Tag" t on t.id = tp.tag_id 
+                left join "Product" p on p.id = tp.product_id 
+                inner join (select distinct on(product_sku) product_sku, 
+                                                            balance_units, 
+                                                            date 
+                            from "Kardex" 
+                            where cellar_id = %(cellar_id)s
+                            order by product_sku, date desc) k on k.product_sku = p.sku
+                where t.name = any(%(tags)s) and p.for_sale = 1 and k.balance_units > 0'''
         parameters = {
-            "tags":_tags
+            "tags":_tags,
+            "cellar_id": cellar_id
         }
 
         try:

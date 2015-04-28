@@ -448,13 +448,25 @@ class Product(BaseModel):
             cur.close()
             self.connection.close()
 
-    def GetItems(self):
+    def GetItems(self, cellar_id):
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''select count(*) as total_items from "Product" where for_sale = 1'''
+        q = '''\
+            select count(1) as total_items from "Product" p 
+            inner join "Category" c on c.id = p.category_id 
+            inner join (select distinct on(product_sku) product_sku, 
+                                                        balance_units, 
+                                                        date 
+                        from "Kardex" 
+                        where cellar_id = %(cellar_id)s
+                        order by product_sku, date desc) k on k.product_sku = p.sku
+            where p.for_sale = 1 and k.balance_units > 0'''
+        p = {
+            "cellar_id": cellar_id
+        }
         try:
-            cur.execute(q)
+            cur.execute(q, p)
             total_items = cur.fetchone()["total_items"]
             return self.ShowSuccessMessage(total_items)
         except Exception, e:
