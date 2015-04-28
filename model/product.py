@@ -569,7 +569,6 @@ class Product(BaseModel):
                             from "Kardex" 
                             where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
                             order by product_sku, 
-                            size_id, 
                             date desc) k on k.product_sku = p.sku
                     where p.for_sale = 1
                     and k.balance_units > 0 
