@@ -601,7 +601,7 @@ class Product(BaseModel):
                  "cellar_id": cellar_id}
 
         else:
-            q = '''select p.*,c.name as category from "Product" p 
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
                    inner join (select distinct on(product_sku) product_sku, 
@@ -635,10 +635,10 @@ class Product(BaseModel):
             cursor_factory=psycopg2.extras.RealDictCursor)
 
         if len(categories) > 0 and len(sizes) > 0:
-            q = '''select count(1) as items from "Product" p 
-                   inner join "Category" c on c.id = p.category_id
-                   inner join "Tag_Product" tp on tp.product_id = p.id
-                   inner join (select distinct on(product_sku) product_sku, 
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
+                    inner join "Category" c on c.id = p.category_id
+                    inner join "Tag_Product" tp on tp.product_id = p.id
+                    inner join (select distinct on(product_sku) product_sku, 
                             size_id, 
                             balance_units 
                             from "Kardex" 
@@ -646,26 +646,28 @@ class Product(BaseModel):
                             order by product_sku, 
                             size_id, 
                             date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and k.balance_units > 0'''
-            p = {"categories": categories, "sizes": sizes}
+                    where p.for_sale = 1
+                    and k.balance_units > 0 
+                   and tp.tag_id = any(%(categories)s::int[])'''
+            p = {"categories": categories, "sizes": sizes, "cellar_id": cellar_id}
 
         elif len(sizes) > 0:
-            q = '''select count(1) as items from "Product" p 
-                   inner join "Category" c on c.id = p.category_id
-                   inner join "Tag_Product" tp on tp.product_id = p.id
-                   inner join (select distinct on(product_sku) product_sku, 
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
+                    inner join "Category" c on c.id = p.category_id
+                    inner join "Tag_Product" tp on tp.product_id = p.id
+                    inner join (select distinct on(product_sku) product_sku, 
                             size_id, 
                             balance_units 
                             from "Kardex" 
                             where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            size_id, 
+                            order by product_sku,
                             date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and k.balance_units > 0'''
-            p = {"sizes": sizes}
+                    where p.for_sale = 1
+                    and k.balance_units > 0 '''
+            p = {"sizes": sizes, "cellar_id": cellar_id}
 
         else:
-            q = '''select count(1) as items from "Product" p 
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
                    inner join (select distinct on(product_sku) product_sku, 
@@ -674,14 +676,12 @@ class Product(BaseModel):
                             from "Kardex" 
                             where cellar_id = %(cellar_id)s
                             order by product_sku, 
-                            size_id, 
                             date desc) k on k.product_sku = p.sku
                    where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and k.balance_units > 0'''
-            p = {"categories": categories}
+            p = {"categories": categories, "cellar_id": cellar_id}
 
         try:
             cur.execute(q, p)
-            items = cur.fetchone()["items"]
-            return self.ShowSuccessMessage(items)
+            return self.ShowSuccessMessage(cur.rowcount)
         except Exception, e:
             return self.ShowError(str(e))
