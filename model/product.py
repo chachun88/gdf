@@ -433,7 +433,7 @@ class Product(BaseModel):
                         from "Kardex" 
                         where cellar_id = %(cellar_id)s
                         order by product_sku, date desc) k on k.product_sku = p.sku
-            where p.for_sale = 1 OFFSET random()*(select count(*) from "Product") - 4 LIMIT 4'''
+            where p.for_sale = 1 and k.balance_units > 0 OFFSET random()*(select count(*) from "Product") - 4 LIMIT 4'''
         p = {
             "cellar_id": cellar_id
         }

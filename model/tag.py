@@ -54,7 +54,9 @@ class Tag(BaseModel):
             for p in id_productos:
                 productos.append(p['product_id'])
 
-            q = '''select p.*,c.name as category from "Product" p left join "Category" c on c.id = p.category_id where p.id = any(%(productos)s) limit %(items)s offset %(offset)s'''
+            q = '''select p.*,c.name as category from "Product" p 
+            left join "Category" c on c.id = p.category_id 
+            where p.id = any(%(productos)s) limit %(items)s offset %(offset)s'''
             p = {
                 "productos":productos,
                 "items":items,
