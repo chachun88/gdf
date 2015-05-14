@@ -34,7 +34,7 @@ class Application(tornado.web.Application):
             debug=True,
             xsrf_cookies=False
         )
-        
+
         handlers = [
             (r"/", home_handler.HomeHandler),  # home
             (r"/store", store_handler.IndexHandler),  # home de la tienda
@@ -96,7 +96,7 @@ class Application(tornado.web.Application):
             (r"/user", others_handler.UserHandler),
             (r"/sitemap.xml()", tornado.web.StaticFileHandler, {'path':settings['static_path']+"/sitemap.xml"})
         ]
-        
+
         tornado.web.Application.__init__(self, handlers, **settings) 
 
 

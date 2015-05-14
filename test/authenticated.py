@@ -4,7 +4,7 @@
 
 import functools
 import tornado.web
-from bson import json_util
+
 
 def authenticated(method):
     """Decorate methods with this to require that the user be logged in.
