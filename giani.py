@@ -5,7 +5,7 @@ import os
 import tornado.httpserver
 import tornado.web
 
-from tornado.options import options
+from tornado.options import options, define
 
 import home_handler
 import store_handler
@@ -17,6 +17,17 @@ import error_handler
 import server_handler
 import others_handler
 import profile_handler
+
+from config import *
+from lp.globals import *
+
+if "enviroment" not in options:
+
+    define("enviroment", default=enviroment, type=str)
+    define("db_name", default=DB_NAME, help="", type=str)
+    define("db_user", default=DB_USER, help="", type=str)
+    define("db_host", default=DB_HOST, help="", type=str)
+    define("db_password", default=DB_PASSWORD, help="", type=str)
 
 
 class Application(tornado.web.Application):

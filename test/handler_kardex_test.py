@@ -43,21 +43,9 @@ class TestStock(unittest.TestCase):
         self.response = response 
         tornado.ioloop.IOLoop.instance().stop() 
 
-    def testPaymentBankTransferHandler(self):
+    def testPaymentWebpayHandler(self):
 
         body = 'TBK_ID_SESION=20150514120505&TBK_ORDEN_COMPRA=392'
-
-        # http_client = tornado.httpclient.AsyncHTTPClient()
-        # http_client.fetch(
-        #     "http://localhost:8502/checkout/send", 
-        #     self.handle_request,
-        #     body=body,
-        #     method="POST"
-        # )
-        # print self.response
-        # tornado.ioloop.IOLoop.instance().start()
-        # self.failIf(self.response.error)
-        # self.assertEqual(self.response.body, json_util.dumps({"state": "ok", "message": "Stock agregado exitosamente"}))
 
         http_client = tornado.httpclient.AsyncHTTPClient()
         http_client.fetch(
@@ -67,6 +55,22 @@ class TestStock(unittest.TestCase):
             method='POST'
         )
         # print self.response
+        tornado.ioloop.IOLoop.instance().start()
+        self.failIf(self.response.error)
+        self.assertEqual(self.response.code, 200)
+
+    def testPaymentBankTransferHandler(self):
+
+        body = 'TBK_ID_SESION=20150514120505&TBK_ORDEN_COMPRA=392'
+
+        http_client = tornado.httpclient.AsyncHTTPClient()
+        http_client.fetch(
+            "http://localhost:8502/checkout/send", 
+            self.handle_request,
+            body=body,
+            method="POST"
+        )
+
         tornado.ioloop.IOLoop.instance().start()
         self.failIf(self.response.error)
         self.assertEqual(self.response.code, 200)

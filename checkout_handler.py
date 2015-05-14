@@ -407,9 +407,6 @@ class CheckoutSendHandler(BaseHandler):
 
         lista = cart.GetCartByUserId()
 
-        if len(lista) <= 0:
-                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
-
         final_name = ""
 
         # print self.request.files
@@ -528,6 +525,7 @@ class CheckoutSendHandler(BaseHandler):
                     else:
                         self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
 
+                    print facturacion["city"]
                     datos_facturacion = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -690,8 +688,15 @@ class CheckoutSendHandler(BaseHandler):
                     message.set_html(html)
                     status, msg = sg.send(message)
 
-                    if status == 200:
-                        for l in lista:
+                    cart = Cart()
+                    cart.user_id = self.current_user["id"]
+
+                    carro = cart.GetCartByUserId()
+
+                    for l in lista:
+
+                        if len(carro) > 0:
+
                             cart.id = l["id"]
                             cart.Remove()
 
@@ -745,6 +750,7 @@ class CheckoutSendHandler(BaseHandler):
                             elif debugMode:
                                 print response["error"]
 
+                    if status == 200:
                         self.render( "store/success.html",webpay="no" )
                     else:
                         self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
