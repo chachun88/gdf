@@ -1661,60 +1661,60 @@ class ExitoHandler(BaseHandler):
                 if estado != 200:
                     print msj
 
-                if status == 200:
+                cart = Cart()
+                cart.user_id = self.current_user["id"]
 
-                    cart = Cart()
-                    cart.user_id = self.current_user["id"]
+                carro = cart.GetCartByUserId()
 
-                    carro = cart.GetCartByUserId()
+                for l in lista:
 
-                    for l in lista:
+                    if len(carro) > 0:
 
-                        if len(carro) > 0:
+                        cart.RemoveByUserId()
 
-                            cart.RemoveByUserId()
+                        kardex = Kardex()
 
-                            kardex = Kardex()
+                        producto = Product()
+                        response = producto.InitById(l["product_id"])
 
-                            producto = Product()
-                            response = producto.InitById(l["product_id"])
+                        if "success" in response:
 
-                            if "success" in response:
+                            kardex.product_sku = producto.sku
+                            kardex.cellar_identifier = id_bodega
+                            kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                            kardex.sell_price = l['price']
 
-                                kardex.product_sku = producto.sku
-                                kardex.cellar_identifier = id_bodega
-                                kardex.operation_type = Kardex.OPERATION_MOV_OUT
-                                kardex.sell_price = l['price']
+                            _s = Size()
+                            _s.name = l["size"]
+                            res_name = _s.initByName()
 
-                                _s = Size()
-                                _s.name = l["size"]
-                                res_name = _s.initByName()
-
-                                if "success" in res_name:
-                                    kardex.size_id = _s.id
-                                elif debugMode:
-                                    print res_name["error"]
-
-                                kardex.date = str(datetime.now().isoformat()) 
-                                kardex.user = "Sistema - Reservar Producto"
-                                kardex.units = l["quantity"]
-                                kardex.price = producto.price
-
-                                res_kardex = kardex.Insert()
-
-                                if debugMode and "error" in res_kardex:
-                                    print res_kardex["error"]
-
-                                kardex.cellar_identifier = id_bodega_reserva
-                                kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                                res_kardex = kardex.Insert()
-
-                                if debugMode and "error" in res_kardex:
-                                    print res_kardex["error"]
-
+                            if "success" in res_name:
+                                kardex.size_id = _s.id
                             elif debugMode:
-                                print response["error"]
+                                print res_name["error"]
+
+                            kardex.date = str(datetime.now().isoformat()) 
+                            kardex.user = "Sistema - Reservar Producto"
+                            kardex.units = l["quantity"]
+                            kardex.price = producto.price
+
+                            res_kardex = kardex.Insert()
+
+                            if debugMode and "error" in res_kardex:
+                                print res_kardex["error"]
+
+                            kardex.cellar_identifier = id_bodega_reserva
+                            kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                            res_kardex = kardex.Insert()
+
+                            if debugMode and "error" in res_kardex:
+                                print res_kardex["error"]
+
+                        elif debugMode:
+                            print response["error"]
+
+                if status == 200:
 
                     self.render("store/success.html",
                                 data=data,
