@@ -415,24 +415,27 @@ class Order(BaseModel):
             cur.execute(query,parametros)
             order = cur.fetchone()
 
-            self.id = order["id"]
-            self.date = order["date"]
-            self.type = order["type"]
-            self.subtotal = order["subtotal"]
-            self.shipping = order["shipping"]
-            self.tax = order["tax"]
-            self.total = order["total"]
-            self.items_quantity = order["items_quantity"]
-            self.products_quantity = order["products_quantity"]
-            self.user_id = order["user_id"]
-            self.billing_id = order["billing_id"]
-            self.shipping_id = order["shipping_id"]
-            self.payment_type = order["payment_type"]
-            self.source = order["source"]
-            self.voucher = order["voucher"]
-            self.state = order["state"]
+            if cur.rowcount > 0:
+                self.id = order["id"]
+                self.date = order["date"]
+                self.type = order["type"]
+                self.subtotal = order["subtotal"]
+                self.shipping = order["shipping"]
+                self.tax = order["tax"]
+                self.total = order["total"]
+                self.items_quantity = order["items_quantity"]
+                self.products_quantity = order["products_quantity"]
+                self.user_id = order["user_id"]
+                self.billing_id = order["billing_id"]
+                self.shipping_id = order["shipping_id"]
+                self.payment_type = order["payment_type"]
+                self.source = order["source"]
+                self.voucher = order["voucher"]
+                self.state = order["state"]
 
-            return self.ShowSuccessMessage(self.id)
+                return self.ShowSuccessMessage(self.id)
+            else:
+                return self.ShowError("order not found")
 
         except Exception,e:
             return self.ShowError(str(e))

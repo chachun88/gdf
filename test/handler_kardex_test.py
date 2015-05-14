@@ -3,10 +3,11 @@
 
 import unittest
 
+import authenticated
+
 from giani import Application
 from bson import json_util
 from lp.model.basemodel import BaseModel
-import authenticated
 import tornado.web
 import tornado.ioloop 
 import tornado.httpclient
@@ -44,7 +45,7 @@ class TestStock(unittest.TestCase):
 
     def testPaymentBankTransferHandler(self):
 
-        # body = ''
+        body = 'TBK_ID_SESION=20150514120505&TBK_ORDEN_COMPRA=392'
 
         # http_client = tornado.httpclient.AsyncHTTPClient()
         # http_client.fetch(
@@ -60,9 +61,12 @@ class TestStock(unittest.TestCase):
 
         http_client = tornado.httpclient.AsyncHTTPClient()
         http_client.fetch(
-            "http://localhost:8502/checkout/send", 
-            self.handle_request
+            "http://localhost:8502/store/success", 
+            self.handle_request,
+            body=body,
+            method='POST'
         )
+        # print self.response
         tornado.ioloop.IOLoop.instance().start()
         self.failIf(self.response.error)
-        self.assertEqual(self.response.body, 'ok')
+        self.assertEqual(self.response.code, 200)
