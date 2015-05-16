@@ -126,7 +126,7 @@ class ProductHandler(BaseHandler):
                 elif debugMode:
                     print response_obj["error"]
 
-            prod.size = reversed(tallas_disponibles)
+            prod.size = tallas_disponibles
 
             vote = Vote()
 
