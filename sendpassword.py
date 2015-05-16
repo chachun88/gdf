@@ -382,7 +382,7 @@ def RegistrationEmail(username,email):
             </tbody></table>
             <!-- end 100% wrapper (white background) -->
           </body></html>
-          """.format(name=username,url_local=url_local)
+          """.format(name=username.encode("utf-8"),url_local=url_local)
     sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
 
     message = sendgrid.Mail()
