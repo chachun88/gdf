@@ -567,8 +567,12 @@ class User(BaseModel):
 
             if id != 0:
 
-                q = '''select count(*) as cnt from "User" where id = %(id)s'''
-                p = { "id":id }
+                q = '''select count(*) as cnt from "User" where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s'''
+                p = { 
+                    "id": id,
+                    "user_type": self.getUserTypeID(UserType.CLIENTE),
+                    "user_type_visita": self.getUserTypeID(UserType.VISITA)
+                }
 
                 try:
                     cur.execute(q,p)
@@ -637,8 +641,16 @@ class User(BaseModel):
     def ChangePassword(self, id, password):
         try:
 
-            p = ''' update "User" set password = %(password)s where id = %(id)s '''
-            q = { "id": id, "password" : password }
+            p = '''\
+                update "User" 
+                set password = %(password)s 
+                where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
+            q = { 
+                "id": id, 
+                "password" : password,
+                "user_type": self.getUserTypeID(UserType.CLIENTE),
+                "user_type_visita": self.getUserTypeID(UserType.VISITA)
+            }
 
             # c
 
