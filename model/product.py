@@ -426,24 +426,35 @@ class Product(BaseModel):
             cur.close()
             self.connection.close()
 
-    def GetRandom(self, cellar_id):
+    def GetRandom(self, cellar_id, tags):
+
+        tags_id = []
+
+        for t in tags:
+            tags_id.append(t['tag_id'])
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''\
             SELECT p.*, c.name as category FROM "Product" p 
             inner join "Category" c on c.id = p.category_id 
+            inner join (select distinct on(product_id) * from "Tag_Product") tp on tp.product_id = p.id
             inner join (select distinct on(product_sku) product_sku, 
                                                             balance_units, 
                                                             date 
                         from "Kardex" 
                         where cellar_id = %(cellar_id)s
                         order by product_sku, date desc) k on k.product_sku = p.sku
-            where p.deleted = %(deleted)s p.for_sale = 1 and k.balance_units > 0 OFFSET random()*(select count(*) from "Product") - 4 LIMIT 4'''
+            
+            where p.deleted = %(deleted)s and p.for_sale = 1 and k.balance_units > 0 and tag_id = any(%(tags_id)s) LIMIT 4'''
         p = {
             "cellar_id": cellar_id,
-            "deleted": False
+            "deleted": False,
+            "tags_id": tags_id
         }
+
+        # print cur.mogrify(q, p)
+
         try:
             cur.execute(q, p)
             randomized = cur.fetchall()
@@ -664,17 +675,16 @@ class Product(BaseModel):
                             from "Kardex" 
                             where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
                             order by product_sku, 
-                            size_id, 
                             date desc) k on k.product_sku = p.sku
                     where p.for_sale = 1
-                    and k.balance_units > 0 
                     and p.deleted = %(deleted)s
+                    and k.balance_units > 0 
                    and tp.tag_id = any(%(categories)s::int[])'''
             p = {
                 "categories": categories,
-                "deleted": False,
                 "sizes": sizes,
-                "cellar_id": cellar_id
+                "cellar_id": cellar_id,
+                "deleted": False
             }
 
         elif len(sizes) > 0:
@@ -691,7 +701,9 @@ class Product(BaseModel):
                     where p.for_sale = 1
                     and deleted = %(deleted)s
                     and k.balance_units > 0 '''
-            p = {"sizes": sizes, "cellar_id": cellar_id, "deleted": False}
+            p = {"sizes": sizes,
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         else:
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
@@ -702,11 +714,16 @@ class Product(BaseModel):
                             balance_units 
                             from "Kardex" 
                             where cellar_id = %(cellar_id)s
-                            and deleted = %(deleted)s
                             order by product_sku, 
                             date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and k.balance_units > 0'''
-            p = {"categories": categories, "cellar_id": cellar_id, "deleted": False}
+                   where p.for_sale = 1 
+                   and tp.tag_id = any(%(categories)s::int[]) 
+                   and k.balance_units > 0
+                   and p.deleted = %(deleted)s'''
+
+            p = {"categories": categories,
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         try:
             cur.execute(q, p)

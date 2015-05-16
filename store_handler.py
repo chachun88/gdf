@@ -138,7 +138,12 @@ class ProductHandler(BaseHandler):
             # print "prod_name:{}".format(prod_name)
 
             combinaciones = prod.GetCombinations(id_bodega, prod_name)
-            relacionados = prod.GetRandom(id_bodega)
+
+            tag = Tag()
+            res_tags = tag.GetTagsByProductId(prod.id)
+
+            if "success" in res_tags:
+                relacionados = prod.GetRandom(id_bodega, res_tags["success"])
 
             if "success" in res:
                 votos = res["success"]
@@ -391,7 +396,8 @@ class FilterHandler(BaseHandler):
             self.write(self.render_string(
                 "store/ajax_productos.html",
                 data=res["success"],
-                items=items,page=page,
+                items=items,
+                page=page,
                 canonical_url=self.canonical_url,
                 url_bodega=url_bodega,
                 money_format=self.money_format))
