@@ -606,8 +606,14 @@ class User(BaseModel):
                 password = ""
                 user_id = ""
 
-                p = ''' select name, password, id from "User" where email = %(email)s '''
-                q = {"email": email}
+                p = ''' select name, password, id from "User" 
+                where email = %(email)s 
+                and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
+                q = {
+                    "email": email,
+                    "user_type": self.getUserTypeID(UserType.CLIENTE),
+                    "user_type_visita": self.getUserTypeID(UserType.VISITA)
+                }
 
                 cur = self.connection.cursor(  cursor_factory=psycopg2.extras.RealDictCursor )
 
