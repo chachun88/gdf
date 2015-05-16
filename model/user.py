@@ -322,15 +322,34 @@ class User(BaseModel):
         p = {
             "name": self.user_type
         }
-        cur.execute(q,p)
-        tipo_usuario = cur.fetchone()["id"]
+        try:
+            # print cur.mogrify(q, p)
+            cur.execute(q,p)
+            tipo_usuario = cur.fetchone()["id"]
+            self.connection.commit()
+        except Exception, e:
+            print "qqqq {}".format(str(e))
+        finally:
+            cur.close()
+            self.connection.close()
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         q = '''select id from "Permission" where name = any(%(permissions)s)'''
         p = {
             "permissions":self.permissions
         }
-        cur.execute(q,p)
-        permisos = cur.fetchall()
+
+        try:
+            cur.execute(q,p)
+            permisos = cur.fetchall()
+        except Exception, e:
+            print str(e)
+        finally:
+            cur.close()
+            self.connection.close()
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         if self.user_type != UserType.VISITA:
 
@@ -548,44 +567,50 @@ class User(BaseModel):
 
     def Exist(self, email='',id=0):
 
-        try:
+
+        if email != "":
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-            if email != "":
+            q = '''select count(*) as cnt from "User" where email = %(email)s'''
 
-                q = '''select count(*) as cnt from "User" where email = %(email)s'''
+            p = { "email" : email }
 
-                p = { "email" : email }
-
+            try:
                 cur.execute( q, p )
-
                 data = cur.fetchone()
-
                 if data["cnt"] > 0:
                     return self.ShowSuccessMessage(True)
+            except Exception, e:
+                print "exists, {}".format(str(e))
+                return self.ShowError(str(e))
+            finally:
+                cur.close()
+                self.connection.close()
 
-            if id != 0:
+        if id != 0:
 
-                q = '''select count(*) as cnt from "User" where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s'''
-                p = { 
-                    "id": id,
-                    "user_type": self.getUserTypeID(UserType.CLIENTE),
-                    "user_type_visita": self.getUserTypeID(UserType.VISITA)
-                }
+            cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-                try:
-                    cur.execute(q,p)
-                    data = cur.fetchone()
-                    if data["cnt"] > 0:
-                        return self.ShowSuccessMessage(True)
-                except Exception,e:
-                    self.ShowError(str(e))
+            q = '''select count(*) as cnt from "User" where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s'''
+            p = { 
+                "id": id,
+                "user_type": self.getUserTypeID(UserType.CLIENTE),
+                "user_type_visita": self.getUserTypeID(UserType.VISITA)
+            }
 
-            return self.ShowSuccessMessage(False)
+            try:
+                cur.execute(q,p)
+                data = cur.fetchone()
+                if data["cnt"] > 0:
+                    return self.ShowSuccessMessage(True)
+            except Exception,e:
+                self.ShowError(str(e))
+            finally:
+                cur.close()
+                self.connection.close()
 
-        except Exception, e:
-            return self.ShowError(str(e))
+        return self.ShowSuccessMessage(False)
 
     def RandomPass(self):
 

@@ -6,7 +6,7 @@ from basehandler import BaseHandler
 # libreria prescindible
 from bson import json_util
 
-from model.user import User
+from model.user import User, UserType
 
 
 class AddAnonimousHandler(BaseHandler):
@@ -25,6 +25,7 @@ class AddAnonimousHandler(BaseHandler):
                 existe = exists_response["success"]
 
                 if not existe:
+                    user.user_type = UserType.VISITA
                     response_obj = user.Save()
                     self.write(json_util.dumps(response_obj))
                 else:
