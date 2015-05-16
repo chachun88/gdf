@@ -133,7 +133,7 @@ class ProductHandler(BaseHandler):
             res = vote.GetVotes(prod.id)
             votos = 0
 
-            prod_name = prod.sku.split("-")[-2]
+            prod_name = prod.name
 
             # print "prod_name:{}".format(prod_name)
 
