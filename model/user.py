@@ -186,14 +186,15 @@ class User(BaseModel):
             where u.email = %(email)s and 
                 u.password = %(password)s and
                 u.status = %(status)s and
-                u.type_id = %(user_type)s
+                (u.type_id = %(user_type)s or u.type_id = %(user_type_visita)s)
             group by u.id limit 1'''
 
         p = {
             "email":username,
             "password":password,
             "status": self.ACEPTADO,
-            "user_type": self.getUserTypeID(UserType.CLIENTE)
+            "user_type": self.getUserTypeID(UserType.CLIENTE),
+            "user_type_visita": self.getUserTypeID(UserType.VISITA)
         }
 
         try:
