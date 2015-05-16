@@ -200,9 +200,6 @@ class User(BaseModel):
             # print curs.mogrify( q, p )
             user = lp_model.execute_query(q, p)
 
-            print "aaa : {}".format(user)
-
-
             if len(user) > 0:
                 user = user[0]
                 return self.ShowSuccessMessage(json_util.dumps(user))
@@ -292,9 +289,10 @@ class User(BaseModel):
             "id":idd
         }
         try:
+            print cur.mogrify(q, p)
             cur.execute(q,p)
-            usuario = cur.fetchone()
-            if usuario:
+            if cur.rowcount > 0:
+                usuario = cur.fetchone()
                 return usuario
             else:
                 return self.ShowError("user : {} not found".format(idd))
@@ -333,9 +331,12 @@ class User(BaseModel):
         cur.execute(q,p)
         permisos = cur.fetchall()
 
-        if self.user_type != UserType.VISITA:          
+        if self.user_type != UserType.VISITA:
 
-            q = '''select * from "User" where email = %(email)s and type_id = %(type_id)s limit 1'''
+            q = '''\
+                select * from "User" 
+                where email = %(email)s 
+                and type_id = %(type_id)s limit 1'''
             p = {
                 "email":self.email,
                 "type_id": tipo_usuario
@@ -543,7 +544,6 @@ class User(BaseModel):
             lista = cur.fetchall()
             return lista
         except Exception,e:
-            print str(e)
             return {}
 
     def Exist(self, email='',id=0):

@@ -32,6 +32,8 @@ class TestUser(unittest.TestCase):
         user.password = "1234"
         user.user_type = UserType.CLIENTE
         user.id = 1
+        user.permissions = []
+        user.rut = ''
 
         # save user on database
         message = user.Save()
@@ -40,7 +42,9 @@ class TestUser(unittest.TestCase):
 
         # init just created user
         other_instance = (User()).InitById(1)
-        assert other_instance.__class__ == User
+
+        assert "error" not in other_instance
+        assert other_instance["name"] == "foo"
 
         # try to loin after creating user
         response_obj = user.Login( user.email, user.password )
