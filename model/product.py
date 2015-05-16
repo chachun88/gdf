@@ -426,23 +426,31 @@ class Product(BaseModel):
             cur.close()
             self.connection.close()
 
-    def GetRandom(self, cellar_id):
+    def GetRandom(self, cellar_id, tags):
+
+        tags_id = []
+
+        for t in tags:
+            tags_id.append(t['id'])
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''\
             SELECT p.*, c.name as category FROM "Product" p 
             inner join "Category" c on c.id = p.category_id 
+            inner join (select distinct on(product_id) * from "Tag_Product") tp on tp.product_id = p.id
             inner join (select distinct on(product_sku) product_sku, 
                                                             balance_units, 
                                                             date 
                         from "Kardex" 
                         where cellar_id = %(cellar_id)s
                         order by product_sku, date desc) k on k.product_sku = p.sku
-            where p.deleted = %(deleted)s p.for_sale = 1 and k.balance_units > 0 OFFSET random()*(select count(*) from "Product") - 4 LIMIT 4'''
+            
+            where p.deleted = false and p.for_sale = 1 and k.balance_units > 0 and tag_id = any(%(tags_id)s) LIMIT 4'''
         p = {
             "cellar_id": cellar_id,
-            "deleted": False
+            "deleted": False,
+            "tags_id": tags_id
         }
         try:
             cur.execute(q, p)

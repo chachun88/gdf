@@ -153,3 +153,22 @@ class Tag(BaseModel):
         finally:
             cur.close()
             self.connection.close()
+
+    def GetTagsByProductId(self,_id):
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+        query = '''select * from "Tag" t left join "Tag_Product" tp on tp.tag_id = t.id where tp.product_id = %(id)s'''
+        parameters = {
+            "id":_id
+        }
+
+        try:
+            cur.execute(query,parameters)
+            tags = cur.fetchall()
+            return self.ShowSuccessMessage(tags)
+        except Exception,e:
+            return self.ShowError("Error al buscar tags por product_id: {}".format(str(e)))
+        finally:
+            self.connection.close()
+            cur.close()
