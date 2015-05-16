@@ -142,7 +142,7 @@ class ProductHandler(BaseHandler):
             tag = Tag()
             res_tags = tag.GetTagsByProductId(prod.id)
 
-            if "success" in res_tags
+            if "success" in res_tags:
                 relacionados = prod.GetRandom(id_bodega, res_tags["success"])
 
             if "success" in res:
