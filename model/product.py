@@ -675,17 +675,16 @@ class Product(BaseModel):
                             from "Kardex" 
                             where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
                             order by product_sku, 
-                            size_id, 
                             date desc) k on k.product_sku = p.sku
                     where p.for_sale = 1
-                    and k.balance_units > 0 
                     and p.deleted = %(deleted)s
+                    and k.balance_units > 0 
                    and tp.tag_id = any(%(categories)s::int[])'''
             p = {
                 "categories": categories,
-                "deleted": False,
                 "sizes": sizes,
-                "cellar_id": cellar_id
+                "cellar_id": cellar_id,
+                "deleted": False
             }
 
         elif len(sizes) > 0:
@@ -702,7 +701,9 @@ class Product(BaseModel):
                     where p.for_sale = 1
                     and deleted = %(deleted)s
                     and k.balance_units > 0 '''
-            p = {"sizes": sizes, "cellar_id": cellar_id, "deleted": False}
+            p = {"sizes": sizes,
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         else:
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
@@ -713,11 +714,16 @@ class Product(BaseModel):
                             balance_units 
                             from "Kardex" 
                             where cellar_id = %(cellar_id)s
-                            and deleted = %(deleted)s
                             order by product_sku, 
                             date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and k.balance_units > 0'''
-            p = {"categories": categories, "cellar_id": cellar_id, "deleted": False}
+                   where p.for_sale = 1 
+                   and tp.tag_id = any(%(categories)s::int[]) 
+                   and k.balance_units > 0
+                   and p.deleted = %(deleted)s'''
+
+            p = {"categories": categories,
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         try:
             cur.execute(q, p)
