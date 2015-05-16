@@ -554,7 +554,7 @@ class CheckoutSendHandler(BaseHandler):
                     </table>
                     """.format( order_id=order.id,
                                 name=facturacion["name"].encode("utf-8"),
-                                address=facturacion["address"].encode("utf-8"),
+                                address=facturacion["address"],
                                 town=facturacion["town"],
                                 city=facturacion["city"].encode("utf-8"),
                                 country="",
@@ -589,7 +589,7 @@ class CheckoutSendHandler(BaseHandler):
                     </table>
                     """.format( order_id=order.id,
                                 name=despacho["name"].encode("utf-8"),
-                                address=despacho["address"].encode("utf-8"),
+                                address=despacho["address"],
                                 town=despacho["town"],
                                 city=despacho["city"].encode("utf-8"),
                                 country="",
