@@ -15,7 +15,8 @@ define("db_user", default=ONTEST_USER, help="", type=str)
 define("db_host", default=ONTEST_HOST, help="", type=str)
 define("db_password", default=ONTEST_PASSWORD, help="", type=str)
 
-from handler_kardex_test import TestStock
+# from handler_kardex_test import TestStock
+from model_user_test import TestUser
 
 if __name__ == '__main__': 
     unittest.main() 

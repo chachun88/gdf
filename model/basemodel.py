@@ -2,6 +2,7 @@
 # -*- coding: UTF-8 -*-
 
 from tornado.options import options
+from lp.globals import enviroment, Enviroment
 
 import psycopg2
 import psycopg2.extras

@@ -86,8 +86,10 @@ class UserRegistrationHandler(BaseHandler):
             if "success" in response_obj:
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
                 self.write(json_util.dumps({"success":self.next}))
+                return
             else:
-                self.write(json_util.dumps({"error": "error code : 1"}))
+                self.write(json_util.dumps({"error": str(response_obj)}))
+                return
 
             # redirect is the request isn't aajx
             if ajax == "false":

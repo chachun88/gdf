@@ -1,6 +1,9 @@
 # Gianidafirenze.cl
 
 
-### Errors
+### Vertabelo command
 
-**1** : {'error': 'cannot login user: syntax error at or near "u"\nLINE 10: u.type_id = \'Cliente\'\n ^\n'}
+
+```sh
+java -cp .:reverse-engineering.jar:postgresql.jdbc3.jar com.vertabelo.reverse.Main -url jdbc:postgresql://localhost:5432/giani -user yichun -password chachun88 -o output.xml
+```

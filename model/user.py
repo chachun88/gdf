@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
+from lp.model.basemodel import BaseModel as lp_model
 from basemodel import BaseModel
 # from salesmanpermission import SalesmanPermission
 # from bson.objectid import ObjectId
@@ -12,6 +13,7 @@ import random
 import hashlib
 
 from bson import json_util
+from lp.globals import enviroment, Enviroment
 
 
 class UserType(object):
@@ -171,12 +173,9 @@ class User(BaseModel):
         # return False
 
         m = hashlib.md5()
-
         m.update(password)
-
         password = m.hexdigest()
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''\
             select u.*, 
                 STRING_AGG(distinct p.name, ',') as permissions_name, 
@@ -186,27 +185,37 @@ class User(BaseModel):
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
             where u.email = %(email)s and 
                 u.password = %(password)s and
-                u.status = %(status)s 
+                u.status = %(status)s and
                 u.type_id = %(user_type)s
             group by u.id limit 1'''
+        q = 'SELECT * FROM "User"'
         p = {
             "email":username,
             "password":password,
             "status": self.ACEPTADO,
-            "user_type": UserType.CLIENTE
+            "user_type": self.getUserTypeID(UserType.CLIENTE)
         }
 
         try:
             # print curs.mogrify( q, p )
-            cur.execute(q,p)
-            user = cur.fetchone()
-            if cur.rowcount > 0:
+            user = lp_model.execute_query(q, p)
+
+            print "aaa : {}".format(user)
+
+
+            if len(user) > 0:
+                user = user[0]
                 return self.ShowSuccessMessage(json_util.dumps(user))
             else:
                 return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder")
         except Exception,e:
-            print str(e)
             return self.ShowError("cannot login user: {}".format(str(e)))
+
+    def getUserTypeID(self, user_type):
+
+        query = 'SELECT id FROM "User_Types" WHERE name = %(name)s'
+        params = {"name" : user_type}
+        return lp_model.execute_query(query, params)[0]["id"]
 
     def InitByEmail(self, email):
 
@@ -288,9 +297,9 @@ class User(BaseModel):
             if usuario:
                 return usuario
             else:
-                return self.ShowError("user : " + idd + " not found")
+                return self.ShowError("user : {} not found".format(idd))
         except:
-            return self.ShowError("user : " + idd + " not found")
+            return self.ShowError("user : {} not found".format(idd))
 
     def GetPermissions(self):
         return self._permissions.FindPermissions(self.id)
