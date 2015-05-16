@@ -556,7 +556,7 @@ class CheckoutSendHandler(BaseHandler):
                                 name=facturacion["name"].encode("utf-8"),
                                 address=facturacion["address"].encode("utf-8"),
                                 town=facturacion["town"],
-                                city=facturacion["city"].encode("utf-8"),
+                                city=facturacion["city"],
                                 country="",
                                 telephone=facturacion["telephone"],
                                 email=facturacion["email"])
