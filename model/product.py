@@ -271,12 +271,13 @@ class Product(BaseModel):
                             from "Kardex" 
                             where cellar_id = %(cellar_id)s
                             order by product_sku, date desc) k on k.product_sku = p.sku
-                where p.for_sale = 1 and k.balance_units > 0
+                where p.for_sale = 1 and k.balance_units > 0 and p.deleted = %(deleted)s
                 limit %(items)s offset %(offset)s'''
             p = {
                 "items": items,
                 "offset": offset,
-                "cellar_id": cellar_id
+                "cellar_id": cellar_id,
+                "deleted": False
             }
             cur.execute(q, p)
             lista = cur.fetchall()
@@ -297,9 +298,11 @@ class Product(BaseModel):
                 inner join "Category" c on c.id = p.category_id 
                 inner join "Product_Size" ps on ps.product_sku = p.sku
                 inner join "Size" s on s.id = ps.size_id
-                where p.sku = %(sku)s group by p.id, c.name limit 1'''
+                where p.sku = %(sku)s and deleted = %(deleted)s
+                group by p.id, c.name limit 1'''
         p = {
-            "sku": sku
+            "sku": sku,
+            "deleted": False
         }
         try:
             cur.execute(q, p)
@@ -348,9 +351,11 @@ class Product(BaseModel):
                 inner join "Category" c on c.id = p.category_id 
                 inner join "Product_Size" ps on ps.product_sku = p.sku
                 inner join "Size" s on s.id = ps.size_id
-                where p.id = %(id)s group by p.id, c.name limit 1'''
+                where p.id = %(id)s and deleted = %(deleted)s 
+                group by p.id, c.name limit 1'''
         p = {
-            "id": identifier
+            "id": identifier,
+            "deleted": False
         }
         try:
 
@@ -404,10 +409,11 @@ class Product(BaseModel):
                             from "Kardex" 
                             where cellar_id = %(cellar_id)s
                             order by product_sku, date desc) k on k.product_sku = p.sku
-            where p.name like %(name)s and p.for_sale = 1 and k.balance_units > 0 limit 4'''
+            where p.name like %(name)s and p.for_sale = 1 and k.balance_units > 0 and deleted = %(deleted)s limit 4'''
         p = {
             "name": "%" + name + "%",
-            "cellar_id": id_bodega
+            "cellar_id": id_bodega,
+            "deleted": False
         }
         try:
             cur.execute(q, p)
@@ -433,9 +439,10 @@ class Product(BaseModel):
                         from "Kardex" 
                         where cellar_id = %(cellar_id)s
                         order by product_sku, date desc) k on k.product_sku = p.sku
-            where p.for_sale = 1 and k.balance_units > 0 OFFSET random()*(select count(*) from "Product") - 4 LIMIT 4'''
+            where p.deleted = %(deleted)s p.for_sale = 1 and k.balance_units > 0 OFFSET random()*(select count(*) from "Product") - 4 LIMIT 4'''
         p = {
-            "cellar_id": cellar_id
+            "cellar_id": cellar_id,
+            "deleted": False
         }
         try:
             cur.execute(q, p)
@@ -461,9 +468,10 @@ class Product(BaseModel):
                         from "Kardex" 
                         where cellar_id = %(cellar_id)s
                         order by product_sku, date desc) k on k.product_sku = p.sku
-            where p.for_sale = 1 and k.balance_units > 0'''
+            where p.for_sale = 1 and k.balance_units > 0 and deleted = %(deleted)s'''
         p = {
-            "cellar_id": cellar_id
+            "cellar_id": cellar_id,
+            "deleted": False
         }
         try:
             cur.execute(q, p)
@@ -485,10 +493,13 @@ class Product(BaseModel):
         where to_tsvector('spanish', p.name) @@ to_tsquery('spanish',%(name)s) 
         and to_tsvector('spanish', c.name) @@ to_tsquery('spanish',%(cat)s) 
         and to_tsvector('spanish', p.color) @@ to_tsquery('spanish', %(color)s) 
-        and p.for_sale = 1 group by p.id, c.name limit 1'''
+        and p.for_sale = 1 
+        and p.deleted = %(deleted)s
+        group by p.id, c.name limit 1'''
         p = {
             "name": name,
             "cat": cat,
+            "deleted": False,
             "color": color
         }
         try:
@@ -571,14 +582,18 @@ class Product(BaseModel):
                             order by product_sku, 
                             date desc) k on k.product_sku = p.sku
                     where p.for_sale = 1
+                    and p.deleted = %(deleted)s
                     and k.balance_units > 0 
                    and tp.tag_id = any(%(categories)s::int[]) 
                    offset %(offset)s limit %(limit)s'''
-            p = {"categories": categories,
-                 "sizes": sizes,
-                 "limit": limit,
-                 "offset": offset,
-                 "cellar_id": cellar_id}
+            p = {
+                "categories": categories,
+                "sizes": sizes,
+                "limit": limit,
+                "offset": offset,
+                "cellar_id": cellar_id,
+                "deleted": False
+            }
 
         elif len(sizes) > 0:
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
@@ -592,12 +607,14 @@ class Product(BaseModel):
                             order by product_sku,
                             date desc) k on k.product_sku = p.sku
                     where p.for_sale = 1
+                    and deleted = %(deleted)s
                     and k.balance_units > 0 
                    offset %(offset)s limit %(limit)s'''
             p = {"sizes": sizes,
                  "limit": limit,
                  "offset": offset,
-                 "cellar_id": cellar_id}
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         else:
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
@@ -610,12 +627,16 @@ class Product(BaseModel):
                             where cellar_id = %(cellar_id)s
                             order by product_sku, 
                             date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and k.balance_units > 0
+                   where p.for_sale = 1 
+                   and tp.tag_id = any(%(categories)s::int[]) 
+                   and k.balance_units > 0
+                   and p.deleted = %(deleted)s
                    offset %(offset)s limit %(limit)s'''
             p = {"categories": categories,
                  "limit": limit,
                  "offset": offset,
-                 "cellar_id": cellar_id}
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         try:
             # print cur.mogrify(q,p)
@@ -647,8 +668,14 @@ class Product(BaseModel):
                             date desc) k on k.product_sku = p.sku
                     where p.for_sale = 1
                     and k.balance_units > 0 
+                    and p.deleted = %(deleted)s
                    and tp.tag_id = any(%(categories)s::int[])'''
-            p = {"categories": categories, "sizes": sizes, "cellar_id": cellar_id}
+            p = {
+                "categories": categories,
+                "deleted": False,
+                "sizes": sizes,
+                "cellar_id": cellar_id
+            }
 
         elif len(sizes) > 0:
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
@@ -662,8 +689,9 @@ class Product(BaseModel):
                             order by product_sku,
                             date desc) k on k.product_sku = p.sku
                     where p.for_sale = 1
+                    and deleted = %(deleted)s
                     and k.balance_units > 0 '''
-            p = {"sizes": sizes, "cellar_id": cellar_id}
+            p = {"sizes": sizes, "cellar_id": cellar_id, "deleted": False}
 
         else:
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
@@ -674,10 +702,11 @@ class Product(BaseModel):
                             balance_units 
                             from "Kardex" 
                             where cellar_id = %(cellar_id)s
+                            and deleted = %(deleted)s
                             order by product_sku, 
                             date desc) k on k.product_sku = p.sku
                    where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[]) and k.balance_units > 0'''
-            p = {"categories": categories, "cellar_id": cellar_id}
+            p = {"categories": categories, "cellar_id": cellar_id, "deleted": False}
 
         try:
             cur.execute(q, p)
