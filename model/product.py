@@ -453,7 +453,7 @@ class Product(BaseModel):
             "tags_id": tags_id
         }
 
-        print cur.mogrify(q, p)
+        # print cur.mogrify(q, p)
 
         try:
             cur.execute(q, p)
