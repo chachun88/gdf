@@ -195,6 +195,7 @@ class User(BaseModel):
             "status": self.ACEPTADO,
             "user_type": UserType.CLIENTE
         }
+
         try:
             # print curs.mogrify( q, p )
             cur.execute(q,p)
@@ -204,6 +205,7 @@ class User(BaseModel):
             else:
                 return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder")
         except Exception,e:
+            print str(e)
             return self.ShowError("cannot login user: {}".format(str(e)))
 
     def InitByEmail(self, email):
