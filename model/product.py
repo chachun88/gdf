@@ -431,7 +431,7 @@ class Product(BaseModel):
         tags_id = []
 
         for t in tags:
-            tags_id.append(t['id'])
+            tags_id.append(t['tag_id'])
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
@@ -446,12 +446,15 @@ class Product(BaseModel):
                         where cellar_id = %(cellar_id)s
                         order by product_sku, date desc) k on k.product_sku = p.sku
             
-            where p.deleted = false and p.for_sale = 1 and k.balance_units > 0 and tag_id = any(%(tags_id)s) LIMIT 4'''
+            where p.deleted = %(deleted)s and p.for_sale = 1 and k.balance_units > 0 and tag_id = any(%(tags_id)s) LIMIT 4'''
         p = {
             "cellar_id": cellar_id,
             "deleted": False,
             "tags_id": tags_id
         }
+
+        print cur.mogrify(q, p)
+
         try:
             cur.execute(q, p)
             randomized = cur.fetchall()
