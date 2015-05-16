@@ -63,7 +63,7 @@ class UserRegistrationHandler(BaseHandler):
                     self.write(json_util.dumps({"error":"ya existe un usuario registrado con este email"}))
                     return
             else:
-                self.write(json_util.dumps({"error":"se ha producido un error"}))
+                self.write(json_util.dumps({"error":"se ha producido un error {}".format(response['error'])}))
                 return
 
             # perform login
@@ -72,10 +72,14 @@ class UserRegistrationHandler(BaseHandler):
             user.name = name
             user.email = email
             user.password = password
-            user.user_type = 'Cliente'
+            user.user_type = UserType.CLIENTE
+            user.status = User.ACEPTADO
 
             if user_id != 0:
-                user.id = user_id
+                existe = User().Exist('', user_id)
+                if "success" in existe:
+                    if existe["success"]:
+                        user.id = user_id
 
             user.Save()
 

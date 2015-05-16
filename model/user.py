@@ -205,7 +205,7 @@ class User(BaseModel):
                 user = user[0]
                 return self.ShowSuccessMessage(json_util.dumps(user))
             else:
-                return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder, {}".format(lp_model.mogrify(q,p)))
+                return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder".format(lp_model.mogrify(q,p)))
         except Exception,e:
             return self.ShowError("cannot login user: {}".format(str(e)))
 
@@ -565,22 +565,28 @@ class User(BaseModel):
         except Exception,e:
             return {}
 
-    def Exist(self, email='',id=0):
+    def Exist(self, email='', _id=0):
 
 
         if email != "":
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-            q = '''select count(*) as cnt from "User" where email = %(email)s'''
+            q = '''select count(*) as cnt from "User" where email = %(email)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
 
-            p = { "email" : email }
+            p = { 
+                "email" : email,
+                "user_type": self.getUserTypeID(UserType.CLIENTE),
+                "user_type_visita": self.getUserTypeID(UserType.VISITA)
+            }
 
             try:
                 cur.execute( q, p )
                 data = cur.fetchone()
                 if data["cnt"] > 0:
                     return self.ShowSuccessMessage(True)
+                else:
+                    return self.ShowSuccessMessage(False)
             except Exception, e:
                 print "exists, {}".format(str(e))
                 return self.ShowError(str(e))
@@ -588,13 +594,13 @@ class User(BaseModel):
                 cur.close()
                 self.connection.close()
 
-        if id != 0:
+        if _id != 0:
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
             q = '''select count(*) as cnt from "User" where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s'''
             p = { 
-                "id": id,
+                "id": _id,
                 "user_type": self.getUserTypeID(UserType.CLIENTE),
                 "user_type_visita": self.getUserTypeID(UserType.VISITA)
             }
@@ -604,13 +610,15 @@ class User(BaseModel):
                 data = cur.fetchone()
                 if data["cnt"] > 0:
                     return self.ShowSuccessMessage(True)
+                else:
+                    return self.ShowSuccessMessage(False)
             except Exception,e:
-                self.ShowError(str(e))
+                return self.ShowError(str(e))
             finally:
                 cur.close()
                 self.connection.close()
 
-        return self.ShowSuccessMessage(False)
+        
 
     def RandomPass(self):
 

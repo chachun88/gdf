@@ -198,6 +198,9 @@ class AddToCartHandler(BaseHandler):
                 cart.subtotal = subtotal
                 cart.user_id = self.get_argument("user_id",-1)
 
+                if self.current_user:
+                    cart.user_id = self.current_user["id"]
+
                 response_obj = cart.Save()
 
                 if "success" in response_obj:

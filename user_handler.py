@@ -17,7 +17,9 @@ class AddAnonimousHandler(BaseHandler):
 
         user = User()
 
-        if user_id != 0:
+        if self.current_user:
+            self.write(json_util.dumps({"success":self.current_user["id"]}))
+        elif user_id != 0:
 
             exists_response = user.Exist('',user_id)
 
@@ -33,14 +35,12 @@ class AddAnonimousHandler(BaseHandler):
 
             else:
                 self.write(json_util.dumps(exists_response))
-
         else:
+            user.user_type = UserType.VISITA
+            response_obj = user.Save()
+            self.write(json_util.dumps(response_obj))
 
-            if self.current_user:
-                self.write(json_util.dumps({"success":self.current_user["id"]}))
-            else:
-                response_obj = user.Save()
-                self.write(json_util.dumps(response_obj))
+            
 
 
 class UserExistHandler(BaseHandler):
