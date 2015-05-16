@@ -188,7 +188,7 @@ class User(BaseModel):
                 u.status = %(status)s and
                 u.type_id = %(user_type)s
             group by u.id limit 1'''
-        q = 'SELECT * FROM "User"'
+
         p = {
             "email":username,
             "password":password,
@@ -289,7 +289,7 @@ class User(BaseModel):
             "id":idd
         }
         try:
-            print cur.mogrify(q, p)
+            # print cur.mogrify(q, p)
             cur.execute(q,p)
             if cur.rowcount > 0:
                 usuario = cur.fetchone()
@@ -315,14 +315,14 @@ class User(BaseModel):
 
     def Save(self):
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         q = '''select id from "User_Types" where name = %(name)s'''
         p = {
             "name": self.user_type
         }
         cur.execute(q,p)
-        tipo_usuario = cur.fetchone()[0]
+        tipo_usuario = cur.fetchone()["id"]
 
         q = '''select id from "Permission" where name = any(%(permissions)s)'''
         p = {
@@ -466,12 +466,11 @@ class User(BaseModel):
                             "type_id":tipo_usuario,
                             "rut": self.rut,
                             "bussiness": self.bussiness,
-                            "status": User.PENDIENTE
+                            "status": User.ACEPTADO
                         }
                         cur.execute(q,p)
                         self.connection.commit()
-                        self.id = cur.fetchone()[0]
-
+                        self.id = cur.fetchone()["id"]
                         return self.ShowSuccessMessage(str(self.id))
                     except Exception,e:
                         return self.ShowError("failed to save user {}, error:{}".format(self.email,str(e)))
@@ -517,7 +516,7 @@ class User(BaseModel):
                 }
                 cur.execute(q,p)
                 self.connection.commit()
-                self.id = cur.fetchone()[0]
+                self.id = cur.fetchone()["id"]
 
                 return self.ShowSuccessMessage(str(self.id))
 

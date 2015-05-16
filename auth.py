@@ -37,7 +37,7 @@ class UserRegistrationHandler(BaseHandler):
         ajax = self.get_argument("ajax", "false")
         user_id = int(self.get_argument("user_id",0))
 
-        print tos
+        # print tos
 
         if name == "":
             self.write(json_util.dumps({"error":"debe ingresar su nombre"}))
