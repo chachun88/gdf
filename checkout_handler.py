@@ -591,7 +591,7 @@ class CheckoutSendHandler(BaseHandler):
                                 name=despacho["name"].encode("utf-8"),
                                 address=despacho["address"].encode("utf-8"),
                                 town=despacho["town"],
-                                city=despacho["city"].encode("utf-8"),
+                                city=despacho["city"],
                                 country="",
                                 telephone=despacho["telephone"],
                                 email=despacho["email"])
