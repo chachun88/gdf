@@ -28,6 +28,7 @@ class AddAnonimousHandler(BaseHandler):
 
                 if not existe:
                     user.user_type = UserType.VISITA
+                    user.status = User.ACEPTADO
                     response_obj = user.Save()
                     self.write(json_util.dumps(response_obj))
                 else:
