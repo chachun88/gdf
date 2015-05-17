@@ -486,7 +486,7 @@ class User(BaseModel):
                             "type_id":tipo_usuario,
                             "rut": self.rut,
                             "bussiness": self.bussiness,
-                            "status": User.ACEPTADO
+                            "status": self.status
                         }
                         cur.execute(q,p)
                         self.connection.commit()
