@@ -265,12 +265,15 @@ class Product(BaseModel):
             q = '''\
                 select p.*,c.name as category from "Product" p 
                 inner join "Category" c on c.id = p.category_id 
-                inner join (select distinct on(product_sku) product_sku, 
-                                                            balance_units, 
-                                                            date 
-                            from "Kardex" 
-                            where cellar_id = %(cellar_id)s
-                            order by product_sku, date desc) k on k.product_sku = p.sku
+                inner join (select product_sku, sum(balance_units) from 
+                                (select distinct on(product_sku, size_id) product_sku, 
+                                                                        balance_units, 
+                                                                        date 
+                                        from "Kardex" 
+                                        where cellar_id = %(cellar_id)s
+                                        order by product_sku, size_id, date desc)
+                                group by product_sku
+                            ) k on k.product_sku = p.sku
                 where p.for_sale = 1 and k.balance_units > 0 and p.deleted = %(deleted)s
                 limit %(items)s offset %(offset)s'''
             p = {
@@ -471,15 +474,17 @@ class Product(BaseModel):
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''\
-            select count(1) as total_items from "Product" p 
-            inner join "Category" c on c.id = p.category_id 
-            inner join (select distinct on(product_sku) product_sku, 
-                                                        balance_units, 
-                                                        date 
-                        from "Kardex" 
-                        where cellar_id = %(cellar_id)s
-                        order by product_sku, date desc) k on k.product_sku = p.sku
-            where p.for_sale = 1 and k.balance_units > 0 and deleted = %(deleted)s'''
+            select count(1) from "Product" p 
+                inner join "Category" c on c.id = p.category_id 
+                inner join (select product_sku, sum(balance_units) from 
+                                (select distinct on(product_sku, size_id) product_sku, 
+                                                                        balance_units, 
+                                                                        date 
+                                        from "Kardex" 
+                                        where cellar_id = 5
+                                        order by product_sku, size_id, date desc) as t
+                                group by product_sku
+                            ) k on k.product_sku = p.sku '''
         p = {
             "cellar_id": cellar_id,
             "deleted": False
