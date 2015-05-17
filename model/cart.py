@@ -301,11 +301,9 @@ class Cart(BaseModel):
                     tc.product_id from "Temp_Cart" tc 
                     inner join "Product" p on tc.product_id = p.id 
                     inner join "Category" c on c.id = p.category_id 
-                    where tc.user_id = %(user_id)s limit %(limit)s offset %(offset)s'''
+                    where tc.user_id = %(user_id)s'''
             p = {
-                "user_id": self.user_id,
-                "limit": items,
-                "offset": offset
+                "user_id": self.user_id
             }
             cur.execute(q, p)
 
