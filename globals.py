@@ -74,7 +74,7 @@ elif enviroment == Enviroment.ONDEV:
     facebook_api_key = "839753546059058"
     facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
 
-    email_giani = "yi.neko@gmail.com"
+    email_giani = ["yi.neko@gmail.com", "julian@loadingplay.com"]
 
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.ondev/"
@@ -89,7 +89,7 @@ elif enviroment == Enviroment.ONTEST:
     facebook_api_key = "940357995998612"
     facebook_secret = "cf2e025731e33f686bc8c37493c7ee74"
 
-    email_giani = "contacto@gianidafirenze.cl"
+    email_giani = "yi.neko@gmail.com"
 
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
@@ -106,7 +106,7 @@ elif enviroment == Enviroment.PRODUCTION:
     facebook_api_key = "1067063349985852"
     facebook_secret = "bbf044ebf55c524f9791e0fb23db610e"
 
-    email_giani = "contacto@gianidafirenze.cl"
+    email_giani = ["contacto@gianidafirenze.cl", "julian@loadingplay.com"]
 
     project_path = "/var/www/gianidafirenze.cl/giani/"
     cgi_path = "/var/www/c.gianidafirenze.cl/cgiani.ondev/"
