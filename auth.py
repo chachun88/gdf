@@ -448,6 +448,7 @@ class EnterpriseRegistrationHandler(BaseHandler):
         user.user_type = UserType.EMPRESA
         user.bussiness = giro
         user.rut = rut
+        user.status = User.PENDIENTE
         res_save = user.Save()
 
         user_id = None
