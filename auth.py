@@ -88,7 +88,17 @@ class UserRegistrationHandler(BaseHandler):
             response_obj = user.Login( user.email, user.password )
 
             if "success" in response_obj:
+
                 self.set_secure_cookie( "user_giani", response_obj["success"] )
+
+                current_user_id = json_util.loads(response_obj["success"])["id"]
+
+                if user_id != current_user_id:
+
+                    cart = Cart()
+
+                    response = cart.MoveTempToLoggedUser(user_id,current_user_id)
+
                 self.write(json_util.dumps({"success":self.next}))
                 return
             else:
