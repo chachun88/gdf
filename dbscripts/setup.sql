@@ -1,0 +1,67 @@
+INSERT INTO "Category" (id, name, parent_id) VALUES (1, 'Botin', NULL);
+INSERT INTO "User_Types" VALUES (1, 'Vendedor');
+INSERT INTO "User_Types" VALUES (2, 'Administrador');
+INSERT INTO "User_Types" VALUES (3, 'Cliente');
+INSERT INTO "User_Types" VALUES (4, 'Cliente Mayorista');
+INSERT INTO "User_Types" VALUES (5, 'Visita');
+
+INSERT INTO "Contact_Types" (id, name) VALUES (1, 'Despacho');
+INSERT INTO "Contact_Types" (id, name) VALUES (2, 'Facturacion');
+INSERT INTO "Contact_Types" (id, name) VALUES (3, 'Default');
+
+INSERT INTO "Size" (name, id) VALUES ('35', 1);
+INSERT INTO "Size" (name, id) VALUES ('36', 2);
+INSERT INTO "Size" (name, id) VALUES ('37', 3);
+INSERT INTO "Size" (name, id) VALUES ('38', 4);
+INSERT INTO "Size" (name, id) VALUES ('39', 5);
+INSERT INTO "Size" (name, id) VALUES ('40', 6);
+
+INSERT INTO "City" (id, name) VALUES (1, 'Arica');
+INSERT INTO "City" (id, name) VALUES (2, 'Iquique');
+INSERT INTO "City" (id, name) VALUES (3, 'Santiago');
+INSERT INTO "City" (id, name) VALUES (4, 'Valdivia');
+INSERT INTO "City" (id, name) VALUES (5, 'Antofagasta');
+INSERT INTO "City" (id, name) VALUES (6, 'Talca');
+INSERT INTO "City" (id, name) VALUES (9, 'Concepción');
+INSERT INTO "City" (id, name) VALUES (10, 'Temuco');
+INSERT INTO "City" (id, name) VALUES (11, 'Punta Arenas');
+INSERT INTO "City" (id, name) VALUES (12, 'La Serena');
+INSERT INTO "City" (id, name) VALUES (13, 'Rancagua');
+INSERT INTO "City" (id, name) VALUES (14, 'Coquimbo');
+INSERT INTO "City" (id, name) VALUES (15, 'Copiapó');
+INSERT INTO "City" (id, name) VALUES (16, 'Valparaíso');
+INSERT INTO "City" (id, name) VALUES (19, 'Tarapacá');
+INSERT INTO "City" (id, name) VALUES (20, 'Chillán');
+INSERT INTO "City" (id, name) VALUES (21, 'Curicó');
+INSERT INTO "City" (id, name) VALUES (22, '');
+INSERT INTO "City" (id, name) VALUES (23, 'Arica DHSS');
+INSERT INTO "City" (id, name) VALUES (24, 'Arica DHS');
+INSERT INTO "City" (id, name) VALUES (25, 'Antofagasta Día Hábil Siguiente');
+INSERT INTO "City" (id, name) VALUES (26, 'Antofagasta Día Hábil Sub Siguiente');
+INSERT INTO "City" (id, name) VALUES (27, 'Arica Día Hábil Siguente');
+INSERT INTO "City" (id, name) VALUES (28, 'Arica Día Hábil Sub Siguiente');
+INSERT INTO "City" (id, name) VALUES (29, 'Copiapo');
+INSERT INTO "City" (id, name) VALUES (30, 'Ovalle');
+INSERT INTO "City" (id, name) VALUES (31, 'Valparaiso');
+INSERT INTO "City" (id, name) VALUES (32, 'San Antonio');
+INSERT INTO "City" (id, name) VALUES (33, 'Viña del Mar');
+INSERT INTO "City" (id, name) VALUES (34, 'San Fernando');
+INSERT INTO "City" (id, name) VALUES (35, 'Los Angeles');
+INSERT INTO "City" (id, name) VALUES (36, 'Osorno');
+INSERT INTO "City" (id, name) VALUES (37, 'Puerto Montt');
+INSERT INTO "City" (id, name) VALUES (38, 'Coyhaique');
+
+INSERT INTO "Cellar" (id, name, description, city_id, for_sale, reservation) VALUES (5, 'Bodega Central', 'asadadas', 3, 1, 0);
+INSERT INTO "Cellar" (id, name, description, city_id, for_sale, reservation) VALUES (12, 'bodega reserva', 'aqui quedan los productos reservados desde la web', 3, 0, 1);
+
+INSERT INTO "Product" (id, sku, description, brand, material, bullet_1, bullet_2, currency, images, image, image_2, image_3, price, category_id, bullet_3, manufacturer, name, color, upc, sell_price, which_size, delivery, for_sale, image_4, image_5, image_6, promotion_price, bulk_price, deleted) VALUES (113, 'GDF-OI14-Queltehue-C35', 'Color: azul café Capellada (material exterior): Cuero Forro (material interior): Cuero Plantilla: Cuero Planta (suela): Goma Taco: Goma Altura del Taco: 4,5 cm Estilo: Botín',     'Giani Da Firenze', '', '', '', NULL, NULL, '0_GDF-OI14-Queltehue-C35.png', '1_GDF-OI14-Queltehue-C35.png', '2_GDF-OI14-Queltehue-C35.png', 33558, 1, '', 'Calzur Ltda.', 'Queltehue C35', 'azul café', '', 69900, '', '', 1, '3_GDF-OI14-Queltehue-C35.png', '4_GDF-OI14-Queltehue-C35.png', '5_GDF-OI14-Queltehue-C35.png', 0, 1, false);
+INSERT INTO "Product_Size" (id, size_id, product_sku) VALUES (29, 1, 'GDF-OI14-Queltehue-C35');
+INSERT INTO "Product_Size" (id, size_id, product_sku) VALUES (30, 2, 'GDF-OI14-Queltehue-C35');
+INSERT INTO "Product_Size" (id, size_id, product_sku) VALUES (31, 3, 'GDF-OI14-Queltehue-C35');
+INSERT INTO "Product_Size" (id, size_id, product_sku) VALUES (32, 4, 'GDF-OI14-Queltehue-C35');
+INSERT INTO "Product_Size" (id, size_id, product_sku) VALUES (33, 6, 'GDF-OI14-Queltehue-C35');
+INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2771, 'GDF-OI14-Queltehue-C35', 10, 33558, 0, 5, 335580, 10, 33558, 335580, '2015-05-16 07:26:37.615266', 'yichun212@gmail.com', 'buy', 'azul café', 1);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (4714, '{}', 4, 'julian', 'julian@123456.cl', '0619180fa639db7598672caf15f0a74b', '{}', '', '138824578', 'particular', '2015-04-21 00:00:00', '2015-04-21 00:00:00', 2, '2015-04-21 01:39:08.510805', '2015-04-21 01:39:08.510805', 0);
+INSERT INTO "Contact" (id, name, email, address, telephone, type_id, zip_code, additional_info, lastname, user_id, town, country, rut, city_id) VALUES (114, 'julian', 'julian@loadingplay.com', 'Martin de zamora 4381', '+56997458921', 3, '7770008', '', 'larrea', 4714, 'Monte Patria, Coquimbo', '', '138824578', 3);
+INSERT INTO "Order" (id, date, type, subtotal, shipping, tax, total, items_quantity, products_quantity, user_id, billing_id, shipping_id, payment_type, source, voucher, state, tracking_code, provider_id) VALUES (400, '2015-05-17 21:56:14.390322', 1, 1, 2450, 0, 2451, 1, 1, 4714, 114, 114, 2, 'web', '', 2, NULL, NULL);
+INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, price) VALUES (435, 1, 1, 400, 113, '35', 1);

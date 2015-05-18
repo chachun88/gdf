@@ -353,6 +353,7 @@ class ExitoHandler(BaseHandler):
                     TBK_ID_SESION=TBK_ID_SESION,
                     TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
                     PATHSUBMIT=pathSubmit)
+                return
         else:
 
             self.render(
@@ -410,6 +411,10 @@ class ExitoHandler(BaseHandler):
             mes_transaccion = TBK_FECHA_TRANSACCION[:2]
             dia_transaccion = TBK_FECHA_TRANSACCION[2:]
 
+            # print order.date
+
+            # date_object = datetime.strptime('Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p')
+
             TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(
                                                 year=order.date.year,
                                                 mes=mes_transaccion,
@@ -451,6 +456,7 @@ class ExitoHandler(BaseHandler):
             }
 
         except Exception, e:
+
             self.render(
                         "beauty_error.html",
                         message="Error, {}"
@@ -1652,17 +1658,6 @@ class ExitoHandler(BaseHandler):
                     "beauty_error.html",
                     message="Error al enviar correo de confirmación, {}"
                             .format(msg))
-
-
-            # self.render("store/failure.html",
-            #             TBK_ID_SESION=TBK_ID_SESION,
-            #             TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
-            #             PATHSUBMIT=pathSubmit)
-
-        # self.render("store/success.html",
-        #               data=data,
-        #               pathSubmit=pathSubmit, 
-        #               webpay="si")
 
 
 class FracasoHandler(BaseHandler):
