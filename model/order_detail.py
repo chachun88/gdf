@@ -124,6 +124,9 @@ class OrderDetail(BaseModel):
 		except Exception,e:
 
 			return self.ShowError("Error saving order detail {}".format(str(e)))
+		finally:
+			cur.close()
+			self.connection.close()
 
 	def ListByOrderId(self, order_id, page=1, limit=20):
 
