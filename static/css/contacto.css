@@ -1,11 +1,12 @@
 .contenedor-contacto {
-    width: 100%;
-    float: left;
+    max-width: 1200px;
+    /* float: left; */
+    margin: 0 auto;
+    position: relative;
+    color: rgb(53, 52, 52);
+    font-weight: 100;
 }
 .contenedor-contacto-form {
-    width: 80%;
-    margin-left: 10%;
-    float: left;
 }
 .contacto-form {
     width: 100%;
@@ -66,7 +67,7 @@ color: #FFFFFF; }
 }
 
 .conditions-titulos h1, .conditions-titulos h2 {
-    margin-top: 20px;
+    /* margin-top: 20px; */
 }
 
 .user-direcciones {
