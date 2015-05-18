@@ -29,7 +29,7 @@ $(document).ready(function(){
 			var data = { "ajax":"true",
 						 "email":email,
 						 "password":password,
-						 "user_id":window.localStorage.getItem("user_id") };
+						 "user_id":window.localStorage.getItem("userid") };
 
 
 			$.ajax({ 
@@ -49,7 +49,7 @@ $(document).ready(function(){
 					if (rtn_pair["status"]!=undefined) {
 						if (rtn_pair["status"] == "ok") 
 						{
-							window.localStorage.setItem("user_id",rtn_pair["user_id"].toString());
+							window.localStorage.setItem("userid",rtn_pair["user_id"].toString());
 							window.parent.document.location.href = rtn_pair["next"];
 						}
 						else
@@ -81,8 +81,8 @@ $(document).ready(function(){
 		var tos = $("input[name=tos]:checked", tthis).val();
 		var user_id = 0;
 
-		if(window.localStorage.getItem("user_id")){
-			user_id = window.localStorage.getItem("user_id");
+		if(window.localStorage.getItem("userid")){
+			user_id = window.localStorage.getItem("userid");
 		}
 
 		if(name==""){
@@ -166,8 +166,8 @@ $(document).ready(function(){
 
 	$(".parent-link").click(function(evt){
 		evt.preventDefault();
-		var user_id = window.localStorage.getItem("user_id");
-		window.localStorage.setItem("user_id","0");
+		var user_id = window.localStorage.getItem("userid");
+		window.localStorage.setItem("userid","0");
 		var url = $(this).attr( "href" ) + "?user_id=" + user_id;
 		/*fancyAlert("se va al login de fb " + url);*/
 		window.parent.document.location.href = url;

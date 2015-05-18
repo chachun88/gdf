@@ -7,6 +7,7 @@ Created on 25/02/2013
 '''
 import tornado.web
 from tornado.options import options
+from lp.globals import Enviroment
 from globals import url_bodega, url_local, url_cgi
 import locale
 import os
@@ -30,7 +31,15 @@ class BaseHandler(tornado.web.RequestHandler):
         # lpsetCurrentLang("en", self)
 
     def get_current_user(self):
-        user_json = self.get_secure_cookie("user_giani")        
+        user_json = self.get_secure_cookie("user_giani")
+
+        if options["enviroment"] == Enviroment.ONTEST:
+            user_json = '''\
+                        {"status": 2, "bussiness": "", "name": "Yi Chun", "permissions_name": "modificar bodegas", "type_id": 6, "deleted": 0, "lastname": "Lin", "registration_date": {
+                        "$date": 1423067587141}, "approval_date": null, "email": "yichun212@gmail.com", "cellars_name": "Bodega Central,Bodega de prueba,bodega reserva", 
+                        "cellar_permissions": [13, 12, 5], "last_view": {"$date": 1423067587141}, "first_view": {"$date": 1423067587141}, "password": "698d51a19d8a121ce581499d7b701668", "id": 733, 
+                        "rut": "", "permissions": [4]}'''
+
         if user_json:
             return tornado.escape.json_decode(user_json)
         else:

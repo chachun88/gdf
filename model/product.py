@@ -255,7 +255,7 @@ class Product(BaseModel):
         self._bulk_price = value
     
 
-    def GetList(self, page=1, items=30):
+    def GetList(self, cellar_id, page=1, items=30):
 
         page = int(page)
         items = int(items)
@@ -265,11 +265,22 @@ class Product(BaseModel):
             q = '''\
                 select p.*,c.name as category from "Product" p 
                 inner join "Category" c on c.id = p.category_id 
-                where p.for_sale = 1 
+                inner join (select product_sku, sum(balance_units) as balance_units from 
+                                (select distinct on(product_sku, size_id) product_sku, 
+                                                                        balance_units, 
+                                                                        date 
+                                        from "Kardex" 
+                                        where cellar_id = %(cellar_id)s
+                                        order by product_sku, size_id, date desc, id desc) as t
+                                group by product_sku
+                            ) k on k.product_sku = p.sku
+                where p.for_sale = 1 and k.balance_units > 0 and p.deleted = %(deleted)s
                 limit %(items)s offset %(offset)s'''
             p = {
                 "items": items,
-                "offset": offset
+                "offset": offset,
+                "cellar_id": cellar_id,
+                "deleted": False
             }
             cur.execute(q, p)
             lista = cur.fetchall()
@@ -290,9 +301,11 @@ class Product(BaseModel):
                 inner join "Category" c on c.id = p.category_id 
                 inner join "Product_Size" ps on ps.product_sku = p.sku
                 inner join "Size" s on s.id = ps.size_id
-                where p.sku = %(sku)s group by p.id, c.name limit 1'''
+                where p.sku = %(sku)s and deleted = %(deleted)s
+                group by p.id, c.name limit 1'''
         p = {
-            "sku": sku
+            "sku": sku,
+            "deleted": False
         }
         try:
             cur.execute(q, p)
@@ -341,9 +354,11 @@ class Product(BaseModel):
                 inner join "Category" c on c.id = p.category_id 
                 inner join "Product_Size" ps on ps.product_sku = p.sku
                 inner join "Size" s on s.id = ps.size_id
-                where p.id = %(id)s group by p.id, c.name limit 1'''
+                where p.id = %(id)s and deleted = %(deleted)s 
+                group by p.id, c.name limit 1'''
         p = {
-            "id": identifier
+            "id": identifier,
+            "deleted": False
         }
         try:
 
@@ -385,15 +400,26 @@ class Product(BaseModel):
             cur.close()
             self.connection.close()
 
-    def GetCombinations(self, name):
+    def GetCombinations(self, id_bodega, name):
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''select p.*,c.name as category from "Product" p 
             inner join "Category" c on c.id = p.category_id 
-            where p.name like %(name)s and p.for_sale = 1 limit 4'''
+            inner join (select product_sku, sum(balance_units) AS balance_units from
+                            (select distinct on(product_sku, size_id) product_sku,
+                                                                    balance_units,
+                                                                    date
+                                    from "Kardex"
+                                    where cellar_id = %(cellar_id)s
+                                    order by product_sku, size_id, date desc, id desc) as t
+                            group by product_sku
+                        ) k on k.product_sku = p.sku
+            where p.name like %(name)s and p.for_sale = 1 and k.balance_units > 0 and deleted = %(deleted)s limit 4'''
         p = {
-            "name": "%" + name + "%"
+            "name": "%" + name + "%",
+            "cellar_id": id_bodega,
+            "deleted": False
         }
         try:
             cur.execute(q, p)
@@ -406,16 +432,40 @@ class Product(BaseModel):
             cur.close()
             self.connection.close()
 
-    def GetRandom(self):
+    def GetRandom(self, cellar_id, tags):
+
+        tags_id = []
+
+        for t in tags:
+            tags_id.append(t['tag_id'])
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''\
             SELECT p.*, c.name as category FROM "Product" p 
             inner join "Category" c on c.id = p.category_id 
-            where p.for_sale = 1 OFFSET random()*(select count(*) from "Product") - 4 LIMIT 4'''
+            inner join (select distinct on(product_id) * from "Tag_Product") tp on tp.product_id = p.id
+            inner join (select product_sku, sum(balance_units) AS balance_units from
+                            (select distinct on(product_sku, size_id) product_sku,
+                                                                    balance_units,
+                                                                    date
+                                    from "Kardex"
+                                    where cellar_id = %(cellar_id)s
+                                    order by product_sku, size_id, date desc, id desc) as t
+                            group by product_sku
+                        ) k on k.product_sku = p.sku
+            
+            where p.deleted = %(deleted)s and p.for_sale = 1 and k.balance_units > 0 and tag_id = any(%(tags_id)s) LIMIT 4'''
+        p = {
+            "cellar_id": cellar_id,
+            "deleted": False,
+            "tags_id": tags_id
+        }
+
+        # print cur.mogrify(q, p)
+
         try:
-            cur.execute(q)
+            cur.execute(q, p)
             randomized = cur.fetchall()
             return randomized
         except Exception, e:
@@ -425,13 +475,30 @@ class Product(BaseModel):
             cur.close()
             self.connection.close()
 
-    def GetItems(self):
+    def GetItems(self, cellar_id):
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''select count(*) as total_items from "Product" where for_sale = 1'''
+        q = '''\
+            select count(1) as total_items from "Product" p 
+                inner join "Category" c on c.id = p.category_id 
+                inner join (select product_sku, sum(balance_units) as balance_units from 
+                                (select distinct on(product_sku, size_id) product_sku, 
+                                                                        balance_units, 
+                                                                        date 
+                                        from "Kardex" 
+                                        where cellar_id = %(cellar_id)s
+                                        order by product_sku, size_id, date desc, id desc) as t
+                                group by product_sku
+                            ) k on k.product_sku = p.sku
+                where p.for_sale = 1 and k.balance_units > 0 and p.deleted = %(deleted)s'''
+        p = {
+            "cellar_id": cellar_id,
+            "deleted": False
+        }
         try:
-            cur.execute(q)
+            # print cur.mogrify(q, p)
+            cur.execute(q, p)
             total_items = cur.fetchone()["total_items"]
             return self.ShowSuccessMessage(total_items)
         except Exception, e:
@@ -450,10 +517,13 @@ class Product(BaseModel):
         where to_tsvector('spanish', p.name) @@ to_tsquery('spanish',%(name)s) 
         and to_tsvector('spanish', c.name) @@ to_tsquery('spanish',%(cat)s) 
         and to_tsvector('spanish', p.color) @@ to_tsquery('spanish', %(color)s) 
-        and p.for_sale = 1 group by p.id, c.name limit 1'''
+        and p.for_sale = 1 
+        and p.deleted = %(deleted)s
+        group by p.id, c.name limit 1'''
         p = {
             "name": name,
             "cat": cat,
+            "deleted": False,
             "color": color
         }
         try:
@@ -528,60 +598,75 @@ class Product(BaseModel):
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
-                    inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            size_id, 
-                            date desc) k on k.product_sku = p.sku
+                    inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s and size_id = any(%(sizes)s::int[])
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
                     where p.for_sale = 1
+                    and p.deleted = %(deleted)s
                     and k.balance_units > 0 
                    and tp.tag_id = any(%(categories)s::int[]) 
                    offset %(offset)s limit %(limit)s'''
-            p = {"categories": categories,
-                 "sizes": sizes,
-                 "limit": limit,
-                 "offset": offset,
-                 "cellar_id": cellar_id}
+            p = {
+                "categories": categories,
+                "sizes": sizes,
+                "limit": limit,
+                "offset": offset,
+                "cellar_id": cellar_id,
+                "deleted": False
+            }
 
         elif len(sizes) > 0:
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
-                    inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
-                            order by product_sku,
-                            date desc) k on k.product_sku = p.sku
+                    inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s and size_id = any(%(sizes)s::int[])
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
                     where p.for_sale = 1
+                    and deleted = %(deleted)s
                     and k.balance_units > 0 
                    offset %(offset)s limit %(limit)s'''
             p = {"sizes": sizes,
                  "limit": limit,
                  "offset": offset,
-                 "cellar_id": cellar_id}
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         else:
-            q = '''select p.*,c.name as category from "Product" p 
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
-                   inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])
+                   inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
+                   where p.for_sale = 1 
+                   and tp.tag_id = any(%(categories)s::int[]) 
+                   and k.balance_units > 0
+                   and p.deleted = %(deleted)s
                    offset %(offset)s limit %(limit)s'''
             p = {"categories": categories,
                  "limit": limit,
                  "offset": offset,
-                 "cellar_id": cellar_id}
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         try:
             # print cur.mogrify(q,p)
@@ -600,53 +685,73 @@ class Product(BaseModel):
             cursor_factory=psycopg2.extras.RealDictCursor)
 
         if len(categories) > 0 and len(sizes) > 0:
-            q = '''select count(1) as items from "Product" p 
-                   inner join "Category" c on c.id = p.category_id
-                   inner join "Tag_Product" tp on tp.product_id = p.id
-                   inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            size_id, 
-                            date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])'''
-            p = {"categories": categories, "sizes": sizes}
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
+                    inner join "Category" c on c.id = p.category_id
+                    inner join "Tag_Product" tp on tp.product_id = p.id
+                    inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s and size_id = any(%(sizes)s::int[])
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
+                    where p.for_sale = 1
+                    and p.deleted = %(deleted)s
+                    and k.balance_units > 0 
+                   and tp.tag_id = any(%(categories)s::int[])'''
+            p = {
+                "categories": categories,
+                "sizes": sizes,
+                "cellar_id": cellar_id,
+                "deleted": False
+            }
 
         elif len(sizes) > 0:
-            q = '''select count(1) as items from "Product" p 
-                   inner join "Category" c on c.id = p.category_id
-                   inner join "Tag_Product" tp on tp.product_id = p.id
-                   inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            size_id, 
-                            date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1'''
-            p = {"sizes": sizes}
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
+                    inner join "Category" c on c.id = p.category_id
+                    inner join "Tag_Product" tp on tp.product_id = p.id
+                    inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s and size_id = any(%(sizes)s::int[])
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
+                    where p.for_sale = 1
+                    and deleted = %(deleted)s
+                    and k.balance_units > 0 '''
+            p = {"sizes": sizes,
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         else:
-            q = '''select count(1) as items from "Product" p 
+            q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
-                   inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            size_id, 
-                            date desc) k on k.product_sku = p.sku
-                   where p.for_sale = 1 and tp.tag_id = any(%(categories)s::int[])'''
-            p = {"categories": categories}
+                   inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
+                   where p.for_sale = 1 
+                   and tp.tag_id = any(%(categories)s::int[]) 
+                   and k.balance_units > 0
+                   and p.deleted = %(deleted)s'''
+
+            p = {"categories": categories,
+                 "cellar_id": cellar_id,
+                 "deleted": False}
 
         try:
             cur.execute(q, p)
-            items = cur.fetchone()["items"]
-            return self.ShowSuccessMessage(items)
+            return self.ShowSuccessMessage(cur.rowcount)
         except Exception, e:
             return self.ShowError(str(e))

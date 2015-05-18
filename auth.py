@@ -37,7 +37,7 @@ class UserRegistrationHandler(BaseHandler):
         ajax = self.get_argument("ajax", "false")
         user_id = int(self.get_argument("user_id",0))
 
-        print tos
+        # print tos
 
         if name == "":
             self.write(json_util.dumps({"error":"debe ingresar su nombre"}))
@@ -63,7 +63,7 @@ class UserRegistrationHandler(BaseHandler):
                     self.write(json_util.dumps({"error":"ya existe un usuario registrado con este email"}))
                     return
             else:
-                self.write(json_util.dumps({"error":"se ha producido un error"}))
+                self.write(json_util.dumps({"error":"se ha producido un error {}".format(response['error'])}))
                 return
 
             # perform login
@@ -72,10 +72,14 @@ class UserRegistrationHandler(BaseHandler):
             user.name = name
             user.email = email
             user.password = password
-            user.user_type = 'Cliente'
+            user.user_type = UserType.CLIENTE
+            user.status = User.ACEPTADO
 
             if user_id != 0:
-                user.id = user_id
+                existe = User().Exist('', user_id)
+                if "success" in existe:
+                    if existe["success"]:
+                        user.id = user_id
 
             user.Save()
 
@@ -84,12 +88,26 @@ class UserRegistrationHandler(BaseHandler):
             response_obj = user.Login( user.email, user.password )
 
             if "success" in response_obj:
-                self.set_secure_cookie( "user_giani", response_obj["success"] )
+
+                self.set_secure_cookie( "user_giani", response_obj["success"], expires_days=None )
+
+                current_user_id = json_util.loads(response_obj["success"])["id"]
+
+                if user_id != current_user_id:
+
+                    cart = Cart()
+
+                    response = cart.MoveTempToLoggedUser(user_id,current_user_id)
+
                 self.write(json_util.dumps({"success":self.next}))
+                return
+            else:
+                self.write(json_util.dumps({"error": str(response_obj)}))
+                return
 
             # redirect is the request isn't aajx
             if ajax == "false":
-                self.set_secure_cookie( "user_giani", response_obj["success"] )
+                self.set_secure_cookie( "user_giani", response_obj["success"], expires_days=None )
                 self.write(json_util.dumps({"success":self.next}))
 
 
@@ -125,7 +143,7 @@ class AuthHandler(BaseHandler):
 
             if "success" in response_obj:
 
-                self.set_secure_cookie( "user_giani", response_obj["success"] )
+                self.set_secure_cookie( "user_giani", response_obj["success"], expires_days=None )
 
                 current_user_id = json_util.loads(response_obj["success"])["id"]
 
@@ -236,7 +254,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                     if "error" in response:
                         print "Error moving cart detail: {}".format(response["error"])
 
-            self.set_secure_cookie("user_giani", response_obj["success"])
+            self.set_secure_cookie("user_giani", response_obj["success"], expires_days=None)
 
             self.redirect( self.next )
 
@@ -430,6 +448,7 @@ class EnterpriseRegistrationHandler(BaseHandler):
         user.user_type = UserType.EMPRESA
         user.bussiness = giro
         user.rut = rut
+        user.status = User.PENDIENTE
         res_save = user.Save()
 
         user_id = None
@@ -439,13 +458,13 @@ class EnterpriseRegistrationHandler(BaseHandler):
         else:
             user_id = res_save["success"]
 
-        contact = Contact()
-        contact.town = "{}, {}".format(comuna.encode("utf-8"),region.encode("utf-8")) 
-        contact.address = direccion
-        contact.user_id = user_id
-        contact.city = None
+            contact = Contact()
+            contact.town = "{}, {}".format(comuna.encode("utf-8"),region.encode("utf-8")) 
+            contact.address = direccion
+            contact.user_id = user_id
+            contact.city = None
 
-        self.write(json_util.dumps(contact.Save()))
+            self.write(json_util.dumps(contact.Save()))
 
 
 class EnterpriseLoginHandler(BaseHandler):
@@ -464,7 +483,7 @@ class EnterpriseLoginHandler(BaseHandler):
         res_login = user.enterpriseLogin(rut, password)
 
         if "success" in res_login:
-            self.set_secure_cookie( "user_giani", res_login["success"] )
+            self.set_secure_cookie( "user_giani", res_login["success"], expires_days=None )
             self.write(json_util.dumps({"success":self.request.headers.get('Referer')}))
         else:
             self.write(json_util.dumps(res_login))

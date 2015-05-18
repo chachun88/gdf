@@ -44,6 +44,10 @@ cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
 
 sendgrid_user = 'nailuj41'
 sendgrid_pass = 'Equipo_2112'
+dir_image = 'uploads/images/'
+
+email_giani = 'contacto@gianidafirenze.cl'
+to_giani = ['contacto@gianidafirenze.cl']
 
 if enviroment == Enviroment.LOCAL:
 
@@ -57,10 +61,13 @@ if enviroment == Enviroment.LOCAL:
     facebook_api_key = "839778829389863"
     facebook_secret = "5e533cd56091707c73e88c2113ffb13d"
 
-    email_giani = "yi.neko@gmail.com"
-
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.ondev/"
+    dir_image = '../bodegas/uploads/images/'
+
+    to_giani = ['yichun212@gmail.com']
+
+    debugMode = True
 
 elif enviroment == Enviroment.ONDEV:
     debugMode = False
@@ -72,10 +79,10 @@ elif enviroment == Enviroment.ONDEV:
     facebook_api_key = "839753546059058"
     facebook_secret = "26bbd6af2dad046a3dd17b14ab81da67"
 
-    email_giani = "yi.neko@gmail.com"
-
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.ondev/"
+    dir_image = '../bgiani.ondev/uploads/images/'
+    to_giani = ['yichun212@gmail.com', 'julian@loadingplay.com']
 
 elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
@@ -86,10 +93,10 @@ elif enviroment == Enviroment.ONTEST:
     facebook_api_key = "940357995998612"
     facebook_secret = "cf2e025731e33f686bc8c37493c7ee74"
 
-    email_giani = "contacto@gianidafirenze.cl"
-
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
+    dir_image = '/var/www/bgiani.ondev/uploads/images/'
+    to_giani = ['yichun212@gmail.com']
 
 
 elif enviroment == Enviroment.PRODUCTION:
@@ -102,10 +109,12 @@ elif enviroment == Enviroment.PRODUCTION:
     facebook_api_key = "1067063349985852"
     facebook_secret = "bbf044ebf55c524f9791e0fb23db610e"
 
-    email_giani = "contacto@gianidafirenze.cl"
-
     project_path = "/var/www/gianidafirenze.cl/giani/"
     cgi_path = "/var/www/c.gianidafirenze.cl/cgiani.ondev/"
+    dir_image = '../bodegas/uploads/images/'
+
+    to_giani = ['contacto@gianidafirenze.cl','julian@loadingplay.com']
+
 
 
 define("facebook_api_key", help="your Facebook application API key", default=facebook_api_key)

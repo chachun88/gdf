@@ -43,14 +43,14 @@ var GetCartByUserId = function(){
 
     if(Storage !== "undefined") {
 
-        if(!window.localStorage.getItem("user_id")){
-            window.localStorage.setItem("user_id","0");
+        if(!window.localStorage.getItem("userid")){
+            window.localStorage.setItem("userid","0");
         } else {
 
             $.ajax({
                 cache: false,
                 url:"/cart/getbyuserid",
-                data:"user_id="+window.localStorage.getItem("user_id"),
+                data:"user_id="+window.localStorage.getItem("userid"),
                 success: function(html){
                     if(html.indexOf("error") > -1 )
                         fancyAlert("Se produjo un error al intentar obtener el carro de compra");
@@ -160,7 +160,7 @@ var votar = function(product_id){
         $.ajax({
             url:"/store/voteproduct",
             cache: false,
-            data: "product_id="+product_id+"&user_id="+window.localStorage.getItem("user_id"),
+            data: "product_id="+product_id+"&user_id="+window.localStorage.getItem("userid"),
             success: function(html){
                 response = $.parseJSON(html)
                 if(response.error){
@@ -178,7 +178,7 @@ var ifvoted = function(product_id){
     $.ajax({
         url:"/store/product/ifvoted",
         cache: false,
-        data: "product_id="+product_id+"&user_id="+window.localStorage.getItem("user_id"),
+        data: "product_id="+product_id+"&user_id="+window.localStorage.getItem("userid"),
         success: function(html){
             response = $.parseJSON(html)
             if(response.success){
@@ -225,7 +225,7 @@ var checkStock = function(){
 
     $.ajax({
         url: "/checkout/checkstock",
-        data: "user_id=" + window.localStorage.getItem("user_id"),
+        data: "user_id=" + window.localStorage.getItem("userid"),
         dataType: "json",
         type: "get",
         async: false,

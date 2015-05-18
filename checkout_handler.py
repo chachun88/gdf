@@ -26,11 +26,13 @@ from bson import json_util
 import sendgrid
 from globals import url_local, \
                     email_giani, \
+                    to_giani, \
                     shipping_cellar, \
                     cellar_id, \
                     debugMode, \
                     sendgrid_pass, \
-                    sendgrid_user
+                    sendgrid_user, \
+                    dir_image
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -393,7 +395,7 @@ class CheckoutOrderHandler(BaseHandler):
 class CheckoutSendHandler(BaseHandler):
 
     @tornado.web.authenticated
-    def get(self):
+    def post(self):
 
         id_bodega = cellar_id
         cellar = Cellar()
@@ -406,21 +408,20 @@ class CheckoutSendHandler(BaseHandler):
 
         lista = cart.GetCartByUserId()
 
-        if len(lista) <= 0:
-                self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
-
         final_name = ""
+
+        # print self.request.files
 
         if "image" in self.request.files:
 
             imagedata = self.request.files['image'][0]
 
             final_name = "{filename}.{extension}".format(filename=uuid.uuid4(),extension="png")
-            # final_name = "{}_{}.png".format( image_number, sku )
+            print final_name
 
             try:
                 # fn = imagedata["filename"]
-                file_path = 'uploads/images/' + final_name
+                file_path = dir_image + final_name
 
                 open(file_path, 'wb').write(imagedata["body"])
             except Exception, e:
@@ -525,6 +526,7 @@ class CheckoutSendHandler(BaseHandler):
                     else:
                         self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
 
+                    # print facturacion["city"]
                     datos_facturacion = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -553,9 +555,9 @@ class CheckoutSendHandler(BaseHandler):
                     </table>
                     """.format( order_id=order.id,
                                 name=facturacion["name"].encode("utf-8"),
-                                address=facturacion["address"].encode("utf-8"),
+                                address=facturacion["address"],
                                 town=facturacion["town"],
-                                city=facturacion["city"].encode("utf-8"),
+                                city=facturacion["city"],
                                 country="",
                                 telephone=facturacion["telephone"],
                                 email=facturacion["email"])
@@ -588,9 +590,9 @@ class CheckoutSendHandler(BaseHandler):
                     </table>
                     """.format( order_id=order.id,
                                 name=despacho["name"].encode("utf-8"),
-                                address=despacho["address"].encode("utf-8"),
+                                address=despacho["address"],
                                 town=despacho["town"],
-                                city=despacho["city"].encode("utf-8"),
+                                city=despacho["city"],
                                 country="",
                                 telephone=despacho["telephone"],
                                 email=despacho["email"])
@@ -672,7 +674,7 @@ class CheckoutSendHandler(BaseHandler):
                                 datos_facturacion=datos_facturacion,
                                 datos_despacho=datos_despacho,
                                 detalle_orden=detalle_orden,
-                                order_total=self.money_format(order.total+order.shipping),
+                                order_total=self.money_format(order.total),
                                 order_subtotal=self.money_format(order.subtotal),
                                 order_shipping=self.money_format(order.shipping),
                                 url_local=url_local)
@@ -687,8 +689,105 @@ class CheckoutSendHandler(BaseHandler):
                     message.set_html(html)
                     status, msg = sg.send(message)
 
-                    if status == 200:
-                        for l in lista:
+                    html = """\
+                    <!DOCTYPE html>
+                    <html>
+                    <head>
+                        <title></title>
+                    </head>
+                    <body style="text-align:center; font-family:Arial; width:100%; margin: 0px;">
+                        <div style="">
+                            <div style="background-color:rgb(239, 239, 239); height:100px;padding-top:10px;">
+                                <img style="display:block;margin:0 auto;max-height:90px;" src="{url_local}/static/img/giani-logo-2-gris-260x119.png" />
+                            </div>
+                                <p style="margin:0px;font-family: Arial;color:#999;font-size:16px;text-align: left;padding: 24px 13px 0 27px;">
+                                    Ha llegado un pedido de {name}
+                                </p>
+
+                            <p style="margin:0 0 20px 0; font-family:Arial; color:#999;font-size:12px;text-align: left;padding: 5px 13px 0 27px"></p>
+
+
+                            {datos_facturacion}
+                            {datos_despacho}
+
+                            <table cellspacing=0 style="width:80%; margin:10px auto; background:#efefef;color:#999999;-webkit-text-stroke: 1px transparent;font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+
+                                <tr>
+                                    <th colspan=2 style="line-height: 2.5;height: 30px; border: 1px;border-color: #d6d6d6; border-style: solid; text-align: center;">Datos compra</th>
+                                </tr>
+                            </table>
+                            <table cellspacing=0 style="width:80%; margin:10px auto; background:#efefef;color:#999999;-webkit-text-stroke: 1px transparent;font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
+                                <tr>
+                                    <th style="border: 1px solid #d6d6d6;line-height: 2.5;">Cantidad</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Nombre producto</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Color</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Talla</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Precio</th>
+                                    <th style="border-top: 1px solid #d6d6d6;line-height: 2.5;border-right: 1px solid #d6d6d6;border-bottom: 1px solid #d6d6d6; ">Subtotal</th>
+                                </tr>
+                                {detalle_orden}
+
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
+                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_subtotal}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de env&iacute;o</th>
+                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_shipping}</td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Total</th>
+                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_total}</td>
+                                </tr>
+                            </table>
+
+                            <table style="width:100%; height: 40px; background-color: rgb(255, 224, 218);">
+                                <tr>
+                                    <td colspan=2   style="padding: 24px;background-color:rgb(255, 224, 218);width:100%"><img style="display:block;margin:0 auto 0 auto;" src="" /></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </body>
+                    </html> 
+                    """.format( name=self.current_user["name"],
+                                order_id=order.id,
+                                datos_facturacion=datos_facturacion,
+                                datos_despacho=datos_despacho,
+                                detalle_orden=detalle_orden,
+                                order_total=self.money_format(order.total),
+                                order_subtotal=self.money_format(order.subtotal),
+                                order_shipping=self.money_format(order.shipping),
+                                url_local=url_local)
+
+                    sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+                    message = sendgrid.Mail()
+                    message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail=self.current_user["email"]))
+                    message.add_to(to_giani)
+                    message.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
+                    message.set_html(html)
+                    estado, mensaje = sg.send(message)
+
+                    cart = Cart()
+                    cart.user_id = self.current_user["id"]
+
+                    carro = cart.GetCartByUserId()
+
+                    for l in lista:
+
+                        if len(carro) > 0:
+
                             cart.id = l["id"]
                             cart.Remove()
 
@@ -742,6 +841,7 @@ class CheckoutSendHandler(BaseHandler):
                             elif debugMode:
                                 print response["error"]
 
+                    if status == 200:
                         self.render( "store/success.html",webpay="no" )
                     else:
                         self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))

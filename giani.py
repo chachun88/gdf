@@ -5,7 +5,7 @@ import os
 import tornado.httpserver
 import tornado.web
 
-from tornado.options import options
+from tornado.options import options, define
 
 import home_handler
 import store_handler
@@ -18,6 +18,17 @@ import server_handler
 import others_handler
 import profile_handler
 
+from config import *
+from lp.globals import *
+
+if "enviroment" not in options:
+
+    define("enviroment", default=enviroment, type=str)
+    define("db_name", default=DB_NAME, help="", type=str)
+    define("db_user", default=DB_USER, help="", type=str)
+    define("db_host", default=DB_HOST, help="", type=str)
+    define("db_password", default=DB_PASSWORD, help="", type=str)
+
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -26,7 +37,7 @@ class Application(tornado.web.Application):
             blog_title=u"Giani Da Firenze",
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            cookie_secret="12oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
+            cookie_secret="12oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/o=",
             facebook_api_key=options.facebook_api_key,
             facebook_secret=options.facebook_secret,
             login_url="/auth/login",
@@ -34,7 +45,7 @@ class Application(tornado.web.Application):
             debug=True,
             xsrf_cookies=False
         )
-        
+
         handlers = [
             (r"/", home_handler.HomeHandler),  # home
             (r"/store", store_handler.IndexHandler),  # home de la tienda
@@ -96,7 +107,7 @@ class Application(tornado.web.Application):
             (r"/user", others_handler.UserHandler),
             (r"/sitemap.xml()", tornado.web.StaticFileHandler, {'path':settings['static_path']+"/sitemap.xml"})
         ]
-        
+
         tornado.web.Application.__init__(self, handlers, **settings) 
 
 

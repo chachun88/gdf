@@ -28,7 +28,7 @@ $(document).ready(function(){
 
     $("a.logout").click(function(){
         if(typeof(Storage) !== "undefined") {
-            window.localStorage.setItem("user_id","0");
+            window.localStorage.setItem("userid","0");
         }
     });
 
@@ -63,7 +63,7 @@ $(document).ready(function(){
                 if(html=="ok"){
                     //fancyAlert("Producto ha sido eliminado del carro");
                     if(from_cart){
-                        GetCartByUserId(window.localStorage.getItem("user_id"));
+                        GetCartByUserId(window.localStorage.getItem("userid"));
                     } else {
                         location.reload();
                     }
@@ -110,7 +110,7 @@ $(document).ready(function(){
     }
 
     if($("#user_id").length>0){
-        $("#user_id").val(window.localStorage.getItem("user_id"));
+        $("#user_id").val(window.localStorage.getItem("userid"));
     }
 
     $(document).on("click",".loginfb",function(e){
@@ -179,25 +179,25 @@ $(document).ready(function(){
 
     if(typeof(Storage) !== "undefined") {
 
-        if(!window.localStorage.getItem("user_id")){
-            window.localStorage.setItem("user_id","0");
+        if(!window.localStorage.getItem("userid")){
+            window.localStorage.setItem("userid","0");
         } else {
 
             $.ajax({
                 url: '/user/save-guess',
                 cache: false,
                 async: false,
-                data: "user_id="+window.localStorage.getItem("user_id"),
+                data: "user_id="+window.localStorage.getItem("userid"),
                 success: function(html){
                     var objeto = $.parseJSON(html);
                     if(objeto["success"]){
-                        window.localStorage.setItem("user_id",objeto["success"].toString());
+                        window.localStorage.setItem("userid",objeto["success"].toString());
                     }
                 }
             });
         }
 
-        GetCartByUserId(window.localStorage.getItem("user_id"));
+        GetCartByUserId(window.localStorage.getItem("userid"));
     }
 
 

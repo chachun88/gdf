@@ -22,16 +22,23 @@ from model.size import Size
 class IndexHandler(BaseHandler):
 
     def get(self):
+        cellar = Cellar()
+        res_web = cellar.GetWebCellar()
+        cellar_id = None
+
+        if "success" in res_web:
+            cellar_id = res_web["success"]
+
         product = Product()
         page = int(self.get_argument("page","1"))
         ajax = int(self.get_argument("ajax",0))
-        lista = product.GetList(page,16)
+        lista = product.GetList(cellar_id, page, 16)
 
         items = 0
         tags = {}
         tallas = []
 
-        response = product.GetItems()
+        response = product.GetItems(cellar_id)
         if "success" in response:
             items = response["success"]
 
@@ -119,19 +126,24 @@ class ProductHandler(BaseHandler):
                 elif debugMode:
                     print response_obj["error"]
 
-            prod.size = tallas_disponibles
+            prod.size = tallas_disponibles[::-1]
 
             vote = Vote()
 
             res = vote.GetVotes(prod.id)
             votos = 0
 
-            prod_name = prod.sku.split("-")[-2]
+            prod_name = prod.name
 
             # print "prod_name:{}".format(prod_name)
 
-            combinaciones = prod.GetCombinations(prod_name)
-            relacionados = prod.GetRandom()
+            combinaciones = prod.GetCombinations(id_bodega, prod_name)
+
+            tag = Tag()
+            res_tags = tag.GetTagsByProductId(prod.id)
+
+            if "success" in res_tags:
+                relacionados = prod.GetRandom(id_bodega, res_tags["success"])
 
             if "success" in res:
                 votos = res["success"]
@@ -185,6 +197,9 @@ class AddToCartHandler(BaseHandler):
                 cart.date = datetime.now()
                 cart.subtotal = subtotal
                 cart.user_id = self.get_argument("user_id",-1)
+
+                if self.current_user:
+                    cart.user_id = self.current_user["id"]
 
                 response_obj = cart.Save()
 
@@ -283,6 +298,15 @@ class GetVotesHandler(BaseHandler):
 class GetProductsByTagsHandler(BaseHandler):
 
     def get(self,tags=""):
+
+        cellar_id = None
+
+        cellar = Cellar()
+        res_web = cellar.GetWebCellar()
+
+        if "success" in res_web:
+            cellar_id = res_web["success"]
+
         page = int(self.get_argument("page","1"))
         ajax = int(self.get_argument("ajax",0))
 
@@ -296,12 +320,12 @@ class GetProductsByTagsHandler(BaseHandler):
 
         tag = Tag()
 
-        res = tag.GetItemsByTags(tags_arr)
+        res = tag.GetItemsByTags(cellar_id, tags_arr)
 
         if "success" in res:
             items = int(res["success"])
 
-        res = tag.GetProductsByTags(tags_arr,page,15)
+        res = tag.GetProductsByTags(cellar_id, tags_arr,page,15)
 
         tags_visibles = tag.ListVisibleTags()
 
@@ -375,7 +399,8 @@ class FilterHandler(BaseHandler):
             self.write(self.render_string(
                 "store/ajax_productos.html",
                 data=res["success"],
-                items=items,page=page,
+                items=items,
+                page=page,
                 canonical_url=self.canonical_url,
                 url_bodega=url_bodega,
                 money_format=self.money_format))

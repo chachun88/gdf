@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 
+from lp.model.basemodel import BaseModel as lp_model
 from basemodel import BaseModel
 # from salesmanpermission import SalesmanPermission
 # from bson.objectid import ObjectId
@@ -12,6 +13,7 @@ import random
 import hashlib
 
 from bson import json_util
+from lp.globals import enviroment, Enviroment
 
 
 class UserType(object):
@@ -171,12 +173,9 @@ class User(BaseModel):
         # return False
 
         m = hashlib.md5()
-
         m.update(password)
-
         password = m.hexdigest()
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''\
             select u.*, 
                 STRING_AGG(distinct p.name, ',') as permissions_name, 
@@ -186,25 +185,45 @@ class User(BaseModel):
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
             where u.email = %(email)s and 
                 u.password = %(password)s and
-                u.status = %(status)s 
-                u.type_id = %(user_type)s
+                u.status = %(status)s and
+                (u.type_id = %(user_type)s or u.type_id = %(user_type_visita)s)
             group by u.id limit 1'''
+
         p = {
             "email":username,
             "password":password,
             "status": self.ACEPTADO,
-            "user_type": UserType.CLIENTE
+            "user_type": self.getUserTypeID(UserType.CLIENTE),
+            "user_type_visita": self.getUserTypeID(UserType.VISITA)
         }
+
         try:
             # print curs.mogrify( q, p )
-            cur.execute(q,p)
-            user = cur.fetchone()
-            if cur.rowcount > 0:
+            user = lp_model.execute_query(q, p)
+
+            if len(user) > 0:
+                user = user[0]
+
+                try:
+                    query = '''update "User" set last_view = current_date where id = %(identifier)s'''
+                    params = {
+                        "identifier": user['id']
+                    }
+                    lp_model.execute_query_real(query, params)
+                except Exception, e:
+                    pass
+
                 return self.ShowSuccessMessage(json_util.dumps(user))
             else:
-                return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder")
+                return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder".format(lp_model.mogrify(q,p)))
         except Exception,e:
             return self.ShowError("cannot login user: {}".format(str(e)))
+
+    def getUserTypeID(self, user_type):
+
+        query = '''SELECT id FROM "User_Types" WHERE name = %(name)s'''
+        params = {"name" : user_type}
+        return lp_model.execute_query(query, params)[0]["id"]
 
     def InitByEmail(self, email):
 
@@ -281,14 +300,15 @@ class User(BaseModel):
             "id":idd
         }
         try:
+            # print cur.mogrify(q, p)
             cur.execute(q,p)
-            usuario = cur.fetchone()
-            if usuario:
+            if cur.rowcount > 0:
+                usuario = cur.fetchone()
                 return usuario
             else:
-                return self.ShowError("user : " + idd + " not found")
+                return self.ShowError("user : {} not found".format(idd))
         except:
-            return self.ShowError("user : " + idd + " not found")
+            return self.ShowError("user : {} not found".format(idd))
 
     def GetPermissions(self):
         return self._permissions.FindPermissions(self.id)
@@ -306,25 +326,47 @@ class User(BaseModel):
 
     def Save(self):
 
-        cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         q = '''select id from "User_Types" where name = %(name)s'''
         p = {
             "name": self.user_type
         }
-        cur.execute(q,p)
-        tipo_usuario = cur.fetchone()[0]
+        try:
+            # print cur.mogrify(q, p)
+            cur.execute(q,p)
+            tipo_usuario = cur.fetchone()["id"]
+            self.connection.commit()
+        except Exception, e:
+            print "qqqq {}".format(str(e))
+        finally:
+            cur.close()
+            self.connection.close()
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         q = '''select id from "Permission" where name = any(%(permissions)s)'''
         p = {
             "permissions":self.permissions
         }
-        cur.execute(q,p)
-        permisos = cur.fetchall()
 
-        if self.user_type != UserType.VISITA:          
+        try:
+            cur.execute(q,p)
+            permisos = cur.fetchall()
+        except Exception, e:
+            print str(e)
+        finally:
+            cur.close()
+            self.connection.close()
 
-            q = '''select * from "User" where email = %(email)s and type_id = %(type_id)s limit 1'''
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+        if self.user_type != UserType.VISITA:
+
+            q = '''\
+                select * from "User" 
+                where email = %(email)s 
+                and type_id = %(type_id)s limit 1'''
             p = {
                 "email":self.email,
                 "type_id": tipo_usuario
@@ -335,6 +377,9 @@ class User(BaseModel):
                 usuario = cur.fetchone()
 
                 if cur.rowcount > 0:
+
+                    if self.user_type == UserType.EMPRESA:
+                        return self.ShowError("Su cuenta empresa ya está registrada, por favor inicie sesión o contáctese con nosotros")
 
                     self.id = usuario['id']
 
@@ -454,12 +499,11 @@ class User(BaseModel):
                             "type_id":tipo_usuario,
                             "rut": self.rut,
                             "bussiness": self.bussiness,
-                            "status": User.PENDIENTE
+                            "status": self.status
                         }
                         cur.execute(q,p)
                         self.connection.commit()
-                        self.id = cur.fetchone()[0]
-
+                        self.id = cur.fetchone()["id"]
                         return self.ShowSuccessMessage(str(self.id))
                     except Exception,e:
                         return self.ShowError("failed to save user {}, error:{}".format(self.email,str(e)))
@@ -505,7 +549,7 @@ class User(BaseModel):
                 }
                 cur.execute(q,p)
                 self.connection.commit()
-                self.id = cur.fetchone()[0]
+                self.id = cur.fetchone()["id"]
 
                 return self.ShowSuccessMessage(str(self.id))
 
@@ -532,45 +576,62 @@ class User(BaseModel):
             lista = cur.fetchall()
             return lista
         except Exception,e:
-            print str(e)
             return {}
 
-    def Exist(self, email='',id=0):
+    def Exist(self, email='', _id=0):
 
-        try:
+
+        if email != "":
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-            if email != "":
+            q = '''select count(*) as cnt from "User" where email = %(email)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
 
-                q = '''select count(*) as cnt from "User" where email = %(email)s'''
+            p = { 
+                "email" : email,
+                "user_type": self.getUserTypeID(UserType.CLIENTE),
+                "user_type_visita": self.getUserTypeID(UserType.VISITA)
+            }
 
-                p = { "email" : email }
-
+            try:
                 cur.execute( q, p )
-
                 data = cur.fetchone()
-
                 if data["cnt"] > 0:
                     return self.ShowSuccessMessage(True)
+                else:
+                    return self.ShowSuccessMessage(False)
+            except Exception, e:
+                print "exists, {}".format(str(e))
+                return self.ShowError(str(e))
+            finally:
+                cur.close()
+                self.connection.close()
 
-            if id != 0:
+        if _id != 0:
 
-                q = '''select count(*) as cnt from "User" where id = %(id)s'''
-                p = { "id":id }
+            cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-                try:
-                    cur.execute(q,p)
-                    data = cur.fetchone()
-                    if data["cnt"] > 0:
-                        return self.ShowSuccessMessage(True)
-                except Exception,e:
-                    self.ShowError(str(e))
+            q = '''select count(*) as cnt from "User" where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s'''
+            p = { 
+                "id": _id,
+                "user_type": self.getUserTypeID(UserType.CLIENTE),
+                "user_type_visita": self.getUserTypeID(UserType.VISITA)
+            }
 
-            return self.ShowSuccessMessage(False)
+            try:
+                cur.execute(q,p)
+                data = cur.fetchone()
+                if data["cnt"] > 0:
+                    return self.ShowSuccessMessage(True)
+                else:
+                    return self.ShowSuccessMessage(False)
+            except Exception,e:
+                return self.ShowError(str(e))
+            finally:
+                cur.close()
+                self.connection.close()
 
-        except Exception, e:
-            return self.ShowError(str(e))
+        
 
     def RandomPass(self):
 
@@ -591,8 +652,14 @@ class User(BaseModel):
                 password = ""
                 user_id = ""
 
-                p = ''' select name, password, id from "User" where email = %(email)s '''
-                q = {"email": email}
+                p = ''' select name, password, id from "User" 
+                where email = %(email)s 
+                and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
+                q = {
+                    "email": email,
+                    "user_type": self.getUserTypeID(UserType.CLIENTE),
+                    "user_type_visita": self.getUserTypeID(UserType.VISITA)
+                }
 
                 cur = self.connection.cursor(  cursor_factory=psycopg2.extras.RealDictCursor )
 
@@ -626,8 +693,16 @@ class User(BaseModel):
     def ChangePassword(self, id, password):
         try:
 
-            p = ''' update "User" set password = %(password)s where id = %(id)s '''
-            q = { "id": id, "password" : password }
+            p = '''\
+                update "User" 
+                set password = %(password)s 
+                where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
+            q = { 
+                "id": id, 
+                "password" : password,
+                "user_type": self.getUserTypeID(UserType.CLIENTE),
+                "user_type_visita": self.getUserTypeID(UserType.VISITA)
+            }
 
             # c
 

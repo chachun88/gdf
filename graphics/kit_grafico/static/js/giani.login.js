@@ -29,7 +29,7 @@ $(document).ready(function(){
 			var data = { "ajax":"true",
 						 "email":email,
 						 "password":password,
-						 "user_id":localStorage.user_id };
+						 "user_id":localStorage.userid };
 
 			$.post( $( this ).attr( 'action' ), data, function(rtn){
 
@@ -37,7 +37,7 @@ $(document).ready(function(){
 
 				if (rtn_pair["status"] == "ok") 
 				{
-					localStorage.user_id = rtn_pair["user_id"];
+					localStorage.userid = rtn_pair["user_id"];
 					window.parent.document.location.href = rtn_pair["next"]; // TODO:poner aqui redirect a pagina anterior
 				}
 				else
@@ -64,8 +64,8 @@ $(document).ready(function(){
 		var tos = $("input[name=tos]", tthis).val();
 		var user_id = 0;
 
-		if(localStorage.user_id){
-			user_id = localStorage.user_id;
+		if(localStorage.userid){
+			user_id = localStorage.userid;
 		}
 
 		if(name==""){
@@ -120,8 +120,8 @@ $(document).ready(function(){
 
 	$(".parent-link").click(function(evt){
 		evt.preventDefault();
-		var user_id = localStorage.user_id;
-		localStorage.user_id = 0;
+		var user_id = localStorage.userid;
+		localStorage.userid = 0;
 		var url = $(this).attr( "href" ) + "?user_id=" + user_id;
 		/*fancyAlert("se va al login de fb " + url);*/
 		window.parent.document.location.href = url;
