@@ -26,6 +26,7 @@ from bson import json_util
 import sendgrid
 from globals import url_local, \
                     email_giani, \
+                    to_giani, \
                     shipping_cellar, \
                     cellar_id, \
                     debugMode, \
@@ -773,7 +774,7 @@ class CheckoutSendHandler(BaseHandler):
                     sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
                     message = sendgrid.Mail()
                     message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail=self.current_user["email"]))
-                    message.add_to(email_giani)
+                    message.add_to(to_giani)
                     message.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
                     message.set_html(html)
                     estado, mensaje = sg.send(message)

@@ -11,6 +11,7 @@ from datetime import datetime
 import urlparse
 
 from globals import email_giani, \
+                    to_giani, \
                     cellar_id, \
                     url_local, \
                     shipping_cellar, \
@@ -52,7 +53,7 @@ class ContactHandler(BaseHandler):
             sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
             mensaje = sendgrid.Mail()
             mensaje.set_from("{nombre} <{mail}>".format(nombre=name,mail=email))
-            mensaje.add_to(email_giani)
+            mensaje.add_to(to_giani)
             mensaje.set_subject("Contact GDF - {}".format(subject))
             mensaje.set_html(message)
             status, msg = sg.send(mensaje)
@@ -1665,7 +1666,7 @@ class ExitoHandler(BaseHandler):
                              .format(
                                 nombre=self.current_user["name"],
                                 mail=self.current_user["email"]))
-            mensaje.add_to(email_giani)
+            mensaje.add_to(to_giani)
             mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
                                 .format(order.id))
             mensaje.set_html(html)
