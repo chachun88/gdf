@@ -271,7 +271,7 @@ class Product(BaseModel):
                                                                         date 
                                         from "Kardex" 
                                         where cellar_id = %(cellar_id)s
-                                        order by product_sku, size_id, date desc) as t
+                                        order by product_sku, size_id, date desc, id desc) as t
                                 group by product_sku
                             ) k on k.product_sku = p.sku
                 where p.for_sale = 1 and k.balance_units > 0 and p.deleted = %(deleted)s
@@ -406,12 +406,15 @@ class Product(BaseModel):
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''select p.*,c.name as category from "Product" p 
             inner join "Category" c on c.id = p.category_id 
-            inner join (select distinct on(product_sku) product_sku, 
-                                                            balance_units, 
-                                                            date 
-                            from "Kardex" 
-                            where cellar_id = %(cellar_id)s
-                            order by product_sku, date desc) k on k.product_sku = p.sku
+            inner join (select product_sku, sum(balance_units) AS balance_units from
+                            (select distinct on(product_sku, size_id) product_sku,
+                                                                    balance_units,
+                                                                    date
+                                    from "Kardex"
+                                    where cellar_id = %(cellar_id)s
+                                    order by product_sku, size_id, date desc, id desc) as t
+                            group by product_sku
+                        ) k on k.product_sku = p.sku
             where p.name like %(name)s and p.for_sale = 1 and k.balance_units > 0 and deleted = %(deleted)s limit 4'''
         p = {
             "name": "%" + name + "%",
@@ -442,12 +445,15 @@ class Product(BaseModel):
             SELECT p.*, c.name as category FROM "Product" p 
             inner join "Category" c on c.id = p.category_id 
             inner join (select distinct on(product_id) * from "Tag_Product") tp on tp.product_id = p.id
-            inner join (select distinct on(product_sku) product_sku, 
-                                                            balance_units, 
-                                                            date 
-                        from "Kardex" 
-                        where cellar_id = %(cellar_id)s
-                        order by product_sku, date desc) k on k.product_sku = p.sku
+            inner join (select product_sku, sum(balance_units) AS balance_units from
+                            (select distinct on(product_sku, size_id) product_sku,
+                                                                    balance_units,
+                                                                    date
+                                    from "Kardex"
+                                    where cellar_id = %(cellar_id)s
+                                    order by product_sku, size_id, date desc, id desc) as t
+                            group by product_sku
+                        ) k on k.product_sku = p.sku
             
             where p.deleted = %(deleted)s and p.for_sale = 1 and k.balance_units > 0 and tag_id = any(%(tags_id)s) LIMIT 4'''
         p = {
@@ -474,7 +480,7 @@ class Product(BaseModel):
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''\
-            select count(1) from "Product" p 
+            select count(1) as total_items from "Product" p 
                 inner join "Category" c on c.id = p.category_id 
                 inner join (select product_sku, sum(balance_units) as balance_units from 
                                 (select distinct on(product_sku, size_id) product_sku, 
@@ -482,7 +488,7 @@ class Product(BaseModel):
                                                                         date 
                                         from "Kardex" 
                                         where cellar_id = %(cellar_id)s
-                                        order by product_sku, size_id, date desc) as t
+                                        order by product_sku, size_id, date desc, id desc) as t
                                 group by product_sku
                             ) k on k.product_sku = p.sku
                 where p.for_sale = 1 and k.balance_units > 0 and p.deleted = %(deleted)s'''
@@ -491,7 +497,7 @@ class Product(BaseModel):
             "deleted": False
         }
         try:
-            print cur.mogrify(q, p)
+            # print cur.mogrify(q, p)
             cur.execute(q, p)
             total_items = cur.fetchone()["total_items"]
             return self.ShowSuccessMessage(total_items)
@@ -592,13 +598,15 @@ class Product(BaseModel):
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
-                    inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            date desc) k on k.product_sku = p.sku
+                    inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s and size_id = any(%(sizes)s::int[])
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
                     where p.for_sale = 1
                     and p.deleted = %(deleted)s
                     and k.balance_units > 0 
@@ -617,13 +625,15 @@ class Product(BaseModel):
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
-                    inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
-                            order by product_sku,
-                            date desc) k on k.product_sku = p.sku
+                    inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s and size_id = any(%(sizes)s::int[])
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
                     where p.for_sale = 1
                     and deleted = %(deleted)s
                     and k.balance_units > 0 
@@ -638,13 +648,15 @@ class Product(BaseModel):
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
-                   inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            date desc) k on k.product_sku = p.sku
+                   inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
                    where p.for_sale = 1 
                    and tp.tag_id = any(%(categories)s::int[]) 
                    and k.balance_units > 0
@@ -676,13 +688,15 @@ class Product(BaseModel):
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
-                    inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            date desc) k on k.product_sku = p.sku
+                    inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s and size_id = any(%(sizes)s::int[])
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
                     where p.for_sale = 1
                     and p.deleted = %(deleted)s
                     and k.balance_units > 0 
@@ -698,13 +712,15 @@ class Product(BaseModel):
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
-                    inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where size_id = any(%(sizes)s::int[]) and cellar_id = %(cellar_id)s
-                            order by product_sku,
-                            date desc) k on k.product_sku = p.sku
+                    inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s and size_id = any(%(sizes)s::int[])
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
                     where p.for_sale = 1
                     and deleted = %(deleted)s
                     and k.balance_units > 0 '''
@@ -716,13 +732,15 @@ class Product(BaseModel):
             q = '''select distinct on(product_sku) p.*,c.name as category from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
-                   inner join (select distinct on(product_sku) product_sku, 
-                            size_id, 
-                            balance_units 
-                            from "Kardex" 
-                            where cellar_id = %(cellar_id)s
-                            order by product_sku, 
-                            date desc) k on k.product_sku = p.sku
+                   inner join (select product_sku, sum(balance_units) AS balance_units from
+                                    (select distinct on(product_sku, size_id) product_sku,
+                                                                            balance_units,
+                                                                            date
+                                            from "Kardex"
+                                            where cellar_id = %(cellar_id)s
+                                            order by product_sku, size_id, date desc, id desc) as t
+                                    group by product_sku
+                                ) k on k.product_sku = p.sku
                    where p.for_sale = 1 
                    and tp.tag_id = any(%(categories)s::int[]) 
                    and k.balance_units > 0
