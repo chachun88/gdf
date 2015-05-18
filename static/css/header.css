@@ -350,12 +350,13 @@ color: rgb(104, 104, 104) !important;
   margin-left: 10%;
 }
 .header-menu {
-  float: left;
+  /* float: left; */
   clear: both;
-  width: 80%;
-  height: 45px;
-  margin-left: 10%;
+  /* width: 80%; */
+  /* height: 45px; */
+  margin: 0px auto;
   border-bottom: 1px solid rgb(77, 77, 77);
+  max-width: 1200px;
 }
 .header-rigth-cont {
   position: relative;
@@ -368,7 +369,7 @@ color: rgb(104, 104, 104) !important;
 .categoria-1 {
   display: block;
   float: left;
-  width: 16%;
+  width: 16.6%;
   font-size: 1em;
   text-align: center;
   letter-spacing: 0.8px;
