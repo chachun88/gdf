@@ -203,6 +203,16 @@ class User(BaseModel):
 
             if len(user) > 0:
                 user = user[0]
+
+                try:
+                    query = '''update "User" set last_view = current_date where id = %(identifier)s'''
+                    params = {
+                        "identifier": user['id']
+                    }
+                    lp_model.execute_query_real(query, params)
+                except Exception, e:
+                    pass
+
                 return self.ShowSuccessMessage(json_util.dumps(user))
             else:
                 return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder".format(lp_model.mogrify(q,p)))
@@ -211,7 +221,7 @@ class User(BaseModel):
 
     def getUserTypeID(self, user_type):
 
-        query = 'SELECT id FROM "User_Types" WHERE name = %(name)s'
+        query = '''SELECT id FROM "User_Types" WHERE name = %(name)s'''
         params = {"name" : user_type}
         return lp_model.execute_query(query, params)[0]["id"]
 

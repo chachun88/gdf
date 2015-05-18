@@ -89,7 +89,7 @@ class UserRegistrationHandler(BaseHandler):
 
             if "success" in response_obj:
 
-                self.set_secure_cookie( "user_giani", response_obj["success"] )
+                self.set_secure_cookie( "user_giani", response_obj["success"], expires_days=None )
 
                 current_user_id = json_util.loads(response_obj["success"])["id"]
 
@@ -107,7 +107,7 @@ class UserRegistrationHandler(BaseHandler):
 
             # redirect is the request isn't aajx
             if ajax == "false":
-                self.set_secure_cookie( "user_giani", response_obj["success"] )
+                self.set_secure_cookie( "user_giani", response_obj["success"], expires_days=None )
                 self.write(json_util.dumps({"success":self.next}))
 
 
@@ -143,7 +143,7 @@ class AuthHandler(BaseHandler):
 
             if "success" in response_obj:
 
-                self.set_secure_cookie( "user_giani", response_obj["success"] )
+                self.set_secure_cookie( "user_giani", response_obj["success"], expires_days=None )
 
                 current_user_id = json_util.loads(response_obj["success"])["id"]
 
@@ -254,7 +254,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                     if "error" in response:
                         print "Error moving cart detail: {}".format(response["error"])
 
-            self.set_secure_cookie("user_giani", response_obj["success"])
+            self.set_secure_cookie("user_giani", response_obj["success"], expires_days=None)
 
             self.redirect( self.next )
 
@@ -483,7 +483,7 @@ class EnterpriseLoginHandler(BaseHandler):
         res_login = user.enterpriseLogin(rut, password)
 
         if "success" in res_login:
-            self.set_secure_cookie( "user_giani", res_login["success"] )
+            self.set_secure_cookie( "user_giani", res_login["success"], expires_days=None )
             self.write(json_util.dumps({"success":self.request.headers.get('Referer')}))
         else:
             self.write(json_util.dumps(res_login))
