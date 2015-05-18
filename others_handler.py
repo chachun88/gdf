@@ -335,101 +335,12 @@ class XtCompraHandler(BaseHandler):
 
 class ExitoHandler(BaseHandler):
 
-    # def get(self):
-
-    #     self.render("pago.html")
-
-    #     TBK_ID_SESION = self.get_argument("TBK_ID_SESION","20141015235139")
-    #     TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","133")
-
-    #     detail = OrderDetail()
-
-    #     lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
-
-    #     order = Order()
-    #     pedido = order.GetOrderById(TBK_ORDEN_COMPRA)
-
-    #     myPath = "/var/www/giani.ondev/webpay/MAC01Normal{}.txt".format(TBK_ID_SESION)
-    #     pathSubmit = "http://giani.ondev.today"
-
-    #     f = open(myPath,"r")
-    #     linea = ""
-
-    #     for l in f:
-    #         if l.strip() != "":
-    #             linea = l
-
-    #     f.close()
-    #     dict_parametros = urlparse.parse_qs(linea)
-
-    #     TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
-    #     TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
-    #     TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
-    #     TBK_MONTO = dict_parametros["TBK_MONTO"][0]
-    #     TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
-    #     TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
-    #     TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
-    #     TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
-    #     TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
-    #     TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
-    #     TBK_MAC = dict_parametros["TBK_MAC"][0]
-    #     TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0] # ej: 1006
-
-    #     # aqui se repite la misma operacion para obtener mes y dia
-
-    #     mes_transaccion = TBK_FECHA_TRANSACCION[:2]
-    #     dia_transaccion = TBK_FECHA_TRANSACCION[2:]
-
-    #     TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(year=pedido["date"].year,mes=mes_transaccion,dia=dia_transaccion)
-
-    #     TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
-
-    #     hora_transaccion = TBK_HORA_TRANSACCION[:2]
-    #     minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
-    #     segundo_transaccion = TBK_HORA_TRANSACCION[4:]
-
-    #     TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(hora=hora_transaccion,minutos=minutos_transaccion,segundos=segundo_transaccion)
-
-    #     TBK_TIPO_CUOTA = TBK_TIPO_PAGO
-
-    #     if TBK_TIPO_PAGO == "VD":
-    #         TBK_TIPO_PAGO = "Redcompra"
-    #     else:
-    #         TBK_TIPO_PAGO = "Cr&eacute;dito"
-
-    #     data = {
-    #     "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
-    #     "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
-    #     "TBK_RESPUESTA":TBK_RESPUESTA,
-    #     "TBK_MONTO":int(TBK_MONTO),
-    #     "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
-    #     "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
-    #     "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-    #     "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
-    #     "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
-    #     "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
-    #     "TBK_MAC":TBK_MAC,
-    #     "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
-    #     "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-    #     "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
-    #     }
-
-    #     self.render("store/success.html",data=data,pathSubmit=pathSubmit,webpay="si",detalle=lista)
-
-    # TBK_ID_SESION:20141015235139
-    # TBK_ORDEN_COMPRA:133
-
     @tornado.web.authenticated
     def post(self):
 
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
         pathSubmit = url_local
-
-        # referer = self.request.headers.get('Referer').replace(self.request.headers.get('Origin'),"")
-
-        # if referer != "/xt_compra":
-        #     self.render("store/failure.html",TBK_ID_SESION=TBK_ID_SESION,TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,PATHSUBMIT=pathSubmit)
 
         order = Order()
         init_by_id = order.InitById(TBK_ORDEN_COMPRA)
@@ -1684,49 +1595,49 @@ class ExitoHandler(BaseHandler):
 
                 cart.RemoveByUserId()
 
-                for l in lista:
+            for l in lista:
 
-                    kardex = Kardex()
+                kardex = Kardex()
 
-                    producto = Product()
-                    response = producto.InitById(l["product_id"])
+                producto = Product()
+                response = producto.InitById(l["product_id"])
 
-                    if "success" in response:
+                if "success" in response:
 
-                        kardex.product_sku = producto.sku
-                        kardex.cellar_identifier = id_bodega
-                        kardex.operation_type = Kardex.OPERATION_MOV_OUT
-                        # kardex.sell_price = l['price']
+                    kardex.product_sku = producto.sku
+                    kardex.cellar_identifier = id_bodega
+                    kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                    # kardex.sell_price = l['price']
 
-                        _s = Size()
-                        _s.name = l["size"]
-                        res_name = _s.initByName()
+                    _s = Size()
+                    _s.name = l["size"]
+                    res_name = _s.initByName()
 
-                        if "success" in res_name:
-                            kardex.size_id = _s.id
-                        elif debugMode:
-                            print res_name["error"]
-
-                        kardex.date = str(datetime.now().isoformat()) 
-                        kardex.user = "Sistema - Reservar Producto"
-                        kardex.units = l["quantity"]
-                        kardex.price = producto.price
-
-                        res_kardex = kardex.Insert()
-
-                        if debugMode and "error" in res_kardex:
-                            print res_kardex["error"]
-
-                        kardex.cellar_identifier = id_bodega_reserva
-                        kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                        res_kardex = kardex.Insert()
-
-                        if debugMode and "error" in res_kardex:
-                            print res_kardex["error"]
-
+                    if "success" in res_name:
+                        kardex.size_id = _s.id
                     elif debugMode:
-                        print response["error"]
+                        print res_name["error"]
+
+                    kardex.date = str(datetime.now().isoformat()) 
+                    kardex.user = "Sistema - Reservar Producto"
+                    kardex.units = l["quantity"]
+                    kardex.price = producto.price
+
+                    res_kardex = kardex.Insert()
+
+                    if debugMode and "error" in res_kardex:
+                        print res_kardex["error"]
+
+                    kardex.cellar_identifier = id_bodega_reserva
+                    kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                    res_kardex = kardex.Insert()
+
+                    if debugMode and "error" in res_kardex:
+                        print res_kardex["error"]
+
+                elif debugMode:
+                    print response["error"]
 
             if status == 200:
 

@@ -67,6 +67,8 @@ if enviroment == Enviroment.LOCAL:
 
     to_giani = ['yichun212@gmail.com']
 
+    debugMode = True
+
 elif enviroment == Enviroment.ONDEV:
     debugMode = False
     port = DEBUG_PORT
