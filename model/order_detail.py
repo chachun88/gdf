@@ -134,19 +134,32 @@ class OrderDetail(BaseModel):
 		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
 		try:
-			query = '''\
-					select od.*,
-							p.name,
-							p.color 
-					from "Order_Detail" od 
-					left join "Product" p on od.product_id = p.id 
-					where order_id = %(order_id)s 
-					limit %(limit)s offset %(offset)s'''
-			parameters = {
-			"order_id":order_id,
-			"limit":int(limit),
-			"offset":skip
-			}
+
+			if page == 0 and limit == 0:
+				query = '''\
+						select od.*,
+								p.name,
+								p.color 
+						from "Order_Detail" od 
+						left join "Product" p on od.product_id = p.id 
+						where order_id = %(order_id)s'''
+				parameters = {
+				"order_id":order_id
+				}
+			else:
+				query = '''\
+						select od.*,
+								p.name,
+								p.color 
+						from "Order_Detail" od 
+						left join "Product" p on od.product_id = p.id 
+						where order_id = %(order_id)s 
+						limit %(limit)s offset %(offset)s'''
+				parameters = {
+				"order_id":order_id,
+				"limit":int(limit),
+				"offset":skip
+				}
 			cur.execute(query,parameters)
 			order_detail = cur.fetchall()
 			return order_detail
