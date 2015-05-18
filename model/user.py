@@ -368,6 +368,9 @@ class User(BaseModel):
 
                 if cur.rowcount > 0:
 
+                    if self.user_type == UserType.EMPRESA:
+                        return self.ShowError("Su cuenta empresa ya está registrada, por favor inicie sesión o contáctese con nosotros")
+
                     self.id = usuario['id']
 
                     m = hashlib.md5()
