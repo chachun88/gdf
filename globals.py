@@ -111,7 +111,7 @@ elif enviroment == Enviroment.PRODUCTION:
     cgi_path = "/var/www/c.gianidafirenze.cl/cgiani.ondev/"
     dir_image = '../bodegas/uploads/images/'
 
-    to_giani = ['contacto@gianidafirenze.cl']
+    to_giani = ['contacto@gianidafirenze.cl','julian@loadingplay.com']
 
 
 
