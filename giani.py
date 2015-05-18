@@ -37,7 +37,7 @@ class Application(tornado.web.Application):
             blog_title=u"Giani Da Firenze",
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            cookie_secret="12oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/Vo=",
+            cookie_secret="12oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/o=",
             facebook_api_key=options.facebook_api_key,
             facebook_secret=options.facebook_secret,
             login_url="/auth/login",
