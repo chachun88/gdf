@@ -7,10 +7,19 @@
 <div class="cuerpo clearfix">
     {% include ../slider.html %}
     
-    <div class="timeline clearfix">
-        <a href="/history">
-        <img class="image" src="https://static.loadingplay.com/static/images/200_f1ee3dda510acaa650c368e586920831_historia.png" lp-load-big="https://static.loadingplay.com/static/images/f1ee3dda510acaa650c368e586920831_historia.png">
-        </a>
+    <div id="videohome" class="timeline clearfix">
+        <ul>
+            <li><img id="videoimg"class="image" src="/static/images/ir-a-la.png" style="position:relative;">
+                <ul>
+                    <img id="videoimg-1"class="image esconder" src="/static/images/ir-a-la-hover.png" style="position:relative;margin-top: -64.49%;">
+                </ul>
+            </li>
+            <video loop preload poster=""id="video" class="mostrar-1"style="width:100%;margin-top: -60%;float: left;">
+                <source src="/static/images/giani.mp4" type="video/mp4">
+                <source src="/static/images/giani.webm" type="video/webm">
+            </video>
+        </ul>
+        
     </div>
     <div class="estilodevida clearfix">
         <a href="/store">
@@ -28,22 +37,15 @@
         </a>
     </div>
     <div class="comunidad clearfix">
-        <a href="/store">
-        <img class="image" src="https://static.loadingplay.com/static/images/200_e6acd8a236ece783879d8faa4b7e1321_comunidad.png" lp-load-big="https://static.loadingplay.com/static/images/e6acd8a236ece783879d8faa4b7e1321_comunidad.png">
+        <a href="https://instagram.com/gianidafirenze/" target="_blank">
+        <img class="image" src="https://static.loadingplay.com/static/images/200_4b36c6094d3851071b62b79434354774_comunidad2.png" lp-load-big="hhttps://static.loadingplay.com/static/images/4b36c6094d3851071b62b79434354774_comunidad2.png">
         </a>
     </div>
-    <div id="videohome"class="tienda clearfix">
-        <ul>
-            <li><img id="videoimg"class="image" src="/static/images/ir-a-la.png" style="position:relative;">
-                <ul>
-                    <img id="videoimg-1"class="image esconder" src="/static/images/ir-a-la-hover.png" style="position:relative;margin-top: -64.49%;">
-                </ul>
-            </li>
-            <video loop preload poster=""id="video" class="mostrar-1"style="width:100%;margin-top: -60%;float: left;">
-                <source src="/static/images/giani.mp4" type="video/mp4">
-                <source src="/static/images/giani.webm" type="video/webm">
-            </video>
-        </ul>
+    <div class="tienda clearfix">
+        <a href="/history">
+        <img class="image" src="https://static.loadingplay.com/static/images/200_f1ee3dda510acaa650c368e586920831_historia.png" lp-load-big="https://static.loadingplay.com/static/images/f1ee3dda510acaa650c368e586920831_historia.png">
+        </a>
+        
     </div>
 </div>
 {% end %}
