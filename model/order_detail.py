@@ -134,7 +134,7 @@ class OrderDetail(BaseModel):
 
 		# order_detail = self.collection.find({"order_id":order_id}).skip(skip).limit(int(limit))
 
-		cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
+		cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
 		try:
 
