@@ -458,13 +458,13 @@ class EnterpriseRegistrationHandler(BaseHandler):
         else:
             user_id = res_save["success"]
 
-        contact = Contact()
-        contact.town = "{}, {}".format(comuna.encode("utf-8"),region.encode("utf-8")) 
-        contact.address = direccion
-        contact.user_id = user_id
-        contact.city = None
+            contact = Contact()
+            contact.town = "{}, {}".format(comuna.encode("utf-8"),region.encode("utf-8")) 
+            contact.address = direccion
+            contact.user_id = user_id
+            contact.city = None
 
-        self.write(json_util.dumps(contact.Save()))
+            self.write(json_util.dumps(contact.Save()))
 
 
 class EnterpriseLoginHandler(BaseHandler):
