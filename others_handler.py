@@ -95,9 +95,9 @@ class TosHandler(BaseHandler):
 
 class PagoHandler(BaseHandler):
 
-    # def get(self):
+    def get(self):
 
-    #     self.render("pago.html")
+        self.render("pago.html")
 
     def post(self):
 
@@ -346,21 +346,22 @@ class ExitoHandler(BaseHandler):
         init_by_id = order.InitById(TBK_ORDEN_COMPRA)
 
         if "success" in init_by_id:
-            # print str(order.state)
             if int(order.state) == Order.ESTADO_PENDIENTE:
                 self.render(
                     "store/failure.html",
                     TBK_ID_SESION=TBK_ID_SESION,
                     TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
                     PATHSUBMIT=pathSubmit)
+
                 return
         else:
-
+            self.set_status(200, reason="no encuentra orden")
             self.render(
                 "store/failure.html",
                 TBK_ID_SESION=TBK_ID_SESION,
                 TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
                 PATHSUBMIT=pathSubmit)
+            return
 
         if os.name != "nt":
             myPath = "{}webpay/MAC01Normal{}.txt".format(
@@ -389,22 +390,22 @@ class ExitoHandler(BaseHandler):
                                 .format(str(e)))
 
         try:
-            dict_parametros = urlparse.parse_qs(linea)
+            dict_param = urlparse.parse_qs(linea)
 
-            TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
-            TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
-            TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
-            TBK_MONTO = dict_parametros["TBK_MONTO"][0]
-            TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
-            TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
-            TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
-            TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
-            TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
-            TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
-            TBK_MAC = dict_parametros["TBK_MAC"][0]
+            TBK_ORDEN_COMPRA = dict_param["TBK_ORDEN_COMPRA"][0]
+            TBK_TIPO_TRANSACCION = dict_param["TBK_TIPO_TRANSACCION"][0]
+            TBK_RESPUESTA = dict_param["TBK_RESPUESTA"][0]
+            TBK_MONTO = dict_param["TBK_MONTO"][0]
+            TBK_CODIGO_AUTORIZACION = dict_param["TBK_CODIGO_AUTORIZACION"][0]
+            TBK_FINAL_NUMERO_TARJETA = dict_param["TBK_FINAL_NUMERO_TARJETA"][0]
+            TBK_HORA_TRANSACCION = dict_param["TBK_HORA_TRANSACCION"][0]
+            TBK_ID_TRANSACCION = dict_param["TBK_ID_TRANSACCION"][0]
+            TBK_TIPO_PAGO = dict_param["TBK_TIPO_PAGO"][0]
+            TBK_NUMERO_CUOTAS = dict_param["TBK_NUMERO_CUOTAS"][0]
+            TBK_MAC = dict_param["TBK_MAC"][0]
 
             # ej: 1006
-            TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0]
+            TBK_FECHA_TRANSACCION = dict_param["TBK_FECHA_TRANSACCION"][0]
 
             # aqui se repite la misma operacion para obtener mes y dia
 
@@ -420,7 +421,7 @@ class ExitoHandler(BaseHandler):
                                                 mes=mes_transaccion,
                                                 dia=dia_transaccion)
 
-            TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+            TBK_HORA_TRANSACCION = dict_param["TBK_HORA_TRANSACCION"][0]
 
             hora_transaccion = TBK_HORA_TRANSACCION[:2]
             minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
@@ -478,7 +479,60 @@ class ExitoHandler(BaseHandler):
 
         detail = OrderDetail()
 
-        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA, 0, 0)
+
+        cart = Cart()
+        cart.user_id = self.current_user["id"]
+
+        carro = cart.GetCartByUserId()
+
+        if len(carro) > 0:
+
+            cart.RemoveByUserId()
+
+            for l in lista:
+
+                kardex = Kardex()
+
+                producto = Product()
+                response = producto.InitById(l["product_id"])
+
+                if "success" in response:
+
+                    kardex.product_sku = producto.sku
+                    kardex.cellar_identifier = id_bodega
+                    kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                    # kardex.sell_price = l['price']
+
+                    _s = Size()
+                    _s.name = l["size"]
+                    res_name = _s.initByName()
+
+                    if "success" in res_name:
+                        kardex.size_id = _s.id
+                    elif debugMode:
+                        print res_name["error"]
+
+                    kardex.date = str(datetime.now().isoformat()) 
+                    kardex.user = "Sistema - Reservar Producto"
+                    kardex.units = l["quantity"]
+                    kardex.price = producto.price
+
+                    res_kardex = kardex.Insert()
+
+                    if debugMode and "error" in res_kardex:
+                        print res_kardex["error"]
+
+                    kardex.cellar_identifier = id_bodega_reserva
+                    kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                    res_kardex = kardex.Insert()
+
+                    if debugMode and "error" in res_kardex:
+                        print res_kardex["error"]
+
+                elif debugMode:
+                    print response["error"]
 
         if len(lista) > 0:
 
@@ -1581,69 +1635,13 @@ class ExitoHandler(BaseHandler):
             mensaje = sendgrid.Mail()
             mensaje.set_from("{nombre} <{mail}>"
                              .format(
-                                nombre=self.current_user["name"],
+                                nombre=self.current_user["name"].encode("utf-8"),
                                 mail=self.current_user["email"]))
             mensaje.add_to(to_giani)
             mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
                                 .format(order.id))
             mensaje.set_html(html)
             estado, msj = sg.send(mensaje)
-
-            if estado != 200:
-                print msj
-
-            cart = Cart()
-            cart.user_id = self.current_user["id"]
-
-            carro = cart.GetCartByUserId()
-
-            if len(carro) > 0:
-
-                cart.RemoveByUserId()
-
-            for l in lista:
-
-                kardex = Kardex()
-
-                producto = Product()
-                response = producto.InitById(l["product_id"])
-
-                if "success" in response:
-
-                    kardex.product_sku = producto.sku
-                    kardex.cellar_identifier = id_bodega
-                    kardex.operation_type = Kardex.OPERATION_MOV_OUT
-                    # kardex.sell_price = l['price']
-
-                    _s = Size()
-                    _s.name = l["size"]
-                    res_name = _s.initByName()
-
-                    if "success" in res_name:
-                        kardex.size_id = _s.id
-                    elif debugMode:
-                        print res_name["error"]
-
-                    kardex.date = str(datetime.now().isoformat()) 
-                    kardex.user = "Sistema - Reservar Producto"
-                    kardex.units = l["quantity"]
-                    kardex.price = producto.price
-
-                    res_kardex = kardex.Insert()
-
-                    if debugMode and "error" in res_kardex:
-                        print res_kardex["error"]
-
-                    kardex.cellar_identifier = id_bodega_reserva
-                    kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                    res_kardex = kardex.Insert()
-
-                    if debugMode and "error" in res_kardex:
-                        print res_kardex["error"]
-
-                elif debugMode:
-                    print response["error"]
 
             if status == 200:
 

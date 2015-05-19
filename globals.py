@@ -65,7 +65,7 @@ if enviroment == Enviroment.LOCAL:
     cgi_path = "/var/www/cgiani.ondev/"
     dir_image = '../bodegas/uploads/images/'
 
-    to_giani = ['yichun212@gmail.com']
+    to_giani = ['yichun212@gmail.com','ricardo@loadingplay.com']
 
     debugMode = True
 
