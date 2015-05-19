@@ -64,7 +64,7 @@ class TestStock(unittest.TestCase):
         kardex = BaseModel.execute_query('''select * from "Kardex" where cellar_id = 12 and product_sku = 'GDF-OI14-Queltehue-C35' and size_id = 1 order by date desc limit 1''')
 
         if len(kardex) > 0:
-            self.assertEqual(kardex[0]["balance_units"], -1)
+            self.assertEqual(kardex[0]["balance_units"], 1)
 
     def testPaymentWebpayHandler(self):
 
@@ -85,7 +85,7 @@ class TestStock(unittest.TestCase):
         kardex = BaseModel.execute_query('''select * from "Kardex" where cellar_id = 12 and product_sku = 'GDF-PV14-Lile-C9' and size_id = 3 order by date desc limit 1''')
 
         if len(kardex) > 0:
-            self.assertEqual(kardex[0]["balance_units"], 0)
+            self.assertEqual(kardex[0]["balance_units"], 2)
 
     # def testPaymentBankTransferHandler(self):
 
