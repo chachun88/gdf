@@ -95,9 +95,9 @@ class TosHandler(BaseHandler):
 
 class PagoHandler(BaseHandler):
 
-    # def get(self):
+    def get(self):
 
-    #     self.render("pago.html")
+        self.render("pago.html")
 
     def post(self):
 
@@ -479,7 +479,60 @@ class ExitoHandler(BaseHandler):
 
         detail = OrderDetail()
 
-        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA, 0, 0)
+
+        cart = Cart()
+        cart.user_id = self.current_user["id"]
+
+        carro = cart.GetCartByUserId()
+
+        if len(carro) > 0:
+
+            cart.RemoveByUserId()
+
+            for l in lista:
+
+                kardex = Kardex()
+
+                producto = Product()
+                response = producto.InitById(l["product_id"])
+
+                if "success" in response:
+
+                    kardex.product_sku = producto.sku
+                    kardex.cellar_identifier = id_bodega
+                    kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                    # kardex.sell_price = l['price']
+
+                    _s = Size()
+                    _s.name = l["size"]
+                    res_name = _s.initByName()
+
+                    if "success" in res_name:
+                        kardex.size_id = _s.id
+                    elif debugMode:
+                        print res_name["error"]
+
+                    kardex.date = str(datetime.now().isoformat()) 
+                    kardex.user = "Sistema - Reservar Producto"
+                    kardex.units = l["quantity"]
+                    kardex.price = producto.price
+
+                    res_kardex = kardex.Insert()
+
+                    if debugMode and "error" in res_kardex:
+                        print res_kardex["error"]
+
+                    kardex.cellar_identifier = id_bodega_reserva
+                    kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                    res_kardex = kardex.Insert()
+
+                    if debugMode and "error" in res_kardex:
+                        print res_kardex["error"]
+
+                elif debugMode:
+                    print response["error"]
 
         if len(lista) > 0:
 
@@ -1072,17 +1125,17 @@ class ExitoHandler(BaseHandler):
             # email_confirmacion = "yichun212@gmail.com"
 
             sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
-            # message = sendgrid.Mail()
-            # message.set_from("{nombre} <{mail}>".format(
-            #     nombre="Giani Da Firenze",
-            #     mail=email_giani))
-            # message.add_to(self.current_user["email"])
+            message = sendgrid.Mail()
+            message.set_from("{nombre} <{mail}>".format(
+                nombre="Giani Da Firenze",
+                mail=email_giani))
+            message.add_to(self.current_user["email"])
 
-            # message.set_subject("Giani Da Firenze - Compra Nº {}"
-            #                     .format(order.id))
+            message.set_subject("Giani Da Firenze - Compra Nº {}"
+                                .format(order.id))
 
-            # message.set_html(html)
-            # status, msg = sg.send(message)
+            message.set_html(html)
+            status, msg = sg.send(message)
 
             html = """\
             <html xmlns=""><head>
@@ -1579,74 +1632,16 @@ class ExitoHandler(BaseHandler):
                 url_local=url_local,
                 costo_despacho=self.money_format(order.shipping))
 
-            print type(self.current_user["name"])
-
             mensaje = sendgrid.Mail()
             mensaje.set_from("{nombre} <{mail}>"
                              .format(
                                 nombre=self.current_user["name"].encode("utf-8"),
-                                mail=self.current_user["email"]))
+                                mail=self.current_user["email"].encode("utf-8")))
             mensaje.add_to(to_giani)
             mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
                                 .format(order.id))
             mensaje.set_html(html)
             estado, msj = sg.send(mensaje)
-
-            if estado != 200:
-                print msj
-
-            cart = Cart()
-            cart.user_id = self.current_user["id"]
-
-            carro = cart.GetCartByUserId()
-
-            if len(carro) > 0:
-
-                cart.RemoveByUserId()
-
-            for l in lista:
-
-                kardex = Kardex()
-
-                producto = Product()
-                response = producto.InitById(l["product_id"])
-
-                if "success" in response:
-
-                    kardex.product_sku = producto.sku
-                    kardex.cellar_identifier = id_bodega
-                    kardex.operation_type = Kardex.OPERATION_MOV_OUT
-                    # kardex.sell_price = l['price']
-
-                    _s = Size()
-                    _s.name = l["size"]
-                    res_name = _s.initByName()
-
-                    if "success" in res_name:
-                        kardex.size_id = _s.id
-                    elif debugMode:
-                        print res_name["error"]
-
-                    kardex.date = str(datetime.now().isoformat()) 
-                    kardex.user = "Sistema - Reservar Producto"
-                    kardex.units = l["quantity"]
-                    kardex.price = producto.price
-
-                    res_kardex = kardex.Insert()
-
-                    if debugMode and "error" in res_kardex:
-                        print res_kardex["error"]
-
-                    kardex.cellar_identifier = id_bodega_reserva
-                    kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                    res_kardex = kardex.Insert()
-
-                    if debugMode and "error" in res_kardex:
-                        print res_kardex["error"]
-
-                elif debugMode:
-                    print response["error"]
 
             if status == 200:
 
