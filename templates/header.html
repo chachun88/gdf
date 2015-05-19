@@ -1,8 +1,8 @@
 <div class="header-content clearfix">
 	<div class="header-left-cont clearfix">
 		<div class="header-left-social">
-		    <div class="iconos margin-left-2"><a href="http://instagram.com/gianidafirenze" class="redes_sociales" target="_blank"><i class="fa icon-instagram"></i></a></div>
-			<div class="iconos-left iconos"><a href="https://www.facebook.com/giani.dafirenze?fref=ts" target="_blank" class="redes_sociales"><i class="fa icon-facebook"></i></a></div>
+		    <div class="iconos margin-left-2"><a href="http://instagram.com/gianidafirenze" class="redes_sociales" target="_blank"><img src="/static/images/red04.png"></a></div>
+			<div class="iconos-left iconos"><a href="https://www.facebook.com/giani.dafirenze?fref=ts" target="_blank" class="redes_sociales"><img src="/static/images/red03.png"></i></a></div>
 			<!-- <div class="iconos-left iconos"><a href="https://twitter.com/GianidaFirenze" class="redes_sociales" target="_blank"><i class="fa icon-twitter"></i></a></div> -->
 			
 		</div>
@@ -23,8 +23,11 @@
 		<div class="_container clearfix salir_registro">
 			{% if current_user == None %}
 				<a class="_button button_register" href="/auth/login?next={{url_escape(request.uri)}}">
-					<p>LOG IN / REGISTRO</p>
+
+					<p>Log in / Registro</p>
+
 				</a>
+				<img class="imagen-back-login" src="/static/images/background-login.png">
 			{% else %}
 				<!-- la clase logout es funcional no borrar -->
 				<a href="/profile" >
@@ -36,7 +39,7 @@
 			{% end %}
 		</div>
 	</div>
-	<div class="header-menu clearfix">
+	<div class="header-menu content-13-inch clearfix">
 		<a href="/store/getproductsbytags/lo_nuevo" class="categoria-1 que-es-lo-nuevo">NUEVO</a>
 		<a href="/" class="categoria-1 ">COLECCIÓN</a>
 		<a href="/store" class="categoria-1 zapatos">TIENDA</a>
