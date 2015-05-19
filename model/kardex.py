@@ -348,13 +348,16 @@ class Kardex(BaseModel):
         }
 
         try:
-            query = '''insert into "Kardex" (balance_total,product_sku,cellar_id,operation_type,units,price,sell_price,size_id,color,total,balance_units,balance_price,date,"user") values (%(balance_total)s,%(product_sku)s,%(cellar_id)s,%(operation_type)s,%(units)s,%(price)s,%(sell_price)s,%(size_id)s,%(color)s,%(total)s,%(balance_units)s,%(balance_price)s,%(date)s,%(user)s)'''
+            query = '''insert into "Kardex" (balance_total,product_sku,cellar_id,operation_type,units,price,sell_price,size_id,color,total,balance_units,balance_price,date,"user") values (%(balance_total)s,%(product_sku)s,%(cellar_id)s,%(operation_type)s,%(units)s,%(price)s,%(sell_price)s,%(size_id)s,%(color)s,%(total)s,%(balance_units)s,%(balance_price)s,current_date,%(user)s)'''
             cur.execute(query, parametros)
             # return cur.mogrify(query,parametros)
             self.connection.commit()
             return self.ShowSuccessMessage("products has been added")
         except Exception, e:
             return self.ShowError("an error ocurred, error:{}".format(str(e)))
+        finally:
+            cur.close()
+            self.connection.close()
 
         # self.collection.save({
         #       "product_sku":self.product_sku,
