@@ -196,7 +196,7 @@ class User(BaseModel):
             "user_type": [self.getUserTypeID(UserType.CLIENTE),self.getUserTypeID(UserType.VISITA)]
         }
 
-        print lp_model.mogrify(q,p)
+        # print lp_model.mogrify(q,p)
 
         try:
             # print curs.mogrify( q, p )
