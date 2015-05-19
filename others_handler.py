@@ -353,6 +353,7 @@ class ExitoHandler(BaseHandler):
                     TBK_ID_SESION=TBK_ID_SESION,
                     TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
                     PATHSUBMIT=pathSubmit)
+                return
         else:
 
             self.render(
@@ -360,6 +361,7 @@ class ExitoHandler(BaseHandler):
                 TBK_ID_SESION=TBK_ID_SESION,
                 TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
                 PATHSUBMIT=pathSubmit)
+            return
 
         if os.name != "nt":
             myPath = "{}webpay/MAC01Normal{}.txt".format(
@@ -386,6 +388,7 @@ class ExitoHandler(BaseHandler):
                         "beauty_error.html",
                         message="Error, {}"
                                 .format(str(e)))
+            return
 
         try:
             dict_parametros = urlparse.parse_qs(linea)
@@ -455,6 +458,7 @@ class ExitoHandler(BaseHandler):
                         "beauty_error.html",
                         message="Error, {}"
                                 .format(str(e)))
+            return
 
         id_bodega = cellar_id
         id_bodega_reserva = shipping_cellar
@@ -507,6 +511,7 @@ class ExitoHandler(BaseHandler):
                 facturacion = facturacion_response["success"]
             else:
                 self.render("beauty_error.html",message="Error al obtener datos de facturación, {}".format(facturacion_response["error"]))
+                return
 
             despacho_response = contact.InitById(order.shipping_id)
 
@@ -514,6 +519,7 @@ class ExitoHandler(BaseHandler):
                 despacho = despacho_response["success"]
             else:
                 self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
+                return
 
             datos_facturacion = """\
             <table width="540" align="center" border="0" cellspacing="0" cellpadding="0" class="full-width" bgcolor="#ffffff" style="background-color:#ffffff;"><tbody>
