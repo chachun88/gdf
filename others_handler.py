@@ -95,9 +95,9 @@ class TosHandler(BaseHandler):
 
 class PagoHandler(BaseHandler):
 
-    def get(self):
+    # def get(self):
 
-        self.render("pago.html")
+    #     self.render("pago.html")
 
     def post(self):
 
