@@ -1424,6 +1424,7 @@ INSERT INTO "Contact" (id, name, email, address, telephone, type_id, zip_code, a
 INSERT INTO "Contact" (id, name, email, address, telephone, type_id, zip_code, additional_info, lastname, user_id, town, country, rut, city_id) VALUES (166, 'javiera', 'soto.javi@gmail.com', 'av plaza 841', '92383732', 3, '7640410', '', 'soto', 6847, 'las condes', '', '16302000-6', 28);
 INSERT INTO "Contact" (id, name, email, address, telephone, type_id, zip_code, additional_info, lastname, user_id, town, country, rut, city_id) VALUES (167, 'Javiera', 'jfigueroarosas@gmail.com', 'El vergel 334, Belloto 2000', '65127612', 3, '2430000', '', 'Figueroa', 6852, 'Quilpué', '', '18.586.530-4', 33);
 INSERT INTO "Contact" (id, name, email, address, telephone, type_id, zip_code, additional_info, lastname, user_id, town, country, rut, city_id) VALUES (168, 'Kilmeny', 'kilmenycs@gmail.com', 'Av. Arturo Prat 3068 - Torre II- Dpto. 2401', '88243836', 3, '1100000', 'Vivo en Iquique, pero por mail me dijeron que elija la ciudad de Arica ya que es el mismo costo de envío.', 'Camejo Santos', 6895, 'Iquique', '', '22590722-62590722-6', 1);
+INSERT INTO "Contact" (id, name, email, address, telephone, type_id, zip_code, additional_info, lastname, user_id, town, country, rut, city_id) VALUES (169, '', '', 'av almirante barroso 763 depto 15', '', 3, '', '', '', 6907, 'Valparaíso, Valparaíso', '', '', NULL);
 
 
 --
@@ -1446,7 +1447,7 @@ SELECT pg_catalog.setval('"Contact_Types_id_seq"', 3, true);
 -- Name: Contact_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yichun
 --
 
-SELECT pg_catalog.setval('"Contact_id_seq"', 168, true);
+SELECT pg_catalog.setval('"Contact_id_seq"', 169, true);
 
 
 --
@@ -1482,6 +1483,7 @@ INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, tota
 INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2789, 'GDF-OI14-Gavilan-C13', 1, 36279, 0, 5, 36279, 2, 36279, 72558, '2015-03-25 20:41:57.929931', 'javiera@gianidafirenze.cl', 'buy', 'café beige', 6);
 INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2795, 'GDF-PV14-Lile-C13', 1, 19000, 0, 5, 19000, 0, 0, 0, '2015-05-18 03:27:11.093892', 'javiera@gianidafirenze.cl', 'mov_out', 'Beige', 2);
 INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2801, 'GDF-PV14-Sirisi-C9', 1, 32011, 0, 12, 32011, 1, 32011, 32011, '2015-05-18 22:36:16.668089', 'javiera@gianidafirenze.cl', 'mov_in', 'croco beige', 3);
+INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2807, 'GDF-PV14-Lile-C13', 1, 26755, 0, 12, 26755, 2, 26755, 53510, '2015-05-19 15:37:01.984159', 'javiera@gianidafirenze.cl', 'mov_in', 'Beige', 3);
 INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2600, 'GDF-PV14-Lile-C9', 0, 34510, 0, 12, 0, 0, 0, 0, '2015-03-24 04:07:52.947903', 'Sistema - Nueva talla', 'ingreso', 'azul', 1);
 INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2608, 'GDF-PV14-Lile-C13', 0, 34510, 0, 5, 0, 0, 0, 0, '2015-03-25 18:56:55.03182', 'Sistema - Nueva talla', 'ingreso', 'Beige', 2);
 INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2616, 'GDF-PV14-Lile-C13', 0, 34510, 0, 5, 0, 0, 0, 0, '2015-03-25 18:57:21.131339', 'Sistema - Nueva talla', 'ingreso', 'Beige', 5);
@@ -1906,13 +1908,14 @@ INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, tota
 INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2788, 'GDF-OI14-Queltehue-C35', 1, 33558, 0, 5, 33558, 1, 33558, 33558, '2015-05-18 02:07:57.810368', 'Sistema', 'mov_in', 'azul café', 1);
 INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2794, 'GDF-PV14-Lile-C13', 1, 26755, 0, 12, 26755, 1, 26755, 26755, '2015-05-18 03:25:53.856272', 'javiera@gianidafirenze.cl', 'mov_in', 'Beige', 3);
 INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2800, 'GDF-PV14-Sirisi-C9', 1, 32011, 0, 5, 32011, 8, 32011, 256088, '2015-05-18 22:36:16.625329', 'javiera@gianidafirenze.cl', 'mov_out', 'croco beige', 3);
+INSERT INTO "Kardex" (id, product_sku, units, price, sell_price, cellar_id, total, balance_units, balance_price, balance_total, date, "user", operation_type, color, size_id) VALUES (2806, 'GDF-PV14-Lile-C13', 1, 26755, 0, 5, 26755, 10, 26755, 267550, '2015-05-19 15:37:01.938037', 'javiera@gianidafirenze.cl', 'mov_out', 'Beige', 3);
 
 
 --
 -- Name: Kardex_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yichun
 --
 
-SELECT pg_catalog.setval('"Kardex_id_seq"', 2805, true);
+SELECT pg_catalog.setval('"Kardex_id_seq"', 2807, true);
 
 
 --
@@ -1951,6 +1954,7 @@ INSERT INTO "Order" (id, date, type, subtotal, shipping, tax, total, items_quant
 INSERT INTO "Order" (id, date, type, subtotal, shipping, tax, total, items_quantity, products_quantity, user_id, billing_id, shipping_id, payment_type, source, voucher, state, tracking_code, provider_id) VALUES (390, '2015-05-13 19:56:35.730002', 1, 34950, 2450, 0, 37400, 1, 1, 6480, 139, 139, 2, 'web', '', 4, '2214438096', 1);
 INSERT INTO "Order" (id, date, type, subtotal, shipping, tax, total, items_quantity, products_quantity, user_id, billing_id, shipping_id, payment_type, source, voucher, state, tracking_code, provider_id) VALUES (393, '2015-05-14 16:38:52.891698', 1, 34950, 2450, 0, 37400, 1, 1, 6537, 142, 142, 2, 'web', '', 4, '2214438096', 1);
 INSERT INTO "Order" (id, date, type, subtotal, shipping, tax, total, items_quantity, products_quantity, user_id, billing_id, shipping_id, payment_type, source, voucher, state, tracking_code, provider_id) VALUES (406, '2015-05-19 00:33:27.07935', 1, 34950, 3720, 0, 38670, 1, 1, 6852, 167, 167, 2, 'web', '', 1, NULL, NULL);
+INSERT INTO "Order" (id, date, type, subtotal, shipping, tax, total, items_quantity, products_quantity, user_id, billing_id, shipping_id, payment_type, source, voucher, state, tracking_code, provider_id) VALUES (409, '2015-05-19 16:34:48.568625', 1, 33950, 2450, 0, 36400, 1, 1, 5030, 140, 140, 2, 'web', '', 2, NULL, NULL);
 INSERT INTO "Order" (id, date, type, subtotal, shipping, tax, total, items_quantity, products_quantity, user_id, billing_id, shipping_id, payment_type, source, voucher, state, tracking_code, provider_id) VALUES (379, '2015-04-24 23:10:25.496026', 1, 59990, 3780, 0, 63770, 1, 1, 4542, 104, 104, 1, 'web', '', 1, NULL, NULL);
 INSERT INTO "Order" (id, date, type, subtotal, shipping, tax, total, items_quantity, products_quantity, user_id, billing_id, shipping_id, payment_type, source, voucher, state, tracking_code, provider_id) VALUES (382, '2015-04-24 23:39:37.163517', 1, 58990, 3720, 0, 62710, 1, 1, 5010, 122, 122, 2, 'web', '', 1, NULL, NULL);
 INSERT INTO "Order" (id, date, type, subtotal, shipping, tax, total, items_quantity, products_quantity, user_id, billing_id, shipping_id, payment_type, source, voucher, state, tracking_code, provider_id) VALUES (385, '2015-05-10 03:12:00.05973', 1, 58990, 3890, 0, 62880, 1, 1, 4335, 103, 103, 2, 'web', '', 1, NULL, NULL);
@@ -2020,6 +2024,7 @@ INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, 
 INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, price) VALUES (440, 1, 33950, 405, 144, '37', 33950);
 INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, price) VALUES (442, 1, 34950, 405, 139, '35', 34950);
 INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, price) VALUES (444, 1, 34950, 407, 129, '37', 34950);
+INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, price) VALUES (446, 1, 33950, 409, 144, '40', 33950);
 INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, price) VALUES (384, 1, 59990, 348, 118, '35', 59990);
 INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, price) VALUES (390, 1, 59990, 354, 118, '35', 59990);
 INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, price) VALUES (394, 1, 59990, 358, 114, '35', 59990);
@@ -2112,14 +2117,14 @@ INSERT INTO "Order_Detail" (id, quantity, subtotal, order_id, product_id, size, 
 -- Name: Order_Detail_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yichun
 --
 
-SELECT pg_catalog.setval('"Order_Detail_id_seq"', 445, true);
+SELECT pg_catalog.setval('"Order_Detail_id_seq"', 446, true);
 
 
 --
 -- Name: Order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yichun
 --
 
-SELECT pg_catalog.setval('"Order_id_seq"', 408, true);
+SELECT pg_catalog.setval('"Order_id_seq"', 409, true);
 
 
 --
@@ -2353,10 +2358,10 @@ INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress
 INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress_price, price, edited, charge_type) VALUES (33, 3, 38, 0, 7130, 7130, false, 1);
 INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress_price, price, edited, charge_type) VALUES (34, 3, 11, 0, 7130, 7130, false, 1);
 INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress_price, price, edited, charge_type) VALUES (20, 3, 3, 0, 2450, 2450, true, 1);
-INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress_price, price, edited, charge_type) VALUES (10, 3, 1, 0, 7420, 7420, false, 1);
 INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress_price, price, edited, charge_type) VALUES (11, 3, 5, 0, 6690, 6690, false, 1);
 INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress_price, price, edited, charge_type) VALUES (25, 3, 20, 0, 3780, 3780, false, 1);
-INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress_price, price, edited, charge_type) VALUES (9, 3, 2, 0, 7420, 7420, false, 1);
+INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress_price, price, edited, charge_type) VALUES (10, 3, 1, 0, 4480, 4480, false, 1);
+INSERT INTO "Shipping" (id, from_city_id, to_city_id, correos_price, chilexpress_price, price, edited, charge_type) VALUES (9, 3, 2, 0, 4480, 4480, false, 1);
 
 
 --
@@ -2683,9 +2688,9 @@ INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size
 INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (861, 113, '2015-05-17 21:50:36.159083', 1, 59990, 6729, '35', NULL, NULL, NULL, 1, 0, 59990);
 INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (761, 129, '2015-04-24 02:47:31.589306', 1, 59990, 4967, '37.0', NULL, NULL, NULL, 1, 0, 59990);
 INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (876, 135, '2015-05-19 05:54:35.556982', 1, 34950, 4700, '40', NULL, NULL, NULL, 1, 0, 34950);
-INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (819, 144, '2015-05-13 21:41:36.200829', 1, 33950, 5030, '40', 140, 140, 2, 1, 0, 33950);
 INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (715, 114, '2015-04-19 14:00:25.19426', 1, 59990, 4542, '35.0', 104, 104, 1, 1, 0, 59990);
 INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (827, 134, '2015-05-14 16:59:16.601988', 1, 34950, 6544, '40', NULL, NULL, NULL, 1, 0, 34950);
+INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (885, 144, '2015-05-19 16:21:02.218042', 1, 33950, 5030, '40', 140, 140, 2, 1, 0, 33950);
 INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (867, 142, '2015-05-18 22:01:34.502834', 1, 33950, 6837, '37', 165, 165, 2, 1, 0, 33950);
 INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (830, 135, '2015-05-14 18:05:49.946', 1, 34950, 6548, '40', 143, 143, 2, 1, 0, 34950);
 INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size, shipping_id, billing_id, payment_type, shipping_type, bought, price) VALUES (846, 129, '2015-05-16 00:59:31.737812', 1, 34950, 6620, '36', NULL, NULL, NULL, 1, 0, 34950);
@@ -2872,7 +2877,7 @@ INSERT INTO "Temp_Cart" (id, product_id, date, quantity, subtotal, user_id, size
 -- Name: Temp_Cart_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yichun
 --
 
-SELECT pg_catalog.setval('"Temp_Cart_id_seq"', 883, true);
+SELECT pg_catalog.setval('"Temp_Cart_id_seq"', 885, true);
 
 
 --
@@ -4090,7 +4095,6 @@ INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_perm
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2021, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 01:34:49.313425', 1, '2015-03-19 01:34:49.313425', '2015-03-19 01:34:49.313425', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2022, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 02:16:09.946559', 1, '2015-03-19 02:16:09.946559', '2015-03-19 02:16:09.946559', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2023, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 02:17:16.770143', 1, '2015-03-19 02:17:16.770143', '2015-03-19 02:17:16.770143', 0);
-INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (1913, '{}', 3, 'Carmen Gonzalez Inostroza', 'yoyita_265@hotmail.com', '9511c4656bff852acac89250340abe07', '{}', '', '', '', NULL, '2015-03-17 00:57:38.419108', 2, '2015-03-17 00:57:38.419108', '2015-05-18 00:00:00', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2025, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 02:32:21.667804', 1, '2015-03-19 02:32:21.667804', '2015-03-19 02:32:21.667804', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2026, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 03:18:46.249775', 1, '2015-03-19 03:18:46.249775', '2015-03-19 03:18:46.249775', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2027, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 03:43:26.011936', 1, '2015-03-19 03:43:26.011936', '2015-03-19 03:43:26.011936', 0);
@@ -4104,6 +4108,7 @@ INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_perm
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2035, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 13:05:13.897482', 1, '2015-03-19 13:05:13.897482', '2015-03-19 13:05:13.897482', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2036, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 13:36:56.781922', 1, '2015-03-19 13:36:56.781922', '2015-03-19 13:36:56.781922', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2037, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 13:41:21.686118', 1, '2015-03-19 13:41:21.686118', '2015-03-19 13:41:21.686118', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (1913, '{}', 3, 'Carmen Gonzalez Inostroza', 'yoyita_265@hotmail.com', '9511c4656bff852acac89250340abe07', '{}', '', '', '', NULL, '2015-03-17 00:57:38.419108', 2, '2015-03-17 00:57:38.419108', '2015-05-19 00:00:00', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2039, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 14:02:13.442447', 1, '2015-03-19 14:02:13.442447', '2015-03-19 14:02:13.442447', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2040, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 15:10:57.953855', 1, '2015-03-19 15:10:57.953855', '2015-03-19 15:10:57.953855', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (2041, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-03-19 16:12:19.136723', 1, '2015-03-19 16:12:19.136723', '2015-03-19 16:12:19.136723', 0);
@@ -8842,7 +8847,6 @@ INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_perm
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6797, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-18 07:30:48.217882', 2, '2015-05-18 07:30:48.217882', '2015-05-18 07:30:48.217882', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6798, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-18 08:33:55.146725', 2, '2015-05-18 08:33:55.146725', '2015-05-18 08:33:55.146725', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6799, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-18 09:56:12.641137', 2, '2015-05-18 09:56:12.641137', '2015-05-18 09:56:12.641137', 0);
-INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6800, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-18 11:20:10.704837', 2, '2015-05-18 11:20:10.704837', '2015-05-18 11:20:10.704837', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6801, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-18 13:19:00.404145', 2, '2015-05-18 13:19:00.404145', '2015-05-18 13:19:00.404145', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6802, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-18 13:29:16.018145', 2, '2015-05-18 13:29:16.018145', '2015-05-18 13:29:16.018145', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6803, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-18 13:31:59.345523', 2, '2015-05-18 13:31:59.345523', '2015-05-18 13:31:59.345523', 0);
@@ -8932,6 +8936,20 @@ INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_perm
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6896, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 13:53:40.892978', 2, '2015-05-19 13:53:40.892978', '2015-05-19 13:53:40.892978', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6897, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 14:00:53.672904', 2, '2015-05-19 14:00:53.672904', '2015-05-19 14:00:53.672904', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6898, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 14:17:11.499303', 2, '2015-05-19 14:17:11.499303', '2015-05-19 14:17:11.499303', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6899, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 14:29:57.01969', 2, '2015-05-19 14:29:57.01969', '2015-05-19 14:29:57.01969', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6900, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 14:41:10.915502', 2, '2015-05-19 14:41:10.915502', '2015-05-19 14:41:10.915502', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6901, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 14:48:40.055887', 2, '2015-05-19 14:48:40.055887', '2015-05-19 14:48:40.055887', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6902, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 14:50:00.512376', 2, '2015-05-19 14:50:00.512376', '2015-05-19 14:50:00.512376', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6903, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 15:24:18.882634', 2, '2015-05-19 15:24:18.882634', '2015-05-19 15:24:18.882634', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6904, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 15:30:34.426912', 2, '2015-05-19 15:30:34.426912', '2015-05-19 15:30:34.426912', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6905, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 15:40:35.643245', 2, '2015-05-19 15:40:35.643245', '2015-05-19 15:40:35.643245', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6906, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 15:41:29.335359', 2, '2015-05-19 15:41:29.335359', '2015-05-19 15:41:29.335359', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6907, '{}', 4, 'Constanza', 'cgonzaleznadalez@hotmail.com', '707e342ae5a6cbb3d156fdaac63e1530', '{}', '', '187049822', 'vestuario', NULL, '2015-05-19 00:00:00', 1, '2015-05-19 15:43:33.095088', '2015-05-19 15:43:33.095088', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6908, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 15:57:30.992568', 2, '2015-05-19 15:57:30.992568', '2015-05-19 15:57:30.992568', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6909, '{5,1,4,3,2,6}', 2, 'María Francisca', 'francisca@loadingplay.com', '32604b262979e7903262e4cac9d7960f', '{5,12}', 'Escobar', '', '', NULL, '2015-05-19 16:09:04.971471', 1, '2015-05-19 16:09:04.971471', '2015-05-19 16:09:04.971471', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6910, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 16:13:24.039719', 2, '2015-05-19 16:13:24.039719', '2015-05-19 16:13:24.039719', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6913, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 17:10:41.624876', 2, '2015-05-19 17:10:41.624876', '2015-05-19 17:10:41.624876', 0);
+INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6914, '{}', 3, 'paula young huerta', 'certifik2@hotmail.com', '0278a02a9e6ac9adaa3ddbd426208958', '{}', '', '', '', NULL, '2015-05-19 00:00:00', 2, '2015-05-19 17:11:33.644371', '2015-05-19 00:00:00', 0);
 
 
 --
@@ -8956,7 +8974,7 @@ SELECT pg_catalog.setval('"User_Types_id_seq"', 4, true);
 -- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yichun
 --
 
-SELECT pg_catalog.setval('"User_id_seq"', 6898, true);
+SELECT pg_catalog.setval('"User_id_seq"', 6914, true);
 
 
 --
@@ -9081,13 +9099,14 @@ INSERT INTO "Voto" (id, user_id, product_id) VALUES (115, 6559, 128);
 INSERT INTO "Voto" (id, user_id, product_id) VALUES (116, 6607, 124);
 INSERT INTO "Voto" (id, user_id, product_id) VALUES (117, 6625, 138);
 INSERT INTO "Voto" (id, user_id, product_id) VALUES (118, 6634, 139);
+INSERT INTO "Voto" (id, user_id, product_id) VALUES (119, 6901, 140);
 
 
 --
 -- Name: Votos_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yichun
 --
 
-SELECT pg_catalog.setval('"Votos_id_seq"', 118, true);
+SELECT pg_catalog.setval('"Votos_id_seq"', 119, true);
 
 
 --
@@ -9146,13 +9165,14 @@ INSERT INTO "Webpay" (id, "TBK_MONTO", "TBK_CODIGO_AUTORIZACION", "TBK_FINAL_NUM
 INSERT INTO "Webpay" (id, "TBK_MONTO", "TBK_CODIGO_AUTORIZACION", "TBK_FINAL_NUMERO_TARJETA", "TBK_FECHA_CONTABLE", "TBK_FECHA_TRANSACCION", "TBK_HORA_TRANSACCION", "TBK_ID_TRANSACCION", "TBK_TIPO_PAGO", "TBK_NUMERO_CUOTAS", "TBK_ID_SESION", "TBK_ORDEN_COMPRA", "ORDER_ID") VALUES (50, 11419000, 587650, 3896, 518, 518, 191903, 198753790, 'VC', 3, '20150518221845', 405, 405);
 INSERT INTO "Webpay" (id, "TBK_MONTO", "TBK_CODIGO_AUTORIZACION", "TBK_FINAL_NUMERO_TARJETA", "TBK_FECHA_CONTABLE", "TBK_FECHA_TRANSACCION", "TBK_HORA_TRANSACCION", "TBK_ID_TRANSACCION", "TBK_TIPO_PAGO", "TBK_NUMERO_CUOTAS", "TBK_ID_SESION", "TBK_ORDEN_COMPRA", "ORDER_ID") VALUES (51, 3867000, 707388, 9010, 518, 518, 214050, 199605961, 'VD', 0, '20150519004053', 407, 407);
 INSERT INTO "Webpay" (id, "TBK_MONTO", "TBK_CODIGO_AUTORIZACION", "TBK_FINAL_NUMERO_TARJETA", "TBK_FECHA_CONTABLE", "TBK_FECHA_TRANSACCION", "TBK_HORA_TRANSACCION", "TBK_ID_TRANSACCION", "TBK_TIPO_PAGO", "TBK_NUMERO_CUOTAS", "TBK_ID_SESION", "TBK_ORDEN_COMPRA", "ORDER_ID") VALUES (52, 4237000, 124060, 8600, 519, 519, 104006, 204281488, 'VC', 3, '20150519134006', 408, 408);
+INSERT INTO "Webpay" (id, "TBK_MONTO", "TBK_CODIGO_AUTORIZACION", "TBK_FINAL_NUMERO_TARJETA", "TBK_FECHA_CONTABLE", "TBK_FECHA_TRANSACCION", "TBK_HORA_TRANSACCION", "TBK_ID_TRANSACCION", "TBK_TIPO_PAGO", "TBK_NUMERO_CUOTAS", "TBK_ID_SESION", "TBK_ORDEN_COMPRA", "ORDER_ID") VALUES (53, 3640000, 5166, 2641, 519, 519, 133444, 205328989, 'VD', 0, '20150519163444', 409, 409);
 
 
 --
 -- Name: Webpay_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yichun
 --
 
-SELECT pg_catalog.setval('"Webpay_id_seq"', 52, true);
+SELECT pg_catalog.setval('"Webpay_id_seq"', 53, true);
 
 
 --
