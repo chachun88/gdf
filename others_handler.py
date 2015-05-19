@@ -1595,49 +1595,48 @@ class ExitoHandler(BaseHandler):
 
                 cart.RemoveByUserId()
 
-            for l in lista:
+                for l in lista:
 
-                kardex = Kardex()
+                    kardex = Kardex()
 
-                producto = Product()
-                response = producto.InitById(l["product_id"])
+                    producto = Product()
+                    response = producto.InitById(l["product_id"])
 
-                if "success" in response:
+                    if "success" in response:
 
-                    kardex.product_sku = producto.sku
-                    kardex.cellar_identifier = id_bodega
-                    kardex.operation_type = Kardex.OPERATION_MOV_OUT
-                    # kardex.sell_price = l['price']
+                        kardex.product_sku = producto.sku
+                        kardex.cellar_identifier = id_bodega
+                        kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                        # kardex.sell_price = l['price']
 
-                    _s = Size()
-                    _s.name = l["size"]
-                    res_name = _s.initByName()
+                        _s = Size()
+                        _s.name = l["size"]
+                        res_name = _s.initByName()
 
-                    if "success" in res_name:
-                        kardex.size_id = _s.id
+                        if "success" in res_name:
+                            kardex.size_id = _s.id
+                        elif debugMode:
+                            print res_name["error"]
+
+                        kardex.date = str(datetime.now().isoformat()) 
+                        kardex.user = "Sistema - Reservar Producto"
+                        kardex.units = l["quantity"]
+
+                        res_kardex = kardex.Insert()
+
+                        if debugMode and "error" in res_kardex:
+                            print res_kardex["error"]
+
+                        kardex.cellar_identifier = id_bodega_reserva
+                        kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                        res_kardex = kardex.Insert()
+
+                        if debugMode and "error" in res_kardex:
+                            print res_kardex["error"]
+
                     elif debugMode:
-                        print res_name["error"]
-
-                    kardex.date = str(datetime.now().isoformat()) 
-                    kardex.user = "Sistema - Reservar Producto"
-                    kardex.units = l["quantity"]
-                    kardex.price = producto.price
-
-                    res_kardex = kardex.Insert()
-
-                    if debugMode and "error" in res_kardex:
-                        print res_kardex["error"]
-
-                    kardex.cellar_identifier = id_bodega_reserva
-                    kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                    res_kardex = kardex.Insert()
-
-                    if debugMode and "error" in res_kardex:
-                        print res_kardex["error"]
-
-                elif debugMode:
-                    print response["error"]
+                        print response["error"]
 
             if status == 200:
 
