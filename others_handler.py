@@ -346,21 +346,22 @@ class ExitoHandler(BaseHandler):
         init_by_id = order.InitById(TBK_ORDEN_COMPRA)
 
         if "success" in init_by_id:
-            # print str(order.state)
             if int(order.state) == Order.ESTADO_PENDIENTE:
                 self.render(
                     "store/failure.html",
                     TBK_ID_SESION=TBK_ID_SESION,
                     TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
                     PATHSUBMIT=pathSubmit)
+
                 return
         else:
-
+            self.set_status(200, reason="no encuentra orden")
             self.render(
                 "store/failure.html",
                 TBK_ID_SESION=TBK_ID_SESION,
                 TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
                 PATHSUBMIT=pathSubmit)
+            return
 
         if os.name != "nt":
             myPath = "{}webpay/MAC01Normal{}.txt".format(
@@ -389,22 +390,22 @@ class ExitoHandler(BaseHandler):
                                 .format(str(e)))
 
         try:
-            dict_parametros = urlparse.parse_qs(linea)
+            dict_param = urlparse.parse_qs(linea)
 
-            TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
-            TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
-            TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
-            TBK_MONTO = dict_parametros["TBK_MONTO"][0]
-            TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
-            TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
-            TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
-            TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
-            TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
-            TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
-            TBK_MAC = dict_parametros["TBK_MAC"][0]
+            TBK_ORDEN_COMPRA = dict_param["TBK_ORDEN_COMPRA"][0]
+            TBK_TIPO_TRANSACCION = dict_param["TBK_TIPO_TRANSACCION"][0]
+            TBK_RESPUESTA = dict_param["TBK_RESPUESTA"][0]
+            TBK_MONTO = dict_param["TBK_MONTO"][0]
+            TBK_CODIGO_AUTORIZACION = dict_param["TBK_CODIGO_AUTORIZACION"][0]
+            TBK_FINAL_NUMERO_TARJETA = dict_param["TBK_FINAL_NUMERO_TARJETA"][0]
+            TBK_HORA_TRANSACCION = dict_param["TBK_HORA_TRANSACCION"][0]
+            TBK_ID_TRANSACCION = dict_param["TBK_ID_TRANSACCION"][0]
+            TBK_TIPO_PAGO = dict_param["TBK_TIPO_PAGO"][0]
+            TBK_NUMERO_CUOTAS = dict_param["TBK_NUMERO_CUOTAS"][0]
+            TBK_MAC = dict_param["TBK_MAC"][0]
 
             # ej: 1006
-            TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0]
+            TBK_FECHA_TRANSACCION = dict_param["TBK_FECHA_TRANSACCION"][0]
 
             # aqui se repite la misma operacion para obtener mes y dia
 
@@ -420,7 +421,7 @@ class ExitoHandler(BaseHandler):
                                                 mes=mes_transaccion,
                                                 dia=dia_transaccion)
 
-            TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+            TBK_HORA_TRANSACCION = dict_param["TBK_HORA_TRANSACCION"][0]
 
             hora_transaccion = TBK_HORA_TRANSACCION[:2]
             minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
@@ -1071,17 +1072,17 @@ class ExitoHandler(BaseHandler):
             # email_confirmacion = "yichun212@gmail.com"
 
             sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
-            message = sendgrid.Mail()
-            message.set_from("{nombre} <{mail}>".format(
-                nombre="Giani Da Firenze",
-                mail=email_giani))
-            message.add_to(self.current_user["email"])
+            # message = sendgrid.Mail()
+            # message.set_from("{nombre} <{mail}>".format(
+            #     nombre="Giani Da Firenze",
+            #     mail=email_giani))
+            # message.add_to(self.current_user["email"])
 
-            message.set_subject("Giani Da Firenze - Compra Nº {}"
-                                .format(order.id))
+            # message.set_subject("Giani Da Firenze - Compra Nº {}"
+            #                     .format(order.id))
 
-            message.set_html(html)
-            status, msg = sg.send(message)
+            # message.set_html(html)
+            # status, msg = sg.send(message)
 
             html = """\
             <html xmlns=""><head>
@@ -1578,10 +1579,12 @@ class ExitoHandler(BaseHandler):
                 url_local=url_local,
                 costo_despacho=self.money_format(order.shipping))
 
+            print type(self.current_user["name"])
+
             mensaje = sendgrid.Mail()
             mensaje.set_from("{nombre} <{mail}>"
                              .format(
-                                nombre=self.current_user["name"],
+                                nombre=self.current_user["name"].encode("utf-8"),
                                 mail=self.current_user["email"]))
             mensaje.add_to(to_giani)
             mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
