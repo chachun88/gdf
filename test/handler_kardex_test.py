@@ -12,9 +12,8 @@ import tornado.web
 import tornado.ioloop 
 import tornado.httpclient
 import tornado.httpserver
-import urllib
-from lp.tools.scriptloader import ScriptLoader
 from config import *
+
 
 class TestStock(unittest.TestCase): 
     http_server = None
@@ -24,21 +23,9 @@ class TestStock(unittest.TestCase):
 
         app = Application()
         self.http_server = tornado.httpserver.HTTPServer(app) 
-        self.http_server.listen(8502) 
-        # self.request = tornado.web.RequestHandler(app, "http://localhost:9008/cellar")
-        # self.request.set_secure_cookie("user_bodega", json_util.dumps({"cellar_permissions":[1,2,3,4,5,6]}))
-
-        # sl = ScriptLoader()
-        # sl.dbname = ONTEST_DB_NAME
-        # sl.user = ONTEST_USER
-        # sl.host = ONTEST_HOST
-        # sl.password = ONTEST_PASSWORD
-        # sl.script_file = "dbscripts/setup.sql"
-        # sl.execute()
+        self.http_server.listen(8502)
 
     def tearDown(self):
-        # query = '''update "Order" set state = 3 where user_id = 733;'''
-        # BaseModel.execute_query(query)
         self.http_server.stop()
 
     def handle_request(self, response): 
@@ -47,7 +34,7 @@ class TestStock(unittest.TestCase):
 
     def testMoveOrderHandler(self):
 
-        '''caso en que los productos sigan en el carro'''
+        '''orden con estado pendiente'''
 
         body = 'TBK_ID_SESION=20150517215610&TBK_ORDEN_COMPRA=400'
         http_client = tornado.httpclient.AsyncHTTPClient()
@@ -61,14 +48,11 @@ class TestStock(unittest.TestCase):
         tornado.ioloop.IOLoop.instance().start()
         self.failIf(self.response.error)
 
-        kardex = BaseModel.execute_query('''select * from "Kardex" where cellar_id = 12 and product_sku = 'GDF-OI14-Queltehue-C35' and size_id = 1 order by date desc limit 1''')
-
-        if len(kardex) > 0:
-            self.assertEqual(kardex[0]["balance_units"], 1)
+        self.assertNotEqual(self.response.effective_url, None)
 
     def testPaymentWebpayHandler(self):
 
-        '''caso en que los productos sigan en el carro'''
+        '''orden con estado aprobado'''
 
         body = 'TBK_ID_SESION=20150515034434&TBK_ORDEN_COMPRA=396'
         http_client = tornado.httpclient.AsyncHTTPClient()
@@ -81,24 +65,80 @@ class TestStock(unittest.TestCase):
         # print self.response
         tornado.ioloop.IOLoop.instance().start()
         self.failIf(self.response.error)
-
-        kardex = BaseModel.execute_query('''select * from "Kardex" where cellar_id = 12 and product_sku = 'GDF-PV14-Lile-C9' and size_id = 3 order by date desc limit 1''')
+        query = '''\
+                select * from "Kardex" 
+                where cellar_id = 12 
+                and product_sku = 'GDF-PV14-Sirisi-C1' 
+                and size_id = 4 
+                order by date desc limit 1'''
+        kardex = BaseModel.execute_query(query)
 
         if len(kardex) > 0:
             self.assertEqual(kardex[0]["balance_units"], 2)
 
-    # def testPaymentBankTransferHandler(self):
+    def testInvalidOrderIdHandler(self):
 
-    #     body = 'TBK_ID_SESION=20150514120505&TBK_ORDEN_COMPRA=392'
+        '''id de pedido invalido'''
 
-    #     http_client = tornado.httpclient.AsyncHTTPClient()
-    #     http_client.fetch(
-    #         "http://localhost:8502/checkout/send", 
-    #         self.handle_request,
-    #         body=body,
-    #         method="POST"
-    #     )
+        body = 'TBK_ID_SESION=20150515034434&TBK_ORDEN_COMPRA=39gjahdgah6'
+        http_client = tornado.httpclient.AsyncHTTPClient()
+        http_client.fetch(
+            "http://localhost:8502/store/success", 
+            self.handle_request,
+            body=body,
+            method='POST'
+        )
+        tornado.ioloop.IOLoop.instance().start()
+        self.failIf(self.response.error)
+        self.assertNotEqual(self.response.effective_url, None)
 
-    #     tornado.ioloop.IOLoop.instance().start()
-    #     self.failIf(self.response.error)
-    #     self.assertEqual(self.response.code, 200)
+    def testPaymentBankTransferHandler(self):
+
+        body = 'TBK_ID_SESION=20150514120505&TBK_ORDEN_COMPRA=392'
+
+        http_client = tornado.httpclient.AsyncHTTPClient()
+        http_client.fetch(
+            "http://localhost:8502/checkout/send", 
+            self.handle_request,
+            body=body,
+            method="POST"
+        )
+
+        tornado.ioloop.IOLoop.instance().start()
+        self.failIf(self.response.error)
+        self.assertEqual(self.response.code, 200)
+
+    def testInvalidPaymentHandler(self):
+
+        '''pedido con validacion mac fallido'''
+
+        body = 'TBK_ID_SESION=20150513214527&TBK_ORDEN_COMPRA=391'
+        http_client = tornado.httpclient.AsyncHTTPClient()
+        http_client.fetch(
+            "http://localhost:8502/store/success", 
+            self.handle_request,
+            body=body,
+            method='POST'
+        )
+        # print self.response
+        tornado.ioloop.IOLoop.instance().start()
+        self.failIf(self.response.error)
+        self.assertNotEqual(self.response.effective_url, None)
+
+    def testAccentsHandler(self):
+
+        '''orden acentos'''
+
+        body = 'TBK_ID_SESION=20150518010742&TBK_ORDEN_COMPRA=402'
+        http_client = tornado.httpclient.AsyncHTTPClient()
+        http_client.fetch(
+            "http://localhost:8502/store/success", 
+            self.handle_request,
+            body=body,
+            method='POST'
+        )
+
+        tornado.ioloop.IOLoop.instance().start()
+        self.failIf(self.response.error)
+
+        # self.assertNotEqual(self.response.effective_url, None)
