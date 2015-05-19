@@ -1635,7 +1635,7 @@ class ExitoHandler(BaseHandler):
             mensaje = sendgrid.Mail()
             mensaje.set_from("{nombre} <{mail}>"
                              .format(
-                                nombre=self.current_user["name"],
+                                nombre=self.current_user["name"].encode("utf-8"),
                                 mail=self.current_user["email"]))
             mensaje.add_to(to_giani)
             mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
