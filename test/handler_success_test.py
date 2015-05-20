@@ -7,9 +7,12 @@ import unittest
 import random
 
 from model.order import Order
-
+from model.order_detail import OrderDetail
+from model.cart import Cart
+from model.user import UserType
 from others_handler import ExitoHandler
 from lp.globals import enviroment, Enviroment
+from lp.model.basemodel import BaseModel
 
 
 class TestSuccess(unittest.TestCase):
@@ -245,27 +248,60 @@ class TestSuccess(unittest.TestCase):
     def test_move_order_ok(self):
 
         cart = Cart()
-
         cart.product_id = 129
         cart.quantity = 1
         cart.subtotal = 34950
         cart.user_id = 733
         cart.size = '37'
         cart.price = 34950
-
         cart.Save()
 
-        # order = Order()
+        order = Order()
+        order.voucher = ''
+        order.type = 1
+        order.subtotal = 34950
+        order.shipping = 2490
+        order.tax = 0
+        order.total = 37440
+        order.items_quantity = 1
+        order.products_quantity = 1
+        order.user_id = 733
+        order.billing_id = 69
+        order.shipping_id = 69
+        order.payment_type = 2
+        order.Save()
 
-        # order.voucher = ''
-        # order.type = 
-        # order.subtotal = 
-        # order.shipping = 
-        # order.tax = 
-        # order.total = 
-        # order.items_quantity = 
-        # order.products_quantity = 
-        # order.user_id = 
-        # order.billing_id = 
-        # order.shipping_id = 
-        # order.payment_type = 
+        order_detail = OrderDetail()
+        order_detail.order_id = order.id
+        order_detail.quantity = 1
+        order_detail.product_id = 129
+        order_detail.subtotal = 34950
+        order_detail.size = '37'
+        order_detail.price = 34950
+        order_detail.Save()
+
+        od = order_detail.ListByOrderId(order.id, 0, 0)
+
+        ExitoHandler.moveStock(od, 733)
+
+        query = '''\
+                select * from "Kardex" 
+                where cellar_id = 5 
+                and product_sku = 'GDF-PV14-Lile-C9' 
+                and size_id = 3 
+                order by date desc limit 1'''
+        kardex = BaseModel.execute_query(query)
+
+        if len(kardex) > 0:
+            self.assertEqual(kardex[0]["balance_units"], 3)
+
+            query = '''\
+                select * from "Kardex" 
+                where cellar_id = 12 
+                and product_sku = 'GDF-PV14-Lile-C9' 
+                and size_id = 3 
+                order by date desc limit 1'''
+        kardex = BaseModel.execute_query(query)
+
+        if len(kardex) > 0:
+            self.assertEqual(kardex[0]["balance_units"], 2)
