@@ -343,7 +343,7 @@ class ExitoHandler(BaseHandler):
     def generateMail(file_name, **kwargs):
         base_directory = os.path.join("templates", "mail")
         loader = template.Loader(base_directory)
-        return loader.load(file_name).generate(autoescape="none", **kwargs)
+        return loader.load(file_name).generate(**kwargs)
 
     @tornado.web.authenticated
     def post(self):
