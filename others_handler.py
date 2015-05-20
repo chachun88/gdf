@@ -345,41 +345,32 @@ class ExitoHandler(BaseHandler):
         loader = template.Loader(base_directory)
         return loader.load(file_name).generate(**kwargs)
 
-    @tornado.web.authenticated
-    def post(self):
-
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
-        pathSubmit = url_local
+    @staticmethod
+    def verifyOrderState(session_id, order_id):
 
         order = Order()
-        init_by_id = order.InitById(TBK_ORDEN_COMPRA)
+        init_by_id = order.InitById(order_id)
 
         if "success" in init_by_id:
-            # print str(order.state)
             if int(order.state) == Order.ESTADO_PENDIENTE:
-                self.render(
-                    "store/failure.html",
-                    TBK_ID_SESION=TBK_ID_SESION,
-                    TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
-                    PATHSUBMIT=pathSubmit)
-                return
+                return None
+            else:
+                return order
         else:
+            return None
 
-            self.render(
-                "store/failure.html",
-                TBK_ID_SESION=TBK_ID_SESION,
-                TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
-                PATHSUBMIT=pathSubmit)
-            return
+    @staticmethod
+    def readWebpayMAC(session_id, order):
 
         if os.name != "nt":
             myPath = "{}webpay/MAC01Normal{}.txt".format(
                                                     project_path, 
-                                                    TBK_ID_SESION)
+                                                    session_id)
         else:
             myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt"\
-                .format(TBK_ID_SESION)
+                .format(session_id)
+
+        data = {}
 
         try:
 
@@ -392,83 +383,81 @@ class ExitoHandler(BaseHandler):
 
             f.close()
 
-        except Exception, e:
+            try:
+                dict_parametros = urlparse.parse_qs(linea)
 
-            self.render(
-                        "beauty_error.html",
-                        message="Error, {}"
-                                .format(str(e)))
-            return
+                TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
+                TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
+                TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
+                TBK_MONTO = dict_parametros["TBK_MONTO"][0]
+                TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
+                TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
+                TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+                TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
+                TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
+                TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
+                TBK_MAC = dict_parametros["TBK_MAC"][0]
 
-        try:
-            dict_parametros = urlparse.parse_qs(linea)
+                # ej: 1006
+                TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0]
 
-            TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
-            TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
-            TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
-            TBK_MONTO = dict_parametros["TBK_MONTO"][0]
-            TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
-            TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
-            TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
-            TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
-            TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
-            TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
-            TBK_MAC = dict_parametros["TBK_MAC"][0]
+                # aqui se repite la misma operacion para obtener mes y dia
 
-            # ej: 1006
-            TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0]
+                mes_transaccion = TBK_FECHA_TRANSACCION[:2]
+                dia_transaccion = TBK_FECHA_TRANSACCION[2:]
 
-            # aqui se repite la misma operacion para obtener mes y dia
+                TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(
+                                                    year=order.date.year,
+                                                    mes=mes_transaccion,
+                                                    dia=dia_transaccion)
 
-            mes_transaccion = TBK_FECHA_TRANSACCION[:2]
-            dia_transaccion = TBK_FECHA_TRANSACCION[2:]
+                TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
 
-            TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(
-                                                year=order.date.year,
-                                                mes=mes_transaccion,
-                                                dia=dia_transaccion)
+                hora_transaccion = TBK_HORA_TRANSACCION[:2]
+                minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
+                segundo_transaccion = TBK_HORA_TRANSACCION[4:]
 
-            TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+                TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(
+                                                    hora=hora_transaccion,
+                                                    minutos=minutos_transaccion,
+                                                    segundos=segundo_transaccion)
 
-            hora_transaccion = TBK_HORA_TRANSACCION[:2]
-            minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
-            segundo_transaccion = TBK_HORA_TRANSACCION[4:]
+                TBK_TIPO_CUOTA = TBK_TIPO_PAGO
 
-            TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(
-                                                hora=hora_transaccion,
-                                                minutos=minutos_transaccion,
-                                                segundos=segundo_transaccion)
+                if TBK_TIPO_PAGO == "VD":
+                    TBK_TIPO_PAGO = "Redcompra"
+                else:
+                    TBK_TIPO_PAGO = "Cr&eacute;dito"
 
-            TBK_TIPO_CUOTA = TBK_TIPO_PAGO
+                data = {
+                    "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
+                    "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
+                    "TBK_RESPUESTA":TBK_RESPUESTA,
+                    "TBK_MONTO":int(TBK_MONTO),
+                    "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
+                    "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
+                    "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+                    "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
+                    "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
+                    "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
+                    "TBK_MAC":TBK_MAC,
+                    "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
+                    "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
+                    "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
+                }
 
-            if TBK_TIPO_PAGO == "VD":
-                TBK_TIPO_PAGO = "Redcompra"
-            else:
-                TBK_TIPO_PAGO = "Cr&eacute;dito"
-
-            data = {
-                "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
-                "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
-                "TBK_RESPUESTA":TBK_RESPUESTA,
-                "TBK_MONTO":int(TBK_MONTO),
-                "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
-                "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
-                "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-                "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
-                "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
-                "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
-                "TBK_MAC":TBK_MAC,
-                "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
-                "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-                "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
-            }
+            except Exception, e:
+                if debugMode:
+                    print str(e)
 
         except Exception, e:
-            self.render(
-                        "beauty_error.html",
-                        message="Error, {}"
-                                .format(str(e)))
-            return
+            if debugMode:
+                print str(e)
+
+        return data
+
+    @staticmethod
+    def moveStock(order_detail, user_id):
 
         id_bodega = cellar_id
         id_bodega_reserva = shipping_cellar
@@ -483,6 +472,66 @@ class ExitoHandler(BaseHandler):
 
         if "success" in res_reservation_cellar:
             id_bodega_reserva = res_reservation_cellar["success"]
+
+        cart = Cart()
+        cart.user_id = user_id
+
+        carro = cart.GetCartByUserId()
+
+        if len(carro) > 0:
+
+            cart.RemoveByUserId()
+
+            for l in order_detail:
+
+                kardex = Kardex()
+
+                producto = Product()
+                response = producto.InitById(l["product_id"])
+
+                if "success" in response:
+
+                    kardex.product_sku = producto.sku
+                    kardex.cellar_identifier = id_bodega
+                    kardex.operation_type = Kardex.OPERATION_MOV_OUT
+
+                    _s = Size()
+                    _s.name = l["size"]
+                    res_name = _s.initByName()
+
+                    if "success" in res_name:
+                        kardex.size_id = _s.id
+                    elif debugMode:
+                        print res_name["error"]
+
+                    kardex.date = str(datetime.now().isoformat()) 
+                    kardex.user = "Sistema - Reservar Producto"
+                    kardex.units = l["quantity"]
+
+                    res_kardex = kardex.Insert()
+
+                    if debugMode and "error" in res_kardex:
+                        print res_kardex["error"]
+
+                    kardex.cellar_identifier = id_bodega_reserva
+                    kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                    res_kardex = kardex.Insert()
+
+                    if debugMode and "error" in res_kardex:
+                        print res_kardex["error"]
+
+                elif debugMode:
+                    print response["error"]
+
+    @tornado.web.authenticated
+    def post(self):
+
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
+        pathSubmit = url_local
+
+        
 
         detail = OrderDetail()
 
@@ -607,57 +656,7 @@ class ExitoHandler(BaseHandler):
             if estado != 200:
                 print msj
 
-            cart = Cart()
-            cart.user_id = self.current_user["id"]
-
-            carro = cart.GetCartByUserId()
-
-            if len(carro) > 0:
-
-                cart.RemoveByUserId()
-
-                for l in lista:
-
-                    kardex = Kardex()
-
-                    producto = Product()
-                    response = producto.InitById(l["product_id"])
-
-                    if "success" in response:
-
-                        kardex.product_sku = producto.sku
-                        kardex.cellar_identifier = id_bodega
-                        kardex.operation_type = Kardex.OPERATION_MOV_OUT
-                        # kardex.sell_price = l['price']
-
-                        _s = Size()
-                        _s.name = l["size"]
-                        res_name = _s.initByName()
-
-                        if "success" in res_name:
-                            kardex.size_id = _s.id
-                        elif debugMode:
-                            print res_name["error"]
-
-                        kardex.date = str(datetime.now().isoformat()) 
-                        kardex.user = "Sistema - Reservar Producto"
-                        kardex.units = l["quantity"]
-
-                        res_kardex = kardex.Insert()
-
-                        if debugMode and "error" in res_kardex:
-                            print res_kardex["error"]
-
-                        kardex.cellar_identifier = id_bodega_reserva
-                        kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                        res_kardex = kardex.Insert()
-
-                        if debugMode and "error" in res_kardex:
-                            print res_kardex["error"]
-
-                    elif debugMode:
-                        print response["error"]
+            
 
             if status == 200:
 
