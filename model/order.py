@@ -50,7 +50,7 @@ class Order(BaseModel):
     @shipping.setter
     def shipping(self, value):
         self._shipping = value
-    
+
     @property
     def tax(self):
         return self._tax
@@ -58,7 +58,7 @@ class Order(BaseModel):
     @tax.setter
     def tax(self, value):
         self._tax = value
-    
+
     @property
     def total(self):
         return self._total
@@ -66,7 +66,7 @@ class Order(BaseModel):
     @total.setter
     def total(self, value):
         self._total = value
-    
+
     @property
     def address(self):
         return self._address
@@ -74,7 +74,7 @@ class Order(BaseModel):
     @address.setter
     def address(self, value):
         self._address = value
-    
+
     @property
     def town(self):
         return self._town
@@ -82,7 +82,7 @@ class Order(BaseModel):
     @town.setter
     def town(self, value):
         self._town = value
-    
+
     @property
     def city(self):
         return self._city
@@ -107,7 +107,7 @@ class Order(BaseModel):
     @type.setter
     def type(self, value):
         self._type = value
-    
+
     # web, tablet, etc...
     @property
     def source(self):

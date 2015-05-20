@@ -6,11 +6,13 @@ from basemodel import BaseModel
 import psycopg2
 import psycopg2.extras
 
+
 class OrderDetail(BaseModel):
 
     @property
     def id(self):
         return self._id
+
     @id.setter
     def id(self, value):
         self._id = value
@@ -18,6 +20,7 @@ class OrderDetail(BaseModel):
     @property
     def order_id(self):
         return self._order_id
+
     @order_id.setter
     def order_id(self, value):
         self._order_id = value
@@ -25,6 +28,7 @@ class OrderDetail(BaseModel):
     @property
     def product_id(self):
         return self._product_id
+
     @product_id.setter
     def product_id(self, value):
         self._product_id = value
@@ -32,6 +36,7 @@ class OrderDetail(BaseModel):
     @property
     def quantity(self):
         return self._quantity
+
     @quantity.setter
     def quantity(self, value):
         self._quantity = value
@@ -39,6 +44,7 @@ class OrderDetail(BaseModel):
     @property
     def subtotal(self):
         return self._subtotal
+
     @subtotal.setter
     def subtotal(self, value):
         self._subtotal = value
@@ -46,6 +52,7 @@ class OrderDetail(BaseModel):
     @property
     def size(self):
         return self._size
+
     @size.setter
     def size(self, value):
         self._size = value
