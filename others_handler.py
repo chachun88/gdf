@@ -348,7 +348,7 @@ class ExitoHandler(BaseHandler):
     @staticmethod
     def sendError(msg):
         try:
-            if enviroment != Enviroment.LOCAL:
+            if enviroment != Enviroment.LOCAL and enviroment != Enviroment.ONTEST:
                 sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
                 message = sendgrid.Mail()
                 message.set_from("Sistema web giani <contacto@loadingplay.com>")
@@ -361,24 +361,25 @@ class ExitoHandler(BaseHandler):
             else:
                 print msg
         except Exception, ex:
-            print str(ex)
+            pass
 
     @staticmethod
-    def sendEmail(content, dest, order_id):
+    def sendEmail(html, to, order):
         try:
+
             sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
             message = sendgrid.Mail()
             message.set_from("Giani Da Firenze <{mail}>".format(mail=email_giani))
-            message.add_to(dest)
+            message.add_to(to)
 
             message.set_subject("Giani Da Firenze - Compra Nº {}"
-                                .format(order_id))
+                                .format(order))
 
-            message.set_html(content)
+            message.set_html(html)
             status, msg = sg.send(message)
 
             if status != 200:
-                ExitoHandler.sendError("{} -- {}".format(order_id, msg))
+                ExitoHandler.sendError("{} -- {}".format(order, msg))
 
             return status
         except:
@@ -575,8 +576,6 @@ class ExitoHandler(BaseHandler):
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
         pathSubmit = url_local
-
-        
 
         detail = OrderDetail()
 

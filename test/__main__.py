@@ -6,9 +6,6 @@ from config import *
 from tornado.options import define
 from lp.globals import enviroment, Enviroment
 
-global enviroment
-enviroment = Enviroment.ONTEST
-
 # define("protocol", default="https", help="run on the given port", type=str)
 
 define("enviroment", default=Enviroment.ONTEST, type=str)
@@ -23,4 +20,4 @@ import dbscripts.ontest_schema_loader
 from handler_success_test import TestSuccess
 
 if __name__ == '__main__': 
-    unittest.main()
+    unittest.main(verbosity=2)

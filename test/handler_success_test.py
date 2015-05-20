@@ -16,6 +16,11 @@ class TestSuccess(unittest.TestCase):
         pass
 
     def test_mails(self):
+        """
+        UNCOMMENT THIS TEST ONLY TO UPLOAD A NEW VERSION
+        """
+        assert False
+        return
 
         detalle_orden = ExitoHandler.generateMail(
             "detalle_orden.html",
@@ -92,8 +97,16 @@ class TestSuccess(unittest.TestCase):
         assert "&lt;" not in mail_giani
 
     def test_random(self):
+        """
+        UNCOMMENT THIS TEST ONLY TO UPLOAD A NEW VERSION
+        """
+
+        assert False
+        return
+
         def id_generator(size=6, chars=string.letters + string.digits + "áéíóúñ'?!"):
-            return ''.join(random.choice(chars) for _ in range(size))
+            # return ''.join(random.choice(chars) for _ in range(size))  # @todo : hardcore test
+            return "0123456789qwertyuioasdfghjklñ`´ç+ácczxcvbnm,.-+çáéíóúñ'?!"
 
         for x in xrange(0,10):
             try:
@@ -165,6 +178,9 @@ class TestSuccess(unittest.TestCase):
                     mail_cliente, 
                     "ricardo@loadingplay.com", 
                     foo if random.random()*2 <= 1 else bar)
+
+                if status == 400:
+                    assert False
 
             except Exception, ex:
                 print str(ex)
