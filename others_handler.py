@@ -100,9 +100,9 @@ class TosHandler(BaseHandler):
 
 class PagoHandler(BaseHandler):
 
-    # def get(self):
+    def get(self):
 
-    #     self.render("pago.html")
+        self.render("pago.html")
 
     def post(self):
 
@@ -626,9 +626,19 @@ class ExitoHandler(BaseHandler):
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA", "")
         pathSubmit = url_local
 
+        order = ExitoHandler.verifyOrderState(TBK_ID_SESION, TBK_ORDEN_COMPRA)
+
+        if order is None:
+            self.write("pedido invalido o rechazado")
+            return
+
+        data = ExitoHandler.readWebpayMAC(TBK_ID_SESION, TBK_ORDEN_COMPRA)
+
         detail = OrderDetail()
 
         lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+
+        ExitoHandler.moveStock(lista, self.current_user["id"])
 
         if len(lista) > 0:
 
