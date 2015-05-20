@@ -153,7 +153,8 @@ class TestSuccess(unittest.TestCase):
                     order_tax=foo if random.random()*2 <= 1 else bar,
                     url_local=foo if random.random()*2 <= 1 else bar,
                     costo_despacho=foo if random.random()*2 <= 1 else bar)
-            except:
+            except Exception, ex:
+                print str(ex)
                 assert False
 
             assert "{" not in detalle_orden
