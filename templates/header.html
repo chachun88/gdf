@@ -16,10 +16,7 @@
 		</a>
 	</div>
 	<div class="header-rigth-cont clearfix">
-		<div class="carritoicono clearfix">
-			<!-- <img class="image" src="" data-rimage data-src="/static/images/carrito-30x30.png"> -->
-			<div class="iconos"><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
-		</div>
+		
 		<div class="_container clearfix salir_registro">
 			{% if current_user == None %}
 				<a class="_button button_register" href="/auth/login?next={{url_escape(request.uri)}}">
@@ -41,6 +38,10 @@
 
 				</a>
 			{% end %}
+		</div>
+		<div class="carritoicono clearfix">
+			<!-- <img class="image" src="" data-rimage data-src="/static/images/carrito-30x30.png"> -->
+			<div class="iconos"><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
 		</div>
 	</div>
 	<div class="header-menu content-13-inch clearfix">

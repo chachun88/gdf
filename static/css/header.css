@@ -37,7 +37,7 @@ top: 0;
   margin-left: 0%;
 }
 .carritoicono {
-  float: left;
+  float: right;
   height: 30px;
   margin: 16px 0 0 29.63997%;
 }
@@ -58,7 +58,7 @@ top: 0;
   display: none;
   position: absolute;
   top: 46px;
-  left: 62.7845982142%;
+  left: 66.2%;
   z-index: 80;
   width: 27.2142857142%;
 }
@@ -392,7 +392,7 @@ color: rgb(104, 104, 104) !important;
 }
 .header-rigth-cont ._button {
   float: right;
-  width: 100%;
+  width: 130px;
   height: 30px;
   border-width: 0px;
   /* background-color: rgb(231, 169, 156); */
@@ -411,8 +411,7 @@ color: rgb(104, 104, 104) !important;
   color: #FFB8B8;
 }
 .header-rigth-cont ._container {
-  float: left;
-  width: 53.2319391634%;
+  float: right;
   margin: 16px 0 0 5.69154%;
   position: relative;
 }
