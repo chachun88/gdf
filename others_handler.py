@@ -15,15 +15,15 @@ from tornado import template
 
 
 from globals import email_giani, \
-                    to_giani, \
-                    cellar_id, \
-                    url_local, \
-                    shipping_cellar, \
-                    project_path, \
-                    cgi_path, \
-                    debugMode, \
-                    sendgrid_pass, \
-                    sendgrid_user
+    to_giani, \
+    cellar_id, \
+    url_local, \
+    shipping_cellar, \
+    project_path, \
+    cgi_path, \
+    debugMode, \
+    sendgrid_pass, \
+    sendgrid_user
 
 import sendgrid
 
@@ -43,10 +43,10 @@ class ContactHandler(BaseHandler):
         self.render("auth/contacto.html")
 
     def post(self):
-        name = self.get_argument("name","").encode("utf-8")
-        email = self.get_argument("email","").encode("utf-8")
-        subject = self.get_argument("subject","").encode("utf-8")
-        message = self.get_argument("message","").encode("utf-8")
+        name = self.get_argument("name", "").encode("utf-8")
+        email = self.get_argument("email", "").encode("utf-8")
+        subject = self.get_argument("subject", "").encode("utf-8")
+        message = self.get_argument("message", "").encode("utf-8")
 
         if name == "" or email == "" or subject == "" or message == "":
 
@@ -56,7 +56,8 @@ class ContactHandler(BaseHandler):
 
             sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
             mensaje = sendgrid.Mail()
-            mensaje.set_from("{nombre} <{mail}>".format(nombre=name,mail=email))
+            mensaje.set_from(
+                "{nombre} <{mail}>".format(nombre=name, mail=email))
             mensaje.add_to(to_giani)
             mensaje.set_subject("Contact GDF - {}".format(subject))
             mensaje.set_html(message)
@@ -84,7 +85,7 @@ class KardexTestHandler(BaseHandler):
         kardex.operation_type = Kardex.OPERATION_SELL
         kardex.sell_price = 26900
         kardex.size = '35.0'
-        kardex.date = str(datetime.now().isoformat()) 
+        kardex.date = str(datetime.now().isoformat())
         kardex.user = self.current_user["email"]
         kardex.units = 1
 
@@ -94,7 +95,7 @@ class KardexTestHandler(BaseHandler):
 class TosHandler(BaseHandler):
 
     def get(self):
-        self.render( "tos.html" )
+        self.render("tos.html")
 
 
 class PagoHandler(BaseHandler):
@@ -105,14 +106,14 @@ class PagoHandler(BaseHandler):
 
     def post(self):
 
-        TBK_TIPO_TRANSACCION = self.get_argument("TBK_TIPO_TRANSACCION","")
-        TBK_MONTO = self.get_argument("TBK_MONTO","")
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
-        TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO","")
-        TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO","")
+        TBK_TIPO_TRANSACCION = self.get_argument("TBK_TIPO_TRANSACCION", "")
+        TBK_MONTO = self.get_argument("TBK_MONTO", "")
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION", "")
+        TBK_URL_EXITO = self.get_argument("TBK_URL_EXITO", "")
+        TBK_URL_FRACASO = self.get_argument("TBK_URL_FRACASO", "")
 
-        payment_type = self.get_argument("payment_type",2)
-        costo_despacho = int(self.get_argument("shipping_price",0))
+        payment_type = self.get_argument("payment_type", 2)
+        costo_despacho = int(self.get_argument("shipping_price", 0))
 
         user_id = self.current_user["id"]
 
@@ -186,27 +187,27 @@ class PagoHandler(BaseHandler):
 
         if os.name != "nt":
             myPath = "{}webpay/dato{}.log" \
-                    .format(project_path, TBK_ID_SESION)
+                .format(project_path, TBK_ID_SESION)
         else:
             myPath = "C:\Users\YiChun\Documents\giani\webpay\dato{}.log" \
-                    .format(TBK_ID_SESION)
+                .format(TBK_ID_SESION)
 
         f = open(myPath, "w+")
-        linea = "{};{}".format(TBK_MONTO,order.id)
+        linea = "{};{}".format(TBK_MONTO, order.id)
         f.write(linea)
         f.close()
 
         data = {
-            "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
-            "TBK_MONTO":TBK_MONTO,
-            "TBK_ORDEN_COMPRA":order.id,
-            "TBK_ID_SESION":TBK_ID_SESION,
-            "TBK_URL_EXITO":TBK_URL_EXITO,
-            "TBK_URL_FRACASO":TBK_URL_FRACASO
+            "TBK_TIPO_TRANSACCION": TBK_TIPO_TRANSACCION,
+            "TBK_MONTO": TBK_MONTO,
+            "TBK_ORDEN_COMPRA": order.id,
+            "TBK_ID_SESION": TBK_ID_SESION,
+            "TBK_URL_EXITO": TBK_URL_EXITO,
+            "TBK_URL_FRACASO": TBK_URL_FRACASO
         }
 
         # self.write(json_util.dumps(data))
-        self.render("transbank.html",data=data)
+        self.render("transbank.html", data=data)
 
 
 class XtCompraHandler(BaseHandler):
@@ -220,13 +221,14 @@ class XtCompraHandler(BaseHandler):
         TBK_MONTO = self.get_argument("TBK_MONTO")
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION")
 
-        myPath = "{}webpay/dato{}.log".format(project_path,TBK_ID_SESION)
+        myPath = "{}webpay/dato{}.log".format(project_path, TBK_ID_SESION)
 
         filename_txt = "{}webpay/MAC01Normal{}.txt".format(
-                project_path, 
-                TBK_ID_SESION)
+            project_path,
+            TBK_ID_SESION)
 
-        cmdline = "{}cgi-bin/tbk_check_mac.cgi {}".format(cgi_path,filename_txt)
+        cmdline = "{}cgi-bin/tbk_check_mac.cgi {}".format(
+            cgi_path, filename_txt)
 
         acepta = False
 
@@ -234,7 +236,7 @@ class XtCompraHandler(BaseHandler):
             acepta = True
 
         try:
-            f = open(myPath,"r")
+            f = open(myPath, "r")
 
             linea = ""
 
@@ -252,28 +254,41 @@ class XtCompraHandler(BaseHandler):
                 monto = detalle[0]
                 ordenCompra = detalle[1]
 
-            f = open(filename_txt,"wt")
+            f = open(filename_txt, "wt")
 
-            f.write("{}={}&".format("TBK_ORDEN_COMPRA",self.get_argument("TBK_ORDEN_COMPRA")))
-            f.write("{}={}&".format("TBK_TIPO_TRANSACCION",self.get_argument("TBK_TIPO_TRANSACCION")))
-            f.write("{}={}&".format("TBK_RESPUESTA",self.get_argument("TBK_RESPUESTA")))
-            f.write("{}={}&".format("TBK_MONTO",self.get_argument("TBK_MONTO")))
-            f.write("{}={}&".format("TBK_CODIGO_AUTORIZACION",self.get_argument("TBK_CODIGO_AUTORIZACION")))
-            f.write("{}={}&".format("TBK_FINAL_NUMERO_TARJETA",self.get_argument("TBK_FINAL_NUMERO_TARJETA")))
-            f.write("{}={}&".format("TBK_FECHA_CONTABLE",self.get_argument("TBK_FECHA_CONTABLE")))
-            f.write("{}={}&".format("TBK_FECHA_TRANSACCION",self.get_argument("TBK_FECHA_TRANSACCION")))
-            f.write("{}={}&".format("TBK_HORA_TRANSACCION",self.get_argument("TBK_HORA_TRANSACCION")))
-            f.write("{}={}&".format("TBK_ID_SESION",self.get_argument("TBK_ID_SESION")))
-            f.write("{}={}&".format("TBK_ID_TRANSACCION",self.get_argument("TBK_ID_TRANSACCION")))
-            f.write("{}={}&".format("TBK_TIPO_PAGO",self.get_argument("TBK_TIPO_PAGO")))
-            f.write("{}={}&".format("TBK_NUMERO_CUOTAS",self.get_argument("TBK_NUMERO_CUOTAS")))
-            f.write("{}={}&".format("TBK_VCI",self.get_argument("TBK_VCI")))
-            f.write("{}={}&".format("TBK_MAC",self.get_argument("TBK_MAC")))
+            f.write(
+                "{}={}&".format("TBK_ORDEN_COMPRA", self.get_argument("TBK_ORDEN_COMPRA")))
+            f.write("{}={}&".format(
+                "TBK_TIPO_TRANSACCION", self.get_argument("TBK_TIPO_TRANSACCION")))
+            f.write(
+                "{}={}&".format("TBK_RESPUESTA", self.get_argument("TBK_RESPUESTA")))
+            f.write(
+                "{}={}&".format("TBK_MONTO", self.get_argument("TBK_MONTO")))
+            f.write("{}={}&".format(
+                "TBK_CODIGO_AUTORIZACION", self.get_argument("TBK_CODIGO_AUTORIZACION")))
+            f.write("{}={}&".format(
+                "TBK_FINAL_NUMERO_TARJETA", self.get_argument("TBK_FINAL_NUMERO_TARJETA")))
+            f.write(
+                "{}={}&".format("TBK_FECHA_CONTABLE", self.get_argument("TBK_FECHA_CONTABLE")))
+            f.write("{}={}&".format(
+                "TBK_FECHA_TRANSACCION", self.get_argument("TBK_FECHA_TRANSACCION")))
+            f.write("{}={}&".format(
+                "TBK_HORA_TRANSACCION", self.get_argument("TBK_HORA_TRANSACCION")))
+            f.write(
+                "{}={}&".format("TBK_ID_SESION", self.get_argument("TBK_ID_SESION")))
+            f.write(
+                "{}={}&".format("TBK_ID_TRANSACCION", self.get_argument("TBK_ID_TRANSACCION")))
+            f.write(
+                "{}={}&".format("TBK_TIPO_PAGO", self.get_argument("TBK_TIPO_PAGO")))
+            f.write(
+                "{}={}&".format("TBK_NUMERO_CUOTAS", self.get_argument("TBK_NUMERO_CUOTAS")))
+            f.write("{}={}&".format("TBK_VCI", self.get_argument("TBK_VCI")))
+            f.write("{}={}&".format("TBK_MAC", self.get_argument("TBK_MAC")))
 
             f.close()
 
-            if (TBK_MONTO == monto and 
-                    TBK_ORDEN_COMPRA == ordenCompra and 
+            if (TBK_MONTO == monto and
+                    TBK_ORDEN_COMPRA == ordenCompra and
                     acepta):
                 acepta = True
             else:
@@ -312,18 +327,27 @@ class XtCompraHandler(BaseHandler):
 
                     webpay = Webpay()
                     webpay.order_id = order.id
-                    webpay.tbk_orden_compra = self.get_argument("TBK_ORDEN_COMPRA")
-                    webpay.tbk_tipo_transaccion = self.get_argument("TBK_TIPO_TRANSACCION")
+                    webpay.tbk_orden_compra = self.get_argument(
+                        "TBK_ORDEN_COMPRA")
+                    webpay.tbk_tipo_transaccion = self.get_argument(
+                        "TBK_TIPO_TRANSACCION")
                     webpay.tbk_monto = self.get_argument("TBK_MONTO")
-                    webpay.tbk_codigo_autorizacion = self.get_argument("TBK_CODIGO_AUTORIZACION")
-                    webpay.tbk_final_numero_tarjeta = self.get_argument("TBK_FINAL_NUMERO_TARJETA")
-                    webpay.tbk_fecha_contable = self.get_argument("TBK_FECHA_CONTABLE")
-                    webpay.tbk_fecha_transaccion = self.get_argument("TBK_FECHA_TRANSACCION")
-                    webpay.tbk_hora_transaccion = self.get_argument("TBK_HORA_TRANSACCION")
+                    webpay.tbk_codigo_autorizacion = self.get_argument(
+                        "TBK_CODIGO_AUTORIZACION")
+                    webpay.tbk_final_numero_tarjeta = self.get_argument(
+                        "TBK_FINAL_NUMERO_TARJETA")
+                    webpay.tbk_fecha_contable = self.get_argument(
+                        "TBK_FECHA_CONTABLE")
+                    webpay.tbk_fecha_transaccion = self.get_argument(
+                        "TBK_FECHA_TRANSACCION")
+                    webpay.tbk_hora_transaccion = self.get_argument(
+                        "TBK_HORA_TRANSACCION")
                     webpay.tbk_id_sesion = self.get_argument("TBK_ID_SESION")
-                    webpay.tbk_id_transaccion = self.get_argument("TBK_ID_TRANSACCION")
+                    webpay.tbk_id_transaccion = self.get_argument(
+                        "TBK_ID_TRANSACCION")
                     webpay.tbk_tipo_pago = self.get_argument("TBK_TIPO_PAGO")
-                    webpay.tbk_numero_cuotas = self.get_argument("TBK_NUMERO_CUOTAS")
+                    webpay.tbk_numero_cuotas = self.get_argument(
+                        "TBK_NUMERO_CUOTAS")
                     res = webpay.Save()
 
                     if "error" in res:
@@ -351,10 +375,12 @@ class ExitoHandler(BaseHandler):
             if enviroment != Enviroment.LOCAL and enviroment != Enviroment.ONTEST:
                 sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
                 message = sendgrid.Mail()
-                message.set_from("Sistema web giani <contacto@loadingplay.com>")
+                message.set_from(
+                    "Sistema web giani <contacto@loadingplay.com>")
                 message.add_to("contacto@loadingplay.com")
 
-                message.set_subject("Ocurrio un error al intentar enviar un email")
+                message.set_subject(
+                    "Ocurrio un error al intentar enviar un email")
 
                 message.set_html(msg)
                 status, msg = sg.send(message)
@@ -385,13 +411,6 @@ class ExitoHandler(BaseHandler):
         except:
             return 400
 
-    @tornado.web.authenticated
-    def post(self):
-
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
-        pathSubmit = url_local
-
     def verifyOrderState(session_id, order_id):
 
         order = Order()
@@ -399,10 +418,14 @@ class ExitoHandler(BaseHandler):
 
         if "success" in init_by_id:
             if int(order.state) == Order.ESTADO_PENDIENTE:
+                ExitoHandler.sendError("pedido {} esta pendiente de pago"
+                                       .format(order_id))
                 return None
             else:
                 return order
         else:
+            ExitoHandler.sendError("error al inicializar pedido {}, {}"
+                                   .format(order_id, init_by_id["error"]))
             return None
 
     @staticmethod
@@ -410,8 +433,8 @@ class ExitoHandler(BaseHandler):
 
         if os.name != "nt":
             myPath = "{}webpay/MAC01Normal{}.txt".format(
-                                                    project_path, 
-                                                    session_id)
+                project_path,
+                session_id)
         else:
             myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt"\
                 .format(session_id)
@@ -420,7 +443,7 @@ class ExitoHandler(BaseHandler):
 
         try:
 
-            f = open(myPath,"r")
+            f = open(myPath, "r")
             linea = ""
 
             for l in f:
@@ -433,19 +456,24 @@ class ExitoHandler(BaseHandler):
                 dict_parametros = urlparse.parse_qs(linea)
 
                 TBK_ORDEN_COMPRA = dict_parametros["TBK_ORDEN_COMPRA"][0]
-                TBK_TIPO_TRANSACCION = dict_parametros["TBK_TIPO_TRANSACCION"][0]
+                TBK_TIPO_TRANSACCION = dict_parametros[
+                    "TBK_TIPO_TRANSACCION"][0]
                 TBK_RESPUESTA = dict_parametros["TBK_RESPUESTA"][0]
                 TBK_MONTO = dict_parametros["TBK_MONTO"][0]
-                TBK_CODIGO_AUTORIZACION = dict_parametros["TBK_CODIGO_AUTORIZACION"][0]
-                TBK_FINAL_NUMERO_TARJETA = dict_parametros["TBK_FINAL_NUMERO_TARJETA"][0]
-                TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+                TBK_CODIGO_AUTORIZACION = dict_parametros[
+                    "TBK_CODIGO_AUTORIZACION"][0]
+                TBK_FINAL_NUMERO_TARJETA = dict_parametros[
+                    "TBK_FINAL_NUMERO_TARJETA"][0]
+                TBK_HORA_TRANSACCION = dict_parametros[
+                    "TBK_HORA_TRANSACCION"][0]
                 TBK_ID_TRANSACCION = dict_parametros["TBK_ID_TRANSACCION"][0]
                 TBK_TIPO_PAGO = dict_parametros["TBK_TIPO_PAGO"][0]
                 TBK_NUMERO_CUOTAS = dict_parametros["TBK_NUMERO_CUOTAS"][0]
                 TBK_MAC = dict_parametros["TBK_MAC"][0]
 
                 # ej: 1006
-                TBK_FECHA_TRANSACCION = dict_parametros["TBK_FECHA_TRANSACCION"][0]
+                TBK_FECHA_TRANSACCION = dict_parametros[
+                    "TBK_FECHA_TRANSACCION"][0]
 
                 # aqui se repite la misma operacion para obtener mes y dia
 
@@ -453,20 +481,21 @@ class ExitoHandler(BaseHandler):
                 dia_transaccion = TBK_FECHA_TRANSACCION[2:]
 
                 TBK_FECHA_TRANSACCION = "{year}-{mes}-{dia}".format(
-                                                    year=order.date.year,
-                                                    mes=mes_transaccion,
-                                                    dia=dia_transaccion)
+                    year=order.date.year,
+                    mes=mes_transaccion,
+                    dia=dia_transaccion)
 
-                TBK_HORA_TRANSACCION = dict_parametros["TBK_HORA_TRANSACCION"][0]
+                TBK_HORA_TRANSACCION = dict_parametros[
+                    "TBK_HORA_TRANSACCION"][0]
 
                 hora_transaccion = TBK_HORA_TRANSACCION[:2]
                 minutos_transaccion = TBK_HORA_TRANSACCION[2:4]
                 segundo_transaccion = TBK_HORA_TRANSACCION[4:]
 
                 TBK_HORA_TRANSACCION = "{hora}:{minutos}:{segundos}".format(
-                                                    hora=hora_transaccion,
-                                                    minutos=minutos_transaccion,
-                                                    segundos=segundo_transaccion)
+                    hora=hora_transaccion,
+                    minutos=minutos_transaccion,
+                    segundos=segundo_transaccion)
 
                 TBK_TIPO_CUOTA = TBK_TIPO_PAGO
 
@@ -476,29 +505,31 @@ class ExitoHandler(BaseHandler):
                     TBK_TIPO_PAGO = "Cr&eacute;dito"
 
                 data = {
-                    "TBK_ORDEN_COMPRA":TBK_ORDEN_COMPRA,
-                    "TBK_TIPO_TRANSACCION":TBK_TIPO_TRANSACCION,
-                    "TBK_RESPUESTA":TBK_RESPUESTA,
-                    "TBK_MONTO":int(TBK_MONTO),
-                    "TBK_CODIGO_AUTORIZACION":TBK_CODIGO_AUTORIZACION,
-                    "TBK_FINAL_NUMERO_TARJETA":TBK_FINAL_NUMERO_TARJETA,
-                    "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-                    "TBK_ID_TRANSACCION":TBK_ID_TRANSACCION,
-                    "TBK_TIPO_PAGO":TBK_TIPO_PAGO,
-                    "TBK_NUMERO_CUOTAS":TBK_NUMERO_CUOTAS,
-                    "TBK_MAC":TBK_MAC,
-                    "TBK_FECHA_TRANSACCION":TBK_FECHA_TRANSACCION,
-                    "TBK_HORA_TRANSACCION":TBK_HORA_TRANSACCION,
-                    "TBK_TIPO_CUOTA":TBK_TIPO_CUOTA
+                    "TBK_ORDEN_COMPRA": TBK_ORDEN_COMPRA,
+                    "TBK_TIPO_TRANSACCION": TBK_TIPO_TRANSACCION,
+                    "TBK_RESPUESTA": TBK_RESPUESTA,
+                    "TBK_MONTO": int(TBK_MONTO),
+                    "TBK_CODIGO_AUTORIZACION": TBK_CODIGO_AUTORIZACION,
+                    "TBK_FINAL_NUMERO_TARJETA": TBK_FINAL_NUMERO_TARJETA,
+                    "TBK_HORA_TRANSACCION": TBK_HORA_TRANSACCION,
+                    "TBK_ID_TRANSACCION": TBK_ID_TRANSACCION,
+                    "TBK_TIPO_PAGO": TBK_TIPO_PAGO,
+                    "TBK_NUMERO_CUOTAS": TBK_NUMERO_CUOTAS,
+                    "TBK_MAC": TBK_MAC,
+                    "TBK_FECHA_TRANSACCION": TBK_FECHA_TRANSACCION,
+                    "TBK_HORA_TRANSACCION": TBK_HORA_TRANSACCION,
+                    "TBK_TIPO_CUOTA": TBK_TIPO_CUOTA
                 }
 
             except Exception, e:
-                if debugMode:
-                    print str(e)
+                ExitoHandler.sendError(
+                    "error al parsear archivo asociado al pedido {}, {}"
+                    .format(order.id, str(e)))
 
         except Exception, e:
-            if debugMode:
-                print str(e)
+            ExitoHandler.sendError(
+                "error al leer archivo asociado al pedido {}, {}"
+                .format(order.id, str(e)))
 
         return data
 
@@ -513,11 +544,17 @@ class ExitoHandler(BaseHandler):
 
         if "success" in res_cellar:
             id_bodega = res_cellar["success"]
+        else:
+            ExitoHandler.sendError("obtener id de bodega web {}"
+                                   .format(res_cellar["error"]))
 
         res_reservation_cellar = cellar.GetReservationCellar()
 
         if "success" in res_reservation_cellar:
             id_bodega_reserva = res_reservation_cellar["success"]
+        else:
+            ExitoHandler.sendError("obtener id de bodega reserva {}"
+                                   .format(res_reservation_cellar["error"]))
 
         cart = Cart()
         cart.user_id = user_id
@@ -526,7 +563,11 @@ class ExitoHandler(BaseHandler):
 
         if len(carro) > 0:
 
-            cart.RemoveByUserId()
+            res_remove_cart = cart.RemoveByUserId()
+
+            if "error" in res_remove_cart:
+                ExitoHandler.sendError("vaciar carro {}"
+                                       .format(res_remove_cart["error"]))
 
             for l in order_detail:
 
@@ -547,34 +588,42 @@ class ExitoHandler(BaseHandler):
 
                     if "success" in res_name:
                         kardex.size_id = _s.id
-                    elif debugMode:
-                        print res_name["error"]
+                    else:
+                        ExitoHandler.sendError("obtener size_id para product_id {}, {}"
+                                               .format(l["product_id"],
+                                                       res_name["error"]))
 
-                    kardex.date = str(datetime.now().isoformat()) 
+                    kardex.date = str(datetime.now().isoformat())
                     kardex.user = "Sistema - Reservar Producto"
                     kardex.units = l["quantity"]
 
                     res_kardex = kardex.Insert()
 
-                    if debugMode and "error" in res_kardex:
-                        print res_kardex["error"]
+                    if "error" in res_kardex:
+                        ExitoHandler.sendError("sacar de bodega web product_id {}, {}"
+                                               .format(l["product_id"],
+                                                       res_kardex["error"]))
 
                     kardex.cellar_identifier = id_bodega_reserva
                     kardex.operation_type = Kardex.OPERATION_MOV_IN
 
                     res_kardex = kardex.Insert()
 
-                    if debugMode and "error" in res_kardex:
-                        print res_kardex["error"]
+                    if "error" in res_kardex:
+                        ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
+                                               .format(l["product_id"],
+                                                       res_kardex["error"]))
 
-                elif debugMode:
-                    print response["error"]
+                else:
+                    ExitoHandler.sendError("initizalizar producto {}, {}"
+                                           .format(l["product_id"],
+                                                   res_remove_cart["error"]))
 
     @tornado.web.authenticated
     def post(self):
 
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION", "")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA", "")
         pathSubmit = url_local
 
         detail = OrderDetail()
@@ -597,14 +646,14 @@ class ExitoHandler(BaseHandler):
                     producto.sell_price = l["price"]
 
                 detalle_orden += ExitoHandler.generateMail(
-                                        "detalle_orden.html",
-                                         name=l["name"].encode("utf-8"),
-                                         size=l["size"].encode("utf-8"),
-                                         quantity=l["quantity"],
-                                         color=l["color"],
-                                         price=self.money_format(producto.sell_price).encode("utf-8"),
-                                         subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
-
+                    "detalle_orden.html",
+                    name=l["name"].encode("utf-8"),
+                    size=l["size"].encode("utf-8"),
+                    quantity=l["quantity"],
+                    color=l["color"],
+                    price=self.money_format(
+                        producto.sell_price).encode("utf-8"),
+                    subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
 
             contact = Contact()
             facturacion_response = contact.InitById(order.billing_id)
@@ -612,7 +661,8 @@ class ExitoHandler(BaseHandler):
             if "success" in facturacion_response:
                 facturacion = facturacion_response["success"]
             else:
-                self.render("beauty_error.html",message="Error al obtener datos de facturación, {}".format(facturacion_response["error"]))
+                self.render("beauty_error.html", message="Error al obtener datos de facturación, {}".format(
+                    facturacion_response["error"]))
                 return
 
             despacho_response = contact.InitById(order.shipping_id)
@@ -620,7 +670,8 @@ class ExitoHandler(BaseHandler):
             if "success" in despacho_response:
                 despacho = despacho_response["success"]
             else:
-                self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
+                self.render("beauty_error.html", message="Error al obtener datos de despacho, {}".format(
+                    despacho_response["error"]))
                 return
 
             datos_facturacion = ExitoHandler.generateMail(
@@ -689,8 +740,9 @@ class ExitoHandler(BaseHandler):
             mensaje = sendgrid.Mail()
             mensaje.set_from("{nombre} <{mail}>"
                              .format(
-                                nombre=self.current_user["name"].encode("utf-8"),
-                                mail=self.current_user["email"]))
+                                 nombre=self.current_user[
+                                     "name"].encode("utf-8"),
+                                 mail=self.current_user["email"]))
             mensaje.add_to(to_giani)
             mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
                                 .format(order.id))
@@ -699,8 +751,6 @@ class ExitoHandler(BaseHandler):
 
             if estado != 200:
                 print msj
-
-            
 
             if status == 200:
 
@@ -716,7 +766,6 @@ class ExitoHandler(BaseHandler):
                     message="Error al enviar correo de confirmación, {}"
                             .format(msg))
 
-
             # self.render("store/failure.html",
             #             TBK_ID_SESION=TBK_ID_SESION,
             #             TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
@@ -724,7 +773,7 @@ class ExitoHandler(BaseHandler):
 
         # self.render("store/success.html",
         #               data=data,
-        #               pathSubmit=pathSubmit, 
+        #               pathSubmit=pathSubmit,
         #               webpay="si")
 
 
@@ -733,8 +782,8 @@ class FracasoHandler(BaseHandler):
     def post(self):
 
         PATHSUBMIT = url_local
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION","")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA","")
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION", "")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA", "")
 
         self.render(
             "store/failure.html",
@@ -753,7 +802,8 @@ class WSCorreosChileHandler(BaseHandler):
 
         from suds.client import Client
 
-        client = Client(url='http://b2b.correos.cl:8008/ServicioTarificadorPersonasExterno/cch/ws/tarificacion/externo/implementacion/ServicioExternoTarificadorPersonas.asmx?WSDL')
+        client = Client(
+            url='http://b2b.correos.cl:8008/ServicioTarificadorPersonasExterno/cch/ws/tarificacion/externo/implementacion/ServicioExternoTarificadorPersonas.asmx?WSDL')
 
         request = client.factory.create('tns:aplicarTarifaPersona')
         request.usuario = 'FIRENZE'
@@ -771,28 +821,28 @@ class WSCorreosChileHandler(BaseHandler):
 class AboutusHandler(BaseHandler):
 
     def get(self):
-        self.render( "aboutus.html" )
+        self.render("aboutus.html")
 
 
 class HistoryHandler(BaseHandler):
 
     def get(self):
-        self.render( "history.html" )
+        self.render("history.html")
 
 
 class ConditionsHandler(BaseHandler):
 
     def get(self):
-        self.render( "conditions.html" )
+        self.render("conditions.html")
 
 
 class FaqHandler(BaseHandler):
 
     def get(self):
-        self.render( "faq.html" )
+        self.render("faq.html")
 
 
 class UserHandler(BaseHandler):
 
     def get(self):
-        self.render( "user.html" )
+        self.render("user.html")
