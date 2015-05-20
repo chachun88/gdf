@@ -432,13 +432,19 @@ class ExitoHandler(BaseHandler):
     @staticmethod
     def readWebpayMAC(session_id, order):
 
-        if os.name != "nt":
-            myPath = "{}webpay/MAC01Normal{}.txt".format(
-                project_path,
-                session_id)
-        else:
-            myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt"\
-                .format(session_id)
+        # if os.name != "nt":
+        #     myPath = "{}webpay/MAC01Normal{}.txt".format(
+        #         project_path,
+        #         session_id)
+        # else:
+        #     myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt"\
+        #         .format(session_id)
+
+        # solucion multi sistema
+        myPath = os.path.join(
+                    os.path.dirname(__file__),
+                    "webpay",
+                    "MAC01Normal{}.txt".format(session_id))
 
         data = {}
 
