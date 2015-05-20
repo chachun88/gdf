@@ -29,8 +29,8 @@ body {
   float: left;
   clear: both;
   z-index: 33;
-  width: 40%;
-  margin: 0px 0 0 10.07143%;
+  width: 50%;
+  /* margin: 0px 0 0 10.07143%; */
   overflow: hidden;
 }
 
@@ -55,7 +55,7 @@ body {
   position: relative;
   float: left;
   z-index: 37;
-  width: 40%;
+  width: 50%;
   margin: 0px 0 0 0%;
   overflow: hidden;
 }
@@ -98,8 +98,8 @@ body {
 .queeslonuevo {
   float: left;
   clear: both;
-  width: 80%;
-  margin: 0px 0 0 10.07143%;
+  width: 100%;
+  /* margin: 0px 0 0 10.07143%; */
   overflow: hidden;
 }
 
@@ -146,8 +146,8 @@ body {
   position: relative;
   float: left;
   z-index: 31;
-  width: 40%;
-  margin: 0px 0 0 0%;
+  width: 50%;
+  /* margin: 0px 0 0 0%; */
   background-color: black;
 }
 
@@ -163,8 +163,8 @@ body {
   float: left;
   clear: both;
   z-index: 39;
-  width: 40%;
-  margin: 0px 0 0 10%;
+  width: 50%;
+  /* margin: 0px 0 0 10%; */
   overflow: hidden;
 }
 

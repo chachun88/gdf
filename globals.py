@@ -61,7 +61,7 @@ if enviroment == Enviroment.LOCAL:
     facebook_api_key = "839778829389863"
     facebook_secret = "5e533cd56091707c73e88c2113ffb13d"
 
-    project_path = "/var/www/giani.ondev/"
+    project_path = ""
     cgi_path = "/var/www/cgiani.ondev/"
     dir_image = '../bodegas/uploads/images/'
 

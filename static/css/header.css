@@ -333,7 +333,7 @@ color: rgb(104, 104, 104) !important;
 }
 .header-content {
   position: relative;
-  float: left;
+  /* float: left; */
   z-index: 60;
   width: 100%;
   height: 180px;
@@ -350,12 +350,9 @@ color: rgb(104, 104, 104) !important;
   margin-left: 10%;
 }
 .header-menu {
-  float: left;
-  clear: both;
-  width: 80%;
-  height: 45px;
-  margin-left: 10%;
+  margin: 0px auto;
   border-bottom: 1px solid rgb(77, 77, 77);
+  max-width: 1200px;
 }
 .header-rigth-cont {
   position: relative;
@@ -368,7 +365,7 @@ color: rgb(104, 104, 104) !important;
 .categoria-1 {
   display: block;
   float: left;
-  width: 20%;
+  width: 16.6%;
   font-size: 1em;
   text-align: center;
   letter-spacing: 0.8px;
@@ -653,3 +650,32 @@ img.cargando{
   }
 }
 
+.contenedor-contacto h2
+{
+  margin-top: 30px;
+  color: black !important;
+}
+
+.contenedor-contacto h2, .contenedor-contacto p
+{
+ padding-left: 69px;
+ color: rgb(153, 153, 153);
+ padding-right: 20px;
+}
+.contenedor-contacto i
+{
+  color: rgb(222, 143, 136);
+  font-size: 25px;
+}
+.logos-pagos
+{
+    width: 100%;
+
+    float: left;
+}
+.logos-pagos img
+{
+    margin: 0 auto;
+  
+    display: inherit;
+}

@@ -39,7 +39,7 @@
 /* =============================================================== */
 
 a { 
-	color: #34495E; 
+	color: #000000; 
 	text-decoration: none;
 	outline: none !important;
    -moz-transition: all .2s ease-in;
@@ -74,14 +74,14 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: normal;
 	margin: 0;
-	padding-bottom: 15px;
+	padding-bottom: 10px;
 }
 h1 {
-	font-size: 30px;
+	font-size: 25px;
 	line-height: 35px;
 }
 h2 {
-	font-size: 24px;
+	font-size: 20px;
 	line-height: 28px;
 }
 h3 {
