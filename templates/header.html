@@ -1,8 +1,8 @@
 <div class="header-content clearfix">
 	<div class="header-left-cont clearfix">
 		<div class="header-left-social">
-		    <div class="iconos margin-left-2"><a href="http://instagram.com/gianidafirenze" class="redes_sociales" target="_blank"><i class="fa icon-instagram"></i></a></div>
-			<div class="iconos-left iconos"><a href="https://www.facebook.com/giani.dafirenze?fref=ts" target="_blank" class="redes_sociales"><i class="fa icon-facebook"></i></a></div>
+		    <div class="iconos margin-left-2"><a href="http://instagram.com/gianidafirenze" class="redes_sociales" target="_blank"><img src="/static/images/red04.png" style="  width: 40px;"></a></div>
+			<div class="iconos-left iconos"><a href="https://www.facebook.com/giani.dafirenze?fref=ts" target="_blank" class="redes_sociales"><img src="/static/images/red03.png" style="  width: 40px;"></i></a></div>
 			<!-- <div class="iconos-left iconos"><a href="https://twitter.com/GianidaFirenze" class="redes_sociales" target="_blank"><i class="fa icon-twitter"></i></a></div> -->
 			
 		</div>
@@ -16,27 +16,35 @@
 		</a>
 	</div>
 	<div class="header-rigth-cont clearfix">
+		
+		<div class="_container clearfix salir_registro">
+			{% if current_user == None %}
+				<a class="_button button_register" href="/auth/login?next={{url_escape(request.uri)}}">
+
+					<p>Log in / Registro</p>
+
+				</a>
+				<img class="imagen-back-login" src="/static/images/background-login.png">
+			{% else %}
+				<!-- la clase logout es funcional no borrar -->
+				<a href="/profile" >
+					<p class="nombre_p"style="padding: 5px;color: gray;font-size: 12px;font-weight: 100;">{{current_user["name"]}}</p>
+				</a>
+				<a class="logout"  href="/auth/logout?next={{url_escape(request.uri)}}" >
+					<div class="salir_registro_1">
+					    <p style="position: absolute;  z-index: 4;  width: 100%;">Log out</p>
+						<img class="imagen-back-login" src="/static/images/background-login.png">
+					</div>
+
+				</a>
+			{% end %}
+		</div>
 		<div class="carritoicono clearfix">
 			<!-- <img class="image" src="" data-rimage data-src="/static/images/carrito-30x30.png"> -->
 			<div class="iconos"><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
 		</div>
-		<div class="_container clearfix salir_registro">
-			{% if current_user == None %}
-				<a class="_button button_register" href="/auth/login?next={{url_escape(request.uri)}}">
-					<p>LOG IN / REGISTRO</p>
-				</a>
-			{% else %}
-				<!-- la clase logout es funcional no borrar -->
-				<a href="/profile" >
-					<p class=""style="padding: 5px;color: gray;font-size: 16px;font-weight: 100;">{{current_user["name"]}}</p>
-				</a>
-				<a class="logout"  href="/auth/logout?next={{url_escape(request.uri)}}" >
-					<div class="salir_registro_1"><i class="icon-signout"></i></div>
-				</a>
-			{% end %}
-		</div>
 	</div>
-	<div class="header-menu clearfix">
+	<div class="header-menu content-13-inch clearfix">
 		<a href="/store/getproductsbytags/lo_nuevo" class="categoria-1 que-es-lo-nuevo">NUEVO</a>
 		<a href="/" class="categoria-1 ">COLECCIÓN</a>
 		<a href="/store" class="categoria-1 zapatos">TIENDA</a>

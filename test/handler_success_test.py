@@ -13,9 +13,14 @@ from lp.globals import enviroment, Enviroment
 class TestSuccess(unittest.TestCase):
 
     def setUp(self):
-        enviroment = Enviroment.ONTEST
+        pass
 
     def test_mails(self):
+        """
+        UNCOMMENT THIS TEST ONLY TO UPLOAD A NEW VERSION
+        """
+        assert False
+        return
 
         detalle_orden = ExitoHandler.generateMail(
             "detalle_orden.html",
@@ -49,6 +54,7 @@ class TestSuccess(unittest.TestCase):
 
         mail_cliente = ExitoHandler.generateMail(
             "mail_confirmacion_cliente.html",
+            autoescape=None,
             name="foo",
             order_id="foo",
             datos_facturacion=datos_facturacion,
@@ -62,6 +68,7 @@ class TestSuccess(unittest.TestCase):
 
         mail_giani = ExitoHandler.generateMail(
             "mail_confirmacion_giani.html",
+            autoescape=None,
             name="foo",
             order_id="foo",
             datos_facturacion=datos_facturacion,
@@ -73,15 +80,33 @@ class TestSuccess(unittest.TestCase):
             url_local="bar",
             costo_despacho="foo")
 
+        status_code = ExitoHandler.sendEmail(
+                        mail_giani, 
+                        "ricardo@loadingplay.com", 
+                        1)
+
+        assert status_code == 200
+
         assert "{" not in detalle_orden
         assert "{" not in datos_facturacion
         assert "{" not in datos_despacho
         assert "{" not in mail_cliente
         assert "{" not in mail_giani
 
+        assert "&lt;" not in mail_cliente  # client mail must not escape content
+        assert "&lt;" not in mail_giani
+
     def test_random(self):
-        def id_generator(size=6, chars=string.letters + string.digits + string.whitespace + "áéíóúñ`àèìòù'?!"):
-            return ''.join(random.choice(chars) for _ in range(size))
+        """
+        UNCOMMENT THIS TEST ONLY TO UPLOAD A NEW VERSION
+        """
+
+        assert False
+        return
+
+        def id_generator(size=6, chars=string.letters + string.digits + "áéíóúñ'?!"):
+            # return ''.join(random.choice(chars) for _ in range(size))  # @todo : hardcore test
+            return "0123456789qwertyuioasdfghjklñ`´ç+ácczxcvbnm,.-+çáéíóúñ'?!"
 
         for x in xrange(0,10):
             try:
@@ -89,7 +114,7 @@ class TestSuccess(unittest.TestCase):
                 foo = random.random() * 100
                 bar = id_generator(size=30)
 
-                foo if random.random()*2 <= 1 else bar
+                # foo if random.random()*2 <= 1 else bar
 
                 detalle_orden = ExitoHandler.generateMail(
                     "detalle_orden.html",
@@ -123,6 +148,7 @@ class TestSuccess(unittest.TestCase):
 
                 mail_cliente = ExitoHandler.generateMail(
                     "mail_confirmacion_cliente.html",
+                    autoescape=None,
                     name=foo if random.random()*2 <= 1 else bar,
                     order_id=foo if random.random()*2 <= 1 else bar,
                     datos_facturacion=datos_facturacion,
@@ -136,6 +162,7 @@ class TestSuccess(unittest.TestCase):
 
                 mail_giani = ExitoHandler.generateMail(
                     "mail_confirmacion_giani.html",
+                    autoescape=None,
                     name=foo if random.random()*2 <= 1 else bar,
                     order_id=foo if random.random()*2 <= 1 else bar,
                     datos_facturacion=datos_facturacion,
@@ -146,7 +173,17 @@ class TestSuccess(unittest.TestCase):
                     order_tax=foo if random.random()*2 <= 1 else bar,
                     url_local=foo if random.random()*2 <= 1 else bar,
                     costo_despacho=foo if random.random()*2 <= 1 else bar)
-            except:
+
+                status = ExitoHandler.sendEmail(
+                    mail_cliente, 
+                    "ricardo@loadingplay.com", 
+                    foo if random.random()*2 <= 1 else bar)
+
+                if status == 400:
+                    assert False
+
+            except Exception, ex:
+                print str(ex)
                 assert False
 
             assert "{" not in detalle_orden
@@ -154,3 +191,6 @@ class TestSuccess(unittest.TestCase):
             assert "{" not in datos_despacho
             assert "{" not in mail_cliente
             assert "{" not in mail_giani
+
+            assert "&lt;" not in mail_cliente  # client mail must not escape content
+            assert "&lt;" not in mail_giani

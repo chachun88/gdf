@@ -4,8 +4,7 @@
 import unittest
 from config import *
 from tornado.options import define
-from lp.globals import Enviroment
-
+from lp.globals import enviroment, Enviroment
 
 # define("protocol", default="https", help="run on the given port", type=str)
 
@@ -21,4 +20,4 @@ import dbscripts.ontest_schema_loader
 from handler_success_test import TestSuccess
 
 if __name__ == '__main__': 
-    unittest.main()
+    unittest.main(verbosity=2)

@@ -1,5 +1,6 @@
 # Gianidafirenze.cl
 
+## CURRENT VERSION : pro_version_1.0
 
 ### Vertabelo command
 

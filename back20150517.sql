@@ -8950,10 +8950,7 @@ INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_perm
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6910, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 16:13:24.039719', 2, '2015-05-19 16:13:24.039719', '2015-05-19 16:13:24.039719', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6913, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 17:10:41.624876', 2, '2015-05-19 17:10:41.624876', '2015-05-19 17:10:41.624876', 0);
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6914, '{}', 3, 'paula young huerta', 'certifik2@hotmail.com', '0278a02a9e6ac9adaa3ddbd426208958', '{}', '', '', '', NULL, '2015-05-19 00:00:00', 2, '2015-05-19 17:11:33.644371', '2015-05-19 00:00:00', 0);
-<<<<<<< HEAD
 INSERT INTO "User" (id, permissions, type_id, name, email, password, cellar_permissions, lastname, rut, bussiness, approval_date, registration_date, status, first_view, last_view, deleted) VALUES (6915, '{}', 5, '', '', 'd41d8cd98f00b204e9800998ecf8427e', '{}', '', '', '', NULL, '2015-05-19 17:57:40.494697', 2, '2015-05-19 17:57:40.494697', '2015-05-19 17:57:40.494697', 0);
-=======
->>>>>>> 838c7d6bd2904c1f32a1b6272bcc2555b64288cc
 
 
 --
@@ -8978,11 +8975,7 @@ SELECT pg_catalog.setval('"User_Types_id_seq"', 4, true);
 -- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: yichun
 --
 
-<<<<<<< HEAD
 SELECT pg_catalog.setval('"User_id_seq"', 6915, true);
-=======
-SELECT pg_catalog.setval('"User_id_seq"', 6914, true);
->>>>>>> 838c7d6bd2904c1f32a1b6272bcc2555b64288cc
 
 
 --
