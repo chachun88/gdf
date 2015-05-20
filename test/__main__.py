@@ -4,8 +4,10 @@
 import unittest
 from config import *
 from tornado.options import define
-from lp.globals import Enviroment
+from lp.globals import enviroment, Enviroment
 
+global enviroment
+enviroment = Enviroment.ONTEST
 
 # define("protocol", default="https", help="run on the given port", type=str)
 

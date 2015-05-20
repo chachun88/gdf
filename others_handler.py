@@ -345,6 +345,45 @@ class ExitoHandler(BaseHandler):
         loader = template.Loader(base_directory)
         return loader.load(file_name).generate(**kwargs)
 
+    @staticmethod
+    def sendError(msg):
+        try:
+            if enviroment != Enviroment.LOCAL:
+                sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+                message = sendgrid.Mail()
+                message.set_from("Sistema web giani <contacto@loadingplay.com>")
+                message.add_to("contacto@loadingplay.com")
+
+                message.set_subject("Ocurrio un error al intentar enviar un email")
+
+                message.set_html(msg)
+                status, msg = sg.send(message)
+            else:
+                print msg
+        except Exception, ex:
+            print str(ex)
+
+    @staticmethod
+    def sendEmail(content, dest, order_id):
+        try:
+            sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+            message = sendgrid.Mail()
+            message.set_from("Giani Da Firenze <{mail}>".format(mail=email_giani))
+            message.add_to(dest)
+
+            message.set_subject("Giani Da Firenze - Compra Nº {}"
+                                .format(order_id))
+
+            message.set_html(content)
+            status, msg = sg.send(message)
+
+            if status != 200:
+                ExitoHandler.sendError("{} -- {}".format(order_id, msg))
+
+            return status
+        except:
+            return 400
+
     @tornado.web.authenticated
     def post(self):
 

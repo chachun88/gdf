@@ -13,7 +13,7 @@ from lp.globals import enviroment, Enviroment
 class TestSuccess(unittest.TestCase):
 
     def setUp(self):
-        enviroment = Enviroment.ONTEST
+        pass
 
     def test_mails(self):
 
@@ -75,6 +75,13 @@ class TestSuccess(unittest.TestCase):
             url_local="bar",
             costo_despacho="foo")
 
+        status_code = ExitoHandler.sendEmail(
+                        mail_giani, 
+                        "ricardo@loadingplay.com", 
+                        1)
+
+        assert status_code == 200
+
         assert "{" not in detalle_orden
         assert "{" not in datos_facturacion
         assert "{" not in datos_despacho
@@ -85,10 +92,10 @@ class TestSuccess(unittest.TestCase):
         assert "&lt;" not in mail_giani
 
     def test_random(self):
-        def id_generator(size=6, chars=string.letters + string.digits + string.whitespace + "áéíóúñ`àèìòù'?!"):
+        def id_generator(size=6, chars=string.letters + string.digits + "áéíóúñ'?!"):
             return ''.join(random.choice(chars) for _ in range(size))
 
-        for x in xrange(0,100):
+        for x in xrange(0,10):
             try:
 
                 foo = random.random() * 100
@@ -153,6 +160,12 @@ class TestSuccess(unittest.TestCase):
                     order_tax=foo if random.random()*2 <= 1 else bar,
                     url_local=foo if random.random()*2 <= 1 else bar,
                     costo_despacho=foo if random.random()*2 <= 1 else bar)
+
+                status = ExitoHandler.sendEmail(
+                    mail_cliente, 
+                    "ricardo@loadingplay.com", 
+                    foo if random.random()*2 <= 1 else bar)
+
             except Exception, ex:
                 print str(ex)
                 assert False
