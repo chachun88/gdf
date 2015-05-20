@@ -412,7 +412,7 @@ class ExitoHandler(BaseHandler):
             return 400
 
     @staticmethod
-    def verifyOrderState(session_id, order_id):
+    def verifyOrderState(order_id):
 
         order = Order()
         init_by_id = order.InitById(order_id)
@@ -627,7 +627,7 @@ class ExitoHandler(BaseHandler):
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA", "")
         pathSubmit = url_local
 
-        order = self.verifyOrderState(TBK_ID_SESION, TBK_ORDEN_COMPRA)
+        order = self.verifyOrderState(TBK_ORDEN_COMPRA)
 
         if order is None:
             self.write("pedido invalido o rechazado")
