@@ -411,6 +411,7 @@ class ExitoHandler(BaseHandler):
         except:
             return 400
 
+    @staticmethod
     def verifyOrderState(session_id, order_id):
 
         order = Order()
