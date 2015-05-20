@@ -90,22 +90,10 @@ body {
     height: 180px;
 }
 .header-left-cont {
-    position: relative;
-    float: left;
-    z-index: 65;
-    width: 18.7857142857%;
-    height: 135px;
-    margin-left: 10%;
 }
 .header-menu {
 }
 .header-rigth-cont {
-    position: relative;
-    float: left;
-    z-index: 67;
-    width: 18.7857142857%;
-    height: 135px;
-    margin-left: 42.42746%;
 }
 .image {
     display: block;
