@@ -626,29 +626,10 @@ class ExitoHandler(BaseHandler):
                                            .format(l["product_id"],
                                                    res_remove_cart["error"]))
 
-    @tornado.web.authenticated
-    def post(self):
 
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION", "")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA", "")
-        pathSubmit = url_local
-
-        order = self.verifyOrderState(TBK_ORDEN_COMPRA)
-
-        if order is None:
-            self.write("pedido invalido o rechazado")
-            return
-
-        data = self.readWebpayMAC(TBK_ID_SESION, order)
-
-        detail = OrderDetail()
-
-        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
-
-        self.moveStock(lista, self.current_user["id"])
-
-        if len(lista) > 0:
-
+    @staticmethod
+    def getDetalleOrden(lista):
+        try:
             detalle_orden = ""
 
             for l in lista:
@@ -671,6 +652,13 @@ class ExitoHandler(BaseHandler):
                     price=self.money_format(
                         producto.sell_price).encode("utf-8"),
                     subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
+        except Exception, ex:
+            ExitoHandler.sendError(str(ex))
+
+    @staticmethod
+    def notifyEmails(lista):
+        try:
+            detalle_orden = ExitoHandler.getDetalleOrden(lista)
 
             contact = Contact()
             facturacion_response = contact.InitById(order.billing_id)
@@ -728,15 +716,16 @@ class ExitoHandler(BaseHandler):
 
             # email_confirmacion = "yichun212@gmail.com"
 
-            sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
-            message = sendgrid.Mail()
-            message.set_from("{nombre} <{mail}>".format(
-                nombre="Giani Da Firenze",
-                mail=email_giani))
-            message.add_to(self.current_user["email"])
+            ExitoHandler.sendEmail(html, self.current_user["email"], order.id)
+            # sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+            # message = sendgrid.Mail()
+            # message.set_from("{nombre} <{mail}>".format(
+            #     nombre="Giani Da Firenze",
+            #     mail=email_giani))
+            # message.add_to(self.current_user["email"])
 
-            message.set_subject("Giani Da Firenze - Compra Nº {}"
-                                .format(order.id))
+            # message.set_subject("Giani Da Firenze - Compra Nº {}"
+            #                     .format(order.id))
 
             message.set_html(html)
             status, msg = sg.send(message)
@@ -754,34 +743,78 @@ class ExitoHandler(BaseHandler):
                 url_local=url_local,
                 costo_despacho=self.money_format(order.shipping))
 
-            mensaje = sendgrid.Mail()
-            mensaje.set_from("{nombre} <{mail}>"
-                             .format(
-                                 nombre=self.current_user[
-                                     "name"].encode("utf-8"),
-                                 mail=self.current_user["email"]))
-            mensaje.add_to(to_giani)
-            mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
-                                .format(order.id))
-            mensaje.set_html(html)
-            estado, msj = sg.send(mensaje)
+            ExitoHandler.sendEmail(html, to_giani, order.id)
 
-            if estado != 200:
-                print msj
+            # mensaje = sendgrid.Mail()
+            # mensaje.set_from("{nombre} <{mail}>"
+            #                  .format(
+            #                      nombre=self.current_user[
+            #                          "name"].encode("utf-8"),
+            #                      mail=self.current_user["email"]))
+            # mensaje.add_to(to_giani)
+            # mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
+            #                     .format(order.id))
+            # mensaje.set_html(html)
+            # estado, msj = sg.send(mensaje)
 
-            if status == 200:
+            return status, estado
+        except:
+            return 0, 0
 
-                self.render("store/success.html",
-                            data=data,
-                            pathSubmit=pathSubmit,
-                            webpay="si",
-                            detalle=lista,
-                            order=order)
-            else:
-                self.render(
-                    "beauty_error.html",
-                    message="Error al enviar correo de confirmación, {}"
-                            .format(msg))
+    @tornado.web.authenticated
+    def post(self):
+
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION", "")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA", "")
+        pathSubmit = url_local
+
+        order = self.verifyOrderState(TBK_ORDEN_COMPRA)
+
+        if order is None:
+            self.write("pedido invalido o rechazado")
+            return
+
+        data = self.readWebpayMAC(TBK_ID_SESION, order)
+
+        detail = OrderDetail()
+        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+
+        self.moveStock(lista, self.current_user["id"])
+
+        try:
+            status_cliente, status_giani = ExitoHandler.notifyEmails(lists)
+
+            if status_cliente != 200:
+                ExitoHandler.sendError("el email de cliente no se ha enviado")
+            if status_giani != 200:
+                ExitoHandler.sendError("el mail a giani no se ha enviado")
+        except Exception, ex:
+            ExitoHandler.sendError(str(ex))
+
+        #     if estado != 200:
+        #         print msj
+
+        #     if status == 200:
+        #         self.render("store/success.html",
+        #                     data=data,
+        #                     pathSubmit=pathSubmit,
+        #                     webpay="si",
+        #                     detalle=lista,
+        #                     order=order)
+        #     else:
+        #         self.render(
+        #             "beauty_error.html",
+        #             message="Error al enviar correo de confirmación, {}"
+        #                     .format(msg))
+        # except:
+        #     pass
+
+        self.render("store/success.html",
+                        data=data,
+                        pathSubmit=pathSubmit,
+                        webpay="si",
+                        detalle=lista,
+                        order=order)
 
             # self.render("store/failure.html",
             #             TBK_ID_SESION=TBK_ID_SESION,

@@ -7,6 +7,7 @@ import unittest
 import random
 
 from model.order import Order
+from model.cart import Cart
 
 from others_handler import ExitoHandler
 from lp.globals import enviroment, Enviroment
@@ -269,3 +270,8 @@ class TestSuccess(unittest.TestCase):
         # order.billing_id = 
         # order.shipping_id = 
         # order.payment_type = 
+
+    def test_orden_detail(self):
+        detail = ExitoHandler.getDetalleOrden([])
+
+        assert detail == None
