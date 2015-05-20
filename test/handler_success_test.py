@@ -83,13 +83,13 @@ class TestSuccess(unittest.TestCase):
         def id_generator(size=6, chars=string.letters + string.digits + string.whitespace + "áéíóúñ`àèìòù'?!"):
             return ''.join(random.choice(chars) for _ in range(size))
 
-        for x in xrange(0,10):
+        for x in xrange(0,100):
             try:
 
                 foo = random.random() * 100
                 bar = id_generator(size=30)
 
-                foo if random.random()*2 <= 1 else bar
+                # foo if random.random()*2 <= 1 else bar
 
                 detalle_orden = ExitoHandler.generateMail(
                     "detalle_orden.html",
