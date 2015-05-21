@@ -636,12 +636,11 @@ class ExitoHandler(BaseHandler):
 
                 # kardex = Kardex()
 
-                producto = Product()
-                response = producto.InitById(l["product_id"])
+                # producto = Product()
+                # response = producto.InitById(l["product_id"])
 
-                if "success" in response:
-
-                    producto.sell_price = l["price"]
+                # if "success" in response:
+                #     producto.sell_price = l["price"]
 
                 detalle_orden += ExitoHandler.generateMail(
                     "detalle_orden.html",
@@ -649,11 +648,13 @@ class ExitoHandler(BaseHandler):
                     size=l["size"].encode("utf-8"),
                     quantity=l["quantity"],
                     color=l["color"],
-                    price=self.money_format(
-                        producto.sell_price).encode("utf-8"),
-                    subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
+                    price=ExitoHandler.money_format(l["price"]).encode("utf-8"),
+                    subtotal=ExitoHandler.money_format(l["subtotal"]).encode("utf-8"))
+
+            return detalle_orden
         except Exception, ex:
             ExitoHandler.sendError(str(ex))
+            return ""
 
     @staticmethod
     def notifyEmails(lista):
@@ -668,16 +669,16 @@ class ExitoHandler(BaseHandler):
             else:
                 self.render("beauty_error.html", message="Error al obtener datos de facturación, {}".format(
                     facturacion_response["error"]))
-                return
 
             despacho_response = contact.InitById(order.shipping_id)
 
             if "success" in despacho_response:
                 despacho = despacho_response["success"]
             else:
-                self.render("beauty_error.html", message="Error al obtener datos de despacho, {}".format(
-                    despacho_response["error"]))
-                return
+                ExitoHandler.sendError("error al obtener despacho_response")
+                # self.render("beauty_error.html", message="Error al obtener datos de despacho, {}".format(
+                #     despacho_response["error"]))
+                # return
 
             datos_facturacion = ExitoHandler.generateMail(
                 "datos_facturacion.html",
@@ -716,19 +717,10 @@ class ExitoHandler(BaseHandler):
 
             # email_confirmacion = "yichun212@gmail.com"
 
-            ExitoHandler.sendEmail(html, self.current_user["email"], order.id)
-            # sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
-            # message = sendgrid.Mail()
-            # message.set_from("{nombre} <{mail}>".format(
-            #     nombre="Giani Da Firenze",
-            #     mail=email_giani))
-            # message.add_to(self.current_user["email"])
-
-            # message.set_subject("Giani Da Firenze - Compra Nº {}"
-            #                     .format(order.id))
-
-            message.set_html(html)
-            status, msg = sg.send(message)
+            client_status = ExitoHandler.sendEmail(
+                                html, 
+                                self.current_user["email"], 
+                                order.id)
 
             html = ExitoHandler.generateMail(
                 "mail_confirmacion_giani.html",
@@ -743,21 +735,12 @@ class ExitoHandler(BaseHandler):
                 url_local=url_local,
                 costo_despacho=self.money_format(order.shipping))
 
-            ExitoHandler.sendEmail(html, to_giani, order.id)
+            giani_status = ExitoHandler.sendEmail(
+                                html, 
+                                to_giani, 
+                                order.id)
 
-            # mensaje = sendgrid.Mail()
-            # mensaje.set_from("{nombre} <{mail}>"
-            #                  .format(
-            #                      nombre=self.current_user[
-            #                          "name"].encode("utf-8"),
-            #                      mail=self.current_user["email"]))
-            # mensaje.add_to(to_giani)
-            # mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
-            #                     .format(order.id))
-            # mensaje.set_html(html)
-            # estado, msj = sg.send(mensaje)
-
-            return status, estado
+            return client_status, giani_status
         except:
             return 0, 0
 
@@ -771,7 +754,11 @@ class ExitoHandler(BaseHandler):
         order = self.verifyOrderState(TBK_ORDEN_COMPRA)
 
         if order is None:
-            self.write("pedido invalido o rechazado")
+            self.render(
+                "store/failure.html",
+                TBK_ID_SESION=TBK_ID_SESION,
+                TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+                PATHSUBMIT=pathSubmit)
             return
 
         data = self.readWebpayMAC(TBK_ID_SESION, order)
@@ -791,40 +778,12 @@ class ExitoHandler(BaseHandler):
         except Exception, ex:
             ExitoHandler.sendError(str(ex))
 
-        #     if estado != 200:
-        #         print msj
-
-        #     if status == 200:
-        #         self.render("store/success.html",
-        #                     data=data,
-        #                     pathSubmit=pathSubmit,
-        #                     webpay="si",
-        #                     detalle=lista,
-        #                     order=order)
-        #     else:
-        #         self.render(
-        #             "beauty_error.html",
-        #             message="Error al enviar correo de confirmación, {}"
-        #                     .format(msg))
-        # except:
-        #     pass
-
         self.render("store/success.html",
                         data=data,
                         pathSubmit=pathSubmit,
                         webpay="si",
                         detalle=lista,
                         order=order)
-
-            # self.render("store/failure.html",
-            #             TBK_ID_SESION=TBK_ID_SESION,
-            #             TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
-            #             PATHSUBMIT=pathSubmit)
-
-        # self.render("store/success.html",
-        #               data=data,
-        #               pathSubmit=pathSubmit,
-        #               webpay="si")
 
 
 class FracasoHandler(BaseHandler):

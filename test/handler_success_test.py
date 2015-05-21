@@ -305,19 +305,28 @@ class TestSuccess(unittest.TestCase):
         if len(kardex) > 0:
             self.assertEqual(kardex[0]["balance_units"], 2)
 
-    def test_orden_detail(self):
+    def test_orden_detail_acceptance(self):
 
         # acceptance test
         l = [{"product_id" : "foo",
-                "price" : "foo",
+                "price" : 1,
                 "name" : "foo",
                 "size" : "foo",
                 "quantity" : "foo",
                 "color" : "foo",
-                "subtotal" : "foo"}]
+                "subtotal" : 1}]
 
         detail = ExitoHandler.getDetalleOrden(l)
-        assert detail != None
+        assert detail != ""
 
+    def test_orden_detail_failure(self):
         detail = ExitoHandler.getDetalleOrden([])
-        assert detail == None
+        assert detail == ""
+
+        # exception case
+        detail = ExitoHandler.getDetalleOrden([{}])
+        assert detail == ""
+
+        # exception case
+        detail = ExitoHandler.getDetalleOrden([{"foo" : "bar"}])
+        assert detail == ""
