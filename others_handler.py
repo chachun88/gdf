@@ -660,7 +660,7 @@ class ExitoHandler(BaseHandler):
             return ""
 
     @staticmethod
-    def notifyEmails(lista, order):
+    def notifyEmails(lista, order, current_user):
         try:
             detalle_orden = ExitoHandler.getDetalleOrden(lista)
 
@@ -707,36 +707,36 @@ class ExitoHandler(BaseHandler):
 
             html = ExitoHandler.generateMail(
                 "mail_confirmacion_cliente.html",
-                name=self.current_user["name"].encode("utf-8"),
+                name=current_user["name"].encode("utf-8"),
                 order_id=order.id,
                 datos_facturacion=datos_facturacion,
                 datos_despacho=datos_despacho,
                 detalle_orden=detalle_orden,
-                order_total=self.money_format(order.total),
-                order_subtotal=self.money_format(order.subtotal),
-                order_tax=self.money_format(order.tax),
+                order_total=ExitoHandler.money_format(order.total),
+                order_subtotal=ExitoHandler.money_format(order.subtotal),
+                order_tax=ExitoHandler.money_format(order.tax),
                 url_local=url_local,
-                costo_despacho=self.money_format(order.shipping))
+                costo_despacho=ExitoHandler.money_format(order.shipping))
 
             # email_confirmacion = "yichun212@gmail.com"
 
             client_status, client_message = ExitoHandler.sendEmail(
                                 html, 
-                                self.current_user["email"], 
+                                current_user["email"], 
                                 order.id)
 
             html = ExitoHandler.generateMail(
                 "mail_confirmacion_giani.html",
-                name=self.current_user["name"].encode("utf-8"),
+                name=current_user["name"].encode("utf-8"),
                 order_id=order.id,
                 datos_facturacion=datos_facturacion,
                 datos_despacho=datos_despacho,
                 detalle_orden=detalle_orden,
-                order_total=self.money_format(order.total),
-                order_subtotal=self.money_format(order.subtotal),
-                order_tax=self.money_format(order.tax),
+                order_total=ExitoHandler.money_format(order.total),
+                order_subtotal=ExitoHandler.money_format(order.subtotal),
+                order_tax=ExitoHandler.money_format(order.tax),
                 url_local=url_local,
-                costo_despacho=self.money_format(order.shipping))
+                costo_despacho=ExitoHandler.money_format(order.shipping))
 
             giani_status, giani_message = ExitoHandler.sendEmail(
                                 html, 
@@ -778,7 +778,7 @@ class ExitoHandler(BaseHandler):
         self.moveStock(lista, self.current_user["id"])
 
         try:
-            status_cliente, status_giani = ExitoHandler.notifyEmails(lista, order)
+            status_cliente, status_giani = ExitoHandler.notifyEmails(lista, order, self.current_user)
 
 
             if status_cliente != 200:
