@@ -669,9 +669,8 @@ class ExitoHandler(BaseHandler):
 
             if "success" in facturacion_response:
                 facturacion = facturacion_response["success"]
-            # else:
-            #     self.render("beauty_error.html", message="Error al obtener datos de facturación, {}".format(
-            #         facturacion_response["error"]))
+            else:
+                ExitoHandler.sendError("error al obtener facturacion")
 
             despacho_response = contact.InitById(order.shipping_id)
 
@@ -778,13 +777,13 @@ class ExitoHandler(BaseHandler):
         self.moveStock(lista, self.current_user["id"])
 
         try:
-            status_cliente, status_giani = ExitoHandler.notifyEmails(lista, order, self.current_user)
+            status_cliente, status_giani, message = ExitoHandler.notifyEmails(lista, order, self.current_user)
 
 
             if status_cliente != 200:
-                ExitoHandler.sendError("el email de cliente no se ha enviado")
+                ExitoHandler.sendError("el email de cliente no se ha enviado : {}".format(message))
             if status_giani != 200:
-                ExitoHandler.sendError("el mail a giani no se ha enviado")
+                ExitoHandler.sendError("el mail a giani no se ha enviado : {}".format(message))
         except Exception, ex:
             ExitoHandler.sendError(str(ex))
 
