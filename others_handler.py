@@ -660,7 +660,7 @@ class ExitoHandler(BaseHandler):
             return ""
 
     @staticmethod
-    def notifyEmails(lista):
+    def notifyEmails(lista, order):
         try:
             detalle_orden = ExitoHandler.getDetalleOrden(lista)
 
@@ -778,7 +778,7 @@ class ExitoHandler(BaseHandler):
         self.moveStock(lista, self.current_user["id"])
 
         try:
-            status_cliente, status_giani = ExitoHandler.notifyEmails(lista)
+            status_cliente, status_giani = ExitoHandler.notifyEmails(lista, order)
 
 
             if status_cliente != 200:
