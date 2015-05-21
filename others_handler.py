@@ -384,8 +384,6 @@ class ExitoHandler(BaseHandler):
 
                 message.set_html(msg)
                 status, msg = sg.send(message)
-
-                print status, msg
             else:
                 print msg
         except Exception, ex:
@@ -758,9 +756,6 @@ class ExitoHandler(BaseHandler):
 
     @tornado.web.authenticated
     def post(self):
-
-        self.write("aaaa")
-
         TBK_ID_SESION = self.get_argument("TBK_ID_SESION", "")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA", "")
         pathSubmit = url_local
@@ -782,12 +777,9 @@ class ExitoHandler(BaseHandler):
 
         self.moveStock(lista, self.current_user["id"])
 
-        self.write("bbbbbb")
-
         try:
-            status_cliente, status_giani = ExitoHandler.notifyEmails(lists)
+            status_cliente, status_giani = ExitoHandler.notifyEmails(lista)
 
-            self.write("ccccc")
 
             if status_cliente != 200:
                 ExitoHandler.sendError("el email de cliente no se ha enviado")
