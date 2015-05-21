@@ -4,9 +4,7 @@
 import os.path
 import os
 import tornado.web
-
-from lp.globals import enviroment, Enviroment
-from tornado import template
+import sys, traceback
 from basehandler import BaseHandler
 
 from model.kardex import Kardex
@@ -380,7 +378,7 @@ class ExitoHandler(BaseHandler):
                 message = sendgrid.Mail()
                 message.set_from(
                     "Sistema web giani <contacto@loadingplay.com>")
-                message.add_to("contacto@loadingplay.com")
+                message.add_to("ricardo@loadingplay.com")
 
                 message.set_subject(
                     "Ocurrio un error al intentar enviar un email")
@@ -390,6 +388,7 @@ class ExitoHandler(BaseHandler):
             else:
                 print msg
         except Exception, ex:
+            print str(ex)
             pass
 
     @staticmethod
@@ -415,7 +414,7 @@ class ExitoHandler(BaseHandler):
             return 400
 
     @staticmethod
-    def verifyOrderState(session_id, order_id):
+    def verifyOrderState(order_id):
 
         order = Order()
         init_by_id = order.InitById(order_id)
@@ -435,13 +434,19 @@ class ExitoHandler(BaseHandler):
     @staticmethod
     def readWebpayMAC(session_id, order):
 
-        if os.name != "nt":
-            myPath = "{}webpay/MAC01Normal{}.txt".format(
-                project_path,
-                session_id)
-        else:
-            myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt"\
-                .format(session_id)
+        # if os.name != "nt":
+        #     myPath = "{}webpay/MAC01Normal{}.txt".format(
+        #         project_path,
+        #         session_id)
+        # else:
+        #     myPath = "C:\Users\YiChun\Documents\giani\webpay\MAC01Normal{}.txt"\
+        #         .format(session_id)
+
+        # solucion multi sistema
+        myPath = os.path.join(
+                    os.path.dirname(__file__),
+                    "webpay",
+                    "MAC01Normal{}.txt".format(session_id))
 
         data = {}
 
@@ -539,124 +544,107 @@ class ExitoHandler(BaseHandler):
 
     @staticmethod
     def moveStock(order_detail, user_id):
+        try:
+            id_bodega = cellar_id
+            id_bodega_reserva = shipping_cellar
 
-        id_bodega = cellar_id
-        id_bodega_reserva = shipping_cellar
+            cellar = Cellar()
+            res_cellar = cellar.GetWebCellar()
 
-        cellar = Cellar()
-        res_cellar = cellar.GetWebCellar()
+            if "success" in res_cellar:
+                id_bodega = res_cellar["success"]
+            else:
+                ExitoHandler.sendError("obtener id de bodega web {}"
+                                       .format(res_cellar["error"]))
 
-        if "success" in res_cellar:
-            id_bodega = res_cellar["success"]
-        else:
-            ExitoHandler.sendError("obtener id de bodega web {}"
-                                   .format(res_cellar["error"]))
+            res_reservation_cellar = cellar.GetReservationCellar()
 
-        res_reservation_cellar = cellar.GetReservationCellar()
+            if "success" in res_reservation_cellar:
+                id_bodega_reserva = res_reservation_cellar["success"]
+            else:
+                ExitoHandler.sendError("obtener id de bodega reserva {}"
+                                       .format(res_reservation_cellar["error"]))
 
-        if "success" in res_reservation_cellar:
-            id_bodega_reserva = res_reservation_cellar["success"]
-        else:
-            ExitoHandler.sendError("obtener id de bodega reserva {}"
-                                   .format(res_reservation_cellar["error"]))
+            cart = Cart()
+            cart.user_id = user_id
 
-        cart = Cart()
-        cart.user_id = user_id
+            carro = cart.GetCartByUserId()
 
-        carro = cart.GetCartByUserId()
+            if len(carro) > 0:
 
-        if len(carro) > 0:
+                res_remove_cart = cart.RemoveByUserId()
 
-            res_remove_cart = cart.RemoveByUserId()
+                if "error" in res_remove_cart:
+                    ExitoHandler.sendError("vaciar carro {}"
+                                           .format(res_remove_cart["error"]))
 
-            if "error" in res_remove_cart:
-                ExitoHandler.sendError("vaciar carro {}"
-                                       .format(res_remove_cart["error"]))
+                for l in order_detail:
 
-            for l in order_detail:
+                    kardex = Kardex()
 
-                kardex = Kardex()
+                    producto = Product()
+                    response = producto.InitById(l["product_id"])
 
-                producto = Product()
-                response = producto.InitById(l["product_id"])
+                    if "success" in response:
 
-                if "success" in response:
-                    kardex.product_sku = producto.sku
-                    kardex.cellar_identifier = id_bodega
-                    kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                        kardex.product_sku = producto.sku
+                        kardex.cellar_identifier = id_bodega
+                        kardex.operation_type = Kardex.OPERATION_MOV_OUT
 
-                    _s = Size()
-                    _s.name = l["size"]
-                    res_name = _s.initByName()
+                        _s = Size()
+                        _s.name = l["size"]
+                        res_name = _s.initByName()
 
-                    if "success" in res_name:
-                        kardex.size_id = _s.id
+                        if "success" in res_name:
+                            kardex.size_id = _s.id
+                        else:
+                            ExitoHandler.sendError("obtener size_id para product_id {}, {}"
+                                                   .format(l["product_id"],
+                                                           res_name["error"]))
+
+                        kardex.date = str(datetime.now().isoformat())
+                        kardex.user = "Sistema - Reservar Producto"
+                        kardex.units = l["quantity"]
+
+                        res_kardex = kardex.Insert()
+
+                        if "error" in res_kardex:
+                            ExitoHandler.sendError("sacar de bodega web product_id {}, {}"
+                                                   .format(l["product_id"],
+                                                           res_kardex["error"]))
+
+                        kardex.cellar_identifier = id_bodega_reserva
+                        kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                        res_kardex = kardex.Insert()
+
+                        if "error" in res_kardex:
+                            ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
+                                                   .format(l["product_id"],
+                                                           res_kardex["error"]))
+
                     else:
-                        ExitoHandler.sendError("obtener size_id para product_id {}, {}"
+                        ExitoHandler.sendError("initizalizar producto {}, {}"
                                                .format(l["product_id"],
-                                                       res_name["error"]))
+                                                       res_remove_cart["error"]))
+        except:
+            pass
 
-                    kardex.date = str(datetime.now().isoformat())
-                    kardex.user = "Sistema - Reservar Producto"
-                    kardex.units = l["quantity"]
 
-                    res_kardex = kardex.Insert()
-
-                    if "error" in res_kardex:
-                        ExitoHandler.sendError("sacar de bodega web product_id {}, {}"
-                                               .format(l["product_id"],
-                                                       res_kardex["error"]))
-
-                    kardex.cellar_identifier = id_bodega_reserva
-                    kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                    res_kardex = kardex.Insert()
-
-                    if "error" in res_kardex:
-                        ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
-                                               .format(l["product_id"],
-                                                       res_kardex["error"]))
-
-                else:
-                    ExitoHandler.sendError("initizalizar producto {}, {}"
-                                           .format(l["product_id"],
-                                                   res_remove_cart["error"]))
-
-    @tornado.web.authenticated
-    def post(self):
-
-        TBK_ID_SESION = self.get_argument("TBK_ID_SESION", "")
-        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA", "")
-        pathSubmit = url_local
-
-        order = self.verifyOrderState(TBK_ID_SESION, TBK_ORDEN_COMPRA)
-
-        if order is None:
-            self.write("pedido invalido o rechazado")
-            return
-
-        data = self.readWebpayMAC(TBK_ID_SESION, order)
-
-        detail = OrderDetail()
-
-        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
-
-        self.moveStock(lista, self.current_user["id"])
-
-        if len(lista) > 0:
-
+    @staticmethod
+    def getDetalleOrden(lista):
+        try:
             detalle_orden = ""
 
             for l in lista:
 
                 # kardex = Kardex()
 
-                producto = Product()
-                response = producto.InitById(l["product_id"])
+                # producto = Product()
+                # response = producto.InitById(l["product_id"])
 
-                if "success" in response:
-
-                    producto.sell_price = l["price"]
+                # if "success" in response:
+                #     producto.sell_price = l["price"]
 
                 detalle_orden += ExitoHandler.generateMail(
                     "detalle_orden.html",
@@ -664,9 +652,18 @@ class ExitoHandler(BaseHandler):
                     size=l["size"].encode("utf-8"),
                     quantity=l["quantity"],
                     color=l["color"],
-                    price=self.money_format(
-                        producto.sell_price).encode("utf-8"),
-                    subtotal=self.money_format(l["subtotal"]).encode("utf-8"))
+                    price=ExitoHandler.money_format(l["price"]).encode("utf-8"),
+                    subtotal=ExitoHandler.money_format(l["subtotal"]).encode("utf-8"))
+
+            return detalle_orden
+        except Exception, ex:
+            ExitoHandler.sendError(str(ex))
+            return ""
+
+    @staticmethod
+    def notifyEmails(lista, order, current_user):
+        try:
+            detalle_orden = ExitoHandler.getDetalleOrden(lista)
 
             contact = Contact()
             facturacion_response = contact.InitById(order.billing_id)
@@ -674,18 +671,17 @@ class ExitoHandler(BaseHandler):
             if "success" in facturacion_response:
                 facturacion = facturacion_response["success"]
             else:
-                self.render("beauty_error.html", message="Error al obtener datos de facturación, {}".format(
-                    facturacion_response["error"]))
-                return
+                ExitoHandler.sendError("error al obtener facturacion")
 
             despacho_response = contact.InitById(order.shipping_id)
 
             if "success" in despacho_response:
                 despacho = despacho_response["success"]
             else:
-                self.render("beauty_error.html", message="Error al obtener datos de despacho, {}".format(
-                    despacho_response["error"]))
-                return
+                ExitoHandler.sendError("error al obtener despacho_response")
+                # self.render("beauty_error.html", message="Error al obtener datos de despacho, {}".format(
+                #     despacho_response["error"]))
+                # return
 
             datos_facturacion = ExitoHandler.generateMail(
                 "datos_facturacion.html",
@@ -711,83 +707,93 @@ class ExitoHandler(BaseHandler):
 
             html = ExitoHandler.generateMail(
                 "mail_confirmacion_cliente.html",
-                name=self.current_user["name"].encode("utf-8"),
+                name=current_user["name"].encode("utf-8"),
                 order_id=order.id,
                 datos_facturacion=datos_facturacion,
                 datos_despacho=datos_despacho,
                 detalle_orden=detalle_orden,
-                order_total=self.money_format(order.total),
-                order_subtotal=self.money_format(order.subtotal),
-                order_tax=self.money_format(order.tax),
+                order_total=ExitoHandler.money_format(order.total),
+                order_subtotal=ExitoHandler.money_format(order.subtotal),
+                order_tax=ExitoHandler.money_format(order.tax),
                 url_local=url_local,
-                costo_despacho=self.money_format(order.shipping))
+                costo_despacho=ExitoHandler.money_format(order.shipping))
 
             # email_confirmacion = "yichun212@gmail.com"
 
-            sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
-            message = sendgrid.Mail()
-            message.set_from("{nombre} <{mail}>".format(
-                nombre="Giani Da Firenze",
-                mail=email_giani))
-            message.add_to(self.current_user["email"])
-
-            message.set_subject("Giani Da Firenze - Compra Nº {}"
-                                .format(order.id))
-
-            message.set_html(html)
-            status, msg = sg.send(message)
+            client_status = ExitoHandler.sendEmail(
+                                html, 
+                                current_user["email"], 
+                                order.id)
 
             html = ExitoHandler.generateMail(
                 "mail_confirmacion_giani.html",
-                name=self.current_user["name"].encode("utf-8"),
+                name=current_user["name"].encode("utf-8"),
                 order_id=order.id,
                 datos_facturacion=datos_facturacion,
                 datos_despacho=datos_despacho,
                 detalle_orden=detalle_orden,
-                order_total=self.money_format(order.total),
-                order_subtotal=self.money_format(order.subtotal),
-                order_tax=self.money_format(order.tax),
+                order_total=ExitoHandler.money_format(order.total),
+                order_subtotal=ExitoHandler.money_format(order.subtotal),
+                order_tax=ExitoHandler.money_format(order.tax),
                 url_local=url_local,
-                costo_despacho=self.money_format(order.shipping))
+                costo_despacho=ExitoHandler.money_format(order.shipping))
 
-            print type(self.current_user["name"])
+            giani_status = ExitoHandler.sendEmail(
+                                html, 
+                                to_giani, 
+                                order.id)
 
-            mensaje = sendgrid.Mail()
-            mensaje.set_from("{nombre} <{mail}>"
-                             .format(
-                                 nombre=self.current_user[
-                                     "name"].encode("utf-8"),
-                                 mail=self.current_user["email"]))
-            mensaje.add_to(to_giani)
-            mensaje.set_subject("Giani Da Firenze - Compra Nº {}"
-                                .format(order.id))
-            mensaje.set_html(html)
-            estado, msj = sg.send(mensaje)
+            return client_status, giani_status, "ambos emails enviados"
+        except Exception, ex:
+            ExitoHandler.sendError("error trying to send emails : {}".format(str(ex)))
+            return 0, 0, "{}".format(ex)
 
-            if estado != 200:
-                print msj
-            if status == 200:
-                self.render("store/success.html",
-                            data=data,
-                            pathSubmit=pathSubmit,
-                            webpay="si",
-                            detalle=lista,
-                            order=order)
-            else:
-                self.render(
-                    "beauty_error.html",
-                    message="Error al enviar correo de confirmación, {}"
-                            .format(msg))
 
-            # self.render("store/failure.html",
-            #             TBK_ID_SESION=TBK_ID_SESION,
-            #             TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
-            #             PATHSUBMIT=pathSubmit)
+    def get(self):
+        self.render(
+                "beauty_error.html",
+                message="Acceso no permitido. Si tienes alguna duda, escríbenos a contacto@loadingplay.com")
 
-        # self.render("store/success.html",
-        #               data=data,
-        #               pathSubmit=pathSubmit,
-        #               webpay="si")
+    @tornado.web.authenticated
+    def post(self):
+        TBK_ID_SESION = self.get_argument("TBK_ID_SESION", "")
+        TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA", "")
+        pathSubmit = url_local
+
+        order = self.verifyOrderState(TBK_ORDEN_COMPRA)
+
+        if order is None:
+            self.render(
+                "store/failure.html",
+                TBK_ID_SESION=TBK_ID_SESION,
+                TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+                PATHSUBMIT=pathSubmit)
+            return
+
+        data = self.readWebpayMAC(TBK_ID_SESION, order)
+
+        detail = OrderDetail()
+        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+
+        self.moveStock(lista, self.current_user["id"])
+
+        try:
+            status_cliente, status_giani, message = ExitoHandler.notifyEmails(lista, order, self.current_user)
+
+
+            if status_cliente != 200:
+                ExitoHandler.sendError("el email de cliente no se ha enviado : {}".format(message))
+            if status_giani != 200:
+                ExitoHandler.sendError("el mail a giani no se ha enviado : {}".format(message))
+        except Exception, ex:
+            ExitoHandler.sendError(str(ex))
+
+        self.render("store/success.html",
+                        data=data,
+                        pathSubmit=pathSubmit,
+                        webpay="si",
+                        detalle=lista,
+                        order=order)
 
 
 class FracasoHandler(BaseHandler):
