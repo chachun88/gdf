@@ -30,6 +30,7 @@ Giani Da Firenze - Home
                 </td>
             </tr>
         </table>
+        {% if order is not None %}
         <table align="center">
             <tr>
                 <th align="left" colspan="2"> <h3>Datos de la Compra:</h3>
@@ -54,17 +55,16 @@ Giani Da Firenze - Home
                         
                         <tr valign="top">
                             <th align="left">Nro Orden:</th>
-                            <td align="left">{{data["TBK_ORDEN_COMPRA"]}}</td>
+                            <td align="left">{{order.id}}</td>
                         </tr>
                         <tr valign="top">
                             <th align="left">Monto (pesos chilenos):</th>
-                            <td align="left">${{money_format(data["TBK_MONTO"] / 100)}}</td>
+                            <td align="left">${{money_format(order.total)}}</td>
                         </tr>
                     
                 </td>
             </tr>
         </table>
-        {% if order is not None %}
         <table>
             <tr>
                 <td style="width:45%;text-align:left;">Producto</td>
