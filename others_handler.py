@@ -4,6 +4,7 @@
 import os.path
 import os
 import tornado.web
+import sys, traceback
 from basehandler import BaseHandler
 
 from model.kardex import Kardex
@@ -745,7 +746,7 @@ class ExitoHandler(BaseHandler):
             return client_status, giani_status, "{} -- {}".format(client_message, giani_message)
         except Exception, ex:
             ExitoHandler.sendError("error trying to send emails : {}".format(str(ex)))
-            return 0, 0, "{}".format(ex)
+            return 0, 0, traceback.print_exc(file=sys.stdout)
 
 
     def get(self):
