@@ -669,9 +669,9 @@ class ExitoHandler(BaseHandler):
 
             if "success" in facturacion_response:
                 facturacion = facturacion_response["success"]
-            else:
-                self.render("beauty_error.html", message="Error al obtener datos de facturación, {}".format(
-                    facturacion_response["error"]))
+            # else:
+            #     self.render("beauty_error.html", message="Error al obtener datos de facturación, {}".format(
+            #         facturacion_response["error"]))
 
             despacho_response = contact.InitById(order.shipping_id)
 
