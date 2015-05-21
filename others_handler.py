@@ -377,7 +377,7 @@ class ExitoHandler(BaseHandler):
                 message = sendgrid.Mail()
                 message.set_from(
                     "Sistema web giani <contacto@loadingplay.com>")
-                message.add_to("contacto@loadingplay.com")
+                message.add_to("ricardo@loadingplay.com")
 
                 message.set_subject(
                     "Ocurrio un error al intentar enviar un email")
