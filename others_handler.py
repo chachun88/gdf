@@ -387,6 +387,7 @@ class ExitoHandler(BaseHandler):
             else:
                 print msg
         except Exception, ex:
+            print str(ex)
             pass
 
     @staticmethod
