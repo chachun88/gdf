@@ -744,6 +744,12 @@ class ExitoHandler(BaseHandler):
         except:
             return 0, 0
 
+
+    def get(self):
+        self.render(
+                "beauty_error.html",
+                "Acceso no permitido. Si tienes alguna duda, escríbenos a contacto@loadingplay.com")
+
     @tornado.web.authenticated
     def post(self):
 
