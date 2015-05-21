@@ -746,7 +746,7 @@ class ExitoHandler(BaseHandler):
             return client_status, giani_status, "{} -- {}".format(client_message, giani_message)
         except Exception, ex:
             ExitoHandler.sendError("error trying to send emails : {}".format(str(ex)))
-            return 0, 0, traceback.print_exc(file=sys.stdout)
+            return 0, 0, traceback.print_exc()
 
 
     def get(self):
