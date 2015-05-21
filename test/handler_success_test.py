@@ -216,7 +216,7 @@ class TestSuccess(unittest.TestCase):
 
         self.assertEqual(existe, True)
 
-    def test_check_order_exists(self):
+    def test_check_order_exists_2(self):
 
         response = ExitoHandler.verifyOrderState(402)
         self.assertNotEqual(response, None)
@@ -226,7 +226,7 @@ class TestSuccess(unittest.TestCase):
         response = ExitoHandler.verifyOrderState(400)
         self.assertEqual(response, None)
 
-    def test_order_not_pending(self):
+    def test_order_not_pending_2(self):
 
         response = ExitoHandler.verifyOrderState('')
         self.assertEqual(response, None)
@@ -306,6 +306,18 @@ class TestSuccess(unittest.TestCase):
             self.assertEqual(kardex[0]["balance_units"], 2)
 
     def test_orden_detail(self):
-        detail = ExitoHandler.getDetalleOrden([])
 
+        # acceptance test
+        l = [{"product_id" : "foo",
+                "price" : "foo",
+                "name" : "foo",
+                "size" : "foo",
+                "quantity" : "foo",
+                "color" : "foo",
+                "subtotal" : "foo"}]
+
+        detail = ExitoHandler.getDetalleOrden(l)
+        assert detail != None
+
+        detail = ExitoHandler.getDetalleOrden([])
         assert detail == None
