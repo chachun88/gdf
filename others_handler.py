@@ -743,7 +743,8 @@ class ExitoHandler(BaseHandler):
                                 order.id)
 
             return client_status, giani_status
-        except:
+        except Exception, ex:
+            ExitoHandler.sendError("error trying to send emails : {}".format(str(ex)))
             return 0, 0
 
 
