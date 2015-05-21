@@ -384,6 +384,8 @@ class ExitoHandler(BaseHandler):
 
                 message.set_html(msg)
                 status, msg = sg.send(message)
+
+                print status, msg
             else:
                 print msg
         except Exception, ex:
@@ -404,8 +406,6 @@ class ExitoHandler(BaseHandler):
 
             message.set_html(html)
             status, msg = sg.send(message)
-
-            print status, msg
 
             if status != 200:
                 ExitoHandler.sendError("{} -- {}".format(order, msg))
