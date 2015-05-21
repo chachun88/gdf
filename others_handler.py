@@ -542,89 +542,91 @@ class ExitoHandler(BaseHandler):
 
     @staticmethod
     def moveStock(order_detail, user_id):
+        try:
+            id_bodega = cellar_id
+            id_bodega_reserva = shipping_cellar
 
-        id_bodega = cellar_id
-        id_bodega_reserva = shipping_cellar
+            cellar = Cellar()
+            res_cellar = cellar.GetWebCellar()
 
-        cellar = Cellar()
-        res_cellar = cellar.GetWebCellar()
+            if "success" in res_cellar:
+                id_bodega = res_cellar["success"]
+            else:
+                ExitoHandler.sendError("obtener id de bodega web {}"
+                                       .format(res_cellar["error"]))
 
-        if "success" in res_cellar:
-            id_bodega = res_cellar["success"]
-        else:
-            ExitoHandler.sendError("obtener id de bodega web {}"
-                                   .format(res_cellar["error"]))
+            res_reservation_cellar = cellar.GetReservationCellar()
 
-        res_reservation_cellar = cellar.GetReservationCellar()
+            if "success" in res_reservation_cellar:
+                id_bodega_reserva = res_reservation_cellar["success"]
+            else:
+                ExitoHandler.sendError("obtener id de bodega reserva {}"
+                                       .format(res_reservation_cellar["error"]))
 
-        if "success" in res_reservation_cellar:
-            id_bodega_reserva = res_reservation_cellar["success"]
-        else:
-            ExitoHandler.sendError("obtener id de bodega reserva {}"
-                                   .format(res_reservation_cellar["error"]))
+            cart = Cart()
+            cart.user_id = user_id
 
-        cart = Cart()
-        cart.user_id = user_id
+            carro = cart.GetCartByUserId()
 
-        carro = cart.GetCartByUserId()
+            if len(carro) > 0:
 
-        if len(carro) > 0:
+                res_remove_cart = cart.RemoveByUserId()
 
-            res_remove_cart = cart.RemoveByUserId()
+                if "error" in res_remove_cart:
+                    ExitoHandler.sendError("vaciar carro {}"
+                                           .format(res_remove_cart["error"]))
 
-            if "error" in res_remove_cart:
-                ExitoHandler.sendError("vaciar carro {}"
-                                       .format(res_remove_cart["error"]))
+                for l in order_detail:
 
-            for l in order_detail:
+                    kardex = Kardex()
 
-                kardex = Kardex()
+                    producto = Product()
+                    response = producto.InitById(l["product_id"])
 
-                producto = Product()
-                response = producto.InitById(l["product_id"])
+                    if "success" in response:
 
-                if "success" in response:
+                        kardex.product_sku = producto.sku
+                        kardex.cellar_identifier = id_bodega
+                        kardex.operation_type = Kardex.OPERATION_MOV_OUT
 
-                    kardex.product_sku = producto.sku
-                    kardex.cellar_identifier = id_bodega
-                    kardex.operation_type = Kardex.OPERATION_MOV_OUT
+                        _s = Size()
+                        _s.name = l["size"]
+                        res_name = _s.initByName()
 
-                    _s = Size()
-                    _s.name = l["size"]
-                    res_name = _s.initByName()
+                        if "success" in res_name:
+                            kardex.size_id = _s.id
+                        else:
+                            ExitoHandler.sendError("obtener size_id para product_id {}, {}"
+                                                   .format(l["product_id"],
+                                                           res_name["error"]))
 
-                    if "success" in res_name:
-                        kardex.size_id = _s.id
+                        kardex.date = str(datetime.now().isoformat())
+                        kardex.user = "Sistema - Reservar Producto"
+                        kardex.units = l["quantity"]
+
+                        res_kardex = kardex.Insert()
+
+                        if "error" in res_kardex:
+                            ExitoHandler.sendError("sacar de bodega web product_id {}, {}"
+                                                   .format(l["product_id"],
+                                                           res_kardex["error"]))
+
+                        kardex.cellar_identifier = id_bodega_reserva
+                        kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                        res_kardex = kardex.Insert()
+
+                        if "error" in res_kardex:
+                            ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
+                                                   .format(l["product_id"],
+                                                           res_kardex["error"]))
+
                     else:
-                        ExitoHandler.sendError("obtener size_id para product_id {}, {}"
+                        ExitoHandler.sendError("initizalizar producto {}, {}"
                                                .format(l["product_id"],
-                                                       res_name["error"]))
-
-                    kardex.date = str(datetime.now().isoformat())
-                    kardex.user = "Sistema - Reservar Producto"
-                    kardex.units = l["quantity"]
-
-                    res_kardex = kardex.Insert()
-
-                    if "error" in res_kardex:
-                        ExitoHandler.sendError("sacar de bodega web product_id {}, {}"
-                                               .format(l["product_id"],
-                                                       res_kardex["error"]))
-
-                    kardex.cellar_identifier = id_bodega_reserva
-                    kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                    res_kardex = kardex.Insert()
-
-                    if "error" in res_kardex:
-                        ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
-                                               .format(l["product_id"],
-                                                       res_kardex["error"]))
-
-                else:
-                    ExitoHandler.sendError("initizalizar producto {}, {}"
-                                           .format(l["product_id"],
-                                                   res_remove_cart["error"]))
+                                                       res_remove_cart["error"]))
+        except:
+            pass
 
 
     @staticmethod
