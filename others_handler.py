@@ -720,7 +720,7 @@ class ExitoHandler(BaseHandler):
 
             # email_confirmacion = "yichun212@gmail.com"
 
-            client_status = ExitoHandler.sendEmail(
+            client_status, client_message = ExitoHandler.sendEmail(
                                 html, 
                                 self.current_user["email"], 
                                 order.id)
@@ -738,12 +738,12 @@ class ExitoHandler(BaseHandler):
                 url_local=url_local,
                 costo_despacho=self.money_format(order.shipping))
 
-            giani_status = ExitoHandler.sendEmail(
+            giani_status, giani_message = ExitoHandler.sendEmail(
                                 html, 
                                 to_giani, 
                                 order.id)
 
-            return client_status, giani_status
+            return client_status, giani_status, "{} -- {}".format(client_message, giani_message)
         except Exception, ex:
             ExitoHandler.sendError("error trying to send emails : {}".format(str(ex)))
             return 0, 0
