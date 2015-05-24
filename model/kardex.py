@@ -6,6 +6,7 @@ from cart import Cart
 from size import Size
 import psycopg2
 import psycopg2.extras
+from datetime import datetime
 
 
 class Kardex(BaseModel):
@@ -24,7 +25,7 @@ class Kardex(BaseModel):
         self._balance_units = 0
         self._balance_price = 0.0
         self._balance_total = 0.0
-        self._date = 0000000
+        self._date = str(datetime.now().isoformat())
         self._user = ""
         self._size_id = ""
 
@@ -321,7 +322,7 @@ class Kardex(BaseModel):
         cellar_data = db.cellar.find({"_id":ObjectId(self.cellar_identifier)}).count()
 
         print "product_data:" + product_data
-        
+
         if cellar_data == 0 or product_data == 0:
             return self.ShowError("the cellar does not exist")
         '''
@@ -348,7 +349,7 @@ class Kardex(BaseModel):
         }
 
         try:
-            query = '''insert into "Kardex" (balance_total,product_sku,cellar_id,operation_type,units,price,sell_price,size_id,color,total,balance_units,balance_price,date,"user") values (%(balance_total)s,%(product_sku)s,%(cellar_id)s,%(operation_type)s,%(units)s,%(price)s,%(sell_price)s,%(size_id)s,%(color)s,%(total)s,%(balance_units)s,%(balance_price)s,current_date,%(user)s)'''
+            query = '''insert into "Kardex" (balance_total,product_sku,cellar_id,operation_type,units,price,sell_price,size_id,color,total,balance_units,balance_price,date,"user") values (%(balance_total)s,%(product_sku)s,%(cellar_id)s,%(operation_type)s,%(units)s,%(price)s,%(sell_price)s,%(size_id)s,%(color)s,%(total)s,%(balance_units)s,%(balance_price)s,%(date)s,%(user)s)'''
             cur.execute(query, parametros)
             # return cur.mogrify(query,parametros)
             self.connection.commit()
