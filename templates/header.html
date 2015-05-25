@@ -16,6 +16,10 @@
 		</a>
 	</div>
 	<div class="header-rigth-cont clearfix">
+		<div class="carritoicono clearfix hide-show">
+			<!-- <img class="image" src="" data-rimage data-src="/static/images/carrito-30x30.png"> -->
+			<div class="iconos"><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
+		</div>
 		
 		<div class="_container clearfix salir_registro">
 			{% if current_user == None %}
@@ -24,7 +28,7 @@
 					<p>Log in / Registro</p>
 
 				</a>
-				<img class="imagen-back-login" src="/static/images/background-login.png">
+				<img class="imagen-back-login show-hide" src="/static/images/background-login.png">
 			{% else %}
 				<!-- la clase logout es funcional no borrar -->
 				<a href="/profile" >
@@ -33,13 +37,13 @@
 				<a class="logout"  href="/auth/logout?next={{url_escape(request.uri)}}" >
 					<div class="salir_registro_1">
 					    <p style="position: absolute;  z-index: 4;  width: 100%;">Log out</p>
-						<img class="imagen-back-login" src="/static/images/background-login.png">
+						<img class="imagen-back-login show-hide" src="/static/images/background-login.png">
 					</div>
 
 				</a>
 			{% end %}
 		</div>
-		<div class="carritoicono clearfix">
+		<div class="carritoicono clearfix show-hide">
 			<!-- <img class="image" src="" data-rimage data-src="/static/images/carrito-30x30.png"> -->
 			<div class="iconos"><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
 		</div>
