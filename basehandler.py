@@ -96,7 +96,7 @@ class BaseHandler(tornado.web.RequestHandler):
         return self.get_argument("next", "/")
 
     def nocache_static(self):
-        if not "nocache_static" in tornado.options.options:
+        if "nocache_static" not in tornado.options.options:
             return "static"
         return tornado.options.options["nocache_static"]
 

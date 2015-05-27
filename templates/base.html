@@ -65,19 +65,19 @@
   }(document, 'script', 'facebook-jssdk')); 
   </script>
   <!-- login movil -->
-  {% module Template('loginmovil.html', nxt=nxt) %} 
+  {% module Template('loginmovil.html', nxt=nxt, nocache_static=nocache_static) %} 
   <div id="cuerpo" style="width: 100%;"> 
     <!-- header -->
-    {% module Template('header.html') %}
+    {% module Template('header.html', nocache_static=nocache_static) %}
     <!-- registration -->
-    {% module Template('registration.html') %}
+    {% module Template('registration.html', nocache_static=nocache_static) %}
 
     {% block body %}
 
     {% end %}
 
-    {% module Template('carrodecompra.html') %}
-    {% module Template('footer.html') %}
+    {% module Template('carrodecompra.html', nocache_static=nocache_static) %}
+    {% module Template('footer.html', nocache_static=nocache_static) %}
 
 
     <!--<script src="/{{nocache_static}}/js/rimages.js"></script>-->
