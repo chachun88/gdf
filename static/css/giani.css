@@ -90,7 +90,7 @@
 	left: 5% !important;
 }
 .slider {
-	display: none;
+	display: none !important;
 }
 .slider-small, .queeslonuevo-small {
 	display: inline;
@@ -106,3 +106,22 @@
 .minict_wrapper ul li {
 white-space: nowrap;
 }
+
+.show-hide
+{
+	display: block;
+}
+.hide-show
+{
+	display: none;
+}
+@media(max-width: 479px) {
+	.show-hide
+{
+	display: none;
+}
+.hide-show
+{
+	display: block;
+}
+	}

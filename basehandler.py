@@ -19,12 +19,14 @@ import re
 
 
 class BaseHandler(tornado.web.RequestHandler):
+
     @property
     def db(self):
         return self.application.db
 
     def __init__(self, application, request, **kwargs):
-        tornado.web.RequestHandler.__init__(self, application, request, **kwargs)
+        tornado.web.RequestHandler.__init__(
+            self, application, request, **kwargs)
 
         # detecto el lenguage del navegador del usuario
         # lpautoSelectCurrentLang(self)
@@ -52,7 +54,7 @@ class BaseHandler(tornado.web.RequestHandler):
         # pattern = re.compile(r"[^a-zA-Z\d_]+")
 
         _url = self.strip_accents(url).encode("utf-8")
-        _url = _url.replace(" ","_")
+        _url = _url.replace(" ", "_")
 
         # _url = re.sub(pattern,"",_url)
 
@@ -84,16 +86,21 @@ class BaseHandler(tornado.web.RequestHandler):
     def money_format(value):
 
         if os.name == "posix":
-            locale.setlocale( locale.LC_NUMERIC, 'es_ES.UTF-8' )
+            locale.setlocale(locale.LC_NUMERIC, 'es_ES.UTF-8')
         elif os.name == "nt":
-            locale.setlocale( locale.LC_NUMERIC, 'Spanish_Spain.1252' )
+            locale.setlocale(locale.LC_NUMERIC, 'Spanish_Spain.1252')
         return locale.format('%d', value, True)
 
     @property
     def next(self):
         return self.get_argument("next", "/")
 
-    def render(self, template_name ,**kwargs):
+    def nocache_static(self):
+        if "nocache_static" not in tornado.options.options:
+            return "static"
+        return tornado.options.options["nocache_static"]
+
+    def render(self, template_name, **kwargs):
 
         # kwargs["lptranslate"] = lptranslate
         kwargs["truncate_decimal"] = self.truncate_decimal
@@ -105,6 +112,7 @@ class BaseHandler(tornado.web.RequestHandler):
         kwargs["url_local"] = url_local
         kwargs["url_cgi"] = url_cgi
         kwargs["money_format"] = self.money_format
+        kwargs["nocache_static"] = self.nocache_static()
 
         tornado.web.RequestHandler.render(self, template_name, **kwargs)
 
@@ -134,7 +142,7 @@ def valida(rut):
     ya sea matematica como logica.
     """
     rfiltro = filtra(rut)
-    rutx = str(rfiltro[0:len(rfiltro)-1])
+    rutx = str(rfiltro[0:len(rfiltro) - 1])
     digito = str(rfiltro[-1])
     multiplo = 2
     total = 0
@@ -159,6 +167,7 @@ def valida(rut):
         return True
     else:
         return False
+
 
 def isEmailValid(email):
 
