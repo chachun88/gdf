@@ -1,8 +1,8 @@
 <div class="header-content clearfix">
 	<div class="header-left-cont clearfix">
 		<div class="header-left-social">
-		    <div class="iconos margin-left-2"><a href="http://instagram.com/gianidafirenze" class="redes_sociales" target="_blank"><img src="/static/images/red04.png" style="  width: 40px;"></a></div>
-			<div class="iconos-left iconos"><a href="https://www.facebook.com/giani.dafirenze?fref=ts" target="_blank" class="redes_sociales"><img src="/static/images/red03.png" style="  width: 40px;"></i></a></div>
+		    <div class="iconos margin-left-2"><a href="http://instagram.com/gianidafirenze" class="redes_sociales" target="_blank"><img src="/{{nocache_static}}/images/red04.png" style="  width: 40px;"></a></div>
+			<div class="iconos-left iconos"><a href="https://www.facebook.com/giani.dafirenze?fref=ts" target="_blank" class="redes_sociales"><img src="/{{nocache_static}}/images/red03.png" style="  width: 40px;"></i></a></div>
 			<!-- <div class="iconos-left iconos"><a href="https://twitter.com/GianidaFirenze" class="redes_sociales" target="_blank"><i class="fa icon-twitter"></i></a></div> -->
 			
 		</div>
@@ -12,7 +12,7 @@
 	</div>
 	<div class="logo-content">
 		<a href="/">
-			<img class="image image-1" src="/static/images/giani-logo-2-gris-260x119.png" data-rimage data-src="/static/images/giani-logo-2-gris-260x119.png">
+			<img class="image image-1" src="/{{nocache_static}}/images/giani-logo-2-gris-260x119.png" data-rimage data-src="/{{nocache_static}}/images/giani-logo-2-gris-260x119.png">
 		</a>
 	</div>
 	<div class="header-rigth-cont clearfix">
@@ -24,7 +24,7 @@
 					<p>Log in / Registro</p>
 
 				</a>
-				<img class="imagen-back-login" src="/static/images/background-login.png">
+				<img class="imagen-back-login" src="/{{nocache_static}}/images/background-login.png">
 			{% else %}
 				<!-- la clase logout es funcional no borrar -->
 				<a href="/profile" >
@@ -33,14 +33,14 @@
 				<a class="logout"  href="/auth/logout?next={{url_escape(request.uri)}}" >
 					<div class="salir_registro_1">
 					    <p style="position: absolute;  z-index: 4;  width: 100%;">Log out</p>
-						<img class="imagen-back-login" src="/static/images/background-login.png">
+						<img class="imagen-back-login" src="/{{nocache_static}}/images/background-login.png">
 					</div>
 
 				</a>
 			{% end %}
 		</div>
 		<div class="carritoicono clearfix">
-			<!-- <img class="image" src="" data-rimage data-src="/static/images/carrito-30x30.png"> -->
+			<!-- <img class="image" src="" data-rimage data-src="/{{nocache_static}}/images/carrito-30x30.png"> -->
 			<div class="iconos"><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
 		</div>
 	</div>

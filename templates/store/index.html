@@ -4,9 +4,9 @@ Giani Da Firenze - Home
 {% end %}
 
 {% block css %}
-<link rel="stylesheet" href="/static/css/store.css">
-<link rel="stylesheet" href="/static/css/menu-material.css">
-<link rel="stylesheet" href="/static/css/simplePagination.css">
+<link rel="stylesheet" href="/{{nocache_static}}/css/store.css">
+<link rel="stylesheet" href="/{{nocache_static}}/css/menu-material.css">
+<link rel="stylesheet" href="/{{nocache_static}}/css/simplePagination.css">
 {% end %}
 
 {% block body %}
@@ -46,7 +46,7 @@ Giani Da Firenze - Home
 
   {% include ../slider.html %}
   <!-- <div class="slider-small">
-    <img class="slide" src="/static/images/banermovil.png" data-rimage data-src="/static/images/banermovil.png">
+    <img class="slide" src="/{{nocache_static}}/images/banermovil.png" data-rimage data-src="/{{nocache_static}}/images/banermovil.png">
   </div> -->
 
   <div class="contenedor-productos clearfix" id="contenedor">
@@ -128,6 +128,6 @@ Giani Da Firenze - Home
   {% end %}
 
   {% block javascript %}
-  <script src="/static/js/jquery.simplePagination.js"></script>
-  <script src="/static/js/store.js"></script>
+  <script src="/{{nocache_static}}/js/jquery.simplePagination.js"></script>
+  <script src="/{{nocache_static}}/js/store.js"></script>
   {% end %}

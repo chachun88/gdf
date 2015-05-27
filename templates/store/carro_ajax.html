@@ -8,7 +8,7 @@
             </div>
             <p class="nombreproductoencola">{{d["name"]}}</p>
             <p class="color">color: {{d["color"]}}</p>
-            <button class="eliminarproducto" cart-id="{{d['id']}}"><img src="/static/images/carritoeliminar.png"></button>
+            <button class="eliminarproducto" cart-id="{{d['id']}}"><img src="/{{nocache_static}}/images/carritoeliminar.png"></button>
             <p class="talla">talla {{d["size"]}}</p>
             <p class="cantidad">x{{d["quantity"]}}</p>
             <p class="precio">$ {{money_format(d["subtotal"])}}</p>

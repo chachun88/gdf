@@ -21,6 +21,8 @@ import profile_handler
 from config import *
 from lp.globals import *
 
+define("nocache_static", default="static_v27", help="", type=str)
+
 if "enviroment" not in options:
 
     define("enviroment", default=enviroment, type=str)
@@ -47,6 +49,9 @@ class Application(tornado.web.Application):
         )
 
         handlers = [
+            (r'/{}/(.*)'.format(tornado.options.options["nocache_static"]),
+             tornado.web.StaticFileHandler,
+             {'path': os.path.join(os.path.dirname(__file__), "static")}),
             (r"/", home_handler.HomeHandler),  # home
             (r"/store", store_handler.IndexHandler),  # home de la tienda
             (r"/product/([^/]+)/([^/]+)/(.+)", store_handler.ProductHandler),  # detalle producto

@@ -3,15 +3,15 @@
     Giani Da Firenze - {{data.name}}
 {% end %}
 {% block css %}
-    <link rel="stylesheet" href="/static/css/simple_tab.css">
-    <link rel="stylesheet" href="/static/css/detalle-producto.css">
+    <link rel="stylesheet" href="/{{nocache_static}}/css/simple_tab.css">
+    <link rel="stylesheet" href="/{{nocache_static}}/css/detalle-producto.css">
     <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
     {% end %}
     {% block javascript %}
-        <script src="/static/js/detalle-producto.js"></script>
+        <script src="/{{nocache_static}}/js/detalle-producto.js"></script>
         <!-- Google analytics -->
-        <script src="/static/js/ga-pageview-detalle-producto.js"></script>
-        <script type="text/javascript" src="/static/js/simple.tab.js" ></script>
+        <script src="/{{nocache_static}}/js/ga-pageview-detalle-producto.js"></script>
+        <script type="text/javascript" src="/{{nocache_static}}/js/simple.tab.js" ></script>
         <script type="text/javascript">
         ifvoted({{data.id}});
         </script>
@@ -76,7 +76,7 @@
                 <div class="producto-info clearfix">
                     <p class="producto-nombre producto-nombre-1">{{data.name}}</p>
                     <div class="megusta clearfix">
-                        <div class="fotomegusta enabled" onclick="votar({{data.id}})"><img src="/static/images/corazon.png"></div>
+                        <div class="fotomegusta enabled" onclick="votar({{data.id}})"><img src="/{{nocache_static}}/images/corazon.png"></div>
                         <p class="text" id="votes-quantity">{{votos}}</p>
                     </div>
                     <p class="producto-nombre producto-nombre-2">Línea de producto</p>
@@ -134,7 +134,7 @@
                             <ul class="tabs-menu tabs-descripcion tabs-menu-li">
                                 <li class="current"><a href="#tab-4">Descripci&oacute;n</a></li>
                                 <li><a href="#tab-5">Delivery</a></li>
-                                <li><a class="fancybox" href="/static/img/tallas.png">Cu&aacute;l es tu talla</a></li>
+                                <li><a class="fancybox" href="/{{nocache_static}}/img/tallas.png">Cu&aacute;l es tu talla</a></li>
                             </ul>
                             <div class="tab tab-2">
                                 <div id="tab-4" class="tab-content-desc tab-content">
