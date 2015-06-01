@@ -10,7 +10,7 @@ sl.password = ONTEST_PASSWORD
 sl.script_file = "dbscripts/schema.sql"
 
 if host_name == "MacBook-Pro.local":
-    sl.delete_old("postgres", "postgres", "12345")
+    sl.delete_old(dbname="postgres", user="postgres", password="12345")
 else:
     sl.delete_old()
 sl.execute()
