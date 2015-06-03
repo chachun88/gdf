@@ -370,37 +370,42 @@ class Cart(BaseModel):
 
         try:
             cur.execute(query, parameters)
+            self.connection.commit()
+            return self.ShowSuccessMessage("Cart has been move to logged user")
         except Exception, e:
             return self.ShowError(str(e))
+        finally:
+            cur.close()
+            self.connection.close()
 
-        contact = Contact()
-        order = Order()
+        # contact = Contact()
+        # order = Order()
 
-        response_obj = order.RemoveByUserId(old_user_id)
+        # response_obj = order.RemoveByUserId(old_user_id)
 
-        if "success" in response_obj:
+        # if "success" in response_obj:
 
-            response = contact.RemoveByUserId(old_user_id)
+        #     response = contact.RemoveByUserId(old_user_id)
 
-            if "success" in response:
+        #     if "success" in response:
 
-                query = '''delete from "User" where id = %(old_user_id)s'''
-                parameters = {
-                    "old_user_id": old_user_id
-                }
+        #         query = '''delete from "User" where id = %(old_user_id)s'''
+        #         parameters = {
+        #             "old_user_id": old_user_id
+        #         }
 
-                try:
-                    cur.execute(query, parameters)
-                    self.connection.commit()
-                    return self.ShowSuccessMessage("Cart has been move to logged user")
-                except Exception, e:
-                    return self.ShowError(str(e))
+        #         try:
+        #             cur.execute(query, parameters)
+        #             self.connection.commit()
+        #             return self.ShowSuccessMessage("Cart has been move to logged user")
+        #         except Exception, e:
+        #             return self.ShowError(str(e))
 
-            else:
+        #     else:
 
-                return self.ShowError(response["error"])
-        else:
-            return self.ShowError(response_obj["error"])
+        #         return self.ShowError(response["error"])
+        # else:
+        #     return self.ShowError(response_obj["error"])
 
     def UpdateCartQuantity(self, cart_id, quantity):
 
