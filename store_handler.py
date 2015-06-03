@@ -102,9 +102,9 @@ class ProductHandler(BaseHandler):
 
             tallas_disponibles = []
 
-            # print prod.size_id
+            prod.size_id = sorted(prod.size_id, reverse=True)
 
-            for s in prod.size_id[::-1]:
+            for s in prod.size_id:
 
                 kardex = Kardex()
                 response_obj = kardex.FindKardex(prod.sku,id_bodega,s)
