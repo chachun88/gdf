@@ -115,6 +115,13 @@ white-space: nowrap;
 {
 	display: none;
 }
+.new-social-network
+{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: right;	
+}
 @media(max-width: 479px) {
 	.show-hide
 {
