@@ -122,6 +122,10 @@ white-space: nowrap;
   width: 100%;
   text-align: right;	
 }
+.fancybox-skin
+{
+	width: 500px !important;
+}
 @media(max-width: 479px) {
 	.show-hide
 {
@@ -131,4 +135,9 @@ white-space: nowrap;
 {
 	display: block;
 }
-	}
+.fancybox-skin
+{
+	width: 280px !important;
+}
+}
+
