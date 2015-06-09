@@ -15,3 +15,5 @@ $ java -cp .:reverse-engineering.jar:postgresql.jdbc3.jar com.vertabelo.reverse.
 ```sh
 $ watchmedo shell-command --patterns="*.py" --command="clear ; python -m test" --recursive /Users/ricardo/git_loadingplay/giani.git/
 ```
+
+
