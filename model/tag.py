@@ -133,14 +133,19 @@ class Tag(BaseModel):
             cur.close()
             self.connection.close()
 
-    def ListVisibleTags(self):
+    def ListVisibleTags(self, tags=[]):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         query = '''select * from "Tag" where visible = %(visible)s'''
+
         parameters = {
             "visible":1
         }
+
+        if len(tags) > 0:
+            query += ''' and name = any(%(tags)s)'''
+            parameters["tags"] = tags
 
         try:
             cur.execute(query,parameters)

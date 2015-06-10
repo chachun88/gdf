@@ -28,7 +28,11 @@ Giani Da Firenze - Home
       <!-- enlacen categorías -->
       <li style="border-bottom: 1px solid rgb(193, 193, 193);border-top: 1px solid rgb(193, 193, 193)"><span>Categorias</span></li>
       {% for t in tags %}
-        <li><input type="checkbox" name="categories" value="{{t['id']}}"><a class="categoria page-link activo" >{{t['name']}}</a></li>
+        {% if t['name'] in tags_arr %}
+          <li><input type="checkbox" name="categories" value="{{t['id']}}" checked><a class="categoria page-link activo" >{{t['name']}}</a></li>
+        {% else %}
+          <li><input type="checkbox" name="categories" value="{{t['id']}}"><a class="categoria page-link activo" >{{t['name']}}</a></li>
+        {% end %}
       {% end %}
       <!-- enlacen categorías -->
       <!-- boton para filtrar -->
