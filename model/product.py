@@ -253,7 +253,6 @@ class Product(BaseModel):
     @bulk_price.setter
     def bulk_price(self, value):
         self._bulk_price = value
-    
 
     def GetList(self, cellar_id, page=1, items=30):
 
