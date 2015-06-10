@@ -38,7 +38,7 @@ class Tag(BaseModel):
                             from "Kardex" 
                             where cellar_id = %(cellar_id)s
                             order by product_sku, date desc) k on k.product_sku = p.sku
-                where t.name = any(%(tags)s) and p.for_sale = 1 and k.balance_units > 0'''
+                where lower(t.name) = any(%(tags)s) and p.for_sale = 1 and k.balance_units > 0'''
         parameters = {
             "tags":_tags,
             "cellar_id": cellar_id
@@ -94,7 +94,7 @@ class Tag(BaseModel):
                             from "Kardex" 
                             where cellar_id = %(cellar_id)s
                             order by product_sku, date desc) k on k.product_sku = p.sku
-                where t.name = any(%(tags)s) and p.for_sale = 1 and k.balance_units > 0'''
+                where lower(t.name) = any(%(tags)s) and p.for_sale = 1 and k.balance_units > 0'''
         parameters = {
             "tags":_tags,
             "cellar_id": cellar_id
@@ -144,7 +144,7 @@ class Tag(BaseModel):
         }
 
         if len(tags) > 0:
-            query += ''' and name = any(%(tags)s)'''
+            query += ''' and lower(name) = any(%(tags)s)'''
             parameters["tags"] = tags
 
         try:
