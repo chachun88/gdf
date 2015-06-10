@@ -1,133 +1,129 @@
 {% extends "../base.html" %}
 {% block title %}
-Giani Da Firenze - Home
+    Giani Da Firenze - Home
 {% end %}
-
 {% block css %}
-<link rel="stylesheet" href="/{{nocache_static}}/css/store.css">
-<link rel="stylesheet" href="/{{nocache_static}}/css/menu-material.css">
-<link rel="stylesheet" href="/{{nocache_static}}/css/simplePagination.css">
+    <link rel="stylesheet" href="/{{nocache_static}}/css/store.css">
+    <link rel="stylesheet" href="/{{nocache_static}}/css/menu-material.css">
+    <link rel="stylesheet" href="/{{nocache_static}}/css/simplePagination.css">
 {% end %}
-
 {% block body %}
-<input type="hidden" id="total-items" value="{{items}}">
-<input type="hidden" id="page" value="{{page}}">
-<!-- inicio menu-material -->
-<div id="menu-m" class="menu-material"><i class="icon-pencil"></i>
-  <div class="cover-material"></div>
-  <form method="get" action="/store/filter" id="filtro">
-    <ul class="ul-filtro">
-     <!-- tallas -->
-      <li style="border-bottom: 1px solid rgb(193, 193, 193)">
-        <span>¿Cual es tu talla?</span> 
-      </li>
-      {% for t in tallas %}
-        <li class="menu-material-tallas "><label><input type="checkbox" name="size" value="{{t['id']}}">{{t['name']}}</label></li>
-      {% end %}
-      <!-- tallas -->
-      <!-- enlacen categorías -->
-      <li style="border-bottom: 1px solid rgb(193, 193, 193);border-top: 1px solid rgb(193, 193, 193)"><span>Categorias</span></li>
-      {% for t in tags %}
-          <li><input type="checkbox" name="categories" value="{{t['id']}}"><a class="categoria page-link activo" >{{t['name']}}</a></li>
-      {% end %}
-      <!-- enlacen categorías -->
-      <!-- boton para filtrar -->
-      <li><button type="button" onclick="filtrar($('#filtro'))" class="cerrar-filtrar-btn-menu">filtrar</button></li>
-
-      <!-- boton para filtrar -->
-    </ul>
-  </form>
-  <div id="filtrar-btn-menu" class="cerrar-filtrar-btn-menu"style=""><button type="button" onclick="filtrar($('#filtro'))">filtrar</button> </div>
-</div>
-
-<!-- fin menu-material -->
-
-<div class="cuerpo clearfix">
-
-  {% include ../slider.html %}
-  <!-- <div class="slider-small">
-    <img class="slide" src="/{{nocache_static}}/images/banermovil.png" data-rimage data-src="/{{nocache_static}}/images/banermovil.png">
-  </div> -->
-
-  <div class="contenedor-productos clearfix" id="contenedor">
-    <div class="cuerpo-categorias clearfix" style="display: none">
-      <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
-      <div class="categorias clearfix">
-        <div class="espacio_superior"></div>
-        {% for t in tags %}
-        <a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a>
+    <input type="hidden" id="total-items" value="{{items}}">
+    <input type="hidden" id="page" value="{{page}}">
+    <!-- inicio menu-material -->
+    <div id="menu-m" class="menu-material"><i class="icon-pencil"></i>
+        <div class="cover-material"></div>
+        <form method="get" action="/store/filter" id="filtro">
+            <ul class="ul-filtro">
+                <!-- tallas -->
+                <li style="border-bottom: 1px solid rgb(193, 193, 193)">
+                    <span>¿Cual es tu talla?</span>
+                </li>
+                {% for t in tallas %}
+                    <li class="menu-material-tallas "><label><input type="checkbox" name="size" value="{{t['id']}}">{{t['name']}}</label></li>
+                {% end %}
+                <!-- tallas -->
+                <!-- enlacen categorías -->
+                {% if tags_arr is None %}
+                    <li style="border-bottom: 1px solid rgb(193, 193, 193);border-top: 1px solid rgb(193, 193, 193)"><span>Categorias</span></li>
+                    {% for t in tags %}
+                        <li><input type="checkbox" name="categories" value="{{t['id']}}"><a class="categoria page-link activo" >{{t['name']}}</a></li>
+                    {% end %}
+                {% else %}
+                    {% for t in tags %}
+                        {% if t['name'].decode("utf-8").lower() in tags_arr %}
+                            <input type="checkbox" name="categories" value="{{t['id']}}" checked class="hidden">
+                        {% end %}
+                    {% end %}
+                {% end %}
+                <!-- enlacen categorías -->
+                <!-- boton para filtrar -->
+                <li><button type="button" onclick="filtrar($('#filtro'))" class="cerrar-filtrar-btn-menu">filtrar</button></li>
+                <!-- boton para filtrar -->
+            </ul>
+        </form>
+        <div id="filtrar-btn-menu" class="cerrar-filtrar-btn-menu"style=""><button type="button" onclick="filtrar($('#filtro'))">filtrar</button> </div>
+    </div>
+    <!-- fin menu-material -->
+    <div class="cuerpo clearfix">
+        {% include ../slider.html %}
+        <!-- <div class="slider-small">
+            <img class="slide" src="/{{nocache_static}}/images/banermovil.png" data-rimage data-src="/{{nocache_static}}/images/banermovil.png">
+        </div> -->
+        <div class="contenedor-productos clearfix" id="contenedor">
+            <div class="cuerpo-categorias clearfix" style="display: none">
+                <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
+                <div class="categorias clearfix">
+                    <div class="espacio_superior"></div>
+                    {% for t in tags %}
+                        <a class="categoria page-link activo" href="/store/getproductsbytags/{{t['name'].replace(" ","_")}}?ajax=1#contenedor">{{t['name']}}</a>
+                    {% end %}
+                </div>
+            </div>
+            <div id="ajax_productos" class="filtro-actualizar">
+                {% for d in data %}
+                    <div class="cuerpo-producto clearfix contenedor_productos">
+                        <div class="producto-foto">
+                            <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
+                            <!-- <img class="foto-producto" src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263" data-rimage data-src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263"> -->
+                        </div>
+                        <div class="producto-info clearfix">
+                            <p class="producto-nombre">{{d['name']}}</p>
+                            {% if current_user is not None and int(current_user['type_id']) == 4 %}
+                                <p class="producto-precio">$ {{money_format(d['bulk_price'])}}</p>
+                            {% else %}
+                                {% if int(d['promotion_price']) > 0 %}
+                                    <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
+                                    <p class="producto-precio precio-ofert-zapato" >$ {{money_format(d['promotion_price'])}}</p>
+                                {% else %}
+                                    <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>
+                                {% end %}
+                            {% end %}
+                        </div>
+                        <div class="sobre-producto">
+                            <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" class="url_producto"></a>
+                            <div class="boton_comprar"><li><a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}">COMPRAR</a></li></div>
+                        </div>
+                        <span class="_button">
+                            <p></p>
+                        </span>
+                    </div>
+                {% end %}
+                <div class="paginador clearfix">
+                    <!-- <p class="paginas">
+                        <span>&lt;</span> &nbsp;
+                        <a href="/store?page=1"><span>1</span></a> &nbsp;
+                        <a href="/store?page=2"><span>2</span></a> &nbsp;
+                        <a href="/store?page=3"><span>3</span></a> &nbsp;
+                        <span>... &gt;</span>
+                    </p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    {% if tags_arr is not None %}
+        {% if "lo nuevo" in tags_arr %}
+            <script>
+            $(document).ready(function(){
+            $(".header-menu .que-es-lo-nuevo").addClass("activo");
+            });
+            </script>
+            {% elif "campaña".decode("utf-8") in tags_arr %}
+            <script>
+            $(document).ready(function(){
+            $(".header-menu .campana").addClass("activo");
+            });
+            </script>
         {% end %}
-      </div>
-    </div>
-    <div id="ajax_productos" class="filtro-actualizar">
-      {% for d in data %}
-      <div class="cuerpo-producto clearfix contenedor_productos">
-        <div class="producto-foto">
-          <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
-          <!-- <img class="foto-producto" src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263" data-rimage data-src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263"> -->
-
-        </div>
-        <div class="producto-info clearfix">
-          <p class="producto-nombre">{{d['name']}}</p>
-
-          {% if current_user is not None and int(current_user['type_id']) == 4 %}
-              <p class="producto-precio">$ {{money_format(d['bulk_price'])}}</p>
-          {% else %}
-              {% if int(d['promotion_price']) > 0 %}
-                  <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
-                  <p class="producto-precio precio-ofert-zapato" >$ {{money_format(d['promotion_price'])}}</p>
-              {% else %}
-                  <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>  
-              {% end %}
-          {% end %}
-        </div>
-
-        <div class="sobre-producto">
-          <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" class="url_producto"></a>
-          <div class="boton_comprar"><li><a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}">COMPRAR</a></li></div>
-        </div>
-        <span class="_button">
-          <p></p>
-        </span>
-      </div>
-      {% end %}
-
-      <div class="paginador clearfix">
-          <!-- <p class="paginas">
-            <span>&lt;</span> &nbsp; 
-            <a href="/store?page=1"><span>1</span></a> &nbsp; 
-            <a href="/store?page=2"><span>2</span></a> &nbsp; 
-            <a href="/store?page=3"><span>3</span></a> &nbsp;
-            <span>... &gt;</span>
-          </p> -->
-        </div>
-      </div>
-    </div>
-  </div>
-  {% if tags_arr is not None %}
-  {% if "lo nuevo" in tags_arr %}
-  <script>
-    $(document).ready(function(){
-      $(".header-menu .que-es-lo-nuevo").addClass("activo");
-    });
-  </script>
-  {% elif "campaña".decode("utf-8") in tags_arr %}
-  <script>
-    $(document).ready(function(){
-      $(".header-menu .campana").addClass("activo");
-    });
-  </script>
-  {% end %}
-  {% else %}
-  <script>
-    $(document).ready(function(){
-      $(".header-menu .zapatos").addClass("activo");
-    });
-  </script>
-  {% end %}
-  {% end %}
-
-  {% block javascript %}
-  <script src="/{{nocache_static}}/js/jquery.simplePagination.js"></script>
-  <script src="/{{nocache_static}}/js/store.js"></script>
-  {% end %}
+    {% else %}
+        <script>
+        $(document).ready(function(){
+        $(".header-menu .zapatos").addClass("activo");
+        });
+        </script>
+    {% end %}
+{% end %}
+{% block javascript %}
+    <script src="/{{nocache_static}}/js/jquery.simplePagination.js"></script>
+    <script src="/{{nocache_static}}/js/store.js"></script>
+{% end %}
