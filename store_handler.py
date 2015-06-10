@@ -135,6 +135,11 @@ class ProductHandler(BaseHandler):
 
             prod_name = prod.name
 
+            try:
+                prod_name = name.split("&")[0]
+            except:
+                pass
+
             # print "prod_name:{}".format(prod_name)
 
             combinaciones = prod.GetCombinations(id_bodega, prod_name)
