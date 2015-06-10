@@ -325,7 +325,7 @@ class GetProductsByTagsHandler(BaseHandler):
         if "success" in res:
             items = int(res["success"])
 
-        res = tag.GetProductsByTags(cellar_id, tags_arr,page,15)
+        res = tag.GetProductsByTags(cellar_id, tags_arr,page,16)
 
         tags_visibles = tag.ListVisibleTags(tags_arr)
 
