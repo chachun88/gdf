@@ -310,7 +310,7 @@ class GetProductsByTagsHandler(BaseHandler):
         page = int(self.get_argument("page","1"))
         ajax = int(self.get_argument("ajax",0))
 
-        tags = tags.replace("_"," ")
+        tags = tags.replace("_"," ").lower()
 
         tags_arr = tags.split(",")
 
@@ -325,9 +325,9 @@ class GetProductsByTagsHandler(BaseHandler):
         if "success" in res:
             items = int(res["success"])
 
-        res = tag.GetProductsByTags(cellar_id, tags_arr,page,15)
+        res = tag.GetProductsByTags(cellar_id, tags_arr,page,16)
 
-        tags_visibles = tag.ListVisibleTags()
+        tags_visibles = tag.ListVisibleTags(tags_arr)
 
         if "success" in tags_visibles:
             tags = tags_visibles["success"]
