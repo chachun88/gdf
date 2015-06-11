@@ -130,29 +130,38 @@ $(document).ready(function() {
     if ($("#videoimg").css("opacity") != 0) {
       $("#videoimg, #videoimg-1").fadeTo("slow", 0, function() {
         document.getElementById('video').play();
-        console.log("jhsdjhfdsk");
       });
     }
     // para que funcione bien el hover
     $("#video").removeClass("mostrar-1");
-    $("#video").addClas("mostrar");
+    $("#video").addClass("mostrar");
 
   });
   // para todos los videos del sitio
-  $("video").click(function(e) {
+  // $("video").click(function(e) {
 
-    // get click position 
-    var clickY = (e.pageY - $(this).offset().top);
-    var height = parseFloat($(this).height());
+  //   // get click position 
+  //   var clickY = (e.pageY - $(this).offset().top);
+  //   var height = parseFloat($(this).height());
 
 
-    // avoids interference with controls
-    if (clickY > 0.82 * height) return;
+  //   // avoids interference with controls
+  //   if (clickY > 0.82 * height) return;
 
-    // toggles play / pause
-    this.paused ? this.play() : this.pause();
+  //   // toggles play / pause
+  //   this.paused ? this.play() : this.pause();
 
-  });
+  // });
+$(document).on('click', '.video', function (e) {
+    var video = $(this).get(0);
+    if (video.paused === false) {
+        video.pause();
+    } else {
+        video.play();
+    }
+
+    return false;
+});
 });
 </script>
 </div> 
