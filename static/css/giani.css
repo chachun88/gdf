@@ -140,4 +140,8 @@ white-space: nowrap;
 	width: 280px !important;
 }
 }
-
+.fancybox-image, .fancybox-iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+}
