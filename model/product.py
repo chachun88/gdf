@@ -425,7 +425,7 @@ class Product(BaseModel):
             combinations = cur.fetchall()
             return combinations
         except Exception, e:
-            # print "cannot get combinations:{}".format(str(e))
+            print "cannot get combinations:{}".format(str(e))
             return {}
         finally:
             cur.close()
