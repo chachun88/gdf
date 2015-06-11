@@ -140,7 +140,7 @@ class ProductHandler(BaseHandler):
             except:
                 pass
 
-            print "prod_name:{}".format(prod_name)
+            # print "prod_name:{}".format(prod_name)
 
             combinaciones = prod.GetCombinations(id_bodega, prod_name)
 
