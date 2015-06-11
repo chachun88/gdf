@@ -253,7 +253,6 @@ class Product(BaseModel):
     @bulk_price.setter
     def bulk_price(self, value):
         self._bulk_price = value
-    
 
     def GetList(self, cellar_id, page=1, items=30):
 
@@ -415,9 +414,9 @@ class Product(BaseModel):
                                     order by product_sku, size_id, date desc, id desc) as t
                             group by product_sku
                         ) k on k.product_sku = p.sku
-            where p.name like %(name)s and p.for_sale = 1 and k.balance_units > 0 and deleted = %(deleted)s limit 4'''
+            where lower(p.name) like %(name)s and p.for_sale = 1 and k.balance_units > 0 and deleted = %(deleted)s limit 4'''
         p = {
-            "name": "%" + name + "%",
+            "name": "%" + name.lower() + "%",
             "cellar_id": id_bodega,
             "deleted": False
         }
