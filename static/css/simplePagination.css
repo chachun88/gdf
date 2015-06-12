@@ -9,17 +9,19 @@ ul.simple-pagination {
 }
 
 .simple-pagination {
-	display: block;
-	overflow: hidden;
-	padding: 0 5px 5px 0;
-	margin: 0;
+	  display: inline-flex;
+	  overflow: hidden;
+	  padding: 0;
+	  margin: 0;
 }
 
 .simple-pagination ul {
-	list-style: none;
-	padding: 0;
-	margin: 0 auto;
-	width: 13%;
+	  list-style: none;
+	  padding: 0;
+	  margin: 0 auto;
+	  width: auto;
+	  display: inline-block;
+	  text-align: center;
 }
 
 .simple-pagination li {
