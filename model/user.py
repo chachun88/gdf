@@ -748,14 +748,12 @@ class User(BaseModel):
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
             where u.rut = %(rut)s and 
                 u.password = %(password)s and
-                u.status = %(status)s and
-                u.type_id = %(type)s
+                u.status = %(status)s
             group by u.id limit 1'''
         p = {
             "rut": username,
             "password": password,
-            "status": self.ACEPTADO,
-            "type": self.getUserTypeID(UserType.EMPRESA)
+            "status": self.ACEPTADO
         }
         try:
             # print curs.mogrify( q, p )
