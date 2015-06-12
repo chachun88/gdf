@@ -32,12 +32,15 @@ class Tag(BaseModel):
                 select tp.product_id from "Tag_Product" tp 
                 left join "Tag" t on t.id = tp.tag_id 
                 left join "Product" p on p.id = tp.product_id 
-                inner join (select distinct on(product_sku) product_sku, 
-                                                            balance_units, 
-                                                            date 
-                            from "Kardex" 
-                            where cellar_id = %(cellar_id)s
-                            order by product_sku, date desc) k on k.product_sku = p.sku
+                inner join (select product_sku, sum(balance_units) as balance_units from 
+                                (select distinct on(product_sku, size_id) product_sku, 
+                                                                        balance_units, 
+                                                                        date 
+                                        from "Kardex" 
+                                        where cellar_id = %(cellar_id)s
+                                        order by product_sku, size_id, date desc, id desc) as t
+                                group by product_sku
+                            ) k on k.product_sku = p.sku
                 where lower(t.name) = any(%(tags)s) and p.for_sale = 1 and k.balance_units > 0'''
         parameters = {
             "tags":_tags,
@@ -88,12 +91,15 @@ class Tag(BaseModel):
                 select tp.product_id from "Tag_Product" tp 
                 left join "Tag" t on t.id = tp.tag_id 
                 left join "Product" p on p.id = tp.product_id 
-                inner join (select distinct on(product_sku) product_sku, 
-                                                            balance_units, 
-                                                            date 
-                            from "Kardex" 
-                            where cellar_id = %(cellar_id)s
-                            order by product_sku, date desc) k on k.product_sku = p.sku
+                inner join (select product_sku, sum(balance_units) as balance_units from 
+                                (select distinct on(product_sku, size_id) product_sku, 
+                                                                        balance_units, 
+                                                                        date 
+                                        from "Kardex" 
+                                        where cellar_id = %(cellar_id)s
+                                        order by product_sku, size_id, date desc, id desc) as t
+                                group by product_sku
+                            ) k on k.product_sku = p.sku
                 where lower(t.name) = any(%(tags)s) and p.for_sale = 1 and k.balance_units > 0'''
         parameters = {
             "tags":_tags,
