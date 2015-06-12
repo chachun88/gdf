@@ -364,14 +364,25 @@ class User(BaseModel):
 
         if self.user_type != UserType.VISITA:
 
-            q = '''\
+            if self.user_type == UserType.EMPRESA:
+
+                q = '''\
                 select * from "User" 
-                where email = %(email)s 
+                where rut = %(rut)s 
                 and type_id = %(type_id)s limit 1'''
-            p = {
-                "email":self.email,
-                "type_id": tipo_usuario
-            }
+                p = {
+                    "rut":self.rut,
+                    "type_id": tipo_usuario
+                }
+            else:
+                q = '''\
+                    select * from "User" 
+                    where email = %(email)s 
+                    and type_id = %(type_id)s limit 1'''
+                p = {
+                    "email":self.email,
+                    "type_id": tipo_usuario
+                }
 
             try:
                 cur.execute(q,p)
@@ -480,8 +491,7 @@ class User(BaseModel):
                                                 type_id,
                                                 rut,
                                                 bussiness,
-                                                status,
-                                                registration_date) 
+                                                status) 
                             values (%(name)s,
                                     %(password)s,
                                     %(email)s,
@@ -489,8 +499,7 @@ class User(BaseModel):
                                     %(type_id)s,
                                     %(rut)s,
                                     %(bussiness)s,
-                                    %(status)s,
-                                    current_date) 
+                                    %(status)s) 
                             returning id'''
                         p = {
                             "name":self.name,
@@ -748,12 +757,14 @@ class User(BaseModel):
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
             where u.rut = %(rut)s and 
                 u.password = %(password)s and
-                u.status = %(status)s
+                u.status = %(status)s and
+                u.type_id = %(type_id)s
             group by u.id limit 1'''
         p = {
             "rut": username,
             "password": password,
-            "status": self.ACEPTADO
+            "status": self.ACEPTADO,
+            "type_id": self.getUserTypeID(UserType.EMPRESA)
         }
         try:
             # print curs.mogrify( q, p )
