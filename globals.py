@@ -54,7 +54,7 @@ if enviroment == Enviroment.LOCAL:
     print "local enviroment"
 
     port = DEBUG_PORT
-    url_bodega = "http://bgiani.ondev.today"
+    url_bodega = "http://localhost:9007"
     url_local = "http://localhost:8502"
     url_cgi = "http://cgiani.ondev.today"
 
