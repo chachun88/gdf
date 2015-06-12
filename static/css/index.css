@@ -2117,6 +2117,8 @@ body {
 
   }
   .paginador ul li a {
+    font-size: 25px;
+    padding: 0px 10px;
   }
   .acciones .comprar {
     width: 40.8536984865%;
