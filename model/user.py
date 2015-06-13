@@ -244,6 +244,8 @@ class User(BaseModel):
         # except Exception, e:
         #   return self.ShowError("user : " + email + " not found")
 
+        type_id = self.getUserTypeID(self.user_type)
+
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
         q = '''\
@@ -253,10 +255,11 @@ class User(BaseModel):
             from "User" u 
             left join "Permission" p on p.id = any(u.permissions) 
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
-            where u.email = %(email)s 
+            where u.email = %(email)s and u.type_id = %(type_id)s
             group by u.id limit 1'''
         p = {
-            "email":email
+            "email":email,
+            "type_id": type_id
         }
         try:
             cur.execute(q,p)
