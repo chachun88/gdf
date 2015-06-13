@@ -254,7 +254,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                     if "error" in response:
                         print "Error moving cart detail: {}".format(response["error"])
 
-            self.set_secure_cookie("user_giani", response_obj["success"], expires_days=None)
+            self.set_secure_cookie("user_giani", response_obj["success"], expires_days=0.01)
 
             self.redirect( self.next )
 
