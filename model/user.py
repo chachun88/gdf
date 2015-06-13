@@ -255,11 +255,14 @@ class User(BaseModel):
             from "User" u 
             left join "Permission" p on p.id = any(u.permissions) 
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
-            where u.email = %(email)s and u.type_id = %(type_id)s
+            where u.email = %(email)s 
+            and u.type_id = %(type_id)s 
+            and u.status = %(status)s
             group by u.id limit 1'''
         p = {
             "email":email,
-            "type_id": type_id
+            "type_id": type_id,
+            "status": self.ACEPTADO
         }
         try:
             cur.execute(q,p)
