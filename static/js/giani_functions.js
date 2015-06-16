@@ -60,23 +60,57 @@ var GetCartByUserId = function(){
             });
         }
     }
-}
+};
 
 var ValidateCheckoutPayment = function(){
     var checked = $('#checkboxes-1:checked').val();
 
-    if(checked==undefined){
+    // get the file name, possibly with path (depends on browser)
+    var filename = $("#comprobante").val();
+
+    // Use a regular expression to trim everything before final dot
+    var extension = filename.replace(/^.*\./, '');
+
+    // Iff there is no dot anywhere in filename, we would have extension == filename,
+    // so we account for this possibility now
+    if (extension == filename) {
+        extension = '';
+    } else {
+        // if there is an extension, we convert to lower case
+        // (N.B. this conversion will not effect the value of the extension
+        // on the file upload.)
+        extension = extension.toLowerCase();
+    }
+
+    var valid_extension = false;
+
+    switch (extension) {
+        case 'jpg':
+        case 'jpeg':
+        case 'png':
+        case 'pdf':
+            valid_extension = true;
+            break;
+        default:
+            // Cancel the form submission
+            valid_extension = false;
+    }
+
+    if(checked === undefined){
         fancyAlert("Debe aceptar t\xE9rminos y condiciones");
+        return false;
+    } else if (!valid_extension){
+        fancyAlert("Los formatos permitidos son JPG, JPEG, PNG y PDF");
         return false;
     }
 
     return true;
-}
+};
 
 var ValidateTerms = function(){
     var checked = $('#term-1:checked').val();
 
-    if(checked==undefined){
+    if(checked===undefined){
         fancyAlert("Debe aceptar los t\xE9rminos y condiciones");
         return false;
     }
@@ -112,14 +146,14 @@ var GetAddressById = function(_id){
             }
         }
     });
-}
+};
 
 var ValidateRequired = function(id_formulario){
     var valid = true;
     $("div.required :text, div.required textarea",$("#"+id_formulario)).each(function(){
         var valor = $(this).val().trim();
 
-        if(valor==""){
+        if(valor===""){
             valid = false;
         }
     });
@@ -129,7 +163,7 @@ var ValidateRequired = function(id_formulario){
     }
 
     return valid;
-}
+};
 
 var enviarFormulario = function(id_formulario){
 
@@ -151,7 +185,7 @@ var enviarFormulario = function(id_formulario){
         $("#"+id_formulario).submit();
     }
 
-}
+};
 
 var votar = function(product_id){
 
@@ -162,7 +196,7 @@ var votar = function(product_id){
             cache: false,
             data: "product_id="+product_id+"&user_id="+window.localStorage.getItem("userid"),
             success: function(html){
-                response = $.parseJSON(html)
+                response = $.parseJSON(html);
                 if(response.error){
                     fancyAlert(response.error);
                 } else {
@@ -172,7 +206,7 @@ var votar = function(product_id){
             }
         });
     }
-}
+};
 
 var ifvoted = function(product_id){
     $.ajax({
@@ -180,14 +214,14 @@ var ifvoted = function(product_id){
         cache: false,
         data: "product_id="+product_id+"&user_id="+window.localStorage.getItem("userid"),
         success: function(html){
-            response = $.parseJSON(html)
+            response = $.parseJSON(html);
             if(response.success){
                 $(".fotomegusta").removeClass("enabled");
                 $(".fotomegusta img").attr("src","/static/images/corazon2.png");
             }
         }
     });
-}
+};
 
 var getvotes = function(product_id){
     $.ajax({
@@ -195,7 +229,7 @@ var getvotes = function(product_id){
         data: "product_id="+product_id,
         cache: false,
         success: function(html){
-            response = $.parseJSON(html)
+            response = $.parseJSON(html);
             if(response.success){
                 $("#votes-quantity").html(response.success);
             }
@@ -239,7 +273,10 @@ var checkStock = function(){
                 res = "";
 
                 for(var i = 0; i < errores.length; i++){
-                    res += errores[i]["sku"] + " "+ errores[i]["error"] + "<br/>";
+                    res += errores[i]["sku"]
+                        + ' '
+                        + errores[i]["error"]
+                        + "<br/>";
                 }
 
                 fancyAlert(res);
@@ -304,7 +341,7 @@ var enterpriseRegistration = function(form){
                     $('.fancybox-close').click();
                 }
             }
-        })   
+        });
     }
 };
 
@@ -336,4 +373,4 @@ var loginEnterprise = function(){
             }
         }
     });
-}
+};
