@@ -237,6 +237,8 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
         response_obj = usr.InitByEmail(user["email"])
 
+        print response_obj
+
         if "success" in response_obj:
 
             current_user_id = json_util.loads(response_obj["success"])["id"]
