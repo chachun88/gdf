@@ -102,8 +102,8 @@ class TosHandler(BaseHandler):
 class PagoHandler(BaseHandler):
 
     def get(self):
-        pass
-        # self.render("pago.html")
+        # pass
+        self.render("pago.html")
 
     def post(self):
 
@@ -648,7 +648,7 @@ class ExitoHandler(BaseHandler):
 
                 detalle_orden += ExitoHandler.generateMail(
                     "detalle_orden.html",
-                    name=l["name"].encode("utf-8"),
+                    name=l["name"],
                     size=l["size"].encode("utf-8"),
                     quantity=l["quantity"],
                     color=l["color"],
