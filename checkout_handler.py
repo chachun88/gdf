@@ -416,8 +416,12 @@ class CheckoutSendHandler(BaseHandler):
 
             imagedata = self.request.files['image'][0]
 
-            final_name = "{filename}.{extension}".format(filename=uuid.uuid4(),extension="png")
-            print final_name
+            filename = imagedata["filename"]
+
+            extension = filename.lower().split(".")[-1]
+
+            final_name = "{filename}.{extension}".format(filename=uuid.uuid4(),extension=extension)
+            # print final_name
 
             try:
                 # fn = imagedata["filename"]

@@ -206,7 +206,7 @@ class User(BaseModel):
                 user = user[0]
 
                 try:
-                    query = '''update "User" set last_view = current_date where id = %(identifier)s'''
+                    query = '''update "User" set last_view = now() where id = %(identifier)s'''
                     params = {
                         "identifier": user['id']
                     }
@@ -244,6 +244,8 @@ class User(BaseModel):
         # except Exception, e:
         #   return self.ShowError("user : " + email + " not found")
 
+        type_id = self.getUserTypeID(self.user_type)
+
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
         q = '''\
@@ -254,9 +256,15 @@ class User(BaseModel):
             left join "Permission" p on p.id = any(u.permissions) 
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
             where u.email = %(email)s 
+            and %(type_id)s = any(%(types)s)
+            and u.status = %(status)s
             group by u.id limit 1'''
         p = {
-            "email":email
+            "email":email,
+            "type_id": type_id,
+            "status": self.ACEPTADO,
+            "types": [self.getUserTypeID(UserType.VISITA),
+                      self.getUserTypeID(UserType.CLIENTE)]
         }
         try:
             cur.execute(q,p)
@@ -265,8 +273,8 @@ class User(BaseModel):
                 return self.ShowSuccessMessage(json_util.dumps(usuario))
             else:
                 return self.ShowError("user : " + email + " not found")
-        except:
-            return self.ShowError("user : " + email + " not found")
+        except Exception, e:
+            return self.ShowError("user : {} not found, {}".format(email, str(e)))
 
     def InitById(self, idd):
 
@@ -308,8 +316,8 @@ class User(BaseModel):
                 return usuario
             else:
                 return self.ShowError("user : {} not found".format(idd))
-        except:
-            return self.ShowError("user : {} not found".format(idd))
+        except Exception, e:
+            return self.ShowError("user : {} not found, {}".format(idd, str(e)))
 
     def GetPermissions(self):
         return self._permissions.FindPermissions(self.id)
@@ -364,14 +372,25 @@ class User(BaseModel):
 
         if self.user_type != UserType.VISITA:
 
-            q = '''\
+            if self.user_type == UserType.EMPRESA:
+
+                q = '''\
                 select * from "User" 
-                where email = %(email)s 
+                where rut = %(rut)s 
                 and type_id = %(type_id)s limit 1'''
-            p = {
-                "email":self.email,
-                "type_id": tipo_usuario
-            }
+                p = {
+                    "rut":self.rut,
+                    "type_id": tipo_usuario
+                }
+            else:
+                q = '''\
+                    select * from "User" 
+                    where email = %(email)s 
+                    and type_id = %(type_id)s limit 1'''
+                p = {
+                    "email":self.email,
+                    "type_id": tipo_usuario
+                }
 
             try:
                 cur.execute(q,p)
@@ -480,8 +499,7 @@ class User(BaseModel):
                                                 type_id,
                                                 rut,
                                                 bussiness,
-                                                status,
-                                                registration_date) 
+                                                status) 
                             values (%(name)s,
                                     %(password)s,
                                     %(email)s,
@@ -489,8 +507,7 @@ class User(BaseModel):
                                     %(type_id)s,
                                     %(rut)s,
                                     %(bussiness)s,
-                                    %(status)s,
-                                    current_date) 
+                                    %(status)s) 
                             returning id'''
                         p = {
                             "name":self.name,
@@ -586,15 +603,21 @@ class User(BaseModel):
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-            q = '''select count(*) as cnt from "User" where email = %(email)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
+            q = '''\
+                select count(*) as cnt from "User" 
+                where email = %(email)s 
+                and type_id = any(%(type_id)s)
+                and status = %(status)s'''
 
             p = { 
                 "email" : email,
-                "user_type": self.getUserTypeID(UserType.CLIENTE),
-                "user_type_visita": self.getUserTypeID(UserType.VISITA)
+                "type_id": [self.getUserTypeID(UserType.CLIENTE), 
+                            self.getUserTypeID(UserType.VISITA)],
+                "status": self.ACEPTADO
             }
 
             try:
+                # print cur.mogrify(q, p)
                 cur.execute( q, p )
                 data = cur.fetchone()
                 if data["cnt"] > 0:
@@ -612,7 +635,7 @@ class User(BaseModel):
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-            q = '''select count(*) as cnt from "User" where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s'''
+            q = '''select count(*) as cnt from "User" where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
             p = { 
                 "id": _id,
                 "user_type": self.getUserTypeID(UserType.CLIENTE),
@@ -748,12 +771,14 @@ class User(BaseModel):
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
             where u.rut = %(rut)s and 
                 u.password = %(password)s and
-                u.status = %(status)s 
+                u.status = %(status)s and
+                u.type_id = %(type_id)s
             group by u.id limit 1'''
         p = {
             "rut": username,
             "password": password,
-            "status": self.ACEPTADO
+            "status": self.ACEPTADO,
+            "type_id": self.getUserTypeID(UserType.EMPRESA)
         }
         try:
             # print curs.mogrify( q, p )

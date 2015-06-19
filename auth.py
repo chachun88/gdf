@@ -237,6 +237,8 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
         response_obj = usr.InitByEmail(user["email"])
 
+        print response_obj
+
         if "success" in response_obj:
 
             current_user_id = json_util.loads(response_obj["success"])["id"]
@@ -254,7 +256,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                     if "error" in response:
                         print "Error moving cart detail: {}".format(response["error"])
 
-            self.set_secure_cookie("user_giani", response_obj["success"], expires_days=None)
+            self.set_secure_cookie("user_giani", response_obj["success"], expires_days=0.02)
 
             self.redirect( self.next )
 

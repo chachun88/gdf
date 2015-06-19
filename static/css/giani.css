@@ -126,7 +126,92 @@ white-space: nowrap;
 {
 	width: 500px !important;
 }
+
+.fancybox-image, .fancybox-iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.aboutus-image
+{
+	padding: 0% 2%;
+	margin-top: 20px;
+	display: table;
+}
+.aboutus-image p
+{
+	text-align: justify;
+	font-size: 20px; 
+	vertical-align: middle;
+	display: table-cell;            
+}
+.queeslonuevo-2
+{
+	  float: left;
+  clear: both;
+  width: 100%;
+  /* margin: 0px 0 0 10.07143%; */
+  overflow: hidden;
+
+}
+.queeslonuevo-2 .image {
+  float: left;
+  width: 100%;
+  margin-left: -0.07394%;
+}
+.estilodevida-2
+{
+	  float: left;
+	  z-index: 37;
+	  width: 49%;
+	  margin: 0px 0 0 0%;
+	  overflow: hidden;
+
+
+}
+.estilodevida-2 .image
+{
+	width: 100%;
+}
+ .aboutus-top
+ {
+	margin-top: 40px;
+ } 
+ .aboutus-top-2
+ {
+	margin-top: 20px;
+ } 
+.alto-centrar
+{
+	min-height: 485px;
+}
+.alto-centrar-2
+{
+	min-height: 785px;
+}
+
 @media(max-width: 479px) {
+	.alto-centrar,
+	.alto-centrar-2
+	{
+		min-height: inherit;
+	}
+	.aboutus-top
+ 	{
+ 		margin-top: 0px;
+ 	}
+	.aboutus-image p
+    {
+    	padding: 0px;
+    	font-size: 14px;
+    	margin: 40px 0px;
+    	display: inherit;
+
+    }
+	.estilodevida-2
+	{
+		width: 100%;
+	}
 	.show-hide
 {
 	display: none;
@@ -140,4 +225,3 @@ white-space: nowrap;
 	width: 280px !important;
 }
 }
-
