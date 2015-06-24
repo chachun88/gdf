@@ -578,7 +578,9 @@ class ExitoHandler(BaseHandler):
                     ExitoHandler.sendError("vaciar carro {}"
                                            .format(res_remove_cart["error"]))
 
-                for l in order_detail:
+            for l in order_detail:
+
+                if not l['moved']:
 
                     kardex = Kardex()
 
@@ -612,16 +614,22 @@ class ExitoHandler(BaseHandler):
                             ExitoHandler.sendError("sacar de bodega web product_id {}, {}"
                                                    .format(l["product_id"],
                                                            res_kardex["error"]))
+                        else:
+                            kardex.cellar_identifier = id_bodega_reserva
+                            kardex.operation_type = Kardex.OPERATION_MOV_IN
 
-                        kardex.cellar_identifier = id_bodega_reserva
-                        kardex.operation_type = Kardex.OPERATION_MOV_IN
+                            res_kardex = kardex.Insert()
 
-                        res_kardex = kardex.Insert()
-
-                        if "error" in res_kardex:
-                            ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
-                                                   .format(l["product_id"],
-                                                           res_kardex["error"]))
+                            if "error" in res_kardex:
+                                ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
+                                                       .format(l["product_id"],
+                                                               res_kardex["error"]))
+                            else:
+                                od = OrderDetail()
+                                res_moved = od.MarkAsMoved(l['id'])
+                                if "error" in res_moved:
+                                    ExitoHandler.sendError("mark as moved id {}".format(l['id']),
+                                        res_moved["error"])
 
                     else:
                         ExitoHandler.sendError("initizalizar producto {}, {}"

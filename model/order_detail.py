@@ -214,3 +214,16 @@ class OrderDetail(BaseModel):
             return self.ShowSuccessMessage(order_id)
         except Exception,e:
             return self.ShowError("Error deleting contacts by order_id {order_id}, error:{error}".format(user_id=user_id,error=str(e)))
+
+    def MarkAsMoved(self, detail_id):
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        query = '''update "Order_Detail" set moved = true where id = %(identifier)s'''
+        parameters = {
+            "identifier": detail_id
+        }
+        try:
+            cur.execute(query, parameters)
+            self.connection.commit()
+            return self.ShowSuccessMessage("detail {} moved".format(detail_id))
+        except Exception, e:
+            return self.ShowError("error moving detail {}".format(detail_id))
