@@ -8,14 +8,16 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#InputCity").minimalect({
-		placeholder:"Seleccione una ciudad",
-		theme: "bubble",
-		searchable: false,
-		onchange: function(){
-			$('#InputCity').trigger('change');
-		}
-	});
+	// $("#InputCity").minimalect({
+	// 	placeholder:"Seleccione una ciudad",
+	// 	theme: "bubble",
+	// 	searchable: false,
+	// 	onchange: function(){
+	// 		$('#InputCity').trigger('change');
+	// 	}
+	// });
+
+	$('#InputCity').select2();
 
 	$(".minict_wrapper").click(function(){
 		$(".minict_wrapper.active ul li.minict_empty.minict_first").parent().css("display","none");

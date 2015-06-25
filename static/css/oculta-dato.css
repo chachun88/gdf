@@ -2,3 +2,6 @@
 {
     display: none;
 }
+ul li, .selection span {
+    text-transform: capitalize;
+}
