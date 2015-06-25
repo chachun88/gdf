@@ -137,7 +137,7 @@ var GetAddressById = function(_id){
                     $("#InputEmail").val(obj.success.email);
                     $("#InputLastName").val(obj.success.lastname);
                     $("#InputName").val(obj.success.name);
-                    $("#InputTown").val(obj.success.town);
+                    // $("#InputTown").val(obj.success.town);
                     $("#InputRut").val(obj.success.rut);
                 } else {
                     alert(obj.error);

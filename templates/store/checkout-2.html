@@ -91,14 +91,14 @@ Giani Da Firenze - Carro de Compra
                   <label for="InputAddress">Dirección <sup>*</sup> </label>
                   <input required type="text" class="form-control" id="InputAddress" placeholder="Dirección" name="address">
                 </div>
-                <div class="form-group required">
+                <!-- <div class="form-group required">
                   <label for="InputTown">Comuna <sup>*</sup> </label>
                   <input required type="text" class="form-control" id="InputTown" placeholder="Comuna" value="" name="town">
-                </div>
+                </div> -->
               </div>
               <div class="col-xs-12 col-sm-6">
                 <div class="form-group required">
-                  <label for="InputCity">Ciudad <sup>*</sup> </label>
+                  <label for="InputCity">Comuna <sup>*</sup> </label>
                   <select name="city_id" id="InputCity" class="form-control">
                       {% for c in cities %}
                       <option value="{{c['id']}}">{{c['name']}}</option>
