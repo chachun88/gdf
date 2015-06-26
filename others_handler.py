@@ -102,8 +102,8 @@ class TosHandler(BaseHandler):
 class PagoHandler(BaseHandler):
 
     def get(self):
-        pass
-        # self.render("pago.html")
+        # pass
+        self.render("pago.html")
 
     def post(self):
 
@@ -788,7 +788,7 @@ class ExitoHandler(BaseHandler):
                 confirmaremos su pago, \
                 y procederemos con el despacho. \
                 Le estaremos informando el status de su pedido. \
-                Si tienes alguna duda, escríbenos a contacto@gianidafirenze.com")
+                Si tienes alguna duda, escríbenos a contacto@gianidafirenze.cl")
             return
 
         data = self.readWebpayMAC(TBK_ID_SESION, order)
