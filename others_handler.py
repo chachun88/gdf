@@ -415,8 +415,6 @@ class XtCompraHandler(BaseHandler):
             detail = OrderDetail()
             lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
 
-            self.moveStock(lista, self.current_user["id"])
-
             if "success" in init_by_id:
                 # rechaza si orden no esta pendiente
                 if order.state != Order.ESTADO_PENDIENTE:
@@ -456,6 +454,12 @@ class XtCompraHandler(BaseHandler):
 
                     if "error" in res:
                         print res["error"]
+                    else:
+                        try:
+                            self.moveStock(lista, self.current_user["id"])
+                        except Exception, e:
+                            ExitoHandler.sendError('error moviendo stock, {}'
+                                .format(TBK_ORDEN_COMPRA))
 
         if acepta or TBK_RESPUESTA != "0":
             # print "si acepto"
