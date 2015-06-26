@@ -797,6 +797,9 @@ class ExitoHandler(BaseHandler):
 
         data = self.readWebpayMAC(TBK_ID_SESION, order)
 
+        detail = OrderDetail()
+        lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+
         try:
             status_cliente, status_giani, message = ExitoHandler.notifyEmails(lista, order, self.current_user)
 
