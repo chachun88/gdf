@@ -456,7 +456,7 @@ class XtCompraHandler(BaseHandler):
                         print res["error"]
                     else:
                         try:
-                            self.moveStock(lista, self.current_user["id"])
+                            self.moveStock(lista, order.user_id)
                         except Exception, e:
                             ExitoHandler.sendError('error moviendo stock, {}'
                                 .format(TBK_ORDEN_COMPRA))
