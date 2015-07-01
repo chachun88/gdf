@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 
-    console.info($("#total-items").val());
+    // console.info($("#total-items").val());
 
     $(".paginador").pagination({
         items: $("#total-items").val(),
