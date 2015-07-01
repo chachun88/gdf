@@ -211,8 +211,9 @@ $(document).ready(function(){
 
         ga('create', 'UA-60108520-1', 'auto');
         ga('send', 'pageview');
+        ga('require', 'ec');
 
-        console.info("google analytics");
+        // console.info("google analytics");
     }
 
     // Cuando hace click en tienda se realiza ga, luego se direcciona a la tienda
@@ -221,18 +222,12 @@ $(document).ready(function(){
 
         if ( document.location.href.indexOf("localhost:8502") != -1) { 
 
-            ga('ec:addImpression', {
-                // 'id': 'P12345',
-                'name': 'Pagina Tienda',
-                // 'list': 'Search Results',
-                // 'brand': 'Giani Da Firenze',
-                // 'category': 'Apparel/T-Shirts',
-                // 'variant': 'black',
-                // 'position': 1,
-                // 'price': '',
+            ga('send', 'pageview', {
+              page: '/store',
+              title: 'Tienda'
             });
 
-            ga('send', 'pageview');
+            console.log("send page view pagina tienda");
 
         }
 

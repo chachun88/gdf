@@ -204,11 +204,18 @@ class PagoHandler(BaseHandler):
             "TBK_ORDEN_COMPRA": order.id,
             "TBK_ID_SESION": TBK_ID_SESION,
             "TBK_URL_EXITO": TBK_URL_EXITO,
-            "TBK_URL_FRACASO": TBK_URL_FRACASO
+            "TBK_URL_FRACASO": TBK_URL_FRACASO,
+            "shipping": costo_despacho,
+            "subtotal": subtotal
         }
 
         # self.write(json_util.dumps(data))
-        self.render("transbank.html", data=data)
+        user_id = self.current_user["id"]
+        cart = Cart()
+        cart.user_id = user_id
+        lista = cart.GetCartByUserId()
+
+        self.render("transbank.html", data=data, lista=lista)
 
 
 class XtCompraHandler(BaseHandler):

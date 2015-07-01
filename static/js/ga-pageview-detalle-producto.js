@@ -3,11 +3,12 @@
 $(document).ready(function()
 {
     // Obtencion de datos para ga
-/*    var ga_id = $("select#size ").attr("sku");
-    var ga_name = $(".producto-nombre-1").html();
-    var ga_category = $(".ga-category").html();
-    var ga_variant = $(".ga-variant").html();
-    var ga_price = $(".ga-price").html();
+    var datos_analytics = $("div.datos-analytic");
+    var ga_id = $(".ga-id", datos_analytics).html();
+    var ga_name = $(".ga-name", datos_analytics).html();
+    var ga_category = $(".ga-category", datos_analytics).html();
+    var ga_variant = $(".ga-variant", datos_analytics).html();
+    var ga_price = $(".ga-price", datos_analytics).html();
 
     ga('ec:addProduct', {
         'id': ga_id,
@@ -24,5 +25,6 @@ $(document).ready(function()
     ga('ec:setAction', 'detail');
 
     ga('send', 'pageview');
-*/
+
+    console.log("send page view detalle producto");
 });

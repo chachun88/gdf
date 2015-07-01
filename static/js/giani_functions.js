@@ -104,6 +104,17 @@ var ValidateCheckoutPayment = function(){
         return false;
     }
 
+    ga('ec:setAction','purchase', {
+        'id': $('input[name=session_id]').val(),
+        'affiliation': 'Giani Da Firenze',
+        'revenue': $('input[name=subtotal]').val(),
+        'shipping': $('input[name=shipping_price]').val()
+    });
+    
+    ga('send', 'pageview');
+
+    console.log("pago transferencia");
+
     return true;
 };
 
@@ -165,6 +176,7 @@ var ValidateRequired = function(id_formulario){
     return valid;
 };
 
+// step 1 and 2 checkout
 var enviarFormulario = function(id_formulario){
 
     var same_address = false;
@@ -177,11 +189,11 @@ var enviarFormulario = function(id_formulario){
 
     if(!same_address){
         if(ValidateRequired(id_formulario)){
-            /*googleAnalyticsCheckout();*/
+            googleAnalyticsCheckout();
             $("#"+id_formulario).submit();
         }
     } else {
-        /*googleAnalyticsCheckout();*/
+        googleAnalyticsCheckout();
         $("#"+id_formulario).submit();
     }
 
