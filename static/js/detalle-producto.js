@@ -144,7 +144,7 @@ $(document).ready(function(){
     $(".btn-pagar").on( "click", function(evt)
     {
         evt.preventDefault();
-        payment();
+        // payment();
         $("#form-pagar").submit();
     });
 
