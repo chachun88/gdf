@@ -149,9 +149,12 @@ class OrderDetail(BaseModel):
                 query = '''\
                         select od.*,
                                 p.name,
-                                p.color 
+                                p.color,
+                                p.sku,
+                                c.name as category 
                         from "Order_Detail" od 
                         left join "Product" p on od.product_id = p.id 
+                        inner join "Category" c on c.id = p.category_id
                         where order_id = %(order_id)s'''
                 parameters = {
                     "order_id":order_id
@@ -160,9 +163,12 @@ class OrderDetail(BaseModel):
                 query = '''\
                         select od.*,
                                 p.name,
-                                p.color 
+                                p.color,
+                                p.sku,
+                                c.name as category 
                         from "Order_Detail" od 
                         left join "Product" p on od.product_id = p.id 
+                        inner join "Category" c on c.id = p.category_id
                         where order_id = %(order_id)s 
                         limit %(limit)s offset %(offset)s'''
                 parameters = {
