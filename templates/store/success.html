@@ -180,6 +180,29 @@ Giani Da Firenze - Home
             <input type="submit" value="Volver a Inicio">
         </center>
     </form>
+    <!-- Datos para google analytic -->
+    <div class="datos-analytic">
+        <!-- Este valor es 5, puesto que es el ultimo paso de la compra, aunque
+        checkout indica lo contrario -->
+        <div class="numero-checkout">5</div>
+        {% for d in detalle %}
+            <div class="carro" car-id="{{d["id"]}}">
+                <div class="id-{{d["id"]}}">{{d["sku"]}}</div>
+                <div class="name-{{d["id"]}}">{{d["name"]}}</div>
+                <div class="category-{{d["id"]}}">{{d["category"]}}</div>
+                <div class="variant-{{d["id"]}}">{{d["color"]}}</div>
+                <div class="price-{{d["id"]}}">{{d["subtotal"]}}</div>
+                <div class="quantity-{{d["id"]}}">{{d["quantity"]}}</div>
+            </div>
+        {% end %}
+        <div class="shipping">{{order.shipping}}</div>
+        <div class="subtotal">{{suma}}</div>
+    </div>
+    <script>
+    $(document).ready(function(){
+        payment();
+    });
+    </script>
     {% else %}
         <h1>Gracias por comprar en Giani da firenze, confirmaremos su dep&oacute;sito, y procederemos con el despacho.  Le estaremos informando el status de su pedido</h1>
         <form action="/" method="get">
@@ -190,31 +213,7 @@ Giani Da Firenze - Home
     {% end %}
 </div>
 </div>
-
-<!-- Datos para google analytic -->
-<div class="datos-analytic">
-  <!-- Este valor es 5, puesto que es el ultimo paso de la compra, aunque 
-  checkout indica lo contrario -->
-  <div class="numero-checkout">5</div>
-  {% for d in detalle %}
-  <div class="carro" car-id="{{d["id"]}}">
-    <div class="id-{{d["id"]}}">{{d["sku"]}}</div>
-    <div class="name-{{d["id"]}}">{{d["name"]}}</div>
-    <div class="category-{{d["id"]}}">{{d["category"]}}</div>
-    <div class="variant-{{d["id"]}}">{{d["color"]}}</div>
-    <div class="price-{{d["id"]}}">{{d["subtotal"]}}</div>
-    <div class="quantity-{{d["id"]}}">{{d["quantity"]}}</div>
-  </div>
-  {% end %}
-  <div class="shipping">{{order.shipping}}</div>
-  <div class="subtotal">{{suma}}</div>
-</div>
 {% end %}
 {% block javascript %}
 <script src="/{{nocache_static}}/js/ga-checkout.js"></script>
-<script>
-    $(document).ready(function(){
-        payment();
-    });
-</script>
 {% end %}
