@@ -1,49 +1,56 @@
 <script src="/static/js/jquery-min.js"></script>
 <script src="/static/js/jquery.simplePagination.js"></script>
 {% for d in data %}
-<div class="cuerpo-producto clearfix contenedor_productos">
-  <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" class="url_producto"></a>
-  <div class="producto-foto">
-    <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
-    <!-- <img class="foto-producto" src="/static/img/0_GDF-OI14-7841-20-C1.png?mw=263" data-rimage data-src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263"> -->
-  </div>
-  <div class="producto-info clearfix">
-    <p class="producto-nombre">{{d['name']}}</p>
-    {% if current_user is not None and int(current_user['type_id']) == 4 %}
-        <p class="producto-precio">$ {{money_format(d['bulk_price'])}}</p>
-    {% else %}
-        {% if int(d['promotion_price']) > 0 %}
-            <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
-            <p class="producto-precio precio-ofert-zapato" >$ {{money_format(d['promotion_price'])}}</p>
-        {% else %}
-            <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>  
-        {% end %}
-    {% end %}
-  </div>
-
-  <div class="sobre-producto">
-    <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" class="url_producto"></a>
-    <div class="boton_comprar"><li><a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}">COMPRAR</a></li></div>
-  </div>
-  <span class="_button">
-    <p></p>
-  </span>
-</div>
+    <div class="cuerpo-producto clearfix contenedor_productos">
+        <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" class="url_producto"></a>
+        <div class="producto-foto">
+            <img class="foto-producto" src="{{url_bodega}}/image/{{d['image']}}?mw=263" data-rimage data-src="{{url_bodega}}/image/{{d['image']}}?mw=263">
+            <!-- <img class="foto-producto" src="/static/img/0_GDF-OI14-7841-20-C1.png?mw=263" data-rimage data-src="http://bgiani.ondev.today/image/0_GDF-OI14-7841-20-C1.png?mw=263"> -->
+        </div>
+        <div class="producto-info clearfix">
+            <p class="producto-nombre">{{d['name']}}</p>
+            {% if current_user is not None and int(current_user['type_id']) == 4 %}
+                <p class="producto-precio">$ {{money_format(d['bulk_price'])}}</p>
+            {% else %}
+                {% if int(d['promotion_price']) > 0 %}
+                    <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
+                    <p class="producto-precio precio-ofert-zapato" >$ {{money_format(d['promotion_price'])}}</p>
+                {% else %}
+                    <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>
+                {% end %}
+            {% end %}
+        </div>
+        <div class="sobre-producto">
+            <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" 
+            category="{{d['category']}}"
+            id="{{d['id']}}"
+            name="{{d['name']}}"
+            brand="{{d['brand']}}"
+            variant="{{d['color']}}"
+            tag="{{tag}}"
+            class="url_producto"></a>
+            <div class="boton_comprar">
+                <li>
+                    <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}">COMPRAR</a>
+                </li>
+            </div>
+        </div>
+        <span class="_button">
+            <p></p>
+        </span>
+    </div>
 {% end %}
-
 <div class="paginador clearfix">
 </div>
-
 <script>
-    var str = '{{request.uri}}';
-
-    $(".paginador").pagination({
-        items: {{items}},
-        itemsOnPage: 16,
-        prevText: '<',
-        nextText: '>',
-        currentPage: {{page}},
-        hrefTextPrefix: str+'&page=',
-        hrefTextSuffix: '#contenedor'
-    });
+var str = '{{request.uri}}';
+$(".paginador").pagination({
+    items: {{items}},
+    itemsOnPage: 16,
+    prevText: '<',
+    nextText: '>',
+    currentPage: {{page}},
+    hrefTextPrefix: str+'&page=',
+    hrefTextSuffix: '#contenedor'
+});
 </script>

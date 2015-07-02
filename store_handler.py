@@ -60,6 +60,7 @@ class IndexHandler(BaseHandler):
                         page=page,
                         tags=tags,
                         tags_arr=None,
+                        tag="tienda",
                         tallas=tallas)
         else:
             self.render("store/ajax_productos.html",
@@ -68,6 +69,7 @@ class IndexHandler(BaseHandler):
                         page=page,
                         tags=tags,
                         tags_arr=None,
+                        tag="tienda",
                         tallas=tallas)
 
     def post(self):
@@ -352,11 +354,14 @@ class GetProductsByTagsHandler(BaseHandler):
                             page=page,
                             tags=tags,
                             tags_arr=tags_arr,
+                            tag=",".join(tags_arr),
                             tallas=tallas)
             else:
                 self.render("store/ajax_productos.html",
                             data=res["success"],
-                            items=items,page=page)
+                            items=items,
+                            tag=",".join(tags_arr),
+                            page=page)
         else:
             self.render("beauty_error.html",message=res["error"])
 
@@ -408,6 +413,7 @@ class FilterHandler(BaseHandler):
                 page=page,
                 canonical_url=self.canonical_url,
                 url_bodega=url_bodega,
+                tag='filtro',
                 money_format=self.money_format))
         else:
             self.write(res["error"])

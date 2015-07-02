@@ -81,7 +81,14 @@
                             {% end %}
                         </div>
                         <div class="sobre-producto">
-                            <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" class="url_producto"></a>
+                            <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" 
+                            category="{{d['category']}}"
+                            id="{{d['id']}}"
+                            name="{{d['name']}}"
+                            brand="{{d['brand']}}"
+                            variant="{{d['color']}}"
+                            tag="{{tag}}"
+                            class="url_producto"></a>
                             <div class="boton_comprar"><li><a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}">COMPRAR</a></li></div>
                         </div>
                         <span class="_button">
