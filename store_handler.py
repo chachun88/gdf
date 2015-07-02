@@ -83,6 +83,7 @@ class ProductHandler(BaseHandler):
         category = category.replace("_","&")
         name = name.replace("_","&")
         color = color.replace("_","&")
+        tag = self.get_argument("tag","")
 
         id_bodega = cellar_id
         cellar = Cellar()
@@ -159,7 +160,8 @@ class ProductHandler(BaseHandler):
                         data=prod,
                         combinations=combinaciones,
                         related=relacionados,
-                        votos=votos)
+                        votos=votos,
+                        tag=tag)
 
 
 class AddToCartHandler(BaseHandler):

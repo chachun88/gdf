@@ -81,7 +81,7 @@
                             {% end %}
                         </div>
                         <div class="sobre-producto">
-                            <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}" 
+                            <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}?tag={{tag}}" 
                             category="{{d['category']}}"
                             id="{{d['id']}}"
                             name="{{d['name']}}"

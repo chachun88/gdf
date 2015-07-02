@@ -10,6 +10,7 @@ $(document).ready(function(){
 
         // Obtencion de datos para ga
         var datos_analytics = $("div.datos-analytic");
+        var ga_tag = $(".ga-tag", datos_analytics).html();
         var ga_id = $(".ga-id", datos_analytics).html();
         var ga_name = $(".ga-name", datos_analytics).html();
         var ga_category = $(".ga-category", datos_analytics).html();
@@ -44,7 +45,7 @@ $(document).ready(function(){
                         'variant': ga_variant,
                         'price': ga_price,
                         'quantity': quantity,
-                        // 'coupon': 'SUMMER2013',
+                        'list': ga_tag
                         // 'position': 1
                     });
 
