@@ -62,18 +62,27 @@ var payment = function(){
     });
 
     var step = $(".numero-checkout").html();
-    var order_id = $("input[name=TBK_ORDEN_COMPRA]").val();
+    var order_id = $(".order_id").html();
     var shipping = $(".shipping").html();
     var subtotal = $('.subtotal').html();
+    var webpay = $('.webpay').html();
+
+    var option = 'webpay';
+
+    if(webpay==='no'){
+        option = 'transferencia';
+    }
+
     ga('ec:setAction','purchase', {
         'id': order_id,
         'affiliation': 'Giani Da Firenze',
         'revenue': subtotal,
         'shipping': shipping,
-        'step': step
+        'step': step,
+        'option': option
     });
     
     ga('send', 'pageview');
 
-    console.log("pago");
+    console.log("pago " + option);
 };

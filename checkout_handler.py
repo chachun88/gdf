@@ -846,7 +846,7 @@ class CheckoutSendHandler(BaseHandler):
                                 print response["error"]
 
                     if status == 200:
-                        self.render( "store/success.html",webpay="no" )
+                        self.render( "store/success.html",webpay="no", detalle=lista, order=order)
                     else:
                         self.render("beauty_error.html",message="Error al enviar correo de confirmación, {}".format(msg))
 

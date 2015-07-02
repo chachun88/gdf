@@ -104,17 +104,6 @@ var ValidateCheckoutPayment = function(){
         return false;
     }
 
-    ga('ec:setAction','purchase', {
-        'id': $('input[name=session_id]').val(),
-        'affiliation': 'Giani Da Firenze',
-        'revenue': $('input[name=subtotal]').val(),
-        'shipping': $('input[name=shipping_price]').val()
-    });
-    
-    ga('send', 'pageview');
-
-    console.log("pago transferencia");
-
     return true;
 };
 

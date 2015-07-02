@@ -180,6 +180,15 @@ Giani Da Firenze - Home
             <input type="submit" value="Volver a Inicio">
         </center>
     </form>
+    {% else %}
+        <h1>Gracias por comprar en Giani da firenze, confirmaremos su dep&oacute;sito, y procederemos con el despacho.  Le estaremos informando el status de su pedido</h1>
+        <form action="/" method="get">
+        <center>
+            <input type="submit" value="Volver a Inicio">
+        </center>
+    </form>
+    {% end %}
+
     <!-- Datos para google analytic -->
     <div class="datos-analytic">
         <!-- Este valor es 5, puesto que es el ultimo paso de la compra, aunque
@@ -195,22 +204,16 @@ Giani Da Firenze - Home
                 <div class="quantity-{{d["id"]}}">{{d["quantity"]}}</div>
             </div>
         {% end %}
+        <div class="order_id">{{order.id}}</div>
         <div class="shipping">{{order.shipping}}</div>
-        <div class="subtotal">{{suma}}</div>
+        <div class="subtotal">{{order.subtotal}}</div>
+        <div class="webpay">{{webpay}}</div>
     </div>
     <script>
     $(document).ready(function(){
         payment();
     });
     </script>
-    {% else %}
-        <h1>Gracias por comprar en Giani da firenze, confirmaremos su dep&oacute;sito, y procederemos con el despacho.  Le estaremos informando el status de su pedido</h1>
-        <form action="/" method="get">
-        <center>
-            <input type="submit" value="Volver a Inicio">
-        </center>
-    </form>
-    {% end %}
 </div>
 </div>
 {% end %}
