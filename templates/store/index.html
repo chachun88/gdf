@@ -69,16 +69,18 @@
                         </div>
                         <div class="producto-info clearfix">
                             <p class="producto-nombre">{{d['name']}}</p>
-                            {% if current_user is not None and int(current_user['type_id']) == 4 %}
-                                <p class="producto-precio">$ {{money_format(d['bulk_price'])}}</p>
-                            {% else %}
-                                {% if int(d['promotion_price']) > 0 %}
-                                    <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
-                                    <p class="producto-precio precio-ofert-zapato" >$ {{money_format(d['promotion_price'])}}</p>
+                            <div class=" just-show-in-movil" style="">
+                                {% if current_user is not None and int(current_user['type_id']) == 4 %}
+                                    <p class="producto-precio">$ {{money_format(d['bulk_price'])}}</p>
                                 {% else %}
-                                    <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>
+                                    {% if int(d['promotion_price']) > 0 %}
+                                        <p class="producto-precio precio-ant-zapato">$ {{money_format(d['sell_price'])}}</p>
+                                        <p class="producto-precio precio-ofert-zapato" >$ {{money_format(d['promotion_price'])}}</p>
+                                    {% else %}
+                                        <p class="producto-precio">$ {{money_format(d['sell_price'])}}</p>
+                                    {% end %}
                                 {% end %}
-                            {% end %}
+                            </div>
                         </div>
                         <div class="sobre-producto">
                             <a href="/product/{{canonical_url(d['category'])}}/{{canonical_url(d['name'])}}/{{canonical_url(d['color'])}}?tag={{tag}}" 
