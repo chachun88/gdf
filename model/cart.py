@@ -240,7 +240,7 @@ class Cart(BaseModel):
                     "size": self.size,
                     "price": self.price
                 }
-                print cur.mogrify(q, p)
+                # print cur.mogrify(q, p)
                 cur.execute(q, p)
                 self.connection.commit()
                 self.id = cur.fetchone()["id"]
