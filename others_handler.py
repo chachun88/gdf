@@ -148,7 +148,7 @@ class PagoHandler(BaseHandler):
                 id_despacho = l["shipping_id"]
                 total += l["subtotal"]
 
-            order.date = datetime.now(pytz.timezone('Chile/Continental').isoformat())
+            order.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
             order.type = Order.TIPO_WEB
             order.subtotal = subtotal
             order.shipping = costo_despacho
