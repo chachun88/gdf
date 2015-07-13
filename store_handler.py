@@ -203,7 +203,7 @@ class AddToCartHandler(BaseHandler):
                 else:
                     cart.size = size.name
 
-                cart.date = datetime.now(pytz.timezone('Chile/Continental'))
+                cart.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
                 cart.subtotal = subtotal
                 cart.user_id = self.get_argument("user_id",-1)
 
