@@ -349,7 +349,11 @@ class CheckoutPaymentHandler(BaseHandler):
                 c.Edit()
                 suma += l["subtotal"]
 
-            self.render("store/checkout-4.html",data=lista,suma=suma,costo_despacho=costo_despacho)
+            self.render("store/checkout-4.html",
+                        data=lista,
+                        suma=suma,
+                        costo_despacho=costo_despacho,
+                        pytz=pytz)
         else:
             self.redirect("/auth/login")
 
