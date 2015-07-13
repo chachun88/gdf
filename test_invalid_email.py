@@ -2,13 +2,13 @@
 # -*- coding: UTF-8 -*-
 import sendgrid
 from globals import *
-import os
-import time
+# import os
+# import time
 import datetime
 import pytz
 
-os.environ['TZ'] = 'Chile'
-time.tzset()
+# os.environ['TZ'] = 'Chile'
+# time.tzset()
 
 
 class SendEmail():
