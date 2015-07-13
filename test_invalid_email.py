@@ -4,7 +4,8 @@ import sendgrid
 from globals import *
 import os
 import time
-from datetime import datetime
+import datetime
+import pytz
 
 os.environ['TZ'] = 'Chile'
 time.tzset()
@@ -18,7 +19,7 @@ class SendEmail():
         mensaje = sendgrid.Mail()
         mensaje.set_from("{nombre} <{mail}>".format(nombre='Test Yi',mail="yichun212@gmail.com"))
         mensaje.add_to(to_giani)
-        mensaje.set_subject("{}".format(time.strftime("%Y-%m-%d %H:%M:%S")))
+        mensaje.set_subject("{}".format(datetime.datetime.now(pytz.timezone('Chile/Continental'))))
         mensaje.set_html("holaaaaa")
         status, msg = sg.send(mensaje)
         print "{} {}".format(status, msg)
