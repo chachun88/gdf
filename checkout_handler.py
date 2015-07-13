@@ -475,7 +475,7 @@ class CheckoutSendHandler(BaseHandler):
                     tipo_pago = l["shipping_type"]
                     total += l["subtotal"]
 
-                order.date = datetime.now(pytz.timezone('Chile/Continental'))
+                order.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
                 order.type = 1
                 order.subtotal = subtotal
                 order.shipping = shipping_price

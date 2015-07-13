@@ -106,7 +106,7 @@ class Cart(BaseModel):
         BaseModel.__init__(self)
         self.table = 'Temp_Cart'
         self._product_id = -1
-        self._date = datetime.now(pytz.timezone('Chile/Continental'))
+        self._date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
         self._quantity = 0
         self._subtotal = 0
         self._user_id = -1

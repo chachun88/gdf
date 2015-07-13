@@ -19,7 +19,7 @@ class SendEmail():
         mensaje = sendgrid.Mail()
         mensaje.set_from("{nombre} <{mail}>".format(nombre='Test Yi',mail="yichun212@gmail.com"))
         mensaje.add_to(to_giani)
-        mensaje.set_subject("{}".format(datetime.datetime.now(pytz.timezone('Chile/Continental'))))
+        mensaje.set_subject("{}".format(datetime.datetime.now(pytz.timezone('Chile/Continental').isoformat())))
         mensaje.set_html("holaaaaa")
         status, msg = sg.send(mensaje)
         print "{} {}".format(status, msg)

@@ -47,7 +47,7 @@ class TestOrder(unittest.TestCase):
 
         # create a new user instance
         order = Order()
-        order.date = datetime.now(pytz.timezone('Chile/Continental'))
+        order.date = datetime.now(pytz.timezone('Chile/Continental').isoformat())
         order.type = Order.TIPO_WEB
         order.subtotal = 20000
         order.shipping = 2000

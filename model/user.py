@@ -209,7 +209,7 @@ class User(BaseModel):
                     query = '''update "User" set last_view = %(last_view)s where id = %(identifier)s'''
                     params = {
                         "identifier": user['id'],
-                        "last_view": datetime.now(pytz.timezone('Chile/Continental'))
+                        "last_view": datetime.now(pytz.timezone('Chile/Continental').isoformat())
                     }
                     lp_model.execute_query_real(query, params)
                 except Exception, e:

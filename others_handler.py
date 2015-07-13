@@ -148,7 +148,7 @@ class PagoHandler(BaseHandler):
                 id_despacho = l["shipping_id"]
                 total += l["subtotal"]
 
-            order.date = datetime.now(pytz.timezone('Chile/Continental'))
+            order.date = datetime.now(pytz.timezone('Chile/Continental').isoformat())
             order.type = Order.TIPO_WEB
             order.subtotal = subtotal
             order.shipping = costo_despacho
@@ -283,7 +283,7 @@ class XtCompraHandler(BaseHandler):
                                                    .format(l["product_id"],
                                                            res_name["error"]))
 
-                        kardex.date = str(datetime.now(pytz.timezone('Chile/Continental')).isoformat())
+                        kardex.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
                         kardex.user = "Sistema - Reservar Producto"
                         kardex.units = l["quantity"]
 
