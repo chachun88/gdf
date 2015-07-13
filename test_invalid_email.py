@@ -16,7 +16,7 @@ class SendEmail():
 
         sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
         mensaje = sendgrid.Mail()
-        mensaje.set_from("{nombre} <{mail}>".format(nombre='Test Yi',mail=["yichun212@gmail.com","yi.neko@gmail.com"]))
+        mensaje.set_from("{nombre} <{mail}>".format(nombre='Test Yi',mail="yichun212@gmail.com"))
         mensaje.add_to(to_giani)
         mensaje.set_subject("{}".format(datetime.now()))
         mensaje.set_html("holaaaaa")
