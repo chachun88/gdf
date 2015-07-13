@@ -7,7 +7,7 @@ from size import Size
 import psycopg2
 import psycopg2.extras
 from datetime import datetime
-
+import pytz
 
 class Kardex(BaseModel):
 
