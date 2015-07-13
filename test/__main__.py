@@ -17,7 +17,8 @@ define("db_password", default=ONTEST_PASSWORD, help="", type=str)
 import dbscripts.ontest_schema_loader
 # from handler_kardex_test import TestStock
 # from model_user_test import TestUser
-from handler_success_test import TestSuccess
+# from handler_success_test import TestSuccess
+from model_order_test import TestOrder
 
 if __name__ == '__main__': 
     unittest.main(verbosity=2)
