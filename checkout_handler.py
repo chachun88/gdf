@@ -7,6 +7,7 @@ import tornado.ioloop
 import tornado.options
 import tornado.web
 from basehandler import BaseHandler
+import pytz
 
 import uuid
 
@@ -470,7 +471,7 @@ class CheckoutSendHandler(BaseHandler):
                     tipo_pago = l["shipping_type"]
                     total += l["subtotal"]
 
-                order.date = datetime.now()
+                order.date = datetime.now(pytz.timezone('Chile/Continental'))
                 order.type = 1
                 order.subtotal = subtotal
                 order.shipping = shipping_price
@@ -817,7 +818,7 @@ class CheckoutSendHandler(BaseHandler):
                                     print res_name["error"]
 
 
-                                kardex.date = str(datetime.now().isoformat()) 
+                                kardex.date = str(datetime.now(pytz.timezone('Chile/Continental')).isoformat()) 
                                 kardex.user = "Sistema - Reservar Producto"
                                 kardex.units = l["quantity"]
                                 kardex.price = producto.price
