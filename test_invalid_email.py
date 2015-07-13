@@ -18,7 +18,7 @@ class SendEmail():
         mensaje = sendgrid.Mail()
         mensaje.set_from("{nombre} <{mail}>".format(nombre='Test Yi',mail="yichun212@gmail.com"))
         mensaje.add_to(to_giani)
-        mensaje.set_subject("{}".format(datetime.now()))
+        mensaje.set_subject("{}".format(time()))
         mensaje.set_html("holaaaaa")
         status, msg = sg.send(mensaje)
         print "{} {}".format(status, msg)
