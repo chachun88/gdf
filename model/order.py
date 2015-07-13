@@ -282,7 +282,7 @@ class Order(BaseModel):
         }
 
         try:
-            print cur.mogrify(query, parametros)
+            # print cur.mogrify(query, parametros)
             cur.execute(query,parametros)
 
             self.connection.commit()
