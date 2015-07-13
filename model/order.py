@@ -7,7 +7,8 @@ from basemodel import BaseModel
 from order_detail import OrderDetail
 import psycopg2
 import psycopg2.extras
-
+from datetime import datetime
+import pytz
 
 class Order(BaseModel):
 
@@ -263,7 +264,7 @@ class Order(BaseModel):
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
         query = '''insert into "Order" (voucher,date,type,subtotal,shipping,tax,total,items_quantity,products_quantity,user_id,billing_id,shipping_id,payment_type) 
-        values (%(voucher)s,now(),%(type)s,%(subtotal)s,%(shipping)s,%(tax)s,%(total)s,%(items_quantity)s,%(products_quantity)s,%(user_id)s,%(billing_id)s,%(shipping_id)s,%(payment_type)s) 
+        values (%(voucher)s, %(date)s,%(type)s,%(subtotal)s,%(shipping)s,%(tax)s,%(total)s,%(items_quantity)s,%(products_quantity)s,%(user_id)s,%(billing_id)s,%(shipping_id)s,%(payment_type)s) 
         returning id'''
 
         parametros = {
@@ -278,7 +279,8 @@ class Order(BaseModel):
             "user_id":self.user_id,
             "billing_id":self.billing_id,
             "shipping_id":self.shipping_id,
-            "payment_type":self.payment_type
+            "payment_type":self.payment_type,
+            "date": datetime.now(pytz.timezone('Chile/Continental'))
         }
 
         try:
