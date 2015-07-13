@@ -233,7 +233,7 @@ class Cart(BaseModel):
                     returning id'''
                 p = {
                     "product_id": self.product_id,
-                    "date": datetime.now(pytz.timezone('Chile/Continental')),
+                    "date": self.date,
                     "quantity": self.quantity,
                     "subtotal": self.subtotal,
                     "user_id": self.user_id,
