@@ -280,7 +280,7 @@ class Order(BaseModel):
             "billing_id":self.billing_id,
             "shipping_id":self.shipping_id,
             "payment_type":self.payment_type,
-            "date": datetime.now(pytz.timezone('Chile/Continental').isoformat())
+            "date": datetime.now(pytz.timezone('Chile/Continental')).isoformat()
         }
 
         try:
