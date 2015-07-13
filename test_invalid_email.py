@@ -1,7 +1,13 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 import sendgrid
-from globals import sendgrid_pass, sendgrid_user, email_giani, to_giani
+from globals import *
+import os
+import time
+from datetime import datetime
+
+os.environ['TZ'] = 'Chile'
+time.tzset()
 
 
 class SendEmail():
@@ -12,7 +18,7 @@ class SendEmail():
         mensaje = sendgrid.Mail()
         mensaje.set_from("{nombre} <{mail}>".format(nombre='Test Yi',mail=["yichun212@gmail.com","yi.neko@gmail.com"]))
         mensaje.add_to(to_giani)
-        mensaje.set_subject("test email invalido")
+        mensaje.set_subject("{}".format(datetime.now()))
         mensaje.set_html("holaaaaa")
         status, msg = sg.send(mensaje)
         print "{} {}".format(status, msg)
