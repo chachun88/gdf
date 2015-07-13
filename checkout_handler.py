@@ -434,7 +434,7 @@ class CheckoutSendHandler(BaseHandler):
 
                 open(file_path, 'wb').write(imagedata["body"])
             except Exception, e:
-                print str(e)
+                # print str(e)
                 pass
 
         payment_type = self.get_argument("payment_type",1)
@@ -818,9 +818,8 @@ class CheckoutSendHandler(BaseHandler):
 
                                 if "success" in res_name:
                                     kardex.size_id = _s.id
-                                elif debugMode:
-                                    print res_name["error"]
-
+                                # elif debugMode:
+                                #     print res_name["error"]
 
                                 kardex.date = str(datetime.now(pytz.timezone('Chile/Continental')).isoformat()) 
                                 kardex.user = "Sistema - Reservar Producto"
@@ -836,19 +835,19 @@ class CheckoutSendHandler(BaseHandler):
 
                                 if "success" in res_reservation:
                                     reservation_cellar = res_reservation["success"]
-                                elif debugMode:
-                                    print res_reservation["error"]
+                                # elif debugMode:
+                                #     print res_reservation["error"]
 
                                 kardex.cellar_identifier = reservation_cellar
                                 kardex.operation_type = Kardex.OPERATION_MOV_IN
 
                                 res_kardex = kardex.Insert()
 
-                                if debugMode and "error" in res_kardex:
-                                    print res_kardex["error"]
+                                # if debugMode and "error" in res_kardex:
+                                #     print res_kardex["error"]
 
-                            elif debugMode:
-                                print response["error"]
+                            # elif debugMode:
+                            #     print response["error"]
 
                     if status == 200:
                         self.render( "store/success.html",webpay="no", detalle=lista, order=order)
