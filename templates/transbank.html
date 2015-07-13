@@ -16,7 +16,24 @@ Giani Da Firenze - Transbank
   <input type="hidden" name="TBK_URL_FRACASO" value="{{data['TBK_URL_FRACASO']}}" />
 
 </form>
-
+<!-- Datos para google analytic -->
+<div class="datos-analytic">
+  <!-- Este valor es 5, puesto que es el ultimo paso de la compra, aunque 
+  checkout indica lo contrario -->
+  <div class="numero-checkout">5</div>
+  {% for d in lista %}
+  <div class="carro" car-id="{{d["id"]}}">
+    <div class="id-{{d["id"]}}">{{d["sku"]}}</div>
+    <div class="name-{{d["id"]}}">{{d["name"]}}</div>
+    <div class="category-{{d["id"]}}">{{d["category"]}}</div>
+    <div class="variant-{{d["id"]}}">{{d["color"]}}</div>
+    <div class="price-{{d["id"]}}">{{d["subtotal"]}}</div>
+    <div class="quantity-{{d["id"]}}">{{d["quantity"]}}</div>
+  </div>
+  {% end %}
+  <div class="shipping">{{data['shipping']}}</div>
+  <div class="subtotal">{{data['subtotal']}}</div>
+</div>
 <div class="overlay"></div>
 <div class="mensaje">
   <img src='/{{nocache_static}}/img/loading.gif' alt='Redireccionando'/>
@@ -53,9 +70,13 @@ Giani Da Firenze - Transbank
     left: 50%;
     top: 40%;
   }
+  .datos-analytic{
+      display: none;
+  }
 </style>
 {% end %}
 {% block javascript %}
+<script src="/{{nocache_static}}/js/ga-checkout.js"></script>
 <script type="text/javascript">
   $(document).ready(function(){
     $("#submit_webpayplus_payment_form").click();

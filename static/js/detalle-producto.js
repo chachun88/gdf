@@ -8,12 +8,15 @@ $(document).ready(function(){
         var size = $("#size").val();
         var quantity = $("#quantity").val();
 
-        var ga_id = $("select#size ").attr("sku");
-        var ga_name = $(".producto-nombre-1").html();
-        var ga_category = $(".ga-category").html();
-        var ga_variant = $(".ga-variant").html();
-        var precio_unitario = $(".ga-price").html();
-        var ga_price = precio_unitario * quantity;
+        // Obtencion de datos para ga
+        var datos_analytics = $("div.datos-analytic");
+        var ga_tag = $(".ga-tag", datos_analytics).html();
+        var ga_id = $(".ga-id", datos_analytics).html();
+        var ga_name = $(".ga-name", datos_analytics).html();
+        var ga_category = $(".ga-category", datos_analytics).html();
+        var ga_variant = $(".ga-variant", datos_analytics).html();
+        var ga_price = $(".ga-price", datos_analytics).html();
+        ga_price = ga_price * quantity;
 
         $.ajax({
             url:"/cart/add",
@@ -42,15 +45,17 @@ $(document).ready(function(){
                         'variant': ga_variant,
                         'price': ga_price,
                         'quantity': quantity,
-                        // 'coupon': 'SUMMER2013',
+                        'list': ga_tag
                         // 'position': 1
                     });
 
                     ga('ec:setAction', 'add');
                     ga('send', 'event', 'UX', 'click', 'add to cart');
+
+                    console.log("add to cart");
                 }
             }
-        })
+        });
     });
 
     var size_changed = function(){
@@ -124,7 +129,7 @@ $(document).ready(function(){
     $(".btn-resumen").on( "click", function(evt)
     {
         evt.preventDefault();
-        /*googleAnalyticsCheckout();*/
+        googleAnalyticsCheckout();
         $("#form-resumen").submit();
     });
 
@@ -132,7 +137,7 @@ $(document).ready(function(){
     $(".btn-pago").on( "click", function(evt)
     {
         evt.preventDefault();
-        /*googleAnalyticsCheckout();*/
+        googleAnalyticsCheckout();
         $("#form-pago").submit();
     });
 
@@ -140,7 +145,7 @@ $(document).ready(function(){
     $(".btn-pagar").on( "click", function(evt)
     {
         evt.preventDefault();
-        /*googleAnalyticsCheckout();*/
+        // payment();
         $("#form-pagar").submit();
     });
 

@@ -102,8 +102,8 @@ class TosHandler(BaseHandler):
 class PagoHandler(BaseHandler):
 
     def get(self):
-        # pass
-        self.render("pago.html")
+        pass
+        # self.render("pago.html")
 
     def post(self):
 
@@ -204,14 +204,119 @@ class PagoHandler(BaseHandler):
             "TBK_ORDEN_COMPRA": order.id,
             "TBK_ID_SESION": TBK_ID_SESION,
             "TBK_URL_EXITO": TBK_URL_EXITO,
-            "TBK_URL_FRACASO": TBK_URL_FRACASO
+            "TBK_URL_FRACASO": TBK_URL_FRACASO,
+            "shipping": costo_despacho,
+            "subtotal": subtotal
         }
 
         # self.write(json_util.dumps(data))
-        self.render("transbank.html", data=data)
+        user_id = self.current_user["id"]
+        cart = Cart()
+        cart.user_id = user_id
+        lista = cart.GetCartByUserId()
+
+        self.render("transbank.html", data=data, lista=lista)
 
 
 class XtCompraHandler(BaseHandler):
+
+    @staticmethod
+    def moveStock(order_detail, user_id):
+        try:
+            id_bodega = cellar_id
+            id_bodega_reserva = shipping_cellar
+
+            cellar = Cellar()
+            res_cellar = cellar.GetWebCellar()
+
+            if "success" in res_cellar:
+                id_bodega = res_cellar["success"]
+            else:
+                ExitoHandler.sendError("obtener id de bodega web {}"
+                                       .format(res_cellar["error"]))
+
+            res_reservation_cellar = cellar.GetReservationCellar()
+
+            if "success" in res_reservation_cellar:
+                id_bodega_reserva = res_reservation_cellar["success"]
+            else:
+                ExitoHandler.sendError("obtener id de bodega reserva {}"
+                                       .format(res_reservation_cellar["error"]))
+
+            cart = Cart()
+            cart.user_id = user_id
+
+            carro = cart.GetCartByUserId()
+
+            if len(carro) > 0:
+
+                res_remove_cart = cart.RemoveByUserId()
+
+                if "error" in res_remove_cart:
+                    ExitoHandler.sendError("vaciar carro {}"
+                                           .format(res_remove_cart["error"]))
+
+            for l in order_detail:
+
+                if not l['moved']:
+
+                    kardex = Kardex()
+
+                    producto = Product()
+                    response = producto.InitById(l["product_id"])
+
+                    if "success" in response:
+
+                        kardex.product_sku = producto.sku
+                        kardex.cellar_identifier = id_bodega
+                        kardex.operation_type = Kardex.OPERATION_MOV_OUT
+
+                        _s = Size()
+                        _s.name = l["size"]
+                        res_name = _s.initByName()
+
+                        if "success" in res_name:
+                            kardex.size_id = _s.id
+                        else:
+                            ExitoHandler.sendError("obtener size_id para product_id {}, {}"
+                                                   .format(l["product_id"],
+                                                           res_name["error"]))
+
+                        kardex.date = str(datetime.now().isoformat())
+                        kardex.user = "Sistema - Reservar Producto"
+                        kardex.units = l["quantity"]
+
+                        res_kardex = kardex.Insert()
+
+                        if "error" in res_kardex:
+                            ExitoHandler.sendError("sacar de bodega web product_id {}, {}"
+                                                   .format(l["product_id"],
+                                                           res_kardex["error"]))
+                        else:
+                            kardex.cellar_identifier = id_bodega_reserva
+                            kardex.operation_type = Kardex.OPERATION_MOV_IN
+
+                            res_kardex = kardex.Insert()
+
+                            if "error" in res_kardex:
+                                ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
+                                                       .format(l["product_id"],
+                                                               res_kardex["error"]))
+                            else:
+                                od = OrderDetail()
+                                res_moved = od.MarkAsMoved(l['id'])
+                                if "error" in res_moved:
+                                    ExitoHandler.sendError("mark as moved id {}".format(l['id']),
+                                        res_moved["error"])
+
+                    else:
+                        ExitoHandler.sendError("initizalizar producto {}, {}"
+                                               .format(l["product_id"],
+                                                       res_remove_cart["error"]))
+        except Exception, e:
+            ExitoHandler.sendError("mover stock {}"
+                                       .format(str(e)))
+            pass
 
     def get(self):
         self.write("RECHAZADO")
@@ -314,6 +419,9 @@ class XtCompraHandler(BaseHandler):
             order = Order()
             init_by_id = order.InitById(TBK_ORDEN_COMPRA)
 
+            detail = OrderDetail()
+            lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
+
             if "success" in init_by_id:
                 # rechaza si orden no esta pendiente
                 if order.state != Order.ESTADO_PENDIENTE:
@@ -353,6 +461,12 @@ class XtCompraHandler(BaseHandler):
 
                     if "error" in res:
                         print res["error"]
+                    else:
+                        try:
+                            self.moveStock(lista, order.user_id)
+                        except Exception, e:
+                            ExitoHandler.sendError('error moviendo stock, {}'
+                                .format(TBK_ORDEN_COMPRA))
 
         if acepta or TBK_RESPUESTA != "0":
             # print "si acepto"
@@ -543,95 +657,6 @@ class ExitoHandler(BaseHandler):
         return data
 
     @staticmethod
-    def moveStock(order_detail, user_id):
-        try:
-            id_bodega = cellar_id
-            id_bodega_reserva = shipping_cellar
-
-            cellar = Cellar()
-            res_cellar = cellar.GetWebCellar()
-
-            if "success" in res_cellar:
-                id_bodega = res_cellar["success"]
-            else:
-                ExitoHandler.sendError("obtener id de bodega web {}"
-                                       .format(res_cellar["error"]))
-
-            res_reservation_cellar = cellar.GetReservationCellar()
-
-            if "success" in res_reservation_cellar:
-                id_bodega_reserva = res_reservation_cellar["success"]
-            else:
-                ExitoHandler.sendError("obtener id de bodega reserva {}"
-                                       .format(res_reservation_cellar["error"]))
-
-            cart = Cart()
-            cart.user_id = user_id
-
-            carro = cart.GetCartByUserId()
-
-            if len(carro) > 0:
-
-                res_remove_cart = cart.RemoveByUserId()
-
-                if "error" in res_remove_cart:
-                    ExitoHandler.sendError("vaciar carro {}"
-                                           .format(res_remove_cart["error"]))
-
-                for l in order_detail:
-
-                    kardex = Kardex()
-
-                    producto = Product()
-                    response = producto.InitById(l["product_id"])
-
-                    if "success" in response:
-
-                        kardex.product_sku = producto.sku
-                        kardex.cellar_identifier = id_bodega
-                        kardex.operation_type = Kardex.OPERATION_MOV_OUT
-
-                        _s = Size()
-                        _s.name = l["size"]
-                        res_name = _s.initByName()
-
-                        if "success" in res_name:
-                            kardex.size_id = _s.id
-                        else:
-                            ExitoHandler.sendError("obtener size_id para product_id {}, {}"
-                                                   .format(l["product_id"],
-                                                           res_name["error"]))
-
-                        kardex.date = str(datetime.now().isoformat())
-                        kardex.user = "Sistema - Reservar Producto"
-                        kardex.units = l["quantity"]
-
-                        res_kardex = kardex.Insert()
-
-                        if "error" in res_kardex:
-                            ExitoHandler.sendError("sacar de bodega web product_id {}, {}"
-                                                   .format(l["product_id"],
-                                                           res_kardex["error"]))
-
-                        kardex.cellar_identifier = id_bodega_reserva
-                        kardex.operation_type = Kardex.OPERATION_MOV_IN
-
-                        res_kardex = kardex.Insert()
-
-                        if "error" in res_kardex:
-                            ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
-                                                   .format(l["product_id"],
-                                                           res_kardex["error"]))
-
-                    else:
-                        ExitoHandler.sendError("initizalizar producto {}, {}"
-                                               .format(l["product_id"],
-                                                       res_remove_cart["error"]))
-        except:
-            pass
-
-
-    @staticmethod
     def getDetalleOrden(lista):
         try:
             detalle_orden = ""
@@ -763,11 +788,18 @@ class ExitoHandler(BaseHandler):
         order = self.verifyOrderState(TBK_ORDEN_COMPRA)
 
         if order is None:
+            # self.render(
+            #     "store/failure.html",
+            #     TBK_ID_SESION=TBK_ID_SESION,
+            #     TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
+            #     PATHSUBMIT=pathSubmit)
             self.render(
-                "store/failure.html",
-                TBK_ID_SESION=TBK_ID_SESION,
-                TBK_ORDEN_COMPRA=TBK_ORDEN_COMPRA,
-                PATHSUBMIT=pathSubmit)
+                "beauty_error.html",
+                message="Gracias por comprar en Giani Da Firenze, \
+                confirmaremos su pago, \
+                y procederemos con el despacho. \
+                Le estaremos informando el status de su pedido. \
+                Si tienes alguna duda, escríbenos a contacto@gianidafirenze.cl")
             return
 
         data = self.readWebpayMAC(TBK_ID_SESION, order)
@@ -775,11 +807,8 @@ class ExitoHandler(BaseHandler):
         detail = OrderDetail()
         lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
 
-        self.moveStock(lista, self.current_user["id"])
-
         try:
             status_cliente, status_giani, message = ExitoHandler.notifyEmails(lista, order, self.current_user)
-
 
             if status_cliente != 200:
                 ExitoHandler.sendError("el email de cliente no se ha enviado : {}".format(message))

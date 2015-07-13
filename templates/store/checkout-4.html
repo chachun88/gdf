@@ -117,6 +117,8 @@ Giani Da Firenze - Carro de Compra
                                 Estoy de acuerdo y acepto los <a href="/tos" target="_blank" >Términos y condiciones</a> </label>
                             </div>
                             <input type="hidden" name="payment_type" value="1">
+                            <input type="hidden" name="session_id" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}">
+                            <input type="hidden" name="subtotal" value="{{suma}}">
                             <input type="hidden" name="shipping_price" value="{{costo_despacho}}">
                             <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small " > Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
                           </div>

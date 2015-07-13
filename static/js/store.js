@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
 
-    console.info($("#total-items").val());
+    // console.info($("#total-items").val());
 
     $(".paginador").pagination({
         items: $("#total-items").val(),
@@ -66,4 +66,29 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('click', '.url_producto', function(){
+        var name = $(this).attr('name');
+        var id = $(this).attr('id');
+        var category = $(this).attr('category');
+        var brand = $(this).attr('brand');
+        var variant = $(this).attr('variant');
+        var tag = $(this).attr('tag');
+        onProductClick(id, name, category, brand, variant, tag);
+    });
 });
+
+function onProductClick(id, name, category, brand, variant, tag) {
+    ga('ec:addProduct', {
+        'id': id,
+        'name': name,
+        'category': category,
+        'brand': brand,
+        'variant': variant
+    });
+
+    console.log('click tag ' + tag);
+
+    ga('ec:setAction', 'click', {list: tag});
+
+    ga('send', 'pageview');
+}

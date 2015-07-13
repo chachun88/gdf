@@ -6,6 +6,7 @@ Giani Da Firenze - Home
 {% block css %}
 <link rel="stylesheet" href="/{{nocache_static}}/css/index.css">
 <link rel="stylesheet" href="/{{nocache_static}}/css/recuperar_c.css">
+<link rel="stylesheet" href="/{{nocache_static}}/css/oculta-dato.css">
 <link href='http://fonts.googleapis.com/css?family=Vidaloka' rel='stylesheet' type='text/css'>
 {% end %}
 
@@ -188,7 +189,35 @@ Giani Da Firenze - Home
         </center>
     </form>
     {% end %}
+
+    <!-- Datos para google analytic -->
+    <div class="datos-analytic">
+        <!-- Este valor es 5, puesto que es el ultimo paso de la compra, aunque
+        checkout indica lo contrario -->
+        <div class="numero-checkout">5</div>
+        {% for d in detalle %}
+            <div class="carro" car-id="{{d["id"]}}">
+                <div class="id-{{d["id"]}}">{{d["sku"]}}</div>
+                <div class="name-{{d["id"]}}">{{d["name"]}}</div>
+                <div class="category-{{d["id"]}}">{{d["category"]}}</div>
+                <div class="variant-{{d["id"]}}">{{d["color"]}}</div>
+                <div class="price-{{d["id"]}}">{{d["subtotal"]}}</div>
+                <div class="quantity-{{d["id"]}}">{{d["quantity"]}}</div>
+            </div>
+        {% end %}
+        <div class="order_id">{{order.id}}</div>
+        <div class="shipping">{{order.shipping}}</div>
+        <div class="subtotal">{{order.subtotal}}</div>
+        <div class="webpay">{{webpay}}</div>
+    </div>
+    <script>
+    $(document).ready(function(){
+        payment();
+    });
+    </script>
 </div>
 </div>
 {% end %}
-{% block javascript %}{% end %}
+{% block javascript %}
+<script src="/{{nocache_static}}/js/ga-checkout.js"></script>
+{% end %}

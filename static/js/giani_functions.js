@@ -137,7 +137,7 @@ var GetAddressById = function(_id){
                     $("#InputEmail").val(obj.success.email);
                     $("#InputLastName").val(obj.success.lastname);
                     $("#InputName").val(obj.success.name);
-                    $("#InputTown").val(obj.success.town);
+                    // $("#InputTown").val(obj.success.town);
                     $("#InputRut").val(obj.success.rut);
                 } else {
                     alert(obj.error);
@@ -165,6 +165,7 @@ var ValidateRequired = function(id_formulario){
     return valid;
 };
 
+// step 1 and 2 checkout
 var enviarFormulario = function(id_formulario){
 
     var same_address = false;
@@ -177,11 +178,11 @@ var enviarFormulario = function(id_formulario){
 
     if(!same_address){
         if(ValidateRequired(id_formulario)){
-            /*googleAnalyticsCheckout();*/
+            googleAnalyticsCheckout();
             $("#"+id_formulario).submit();
         }
     } else {
-        /*googleAnalyticsCheckout();*/
+        googleAnalyticsCheckout();
         $("#"+id_formulario).submit();
     }
 
