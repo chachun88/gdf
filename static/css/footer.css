@@ -244,6 +244,12 @@ background-color: #fefefe;}
 }
 
 @media(max-width:1200px) {
+  .footer-left-center-cont ._button 
+{
+
+  font-size: 0.7em;
+  
+}
   .footer-left-cont ._button {
 }
 .footer-redes .image-25 {
@@ -256,7 +262,13 @@ margin: 0px 0 0 12.03497%;
 margin: 0px 0 0 12.72619%;
 }
 }
-@media(max-width:980px){
+@media(max-width:770px){
+  .btn-vent-may {
+  margin-top: 10% !important;
+  border: 1px solid gray !important;
+  width: 100% !important;
+  line-height: 0 !important;
+}
   .footer-redes .image-23 {
 margin-left: 3%;
 }
