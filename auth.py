@@ -483,7 +483,9 @@ class EnterpriseRegistrationHandler(BaseHandler):
                                 bussiness=giro.encode('utf-8'),
                                 email=email.encode('utf-8'),
                                 address=direccion.encode('utf-8'),
-                                city=comuna.encode('utf-8'),
+                                state=region.encode('utf-8'),
+                                city=provincia.encode('utf-8'),
+                                town=comuna.encode('utf-8'),
                                 rut=rut,
                                 url_local=url_local)
 
