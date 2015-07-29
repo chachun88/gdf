@@ -153,7 +153,7 @@ $(document).ready(function(){
 
             
 
-        console.info(url);
+        // console.info(url);
 
         $.ajax({
             url: url,
@@ -167,10 +167,9 @@ $(document).ready(function(){
                 $(".paginador").remove();
                 $("#ajax_productos").html(respuesta).removeClass("disable").addClass("active"); //.delay(100).fadeIn(200);
                 
-                /*$("#ajax_productos").animate({
-                        opacity: 1
-                    }, 3000, function() {
-                });*/
+                $("body,html").animate({
+                    scrollTop: $("#contenedor").offset().top
+                }, 1000);
             }
         });
 
