@@ -3,7 +3,7 @@
 
 from basehandler import BaseHandler, valida, isEmailValid
 
-from globals import url_local
+from globals import *
 
 import tornado.auth
 from bson import json_util
@@ -15,6 +15,10 @@ from model.contact import Contact
 from model.city import City
 
 from sendpassword import RegistrationEmail
+
+import sendgrid
+import os.path
+from tornado import template
 
 
 class UserRegistrationHandler(BaseHandler):    
@@ -409,6 +413,12 @@ class CheckoutSuccessHandler(BaseHandler):
 
 class EnterpriseRegistrationHandler(BaseHandler):
 
+    @staticmethod
+    def generateMail(file_name, **kwargs):
+        base_directory = os.path.join("templates", "mail")
+        loader = template.Loader(base_directory)
+        return loader.load(file_name).generate(**kwargs)
+
     def post(self):
 
         nombre = self.get_argument("name","")
@@ -465,6 +475,31 @@ class EnterpriseRegistrationHandler(BaseHandler):
             contact.address = direccion
             contact.user_id = user_id
             contact.city = None
+
+            try:
+                html = self.generateMail(
+                                "registro_mayorista.html",
+                                name=nombre.encode('utf-8'),
+                                bussiness=giro.encode('utf-8'),
+                                email=email.encode('utf-8'),
+                                address=direccion.encode('utf-8'),
+                                city=comuna.encode('utf-8'),
+                                rut=rut,
+                                url_local=url_local)
+
+                sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+                mensaje = sendgrid.Mail()
+                mensaje.set_from(
+                    "{nombre} <{mail}>".format(nombre=nombre, mail=email))
+                mensaje.add_to(to_giani)
+                mensaje.set_subject("Registro Mayorista GDF")
+                mensaje.set_html(html)
+                status, msg = sg.send(mensaje)
+
+                print status
+
+            except Exception, e:
+                print str(e)
 
             self.write(json_util.dumps(contact.Save()))
 

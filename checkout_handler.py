@@ -21,19 +21,12 @@ from model.cellar import Cellar
 from model.product import Product
 from model.city import City
 from model.shipping import Shipping
+from model.user import User, UserType
 
 from datetime import datetime
 from bson import json_util
 import sendgrid
-from globals import url_local, \
-                    email_giani, \
-                    to_giani, \
-                    shipping_cellar, \
-                    cellar_id, \
-                    debugMode, \
-                    sendgrid_pass, \
-                    sendgrid_user, \
-                    dir_image
+from globals import *
 
 
 class CheckoutAddressHandler(BaseHandler):
@@ -291,7 +284,10 @@ class CheckoutShippingHandler(BaseHandler):
                         suma += l["subtotal"]
 
                     # self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
-                    self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho)
+                    if self.current_user['type_id'] == User().getUserTypeID(UserType.EMPRESA):
+                        self.render("wholesaler/checkout-4.html",data=lista,suma=suma,iva=iva)
+                    else:
+                        self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho)
             else:
 
                 cart = Cart()
@@ -308,8 +304,10 @@ class CheckoutShippingHandler(BaseHandler):
                     c.Edit()
                     suma += l["subtotal"]
 
-                # self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion)
-                self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho)
+                if self.current_user['type_id'] == User().getUserTypeID(UserType.EMPRESA):
+                    self.render("wholesaler/checkout-4.html",data=lista,suma=suma,iva=iva)
+                else:
+                    self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho)
 
         else:
 
@@ -349,11 +347,18 @@ class CheckoutPaymentHandler(BaseHandler):
                 c.Edit()
                 suma += l["subtotal"]
 
-            self.render("store/checkout-4.html",
-                        data=lista,
-                        suma=suma,
-                        costo_despacho=costo_despacho,
-                        pytz=pytz)
+            if self.current_user['type_id'] != User().getUserTypeID(UserType.EMPRESA):
+                self.render("store/checkout-4.html",
+                            data=lista,
+                            suma=suma,
+                            costo_despacho=costo_despacho,
+                            pytz=pytz)
+            else:
+                self.render("wholesaler/checkout-5.html",
+                            data=lista,
+                            suma=suma,
+                            iva=iva,
+                            pytz=pytz)
         else:
             self.redirect("/auth/login")
 
@@ -368,6 +373,8 @@ class CheckoutOrderHandler(BaseHandler):
     def post(self):
 
         if self.current_user:
+
+            print self.current_user
 
             user_id = self.current_user["id"]
 
@@ -396,6 +403,9 @@ class CheckoutOrderHandler(BaseHandler):
         # data = cart.GetCartByUserId()
         # self.render("store/checkout-5.html",data=data)
 
+
+class CheckoutWhosaleOrderHandler(BaseHandler):
+    pass
 
 class CheckoutSendHandler(BaseHandler):
 
@@ -439,6 +449,7 @@ class CheckoutSendHandler(BaseHandler):
 
         payment_type = self.get_argument("payment_type",1)
         shipping_price = int(self.get_argument("shipping_price",0))
+        order_tax = int(float(self.get_argument("tax", 0)))
 
         if self.current_user:
             user_id = self.current_user["id"]
@@ -479,8 +490,8 @@ class CheckoutSendHandler(BaseHandler):
                 order.type = 1
                 order.subtotal = subtotal
                 order.shipping = shipping_price
-                order.tax = iva
-                order.total = total + shipping_price
+                order.tax = order_tax
+                order.total = total + shipping_price + order_tax
                 order.items_quantity = cantidad_items
                 order.products_quantity = cantidad_productos
                 order.user_id = user_id
@@ -535,7 +546,22 @@ class CheckoutSendHandler(BaseHandler):
                     else:
                         self.render("beauty_error.html",message="Error al obtener datos de despacho, {}".format(despacho_response["error"]))
 
-                    # print facturacion["city"]
+                    order_shipping = "${}".format(self.money_format(order.shipping))
+                    valor_iva = ''
+
+                    if order_tax > 0:
+                        valor_iva = '''
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">IVA</th>
+                            <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_tax}</td>
+                        </tr>
+                        '''.format(order_tax=order_tax)
+                        order_shipping = 'Por pagar'
+
                     datos_facturacion = """\
                     <table cellspacing="0" style="width:80%; margin:0 auto; padding:5px 5px;color:#999999;-webkit-text-stroke: 1px transparent;">
                         <tr style="font-family: Arial;background-color: #FFFFFF;text-align: center; font-size:12px;">
@@ -652,13 +678,14 @@ class CheckoutSendHandler(BaseHandler):
                                     <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
                                     <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_subtotal}</td>
                                 </tr>
+                                {valor_iva}
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de env&iacute;o</th>
-                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_shipping}</td>
+                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_shipping}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -685,8 +712,9 @@ class CheckoutSendHandler(BaseHandler):
                                 detalle_orden=detalle_orden,
                                 order_total=self.money_format(order.total),
                                 order_subtotal=self.money_format(order.subtotal),
-                                order_shipping=self.money_format(order.shipping),
-                                url_local=url_local)
+                                order_shipping=order_shipping,
+                                url_local=url_local,
+                                valor_iva=valor_iva)
 
                     # email_confirmacion = "yichun212@gmail.com"
 
@@ -744,13 +772,14 @@ class CheckoutSendHandler(BaseHandler):
                                     <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Subtotal</th>
                                     <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_subtotal}</td>
                                 </tr>
+                                {valor_iva}
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <td></td>
                                     <th style="line-height: 2.5;margin-right: -1px;height: 30px;border-left: 1px;border-left-color: #d6d6d6; border-left-style: solid;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">Costo de env&iacute;o</th>
-                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">$ {order_shipping}</td>
+                                    <td style="line-height: 2.5;margin-left: -1px;height: 30px;border-right: 1px;border-right-color: #d6d6d6; border-right-style: solid;border-bottom: 1px; border-bottom-style: solid;border-bottom-color: #d6d6d6;">{order_shipping}</td>
                                 </tr>
                                 <tr>
                                     <td></td>
@@ -777,8 +806,9 @@ class CheckoutSendHandler(BaseHandler):
                                 detalle_orden=detalle_orden,
                                 order_total=self.money_format(order.total),
                                 order_subtotal=self.money_format(order.subtotal),
-                                order_shipping=self.money_format(order.shipping),
-                                url_local=url_local)
+                                order_shipping=order_shipping,
+                                url_local=url_local,
+                                valor_iva=valor_iva)
 
                     sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
                     message = sendgrid.Mail()

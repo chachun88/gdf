@@ -36,23 +36,24 @@ $(document).ready(function(){
                             $(".carritoproductos").slideDown();
                         }
                     }
+                    if ( document.location.href.indexOf("localhost:8502") == -1) {
+                        ga('ec:addProduct', {
+                            'id': ga_id,
+                            'name': ga_name,
+                            'brand': 'Giani Da Firenze',
+                            'category': ga_category,
+                            'variant': ga_variant,
+                            'price': ga_price,
+                            'quantity': quantity,
+                            'list': ga_tag
+                            // 'position': 1
+                        });
 
-                    ga('ec:addProduct', {
-                        'id': ga_id,
-                        'name': ga_name,
-                        'brand': 'Giani Da Firenze',
-                        'category': ga_category,
-                        'variant': ga_variant,
-                        'price': ga_price,
-                        'quantity': quantity,
-                        'list': ga_tag
-                        // 'position': 1
-                    });
+                        ga('ec:setAction', 'add');
+                        ga('send', 'event', 'UX', 'click', 'add to cart');
 
-                    ga('ec:setAction', 'add');
-                    ga('send', 'event', 'UX', 'click', 'add to cart');
-
-                    console.log("add to cart");
+                        console.log("add to cart");
+                    }
                 }
             }
         });
@@ -129,7 +130,9 @@ $(document).ready(function(){
     $(".btn-resumen").on( "click", function(evt)
     {
         evt.preventDefault();
-        googleAnalyticsCheckout();
+        if ( document.location.href.indexOf("localhost:8502") == -1) {
+            googleAnalyticsCheckout();
+        }
         $("#form-resumen").submit();
     });
 
@@ -137,7 +140,9 @@ $(document).ready(function(){
     $(".btn-pago").on( "click", function(evt)
     {
         evt.preventDefault();
-        googleAnalyticsCheckout();
+        if ( document.location.href.indexOf("localhost:8502") == -1) {
+            googleAnalyticsCheckout();
+        }
         $("#form-pago").submit();
     });
 

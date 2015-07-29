@@ -49,6 +49,8 @@ dir_image = 'uploads/images/'
 email_giani = 'contacto@gianidafirenze.cl'
 to_giani = ['contacto@gianidafirenze.cl']
 
+iva = 0.19
+
 if enviroment == Enviroment.LOCAL:
 
     print "local enviroment"

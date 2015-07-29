@@ -73,7 +73,9 @@ $(document).ready(function() {
         var brand = $(this).attr('brand');
         var variant = $(this).attr('variant');
         var tag = $(this).attr('tag');
-        onProductClick(id, name, category, brand, variant, tag);
+        if ( document.location.href.indexOf("localhost:8502") == -1) {
+            onProductClick(id, name, category, brand, variant, tag);
+        }
     });
 });
 

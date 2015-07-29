@@ -75,6 +75,7 @@ class Application(tornado.web.Application):
             (r"/checkout/payment", checkout_handler.CheckoutPaymentHandler),
             (r"/checkout/order", checkout_handler.CheckoutOrderHandler),
             (r"/checkout/send", checkout_handler.CheckoutSendHandler),
+            (r"/checkout/whosaler_order", checkout_handler.CheckoutWhosaleOrderHandler),
 
             (r"/checkout/getaddressbyid", checkout_handler.GetAddressByIdHandler),
 

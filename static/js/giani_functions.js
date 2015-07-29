@@ -107,6 +107,18 @@ var ValidateCheckoutPayment = function(){
     return true;
 };
 
+var ValidateCheckoutOtherPayment = function(){
+
+    var checked = $('#checkboxes-2:checked').val();
+
+    if(checked === undefined){
+        fancyAlert("Debe aceptar t\xE9rminos y condiciones");
+        return false;
+    }
+
+    return true;
+};
+
 var ValidateTerms = function(){
     var checked = $('#term-1:checked').val();
 
@@ -178,15 +190,20 @@ var enviarFormulario = function(id_formulario){
 
     if(!same_address){
         if(ValidateRequired(id_formulario)){
-            googleAnalyticsCheckout();
+            if ( document.location.href.indexOf("localhost:8502") == -1) {
+                googleAnalyticsCheckout();
+            }
             $("#"+id_formulario).submit();
         }
     } else {
-        googleAnalyticsCheckout();
+        if ( document.location.href.indexOf("localhost:8502") == -1) {
+            googleAnalyticsCheckout();
+        }
         $("#"+id_formulario).submit();
     }
 
 };
+
 
 var votar = function(product_id){
 

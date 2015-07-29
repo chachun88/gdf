@@ -1,0 +1,236 @@
+
+
+{% extends "../base.html" %}
+{% block title %}
+Giani Da Firenze - Carro de Compra
+{% end %}
+
+{% block css %}
+<link rel="stylesheet" href="/{{nocache_static}}/css/index.css">
+<link rel="stylesheet" href="/{{nocache_static}}/css/bootstrap/style.css">
+<link rel="stylesheet" href="/{{nocache_static}}/css/bootstrap/skin-10.css">
+<link rel="stylesheet" href="/{{nocache_static}}/css/oculta-dato.css">
+{% end %}
+
+{% block javascript %}
+<script src="/{{nocache_static}}/js/detalle-producto.js"></script>
+<script src="/{{nocache_static}}/js/bootstrap/bootstrap.min.js"></script>
+<script src="/{{nocache_static}}/js/bootstrap/bootstrap.touchspin.js"></script>
+ <!-- Script para google analytics -->
+<script src="/{{nocache_static}}/js/ga-checkout.js"></script>
+{% end %}
+
+{% block body %}
+<div class="container main-container ">
+  
+  
+<!--   <div class="row">
+    <div class="col-lg-9 col-md-9 col-sm-7">
+      <h1 class="section-title-inner"><span><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</span></h1>
+    </div>
+    <div class="col-lg-3 col-md-3 col-sm-5 rightSidebar">
+      <h4 class="caps"><a href="category.html"><i class="fa fa-chevron-left"></i> Back to shopping </a></h4>
+    </div>
+  </div> -->
+  
+  
+  <div class="row step-margin-top ">
+    <div class="col-lg-9 col-md-9 col-sm-12">
+      <div class="row userInfo">
+        <div class="col-xs-12 col-sm-12">
+          <div class="w100 clearfix">
+            {% include order.step.html %}
+            <!--orderStep--> 
+          </div>
+          <div class="w100 clearfix">
+            <div class="row userInfo">
+              <div class="col-lg-12">
+                <h2 class="block-title-2"> Método de pago </h2>
+              </div>
+              <div class="col-xs-12 col-sm-12">
+                <div class="paymentBox">
+                  <div class="panel-group paymentMethod" id="accordion">
+                    
+                    {% if current_user is not None and int(current_user['type_id']) != 4 %}
+                    <div class="panel panel-default">
+                      <div class="panel-heading panel-heading-custom">
+                        <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> <span class="numberCircuil"></span><strong> WebPay</strong> </a> </h4>
+                      </div>
+                      <div id="collapseTwo" class="panel-collapse collapse in">
+                        <div class="panel-body">
+
+                          <form id="form-pagar"action="/pago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
+                              <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
+                              <input type="hidden" name="TBK_MONTO" value="{{suma*(1+iva)}}00" />
+                              <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now(pytz.timezone('Chile/Continental')).strftime('%Y%m%d%H%M%S')}}" />
+                              <input type="hidden" name="TBK_URL_EXITO" value="{{ url_local }}/store/success" />
+                              <input type="hidden" name="TBK_URL_FRACASO" value="{{ url_local }}/store/failure" />
+                              <input type="hidden" name="shipping_price" value="0" />
+                              <input type="hidden" name="payment_type" value="2">
+                              <input type="hidden" name="tax" value="{{suma*iva}}">
+                              <!-- <input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" /> -->
+                          
+                          <div class="form-group clearfix">
+                            <img src="/{{nocache_static}}/img/logo_webpay.jpg" class="logo_webpay">
+                          </div>
+
+                          <div class="form-group clearfix">
+                            <label class="checkbox-inline" for="checkboxes-1">
+                              <input name="checkboxes" id="term-1" value="1" type="checkbox">
+                              Estoy de acuerdo y acepto los <a href="/tos" target="_blank" >Términos y condiciones</a> </label>
+                          </div>
+                          <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small btn-pagar" > Pagar &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                    {% end %}
+                    <div class="panel panel-default">
+                      <div class="panel-heading panel-heading-custom">
+                        <h4 class="panel-title"> <a class="cashOnDelivery" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <span class="numberCircuil"></span> <strong> Transferencia bancaria</strong> </a> </h4>
+                      </div>
+                      <div id="collapseOne" class="panel-collapse collapse">
+                        <form action="/checkout/send" method="post" onsubmit="return ValidateCheckoutPayment()" enctype="multipart/form-data">
+                          <div class="panel-body">
+                            <p>Envíe el comprobante de transferencia.</p>
+                            <br>
+                            <h2>Datos para la transferencia</h2>
+                            <p>
+                              Cuenta Corriente<br/>
+                              Giani Da Firenze Ltda.<br/>  
+                              Rut: 76.290.674-0<br/>
+                              Banco BICE<br/>
+                              CTA 1671513-1<br/>
+                              Mail: contacto@gianidafirenze.cl
+                            </p>
+                            <hr>
+                            <div class="form-group">
+                              <label for="CommentsOrder">Comprobante de transferencia</label>
+                              <input type="file" name="image" id="comprobante" />
+                            </div>
+                            <!-- <div class="form-group">
+                              <label for="CommentsOrder">Comentarios</label>
+                              <textarea id="CommentsOrder" class="form-control" name="CommentsOrder" cols="26" rows="3"></textarea>
+                            </div> -->
+                            <div class="form-group clearfix">
+                              <label class="checkbox-inline" for="checkboxes-1">
+                                <input name="checkboxes" id="checkboxes-1" value="1" type="checkbox">
+                                Estoy de acuerdo y acepto los <a href="/tos" target="_blank" >Términos y condiciones</a> </label>
+                            </div>
+                            <input type="hidden" name="payment_type" value="1">
+                            <input type="hidden" name="session_id" value="{{datetime.datetime.now(pytz.timezone('Chile/Continental')).strftime('%Y%m%d%H%M%S')}}">
+                            <input type="hidden" name="subtotal" value="{{suma}}">
+                            <input type="hidden" name="shipping_price" value="0">
+                            <input type="hidden" name="tax" value="{{suma*iva}}">
+                            <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small " > Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    {% if current_user is not None and int(current_user['type_id']) == 4 %}
+                    <div class="panel panel-default">
+                      <div class="panel-heading panel-heading-custom">
+                        <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> <span class="numberCircuil"></span><strong> A convenir</strong> </a> </h4>
+                      </div>
+                      <div id="collapseThree" class="panel-collapse collapse">
+                        <div class="panel-body">
+
+                          <form action="/checkout/send" method="post" onsubmit="return ValidateCheckoutOtherPayment()" enctype="multipart/form-data">
+                          <div class="panel-body">
+                            <div class="form-group clearfix">
+                              <label class="checkbox-inline" for="checkboxes-1">
+                                <input name="checkboxes" id="checkboxes-2" value="1" type="checkbox">
+                                Estoy de acuerdo y acepto los <a href="/tos" target="_blank" >Términos y condiciones</a> </label>
+                            </div>
+                            <input type="hidden" name="payment_type" value="1">
+                            <input type="hidden" name="session_id" value="{{datetime.datetime.now(pytz.timezone('Chile/Continental')).strftime('%Y%m%d%H%M%S')}}">
+                            <input type="hidden" name="subtotal" value="{{suma}}">
+                            <input type="hidden" name="shipping_price" value="0">
+                            <input type="hidden" name="tax" value="{{suma*iva}}">
+                            <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small " > Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>
+                          </div>
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                    {% end %}
+                  </div>
+                </div>
+                
+                <!--/row--> 
+                
+              </div>
+            </div>
+          </div>
+          <!--/row end-->
+          
+<!--           <div class="cartFooter w100">
+            <div class="box-footer">
+               <div class="pull-left"> <a class="btn btn-default" href="/checkout/billing"> <i class="fa fa-arrow-left"></i> &nbsp; Dirección de facturación </a> </div>
+            </div>
+          </div> -->
+        </div>
+        
+        <!--/ cartFooter --> 
+        
+      </div>
+    </div>
+    <!--/row end-->
+    
+    <div class="col-lg-3 col-md-3 col-sm-12 rightSidebar">
+      <div class="w100 cartMiniTable">
+        <table id="cart-summary" class="std table">
+          <tbody>
+            <tr>
+              <td>Total productos</td>
+              <td class="price">${{money_format(suma)}}</td>
+            </tr>
+            <tr>
+              <td>IVA</td>
+              <td class="price">${{money_format(suma*iva)}}</td>
+            </tr>
+            <tr>
+              <td>Envío</td>
+              <td class="price" >
+                <span class="success">
+                  Por pagar
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>Total</td>
+              <td class=" site-color" id="total-price">${{money_format(suma*(1+iva))}}</td>
+            </tr>
+          </tbody>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!--/rightSidebar--> 
+    
+  </div>
+  <!--/row-->
+  
+  <div style="clear:both"></div>
+</div>
+<!-- /.main-container -->
+
+<!-- Datos para google analytic -->
+<div class="datos-analytic">
+  <!-- Este valor es 5, puesto que es el ultimo paso de la compra, aunque 
+  checkout indica lo contrario -->
+  <div class="numero-checkout">5</div>
+  {% for d in data %}
+  <div class="carro" car-id="{{d["id"]}}">
+    <div class="id-{{d["id"]}}">{{d["sku"]}}</div>
+    <div class="name-{{d["id"]}}">{{d["name"]}}</div>
+    <div class="category-{{d["id"]}}">{{d["category"]}}</div>
+    <div class="variant-{{d["id"]}}">{{d["color"]}}</div>
+    <div class="price-{{d["id"]}}">{{d["subtotal"]}}</div>
+    <div class="quantity-{{d["id"]}}">{{d["quantity"]}}</div>
+  </div>
+  {% end %}
+</div>
+
+{% end %}
