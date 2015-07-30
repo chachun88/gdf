@@ -452,7 +452,10 @@ class Kardex(BaseModel):
                         errors.append(
                             {"sku": name, "error": "queda {} unidades".format(self.balance_units)})
                     else:
-                        errors.append({"sku": name, "error": "agotado"})
+                        errors.append({"sku": '', "error": "El producto {} que tienes en tu carrito \
+                            ya no tiene stock, lo sentimos!!!, \
+                            por favor elimina ese producto del carro \
+                            para poder continuar con tu compra".format(name)})
             else:
 
                 errors.append(
