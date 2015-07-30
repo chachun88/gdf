@@ -394,7 +394,7 @@ class LogoutHandler(BaseHandler):
 
     def get(self):
         self.clear_cookie( "user_giani" )
-        self.redirect( self.next )
+        self.redirect( "/" )
 
 
 class ValidateUserCheckoutHandler(BaseHandler):

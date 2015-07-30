@@ -113,7 +113,7 @@ Giani Da Firenze - Carro de Compra
                 <div class="col-xs-12 col-sm-6">
                   <div class="form-group required">
                     <label for="InputCity">Comuna <sup>*</sup> </label>
-                    <select name="city_id" id="InputCity" class="form-control">
+                    <select name="city_id" id="InputCity" class="form-control" required>
                       <option></option>
                       {% for c in cities %}
                       <option value="{{c['id']}}">{{c['name']}}</option>

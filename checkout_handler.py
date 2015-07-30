@@ -137,7 +137,7 @@ class CheckoutBillingHandler(BaseHandler):
             operacion = ""
 
             if id_contacto != "":
-                contact.id = id_contacto    
+                contact.id = id_contacto
                 response_obj = contact.Edit()
                 operacion = "editar"
             else:
@@ -217,8 +217,13 @@ class CheckoutBillingHandler(BaseHandler):
 
 class CheckoutShippingHandler(BaseHandler):
 
-    @tornado.web.authenticated
     def get(self):
+
+        if not self.current_user:
+
+            self.render("beauty_error.html", message='Debes iniciar sesion para continuar')
+
+    def post(self):
 
         if self.current_user:
 
@@ -312,10 +317,6 @@ class CheckoutShippingHandler(BaseHandler):
         else:
 
             self.redirect("/auth/login")
-
-    @tornado.web.authenticated
-    def post(self):
-        self.get()
 
 
 class CheckoutPaymentHandler(BaseHandler):

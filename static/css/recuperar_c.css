@@ -22,6 +22,10 @@ form {
 	height: 300px;
 }
 
+.form-login {
+	background-color: transparent;
+}
+
 .contenedor_formularios form input, form button{
 	height: 40px;
 	width: 80%;
