@@ -815,7 +815,12 @@ class CheckoutSendHandler(BaseHandler):
                     message = sendgrid.Mail()
                     message.set_from("{nombre} <{mail}>".format(nombre="Giani Da Firenze",mail=self.current_user["email"]))
                     message.add_to(to_giani)
-                    message.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
+
+                    if self.current_user['type_id'] == 4:
+                        message.set_subject("Nueva Compra Mayorista - Compra Nº {}".format(order.id))
+                    else:
+                        message.set_subject("Giani Da Firenze - Compra Nº {}".format(order.id))
+
                     message.set_html(html)
                     estado, mensaje = sg.send(message)
 
