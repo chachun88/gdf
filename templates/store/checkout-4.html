@@ -62,7 +62,7 @@ Giani Da Firenze - Carro de Compra
                           <form id="form-pagar"action="/pago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
                               <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
                               <input type="hidden" name="TBK_MONTO" value="{{suma+costo_despacho}}00" />
-                              <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}" />
+                              <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now(pytz.timezone('Chile/Continental')).strftime('%Y%m%d%H%M%S')}}" />
                               <input type="hidden" name="TBK_URL_EXITO" value="{{ url_local }}/store/success" />
                               <input type="hidden" name="TBK_URL_FRACASO" value="{{ url_local }}/store/failure" />
                               <input type="hidden" name="shipping_price" value="{{costo_despacho}}" />
@@ -117,7 +117,7 @@ Giani Da Firenze - Carro de Compra
                                 Estoy de acuerdo y acepto los <a href="/tos" target="_blank" >Términos y condiciones</a> </label>
                             </div>
                             <input type="hidden" name="payment_type" value="1">
-                            <input type="hidden" name="session_id" value="{{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}}">
+                            <input type="hidden" name="session_id" value="{{datetime.datetime.now(pytz.timezone('Chile/Continental')).strftime('%Y%m%d%H%M%S')}}">
                             <input type="hidden" name="subtotal" value="{{suma}}">
                             <input type="hidden" name="shipping_price" value="{{costo_despacho}}">
                             <div class="pull-right"> <button type="submit" class="btn btn-primary btn-small " > Enviar comprobante &nbsp; <i class="fa fa-arrow-circle-right"></i> </button> </div>

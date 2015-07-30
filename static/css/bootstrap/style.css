@@ -3895,6 +3895,9 @@ h1.xlarge {
 }
 }
  @media (max-width: 767px) {
+ .price {
+	font-size: 12px !important;
+ }
 /* phones */
 	 
 .static-search.navbar-formbox {

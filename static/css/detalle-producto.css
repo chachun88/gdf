@@ -921,17 +921,17 @@ body {
     }
     .cuerpo .cuerpo-categorias {
         position: relative;
-        z-index: 40;
-        width: 79.9795709908%;
-        margin-top: 20px;
-        margin-left: 10.00862%;
+          z-index: 40;
+          width: 90%;
+          margin-top: 20px;
+          margin-left: 5%;
     }
     .cuerpo .cuerpo-producto {
-        position: relative;
-        z-index: 54;
-        width: 52.808988764%;
-        margin-top: 14px;
-        margin-left: 10.00862%;
+          position: relative;
+          z-index: 54;
+          width: 50%;
+          margin-top: 14px;
+          margin-left: 5%;
     }
     .cuerpo-categorias .categorias {
         height: 163px;
@@ -994,7 +994,7 @@ body {
     .container .container-12 {
     }
     .container .container-13 {
-        height: 238px;
+        /*height: 238px;*/
         margin-left: 0.00628%;
     }
     .container .container-14 {
@@ -1007,9 +1007,9 @@ body {
         margin-left: -0.42671%;
     }
     .container .container-17 {
-        width: 16.8582375478%;
-        margin-top: 13px;
-        margin-left: 1.53257%;
+         width: 17%;
+  margin-top: 13px;
+  margin-left: 2%;
     }
     .container .container-19 {
         width: 16.8582375478%;
@@ -1077,16 +1077,16 @@ body {
         margin-left: 0.002%;
     }
     .cuerpo .container-10 {
-        position: relative;
-        z-index: 79;
-        width: 25.6384065372%;
-        margin-top: 12px;
-        margin-left: 1.53218%;
+          position: relative;
+          z-index: 79;
+          width: 40%;
+          margin-top: 12px;
+          margin-left: 0%;
     }
     .cuerpo .container-16 {
-        width: 79.9795709908%;
-        margin-top: 75px;
-        margin-left: 10.00862%;
+        width: 90%;
+  margin-top: 75px;
+  margin-left: 5%;
     }
     .producto-info .container-11 {
         width: 99.9011159768%;

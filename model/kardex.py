@@ -7,7 +7,7 @@ from size import Size
 import psycopg2
 import psycopg2.extras
 from datetime import datetime
-
+import pytz
 
 class Kardex(BaseModel):
 
@@ -25,7 +25,7 @@ class Kardex(BaseModel):
         self._balance_units = 0
         self._balance_price = 0.0
         self._balance_total = 0.0
-        self._date = str(datetime.now().isoformat())
+        self._date = str(datetime.now(pytz.timezone('Chile/Continental')).isoformat())
         self._user = ""
         self._size_id = ""
 

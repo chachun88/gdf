@@ -7,7 +7,7 @@ from basemodel import BaseModel
 # from bson.objectid import ObjectId
 import psycopg2
 import psycopg2.extras
-
+from datetime import datetime
 from sendpassword import Email
 import random
 import hashlib
@@ -206,9 +206,10 @@ class User(BaseModel):
                 user = user[0]
 
                 try:
-                    query = '''update "User" set last_view = now() where id = %(identifier)s'''
+                    query = '''update "User" set last_view = %(last_view)s where id = %(identifier)s'''
                     params = {
-                        "identifier": user['id']
+                        "identifier": user['id'],
+                        "last_view": datetime.now(pytz.timezone('Chile/Continental')).isoformat()
                     }
                     lp_model.execute_query_real(query, params)
                 except Exception, e:

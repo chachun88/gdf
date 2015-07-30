@@ -9,7 +9,7 @@ from globals import cellar_id, url_bodega, debugMode
 # libreria prescindible
 from bson import json_util
 from datetime import datetime
-
+import pytz
 from model.product import Product
 from model.cart import Cart
 from model.kardex import Kardex
@@ -203,7 +203,7 @@ class AddToCartHandler(BaseHandler):
                 else:
                     cart.size = size.name
 
-                cart.date = datetime.now()
+                cart.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
                 cart.subtotal = subtotal
                 cart.user_id = self.get_argument("user_id",-1)
 

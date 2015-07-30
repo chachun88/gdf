@@ -13,6 +13,7 @@ import urlparse
 
 from lp.globals import enviroment, Enviroment
 from tornado import template
+import pytz
 
 
 from globals import email_giani, \
@@ -86,7 +87,7 @@ class KardexTestHandler(BaseHandler):
         kardex.operation_type = Kardex.OPERATION_SELL
         kardex.sell_price = 26900
         kardex.size = '35.0'
-        kardex.date = str(datetime.now().isoformat())
+        kardex.date = str(datetime.now(pytz.timezone('Chile/Continental')).isoformat())
         kardex.user = self.current_user["email"]
         kardex.units = 1
 
@@ -147,7 +148,7 @@ class PagoHandler(BaseHandler):
                 id_despacho = l["shipping_id"]
                 total += l["subtotal"]
 
-            order.date = datetime.now()
+            order.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
             order.type = Order.TIPO_WEB
             order.subtotal = subtotal
             order.shipping = costo_despacho
@@ -282,7 +283,7 @@ class XtCompraHandler(BaseHandler):
                                                    .format(l["product_id"],
                                                            res_name["error"]))
 
-                        kardex.date = str(datetime.now().isoformat())
+                        kardex.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
                         kardex.user = "Sistema - Reservar Producto"
                         kardex.units = l["quantity"]
 

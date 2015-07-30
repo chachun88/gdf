@@ -68,6 +68,12 @@
 	background-color: gray !important;
 	color: white !important;
 }
+@media(max-width:770px){
+  .btn-vent-may 
+  {
+  width: 90% !important;
+  }
+}
 @media(max-width: 479px) {
 .btn-close-movil
 {
@@ -125,6 +131,7 @@ white-space: nowrap;
 .fancybox-skin
 {
 	width: 500px !important;
+	padding: 0px !important;
 }
 
 .fancybox-image, .fancybox-iframe {

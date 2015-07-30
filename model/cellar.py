@@ -6,17 +6,10 @@ from basemodel import BaseModel
 
 from kardex import Kardex
 from product import Product
-from bson import json_util
 
 import psycopg2
 import psycopg2.extras
 
-import time
-import datetime
-
-import re
-
-from user import User
 
 class Cellar(BaseModel):
     def __init__(self):

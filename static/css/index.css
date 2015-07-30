@@ -995,9 +995,11 @@ body {
     margin-left: 2.63078%;
   }
 
-  .carritoproductos {
-    left: 63.6363636363%;
-    width: 26.353421859%;
+  .carritoproductos 
+  {
+    left: 60%;
+    width: 35%;
+    top: 60px;
   }
 
   .carritoproductos .carritoinfo {
