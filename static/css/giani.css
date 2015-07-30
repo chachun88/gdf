@@ -131,6 +131,7 @@ white-space: nowrap;
 .fancybox-skin
 {
 	width: 500px !important;
+	padding: 0px !important;
 }
 
 .fancybox-image, .fancybox-iframe {
