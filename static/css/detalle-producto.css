@@ -1726,3 +1726,8 @@ body {
 {
     display: none;
 }
+
+.btn-default.bootstrap-touchspin-up:hover, .btn-default.bootstrap-touchspin-down:hover {
+    background-color: #A7A2A4;
+    border-color: #ABA6A8;
+}

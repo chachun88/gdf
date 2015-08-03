@@ -408,7 +408,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 	background: none;
 }
 .btn-default {
-	background-color: #A21A52;
+	background-color: #B7B5B6;
 	color: #FFFFFF;
 }
 .btn-default:hover, .btn-default:focus, .btn-default:active, .btn-default.active, .open .dropdown-toggle.btn-default {
