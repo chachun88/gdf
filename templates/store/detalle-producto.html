@@ -133,10 +133,10 @@
                                         {{t['stock']}}
                                     </td>
                                     <td>
-                                        <input id="quantity" type="text" value="1" name="quantity" size="{{t['id']}}" price="{{data.bulk_price}}">
+                                        <input id="quantity" type="text" value="0" name="quantity" max="{{t['stock']}}" size="{{t['id']}}" price="{{data.bulk_price}}">
                                     </td>
                                     <td class="subtotal">
-                                        ${{ money_format(data.bulk_price) }}
+                                        $ 0
                                     </td>
                                 </tr>
                                 {% end %}

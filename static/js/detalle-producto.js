@@ -219,8 +219,9 @@ $(document).ready(function(){
         verticalbuttons: true,
         verticalupclass: 'glyphicon glyphicon-plus',
         verticaldownclass: 'glyphicon glyphicon-minus',
-        min: 1
+        min: 0
     }).on('change', function() {
+        $(this).trigger("touchspin.updatesettings", {max: $(this).attr('max')});
         var precio = parseInt($(this).attr('price'));
         var quantity = parseInt($(this).val());
         var fila = $(this).closest('tr').find('.subtotal');
