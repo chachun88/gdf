@@ -123,7 +123,13 @@ class ProductHandler(BaseHandler):
                         res_name = _size.initById()
 
                         if "success" in res_name:
-                            tallas_disponibles.append({"id": _size.id, "name": _size.name})
+                            tallas_disponibles.append(
+                                {
+                                    "id": _size.id, 
+                                    "name": _size.name, 
+                                    "stock": kardex.balance_units
+                                }
+                            )
                         elif debugMode:
                             print res_name["error"]
                 elif debugMode:

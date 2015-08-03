@@ -6,12 +6,15 @@
     <link rel="stylesheet" href="/{{nocache_static}}/css/simple_tab.css">
     <link rel="stylesheet" href="/{{nocache_static}}/css/detalle-producto.css">
     <link href='http://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="/{{nocache_static}}/css/jquery.bootstrap-touchspin.min.css">
     {% end %}
     {% block javascript %}
+        <script src="/{{nocache_static}}/js/lp.js"></script>
         <script src="/{{nocache_static}}/js/detalle-producto.js"></script>
         <!-- Google analytics -->
         <script src="/{{nocache_static}}/js/ga-pageview-detalle-producto.js"></script>
         <script type="text/javascript" src="/{{nocache_static}}/js/simple.tab.js" ></script>
+        <script src="/{{nocache_static}}/js/bootstrap/jquery.bootstrap-touchspin.js"></script>
         <script type="text/javascript">
         ifvoted({{data.id}});
         </script>
@@ -88,6 +91,7 @@
                         Sin stock
                     {% end %}
                     </p>
+                    {% if current_user == None or current_user['type_id'] != 4 %}
                     <div class="container container-11 clearfix">
                         <div class="selects">
                             {% if len(data.size) > 0 %}
@@ -107,8 +111,42 @@
                             {% end %}
                         </div>
                     </div>
+                    {% else %}
+                    <div class="container container-11 clearfix">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Talla</th>
+                                    <th>Disponibilidad</th>
+                                    <th>Cantidad</th>
+                                    <th>Precio total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% if len(data.size) > 0 %}
+                                {% for t in data.size %}
+                                <tr>
+                                    <td>
+                                        {{t['name']}}
+                                    </td>
+                                    <td>
+                                        {{t['stock']}}
+                                    </td>
+                                    <td>
+                                        <input id="quantity" type="text" value="1" name="quantity" size="{{t['id']}}" price="{{data.bulk_price}}">
+                                    </td>
+                                    <td class="subtotal">
+                                        ${{ money_format(data.bulk_price) }}
+                                    </td>
+                                </tr>
+                                {% end %}
+                            {% end %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% end %}
                     {% if current_user != None and current_user['type_id'] == 4 %}
-                        <span class="producto-precio">$ {{money_format(data.bulk_price)}}</span>
+                        <span class="producto-precio precio-mayorista">$ {{money_format(data.bulk_price)}}</span>
                     {% else %}
                         {% if data.promotion_price > 0 %}
                             <span class="producto-precio precio-ant-zapato">$ {{money_format(data.sell_price)}}</span>
@@ -119,9 +157,15 @@
                     {% end %}
                 </div>
                 {% if len(data.size) > 0 %}
-                    <button class="_button add-to-cart" product-id="{{data.id}}">
-                    <p>AGREGAR AL CARRO</p>
-                    </button>
+                    {% if current_user != None and current_user['type_id'] == 4 %}
+                        <button class="_button add-to-cart-wholesaler" product-id="{{data.id}}">
+                        <p>AGREGAR AL CARRO</p>
+                        </button>
+                    {% else %}
+                        <button class="_button add-to-cart" product-id="{{data.id}}">
+                        <p>AGREGAR AL CARRO</p>
+                        </button>
+                    {% end %}
                 {% end %}
                 <div class="container container-13">
                     <div class="container container-14 clearfix">

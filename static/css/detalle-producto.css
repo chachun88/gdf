@@ -235,9 +235,12 @@ body {
     float: left;
     clear: both;
     width: 68.4375%;
-    height: 89px;
+    /*height: 89px;*/
     margin-top: 21px;
     padding-left: 0px;
+}
+.container-11 table{
+    color: rgb(147, 147, 147);
 }
 .container-12 {
     float: left;
@@ -1698,6 +1701,9 @@ body {
 
 /* --clases para precios ---*/
 
+.precio-mayorista {
+    clear: both !important;
+}
 .precio-ant-zapato
 {
     float: left !important;

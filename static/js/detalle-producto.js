@@ -3,6 +3,67 @@ $(document).ready(function(){
 
     //fancyAlert("holi");
 
+    $("button.add-to-cart-wholesaler").click(function(){
+
+        var product_id = $(this).attr('product-id');
+
+        $('input[name=quantity]').each(function(index, value){
+
+            var quantity = $(this).val();
+            var size = $(this).attr('size');
+
+            // Obtencion de datos para ga
+            var datos_analytics = $("div.datos-analytic");
+            var ga_tag = $(".ga-tag", datos_analytics).html();
+            var ga_id = $(".ga-id", datos_analytics).html();
+            var ga_name = $(".ga-name", datos_analytics).html();
+            var ga_category = $(".ga-category", datos_analytics).html();
+            var ga_variant = $(".ga-variant", datos_analytics).html();
+            var ga_price = $(".ga-price", datos_analytics).html();
+            ga_price = ga_price * quantity;
+
+            $.ajax({
+                url:"/cart/add",
+                cache: false,
+                data:"product_id="+product_id+"&size="+size+"&quantity="+quantity+"&user_id="+window.localStorage.getItem("userid"),
+                success:function(html){
+                    if(html!="ok"){
+                        fancyAlert(html);
+                    } else {
+                        GetCartByUserId(window.localStorage.getItem("userid"));
+                        //fancyAlert("Producto ha sido a\xF1adido al carro");
+                        $("#icono-carro-movil").addClass("parpadea");
+
+                        if($(window).width()>460){
+                            $('html,body').animate({ scrollTop: 0 }, 'slow');
+                            if($(".carritoproductos").css("display")=="none"){
+                                $(".carritoproductos").slideDown();
+                            }
+                        }
+                        if ( document.location.href.indexOf("localhost:8502") == -1) {
+                            ga('ec:addProduct', {
+                                'id': ga_id,
+                                'name': ga_name,
+                                'brand': 'Giani Da Firenze',
+                                'category': ga_category,
+                                'variant': ga_variant,
+                                'price': ga_price,
+                                'quantity': quantity,
+                                'list': ga_tag
+                                // 'position': 1
+                            });
+
+                            ga('ec:setAction', 'add');
+                            ga('send', 'event', 'UX', 'click', 'add to cart');
+
+                            console.log("add to cart");
+                        }
+                    }
+                }
+            });
+        });
+    });
+
     $("button.add-to-cart").click(function(){
         var product_id = $(this).attr("product-id");
         var size = $("#size").val();
@@ -152,6 +213,38 @@ $(document).ready(function(){
         evt.preventDefault();
         // payment();
         $("#form-pagar").submit();
+    });
+
+    $("input[name='quantity']").TouchSpin({
+        verticalbuttons: true,
+        verticalupclass: 'glyphicon glyphicon-plus',
+        verticaldownclass: 'glyphicon glyphicon-minus',
+        min: 1
+    }).on('change', function() {
+        var precio = parseInt($(this).attr('price'));
+        var quantity = parseInt($(this).val());
+        var fila = $(this).closest('tr').find('.subtotal');
+
+        var subtotal = precio * quantity;
+
+        fila.text(subtotal.formatMoney(0));
+
+        // $.ajax({
+        //     type: 'post',
+        //     url: '/cart/update',
+        //     data: 'cart_id=' + cart_id + '&quantity=' + quantity,
+        //     dataType: 'json',
+        //     success: function(response) {
+        //         var response_json = $.parseJSON(JSON.stringify(response));
+        //         if ("error" in response_json) {
+        //             alert(response_json["error"]);
+        //         } else {
+        //             $('#total-price').text('$ ' + response["success"]["total"]);
+        //             $('.sum-subtotal').text('$ ' + response["success"]["total"]);
+        //             $('.subtotal.' + cart_id).text('$ ' + response["success"]["subtotal"]);
+        //         }
+        //     }
+        // });
     });
 
 });
