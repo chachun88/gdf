@@ -4,7 +4,7 @@ var fancyAlert = function(msg) {
     var html = "<div class=\"iconosalarmas\">"
              + "<i class=\"\"></i>"
              + "</div>"
-             +"<div style=\"width: 100%; height: 100%; margin:0px;width:240px;text-align:center;\">"
+             +"<div class=\"content\">"
              + msg
              + "<div style=\"margin-top: 40px; text-align:center; width: 100%;\">"
              + "<input style=\"text-transform:uppercase;background-color: #d55d7c;margin:0px;padding:5px;width:70%; height: 40px; border: 1px solid white; color: white; font-size: 15px;\" type=\"button\" onclick=\"jQuery.fancybox.close();\" value=\"Cerrar\">"
