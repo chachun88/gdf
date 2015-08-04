@@ -227,6 +227,8 @@ class AddToCartHandler(BaseHandler):
                     self.write(response_obj["error"])
             else:
                 self.write("Product ID is empty")
+        else:
+            self.write("ok")
 
 
 class GetCartByUserIdHandler(BaseHandler):
