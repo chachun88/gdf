@@ -1731,3 +1731,7 @@ body {
     background-color: #A7A2A4;
     border-color: #ABA6A8;
 }
+
+.bootstrap-touchspin .input-group-btn-vertical>.btn {
+    padding: 9px 10px !important;
+}
