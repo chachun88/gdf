@@ -177,55 +177,56 @@ class AddToCartHandler(BaseHandler):
         product = Product()
         cart = Cart()
         cart.product_id = self.get_argument("product_id","")
+        cart.quantity = int(self.get_argument("quantity",0))
 
-        if cart.product_id != "":
+        if cart.quantity > 0:
 
-            response_obj = product.InitById(cart.product_id)
+            if cart.product_id != "":
 
-            if "success" in response_obj:
-
-                cart.quantity = int(self.get_argument("quantity",0))
-
-                if product.promotion_price != 0:
-                    subtotal = int(product.promotion_price) * cart.quantity
-                    cart.price = product.promotion_price
-                else:
-                    subtotal = int(product.sell_price) * cart.quantity
-                    cart.price = product.sell_price
-
-                if self.current_user:
-                    if self.current_user["type_id"] == 4:
-                        subtotal = int(product.bulk_price) * cart.quantity
-                        cart.price = product.bulk_price
-
-                size_id = self.get_argument("size","")
-
-                size = Size()
-                size.id = size_id
-                res_name = size.initById()
-
-                if "error" in res_name:
-                    self.write(res_name["error"])
-                else:
-                    cart.size = size.name
-
-                cart.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
-                cart.subtotal = subtotal
-                cart.user_id = self.get_argument("user_id",-1)
-
-                if self.current_user:
-                    cart.user_id = self.current_user["id"]
-
-                response_obj = cart.Save()
+                response_obj = product.InitById(cart.product_id)
 
                 if "success" in response_obj:
-                    self.write("ok")
+
+                    if product.promotion_price != 0:
+                        subtotal = int(product.promotion_price) * cart.quantity
+                        cart.price = product.promotion_price
+                    else:
+                        subtotal = int(product.sell_price) * cart.quantity
+                        cart.price = product.sell_price
+
+                    if self.current_user:
+                        if self.current_user["type_id"] == 4:
+                            subtotal = int(product.bulk_price) * cart.quantity
+                            cart.price = product.bulk_price
+
+                    size_id = self.get_argument("size","")
+
+                    size = Size()
+                    size.id = size_id
+                    res_name = size.initById()
+
+                    if "error" in res_name:
+                        self.write(res_name["error"])
+                    else:
+                        cart.size = size.name
+
+                    cart.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
+                    cart.subtotal = subtotal
+                    cart.user_id = self.get_argument("user_id",-1)
+
+                    if self.current_user:
+                        cart.user_id = self.current_user["id"]
+
+                    response_obj = cart.Save()
+
+                    if "success" in response_obj:
+                        self.write("ok")
+                    else:
+                        self.write(response_obj["error"])
                 else:
                     self.write(response_obj["error"])
             else:
-                self.write(response_obj["error"])
-        else:
-            self.write("Product ID is empty")
+                self.write("Product ID is empty")
 
 
 class GetCartByUserIdHandler(BaseHandler):
