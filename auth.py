@@ -498,7 +498,26 @@ class EnterpriseRegistrationHandler(BaseHandler):
                 mensaje.set_html(html)
                 status, msg = sg.send(mensaje)
 
-                print status
+                # print status
+
+            except Exception, e:
+                print str(e)
+
+            try:
+                html = self.generateMail(
+                                "registro_mayorista_cliente.html",
+                                name=nombre.encode('utf-8'))
+
+                sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+                mensaje = sendgrid.Mail()
+                mensaje.set_from(
+                    "{nombre} <{mail}>".format(nombre='Giani Da Firenze', mail=email_giani))
+                mensaje.add_to(email)
+                mensaje.set_subject("Registro Mayorista GDF")
+                mensaje.set_html(html)
+                status, msg = sg.send(mensaje)
+
+                # print msg
 
             except Exception, e:
                 print str(e)
