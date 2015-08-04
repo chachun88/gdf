@@ -197,6 +197,12 @@ white-space: nowrap;
 	min-height: 785px;
 }
 
+#demo_vertical2 {
+    height: 33px;
+    min-width: 50px;
+    text-align: center;
+}
+
 @media(max-width: 479px) {
 	.alto-centrar,
 	.alto-centrar-2
