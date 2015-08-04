@@ -1735,3 +1735,7 @@ body {
 .bootstrap-touchspin .input-group-btn-vertical>.btn {
     padding: 9px 10px !important;
 }
+
+.quantity {
+    min-width: 50px;
+}
