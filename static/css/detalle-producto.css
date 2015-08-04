@@ -1739,3 +1739,7 @@ body {
 .quantity {
     min-width: 50px;
 }
+
+.summary td, .summary th {
+    vertical-align: middle !important;
+}
