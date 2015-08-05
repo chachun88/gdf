@@ -117,8 +117,8 @@ body {
     margin-left: auto;
 }
 .paginador {
-    float: left;
-    clear: both;
+    /* float: left; */
+    /* clear: both; */
     width: 100%;
     margin-top: 9px;
 }
