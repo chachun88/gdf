@@ -157,6 +157,7 @@ class CheckoutBillingHandler(BaseHandler):
 
                     if "success" in response_obj:
                         c.shipping_id = contact.id
+                        c.shipping_info = contact.additional_info
                         c.Edit()
                     else:
                         print response_obj["error"]
@@ -285,6 +286,7 @@ class CheckoutShippingHandler(BaseHandler):
                         c = Cart()
                         c.InitById(l["id"])
                         c.billing_id = contact.id
+                        c.billing_info = contact.additional_info
                         c.Edit()
                         suma += l["subtotal"]
 
@@ -305,6 +307,7 @@ class CheckoutShippingHandler(BaseHandler):
                 for l in lista:
                     c = Cart()
                     c.InitById(l["id"])
+                    c.billing_info = contact.additional_info
                     c.billing_id = c.shipping_id
                     c.Edit()
                     suma += l["subtotal"]
@@ -477,6 +480,8 @@ class CheckoutSendHandler(BaseHandler):
                 id_despacho = 0
                 tipo_pago = 0
                 total = 0
+                info_despacho = ''
+                info_facturacion = ''
 
                 for l in lista:
                     subtotal += l["subtotal"]
@@ -486,6 +491,8 @@ class CheckoutSendHandler(BaseHandler):
                     id_despacho = l["shipping_id"]
                     tipo_pago = l["payment_type"]
                     total += l["subtotal"]
+                    info_despacho = l['shipping_info']
+                    info_facturacion = l['billing_info']
 
                 order.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
                 order.type = 1
@@ -500,6 +507,8 @@ class CheckoutSendHandler(BaseHandler):
                 order.shipping_id = id_despacho
                 order.payment_type = tipo_pago
                 order.voucher = final_name
+                order.billing_info = info_facturacion
+                order.shipping_info = info_despacho
 
                 response_obj = order.Save()
 

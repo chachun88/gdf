@@ -183,6 +183,22 @@ class Order(BaseModel):
     def voucher(self, value):
         self._voucher = value
 
+    @property
+    def shipping_info(self):
+        return self._shipping_info
+
+    @shipping_info.setter
+    def shipping_info(self, value):
+        self._shipping_info = value
+
+    @property
+    def billing_info(self):
+        return self._billing_info
+
+    @billing_info.setter
+    def billing_info(self, value):
+        self._billing_info = value
+
     def __init__(self):
         BaseModel.__init__(self)
         self._id                     = ""
@@ -207,6 +223,8 @@ class Order(BaseModel):
         self._address_id             = -1
         self._payment_type           = 1
         self._voucher                = ""
+        self._shipping_info          = ""
+        self._billing_info           = ""
 
     def GetOrderById(self, _id):
 
@@ -263,8 +281,37 @@ class Order(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        query = '''insert into "Order" (voucher,date,type,subtotal,shipping,tax,total,items_quantity,products_quantity,user_id,billing_id,shipping_id,payment_type) 
-        values (%(voucher)s, %(date)s,%(type)s,%(subtotal)s,%(shipping)s,%(tax)s,%(total)s,%(items_quantity)s,%(products_quantity)s,%(user_id)s,%(billing_id)s,%(shipping_id)s,%(payment_type)s) 
+        query = '''
+                insert into "Order" (voucher,
+                                    date,
+                                    type,
+                                    subtotal,
+                                    shipping,
+                                    tax,
+                                    total,
+                                    items_quantity,
+                                    products_quantity,
+                                    user_id,
+                                    billing_id,
+                                    shipping_id,
+                                    payment_type,
+                                    shipping_info,
+                                    billing_info) 
+            values (%(voucher)s,
+                    %(date)s,
+                    %(type)s,
+                    %(subtotal)s,
+                    %(shipping)s,
+                    %(tax)s,
+                    %(total)s,
+                    %(items_quantity)s,
+                    %(products_quantity)s,
+                    %(user_id)s,
+                    %(billing_id)s,
+                    %(shipping_id)s,
+                    %(payment_type)s,
+                    %(shipping_info)s,
+                    %(billing_info)s) 
         returning id'''
 
         parametros = {
@@ -280,7 +327,9 @@ class Order(BaseModel):
             "billing_id":self.billing_id,
             "shipping_id":self.shipping_id,
             "payment_type":self.payment_type,
-            "date": datetime.now(pytz.timezone('Chile/Continental')).isoformat()
+            "date": datetime.now(pytz.timezone('Chile/Continental')).isoformat(),
+            "billing_info": self.billing_info,
+            "shipping_info": self.shipping_info
         }
 
         try:
@@ -334,8 +383,24 @@ class Order(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
 
-        query = '''update "Order" set voucher = %(voucher)s, type = %(type)s, subtotal = %(subtotal)s, shipping = %(shipping)s, tax = %(tax)s, total = %(total)s, 
-        items_quantity = %(items_quantity)s, products_quantity = %(products_quantity)s, user_id = %(user_id)s, billing_id = %(billing_id)s, shipping_id = %(shipping_id)s, payment_type = %(payment_type)s, state = %(state)s where id = %(id)s'''
+        query = '''
+                update "Order" 
+                set voucher = %(voucher)s,
+                    type = %(type)s,
+                    subtotal = %(subtotal)s,
+                    shipping = %(shipping)s,
+                    tax = %(tax)s,
+                    total = %(total)s,
+                    items_quantity = %(items_quantity)s,
+                    products_quantity = %(products_quantity)s,
+                    user_id = %(user_id)s,
+                    billing_id = %(billing_id)s,
+                    shipping_id = %(shipping_id)s,
+                    payment_type = %(payment_type)s, 
+                    state = %(state)s,
+                    billing_info = %(billing_info)s,
+                    shipping_info = %(shipping_info)s 
+                where id = %(id)s'''
 
         parametros = {
             "voucher":self.voucher,
@@ -351,7 +416,9 @@ class Order(BaseModel):
             "shipping_id":self.shipping_id,
             "payment_type":self.payment_type,
             "state":self.state,
-            "id":self.id
+            "id":self.id,
+            "billing_info": self.billing_info,
+            "shipping_info": self.shipping_info
         }
 
         try:
@@ -435,6 +502,8 @@ class Order(BaseModel):
                 self.source = order["source"]
                 self.voucher = order["voucher"]
                 self.state = order["state"]
+                self.shipping_info = order['shipping_info']
+                self.billing_info = order['billing_info']
 
                 return self.ShowSuccessMessage(self.id)
             else:

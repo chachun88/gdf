@@ -135,6 +135,8 @@ class PagoHandler(BaseHandler):
             id_facturacion = 0
             id_despacho = 0
             total = 0
+            info_despacho = ''
+            info_facturacion = ''
 
             for l in lista:
                 c = Cart()
@@ -147,6 +149,8 @@ class PagoHandler(BaseHandler):
                 id_facturacion = l["billing_id"]
                 id_despacho = l["shipping_id"]
                 total += l["subtotal"]
+                info_despacho = l['shipping_info']
+                info_facturacion = l['billing_info']
 
             order.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
             order.type = Order.TIPO_WEB
@@ -162,6 +166,8 @@ class PagoHandler(BaseHandler):
             order.payment_type = payment_type
             order.voucher = ""
             order.state = Order.ESTADO_PENDIENTE
+            order.shipping_info = info_despacho
+            order.billing_info = info_facturacion
 
             response_obj = order.Save()
 
