@@ -297,17 +297,24 @@ class CheckoutShippingHandler(BaseHandler):
                         self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho)
             else:
 
+                contact = Contact()
                 cart = Cart()
                 cart.user_id = user_id
 
                 lista = cart.GetCartByUserId()
 
+                billing_info = ''
                 suma = 0
+
+                try:
+                    billing_info = contact.getAdditionalInfo(c.shipping_id)['success']
+                except:
+                    pass
 
                 for l in lista:
                     c = Cart()
                     c.InitById(l["id"])
-                    c.billing_info = contact.additional_info
+                    c.billing_info = billing_info
                     c.billing_id = c.shipping_id
                     c.Edit()
                     suma += l["subtotal"]
