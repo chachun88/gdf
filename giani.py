@@ -21,7 +21,7 @@ import profile_handler
 from config import *
 from lp.globals import *
 
-define("nocache_static", default="static_v34", help="", type=str)
+define("nocache_static", default="static_v35", help="", type=str)
 
 if "enviroment" not in options:
 
