@@ -2,7 +2,7 @@
 // por lo cual puede ejecutarse aunque no este viendo un producto
 $(document).ready(function()
 {
-    if ( document.location.href.indexOf("localhost:8502") == -1) {
+    if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
         // Obtencion de datos para ga
         var datos_analytics = $("div.datos-analytic");
         var ga_id = $(".ga-id", datos_analytics).html();
