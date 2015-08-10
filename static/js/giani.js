@@ -212,7 +212,7 @@ $(document).ready(function(){
         ga('send', 'pageview');
         ga('require', 'ec');
 
-        // console.info("google analytics");
+        console.info("google analytics");
     }
 
     // Cuando hace click en tienda se realiza ga, luego se direcciona a la tienda
