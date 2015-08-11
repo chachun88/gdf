@@ -770,7 +770,7 @@ class User(BaseModel):
             from "User" u 
             left join "Permission" p on p.id = any(u.permissions) 
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
-            where u.rut = %(rut)s and 
+            where lower(replace(replace(u.rut, '.', ''), '-', '')) = %(rut)s and 
                 u.password = %(password)s and
                 u.status = %(status)s and
                 u.type_id = %(type_id)s
