@@ -29,25 +29,29 @@ text-align: center;
 
 .tabs-menu li.current {
    position: relative;
-/* background-color: #FFFFFF; */
+
 z-index: 5;
-border: 2px solid white;
+
 
 }
 
 .tabs-menu li a {
     padding: 10px;
-    text-transform: uppercase;
-    color: #fff;
+    text-transform: lowercase;
+    color: #000;
     text-decoration: none; 
+    font-weight: 100;
+    display: block;
 }
 
 .tabs-menu .current a {
-    color: white;
+    color: black !important;
+    font-weight: 700;
+    display: block;
 }
 
 .tab {
-border: 2px solid white;
+/* border: 2px solid white; */
 /* background-color: #F6F6F6; */
 float: left;
 margin-bottom: 20px;
@@ -83,8 +87,11 @@ display: none;
     margin-top: 20px;
 }
 .reg-strate-login a {
-    color: white;
+    color: black;
     float: right;
+    font-size: 12px;
+    margin-top: 7px;
+    margin-right: 10%;
 }
 .tab-2 .tab-content {
     color: gray;
