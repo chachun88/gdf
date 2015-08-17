@@ -5,7 +5,7 @@
   display: inline;
 }
 .slider-small {
-	display: none;
+	display: none !important;
 }
 
 .queeslonuevo {
