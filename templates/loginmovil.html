@@ -2,13 +2,16 @@
 	<button id="tellmeboton"><img src="/{{nocache_static}}/img/busqueda_movil_B.png"></button>
 </div>
 <div id="form-register-login" class="descripcion_wrapper descripcion_opacity b_wrapper" style="display:none;">
+	<img class="" src="/{{nocache_static}}/images/fondo-login-mi-mundo.png" style="width:100%; position: absolute; z-index: 0;">
 	<div class="descripcion_cerrar">
 		<button id="tellmeboton2"><img src="/{{nocache_static}}/img/cerrarblanco.png"></button>
 	</div>
 	<div class="descripcion_contenido">
 		<!-- ver posibilidad de reemplazarlo por python -->
 		<div class="loginpopup clearfix">
-			<div id="tabs-container">
+			<img class="image-back-login" src="/{{nocache_static}}/images/mi-mundo-back-login.png">
+			<img class="" src="/{{nocache_static}}/images/mi-mundo-logo.png" style=" position: absolute; z-index: 1; margin-top: -38px; left: 50%; margin-left: -111;">
+			<div id="tabs-container" style="    width: 90%; margin-left: 5%; top: 50px; position: absolute;">
 				<ul class="tabs-menu tabs-login">
 					<li class="current"><a href="#tab-1">Log in</a></li>
 					<li><a href="#tab-2">Registrate</a></li>
@@ -19,16 +22,11 @@
 
 							<form action="/auth/login" method="post" class="form-login">
 
-								<input class="_input new_input" placeholder="INGRESAR CORREO" type="email" name="email" required >
+								<input class="_input new_input" placeholder="Ingresar Correo" type="email" name="email" required >
 
-								<input class="_input new_input" placeholder="INGRESAR CONTRASEÑA" type="password" name="password" required>
+								<input class="_input new_input" placeholder="Ingresar Contraseña" type="password" name="password" required>
 								
 								<a class="parent-link" href="/auth/recuperar-contrasena">olvidé mi contraseña</a>
-								
-<!-- 								<label class="radio-label _container clearfix">
-									<input class="radio" type="checkbox" name="stay-logged" >
-									<span class="point-text"><span>seguir conectado</span></span>
-								</label> -->
 
 								<input type="hidden" name="user_id" value="" id="user_id">
 								<button class="_button" type="submit">INGRESAR</button>
@@ -36,6 +34,7 @@
 						</div>
 						<div class="reg-strate-fb clearfix">
 							<a href="/auth/facebook?next={{url_escape(nxt)}}" class="element element-2 loginfb parent-link"><img class="" src="/{{nocache_static}}/images/loginfacebook.png"></a>
+							<p style="width: 100%; text-align: center; font-size: 12px; color: black; margin-top: 5px;">Log-in con facebook</p>
 						</div>
 					</div>
 					<div id="tab-2" class="tab-content tab-content-login">
@@ -56,8 +55,8 @@
 							
 								<input class="_input _input-6 new_input margin-top" placeholder="REPETIR CONTRASEÑA" type="password" name="re-password" required >
 								<label class="aceptar-condiciones clearfix">
-									<input class="radio" type="checkbox" name="tos">
-									<span class="point-text"><font color="#4d4d4d"><span style="font-size: 12px; line-height: 16px;color: white;">Estoy de acuerdo con las <a href="/conditions" style="text-decoration:none; margin-left:3px;">condiciones</a></span></font></span>
+									<input class="radio" type="checkbox" name="tos" style="width: auto; margin-right: 5px; margin-left: 5%;">
+									<p style="font-size: 12px;">Estoy de acuerdo con las <a href="/conditions" style="float: none;">condiciones</a></p>
 								</label>
 								<button class="_button" type="submit">COMPLETAR REGISTRO</button>
 							</form>

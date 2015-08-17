@@ -30,13 +30,13 @@
 	position: relative;
 	max-width: 1200px;
 	margin: 10% auto;
-	width: 48%;
+	width: 40%;
 
 }
 .descripcion_contenido_2 { width: 25%;}
 .descripcion_contenido h2, .descripcion_contenido h3{ font-size: 20px; font-weight: 400; margin-bottom: 20px;}
 .descripcion_contenido ul {font-size: 16px; }
-.descripcion_contenido ul li {}
+.descripcion_contenido ul li {    position: relative;}
 .descripcion_cerrar{
 	width: 50px;
 	height: 50px;
@@ -67,7 +67,8 @@
 	width: 100%;
 }
 .b_wrapper {
-background-color: rgba(213, 93, 124, 0.63);
+    background-color: rgba(255, 255, 255, 0.72);
+
 }
 .b_logo{
 width: 80%;
@@ -96,7 +97,7 @@ max-height: 100%;
 	font-size: 15px;
 }
 .b_logo li a {
-	color: white;
+	color: #313131;
 }
 .b_logo ul {
 	width: 100%;
