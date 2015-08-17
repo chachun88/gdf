@@ -618,7 +618,7 @@ class User(BaseModel):
             }
 
             try:
-                print cur.mogrify(q, p)
+                # print cur.mogrify(q, p)
                 cur.execute( q, p )
                 data = cur.fetchone()
                 if data["cnt"] > 0:
