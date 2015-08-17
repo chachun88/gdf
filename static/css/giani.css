@@ -107,7 +107,7 @@
 	display: none !important;
 }
 .slider-small, .queeslonuevo-small {
-	display: inline;
+	display: inline !important;
 	position: relative;
   float: left;
   width: 100%;
