@@ -474,7 +474,7 @@ class XtCompraHandler(BaseHandler):
 
                 mandrill_client = mandrill.Mandrill(mailchimp_api_key)
                 mandrill_client.templates.update("test", 
-                                                 subject="Giani Da Firenze - Compra Nº {}".format(TBK_ORDEN_COMPRA), 
+                                                 subject="Giani Da Firenze - Compra Nº {} Procesando".format(TBK_ORDEN_COMPRA), 
                                                  from_email=email_giani,
                                                  from_name="Giani Da Firenze")
                 info = mandrill_client.templates.info("test")
@@ -488,6 +488,7 @@ class XtCompraHandler(BaseHandler):
                 mensaje.set_html(html["html"])
                 status, msg = sg.send(mensaje)
             except Exception, e:
+                print 'enviando correo procesamiento, {}'.format(str(e))
                 ExitoHandler.sendError('enviando correo procesamiento, {}'
                                 .format(str(e)))
             # print "si acepto"
