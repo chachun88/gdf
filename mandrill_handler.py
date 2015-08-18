@@ -3,20 +3,21 @@
 
 import mandrill
 import sendgrid
-from bson import json_util
 from globals import *
 
 try:
-    subject = "Giani Da Firenze - Compra Nº {} Procesando".format(1)
+    # subject = "Giani Da Firenze - Compra Nº {} Procesando".format(1)
     mandrill_client = mandrill.Mandrill(mailchimp_api_key)
-    mandrill_client.templates.update(processing_order_template, 
-                                     subject=subject)
+    # mandrill_client.templates.update(processing_order_template, 
+    #                                  subject=subject)
     info = mandrill_client.templates.info(processing_order_template)
+
+    print info["code"]
 
     template_content = [{"name": "", "content": info["code"]}]
     merge_vars = [
         {"name": "name", "content": 'nombre'},
-        {"name": "order_id", "content": 1},
+        {"name": "order_id", "content": 123},
         {"name": "company", "content": "Giani Da Firenze"},
         {"name": "current_year", "content": 2015},
         {"name": "list_address_html", "content": 'contacto@gianidafirenze.cl'}

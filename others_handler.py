@@ -480,15 +480,20 @@ class XtCompraHandler(BaseHandler):
 
         if acepta or TBK_RESPUESTA != "0":
             try:
-
+                subject = "Giani Da Firenze - Procesando Compra Nº {}".format(1)
                 mandrill_client = mandrill.Mandrill(mailchimp_api_key)
+                mandrill_client.templates.update(processing_order_template, 
+                                     subject=subject)
                 info = mandrill_client.templates.info(processing_order_template)
 
                 template_content = [{"name": "", "content": info["code"]}]
                 merge_vars = [
                     {"name": "name", "content": username},
-                    {"name": "order_id", "content": TBK_ORDEN_COMPRA}
-                    ]
+                    {"name": "order_id", "content": TBK_ORDEN_COMPRA},
+                    {"name": "company", "content": "Giani Da Firenze"},
+                    {"name": "current_year", "content": 2015},
+                    {"name": "list_address_html", "content": 'contacto@gianidafirenze.cl'}
+                ]
 
                 html = mandrill_client.templates.render(processing_order_template, template_content, merge_vars)
                 sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
