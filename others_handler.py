@@ -8,6 +8,7 @@ import sys, traceback
 from basehandler import BaseHandler
 
 from model.kardex import Kardex
+from model.user import User
 from datetime import datetime
 import urlparse
 
@@ -16,18 +17,10 @@ from tornado import template
 import pytz
 
 
-from globals import email_giani, \
-    to_giani, \
-    cellar_id, \
-    url_local, \
-    shipping_cellar, \
-    project_path, \
-    cgi_path, \
-    debugMode, \
-    sendgrid_pass, \
-    sendgrid_user
+from globals import *
 
 import sendgrid
+import mandrill
 
 from model.cart import Cart
 from model.order import Order
@@ -135,6 +128,8 @@ class PagoHandler(BaseHandler):
             id_facturacion = 0
             id_despacho = 0
             total = 0
+            info_despacho = ''
+            info_facturacion = ''
 
             for l in lista:
                 c = Cart()
@@ -147,6 +142,8 @@ class PagoHandler(BaseHandler):
                 id_facturacion = l["billing_id"]
                 id_despacho = l["shipping_id"]
                 total += l["subtotal"]
+                info_despacho = l['shipping_info']
+                info_facturacion = l['billing_info']
 
             order.date = datetime.now(pytz.timezone('Chile/Continental')).isoformat()
             order.type = Order.TIPO_WEB
@@ -162,6 +159,8 @@ class PagoHandler(BaseHandler):
             order.payment_type = payment_type
             order.voucher = ""
             order.state = Order.ESTADO_PENDIENTE
+            order.shipping_info = info_despacho
+            order.billing_info = info_facturacion
 
             response_obj = order.Save()
 
@@ -323,6 +322,9 @@ class XtCompraHandler(BaseHandler):
         self.write("RECHAZADO")
 
     def post(self):
+
+        username = ''
+
         TBK_RESPUESTA = self.get_argument("TBK_RESPUESTA")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA")
         TBK_MONTO = self.get_argument("TBK_MONTO")
@@ -424,6 +426,13 @@ class XtCompraHandler(BaseHandler):
             lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
 
             if "success" in init_by_id:
+
+                user = User()
+                usuario = user.InitById(order.user_id)
+
+                if "error" not in usuario:
+                    username = usuario['name']
+
                 # rechaza si orden no esta pendiente
                 if order.state != Order.ESTADO_PENDIENTE:
                     acepta = False
@@ -470,6 +479,35 @@ class XtCompraHandler(BaseHandler):
                                 .format(TBK_ORDEN_COMPRA))
 
         if acepta or TBK_RESPUESTA != "0":
+            try:
+                subject = "Giani Da Firenze - Procesando Compra Nº {}".format(TBK_ORDEN_COMPRA)
+                mandrill_client = mandrill.Mandrill(mailchimp_api_key)
+                mandrill_client.templates.update(processing_order_template, 
+                                     subject=subject)
+                info = mandrill_client.templates.info(processing_order_template)
+
+                template_content = [{"name": "", "content": info["code"]}]
+                merge_vars = [
+                    {"name": "name", "content": username},
+                    {"name": "order_id", "content": TBK_ORDEN_COMPRA},
+                    {"name": "company", "content": "Giani Da Firenze"},
+                    {"name": "current_year", "content": 2015},
+                    {"name": "list_address_html", "content": 'contacto@gianidafirenze.cl'}
+                ]
+
+                html = mandrill_client.templates.render(processing_order_template, template_content, merge_vars)
+                sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+                mensaje = sendgrid.Mail()
+                mensaje.set_from("{nombre} <{mail}>".format(nombre=info["from_name"], 
+                                                            mail=info["from_email"]))
+                mensaje.add_to(['yichun212@gmail.com','julian@loadingplay.com'])
+                mensaje.set_subject(info["subject"])
+                mensaje.set_html(html["html"])
+                status, msg = sg.send(mensaje)
+            except Exception, e:
+                print 'enviando correo procesamiento, {}'.format(str(e))
+                ExitoHandler.sendError('enviando correo procesamiento, {}'
+                                .format(str(e)))
             # print "si acepto"
             self.write("ACEPTADO")
         else:

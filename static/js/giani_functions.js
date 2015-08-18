@@ -190,13 +190,13 @@ var enviarFormulario = function(id_formulario){
 
     if(!same_address){
         if(ValidateRequired(id_formulario)){
-            if ( document.location.href.indexOf("localhost:8502") == -1) {
+            if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
                 googleAnalyticsCheckout();
             }
             $("#"+id_formulario).submit();
         }
     } else {
-        if ( document.location.href.indexOf("localhost:8502") == -1) {
+        if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
             googleAnalyticsCheckout();
         }
         $("#"+id_formulario).submit();

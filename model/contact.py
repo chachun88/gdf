@@ -375,3 +375,29 @@ class Contact(BaseModel):
             return self.ShowSuccessMessage(id)
         except Exception,e:
             return self.ShowError("Error deleting contacts {contact_id}, error:{error}".format(contact_id=id,error=str(e)))
+
+    def getAdditionalInfo(self, _id):
+
+        # contact = self.collection.find_one({"id":int(_id)})
+
+        # if contact:
+        #   return contact
+        # else:
+        #   return ""
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+        query = '''
+                select additional_info from "Contact"
+                where id = %(id)s limit 1'''
+
+        parametros = {
+            "id":_id
+        }
+
+        try:
+            cur.execute(query,parametros)
+            additional_info = cur.fetchone()['additional_info']
+            return self.ShowSuccessMessage(additional_info)
+        except Exception, e:
+            return self.ShowError(str(e))

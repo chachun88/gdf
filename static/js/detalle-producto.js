@@ -40,7 +40,7 @@ $(document).ready(function(){
                                 $(".carritoproductos").slideDown();
                             }
                         }
-                        if ( document.location.href.indexOf("localhost:8502") == -1) {
+                        if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
                             ga('ec:addProduct', {
                                 'id': ga_id,
                                 'name': ga_name,
@@ -97,7 +97,7 @@ $(document).ready(function(){
                             $(".carritoproductos").slideDown();
                         }
                     }
-                    if ( document.location.href.indexOf("localhost:8502") == -1) {
+                    if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
                         ga('ec:addProduct', {
                             'id': ga_id,
                             'name': ga_name,
@@ -191,7 +191,7 @@ $(document).ready(function(){
     $(".btn-resumen").on( "click", function(evt)
     {
         evt.preventDefault();
-        if ( document.location.href.indexOf("localhost:8502") == -1) {
+        if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
             googleAnalyticsCheckout();
         }
         $("#form-resumen").submit();
@@ -201,7 +201,7 @@ $(document).ready(function(){
     $(".btn-pago").on( "click", function(evt)
     {
         evt.preventDefault();
-        if ( document.location.href.indexOf("localhost:8502") == -1) {
+        if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
             googleAnalyticsCheckout();
         }
         $("#form-pago").submit();

@@ -100,7 +100,22 @@ class Cart(BaseModel):
     @price.setter
     def price(self, value):
         self._price = value
-    
+
+    @property
+    def shipping_info(self):
+        return self._shipping_info
+
+    @shipping_info.setter
+    def shipping_info(self, value):
+        self._shipping_info = value
+
+    @property
+    def billing_info(self):
+        return self._billing_info
+
+    @billing_info.setter
+    def billing_info(self, value):
+        self._billing_info = value
 
     def __init__(self):
         BaseModel.__init__(self)
@@ -116,6 +131,8 @@ class Cart(BaseModel):
         self._payment_type = 1
         self._shipping_type = 1
         self._price = 0
+        self._shipping_info          = ""
+        self._billing_info           = ""
 
     def Remove(self):
 
@@ -179,6 +196,8 @@ class Cart(BaseModel):
                 self.billing_id = usuario["billing_id"]
                 self.payment_type = usuario["payment_type"]
                 self.price = usuario["price"]
+                self.shipping_info = usuario['shipping_info']
+                self.billing_info = usuario['billing_info']
 
                 return self.ShowSuccessMessage("cart has been initizalized successfully")
             else:
@@ -299,6 +318,8 @@ class Cart(BaseModel):
                     tc.shipping_id,
                     tc.shipping_type,
                     tc.payment_type,
+                    tc.shipping_info,
+                    tc.billing_info,
                     tc.product_id from "Temp_Cart" tc 
                     inner join "Product" p on tc.product_id = p.id 
                     inner join "Category" c on c.id = p.category_id 
@@ -327,7 +348,9 @@ class Cart(BaseModel):
             "payment_type": self.payment_type,
             "id": self.id,
             "shipping_type": self.shipping_type,
-            "price": self.price
+            "price": self.price,
+            "shipping_info": self.shipping_info,
+            "billing_info": self.billing_info
         }
 
         cur = self.connection.cursor(
@@ -342,7 +365,9 @@ class Cart(BaseModel):
                                           billing_id = %(billing_id)s,
                                           payment_type = %(payment_type)s,
                                           shipping_type = %(shipping_type)s,
-                                          price = %(price)s
+                                          price = %(price)s,
+                                          shipping_info = %(shipping_info)s,
+                                          billing_info = %(billing_info)s
                                     where id = %(id)s and bought = 0'''
 
         try:

@@ -672,45 +672,51 @@ class User(BaseModel):
 
     def PassRecovery( self, email ):
         try:
-            if self.Exist( email ):
+            exists = self.Exist( email )
 
-                password = ""
-                user_id = ""
+            if "success" in exists:
+                if exists["success"]:
 
-                p = ''' select name, password, id from "User" 
-                where email = %(email)s 
-                and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
-                q = {
-                    "email": email,
-                    "user_type": self.getUserTypeID(UserType.CLIENTE),
-                    "user_type_visita": self.getUserTypeID(UserType.VISITA)
-                }
+                    password = ""
+                    user_id = ""
 
-                cur = self.connection.cursor(  cursor_factory=psycopg2.extras.RealDictCursor )
+                    p = ''' select name, password, id from "User" 
+                    where email = %(email)s 
+                    and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
+                    q = {
+                        "email": email,
+                        "user_type": self.getUserTypeID(UserType.CLIENTE),
+                        "user_type_visita": self.getUserTypeID(UserType.VISITA)
+                    }
 
-                cur.execute(p,q)
-                data = cur.fetchone()
+                    cur = self.connection.cursor(  cursor_factory=psycopg2.extras.RealDictCursor )
 
-                password = data["password"]
-                user_id = "{}".format(data["id"])
-                name = data["name"]
+                    cur.execute(p,q)
+                    data = cur.fetchone()
 
-                new_password = self.RandomPass()
+                    password = data["password"]
+                    user_id = "{}".format(data["id"])
+                    name = data["name"]
 
-                m = hashlib.md5()
+                    new_password = self.RandomPass()
 
-                m.update(new_password)
+                    m = hashlib.md5()
 
-                password = m.hexdigest()
+                    m.update(new_password)
 
-                self.ChangePassword(user_id,password)
+                    password = m.hexdigest()
 
-                Email( email, user_id, new_password, name )
+                    self.ChangePassword(user_id,password)
 
-                return True
+                    Email( email, user_id, new_password, name )
 
+                    return True
+
+                else:
+                    return False
             else:
-                return False
+                print exists["error"]
+                raise Exception( "no se ha podido recuperar la contraseña, {}".format(exists["error"]) )
         except Exception, e:
             print "no se ha podido recuperar la contrasena : {}".format(str( e ))
             raise Exception( "no se ha podido recuperar la contraseña" )
@@ -770,7 +776,7 @@ class User(BaseModel):
             from "User" u 
             left join "Permission" p on p.id = any(u.permissions) 
             left join "Cellar" c on c.id = any(u.cellar_permissions) 
-            where u.rut = %(rut)s and 
+            where lower(replace(replace(u.rut, '.', ''), '-', '')) = %(rut)s and 
                 u.password = %(password)s and
                 u.status = %(status)s and
                 u.type_id = %(type_id)s

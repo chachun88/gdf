@@ -73,7 +73,7 @@ $(document).ready(function() {
         var brand = $(this).attr('brand');
         var variant = $(this).attr('variant');
         var tag = $(this).attr('tag');
-        if ( document.location.href.indexOf("localhost:8502") == -1) {
+        if ( document.location.href.indexOf("gianidafirenze.cl") != -1) {
             onProductClick(id, name, category, brand, variant, tag);
         }
     });
