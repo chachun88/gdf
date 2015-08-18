@@ -482,11 +482,11 @@ class XtCompraHandler(BaseHandler):
             try:
 
                 mandrill_client = mandrill.Mandrill(mailchimp_api_key)
-                mandrill_client.templates.update("test", 
+                mandrill_client.templates.update(processing_order_template, 
                                                  subject="Giani Da Firenze - Compra Nº {} Procesando".format(TBK_ORDEN_COMPRA), 
                                                  from_email=email_giani,
                                                  from_name="Giani Da Firenze")
-                info = mandrill_client.templates.info("test")
+                info = mandrill_client.templates.info(processing_order_template)
 
                 template_content = [{"name": "", "content": info["code"]}]
                 merge_vars = [
@@ -494,7 +494,7 @@ class XtCompraHandler(BaseHandler):
                     {"name": "order_id", "content": TBK_ORDEN_COMPRA}
                     ]
 
-                html = mandrill_client.templates.render("test", template_content, merge_vars)
+                html = mandrill_client.templates.render(processing_order_template, template_content, merge_vars)
                 sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
                 mensaje = sendgrid.Mail()
                 mensaje.set_from("{nombre} <{mail}>".format(nombre=info["from_name"], 
