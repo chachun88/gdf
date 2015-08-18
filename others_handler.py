@@ -479,34 +479,34 @@ class XtCompraHandler(BaseHandler):
                                 .format(TBK_ORDEN_COMPRA))
 
         if acepta or TBK_RESPUESTA != "0":
-            # try:
+            try:
 
-            mandrill_client = mandrill.Mandrill(mailchimp_api_key)
-            mandrill_client.templates.update("test", 
-                                             subject="Giani Da Firenze - Compra Nº {} Procesando".format(TBK_ORDEN_COMPRA), 
-                                             from_email=email_giani,
-                                             from_name="Giani Da Firenze")
-            info = mandrill_client.templates.info("test")
+                mandrill_client = mandrill.Mandrill(mailchimp_api_key)
+                mandrill_client.templates.update("test", 
+                                                 subject="Giani Da Firenze - Compra Nº {} Procesando".format(TBK_ORDEN_COMPRA), 
+                                                 from_email=email_giani,
+                                                 from_name="Giani Da Firenze")
+                info = mandrill_client.templates.info("test")
 
-            template_content = [{"name": "", "content": info["code"]}]
-            merge_vars = [
-                {"name": "name", "content": username},
-                {"name": "order_id", "content": TBK_ORDEN_COMPRA}
-                ]
+                template_content = [{"name": "", "content": info["code"]}]
+                merge_vars = [
+                    {"name": "name", "content": username},
+                    {"name": "order_id", "content": TBK_ORDEN_COMPRA}
+                    ]
 
-            html = mandrill_client.templates.render("test", template_content, merge_vars)
-            sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
-            mensaje = sendgrid.Mail()
-            mensaje.set_from("{nombre} <{mail}>".format(nombre=info["from_name"], 
-                                                        mail=info["from_email"]))
-            mensaje.add_to(['yichun212@gmail.com','julian@loadingplay.com'])
-            mensaje.set_subject(info["subject"])
-            mensaje.set_html(html["html"])
-            status, msg = sg.send(mensaje)
-            # except Exception, e:
-            #     print 'enviando correo procesamiento, {}'.format(str(e))
-            #     ExitoHandler.sendError('enviando correo procesamiento, {}'
-            #                     .format(str(e)))
+                html = mandrill_client.templates.render("test", template_content, merge_vars)
+                sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+                mensaje = sendgrid.Mail()
+                mensaje.set_from("{nombre} <{mail}>".format(nombre=info["from_name"], 
+                                                            mail=info["from_email"]))
+                mensaje.add_to(['yichun212@gmail.com','julian@loadingplay.com'])
+                mensaje.set_subject(info["subject"])
+                mensaje.set_html(html["html"])
+                status, msg = sg.send(mensaje)
+            except Exception, e:
+                print 'enviando correo procesamiento, {}'.format(str(e))
+                ExitoHandler.sendError('enviando correo procesamiento, {}'
+                                .format(str(e)))
             # print "si acepto"
             self.write("ACEPTADO")
         else:
