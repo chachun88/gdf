@@ -480,7 +480,7 @@ class XtCompraHandler(BaseHandler):
 
         if acepta or TBK_RESPUESTA != "0":
             try:
-                subject = "Giani Da Firenze - Procesando Compra Nº {}".format(1)
+                subject = "Giani Da Firenze - Procesando Compra Nº {}".format(TBK_ORDEN_COMPRA)
                 mandrill_client = mandrill.Mandrill(mailchimp_api_key)
                 mandrill_client.templates.update(processing_order_template, 
                                      subject=subject)
