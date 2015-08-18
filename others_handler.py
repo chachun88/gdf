@@ -478,7 +478,10 @@ class XtCompraHandler(BaseHandler):
                 info = mandrill_client.templates.info("test")
 
                 template_content = [{"name": "", "content": info["code"]}]
-                merge_vars = [{"name": "name", "content": self.current_user['name']}]
+                merge_vars = [
+                    {"name": "name", "content": self.current_user['name']},
+                    {"name": "order_id", "content": TBK_ORDEN_COMPRA}
+                    ]
 
                 html = mandrill_client.templates.render("test", template_content, merge_vars)
                 sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
