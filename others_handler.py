@@ -16,18 +16,10 @@ from tornado import template
 import pytz
 
 
-from globals import email_giani, \
-    to_giani, \
-    cellar_id, \
-    url_local, \
-    shipping_cellar, \
-    project_path, \
-    cgi_path, \
-    debugMode, \
-    sendgrid_pass, \
-    sendgrid_user
+from globals import *
 
 import sendgrid
+import mandrill
 
 from model.cart import Cart
 from model.order import Order
@@ -476,6 +468,28 @@ class XtCompraHandler(BaseHandler):
                                 .format(TBK_ORDEN_COMPRA))
 
         if acepta or TBK_RESPUESTA != "0":
+            try:
+                template_content = [{"name": "", "content": info["code"]}]
+                merge_vars = [{"name": "name", "content": self.current_user['name']}]
+
+                mandrill_client = mandrill.Mandrill(mailchimp_api_key)
+                mandrill_client.templates.update("test", 
+                                                 subject="Giani Da Firenze - Compra Nº {}".format(TBK_ORDEN_COMPRA), 
+                                                 from_email=email_giani,
+                                                 from_name="Giani Da Firenze")
+                info = mandrill_client.templates.info("test")
+                html = mandrill_client.templates.render("test", template_content, merge_vars)
+                sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+                mensaje = sendgrid.Mail()
+                mensaje.set_from("{nombre} <{mail}>".format(nombre=info["from_name"], 
+                                                            mail=info["from_email"]))
+                mensaje.add_to(['yichun212@gmail.com','julian@loadingplay.com'])
+                mensaje.set_subject(info["subject"])
+                mensaje.set_html(html["html"])
+                status, msg = sg.send(mensaje)
+            except Exception, e:
+                ExitoHandler.sendError('enviando correo procesamiento, {}'
+                                .format(str(e)))
             # print "si acepto"
             self.write("ACEPTADO")
         else:

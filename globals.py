@@ -51,6 +51,8 @@ to_giani = ['contacto@gianidafirenze.cl']
 
 iva = 0.19
 
+mailchimp_api_key = 'RC57FKi_1IVqO6m46flAJQ'
+
 if enviroment == Enviroment.LOCAL:
 
     print "local enviroment"
