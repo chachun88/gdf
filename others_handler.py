@@ -8,6 +8,7 @@ import sys, traceback
 from basehandler import BaseHandler
 
 from model.kardex import Kardex
+from model.user import User
 from datetime import datetime
 import urlparse
 
@@ -321,6 +322,9 @@ class XtCompraHandler(BaseHandler):
         self.write("RECHAZADO")
 
     def post(self):
+
+        username = ''
+
         TBK_RESPUESTA = self.get_argument("TBK_RESPUESTA")
         TBK_ORDEN_COMPRA = self.get_argument("TBK_ORDEN_COMPRA")
         TBK_MONTO = self.get_argument("TBK_MONTO")
@@ -422,6 +426,13 @@ class XtCompraHandler(BaseHandler):
             lista = detail.ListByOrderId(TBK_ORDEN_COMPRA)
 
             if "success" in init_by_id:
+
+                user = User()
+                usuario = user.InitById(order.user_id)
+
+                if "error" not in usuario:
+                    username = usuario['name']
+
                 # rechaza si orden no esta pendiente
                 if order.state != Order.ESTADO_PENDIENTE:
                     acepta = False
@@ -479,7 +490,7 @@ class XtCompraHandler(BaseHandler):
 
             template_content = [{"name": "", "content": info["code"]}]
             merge_vars = [
-                {"name": "name", "content": self.current_user['name']},
+                {"name": "name", "content": username},
                 {"name": "order_id", "content": TBK_ORDEN_COMPRA}
                 ]
 
