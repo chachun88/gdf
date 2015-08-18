@@ -482,10 +482,6 @@ class XtCompraHandler(BaseHandler):
             try:
 
                 mandrill_client = mandrill.Mandrill(mailchimp_api_key)
-                mandrill_client.templates.update(processing_order_template, 
-                                                 subject="Giani Da Firenze - Compra Nº {} Procesando".format(TBK_ORDEN_COMPRA), 
-                                                 from_email=email_giani,
-                                                 from_name="Giani Da Firenze")
                 info = mandrill_client.templates.info(processing_order_template)
 
                 template_content = [{"name": "", "content": info["code"]}]
