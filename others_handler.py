@@ -469,8 +469,6 @@ class XtCompraHandler(BaseHandler):
 
         if acepta or TBK_RESPUESTA != "0":
             try:
-                template_content = [{"name": "", "content": info["code"]}]
-                merge_vars = [{"name": "name", "content": self.current_user['name']}]
 
                 mandrill_client = mandrill.Mandrill(mailchimp_api_key)
                 mandrill_client.templates.update("test", 
@@ -478,6 +476,10 @@ class XtCompraHandler(BaseHandler):
                                                  from_email=email_giani,
                                                  from_name="Giani Da Firenze")
                 info = mandrill_client.templates.info("test")
+
+                template_content = [{"name": "", "content": info["code"]}]
+                merge_vars = [{"name": "name", "content": self.current_user['name']}]
+
                 html = mandrill_client.templates.render("test", template_content, merge_vars)
                 sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
                 mensaje = sendgrid.Mail()
