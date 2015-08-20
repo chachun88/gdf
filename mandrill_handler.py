@@ -8,8 +8,8 @@ from globals import *
 try:
     # subject = "Giani Da Firenze - Compra Nº {} Procesando".format(1)
     mandrill_client = mandrill.Mandrill(mailchimp_api_key)
-    # mandrill_client.templates.update(processing_order_template, 
-    #                                  subject=subject)
+    mandrill_client.templates.update(processing_order_template, 
+                                     subject=subject)
     info = mandrill_client.templates.info(processing_order_template)
 
     print info["code"]
