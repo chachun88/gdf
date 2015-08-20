@@ -18,7 +18,8 @@
 	<div class="header-rigth-cont clearfix">
 		<div class="carritoicono clearfix hide-show">
 			<!-- <img class="image" src="" data-rimage data-src="/static/images/carrito-30x30.png"> -->
-			<div class="iconos"><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
+			
+			<div class="iconos " onclick="location.href='/cart/getbyuserid?user_id='+localStorage.userid+'&ajax=0'" ><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
 		</div>
 		
 		<div class="_container clearfix salir_registro">
@@ -46,7 +47,7 @@
 
 		<div class="carritoicono clearfix show-hide">
 			<!-- <img class="image" src="" data-rimage data-src="/{{nocache_static}}/images/carrito-30x30.png"> -->
-			<div class="iconos"><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
+			<div class="iconos show-hide"><i class="fa icon-shopping-cart" id="icono-carro-movil"></i></div>
 		</div>
 		<!-- redes sociales -->
 		 <div class="new-social-network show-hide">
