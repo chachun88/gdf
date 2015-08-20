@@ -477,38 +477,38 @@ class XtCompraHandler(BaseHandler):
                         except Exception, e:
                             ExitoHandler.sendError('error moviendo stock, {}'
                                 .format(TBK_ORDEN_COMPRA))
+                        if username != '':
+                            try:
+                                subject = "Giani Da Firenze - Procesando Compra Nº {}".format(TBK_ORDEN_COMPRA)
+                                mandrill_client = mandrill.Mandrill(mailchimp_api_key)
+                                mandrill_client.templates.update(processing_order_template, 
+                                                     subject=subject)
+                                info = mandrill_client.templates.info(processing_order_template)
+
+                                template_content = [{"name": "", "content": info["code"]}]
+                                merge_vars = [
+                                    {"name": "name", "content": username},
+                                    {"name": "order_id", "content": TBK_ORDEN_COMPRA},
+                                    {"name": "company", "content": "Giani Da Firenze"},
+                                    {"name": "current_year", "content": 2015},
+                                    {"name": "list_address_html", "content": 'contacto@gianidafirenze.cl'}
+                                ]
+
+                                html = mandrill_client.templates.render(processing_order_template, template_content, merge_vars)
+                                sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
+                                mensaje = sendgrid.Mail()
+                                mensaje.set_from("{nombre} <{mail}>".format(nombre=info["from_name"], 
+                                                                            mail=info["from_email"]))
+                                mensaje.add_to(['yichun212@gmail.com','julian@loadingplay.com'])
+                                mensaje.set_subject(info["subject"])
+                                mensaje.set_html(html["html"])
+                                status, msg = sg.send(mensaje)
+                            except Exception, e:
+                                print 'enviando correo procesamiento, {}'.format(str(e))
+                                ExitoHandler.sendError('enviando correo procesamiento, {}'
+                                                .format(str(e)))
 
         if acepta or TBK_RESPUESTA != "0":
-            if username != '':
-                try:
-                    subject = "Giani Da Firenze - Procesando Compra Nº {}".format(TBK_ORDEN_COMPRA)
-                    mandrill_client = mandrill.Mandrill(mailchimp_api_key)
-                    mandrill_client.templates.update(processing_order_template, 
-                                         subject=subject)
-                    info = mandrill_client.templates.info(processing_order_template)
-
-                    template_content = [{"name": "", "content": info["code"]}]
-                    merge_vars = [
-                        {"name": "name", "content": username},
-                        {"name": "order_id", "content": TBK_ORDEN_COMPRA},
-                        {"name": "company", "content": "Giani Da Firenze"},
-                        {"name": "current_year", "content": 2015},
-                        {"name": "list_address_html", "content": 'contacto@gianidafirenze.cl'}
-                    ]
-
-                    html = mandrill_client.templates.render(processing_order_template, template_content, merge_vars)
-                    sg = sendgrid.SendGridClient(sendgrid_user, sendgrid_pass)
-                    mensaje = sendgrid.Mail()
-                    mensaje.set_from("{nombre} <{mail}>".format(nombre=info["from_name"], 
-                                                                mail=info["from_email"]))
-                    mensaje.add_to(['yichun212@gmail.com','julian@loadingplay.com'])
-                    mensaje.set_subject(info["subject"])
-                    mensaje.set_html(html["html"])
-                    status, msg = sg.send(mensaje)
-                except Exception, e:
-                    print 'enviando correo procesamiento, {}'.format(str(e))
-                    ExitoHandler.sendError('enviando correo procesamiento, {}'
-                                    .format(str(e)))
             # print "si acepto"
             self.write("ACEPTADO")
         else:
