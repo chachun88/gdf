@@ -671,3 +671,8 @@ img.cargando{
 {
   color: transparent !important;
 }
+
+.section_banner {
+    width: 1200px;
+    margin: 20px auto;
+}

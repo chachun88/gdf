@@ -46,10 +46,11 @@
     </div>
     <!-- fin menu-material -->
     <div class="cuerpo clearfix">
-        {% include ../slider.html %}
-        <!-- <div class="slider-small">
-            <img class="slide" src="/{{nocache_static}}/images/banermovil.png" data-rimage data-src="/{{nocache_static}}/images/banermovil.png">
-        </div> -->
+        <div class="section_banner">
+            <img class="slider hide tienda" src="https://static.loadingplay.com/static/images/200_0c1bd947f3f3951468e2484c0c58d529_tiendaaa_.png" lp-load-big="https://static.loadingplay.com/static/images/0c1bd947f3f3951468e2484c0c58d529_tiendaaa_.png">
+            <img class="slider hide nuevo" src="https://static.loadingplay.com/static/images/200_62a369a78e3add8a55a7008d5bf652b9_Nuevo.png" lp-load-big="https://static.loadingplay.com/static/images/62a369a78e3add8a55a7008d5bf652b9_Nuevo.png">
+            <img class="slider hide sale" src="https://static.loadingplay.com/static/images/200_ad8bd6f3c570527b6845533c3a9dcbd4_sale.png" lp-load-big="https://static.loadingplay.com/static/images/ad8bd6f3c570527b6845533c3a9dcbd4_sale.png">
+        </div>
         <div class="contenedor-productos clearfix" id="contenedor">
             <div class="cuerpo-categorias clearfix" style="display: none">
                 <p class="titulo-categorias"><span>CATEGORÍAS</span></p>
@@ -105,23 +106,33 @@
         </div>
     </div>
     {% if tags_arr is not None %}
-        {% if "lo nuevo" in tags_arr %}
+        {% if "nuevo" in tags_arr %}
             <script>
             $(document).ready(function(){
-            $(".header-menu .que-es-lo-nuevo").addClass("activo");
+                $(".header-menu .que-es-lo-nuevo").addClass("activo");
+                $("img.nuevo").removeClass("hide");
             });
             </script>
-            {% elif "campaña".decode("utf-8") in tags_arr %}
+        {% elif "campaña".decode("utf-8") in tags_arr %}
             <script>
             $(document).ready(function(){
-            $(".header-menu .campana").addClass("activo");
+                $(".header-menu .campana").addClass("activo");
+                $("img.tienda").removeClass("hide");
+            });
+            </script>
+        {% elif "sale".decode("utf-8") in tags_arr %}
+            <script>
+            $(document).ready(function(){
+                $(".header-menu .sale").addClass("activo");
+                $("img.sale").removeClass("hide");
             });
             </script>
         {% end %}
     {% else %}
         <script>
         $(document).ready(function(){
-        $(".header-menu .zapatos").addClass("activo");
+            $(".header-menu .zapatos").addClass("activo");
+            $("img.tienda").removeClass("hide");
         });
         </script>
     {% end %}
