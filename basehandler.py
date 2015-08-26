@@ -13,6 +13,7 @@ import locale
 import os
 import unicodedata
 import re
+from model.banner import Banner
 
 # from loadingplay.multilang.lang import lploadLanguage, lpautoSelectCurrentLang,\
 #     lptranslate, lpsetCurrentLang
@@ -100,6 +101,12 @@ class BaseHandler(tornado.web.RequestHandler):
             return "static"
         return tornado.options.options["nocache_static"]
 
+    @staticmethod
+    def getBannerByName(name):
+        banner = Banner()
+        banner.initByName(name)
+        return banner
+
     def render(self, template_name, **kwargs):
 
         # kwargs["lptranslate"] = lptranslate
@@ -113,6 +120,7 @@ class BaseHandler(tornado.web.RequestHandler):
         kwargs["url_cgi"] = url_cgi
         kwargs["money_format"] = self.money_format
         kwargs["nocache_static"] = self.nocache_static()
+        kwargs["banner"] = self.getBannerByName
 
         tornado.web.RequestHandler.render(self, template_name, **kwargs)
 
