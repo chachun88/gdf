@@ -30,6 +30,7 @@ from model.contact import Contact
 from model.webpay import Webpay
 from model.cellar import Cellar
 from model.size import Size
+from model.tag import Tag
 
 
 class ContactHandler(BaseHandler):
@@ -938,7 +939,7 @@ class UserHandler(BaseHandler):
 
 class PreviewHomeHandler(BaseHandler):
 
-    def get(self):
+    def post(self):
 
         data = {}
         data["banner1"] = self.jsonToObject(self.get_argument("banner1", ""))
@@ -962,3 +963,63 @@ class PreviewHomeHandler(BaseHandler):
         else:
             return None
 
+
+class PreviewSectionHandler(BaseHandler):
+
+    def post(self):
+
+        cellar = Cellar()
+        res_web = cellar.GetWebCellar()
+        cellar_id = None
+
+        if "success" in res_web:
+            cellar_id = res_web["success"]
+
+        product = Product()
+        page = int(self.get_argument("page","1"))
+        ajax = int(self.get_argument("ajax",0))
+        lista = product.GetList(cellar_id, page, 16)
+
+        items = 0
+        tags = {}
+        tallas = []
+
+        response = product.GetItems(cellar_id)
+        if "success" in response:
+            items = response["success"]
+
+        tag = Tag()
+        tags_visibles = tag.ListVisibleTags()
+
+        if "success" in tags_visibles:
+            tags = tags_visibles["success"]
+
+        tallas_res = product.getAllSizes()
+
+        if "success" in tallas_res:
+            tallas = tallas_res["success"]
+
+        banners = {}
+        banners["nuevo"] = self.jsonToObject(self.get_argument("nuevo", ""))
+        banners["sale"] = self.jsonToObject(self.get_argument("sale", ""))
+        banners["tienda"] = self.jsonToObject(self.get_argument("tienda", ""))
+        banners["background"] = self.jsonToObject(self.get_argument("background", ""))
+
+        tag = self.get_argument("tag", "")
+
+        self.render("preview/index.html", 
+                    data=lista,
+                    items=items,
+                    page=page,
+                    tags=tags,
+                    tags_arr=[tag],
+                    tag=tag,
+                    tallas=tallas,
+                    banners=banners)
+
+    def jsonToObject(self, json):
+
+        if json != "":
+            return json_util.loads(json)
+        else:
+            return None

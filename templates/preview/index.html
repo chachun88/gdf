@@ -47,9 +47,9 @@
     <!-- fin menu-material -->
     <div class="cuerpo clearfix">
         <div class="section_banner">
-            <img class="slider hide tienda" src="{{banner('tienda').thumbnail}}" lp-load-big="{{banner('tienda').image}}">
-            <img class="slider hide nuevo" src="{{banner('nuevo').thumbnail}}" lp-load-big="{{banner('nuevo').image}}">
-            <img class="slider hide sale" src="{{banner('sale').thumbnail}}" lp-load-big="{{banner('sale').image}}">
+            <img class="slider hide tienda" src="{{banners['tienda']['thumb_200']}}" lp-load-big="{{banners['tienda']['image']}}">
+            <img class="slider hide nuevo" src="{{banners['nuevo']['thumb_200']}}" lp-load-big="{{banners['nuevo']['image']}}">
+            <img class="slider hide sale" src="{{banners['sale']['thumb_200']}}" lp-load-big="{{banners['sale']['image']}}">
         </div>
         <div class="contenedor-productos clearfix" id="contenedor">
             <div class="cuerpo-categorias clearfix" style="display: none">
@@ -125,6 +125,13 @@
             $(document).ready(function(){
                 $(".header-menu .sale").addClass("activo");
                 $("img.sale").removeClass("hide");
+            });
+            </script>
+        {% else %}
+            <script>
+            $(document).ready(function(){
+                $(".header-menu .zapatos").addClass("activo");
+                $("img.tienda").removeClass("hide");
             });
             </script>
         {% end %}
