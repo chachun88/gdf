@@ -20,6 +20,8 @@ import sendgrid
 import os.path
 from tornado import template
 
+import re
+
 
 class UserRegistrationHandler(BaseHandler):    
 
@@ -451,7 +453,7 @@ class EnterpriseRegistrationHandler(BaseHandler):
         elif rep_clave.strip() != clave.strip():
             return json_util.dumps({"state": 0, "message": "Las claves ingresadas no coinciden"})
 
-        rut = rut.strip().replace(".", "").replace("-", "").lower()
+        rut = re.sub(r'\.+|-+', "", rut).lower()
 
         user = User()
         user.name = nombre
@@ -535,7 +537,7 @@ class EnterpriseLoginHandler(BaseHandler):
         if rut.strip() == "" or password.strip() == "":
             return json_util.dumps({"state": 0, "message": "Debe ingresar rut y contraseña"})
         else:
-            rut = rut.strip().replace(".", "").replace("-", "").lower()
+            rut = re.sub(r'\.+|-+', "", rut).lower()
 
         user = User()
         res_login = user.enterpriseLogin(rut, password)
