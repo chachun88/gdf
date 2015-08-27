@@ -1,0 +1,151 @@
+<div class="footer clearfix">
+    <img src="/{{nocache_static}}/images/imgfooter.png" style="position: absolute; right: 0px; top: 0px;">
+    <img src="/{{nocache_static}}/images/imgfooter02.png" style="position: absolute; left: 0px; top: 0px;">
+    <div class="footer-left-cont clearfix">
+        <!--<a href="/"><img class="image logo-footer" src="/{{nocache_static}}/images/logo001-50x50.png" data-rimage data-src="/{{nocache_static}}/images/logo001-50x50.png"></a>-->
+        <img class="image right-arrow-footer" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a class="text first-text-items-footer" href="/store/getproductsbytags/nuevo">Nuevo</a>
+        <img class="image right-arrow-footer-2" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a class="text text-items-footer" href="/store">Tienda</a>
+        <img class="image right-arrow-footer-2" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a class="text text-items-footer" href="/store/getproductsbytags/campaña">Campa&ntilde;as</a>
+        <img class="image right-arrow-footer-2" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a class="text text-items-footer" href="/aboutus">Nosotros</a>
+        <img class="image right-arrow-footer-2" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a class="text text-items-footer" href="/history">Historia</a>
+        <img class="image right-arrow-footer-2" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a class="text text-items-footer" href="/tos">Terminos y condiciones</a>
+        <!-- <img class="image right-arrow-footer-2" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a class="text last-text-items-footer" href="/store/getproductsbytags/estilo_de_vida">Estilo de vida</a> -->
+        <img class="image right-arrow-footer-2" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a class="text last-text-items-footer" href="/faq">Preguntas Frecuentes</a>
+        <img class="image right-arrow-footer-2" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a id="various1" href="#inline1" class="text last-text-items-footer " style=" ">Registrate en venta mayorista</a>
+        <img class="image right-arrow-footer-2" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">
+        <a id="login-empresa" href="#form-login-empresa" class="text last-text-items-footer">Iniciar Sesi&oacute;n venta mayorista</a>
+        <a class="_button" href="/contact">
+            <p>CONTACTO</p>
+        </a>
+
+    </div>
+    
+    <div class="footer-right-center-cont clearfix">
+        <a class="button_register"><img class="" src="{{data['registro']['image']}}" style=" display: block; position: absolute; z-index: 1; height: auto; overflow: hidden; max-width: 100%; max-height: 100%; margin: auto; top: 0; bottom: 0; left: 0; right: 0;"></a>
+        <img class="image" src="{{data['background_registro']['image']}}" >
+        
+    </div>
+    <div class="footer-left-center-cont clearfix">
+        <a id="login-empresa" href="#form-login-empresa"><img src="{{data['mayorista']['image']}}" style=" display: block; position: absolute; z-index: 1; height: auto; overflow: hidden; max-width: 100%; max-height: 100%; margin: auto; top: 0; bottom: 0; left: 0; right: 0;"></a>
+        <img src="{{data['background_mayorista']['image']}}" style="height: 100%; width:100%; z-index: 0; position: absolute;">
+
+        <div style="display: none;">
+            <div id="form-login-empresa" notitle>
+                <div class="col-xs-12 col-sm-12">
+                    <form action="/auth/enterprise" method="post" id="enterpriseLogin" class="form-horizontal">
+                        <h3>Iniciar sesi&oacute;n con cuenta empresa</h3>
+                        <div class="alert alert-warning hidden"></div>
+                        <div class="form-group required">
+                            <label for="rut" class="col-sm-4">Rut</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="rut" name="rut" placeholder="Rut">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="clave" class="col-sm-4">Contraseña</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="clave" name="password" placeholder="Contraseña">
+                            </div>
+                        </div>
+                        <div class="pull-right btn-default-3" style="margin-top:20px; margin-bottom: 20px;">
+                            <button type="button" onclick="loginEnterprise();" class="btn btn-default btn-default-3">Entrar</button>
+                            <button type="button" onclick="$('.fancybox-close').click();" class="btn btn-default btn-default-3 btn-close-movil">Cerrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div style="display: none;">
+            <div id="inline1" notitle>
+                <div class="col-xs-12 col-sm-12">
+                    <form action="/auth/enterprise-registration" method="post" id="enterpriseRegistration" class="form-horizontal">
+                        <h3>Completar formulario venta mayorista</h3>
+                        <div class="form-group required">
+                            <label for="nombre" class="col-sm-4">Nombre o Raz&oacute;n social</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="nombre" name="name" placeholder="Nombre">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="giro" class="col-sm-4">Giro</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="giro" name="bussiness" placeholder="Giro">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="rut" class="col-sm-4">Rut</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="rut" name="rut" placeholder="Rut">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="email" class="col-sm-4">Email</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="email" name="email" placeholder="Email">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="direccion" class="col-sm-4">Direcci&oacute;n</label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control" id="direccion" name="address" placeholder="Dirección">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="comuna" class="col-sm-4">Region</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="region" name="select-state" placehold="Región"></select>
+                                <input type="hidden" class="form-control" id="state" name="state">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="comuna" class="col-sm-4">Provincia</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="provincia" name="select-city" placeholder="Provincia"></select>
+                                <input type="hidden" class="form-control" id="city" name="city">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="comuna" class="col-sm-4">Comuna</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="comuna" name="select-town" placeholder="Comuna"></select>
+                                <input type="hidden" class="form-control" id="town" name="town">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="clave" class="col-sm-4">Contraseña</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="clave" name="password" placeholder="Contraseña">
+                            </div>
+                        </div>
+                        <div class="form-group required">
+                            <label for="clave" class="col-sm-4">Confirme contraseña</label>
+                            <div class="col-sm-8">
+                                <input type="password" class="form-control" id="rep_clave" name="re-password" placeholder="Confirme contraseña">
+                            </div>
+                        </div>
+                        <div class="pull-right btn-default-3" style="margin-top:20px;  margin-bottom: 20px;">
+                            <button type="button" class="btn btn-default btn-default-3" onclick="enterpriseRegistration($('#enterpriseRegistration'))">Crear</button>
+                            <button type="button" onclick="$('.fancybox-close').click();" class="btn btn-default btn-default-3 btn-close-movil">Cerrar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+        <div class="logos-pagos">
+            <img src="/{{nocache_static}}/images/logo-pagos.png" class="img-responsive">
+        </div>
+        <div class="text footer-contact-text">
+            <p>Giani Da Firenze 2015 ® contacto@gianidafirenze.cl Desarrollado por <a href="http://loadingplay.com" class="link_lp" target="_blank">LoadingPlay</a></p>
+        </div>
+    </div>

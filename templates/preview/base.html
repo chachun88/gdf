@@ -1,0 +1,169 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="IE=9"/>
+  <meta name="viewport" content="initial-scale=1.0">
+  <meta name="google-site-verification" content="fZTQQO6_S3d0fhTbbwEg3RZMfrlp4woVzGWPJOcsCKQ" />
+  <title>{% block title %}{% end %}</title>
+  <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,inherit,400,500,400|Playfair+Display:900,400,700,400|Ubuntu+Condensed:400|Raleway:100|Cabin:500" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/{{nocache_static}}/css/bootstrap/bootstrap.css">
+  <link rel="stylesheet" href="/{{nocache_static}}/css/standardize.css">
+  <link rel="stylesheet" href="/{{nocache_static}}/css/header.css">
+  <link rel="stylesheet" href="/{{nocache_static}}/css/index.css">
+  <link rel="stylesheet" type="text/css" href="/{{nocache_static}}/css/font-awesome.min.css"/>
+  <link rel="stylesheet" type="text/css" href="/{{nocache_static}}/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
+  <link href='http://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/{{nocache_static}}/css/bootstrap/style2.css">
+  <link rel="stylesheet" href="/{{nocache_static}}/css/bootstrap/skin-10.css">
+  <link href='http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
+  <link rel="shortcut icon" type="image/x-icon" href="/{{nocache_static}}/img/icono.ico" />
+
+
+  {% block css %}{% end %}
+  <link rel="stylesheet" href="/{{nocache_static}}/css/footer.css">
+  <link rel="stylesheet" href="/{{nocache_static}}/css/giani.css">
+  <link rel="stylesheet" href="/{{nocache_static}}/css/order.step.css">
+  <link rel="stylesheet" href="/{{nocache_static}}/css/menumovil.css"> 
+  <!-- css para login, agregar para visualizar -->
+  <link rel="stylesheet" href="/{{nocache_static}}/css/simple_tab.css"> 
+  <!-- css para slider home -->
+  <link rel="stylesheet" href="/{{nocache_static}}/css/swiper.min.css">
+  <!-- css para login -->
+  <script src="/{{nocache_static}}/js/fix_ie9.js"></script>
+  <script src="/{{nocache_static}}/js/jquery-min.js"></script>
+  <!-- js para login -->
+  <script type="text/javascript" src="/{{nocache_static}}/js/simple.tab.js" ></script>
+  <script src="/{{nocache_static}}/js/giani_functions.js"></script>
+  <script type="text/javascript" src="/{{nocache_static}}/js/giani.login.js" ></script>
+  <script type="text/javascript" src="/{{nocache_static}}/fancybox/source/jquery.fancybox.js?v=2.1.5"></script>
+  <script type="text/javascript" src="/{{nocache_static}}/js/lp.preload.image.js" ></script>
+  <script src="/{{nocache_static}}/js/giani.js"></script>
+  <script type="text/javascript" src="/{{nocache_static}}/js/plugin-states-cities-towns.js"></script>
+  {% block javascript %}{% end %}
+  
+</head>
+
+<body class="body index clearfix">
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId: '{% raw facebook_api_key %}',
+        xfbml: true,
+        version: 'v2.1'
+      });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk')); 
+  </script>
+  <!-- login movil -->
+  {% module Template('loginmovil.html', nxt=nxt, nocache_static=nocache_static) %} 
+  <div id="cuerpo" style="width: 100%;"> 
+    <!-- header -->
+    {% module Template('header.html', nocache_static=nocache_static) %}
+    <!-- registration -->
+    {% module Template('registration.html', nocache_static=nocache_static) %}
+
+    {% block body %}
+
+    {% end %}
+
+    {% module Template('carrodecompra.html', nocache_static=nocache_static) %}
+    {% module Template('preview/footer.html', nocache_static=nocache_static, data=data) %}
+
+
+    <!--<script src="/{{nocache_static}}/js/rimages.js"></script>-->
+    
+
+
+    <script>
+
+//para ejecutar menumovil.html
+$(document).ready(function() {
+
+  $("#login-empresa").fancybox({
+    beforeShow: function(){
+      $(".alert").addClass("hidden");
+    }
+  });
+
+  $("#various1").fancybox({
+                title     : '',
+                'transitionIn'      : 'none',
+                'transitionOut'     : 'none',
+                showCloseButton: false
+            });  
+
+  
+  $( "img" ).preload_image();
+
+  $("button#tellmeboton").click(function() {
+    $("#menu_movil").fadeIn(1000);
+    // para agregar y quitar blur del fondo
+    $("#cuerpo").addClass("descripcion_blur");
+    $(".boton_busqueda_movil").addClass("b_blur");
+  });
+  $("a.button_register").click(function(evt) {
+    evt.preventDefault();
+    $("#form-register-login").fadeIn(1000);
+    // para agregar y quitar blur del fondo
+    $("#cuerpo").addClass("descripcion_blur");
+    $(".boton_busqueda_movil").addClass("b_blur");
+  });
+  $("button#tellmeboton2").click(function() {
+    $("#menu_movil,#form-register-login").fadeOut(100);
+    // para agregar y quitar blur del fondo
+    $("#cuerpo").removeClass("descripcion_blur");
+    $(".boton_busqueda_movil").removeClass("b_blur");
+  });
+  // para poner poster sobre video en index.html
+  $("#videohome").click(function() {
+
+    if ($("#videoimg").css("opacity") != 0) {
+      $("#videoimg, #videoimg-1").fadeTo("slow", 0, function() {
+        document.getElementById('video').play();
+      });
+    }
+    // para que funcione bien el hover
+    $("#video").removeClass("mostrar-1");
+    $("#video").addClass("mostrar");
+
+  });
+  // para todos los videos del sitio
+  // $("video").click(function(e) {
+
+  //   // get click position 
+  //   var clickY = (e.pageY - $(this).offset().top);
+  //   var height = parseFloat($(this).height());
+
+
+  //   // avoids interference with controls
+  //   if (clickY > 0.82 * height) return;
+
+  //   // toggles play / pause
+  //   this.paused ? this.play() : this.pause();
+
+  // });
+$(document).on('click', '.video', function (e) {
+    var video = $(this).get(0);
+    if (video.paused === false) {
+        video.pause();
+    } else {
+        video.play();
+    }
+
+    return false;
+});
+});
+</script>
+</div> 
+</body>
+</html>

@@ -1,0 +1,53 @@
+{% extends "../preview/base.html" %}
+{% block title %}Giani Da Firenze - Home{% end %}
+{% block css %}
+<link rel="stylesheet" href="/{{nocache_static}}/css/index.css">
+{% end %}
+{% block body %}
+<div class="cuerpo clearfix">
+    {% include ../preview/slider.html %}
+<div class="content-13-inch">
+    <div id="videohome" class="timeline clearfix">
+        <ul>
+            <li id="videoimg" style="position:relative; z-index: -1;"><img class="image" src="https://static.loadingplay.com/static/images/200_787623f24a1c48b975b92a14d4dbff39_video2.png" lp-load-big="https://static.loadingplay.com/static/images/787623f24a1c48b975b92a14d4dbff39_video2.png" style="position:relative;">
+                <ul>
+                    <img id="videoimg-1"class="image esconder" src="/{{nocache_static}}/images/ir-a-la-hover.png" style="position:relative;margin-top: -64.49%;">
+                </ul>
+            </li>
+            <video loop preload poster="" id="video" class="video mostrar-1"style="width:100%;margin-top: -60%;float: left; z-index: 0;">
+                <source src="/{{nocache_static}}/images/giani.mp4" type="video/mp4">
+                <source src="/{{nocache_static}}/images/giani.webm" type="video/webm">
+            </video>
+        </ul>
+        
+    </div>
+    <div class="estilodevida clearfix">
+        <a href="/store">
+        <img class="image" src="{{data['tienda_caluga']['thumb_200']}}" lp-load-big="{{data['tienda_caluga']['image']}}">
+        </a>
+    </div>
+    <div class="queeslonuevo clearfix">
+        <a href="/store/getproductsbytags/nuevo">
+        <img class="image" src="{{data['nuevo_caluga']['thumb_200']}}" lp-load-big="{{data['nuevo_caluga']['image']}}">
+        </a>
+    </div>
+<!--     <div class="queeslonuevo-small">
+        <a href="/store">
+        <img class="slide" src="https://static.loadingplay.com/static/images/200_f8c4101f84403c02b123ca4fa8ea17e1_lo_nuevo.png" lp-load-big="https://static.loadingplay.com/static/images/f8c4101f84403c02b123ca4fa8ea17e1_lo_nuevo.png" >
+        </a>
+    </div> -->
+    <div class="comunidad clearfix">
+        <a href="https://instagram.com/gianidafirenze/" target="_blank">
+        <img class="image" src="{{data['instagram']['thumb_200']}}" lp-load-big="{{data['instagram']['image']}}">
+        </a>
+    </div>
+    <div class="tienda clearfix">
+        <a href="/history">
+        <img class="image" src="{{data['historia']['thumb_200']}}" lp-load-big="{{data['historia']['image']}}">
+        </a>
+        
+    </div>
+</div>
+</div>
+{% end %}
+{% block javascript %}{% end %}

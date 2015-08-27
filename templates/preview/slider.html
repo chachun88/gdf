@@ -1,0 +1,34 @@
+    <div class="swiper-container content-13-inch" style="margin-top: 20px; margin-bottom: 20px;">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"> 
+                <a href="/store"><img class="slider" u="image" src="{{data['banner1']['thumb_200']}}" lp-load-big="{{data['banner1']['image']}}" /></a>
+	            <img class="slider-small" src="https://static.loadingplay.com/static/images/200_3f1c799f605b10358a446a95bf36002a_Vuela-con-nosotros.png" lp-load-big="https://static.loadingplay.com/static/images/3f1c799f605b10358a446a95bf36002a_Vuela-con-nosotros.png">
+	        </div>
+            <div class="swiper-slide">
+                <img class="slider" u="image" src="{{data['banner2']['thumb_200']}}" lp-load-big="{{data['banner2']['image']}}" />
+                <img class="slider-small" src="https://static.loadingplay.com/static/images/200_6f01de24a6e15bba8464d7c87b94a1d1_visita-nuestra-tienda-9.png" lp-load-big="https://static.loadingplay.com/static/images/6f01de24a6e15bba8464d7c87b94a1d1_visita-nuestra-tienda-9.png">
+            </div> 
+            <div class="swiper-slide">
+                <img class="slider" u="image" src="{{data['banner3']['thumb_200']}}" lp-load-big="{{data['banner3']['image']}}" />
+	            <img class="slider-small" src="https://static.loadingplay.com/static/images/200_80db95f98f8d0aaecf5f84dab6447a08_visita-nuestra-tienda.png" lp-load-big="https://static.loadingplay.com/static/images/80db95f98f8d0aaecf5f84dab6447a08_visita-nuestra-tienda.png">
+	        </div> 
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+        <!-- Add Navigation -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+    </div>
+    <!-- js slider home -->
+    <script src="/{{nocache_static}}/js/swiper.jquery.min.js"></script>
+    <script>
+    //slider home
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true,
+        autoplay: 5000,
+        loop: true,
+        nextButton: '.swiper-button-next',
+        prevButton: '.swiper-button-prev'
+    });
+    </script>

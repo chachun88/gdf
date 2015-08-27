@@ -15,7 +15,7 @@ import urlparse
 from lp.globals import enviroment, Enviroment
 from tornado import template
 import pytz
-
+from bson import json_util
 
 from globals import *
 
@@ -934,3 +934,31 @@ class UserHandler(BaseHandler):
 
     def get(self):
         self.render("user.html")
+
+
+class PreviewHomeHandler(BaseHandler):
+
+    def get(self):
+
+        data = {}
+        data["banner1"] = self.jsonToObject(self.get_argument("banner1", ""))
+        data["banner2"] = self.jsonToObject(self.get_argument("banner2", ""))
+        data["banner3"] = self.jsonToObject(self.get_argument("banner3", ""))
+        data["tienda_caluga"] = self.jsonToObject(self.get_argument("tienda-caluga", ""))
+        data["nuevo_caluga"] = self.jsonToObject(self.get_argument("nuevo-caluga", ""))
+        data["instagram"] = self.jsonToObject(self.get_argument("instagram", ""))
+        data["historia"] = self.jsonToObject(self.get_argument("historia", ""))
+        data["background_registro"] = self.jsonToObject(self.get_argument("background_registro", ""))
+        data["background_mayorista"] = self.jsonToObject(self.get_argument("background_mayorista", ""))
+        data["registro"] = self.jsonToObject(self.get_argument("registro", ""))
+        data["mayorista"] = self.jsonToObject(self.get_argument("mayorista", ""))
+
+        self.render("preview/home.html", data=data)
+
+    def jsonToObject(self, json):
+
+        if json != "":
+            return json_util.loads(json)
+        else:
+            return None
+

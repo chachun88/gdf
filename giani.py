@@ -111,6 +111,7 @@ class Application(tornado.web.Application):
             (r"/conditions", others_handler.ConditionsHandler),
             (r"/faq", others_handler.FaqHandler),
             (r"/user", others_handler.UserHandler),
+            (r"/preview/home", others_handler.PreviewHomeHandler),
             (r"/sitemap.xml()", tornado.web.StaticFileHandler, {'path':settings['static_path']+"/sitemap.xml"})
         ]
 
