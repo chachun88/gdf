@@ -953,6 +953,9 @@ class PreviewHomeHandler(BaseHandler):
         data["background_mayorista"] = self.jsonToObject(self.get_argument("background_mayorista", ""))
         data["registro"] = self.jsonToObject(self.get_argument("registro", ""))
         data["mayorista"] = self.jsonToObject(self.get_argument("mayorista", ""))
+        data["background_footer_izq"] = self.jsonToObject(self.get_argument("background_footer_izq", ""))
+        data["background_footer_der"] = self.jsonToObject(self.get_argument("background_footer_der", ""))
+        data["background_header"] = self.jsonToObject(self.get_argument("background_header", ""))
 
         self.render("preview/home.html", data=data)
 

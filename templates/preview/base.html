@@ -68,7 +68,7 @@
   {% module Template('loginmovil.html', nxt=nxt, nocache_static=nocache_static) %} 
   <div id="cuerpo" style="width: 100%;"> 
     <!-- header -->
-    {% module Template('header.html', nocache_static=nocache_static) %}
+    {% module Template('preview/header.html', nocache_static=nocache_static, data=data) %}
     <!-- registration -->
     {% module Template('registration.html', nocache_static=nocache_static) %}
 
