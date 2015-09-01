@@ -219,6 +219,8 @@ class AddToCartHandler(BaseHandler):
 
                     response_obj = cart.Save()
 
+                    product.updateAdded(product.sku)
+
                     if "success" in response_obj:
                         self.write("ok")
                     else:

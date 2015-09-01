@@ -38,6 +38,8 @@ class Product(BaseModel):
         self._size_id = ""
         self._bulk_price = 0
         self._position = 1
+        self._added = 0
+        self._sold = 0
 
     @property
     def upc(self):
@@ -263,6 +265,22 @@ class Product(BaseModel):
     def position(self, value):
         self._position = value
 
+    @property
+    def added(self):
+        return self._added
+
+    @added.setter
+    def added(self, value):
+        self._added = value
+
+    @property
+    def sold(self):
+        return self._sold
+
+    @sold.setter
+    def sold(self, value):
+        self._sold = value
+
     def GetList(self, cellar_id, page=1, items=30):
 
         page = int(page)
@@ -345,6 +363,8 @@ class Product(BaseModel):
                 self.promotion_price = producto["promotion_price"]
                 self.bulk_price = producto['bulk_price']
                 self.position = producto["position"]
+                self.added = producto["added"]
+                self.sold = producto["sold"]
 
                 return self.ShowSuccessMessage("{}".format(self.id))
             else:
@@ -401,6 +421,8 @@ class Product(BaseModel):
                 self.promotion_price = producto["promotion_price"]
                 self.bulk_price = producto['bulk_price']
                 self.position = producto["position"]
+                self.added = producto["added"]
+                self.sold = producto["sold"]
 
                 return self.ShowSuccessMessage("{}".format(self.id))
             else:
@@ -574,6 +596,8 @@ class Product(BaseModel):
                 self.promotion_price = producto["promotion_price"]
                 self.bulk_price = producto['bulk_price']
                 self.position = producto["position"]
+                self.added = producto["added"]
+                self.sold = producto["sold"]
 
                 return self.ShowSuccessMessage("{}".format(self.id))
             else:
@@ -782,3 +806,51 @@ class Product(BaseModel):
             return self.ShowSuccessMessage(cur.rowcount)
         except Exception, e:
             return self.ShowError(str(e))
+
+    def updateAdded(self, sku):
+
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
+
+        query = '''
+                update "Product"
+                set added = added + 1
+                where sku = %(sku)s
+                '''
+
+        parameters = {
+            "sku": sku
+        }
+
+        try:
+            cur.execute(query, parameters)
+            self.connection.commit()
+        except:
+            pass
+        finally:
+            cur.close()
+            self.connection.close()
+
+    def updateSold(self, sku):
+
+        cur = self.connection.cursor(
+            cursor_factory=psycopg2.extras.RealDictCursor)
+
+        query = '''
+                update "Product"
+                set sold = sold + 1
+                where sku = %(sku)s
+                '''
+
+        parameters = {
+            "sku": sku
+        }
+
+        try:
+            cur.execute(query, parameters)
+            self.connection.commit()
+        except:
+            pass
+        finally:
+            cur.close()
+            self.connection.close()

@@ -534,6 +534,10 @@ class CheckoutSendHandler(BaseHandler):
                         detail.price = l['price']
                         detail.Save()
 
+                        product = Product()
+                        product.InitById(l["product_id"])
+                        product.updateSold(product.sku)
+
                         # if "error" in res_obj:
                         #     print "{}".format(res_obj["error"])
 

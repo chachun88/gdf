@@ -299,6 +299,9 @@ class XtCompraHandler(BaseHandler):
 
                             res_kardex = kardex.Insert()
 
+                            product = Product()
+                            product.updateSold(producto.sku)
+
                             if "error" in res_kardex:
                                 ExitoHandler.sendError("move a bodega reserva product_id {}, {}"
                                                        .format(l["product_id"],
