@@ -23,12 +23,12 @@
     </div>
     <div class="estilodevida clearfix">
         <a href="/store">
-        <img class="image" src="{{data['tienda_caluga']['thumb_200']}}" lp-load-big="{{data['tienda_caluga']['image']}}">
+        <img class="image" src="{% try %}{{data['tienda_caluga']['thumb_200']}}{% except %}{% end %}" lp-load-big="{% try %}{{data['tienda_caluga']['image']}}{% except %}{% end %}">
         </a>
     </div>
     <div class="queeslonuevo clearfix">
         <a href="/store/getproductsbytags/nuevo">
-        <img class="image" src="{{data['nuevo_caluga']['thumb_200']}}" lp-load-big="{{data['nuevo_caluga']['image']}}">
+        <img class="image" src="{% try %}{{data['nuevo_caluga']['thumb_200']}}{% except %}{% end %}" lp-load-big="{% try %}{{data['nuevo_caluga']['image']}}{% except %}{% end %}">
         </a>
     </div>
 <!--     <div class="queeslonuevo-small">
@@ -38,12 +38,12 @@
     </div> -->
     <div class="comunidad clearfix">
         <a href="https://instagram.com/gianidafirenze/" target="_blank">
-        <img class="image" src="{{data['instagram']['thumb_200']}}" lp-load-big="{{data['instagram']['image']}}">
+        <img class="image" src="{% try %}{{data['instagram']['thumb_200']}}{% except %}{% end %}" lp-load-big="{% try %}{{data['instagram']['image']}}{% except %}{% end %}">
         </a>
     </div>
     <div class="tienda clearfix">
         <a href="/history">
-        <img class="image" src="{{data['historia']['thumb_200']}}" lp-load-big="{{data['historia']['image']}}">
+        <img class="image" src="{% try %}{{data['historia']['thumb_200']}}{% except %}{% end %}" lp-load-big="{% try %}{{data['historia']['image']}}{% except %}{% end %}">
         </a>
         
     </div>
