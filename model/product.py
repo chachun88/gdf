@@ -37,6 +37,7 @@ class Product(BaseModel):
         self._promotion_price = 0
         self._size_id = ""
         self._bulk_price = 0
+        self._position = 1
 
     @property
     def upc(self):
@@ -253,6 +254,14 @@ class Product(BaseModel):
     @bulk_price.setter
     def bulk_price(self, value):
         self._bulk_price = value
+
+    @property
+    def position(self):
+        return self._position
+
+    @position.setter
+    def position(self, value):
+        self._position = value
 
     def GetList(self, cellar_id, page=1, items=30):
 
