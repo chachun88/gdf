@@ -37,7 +37,7 @@ class Product(BaseModel):
         self._promotion_price = 0
         self._size_id = ""
         self._bulk_price = 0
-        self._position = 1
+        self._position = 0
         self._added = 0
         self._sold = 0
 
@@ -289,7 +289,8 @@ class Product(BaseModel):
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         try:
             q = '''\
-                select p.*,c.name as category from "Product" p 
+                select nullif(position, 0) as position, p.*,c.name as category
+                from "Product" p 
                 inner join "Category" c on c.id = p.category_id 
                 inner join (select product_sku, sum(balance_units) as balance_units from 
                                 (select distinct on(product_sku, size_id) product_sku, 
@@ -301,7 +302,7 @@ class Product(BaseModel):
                                 group by product_sku
                             ) k on k.product_sku = p.sku
                 where p.for_sale = 1 and k.balance_units > 0 and p.deleted = %(deleted)s
-                order by p.position desc
+                order by p.position asc nulls last, p.id desc
                 limit %(items)s offset %(offset)s'''
             p = {
                 "items": items,
@@ -437,7 +438,7 @@ class Product(BaseModel):
 
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
-        q = '''select p.*,c.name as category from "Product" p 
+        q = '''select nullif(position, 0) as position, p.*,c.name as category from "Product" p 
             inner join "Category" c on c.id = p.category_id 
             inner join (select product_sku, sum(balance_units) AS balance_units from
                             (select distinct on(product_sku, size_id) product_sku,
@@ -449,7 +450,7 @@ class Product(BaseModel):
                             group by product_sku
                         ) k on k.product_sku = p.sku
             where lower(p.name) like %(name)s and p.for_sale = 1 and k.balance_units > 0 and deleted = %(deleted)s 
-            order by p.position desc
+            order by p.position asc nulls last, p.id desc
             limit 4'''
         p = {
             "name": "%" + name.lower() + "%",
@@ -490,7 +491,7 @@ class Product(BaseModel):
                             group by product_sku
                         ) k on k.product_sku = p.sku
             where p.deleted = %(deleted)s and p.for_sale = 1 and k.balance_units > 0 and tag_id = any(%(tags_id)s) 
-            order by p.position desc
+            order by p.position asc nulls last, p.id desc
             LIMIT 4'''
         p = {
             "cellar_id": cellar_id,
@@ -634,7 +635,7 @@ class Product(BaseModel):
             cursor_factory=psycopg2.extras.RealDictCursor)
 
         if len(categories) > 0 and len(sizes) > 0:
-            q = '''select p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
+            q = '''select nullif(position, 0) as position, p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
                     inner join (select product_sku, sum(balance_units) AS balance_units from
@@ -651,7 +652,7 @@ class Product(BaseModel):
                     and k.balance_units > 0 
                    and tp.tag_id = any(%(categories)s::int[]) 
                    group by p.id, c.name
-                   order by p.position desc
+                   order by p.position asc nulls last, p.id desc
                    offset %(offset)s limit %(limit)s'''
             p = {
                 "categories": categories,
@@ -663,7 +664,7 @@ class Product(BaseModel):
             }
 
         elif len(sizes) > 0:
-            q = '''select p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
+            q = '''select nullif(position, 0) as position, p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
                     inner join (select product_sku, sum(balance_units) AS balance_units from
@@ -679,7 +680,7 @@ class Product(BaseModel):
                     and deleted = %(deleted)s
                     and k.balance_units > 0 
                     group by p.id, c.name
-                    order by p.position desc
+                    order by p.position asc nulls last, p.id desc
                    offset %(offset)s limit %(limit)s'''
             p = {"sizes": sizes,
                  "limit": limit,
@@ -688,7 +689,7 @@ class Product(BaseModel):
                  "deleted": False}
 
         else:
-            q = '''select p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
+            q = '''select nullif(position, 0) as position, p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
                    inner join (select product_sku, sum(balance_units) AS balance_units from
@@ -705,7 +706,7 @@ class Product(BaseModel):
                    and k.balance_units > 0
                    and p.deleted = %(deleted)s
                    group by p.id, c.name
-                   order by p.position desc
+                   order by p.position asc nulls last, p.id desc
                    offset %(offset)s limit %(limit)s'''
             p = {"categories": categories,
                  "limit": limit,
@@ -730,7 +731,7 @@ class Product(BaseModel):
             cursor_factory=psycopg2.extras.RealDictCursor)
 
         if len(categories) > 0 and len(sizes) > 0:
-            q = '''select p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
+            q = '''select nullif(position, 0) as position, p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
                     inner join (select product_sku, sum(balance_units) AS balance_units from
@@ -747,7 +748,7 @@ class Product(BaseModel):
                     and k.balance_units > 0 
                    and tp.tag_id = any(%(categories)s::int[])
                    group by p.id, c.name
-                   order by p.position desc'''
+                   order by p.position asc nulls last, p.id desc'''
             p = {
                 "categories": categories,
                 "sizes": sizes,
@@ -756,7 +757,7 @@ class Product(BaseModel):
             }
 
         elif len(sizes) > 0:
-            q = '''select p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
+            q = '''select nullif(position, 0) as position, p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
                     inner join "Category" c on c.id = p.category_id
                     inner join "Tag_Product" tp on tp.product_id = p.id
                     inner join (select product_sku, sum(balance_units) AS balance_units from
@@ -772,13 +773,13 @@ class Product(BaseModel):
                     and deleted = %(deleted)s
                     and k.balance_units > 0 
                     group by p.id, c.name
-                    order by p.position desc'''
+                    order by p.position asc nulls last, p.id desc'''
             p = {"sizes": sizes,
                  "cellar_id": cellar_id,
                  "deleted": False}
 
         else:
-            q = '''select p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
+            q = '''select nullif(position, 0) as position, p.*,c.name as category, string_agg(tp.tag_id::text, ',') from "Product" p 
                    inner join "Category" c on c.id = p.category_id
                    inner join "Tag_Product" tp on tp.product_id = p.id
                    inner join (select product_sku, sum(balance_units) AS balance_units from
@@ -795,7 +796,7 @@ class Product(BaseModel):
                    and k.balance_units > 0
                    and p.deleted = %(deleted)s
                    group by p.id, c.name
-                   order by p.position desc'''
+                   order by p.position asc nulls last, p.id desc'''
 
             p = {"categories": categories,
                  "cellar_id": cellar_id,

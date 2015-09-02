@@ -1,17 +1,23 @@
     <div class="swiper-container content-13-inch" style="margin-top: 20px; margin-bottom: 20px;">
         <div class="swiper-wrapper">
+            {% if banner('banner1').thumbnail != '' %}
             <div class="swiper-slide"> 
                 <a href="/store"><img class="slider" u="image" src="{{banner('banner1').thumbnail}}" lp-load-big="{{banner('banner1').image}}" /></a>
 	            <img class="slider-small" src="https://static.loadingplay.com/static/images/200_3f1c799f605b10358a446a95bf36002a_Vuela-con-nosotros.png" lp-load-big="https://static.loadingplay.com/static/images/3f1c799f605b10358a446a95bf36002a_Vuela-con-nosotros.png">
 	        </div>
+            {% end %}
+            {% if banner('banner2').thumbnail != '' %}
             <div class="swiper-slide">
                 <img class="slider" u="image" src="{{banner('banner2').thumbnail}}" lp-load-big="{{banner('banner2').image}}" />
                 <img class="slider-small" src="https://static.loadingplay.com/static/images/200_6f01de24a6e15bba8464d7c87b94a1d1_visita-nuestra-tienda-9.png" lp-load-big="https://static.loadingplay.com/static/images/6f01de24a6e15bba8464d7c87b94a1d1_visita-nuestra-tienda-9.png">
-            </div> 
+            </div>
+            {% end %}
+            {% if banner('banner3').thumbnail != '' %}
             <div class="swiper-slide">
                 <img class="slider" u="image" src="{{banner('banner3').thumbnail}}" lp-load-big="{{banner('banner3').image}}" />
 	            <img class="slider-small" src="https://static.loadingplay.com/static/images/200_80db95f98f8d0aaecf5f84dab6447a08_visita-nuestra-tienda.png" lp-load-big="https://static.loadingplay.com/static/images/80db95f98f8d0aaecf5f84dab6447a08_visita-nuestra-tienda.png">
-	        </div> 
+	        </div>
+            {% end %}
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
