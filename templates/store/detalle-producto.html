@@ -208,7 +208,7 @@
                             {% if current_user != None and current_user['type_id'] == 4 %}
                                 <p class="text text-8">$ {{money_format(r["bulk_price"])}}</p>
                             {% else %}
-                                {% if data.promotion_price > 0 %}
+                                {% if int(data.promotion_price) > 0 %}
                                     <p class="text text-8">$ {{money_format(r["promotion_price"])}}</p>
                                 {% else %}
                                     <p class="text text-8">$ {{money_format(r["sell_price"])}}</p>
