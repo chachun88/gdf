@@ -205,16 +205,13 @@
                             </div>
                             <p class="text text-7">{{r['name']}}</p>
 
-                            {% if current_user is not None and current_user['type_id'] == 4 %}
-                                
-                                {% if int(data.bulk_price) > 0 %}
-                                    <p class="text text-8">$ {{money_format(data.bulk_price)}}</p>
-                                {% end %}
+                            {% if current_user != None and current_user['type_id'] == 4 %}
+                                <p class="text text-8">$ {{money_format(r["bulk_price"])}}</p>
                             {% else %}
-                                {% if int(data.promotion_price) > 0 %}
-                                    <p class="text text-8">$ {{money_format(data.promotion_price)}}</p>
+                                {% if r["promotion_price"] > 0 %}
+                                    <p class="text text-8">$ {{money_format(r["promotion_price"])}}</p>
                                 {% else %}
-                                    <p class="text text-8">$ {{money_format(data.sell_price)}}</p>
+                                    <p class="text text-8">$ {{money_format(r["sell_price"])}}</p>
                                 {% end %}
                             {% end %}
                         </div>
@@ -252,9 +249,7 @@
             <div class="ga-variant">{{data.color}}</div>
             <div class="ga-price">
             {% if current_user is not None and int(current_user['type_id']) == 4 %}
-                {% if data.bulk_price > 0 %}
-                    {{data.bulk_price}}
-                {% end %}
+                {{data.bulk_price}}
             {% else %}
                 {% if data.promotion_price > 0 %}
                     {{data.promotion_price}}
