@@ -478,7 +478,7 @@ class Product(BaseModel):
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
         q = '''\
-            SELECT p.*, c.name as category FROM "Product" p 
+            SELECT nullif(position, 0) as posicion, p.*, c.name as category FROM "Product" p 
             inner join "Category" c on c.id = p.category_id 
             inner join (select distinct on(product_id) * from "Tag_Product") tp on tp.product_id = p.id
             inner join (select product_sku, sum(balance_units) AS balance_units from

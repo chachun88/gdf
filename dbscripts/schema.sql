@@ -9386,3 +9386,10 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 -- PostgreSQL database dump complete
 --
 
+
+CREATE TABLE "Region"
+(
+   id integer, 
+   name text, 
+   CONSTRAINT pk_region PRIMARY KEY (id)
+) 
