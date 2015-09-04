@@ -205,7 +205,7 @@
                             </div>
                             <p class="text text-7">{{r['name']}}</p>
 
-                            {% if current_user != None and current_user['type_id'] == 4 %}
+                            {% if current_user is not None and current_user['type_id'] == 4 %}
                                 
                                 {% if int(data.bulk_price) > 0 %}
                                     <p class="text text-8">$ {{money_format(r["bulk_price"])}}</p>
