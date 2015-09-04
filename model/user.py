@@ -727,12 +727,15 @@ class User(BaseModel):
             p = '''\
                 update "User" 
                 set password = %(password)s 
-                where id = %(id)s and (type_id = %(user_type)s or type_id = %(user_type_visita)s)'''
+                where id = %(id)s and type_id = any(%(type_id)s)'''
             q = { 
                 "id": id, 
                 "password" : password,
-                "user_type": self.getUserTypeID(UserType.CLIENTE),
-                "user_type_visita": self.getUserTypeID(UserType.VISITA)
+                "type_id": [
+                    self.getUserTypeID(UserType.CLIENTE), 
+                    self.getUserTypeID(UserType.VISITA),
+                    self.getUserTypeID(UserType.EMPRESA)
+                ]
             }
 
             # c
