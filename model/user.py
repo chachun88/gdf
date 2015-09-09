@@ -23,6 +23,7 @@ class UserType(object):
     CLIENTE = "Cliente"
     EMPRESA = "Cliente Mayorista"
     VISITA = "Visita"
+    BODEGA = "Bodega"
 
 
 class User(BaseModel):
