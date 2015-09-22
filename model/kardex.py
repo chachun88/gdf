@@ -28,6 +28,7 @@ class Kardex(BaseModel):
         self._date = str(datetime.now(pytz.timezone('Chile/Continental')).isoformat())
         self._user = ""
         self._size_id = ""
+        self._order_id = None
 
     OPERATION_BUY = "buy"
     OPERATION_SELL = "sell"
@@ -154,6 +155,13 @@ class Kardex(BaseModel):
     def size_id(self, value):
         self._size_id = value
 
+    @property
+    def order_id(self):
+        return self._order_id
+
+    @order_id.setter
+    def order_id(self, value):
+        self._order_id = value
 
     def Save(self):
         return ''
@@ -192,6 +200,7 @@ class Kardex(BaseModel):
             self.date = kardex["date"]
             self.user = kardex["user"]
             self.cellar_identifier = kardex["cellar_id"]
+            self.order_id = kardex["order_id"]
             return self.ShowSuccessMessage("kardex has been initialized")
         except Exception, e:
             return self.ShowError("kardex not found, {}".format(str(e)))
@@ -266,6 +275,7 @@ class Kardex(BaseModel):
                 new_kardex.date = kardex["date"]
                 new_kardex.user = kardex["user"]
                 new_kardex.cellar_identifier = kardex["cellar_id"]
+                new_kardex.order_id = kardex["order_id"]
         except:
             return self.ShowError("kardex not found")
 
@@ -345,11 +355,42 @@ class Kardex(BaseModel):
             "balance_price": self.balance_price,
             "balance_total": self.balance_total,
             "date": self.date,
-            "user": self.user
+            "user": self.user,
+            "order_id": self.order_id
         }
 
         try:
-            query = '''insert into "Kardex" (balance_total,product_sku,cellar_id,operation_type,units,price,sell_price,size_id,color,total,balance_units,balance_price,date,"user") values (%(balance_total)s,%(product_sku)s,%(cellar_id)s,%(operation_type)s,%(units)s,%(price)s,%(sell_price)s,%(size_id)s,%(color)s,%(total)s,%(balance_units)s,%(balance_price)s,%(date)s,%(user)s)'''
+            query = '''\
+                    insert into "Kardex" (balance_total,
+                                            product_sku,
+                                            cellar_id,
+                                            operation_type,
+                                            units,
+                                            price,
+                                            sell_price,
+                                            size_id,
+                                            color,
+                                            total,
+                                            balance_units,
+                                            balance_price,
+                                            date,
+                                            "user",
+                                            order_id) 
+                    values (%(balance_total)s,
+                            %(product_sku)s,
+                            %(cellar_id)s,
+                            %(operation_type)s,
+                            %(units)s,
+                            %(price)s,
+                            %(sell_price)s,
+                            %(size_id)s,
+                            %(color)s,
+                            %(total)s,
+                            %(balance_units)s,
+                            %(balance_price)s,
+                            %(date)s,
+                            %(user)s,
+                            %(order_id)s)'''
             cur.execute(query, parametros)
             # return cur.mogrify(query,parametros)
             self.connection.commit()
