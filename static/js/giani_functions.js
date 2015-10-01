@@ -7,7 +7,7 @@ var fancyAlert = function(msg) {
              +"<div class=\"content\">"
              + msg
              + "<div style=\"margin-top: 40px; text-align:center; width: 100%;\">"
-             + "<input style=\"text-transform:uppercase;background-color: #d55d7c;margin:0px;padding:5px;width:70%; height: 40px; border: 1px solid white; color: white; font-size: 15px;\" type=\"button\" onclick=\"jQuery.fancybox.close();\" value=\"Cerrar\">"
+             + "<input style=\"text-transform:uppercase;background-color: #bfd2c3;margin:0px;padding:5px;width:70%; height: 40px; border: 1px solid white; color: white; font-size: 15px;\" type=\"button\" onclick=\"jQuery.fancybox.close();\" value=\"Cerrar\">"
              + "</div>"
              + "</div>";
 

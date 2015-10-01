@@ -742,5 +742,9 @@ body {
     width: auto !important;
     clear: none !important;
     padding-left: 10px !important;
-    color: rgb(240, 77, 77) !important;
+    color: #869388 !important;
+}
+
+a:hover, a:focus {
+    color: #869388;
 }
