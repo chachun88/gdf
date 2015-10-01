@@ -36,7 +36,7 @@
 
 #order_step.orderStep li
 {
-  background: rgb(255, 224, 218);
+  background: #bfd2c3;
 }
 
 #order_step.orderStep li i {
@@ -44,7 +44,7 @@
 }
 
 #order_step.orderStep li.active {
-  background: #bfd2c3;
+  background: #869888;
   color: #FFFFFF;
 }
 
