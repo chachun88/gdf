@@ -79,7 +79,7 @@ form {
 	width: 100%;
 	text-align: center;
 	text-transform: uppercase;
-	color:  rgb(231, 169, 156);
+	color: #869388;
 }
 
 .mensaje-error h2{
@@ -102,7 +102,7 @@ width: 80%;
 	width: 100%;
 	text-align: center;
 	text-transform: uppercase;
-	color:  rgb(231, 169, 156);
+	color: #869388;
 }
 .mensaje-error_succes form {
 	width: 100%;

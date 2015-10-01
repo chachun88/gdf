@@ -49,17 +49,17 @@
     width: 80%;
     margin: 10px auto 10px 10%;
     /* border: 1px solid rgb(168, 168, 168); */
-    padding: 0% 0% 0% 5%;
+    /*padding: 0% 0% 0% 5%;*/
     margin-bottom: 20px;
     color: white;
-    background-color: rgb(231, 169, 156);
+    background-color: #869388;
     font-size: 18px;
     letter-spacing: 1px;
 }
 
 .contenedor-contacto-form form button:hover {
-    background-color: #FEBEBD;
-border-color: #f78684;
+    background-color: #bfd2c3;
+border-color: #bfd2c3;
 color: #FFFFFF; }
 .contacto-centrar {
     max-width: 500px;

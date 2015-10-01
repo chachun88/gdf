@@ -134,7 +134,7 @@ body {
     font-size: 2.917em;
     font-weight: 400;
     line-height: 1.38;
-    color: rgb(232, 169, 156);
+    color: #bfd2c3;
 }
 .producto-foto {
     position: relative;
@@ -166,7 +166,7 @@ body {
     width: 100.5988023952%;
     min-height: 23px;
     margin: 0 auto;
-    background-color: #FEBEBD;
+    background-color: #bfd2c3;
     font-size: 1em;
     line-height: 1.88;
     text-align: center;
@@ -200,7 +200,7 @@ body {
     margin: 17px 0 0 10%;
     border-width: 0px;
     border-color: rgb(172, 110, 97);
-    background-color: rgb(231, 169, 156);
+    background-color: #869388;
     font-size: 1.333em;
     line-height: 1.38;
     text-align: center;
@@ -208,7 +208,7 @@ body {
     color: white;
 }
 .container ._button:hover {
-    background-color: #FEBEBD;
+    background-color: #bfd2c3;
     border-color: #f78684;
     color: #FFFFFF;
 }
@@ -272,7 +272,7 @@ body {
     width: 80%;
     height: 240px;
     margin: 49px 0 0 10%;
-    border-top: 1px solid #FEBEBD;
+    border-top: 1px solid #bfd2c3;
     /* border-bottom: 1px solid rgb(172, 110, 97);
     */
     padding: 0px;
@@ -583,7 +583,7 @@ body {
     height: 194px;
     margin-top: 23px;
     padding: 80px 5px 0px 5px;
-    background-color: #FEBEBD;
+    background-color: #bfd2c3;
     font-size: 1em;
     line-height: 1.5;
     text-align: center;
@@ -1719,7 +1719,7 @@ body {
     width: 100% !important;
     clear: none !important;
     /* padding-left: 10px !important; */
-    color: rgb(240, 77, 77) !important;
+    color: #869388 !important;
     }
 
 .datos-analytic

@@ -50,7 +50,7 @@ top: 0;
   float: left;
   clear: both;
   width: 99.9958989501%;
-  border: 1px solid #FEBEBD;
+  border: 1px solid #bfd2c3;
   background-color: white;
   min-height: 100px;
 }
@@ -97,7 +97,7 @@ float: left;
 width: 93.9352710781%;
 height: 107px;
 margin: 1px 0 0 2.63451%;
-border-bottom: 1px solid #FEBEBD;
+border-bottom: 1px solid #bfd2c3;
 color: rgb(104, 104, 104) !important;
 }
 .total {
@@ -145,7 +145,7 @@ color: rgb(104, 104, 104) !important;
   float: left;
   clear: both;
   width: 99.9958989501%;
-  border: 1px solid #FEBEBD;
+  border: 1px solid #bfd2c3;
   background-color: rgb(255, 255, 255);
   min-height: 100px;
 }
@@ -300,7 +300,7 @@ color: rgb(104, 104, 104) !important;
   width: 40.8987837559%;
   height: 41px;
   margin: 10px 0 0 5.80499%;
-  background-color: rgb(231, 169, 156);
+  background-color: #869388;
   font-size: 1.333em;
   font-weight: 300;
   line-height: 1.38;
@@ -308,7 +308,7 @@ color: rgb(104, 104, 104) !important;
   color: white;
 }
 .comprar:hover, .iralcarro:hover {
-  background-color: #FEBEBD;
+  background-color: #bfd2c3;
   border-color: #f78684;
   color: #FFFFFF;
 }
@@ -380,7 +380,7 @@ color: rgb(104, 104, 104) !important;
   width: 130px;
   height: 30px;
   border-width: 0px;
-  /* background-color: rgb(231, 169, 156); */
+  /* background-color: #869388; */
   font-size: 0.8em;
   font-weight: 300;
   line-height: 2.60;
@@ -391,7 +391,7 @@ color: rgb(104, 104, 104) !important;
   position: relative;
 }
 .header-rigth-cont ._button:hover {
-  /* background-color: #FEBEBD; */
+  /* background-color: #bfd2c3; */
   border-color: #f78684;
   color: #FFB8B8;
 }
@@ -542,7 +542,7 @@ img.cargando{
   margin-top: 10px;
 }
 .iconos:hover {
-  color: #FEBEBD;
+  color: #bfd2c3;
 }
 @media(max-width:1199px) {
   .carritoproductos {
