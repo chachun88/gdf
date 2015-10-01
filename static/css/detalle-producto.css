@@ -16,7 +16,7 @@ body {
 .categoria-1 {
 }
 .categoria-1:hover {
-    color: rgb(232, 169, 156);
+    color: #869388;
 }
 .categorias {
     float: left;
@@ -199,7 +199,7 @@ body {
     height: 39px;
     margin: 17px 0 0 10%;
     border-width: 0px;
-    border-color: rgb(172, 110, 97);
+    border-color: #869388;
     background-color: #869388;
     font-size: 1.333em;
     line-height: 1.38;
@@ -273,7 +273,7 @@ body {
     height: 240px;
     margin: 49px 0 0 10%;
     border-top: 1px solid #bfd2c3;
-    /* border-bottom: 1px solid rgb(172, 110, 97);
+    /* border-bottom: 1px solid #869388;
     */
     padding: 0px;
 }
@@ -459,20 +459,20 @@ body {
 .producto-nombre-4 {
     float: left;
     font-size: 1em;
-    color: rgb(172, 110, 97);
+    color: #869388;
 }
 .producto-nombre-5 {
     float: left;
     clear: both;
     margin-top: 5px;
     font-size: 1em;
-    color: rgb(172, 110, 97);
+    color: #869388;
 }
 .producto-nombre-6 {
     float: left;
     clear: both;
     font-size: 1em;
-    color: rgb(172, 110, 97);
+    color: #869388;
 }
 .text-11, .text-13, .text-7, .text-9 {
     float: left;
@@ -527,7 +527,7 @@ body {
 }
 .text-2:active {
     background-color: rgb(255, 255, 255);
-    color: rgb(172, 110, 97);
+    color: #869388;
 }
 .text-20 {
     z-index: 13;
