@@ -2770,10 +2770,22 @@ text-align: center;
 .mostrar-1 {
   display: none;
 }
-.reg-strate-fb img {
-  width: 100%;
+.reg-strate-login {
+  text-align: center;
+  font-family: serif;
+  font-weight: 700;
 }
-
+.reg-strate-fb img {
+  width: 60%;
+  margin-top: 20px;
+}
+.reg-strate-fb p {
+  padding-top: 20px;
+  padding-bottom: 10px;
+  font-family: serif;
+  font-weight: 700;
+  font-size: 12px;
+}
 .cuerpo-categorias .categorias a:first-child{
   margin-top: 10px;
 }

@@ -35,7 +35,7 @@
 }
 .descripcion_contenido_2 { width: 25%;}
 .descripcion_contenido h2, .descripcion_contenido h3{ font-size: 20px; font-weight: 400; margin-bottom: 20px;}
-.descripcion_contenido ul {font-size: 16px; }
+.descripcion_contenido ul {font-size: 16px; height: 70px;}
 .descripcion_contenido ul li {    position: relative;}
 .descripcion_cerrar{
 	width: 50px;

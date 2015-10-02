@@ -15,4 +15,7 @@ $(document).ready(function() {
         $(".tab-content-desc").not(tab).css("display", "none");
         $(tab).fadeIn();
     });
+    $(document).on("click", "#btn-registrate", function(){
+        $(".tabs-login a").trigger("click");
+    });
 });

@@ -13,28 +13,37 @@
 			<img class="" src="/{{nocache_static}}/images/mi-mundo-logo.png" style=" position: absolute; z-index: 1; margin-top: -38px; left: 50%; margin-left: -111;">
 			<div id="tabs-container" style="    width: 90%; margin-left: 5%; top: 50px; position: absolute;">
 				<ul class="tabs-menu tabs-login">
-					<li class="current"><a href="#tab-1">Log in</a></li>
-					<li><a href="#tab-2">Registrate</a></li>
+					<li class="current"><a href="#tab-1">&iquest;YA ERES PARTE DE MI MUNDO?</a></li>
+					<li><a href="#tab-2">&iquest;QUIERES SER PARTE DE MI MUNDO?</a></li>
 				</ul>
 				<div class="tab">
 					<div id="tab-1" class="tab-content tab-content-login">
 						<div class="reg-strate-login clearfix">
+                            <p>
+                                ENTRA AQU&Iacute;
+                            </p>
 
-							<form action="/auth/login" method="post" class="form-login">
+							<form action="/auth/login" method="post" class="form-login text-center">
 
-								<input class="_input new_input" placeholder="Ingresar Correo" type="email" name="email" required >
+								<input class="new_input" placeholder="Ingresar Correo" type="email" name="email" required >
 
-								<input class="_input new_input" placeholder="Ingresar Contraseña" type="password" name="password" required>
-								
-								<a class="parent-link" href="/auth/recuperar-contrasena">olvidé mi contraseña</a>
-
+								<input class="new_input" placeholder="Ingresar Contraseña" type="password" name="password" required>
+								<div>
+								    <a class="parent-link" href="/auth/recuperar-contrasena">Olvidé mi contraseña</a>
+                                </div>
 								<input type="hidden" name="user_id" value="" id="user_id">
-								<button class="_button" type="submit">INGRESAR</button>
+								<button class="_button" type="submit"><img src="/{{nocache_static}}/images/ingresar.png"></button>
 							</form>
 						</div>
 						<div class="reg-strate-fb clearfix">
+                            <div>
+                                <a>
+                                    <img id="btn-registrate" src="/{{nocache_static}}/images/registrate.png">
+                                </a>
+                            </div>
+                            <p>PUEDES REGISTRARTE POR</p>
 							<a href="/auth/facebook?next={{url_escape(nxt)}}" class="element element-2 loginfb parent-link"><img class="" src="/{{nocache_static}}/images/loginfacebook.png"></a>
-							<p style="width: 100%; text-align: center; font-size: 12px; color: black; margin-top: 5px;">Log-in con facebook</p>
+							<p style="width: 100%; text-align: center; font-size: 12px; color: black; margin-top: 5px;"></p>
 						</div>
 					</div>
 					<div id="tab-2" class="tab-content tab-content-login">
@@ -43,17 +52,17 @@
 							<form action="/auth/registro" method="post" class="form-register">
 
 								
-								<input class="_input _input-3 new_input margin-top" placeholder="INGRESAR NOMBRE" type="text" name="name" required >
+								<input class="_input _input-3 new_input margin-top" placeholder="ingresar nombre" type="text" name="name" required >
 
 
 							
-								<input class="_input _input-4 new_input margin-top" placeholder="INGRESAR CORREO" type="email" name="email" required >
+								<input class="_input _input-4 new_input margin-top" placeholder="ingresar correo" type="email" name="email" required >
 
 								
-								<input class="_input _input-5 new_input margin-top" placeholder="INGRESAR CONTRASEÑA" type="password" name="password" required >
+								<input class="_input _input-5 new_input margin-top" placeholder="ingresar contrase&ntilde;a" type="password" name="password" required >
 
 							
-								<input class="_input _input-6 new_input margin-top" placeholder="REPETIR CONTRASEÑA" type="password" name="re-password" required >
+								<input class="_input _input-6 new_input margin-top" placeholder="repetir contrase&ntilde;a" type="password" name="re-password" required >
 								<label class="aceptar-condiciones clearfix">
 									<input class="radio" type="checkbox" name="tos" style="width: auto; margin-right: 5px; margin-left: 5%;">
 									<p style="font-size: 12px;"><a href="/tos" style="float: none;">Estoy de acuerdo con las condiciones</a></p>
