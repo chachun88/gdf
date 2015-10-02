@@ -1,9 +1,9 @@
 body {
-padding: 20px;
-font-family: Arial, Helvetica, sans-serif;
-line-height: 1.5;
-font-size: 14px;  
-padding: 0;      
+    padding: 20px;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.5;
+    font-size: 14px;
+    padding: 0;
 }
 
 .tabs-menu {
@@ -38,45 +38,43 @@ z-index: 5;
 .tabs-menu li a {
     padding: 10px;
     text-transform: lowercase;
-    color: #000;
     text-decoration: none; 
     font-weight: 100;
     display: block;
 }
 
 .tabs-menu .current a {
-    color: black !important;
     font-weight: 700;
     display: block;
 }
 
 .tab {
-/* border: 2px solid white; */
-/* background-color: #F6F6F6; */
-float: left;
-margin-bottom: 20px;
-width: 100%;
-margin-top: -1px;
+    /* border: 2px solid white; */
+    /* background-color: #F6F6F6; */
+    float: left;
+    margin-bottom: 20px;
+    width: 100%;
+    margin-top: -1px;
 }
 
 .tab-content {
-width: 100%;
-/* padding: 20px; */
-display: none;
+    width: 100%;
+    /* padding: 20px; */
+    display: none;
 }
 
 #tab-1 {
- display: block;   
+    display: block;
 }
 @media (max-width: 479px){
-.tab {
-    border: 0px solid #d4d4d1; 
-    background-color: transparent; 
-    float: left;
-    margin-bottom: 0px;
-    width: 100%;
+    .tab {
+        border: 0px solid #d4d4d1; 
+        background-color: transparent; 
+        float: left;
+        margin-bottom: 0px;
+        width: 100%;
 
-}
+    }
 }
 .tabs-menu-li li {
     width: 100% !important;
@@ -87,12 +85,8 @@ display: none;
     margin-top: 20px;
 }
 .reg-strate-login a {
-    color: black;
     float: right;
     font-size: 12px;
     margin-top: 7px;
     margin-right: 10%;
-}
-.tab-2 .tab-content {
-    color: gray;
 }
