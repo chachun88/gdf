@@ -90,3 +90,6 @@ z-index: 5;
     margin-top: 7px;
     margin-right: 10%;
 }
+.loginpopup a, .loginpopup p{
+  color: #3a3a3a;
+}
