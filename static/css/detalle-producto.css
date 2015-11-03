@@ -199,8 +199,8 @@ body {
     height: 39px;
     margin: 17px 0 0 10%;
     border-width: 0px;
-    border-color: #869388;
-    background-color: #869388;
+    background-color: #bfd2c3;
+    border-color: #bfd2c3;
     font-size: 1.333em;
     line-height: 1.38;
     text-align: center;
@@ -208,9 +208,10 @@ body {
     color: white;
 }
 .container ._button:hover {
-    background-color: #bfd2c3;
-    border-color: #f78684;
+    
     color: #FFFFFF;
+    border-color: #869388;
+    background-color: #869388;
 }
 .categoria-1-1, .categoria-1-2, .categoria-1-3, .categoria-1-4 {
     color: rgb(77, 77, 77);

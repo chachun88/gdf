@@ -304,7 +304,7 @@ color: rgb(104, 104, 104) !important;
   width: 40.8987837559%;
   height: 41px;
   margin: 10px 0 0 5.80499%;
-  background-color: #869388;
+  background-color: #bfd2c3;
   font-size: 1.333em;
   font-weight: 300;
   line-height: 1.38;
@@ -312,7 +312,7 @@ color: rgb(104, 104, 104) !important;
   color: white;
 }
 .comprar:hover, .iralcarro:hover {
-  background-color: #bfd2c3;
+  background-color: #869388;
   border-color: #f78684;
   color: #FFFFFF;
 }
