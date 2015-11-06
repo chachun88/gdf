@@ -77,6 +77,12 @@ $(document).ready(function() {
             onProductClick(id, name, category, brand, variant, tag);
         }
     });
+
+    var hash = window.location.href.split("#")[1];
+
+    // console.log("a.page-link:contains(" + hash + ")");
+
+    $( "a.page-link:contains('" + hash + "')" ).trigger("click");
 });
 
 function onProductClick(id, name, category, brand, variant, tag) {

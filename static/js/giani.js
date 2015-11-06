@@ -126,6 +126,10 @@ $(document).ready(function(){
 
         e.preventDefault();
 
+        var uri = window.location.href.split("#")[0];
+
+        document.location.href = uri + "#" + $(".simple-pagination span.current").first().text();
+
         var url = $(this).attr("href");
         
         /*var parts = url.split("#");
@@ -232,4 +236,5 @@ $(document).ready(function(){
 
         window.location.href='/store';
     });
+
 });
