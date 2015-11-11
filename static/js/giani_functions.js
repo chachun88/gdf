@@ -1,4 +1,4 @@
-var fancyAlert = function(msg) {
+var fancyAlert = function(msg, callback) {
 
 
     var html = "<div class=\"iconosalarmas\">"
@@ -11,13 +11,19 @@ var fancyAlert = function(msg) {
              + "</div>"
              + "</div>";
 
-    jQuery.fancybox({
-        'modal' : true,
-        'content' : html
-      
-
-    });
-}
+    if(callback!==undefined){
+        jQuery.fancybox({
+            'modal' : true,
+            'content' : html,
+            'afterClose': callback
+        });
+    } else {
+        jQuery.fancybox({
+            'modal' : true,
+            'content' : html
+        });
+    }
+};
 
 var fancyAlertStock = function(msg) {
 

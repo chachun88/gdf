@@ -150,7 +150,10 @@ $(document).ready(function(){
 
 				if (rtn_pair["success"]!=undefined) 
 				{
-					window.location.href = rtn_pair["success"];
+					var callback = function(){
+						window.location.href = rtn_pair["success"];
+					};
+					fancyAlert("Gracias por registrarte, ahora puedes seguir navegando en nuestra página", callback);
 				}
 				else
 				{
