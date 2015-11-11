@@ -1,717 +1,702 @@
 .salir_registro div {
-  display: none;
+    display: none;
 }
 .salir_registro:hover div {
-  display: inline;
+    display: inline;
 }
 .salir_registro_1 {
-color: white;
-width: 100%;
-height: 100%;
-font-size: 12px;
-/* margin-top: -30px; */
-z-index: 300;
-line-height: 2em;
-text-align: center;
-position: absolute;
-top: 0;
+    color: white;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;/* margin-top: -30px; */
+    z-index: 300;
+    line-height: 2em;
+    text-align: center;
+    position: absolute;
+    top: 0;
 }
 .header-left-social {
-  width: 80%;
-  height: auto;
-  float: left;
-  margin-top: 60px;
+    width: 80%;
+    height: auto;
+    float: left;
+    margin-top: 60px;
 }
 .iconos {
-  float: left;
-  color: rgb(77, 77, 77);
-  text-align: center;
+    float: left;
+    color: rgb(77, 77, 77);
+    text-align: center;
 }
 .iconos i {
-  font-size: 25px;
+    font-size: 25px;
 }
 .iconos-left {
-  margin-left: 7px;
+    margin-left: 7px;
 }
 .margin-left-2 {
-  margin-left: 0%;
+    margin-left: 0%;
 }
 .carritoicono {
-  float: right;
-  height: 30px;
-  margin: 16px 0 0 29.63997%;
+    float: right;
+    height: 30px;
+    margin: 16px 0 0 29.63997%;
 }
 .carritoicono .image {
-  float: left;
-  width: 30px;
-  margin-left: -3.28125%;
+    float: left;
+    width: 30px;
+    margin-left: -3.28125%;
 }
 .carritoinfo {
-  float: left;
-  clear: both;
-  width: 99.9958989501%;
-  border: 1px solid #bfd2c3;
-  background-color: white;
-  min-height: 100px;
+    float: left;
+    clear: both;
+    width: 99.9958989501%;
+    border: 1px solid #bfd2c3;
+    background-color: white;
+    min-height: 100px;
 }
 .carritoproductos {
-  display: none;
-  position: absolute;
-  top: 46px;
-  left: 66.2%;
-  z-index: 80;
-  width: 27.2142857142%;
+    display: none;
+    position: absolute;
+    top: 46px;
+    left: 66.2%;
+    z-index: 80;
+    width: 27.2142857142%;
 }
 .flecha {
-  float: left;
-  width: 100%;
-  height: 14px;
-  margin-top: -1px;
-  position: relative;
+    float: left;
+    width: 100%;
+    height: 14px;
+    margin-top: -1px;
+    position: relative;
 }
 .flecha .image {
-  float: left;
-  width: 15px;
-  margin: 1px 0 0 53.5269%;
+    float: left;
+    width: 15px;
+    margin: 1px 0 0 53.5269%;
 }
 .flecharegistro {
-  position: relative;
-  float: left;
-  clear: both;
-  z-index: 87;
-  width: 99.9906994047%;
-  height: 15px;
-  margin-top: -128px;
+    position: relative;
+    float: left;
+    clear: both;
+    z-index: 87;
+    width: 99.9906994047%;
+    height: 15px;
+    margin-top: -128px;
 }
 .flecharegistro .image {
-  float: left;
-  width: 15px;
-  margin-left: 45.53065%;
+    float: left;
+    width: 15px;
+    margin-left: 45.53065%;
 }
 .text {
-  float: left;
+    float: left;
 }
 .productosencola {
- position: relative;
-float: left;
-width: 93.9352710781%;
-height: 107px;
-margin: 1px 0 0 2.63451%;
-border-bottom: 1px solid #bfd2c3;
-color: rgb(104, 104, 104) !important;
+    position: relative;
+    float: left;
+    width: 93.9352710781%;
+    height: 107px;
+    margin: 1px 0 0 2.63451%;
+    border-bottom: 1px solid #bfd2c3;
+    color: rgb(104, 104, 104) !important;
+    padding-right: 3%;
 }
 .total {
-  float: left;
-  clear: both;
-  width: 93.9352710781%;
-  margin-left: 2.74583%;
+    float: left;
+    clear: both;
+    width: 93.9352710781%;
+    margin-left: 2.74583%;
+    padding-right: 3%;
 }
 .totalcarrrito {
-  float: right;
-  width: 31.1317254174%;
-  min-height: 32px;
-  margin: 12px 2.63343% 0 0;
-  font-size: 1.333em;
-  font-weight: 500;
-  line-height: 1.58;
-  text-align: right;
-  color: rgb(0, 0, 0);
+    float: right;
+    width: 50%;
+    min-height: 32px;
+    margin: 12px 0 0 0;
+    font-size: 1.333em;
+    font-weight: 500;
+    line-height: 1.58;
+    text-align: right;
+    color: rgb(0, 0, 0);
 }
 .acciones {
-  float: left;
-  clear: both;
-  width: 100.004101218%;
-  height: 60px;
-  margin-top: 2px;
+    float: left;
+    clear: both;
+    width: 100.004101218%;
+    height: 60px;
+    margin-top: 2px;
 }
 .registroopciones {
-  visibility: hidden;
-  position: absolute;
-  top: 46px;
-  left: 78%;
-  z-index: 88;
-  width: 12%;
+    visibility: hidden;
+    position: absolute;
+    top: 46px;
+    left: 78%;
+    z-index: 88;
+    width: 12%;
 }
 .opcionesregistro {
-  position: relative;
-  float: left;
-  z-index: 85;
-  width: 99.9906994047%;
-  margin-top: 13px;
-  border: 1px solid rgb(232, 169, 156);
-  background-color: rgb(255, 224, 218);
+    position: relative;
+    float: left;
+    z-index: 85;
+    width: 99.9906994047%;
+    margin-top: 13px;
+    border: 1px solid rgb(232, 169, 156);
+    background-color: rgb(255, 224, 218);
 }
 .opcionesregistro .text {
-  float: left;
-  clear: both;
-  width: 99.9958989501%;
-  border: 1px solid #bfd2c3;
-  background-color: rgb(255, 255, 255);
-  min-height: 100px;
+    float: left;
+    clear: both;
+    width: 99.9958989501%;
+    border: 1px solid #bfd2c3;
+    background-color: rgb(255, 255, 255);
+    min-height: 100px;
 }
 .header-clearfix {
-  clear: both;
+    clear: both;
 }
 .body-login {
-  visibility: visible;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 118;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.43);
+    visibility: visible;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 118;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.43);
 }
 .loginpopup {
 }
 .reg-strate-correo {
-  float: left;
-  clear: both;
-  width: 46.8113975576%;
-  margin-left: 1.66667%;
-  padding-bottom: 30px;
+    float: left;
+    clear: both;
+    width: 46.8113975576%;
+    margin-left: 1.66667%;
+    padding-bottom: 30px;
 }
 .reg-strate-correo .text {
-  line-height: 1.38;
-  color: rgb(0, 0, 0);
+    line-height: 1.38;
+    color: rgb(0, 0, 0);
 }
 .reg-strate-fb {
-  float: left;
-  width: 50%;
-  text-align: center;
+    float: left;
+    width: 50%;
+    text-align: center;
 }
 .reg-strate-login {
-  position: relative;
-  float: left;
-  z-index: 99;
-  width: 50%;
-  margin: 0 auto;
-  border-right: 1px solid gray;
+    position: relative;
+    float: left;
+    z-index: 99;
+    width: 50%;
+    margin: 0 auto;
+    border-right: 1px solid gray;
 }
-.reg-strate-login > p{
-  margin-bottom: 10px;
+.reg-strate-login > p {
+    margin-bottom: 10px;
 }
 .reg-strate-login-1 {
-  position: relative;
-  float: none;
-  width: 100% !important;
-  margin: 0px 0 0 0;
-  border-right: 0px;
+    position: relative;
+    float: none;
+    width: 100% !important;
+    margin: 0px 0 0 0;
+    border-right: 0px;
 }
 .reg-strate-login .text {
-  margin-left: -0.1317%;
-  line-height: 1.38;
-  color: rgb(0, 0, 0);
-  margin-top: 10px;
+    margin-left: -0.1317%;
+    line-height: 1.38;
+    color: rgb(0, 0, 0);
+    margin-top: 10px;
 }
 .fotoproductoencola {
-  position: relative;
-  float: left;
-  width: 19.6629213483%;
-  height: 70px;
-  margin: 16px 0 0 3.65169%;
+    position: relative;
+    float: left;
+    width: 19.6629213483%;
+    height: 100%;
+    margin: 16px 0 0 3.65169%;
 }
 .fotoproductoencola .image {
-  position: absolute;
-  top: 0;
-  left: -0.5580357143%;
-  z-index: 68;
-  width: 70px;
+    position: absolute;
+    top: 0;
+    left: -0.5580357143%;
+    z-index: 68;
+    width: 70px;
 }
 .nombreproductoencola {
-  position: relative;
-  float: left;
-  z-index: 70;
-  width: 36.9393139841%;
-  min-height: 16.5px;
-  margin: 10px 0 0 7.54477%;
-  font-size: 1.167em;
-  font-weight: 400;
-  line-height: 1.38;
+    position: relative;
+    float: left;
+    z-index: 70;
+    width: 50%;
+    min-height: 16.5px;
+    margin: 10px 0 0 7.54477%;
+    font-size: 1.167em;
+    font-weight: 400;
+    line-height: 1.38;
 }
 .color {
-  clear: both;
-  float: left;
-  font-size: 1em;
-  font-weight: 400;
-  height: 15px;
-  line-height: 1.38;
-  margin: -57px 0 0 30.8594%;
-  min-height: 16.5px;
-  overflow: hidden;
-  position: relative;
-  width: 36.9393%;
-  z-index: 71;
+    clear: both;
+    float: left;
+    font-size: 1em;
+    font-weight: 400;
+    height: 15px;
+    line-height: 1.38;
+    margin: -90px 0 0 30.8594%;
+    min-height: 16.5px;
+    overflow: hidden;
+    position: relative;
+    width: 36.9393%;
+    z-index: 71;
 }
 .eliminarproducto {
-  display: block;
-  position: relative;
-  float: left;
-  z-index: 73;
-  width: 8.7071240105%;
-  height: 23px;
-  margin: -76px 0 0 91.28775%;
-  border-radius: 3px;
-  font-size: 1.333em;
-  font-weight: 400;
-  line-height: 1.38;
-  text-align: center;
-  color: rgb(172, 110, 97);
+    display: block;
+    position: absolute;
+    top: 85px;
+    right: 0;
+    z-index: 73;
+    width: 8.7071240105%;
+    height: 23px;
+    margin: -76px 0 0 91.28775%;
+    border-radius: 3px;
+    font-size: 1.333em;
+    font-weight: 400;
+    line-height: 1.38;
+    text-align: center;
+    color: rgb(172, 110, 97);
 }
 .eliminarproducto:hover {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  background-color: rgb(232, 169, 156);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: rgb(232, 169, 156);
 }
 .talla {
-  position: relative;
-  float: left;
-  z-index: 74;
-  width: 36.9393139841%;
-  min-height: 16.5px;
-  margin: -39px 0 0 30.90327%;
-  font-size: 1em;
-  font-weight: 400;
-  line-height: 1.38;
+    position: relative;
+    float: left;
+    z-index: 74;
+    width: 36.9393139841%;
+    min-height: 16.5px;
+    margin: -74px 0 0 30.90327%;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.38;
 }
 .cantidad {
-  position: relative;
-  float: left;
-  z-index: 75;
-  width: 19.6629213483%;
-  min-height: 16.5px;
-  margin: -16px 0 0 30.90327%;
-  font-size: 1em;
-  font-weight: 400;
-  line-height: 1.38;
+    position: relative;
+    float: left;
+    z-index: 75;
+    width: 19.6629213483%;
+    min-height: 16.5px;
+    margin: -56px 0 0 30.90327%;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.38;
 }
 .precio {
-  position: relative;
-  float: left;
-  z-index: 72;
-  width: 36.9393139841%;
-  min-height: 16.5px;
-  margin: -21px 0 0 8.89221%;
-  font-size: 1.333em;
-  font-weight: 400;
-  line-height: 1.38;
-  text-align: right;
+    position: relative;
+    float: right;
+    z-index: 72;
+    width: 36.9393139841%;
+    min-height: 16.5px;
+    margin: -50px 0 0 8.89221%;
+    font-size: 1.333em;
+    font-weight: 400;
+    line-height: 1.38;
+    text-align: right;
 }
 .comprar, .iralcarro {
-  display: block;
-  float: left;
-  width: 40.8987837559%;
-  height: 41px;
-  margin: 10px 0 0 5.80499%;
-  background-color: #bfd2c3;
-  font-size: 1.333em;
-  font-weight: 300;
-  line-height: 1.38;
-  text-align: center;
-  color: white;
+    display: block;
+    float: left;
+    width: 40.8987837559%;
+    height: 41px;
+    margin: 10px 0 0 5.80499%;
+    background-color: #bfd2c3;
+    font-size: 1.333em;
+    font-weight: 300;
+    line-height: 1.38;
+    text-align: center;
+    color: white;
 }
 .comprar:hover, .iralcarro:hover {
-  background-color: #869388;
-  border-color: #f78684;
-  color: #FFFFFF;
+    background-color: #869388;
+    border-color: #f78684;
+    color: #FFFFFF;
 }
 .header-content {
-  position: relative;
-  /* float: left; */
-  z-index: 60;
-  width: 100%;
-  height: 180px;
-  background-image: url(/static/images/up.png);
-  background-repeat: no-repeat;
-  background-position: center top;
+    position: relative;  /* float: left; */
+    z-index: 60;
+    width: 100%;
+    height: 180px;
+    background-image: url(/static/images/up.png);
+    background-repeat: no-repeat;
+    background-position: center top;
 }
 .header-left-cont {
-  position: relative;
-  float: left;
-  z-index: 56;
-  width: 18.7857142857%;
-  height: 135px;
-  margin-left: 7%;
+    position: relative;
+    float: left;
+    z-index: 56;
+    width: 18.7857142857%;
+    height: 135px;
+    margin-left: 7%;
 }
 .header-menu {
-  border-bottom: 1px solid rgb(77, 77, 77);
+    border-bottom: 1px solid rgb(77, 77, 77);
 }
 .header-rigth-cont {
-  position: relative;
-  float: left;
-  z-index: 61;
-  width: 18.7857142857%;
-  height: 135px;
-  margin-left: 49%;
+    position: relative;
+    float: left;
+    z-index: 61;
+    width: 18.7857142857%;
+    height: 135px;
+    margin-left: 49%;
 }
 .categoria-1 {
-  display: block;
-  float: left;
-  width: 20%;
-  font-size: 12px;
-  text-align: center;
-  letter-spacing: 0.8px;
-  margin-top: 20px;
+    display: block;
+    float: left;
+    width: 20%;
+    font-size: 12px;
+    text-align: center;
+    letter-spacing: 0.8px;
+    margin-top: 20px;
 }
 .categoria-1:hover {
-  color: #869388;
+    color: #869388;
 }
 .categoria-1-1, .categoria-1-2, .categoria-1-3, .categoria-1-4 {
-  color: rgb(77, 77, 77);
+    color: rgb(77, 77, 77);
 }
 .categoria-1-4:hover {
-  background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(0, 0, 0, 0);
 }
 .categoria-1-5 {
-  color: #4d4d4d;
+    color: #4d4d4d;
 }
 .header-left-cont ._button {
-  float: left;
-  width: 68.8212927756%;
-  height: 30px;
-  margin-top: 15px;
-  border-width: 1px;
-  border-color: rgb(207, 207, 207);
-  border-radius: 3px;
-  background-color: rgb(247, 247, 247);
-  font: 1.167em/1.38 'Ubuntu Condensed';
-  text-align: justify;
-  color: rgb(176, 176, 176);
+    float: left;
+    width: 68.8212927756%;
+    height: 30px;
+    margin-top: 15px;
+    border-width: 1px;
+    border-color: rgb(207, 207, 207);
+    border-radius: 3px;
+    background-color: rgb(247, 247, 247);
+    font: 1.167em/1.38 'Ubuntu Condensed';
+    text-align: justify;
+    color: rgb(176, 176, 176);
 }
 .header-rigth-cont ._button {
-  float: right;
-  width: 130px;
-  height: 30px;
-  border-width: 0px;
-  /* background-color: #869388; */
-  font-size: 0.8em;
-  font-weight: 300;
-  line-height: 2.60;
-  text-align: center;
-  color: white;
-  overflow: hidden;
-  z-index: 4;
-  position: relative;
+    float: right;
+    width: 130px;
+    height: 30px;
+    border-width: 0px;  /* background-color: #869388; */
+    font-size: 0.8em;
+    font-weight: 300;
+    line-height: 2.60;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    z-index: 4;
+    position: relative;
 }
 .header-rigth-cont ._button:hover {
-  /* background-color: #bfd2c3; */
-  border-color: #f78684;
-  color: #FFB8B8;
+
+    /* background-color: #bfd2c3; */
+    border-color: #f78684;
+    color: #FFB8B8;
 }
 .header-rigth-cont ._container {
-  float: right;
-  margin: 16px 0 0 5.69154%;
-  position: relative;
+    float: right;
+    margin: 16px 0 0 5.69154%;
+    position: relative;
 }
 .reg-strate-correo ._button {
-  float: left;
-  clear: both;
-  width: 62.6086956521%;
-  height: 39px;
-  margin-top: 21px;
-  border-width: 1px;
-  border-color: rgb(172, 110, 97);
-  border-radius: 3px;
-  background-color: rgb(232, 169, 156);
-  font-size: 1.333em;
-  font-weight: 400;
-  line-height: 1.38;
-  text-align: center;
-  color: rgb(172, 110, 97);
+    float: left;
+    clear: both;
+    width: 62.6086956521%;
+    height: 39px;
+    margin-top: 21px;
+    border-width: 1px;
+    border-color: rgb(172, 110, 97);
+    border-radius: 3px;
+    background-color: rgb(232, 169, 156);
+    font-size: 1.333em;
+    font-weight: 400;
+    line-height: 1.38;
+    text-align: center;
+    color: rgb(172, 110, 97);
 }
 .reg-strate-login ._button {
-  float: left;
-  clear: both;
-  width: 50%;
-  height: 25px;
-  margin: 10px 0 0 25%;
-  border-width: 0px;
-  background-color: rgb(255, 174, 156);
-  font-size: 0.8em;
-  font-weight: 400;
-  line-height: 1.38;
-  text-align: center;
-  color: black;
-  letter-spacing: 2px;
-  /* border: 2px solid white; */
+    float: left;
+    clear: both;
+    width: 50%;
+    height: 25px;
+    margin: 10px 0 0 25%;
+    border-width: 0px;
+    background-color: rgb(255, 174, 156);
+    font-size: 0.8em;
+    font-weight: 400;
+    line-height: 1.38;
+    text-align: center;
+    color: black;
+    letter-spacing: 2px;  /* border: 2px solid white; */
 }
 .reg-strate-login ._button > img {
-  width: 115px;
+    width: 115px;
 }
 .reg-strate-login ._button:hover {
-  background-color: white;
-  color: gray;
+    background-color: white;
+    color: gray;
 }
 .reg-strate-login ._input {
 }
 .logo-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 114;
-  width: 42.4274553571%;
-  height: 135px;
-  margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 114;
+    width: 42.4274553571%;
+    height: 135px;
+    margin: 0 auto;
 }
 .logo-content .image {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-right: auto;
-  margin-left: auto;
-  max-width: 260px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 260px;
 }
 .image-1 {
-  top: 0;
-  bottom: 0;
-  z-index: 113;
-  width: 260px;
-  margin: auto 0;
+    top: 0;
+    bottom: 0;
+    z-index: 113;
+    width: 260px;
+    margin: auto 0;
 }
 .image-2 {
-  visibility: hidden;
-  top: 0;
-  z-index: 112;
-  width: 268px;
+    visibility: hidden;
+    top: 0;
+    z-index: 112;
+    width: 268px;
 }
 .image-3 {
-  visibility: hidden;
-  top: 0;
-  bottom: 0;
-  z-index: 111;
-  width: 242px;
-  margin: auto 0;
+    visibility: hidden;
+    top: 0;
+    bottom: 0;
+    z-index: 111;
+    width: 242px;
+    margin: auto 0;
 }
 .image-4 {
-  visibility: hidden;
-  top: 23px;
-  z-index: 110;
-  width: 373px;
+    visibility: hidden;
+    top: 23px;
+    z-index: 110;
+    width: 373px;
 }
 .image-5 {
-  visibility: hidden;
-  top: 0;
-  bottom: 0;
-  z-index: 109;
-  width: 373px;
-  margin: auto 0;
+    visibility: hidden;
+    top: 0;
+    bottom: 0;
+    z-index: 109;
+    width: 373px;
+    margin: auto 0;
 }
 a.redes_sociales {
-  color: rgb(77, 77, 77);
-  cursor: pointer;
-  opacity: 0.8;
+    color: rgb(77, 77, 77);
+    cursor: pointer;
+    opacity: 0.8;
 }
 a.redes_sociales:hover {
-  opacity: 1;
+    opacity: 1;
 }
+
 /* para activo de tienda */
 .activo {
-  color: #869388 !important;
+    color: #869388 !important;
 }
 .espacio_superior {
-  width: 100%;
-  height: 10px;
+    width: 100%;
+    height: 10px;
 }
 div.cargando {
-display: none;
-z-index: 7000;
-position: fixed;
-background-color: rgba(133, 133, 133, 0.53);
-width: 100%;
-height: 100%;
-top: 0;
-left: 0;
--webkit-transition: background-color 500ms ease-out 1s;
+    display: none;
+    z-index: 7000;
+    position: fixed;
+    background-color: rgba(133, 133, 133, 0.53);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -webkit-transition: background-color 500ms ease-out 1s;
     -moz-transition: background-color 500ms ease-out 1s;
     -o-transition: background-color 500ms ease-out 1s;
     transition: background-color 500ms ease-out 1s;
 }
-img.cargando{
-  width: 30px;
-  height: 30px;
-  margin-top: 20%;
-  margin-left: 50%;
+img.cargando {
+    width: 30px;
+    height: 30px;
+    margin-top: 20%;
+    margin-left: 50%;
 }
-
 }
 .reg-strate-login a {
-  color: white;
-  float: right;
-  text-decoration: underline;
+color: white;
+float: right;
+text-decoration: underline;
 }
 .point-text span {
-  color: white !important;
-  margin-top: 10px;
+color: white !important;
+margin-top: 10px;
 }
 .radio-label {
-  margin-top: 10px;
+margin-top: 10px;
 }
 .iconos:hover {
-  color: #bfd2c3;
+color: #bfd2c3;
 }
 @media(max-width:1199px) {
-  .carritoproductos {
+.carritoproductos {
     display: none;
     position: absolute;
     top: 46px;
     left: 55.784598%;
     z-index: 80;
     width: 34.214286%;
-  }
-  .flecha .image {
+}
+.flecha .image {
     float: left;
     width: 15px;
     margin: 1px 0 0 49.5269%;
-  }
-  .header-left-cont ._button, .header-rigth-cont ._button {
+}
+.header-left-cont ._button, .header-rigth-cont ._button {
     width: 100%;
-  }
-  @media(max-width:979px) {
+}
+@media(max-width:979px) {
     .flecha .image {
-      float: left;
-      width: 15px;
-      margin: 1px 0 0 49.5269%;
+        float: left;
+        width: 15px;
+        margin: 1px 0 0 49.5269%;
     }
-  }
-  @media(max-width:767px) {
+}
+@media(max-width:767px) {
     .carritoproductos {
-      display: none;
-      position: absolute;
-      top: 46px;
-      left: 42.784598%;
-      z-index: 80;
-      width: 47.214286%;
+        display: none;
+        position: absolute;
+        top: 46px;
+        left: 42.784598%;
+        z-index: 80;
+        width: 47.214286%;
     }
     .flecha .image {
-      float: left;
-      width: 15px;
-      margin: 1px 0 0 63.5269%;
+        float: left;
+        width: 15px;
+        margin: 1px 0 0 63.5269%;
     }
     .categoria-1 {
-      margin-top: 10px;
+        margin-top: 10px;
     }
     .loginpopup .reg-strate-login {
     }
-  }
-  @media(max-width:479px) {
+}
+@media(max-width:479px) {
     .header-left-social {
-      width: 100%;
-      height: auto;
-      float: left;
-      margin-top: 30px;
+        width: 100%;
+        height: auto;
+        float: left;
+        margin-top: 30px;
     }
     .iconos i {
-      font-size: 28px;
-      color: white;
+        font-size: 28px;
+        color: white;
     }
     .margin-left-2 {
-      margin-left: 24%;
+        margin-left: 24%;
     }
     .carritoproductos {
-      display: none;
-      position: absolute;
-      top: 46px;
-      left: 5%;
-      z-index: 80;
-      width: 90%;
+        display: none;
+        position: absolute;
+        top: 46px;
+        left: 5%;
+        z-index: 80;
+        width: 90%;
     }
     .flecha .image {
-      float: left;
-      width: 15px;
-      margin: 1px 0 0 2%;
+        float: left;
+        width: 15px;
+        margin: 1px 0 0 2%;
     }
     .carritoicono {
-      float: left;
-      height: 30px;
-      margin: 16px 0 0 0%;
+        float: left;
+        height: 30px;
+        margin: 16px 0 0 0%;
     }
     .header-rigth-cont ._container {
-      float: none;
-      width: 53.2319391634%;
-      margin: 16px auto;
+        float: none;
+        width: 53.2319391634%;
+        margin: 16px auto;
     }
-  }
 }
-
-.contenedor-contacto h2
-{
-  margin-top: 30px;
-  color: black !important;
 }
-
-.contenedor-contacto h2, .contenedor-contacto p
-{
- padding-left: 69px;
- color: rgb(153, 153, 153);
- padding-right: 20px;
+.contenedor-contacto h2 {
+margin-top: 30px;
+color: black !important;
 }
-.contenedor-contacto i
-{
-  color: rgb(222, 143, 136);
-  font-size: 25px;
+.contenedor-contacto h2, .contenedor-contacto p {
+padding-left: 69px;
+color: rgb(153, 153, 153);
+padding-right: 20px;
 }
-.logos-pagos
-{
-    width: 100%;
-
-    float: left;
+.contenedor-contacto i {
+color: rgb(222, 143, 136);
+font-size: 25px;
 }
-.logos-pagos img
-{
-    margin: 0 auto;
-  
-    display: inherit;
+.logos-pagos {
+width: 100%;
+float: left;
 }
-.imagen-back-login
-{
-    position: absolute;
-  
-    right: 0px;
-    top: 0px;
-    z-index: 0;
-    height: 100%;
-    width: 100%;
+.logos-pagos img {
+margin: 0 auto;
+display: inherit;
 }
-._container:hover .nombre_p
-{
-  color: transparent !important;
+.imagen-back-login {
+position: absolute;
+right: 0px;
+top: 0px;
+z-index: 0;
+height: 100%;
+width: 100%;
 }
-
+._container:hover .nombre_p {
+color: transparent !important;
+}
 .section_banner {
-    width: 1200px;
-    margin: 20px auto;
+width: 1200px;
+margin: 20px auto;
 }
-
 .tabs-menu li a {
-  text-transform: uppercase !important;
-  font-family: Serif !important;
-  font-weight: 700 !important;
-  font-size: 14px;
+text-transform: uppercase !important;
+font-family: Serif !important;
+font-weight: 700 !important;
+font-size: 14px;
 }
-
 form.form-login .new_input {
-  padding: 5px 10px;
-  margin-bottom: 10px;
-  font-style: italic;
-  font-family: serif;
-  font-weight: 700;
+padding: 5px 10px;
+margin-bottom: 10px;
+font-style: italic;
+font-family: serif;
+font-weight: 700;
 }
 .reg-strate-login a {
-  float: none !important;
-  font-family: Serif;
-  font-style: italic;
+float: none !important;
+font-family: Serif;
+font-style: italic;
 }
 form.form-register input {
-  font-family: serif;
-  font-style: italic;
-  text-transform: capitalize;
-  font-size: 14px;
-  font-weight: 700;
+font-family: serif;
+font-style: italic;
+text-transform: capitalize;
+font-size: 14px;
+font-weight: 700;
 }
-form.form-register ._button{
-    font-family: serif;
-    font-weight: 700;
-    font-size: 10px;
+form.form-register ._button {
+font-family: serif;
+font-weight: 700;
+font-size: 10px;
 }

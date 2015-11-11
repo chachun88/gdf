@@ -19,20 +19,23 @@
 {
 	cursor: pointer;
 }
-.fancybox-skin {
-	background-color:  #869388;
-	border-radius: 0px;
-	color: white;
-}
+
 .iconosalarmas {
 	width: 100%;
 	font-size: 25px;
 	text-align: center;
 }
-.fancybox-wrap,  .fancybox-desktop, .fancybox-type-html, .fancybox-opened {
-	opacity: 0.4;
-	/*width: 50% !important;*/
+
+.fancybox-skin {
+    background-color:  #869388;
+    border-radius: 0px;
+    color: white;
 }
+
+/*.fancybox-wrap,  .fancybox-desktop, .fancybox-type-html, .fancybox-opened {
+	opacity: 0.4;
+}
+
 .fancybox-inner
 {
 	width: 100% !important;
@@ -42,9 +45,8 @@
     width: 100%; 
     height: 100%; 
     margin: 0px;
-    width: 240px;
     text-align: center;
-}
+}*/
 .icon-thumbs-up-alt {
 	color: rgb(215, 106, 96);
 }
