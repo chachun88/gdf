@@ -75,13 +75,30 @@ class Shipping(BaseModel):
     def charge_type(self, value):
         self._charge_type = value
     
+    @property
+    def post_office_id(self):
+        return self._post_office_id
+
+    @post_office_id.setter
+    def post_office_id(self, value):
+        self._post_office_id = value
 
     def List(self):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
         try:
-            cur.execute('''select s.id,c.name as origen, c2.name as destino, s.correos_price, s.chilexpress_price, s.price, s.edited, s.charge_type from "Shipping" s left join "City" c on c.id = s.from_city_id left join "City" c2 on c2.id = s.to_city_id''')
+            cur.execute('''\
+                        select s.id,c.name as origen, 
+                                c2.name as destino, 
+                                s.correos_price, 
+                                s.chilexpress_price, 
+                                s.price, 
+                                s.edited, 
+                                s.charge_type 
+                        from "Shipping" s 
+                        left join "City" c on c.id = s.from_city_id 
+                        left join "City" c2 on c2.id = s.to_city_id''')
             lista = cur.fetchall()
             return self.ShowSuccessMessage(lista)
         except Exception,e:
@@ -276,3 +293,27 @@ class Shipping(BaseModel):
         else:
 
             return self.ShowError("Debe especificar ciudad de origen y destino")
+
+    def GetPriceByPostOfficeId(self):
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        query = '''\
+                select price, 
+                       charge_type 
+                from "Shipping" 
+                where post_office_id = %(post_office_id)s'''
+        parameters = {
+            "post_office_id": self.post_office_id
+        }
+
+        try:
+            cur.execute(query,parameters)
+            s = cur.fetchone()
+            self.price = s["price"]
+            self.charge_type = s["charge_type"]
+            return self.ShowSuccessMessage(self.price)
+        except Exception,e:
+            return self.ShowError(str(e))
+        finally:
+            self.connection.close()
+            cur.close()

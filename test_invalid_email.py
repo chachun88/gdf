@@ -58,7 +58,36 @@ class SaveStates():
                 cur.close()
                 connection.close()
 
+
+class SavePostOffices():
+
+    def main(self):
+
+        f = open('l.txt', "r")
+        sucursales = f.readlines()
+
+        for sucursal in sucursales:
+
+            connection = psycopg2.connect("host='localhost' dbname='giani' user='postgres' password='chachun88'")
+            cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+            try:
+                query = '''
+                        insert into "Post_Office" (name)
+                        values (%(name)s)
+                        '''
+                parameters = {
+                    "name": sucursal
+                }
+                cur.execute(query, parameters)
+                connection.commit()
+            except Exception,e:
+                print str(e)
+            finally:
+                cur.close()
+                connection.close()
+
 # send_email = SendEmail()
 # send_email.main()
-savestate = SaveStates()
+savestate = SavePostOffices()
 savestate.main()

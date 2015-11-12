@@ -237,4 +237,22 @@ $(document).ready(function(){
         window.location.href='/store';
     });
 
+    $(document).on("change", "input[type=radio][name=shipping_type]", function(){
+        if($(this).is(':checked')){
+            if($(this).val()==='chilexpress'){
+                $("div.domicilio").fadeOut("slow", function(){
+                    $("div.chilexpress").fadeIn();
+                });
+                $("div.domicilio > div").removeClass("required");
+                $("div.chilexpress > div").addClass("required");
+            } else {
+                $("div.chilexpress").fadeOut("slow", function(){
+                    $("div.domicilio").fadeIn();
+                });
+                $("div.domicilio > div").addClass("required");
+                $("div.chilexpress > div").removeClass("required");
+            }
+        }
+    });
+
 });

@@ -17,7 +17,9 @@ $(document).ready(function(){
 	// 	}
 	// });
 
-	$('#InputCity').select2();
+	$('#InputCity, #inputChilexpress').select2({
+		'width': "100%"
+	});
 
 	$(".minict_wrapper").click(function(){
 		$(".minict_wrapper.active ul li.minict_empty.minict_first").parent().css("display","none");

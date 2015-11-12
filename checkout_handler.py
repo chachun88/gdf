@@ -22,6 +22,7 @@ from model.product import Product
 from model.city import City
 from model.shipping import Shipping
 from model.user import User, UserType
+from model.post_office import PostOffice
 from tornado import template
 from datetime import datetime
 from bson import json_util
@@ -78,11 +79,19 @@ class CheckoutAddressHandler(BaseHandler):
             res_city = city.ListByFromCityId()
             # print res_city
 
+            post_office_list = []
+
+            po = PostOffice()
+            res_po = po.ListOnlyWithShippingCost()
+
+            if "success" in res_po:
+                post_office_list = res_po["success"]
+
             if suma > 0:
                 if "success" in res_city:
                     cities = res_city["success"]
 
-                self.render("store/checkout-1.html",contactos=contactos,data=lista,suma=suma,cities=cities)
+                self.render("store/checkout-1.html",contactos=contactos,data=lista,suma=suma,cities=cities,post_office_list=post_office_list)
             else:
                 self.render("beauty_error.html",message="Carro est&aacute; vac&iacute;o")
 
@@ -111,6 +120,8 @@ class CheckoutBillingHandler(BaseHandler):
             id_contacto = self.get_argument("contact_id","")
             comuna = self.get_argument("town","")
             rut = self.get_argument("rut","")
+            shipping_type = self.get_argument("shipping_type", "")
+            post_office_id = self.get_argument("post_office_id", "")
 
             cart = Cart()
             cart.user_id = user_id
@@ -127,7 +138,14 @@ class CheckoutBillingHandler(BaseHandler):
             contact.telephone = telefono
             contact.email = email
             contact.address = direccion
-            contact.city = ciudad
+            if shipping_type != "chilexpress":
+                contact.city = ciudad
+            else:
+                po = PostOffice()
+                po.InitById(post_office_id)
+                post_office_name = po.name
+                contact.address = "Oficina {}".format(post_office_name)
+                contact.city = None
             contact.zip_code = codigo_postal
             contact.user_id = user_id
             contact.additional_info = informacion_adicional
@@ -190,23 +208,27 @@ class CheckoutBillingHandler(BaseHandler):
                 res_web_cellar = c.InitById(web_cellar_id)
 
                 if "success" in res_web_cellar:
-                    cellar_city_id = c.city_id
+                    if shipping_type != "chilexpress":
+                        cellar_city_id = c.city_id
 
-                    shipping = Shipping()
-                    shipping.from_city_id = int(cellar_city_id)
-                    shipping.to_city_id = int(ciudad)
-
-                res = shipping.GetGianiPrice()
-
-                if "error" in res:
-                    self.render("beauty_error.html",message="Error al calcular costo de despacho, {}".format(res["error"]))
-                else:
-                    if shipping.charge_type == 1:
-                        costo_despacho = shipping.price * items
+                        shipping = Shipping()
+                        shipping.from_city_id = int(cellar_city_id)
+                        shipping.to_city_id = int(ciudad)
+                        res = shipping.GetGianiPrice()
                     else:
-                        costo_despacho = shipping.price
+                        shipping = Shipping()
+                        shipping.post_office_id = post_office_id
+                        res = shipping.GetPriceByPostOfficeId()
 
-                    self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion,cities=cities,costo_despacho=costo_despacho)
+                    if "error" in res:
+                        self.render("beauty_error.html",message="Error al calcular costo de despacho, {}".format(res["error"]))
+                    else:
+                        if shipping.charge_type == 1:
+                            costo_despacho = shipping.price * items
+                        else:
+                            costo_despacho = shipping.price
+
+                        self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion,cities=cities,costo_despacho=costo_despacho)
         else:
 
             self.redirect("/auth/login")

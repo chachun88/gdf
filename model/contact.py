@@ -201,6 +201,7 @@ class Contact(BaseModel):
                     returning id'''
 
             try:
+                # print cur.mogrify(query, contact)
                 cur.execute(query,contact)
                 self.connection.commit()
                 self.id = int(cur.fetchone()["id"])
