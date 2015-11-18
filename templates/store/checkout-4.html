@@ -50,8 +50,6 @@ Giani Da Firenze - Carro de Compra
               <div class="col-xs-12 col-sm-12">
                 <div class="paymentBox">
                   <div class="panel-group paymentMethod" id="accordion">
-                    
-                    {% if current_user is not None and int(current_user['type_id']) != 4 %}
                     <div class="panel panel-default">
                       <div class="panel-heading panel-heading-custom">
                         <h4 class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> <span class="numberCircuil"></span><strong> WebPay</strong> </a> </h4>
@@ -83,7 +81,6 @@ Giani Da Firenze - Carro de Compra
                         </div>
                       </div>
                     </div>
-                    {% end %}
                     <div class="panel panel-default">
                       <div class="panel-heading panel-heading-custom">
                         <h4 class="panel-title"> <a class="cashOnDelivery" data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> <span class="numberCircuil"></span> <strong> Transferencia bancaria</strong> </a> </h4>
