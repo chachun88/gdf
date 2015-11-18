@@ -59,13 +59,13 @@ Giani Da Firenze - Carro de Compra
 
                           <form id="form-pagar"action="/pago" method="post" id="webpayplus" onsubmit="return ValidateTerms()">
                               <input type="hidden" name="TBK_TIPO_TRANSACCION" value="TR_NORMAL" />
-                              <input type="hidden" name="TBK_MONTO" value="{{suma+(suma*float(iva))}}00" />
+                              <input type="hidden" name="TBK_MONTO" value="{{int(suma*(1+iva))}}00" />
                               <input type="hidden" name="TBK_ID_SESION" value="{{datetime.datetime.now(pytz.timezone('Chile/Continental')).strftime('%Y%m%d%H%M%S')}}" />
                               <input type="hidden" name="TBK_URL_EXITO" value="{{ url_local }}/store/success" />
                               <input type="hidden" name="TBK_URL_FRACASO" value="{{ url_local }}/store/failure" />
                               <input type="hidden" name="shipping_price" value="0" />
                               <input type="hidden" name="payment_type" value="2">
-                              <input type="hidden" name="tax" value="{{suma*iva}}">
+                              <input type="hidden" name="tax" value="{{int(suma*iva)}}">
                               <!-- <input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" /> -->
                           
                           <div class="form-group clearfix">
