@@ -885,3 +885,14 @@ class ListPostOfficeByCityIdHandler(BaseHandler):
         res = post_office.ListPostOfficeByCityId()
 
         self.write(json_util.dumps(res))
+
+
+class GetAddressByPostOfficeIdHandler(BaseHandler):
+
+    def get(self):
+
+        post_office = PostOffice()
+        post_office.id = self.get_argument("post_office_id", "")
+        res = post_office.GetAddressByPostOfficeId()
+
+        self.write(json_util.dumps(res))

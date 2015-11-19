@@ -240,6 +240,7 @@ $(document).ready(function(){
     $(document).on("change", "input[type=radio][name=shipping_type]", function(){
         if($(this).is(':checked')){
             if($(this).val()==='chilexpress'){
+                $("#InputCity").trigger("change");
                 $("div.domicilio").fadeOut("slow", function(){
                     $("div.chilexpress").fadeIn();
                 });

@@ -25,7 +25,8 @@ $(document).ready(function(){
 		$(".minict_wrapper.active ul li.minict_empty.minict_first").parent().css("display","none");
 	});
 
-	$("#InputCity").on("change", function(){
+	$(document).on("change", "#InputCity", function(){
+
 		var city_id = $(this).val();
 		$.ajax({
 			url: "/checkout/listpostofficebycityid",
@@ -45,5 +46,26 @@ $(document).ready(function(){
 				}
 			}
 		})
+	});
+
+	$("#inputChilexpress").on("change", function(){
+		var post_office_id = $(this).val();
+
+		if(post_office_id !== undefined && post_office_id !== ''){
+			$.ajax({
+				url: "/checkout/getaddressbypostofficeid",
+				type: "get",
+				data: "post_office_id=" + post_office_id,
+				dataType: "json",
+				success: function(response){
+					json_str = JSON.stringify(response);
+					json_obj = $.parseJSON(json_str);
+
+					if (json_obj.success !== undefined){
+						$("#poAddress").text(json_obj.success);
+					}
+				}
+			});
+		}
 	});
 });

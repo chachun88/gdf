@@ -72,8 +72,8 @@ class PostOffice(BaseModel):
                 select po.id,
                        po.name
                 from "Post_Office" po
-                inner join "Shipping" s on s.post_office_id = po.id
-                where po.city_id = %(city_id)s'''
+                inner join "Shipping" s on s.to_city_id = po.city_id
+                where s.to_city_id = %(city_id)s'''
         parameters = {
             "city_id": self.city_id
         }
@@ -81,6 +81,27 @@ class PostOffice(BaseModel):
         try:
             cur.execute(query,parameters)
             s = cur.fetchall()
+            return self.ShowSuccessMessage(s)
+        except Exception,e:
+            return self.ShowError(str(e))
+        finally:
+            self.connection.close()
+            cur.close()
+
+    def GetAddressByPostOfficeId(self):
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        query = '''\
+                select po.address
+                from "Post_Office" po
+                where po.id = %(post_office_id)s'''
+        parameters = {
+            "post_office_id": self.id
+        }
+
+        try:
+            cur.execute(query,parameters)
+            s = cur.fetchone()["address"]
             return self.ShowSuccessMessage(s)
         except Exception,e:
             return self.ShowError(str(e))

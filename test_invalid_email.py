@@ -37,7 +37,7 @@ class SaveStates():
 
         for region in json:
 
-            connection = psycopg2.connect("host='localhost' dbname='cellar' user='postgres' password='chachun88'")
+            connection = psycopg2.connect("host='localhost' dbname='cellar' user='postgres' password='12345'")
             cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
             try:
@@ -61,6 +61,30 @@ class SaveStates():
 
 class SavePostOffices():
 
+    def getCityId(self, name):
+
+        connection = psycopg2.connect("host='localhost' dbname='giani' user='postgres' password='12345'")
+        cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+
+        try:
+            query = '''\
+                    select id from "City"
+                    where lower(name) = %(name)s
+                    '''
+            parameters = {
+                "name": name.strip().lower()
+            }
+            print cur.mogrify(query, parameters)
+            cur.execute(query, parameters)
+            city_id = cur.fetchone()["id"]
+            return city_id
+        except Exception, e:
+            # print str(e)
+            return None
+        finally:
+            cur.close()
+            connection.close()
+
     def main(self):
 
         f = open('l.txt', "r")
@@ -68,24 +92,34 @@ class SavePostOffices():
 
         for sucursal in sucursales:
 
-            connection = psycopg2.connect("host='localhost' dbname='giani' user='postgres' password='chachun88'")
+            connection = psycopg2.connect("host='localhost' dbname='giani' user='postgres' password='12345'")
             cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-            try:
-                query = '''
-                        insert into "Post_Office" (name)
-                        values (%(name)s)
-                        '''
-                parameters = {
-                    "name": sucursal
-                }
-                cur.execute(query, parameters)
-                connection.commit()
-            except Exception,e:
-                print str(e)
-            finally:
-                cur.close()
-                connection.close()
+            suc = sucursal.split("\t")
+            name = suc[0]
+            address = suc[1]
+            city_name = suc[2]
+
+            city_id = self.getCityId(city_name)
+
+            if city_id is not None:
+                try:
+                    query = '''
+                            insert into "Post_Office" (name, address, city_id)
+                            values (%(name)s, %(address)s, %(city_id)s)
+                            '''
+                    parameters = {
+                        "name": name,
+                        "address": address,
+                        "city_id": city_id
+                    }
+                    cur.execute(query, parameters)
+                    connection.commit()
+                except Exception,e:
+                    print str(e)
+                finally:
+                    cur.close()
+                    connection.close()
 
 # send_email = SendEmail()
 # send_email.main()
