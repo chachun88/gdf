@@ -119,7 +119,7 @@ class City(BaseModel):
                     select distinct c.* 
                     from "City" c 
                     inner join "Shipping" s on s.to_city_id = c.id 
-                    where s.from_city_id = %(from_city_id)s
+                    where s.from_city_id = %(from_city_id)s and s.post_office_id is null
                     order by c.name asc'''
             parameters = {
             "from_city_id":self.from_city_id

@@ -129,7 +129,11 @@ class Contact(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
-        query = '''select c1.*, coalesce(c2.name,'') as city from "Contact" c1 left join "City" c2 on c1.city_id = c2.id where c1.id = %(id)s limit 1'''
+        query = '''\
+                select c1.*, coalesce(c2.name,'') as city from "Contact" c1 
+                left join "City" c2 on c1.city_id = c2.id 
+                where c1.id = %(id)s 
+                limit 1'''
 
         parametros = {
             "id":_id

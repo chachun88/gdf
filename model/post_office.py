@@ -64,3 +64,26 @@ class PostOffice(BaseModel):
         finally:
             cur.close()
             self.connection.close()
+
+    def ListPostOfficeByCityId(self):
+
+        cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
+        query = '''\
+                select po.id,
+                       po.name
+                from "Post_Office" po
+                inner join "Shipping" s on s.post_office_id = po.id
+                where po.city_id = %(city_id)s'''
+        parameters = {
+            "city_id": self.city_id
+        }
+
+        try:
+            cur.execute(query,parameters)
+            s = cur.fetchall()
+            return self.ShowSuccessMessage(s)
+        except Exception,e:
+            return self.ShowError(str(e))
+        finally:
+            self.connection.close()
+            cur.close()

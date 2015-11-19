@@ -272,12 +272,18 @@ class Shipping(BaseModel):
         if self.from_city_id != 0 and self.to_city_id != 0:
 
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
-            query = '''select price, charge_type from "Shipping" where from_city_id = %(from_city_id)s and to_city_id = %(to_city_id)s'''
+            query = '''\
+                    select price, 
+                           charge_type 
+                    from "Shipping" 
+                    where from_city_id = %(from_city_id)s 
+                    and to_city_id = %(to_city_id)s
+                    and post_office_id is null'''
             parameters = {
             "from_city_id":self.from_city_id,
             "to_city_id":self.to_city_id
             }
-
+            print cur.mogrify(query, parameters)
             try:
                 cur.execute(query,parameters)
                 s = cur.fetchone()

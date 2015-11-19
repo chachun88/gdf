@@ -111,39 +111,64 @@ Giani Da Firenze - Carro de Compra
                   -->
                 </div>
                 <div class="col-xs-12 col-sm-6">
-                  <div class="form-group required">
-                    <label for="InputCity">Comuna <sup>*</sup> </label>
-                    <select name="city_id" id="InputCity" class="form-control">
-                      <option></option>
-                      {% for c in cities %}
-                      <option value="{{c['id']}}">{{c['name']}}</option>
-                      {% end %}
-                    </select>
-                  </div>
-                  <div class="form-group required">
-                    <label for="InputZip">Código postal <sup>*</sup> </label>
-                    <label for="InputZip"><a target="_blank" href="http://www.correos.cl/SitePages/home.aspx">conocer mi código postal</a></label>
-                    <input required type="text" class="form-control" id="InputZip" placeholder="Código postal" name="zip_code">
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="InputAdditionalInformation">Información adicional</label>
-                    <textarea rows="3" cols="26" class="form-control" id="InputAdditionalInformation" name="additional_info"></textarea>
-                  </div>
-                  <div class="form-group required">
-                    <label for="InputMobile">Teléfono <sup>*</sup></label>
-                    <input required type="text"  name="telephone" class="form-control" id="InputMobile">
-                  </div>
-<!--                   <div class="form-group required">
-                    <label for="addressAlias">Asigne un nombre a esta dirección para futuras referencias. </label>
-                    <input type="text" value="Mi dirección" name="addressAlias" class="form-control" id="addressAlias">
-                  </div> -->
+                    <div class="form-group required">
+                        <label for="InputCity">Comuna <sup>*</sup> </label>
+                        <select name="city_id" id="InputCity" class="form-control" required>
+                            <option></option>
+                            {% for c in cities %}
+                                <option value="{{c['id']}}">{{c['name']}}</option>
+                            {% end %}
+                        </select>
+                    </div>
+                    <div class="form-group required">
+                        <label for="inputShippingType">Quiero despacho a: </label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input required type="radio" value="chilexpress" name="shipping_type"> Sucursal Chilexpress
+                            </div>
+                            <div class="col-md-6">
+                                <input required type="radio" value="domicilio" name="shipping_type"> Domicilio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="domicilio form-group">
+                        <div class="form-group ">
+                            <label for="InputAddress">Dirección <sup>*</sup> </label>
+                            <input required type="text" class="form-control" id="InputAddress" placeholder="Dirección" value="" name="address">
+                        </div>
+                        
+                        <div class="form-group ">
+                            <label for="InputZip">Código postal <sup>*</sup> </label>
+                            <label for="InputZip"><a target="_blank" href="http://www.correos.cl/SitePages/home.aspx">conocer mi código postal</a></label>
+                            <input required type="text" class="form-control" id="InputZip" placeholder="Código postal" name="zip_code">
+                        </div>
+                    </div>
+                    <div class="chilexpress form-group">
+                        <div class="form-group">
+                            <label for="inputChilexpress">Sucursal Chilexpress</label>
+                            <select name="post_office_id" id="inputChilexpress" class="form-control" required>
+                                <option></option>
+                                {% for po in post_office_list %}
+                                    <option value="{{po['id']}}">{{po['name']}}</option>
+                                {% end %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="InputAdditionalInformation">Información adicional</label>
+                        <textarea rows="3" cols="26" class="form-control" id="InputAdditionalInformation" name="additional_info"></textarea>
+                    </div>
+                    
+                    <!--                   <div class="form-group required">
+                        <label for="addressAlias">Asigne un nombre a esta dirección para futuras referencias. </label>
+                        <input type="text" value="Mi dirección" name="addressAlias" class="form-control" id="addressAlias">
+                    </div> -->
                 </div>
-              
+                
             </div>
-            <!--/row end--> 
+            <!--/row end-->
             
-          </div>
+        </div>
           <div class="cartFooter w100">
             <div class="box-footer">
               <div class="pull-left"> <a class="btn btn-default" href="/store"> <i class="fa fa-arrow-left"></i> &nbsp; Volver a la tienda </a> </div>

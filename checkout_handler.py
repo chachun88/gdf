@@ -138,14 +138,12 @@ class CheckoutBillingHandler(BaseHandler):
             contact.telephone = telefono
             contact.email = email
             contact.address = direccion
-            if shipping_type != "chilexpress":
-                contact.city = ciudad
-            else:
+            if shipping_type == "chilexpress":
                 po = PostOffice()
                 po.InitById(post_office_id)
                 post_office_name = po.name
                 contact.address = "Oficina {}".format(post_office_name)
-                contact.city = None
+            contact.city = ciudad
             contact.zip_code = codigo_postal
             contact.user_id = user_id
             contact.additional_info = informacion_adicional
@@ -359,7 +357,7 @@ class CheckoutPaymentHandler(BaseHandler):
         if self.current_user:
 
             shipping_type = self.get_argument("shipping_type",1)
-            costo_despacho = int(self.get_argument("shipping_price",0))          
+            costo_despacho = int(self.get_argument("shipping_price",0))
 
             user_id = self.current_user["id"]
 
@@ -876,3 +874,14 @@ class CheckStockHandler(BaseHandler):
 
             # if "error" in res_checkstock:
             #     self.render("beauty_error.html",message="Falta stock, {}".format(res_checkstock["error"]))
+
+
+class ListPostOfficeByCityIdHandler(BaseHandler):
+
+    def get(self):
+
+        post_office = PostOffice()
+        post_office.city_id = self.get_argument("city_id", "")
+        res = post_office.ListPostOfficeByCityId()
+
+        self.write(json_util.dumps(res))
