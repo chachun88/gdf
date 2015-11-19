@@ -283,7 +283,7 @@ class Shipping(BaseModel):
             "from_city_id":self.from_city_id,
             "to_city_id":self.to_city_id
             }
-            print cur.mogrify(query, parameters)
+            # print cur.mogrify(query, parameters)
             try:
                 cur.execute(query,parameters)
                 s = cur.fetchone()
