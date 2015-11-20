@@ -38,10 +38,15 @@ $(document).ready(function(){
 				json_obj = $.parseJSON(json_str);
 
 				if (json_obj.success !== undefined){
-					$("#inputChilexpress").empty();
-					$("#inputChilexpress").append('<option></option>').change();
-					for(var i=0; i<json_obj.success.length; i++){
-						$("#inputChilexpress").append('<option value="' + json_obj.success[i].id + '">' + json_obj.success[i].name+ '</option>').val('').change();
+					if(json_obj.success.length>0){
+						$(".radio-post-office").show();
+						$("#inputChilexpress").empty();
+						$("#inputChilexpress").append('<option></option>').change();
+						for(var i=0; i<json_obj.success.length; i++){
+							$("#inputChilexpress").append('<option value="' + json_obj.success[i].id + '">' + json_obj.success[i].name+ '</option>').val('').change();
+						}
+					} else {
+						$(".radio-post-office, .chilexpress").hide();
 					}
 				}
 			}

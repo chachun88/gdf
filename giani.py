@@ -78,6 +78,7 @@ class Application(tornado.web.Application):
             (r"/checkout/whosaler_order", checkout_handler.CheckoutWhosaleOrderHandler),
             (r"/checkout/listpostofficebycityid", checkout_handler.ListPostOfficeByCityIdHandler),
             (r"/checkout/getaddressbyid", checkout_handler.GetAddressByIdHandler),
+            (r"/checkout/getaddressbypostofficeid", checkout_handler.GetAddressByPostOfficeIdHandler),
 
             (r"/auth/login", auth.AuthHandler),
             (r"/auth/logout", auth.LogoutHandler),
