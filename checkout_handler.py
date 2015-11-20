@@ -213,13 +213,15 @@ class CheckoutBillingHandler(BaseHandler):
                         shipping.from_city_id = int(cellar_city_id)
                         shipping.to_city_id = int(ciudad)
                         res = shipping.GetGianiPrice()
+                        if "error" in res:
+                            self.render("beauty_error.html",message="Error al calcular costo de despacho, {}".format(res["error"]))
                     else:
                         shipping = Shipping()
                         shipping.post_office_id = post_office_id
                         res = shipping.GetPriceByPostOfficeId()
 
                     if "error" in res:
-                        self.render("beauty_error.html",message="Error al calcular costo de despacho, {}".format(res["error"]))
+                        self.render("beauty_error.html",message="Error al calcular costo de despacho de Chilexpress, {}".format(res["error"]))
                     else:
                         if shipping.charge_type == 1:
                             costo_despacho = shipping.price * items

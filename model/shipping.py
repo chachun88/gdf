@@ -304,10 +304,11 @@ class Shipping(BaseModel):
 
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
         query = '''\
-                select price, 
-                       charge_type 
-                from "Shipping" 
-                where post_office_id = %(post_office_id)s'''
+                select s.price, 
+                       s.charge_type 
+                from "Shipping" s
+                inner join "Post_Office" po on s.to_city_id = po.city_id
+                where po.id = %(post_office_id)s'''
         parameters = {
             "post_office_id": self.post_office_id
         }
