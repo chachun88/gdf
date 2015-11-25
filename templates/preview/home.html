@@ -9,7 +9,7 @@
 <div class="content-13-inch">
     <div id="videohome" class="timeline clearfix">
         <ul>
-            <li id="videoimg" style="position:relative; z-index: -1;"><img class="image" src="https://static.loadingplay.com/static/images/200_787623f24a1c48b975b92a14d4dbff39_video2.png" lp-load-big="https://static.loadingplay.com/static/images/787623f24a1c48b975b92a14d4dbff39_video2.png" style="position:relative;">
+            <li id="videoimg" style="position:relative; z-index: -1;"><img class="image" src="{% if data['caluga_video'] is not None %}{{data['caluga_video']['thumb_200']}}{% end %}" lp-load-big="{% if data['caluga_video'] is not None %}{{data['caluga_video']['image']}}{% end %}" style="position:relative;">
                 <ul>
                     <img id="videoimg-1"class="image esconder" src="/{{nocache_static}}/images/ir-a-la-hover.png" style="position:relative;margin-top: -64.49%;">
                 </ul>
