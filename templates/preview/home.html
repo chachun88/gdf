@@ -10,9 +10,9 @@
     <div id="videohome" class="timeline clearfix">
         <ul>
             <li id="videoimg" style="position:relative; z-index: -1;"><img class="image" src="{% if data['caluga_video'] is not None %}{{data['caluga_video']['thumb_200']}}{% end %}" lp-load-big="{% if data['caluga_video'] is not None %}{{data['caluga_video']['image']}}{% end %}" style="position:relative;">
-                <ul>
+                <!--<ul>
                     <img id="videoimg-1"class="image esconder" src="/{{nocache_static}}/images/ir-a-la-hover.png" style="position:relative;margin-top: -64.49%;">
-                </ul>
+                </ul>-->
             </li>
             <video loop preload poster="" id="video" class="video mostrar-1"style="width:100%;margin-top: -60%;float: left; z-index: 0;">
                 <source src="http://player.vimeo.com/external/146351296.sd.mp4?s=b9312d4ca6c31aaf51420d201af3a21d13ac5407&profile_id=112&oauth2_token_id=387155985" type="video/mp4">
