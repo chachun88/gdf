@@ -551,9 +551,9 @@ class Product(BaseModel):
         inner join "Category" c on c.id = p.category_id 
         inner join "Product_Size" ps on ps.product_sku = p.sku
         inner join "Size" s on s.id = ps.size_id
-        where to_tsvector('spanish', p.name) @@ to_tsquery('spanish',%(name)s) 
-        and to_tsvector('spanish', c.name) @@ to_tsquery('spanish',%(cat)s) 
-        and to_tsvector('spanish', p.color) @@ to_tsquery('spanish', %(color)s) 
+        where to_tsvector('spanish', unaccent(p.name)) @@ to_tsquery('spanish',unaccent(%(name)s)) 
+        and to_tsvector('spanish', unaccent(c.name)) @@ to_tsquery('spanish',unaccent(%(cat)s)) 
+        and to_tsvector('spanish', unaccent(p.color)) @@ to_tsquery('spanish', unaccent(%(color)s)) 
         and p.for_sale = 1 
         and p.deleted = %(deleted)s
         group by p.id, c.name limit 1'''
@@ -563,6 +563,7 @@ class Product(BaseModel):
             "deleted": False,
             "color": color
         }
+
         try:
             # print cur.mogrify(q,p)
             cur.execute(q, p)
