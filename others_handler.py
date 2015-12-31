@@ -159,7 +159,7 @@ class PagoHandler(BaseHandler):
             order.shipping_id = id_despacho
             order.payment_type = payment_type
             order.voucher = ""
-            order.state = Order.ESTADO_PENDIENTE
+            order.state = Order.ESTADO_PENDIENTE_WP
             order.shipping_info = info_despacho
             order.billing_info = info_facturacion
 
