@@ -218,7 +218,7 @@ class Order(BaseModel):
         self._country                = ""
         self._items_quantity         = ""
         self._products_quantity      = ""
-        self._state                  = ""
+        self._state                  = self.ESTADO_PENDIENTE
         self._billing_id             = -1
         self._shipping_id            = -1
         self._address_id             = -1
@@ -297,7 +297,8 @@ class Order(BaseModel):
                                     shipping_id,
                                     payment_type,
                                     shipping_info,
-                                    billing_info) 
+                                    billing_info,
+                                    state) 
             values (%(voucher)s,
                     %(date)s,
                     %(type)s,
@@ -312,7 +313,8 @@ class Order(BaseModel):
                     %(shipping_id)s,
                     %(payment_type)s,
                     %(shipping_info)s,
-                    %(billing_info)s) 
+                    %(billing_info)s,
+                    %(state)s) 
         returning id'''
 
         parametros = {
@@ -330,7 +332,8 @@ class Order(BaseModel):
             "payment_type":self.payment_type,
             "date": datetime.now(pytz.timezone('Chile/Continental')).isoformat(),
             "billing_info": self.billing_info,
-            "shipping_info": self.shipping_info
+            "shipping_info": self.shipping_info,
+            "state": self.state
         }
 
         try:
