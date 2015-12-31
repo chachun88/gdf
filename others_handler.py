@@ -159,7 +159,7 @@ class PagoHandler(BaseHandler):
             order.shipping_id = id_despacho
             order.payment_type = payment_type
             order.voucher = ""
-            order.state = Order.ESTADO_PENDIENTE_WP
+            order.state = Order.ESTADO_PENDIENTE
             order.shipping_info = info_despacho
             order.billing_info = info_facturacion
 
@@ -347,6 +347,12 @@ class XtCompraHandler(BaseHandler):
 
         if TBK_RESPUESTA == "0":
             acepta = True
+        else:
+            order = Order()
+            init_by_id = order.InitById(TBK_ORDEN_COMPRA)
+            if "success" in init_by_id:
+                order.state = Order.ESTADO_RECHAZADO_WP
+                save_order = order.Edit()
 
         try:
             f = open(myPath, "r")
