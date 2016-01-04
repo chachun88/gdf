@@ -876,7 +876,14 @@ class CheckStockHandler(BaseHandler):
                 k = Kardex()
                 res_checkstock = k.checkStock(lista, web_cellar_id)
 
-                self.write(json_util.dumps(res_checkstock))
+                if "error" in res_checkstock:
+                    self.write(json_util.dumps(res_checkstock))
+                else:
+                    res_update_cart_price = cart.updatePrice(lista, self.current_user)
+                    if res_update_cart_price["success"] > 0:
+                        self.write(json_util.dumps({"alert":"Alerta! El precio de algunos productos han sido actualizados"}))
+                    else:
+                        self.write(json_util.dumps(res_update_cart_price))
 
             else:
 
