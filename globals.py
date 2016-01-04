@@ -90,6 +90,7 @@ elif enviroment == Enviroment.ONDEV:
     cgi_path = "/var/www/cgiani.ondev/"
     dir_image = '../bgiani.ondev/uploads/images/'
     to_giani = ['yichun212@gmail.com', 'julian@loadingplay.com']
+    email_giani = 'yi.neko@gmail.com'
 
 elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
