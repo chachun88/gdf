@@ -245,6 +245,13 @@ class GetCartByUserIdHandler(BaseHandler):
             cart = Cart()
             cart.user_id = user_id
             lista = cart.GetCartByUserId()
+
+            res_update_cart_price = cart.updatePrice(lista, self.current_user)
+
+            cart2 = Cart()
+            cart2.user_id = user_id
+            lista = cart2.GetCartByUserId()
+
             suma = 0
             for l in lista:
                 suma += l["subtotal"]
