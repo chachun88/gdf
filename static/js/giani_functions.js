@@ -291,6 +291,7 @@ var checkStock = function(){
 
             response_str = JSON.stringify(html);
             response = $.parseJSON(response_str);
+
             if(response.error){
                 errores = response.error;
 
@@ -305,6 +306,10 @@ var checkStock = function(){
 
                 fancyAlert(res);
 
+            } else if (response.alert!==undefined) {
+                fancyAlert(response.alert, function(){
+                    location.href = '/auth/checkout?next=/checkout/address';
+                });
             } else {
                 location.href = '/auth/checkout?next=/checkout/address';
             }

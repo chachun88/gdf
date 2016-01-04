@@ -8,6 +8,7 @@ import psycopg2.extras
 from datetime import datetime
 from contact import Contact
 from order import Order
+from product import Product
 import pytz
 
 
@@ -483,3 +484,42 @@ class Cart(BaseModel):
         finally:
             self.connection.close()
             cur.close()
+
+    def updatePrice(self, detail, user):
+
+        counter = 0
+
+        for item in detail:
+            product = Product()
+            res_product = product.InitBySku(item["sku"])
+
+            if "success" in res_product:
+
+                price = item["price"]
+                subtotal = item["subtotal"]
+
+                if product.promotion_price != 0:
+                    subtotal = int(product.promotion_price) * item["quantity"]
+                    price = product.promotion_price
+                else:
+                    subtotal = int(product.sell_price) * item["quantity"]
+                    price = product.sell_price
+
+                if user:
+                    if user["type_id"] == 4:
+                        subtotal = int(product.bulk_price) * item["quantity"]
+                        price = product.bulk_price
+
+                if item["price"] != price:
+                    cart = Cart()
+                    cart.InitById(item["id"])
+                    cart.price = price
+                    cart.quantity = item["quantity"]
+                    cart.subtotal = subtotal
+                    res_edit = cart.Edit()
+
+                    if "success" in res_edit:
+                        counter += 1
+
+        return self.ShowSuccessMessage(counter)
+

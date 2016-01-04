@@ -27,6 +27,7 @@ from tornado import template
 from datetime import datetime
 from bson import json_util
 import sendgrid
+import mandrill
 from globals import *
 
 
@@ -844,7 +845,14 @@ class CheckStockHandler(BaseHandler):
                 k = Kardex()
                 res_checkstock = k.checkStock(lista, web_cellar_id)
 
-                self.write(json_util.dumps(res_checkstock))
+                if "error" in res_checkstock:
+                    self.write(json_util.dumps(res_checkstock))
+                else:
+                    res_update_cart_price = cart.updatePrice(lista, self.current_user)
+                    if res_update_cart_price["success"] > 0:
+                        self.write(json_util.dumps({"alert":"Alerta! El precio de algunos productos han sido actualizados"}))
+                    else:
+                        self.write(json_util.dumps(res_update_cart_price))
 
             else:
 
@@ -898,3 +906,37 @@ class GetAddressByPostOfficeIdHandler(BaseHandler):
         res = post_office.GetAddressByPostOfficeId()
 
         self.write(json_util.dumps(res))
+
+
+class ManualPaymentHandler(BaseHandler):
+
+    def post(self):
+
+        contact = self.get_argument("contact","")
+        order_id = self.get_argument("order_id", "")
+
+        try:
+            mandrill_client = mandrill.Mandrill(mailchimp_api_key)
+            info = mandrill_client.templates.info(payment_template_id)
+
+            message = {
+                'to': [{'email': email_giani}],
+                'merge_language': 'handlebars',
+                'from_email': info["from_email"],
+                'from_name': info["from_name"],
+                'subject': info["subject"],
+                'html': info["code"],
+                'merge_vars':[{
+                    'rcpt': email_giani,
+                    'vars': [
+                        {"name": "order_id", "content": order_id},
+                        {"name": "contact", "content": contact}
+                    ]
+                }]
+            }
+
+            result = mandrill_client.messages.send(message=message)
+
+            self.write(json_util.dumps(result))
+        except Exception, e:
+            self.sendError('enviando correo procesamiento, {}'.format(str(e)))

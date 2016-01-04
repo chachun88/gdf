@@ -53,6 +53,7 @@ iva = 0.19
 
 mailchimp_api_key = 'RC57FKi_1IVqO6m46flAJQ'
 processing_order_template = "test2"
+payment_template_id = "ayuda-cliente-giani"
 
 if enviroment == Enviroment.LOCAL:
 
@@ -71,6 +72,7 @@ if enviroment == Enviroment.LOCAL:
     dir_image = '../bodegas/uploads/images/'
 
     to_giani = ['yichun212@gmail.com','ricardo@loadingplay.com']
+    email_giani = 'yi.neko@gmail.com'
 
     debugMode = True
 

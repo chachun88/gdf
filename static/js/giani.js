@@ -256,4 +256,34 @@ $(document).ready(function(){
         }
     });
 
+    $("#manualPaymentForm").on("submit", function(e){
+        e.preventDefault();
+
+        var form = $(this);
+        var contact = $("input[name=contact]").val();
+        if(contact===undefined||contact.trim()===''){
+            alert("Debe ingresar un email o un tel\xE9fono");
+        } else {
+            $.ajax({
+                url: form.attr("action"),
+                type: "post",
+                dataType: "json",
+                data: form.serialize(),
+                success: function(response){
+                    var json_str = JSON.stringify(response);
+                    var json_obj = $.parseJSON(json_str);
+                    if(json_obj[0].status!==undefined){
+                        if(json_obj[0].status==='sent'){
+                            alert("Gracias por contactarnos, pronto una ejecutiva se comunicar\xE1 contigo");
+                        } else {
+                            alert("Ha ocurrido un error al intentar enviar contacto, por favor reintenta m\xE1s tarde");
+                        }
+                    } else {
+                        alert("Ha ocurrido un error al intentar enviar contacto, por favor reintenta m\xE1s tarde");
+                    }
+                }
+            });
+        }
+    });
+
 });

@@ -1,0 +1,144 @@
+.contenedor_formularios {
+width: 80%;
+margin-left: 10%;
+float: left;
+}
+.contenedor_form_1 {
+	width: 320px;
+	margin: 0 auto;
+}
+.contenedor_form_1 h1 {
+	width: 100%;
+	text-align: center;
+	color: white;
+	font-size: 16px;
+	text-transform: uppercase;
+	padding-top: 20px;
+
+}
+
+
+.form-login {
+	background-color: transparent;
+}
+
+.contenedor_formularios form button {
+	background-color: gray;
+	color: white;
+}
+.contenedor_formularios form button:hover {
+	background-color: #cccccc;
+}
+.contenedor_form2 form input{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.contenedor_form2 form button {
+	margin-top: 20px;
+}
+
+.titulos {
+	margin-top: 20px;
+	background-color: rgb(221, 221, 221);
+	height: 300px;
+
+}
+.titulos h1 {
+	font-size: 12px;
+	width: 80%;
+	margin-left: 10%;
+	padding-top: 20%;
+}
+.mensaje-error {
+	margin: 40px auto;
+	width: 320px;
+
+}
+.mensaje-error h1{
+	font-family: 'Vidaloka', serif;
+	font-size: 80px;
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	color: #869388;
+}
+
+.mensaje-error h2{
+	font-family: 'Vidaloka', serif;
+	font-size: 16px;
+	width: 100%;
+	text-align: center;
+	color:  gray;
+}
+.size h1{
+	font-size: 33px !important;
+}
+.mensaje-error_succes{
+margin: 40px auto;
+width: 80%;
+} 
+.mensaje-error_succes h1{
+	font-family: 'Vidaloka', serif;
+	font-size: 25px;
+	width: 100%;
+	text-align: center;
+	text-transform: uppercase;
+	color: #869388;
+}
+.mensaje-error_succes form {
+	width: 100%;
+	height: 50px;
+	background-color: white;
+}
+.boton_error {
+		text-align: center;
+	    background-color: gray;
+	    text-transform: uppercase;
+	    font-weight: 100;
+
+}
+.boton_error a{
+	color:white;
+	line-height: 2.8em;
+	font-size: 16px;
+}
+.mensaje-error_succes form input, .boton_error{
+	width: 320px;
+	height: 50px;
+	margin: 0px auto;
+	color: white;
+
+}
+.boton_error:hover {
+	background: rgb(158, 158, 158);
+}
+.mensaje-error_succes form input:hover{
+	background: white;
+	border: 1px solid gray;
+	color: gray;
+}
+table {
+	width: 520px;
+	border: 1px solid gray;
+	margin: 10px auto;
+	font-size: 12px;
+}
+th {
+	width: 50%;
+	padding:5px 10px;
+	font-weight: 400;
+}
+td {
+	width: 50%;
+	padding:5px 10px;
+	font-weight: 100;
+}
+tr{
+}
+h3 {
+	font-size: 15px;
+	font-weight: 500;
+}
+.titulos_success {
+	width: 100% !important ;
+}
