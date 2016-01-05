@@ -386,7 +386,6 @@ class Cart(BaseModel):
 
     def MoveTempToLoggedUser(self, old_user_id, current_user_id):
 
-        old_cart = []
         new_cart = []
 
         cur = self.connection.cursor(
@@ -403,15 +402,14 @@ class Cart(BaseModel):
             new_cart = cur.fetchall()
             self.connection.commit()
         except Exception, e:
-            return self.ShowError(str(e))
+            pass
         finally:
             cur.close()
             self.connection.close()
 
-
         for item in new_cart:
 
-            cur = self.connection.cursor(
+            cur0 = self.connection.cursor(
                 cursor_factory=psycopg2.extras.RealDictCursor)
 
             query = '''select id from "Temp_Cart" where user_id = %(old_user_id)s and product_id = %(product_id)s'''
@@ -422,22 +420,41 @@ class Cart(BaseModel):
             }
 
             try:
-                cur.execute(query, parameters)
-                tc = cur.fetchone()
+                cur0.execute(query, parameters)
+                tc = cur0.fetchone()
+                self.connection.commit()
+
                 if tc is not None:
+                    cur1 = self.connection.cursor(
+                        cursor_factory=psycopg2.extras.RealDictCursor)
                     q = '''update "Temp_Cart" set quantity = quantity + 1, subtotal = quantity * price where id = %(id)s'''
                     p = {
                         "id": tc["id"]
                     }
-                    cur.execute(q, p)
+                    try:
+                        cur1.execute(q, p)
+                        self.connection.commit()
+                    except:
+                        pass
+                    finally:
+                        cur1.close()
+                        self.connection.close()
                 else:
+                    cur2 = self.connection.cursor(
+                        cursor_factory=psycopg2.extras.RealDictCursor)
                     q = '''update "Temp_Cart" set user_id = %(current_user_id)s where user_id = %(old_user_id)s and product_id = %(product_id)s'''
-                    cur.execute(q, parameters)
-                self.connection.commit()
+                    try:
+                        cur2.execute(q, p)
+                        self.connection.commit()
+                    except:
+                        pass
+                    finally:
+                        cur2.close()
+                        self.connection.close()
             except Exception, e:
                 pass
             finally:
-                cur.close()
+                cur0.close()
                 self.connection.close()
 
         # contact = Contact()
