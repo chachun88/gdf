@@ -391,7 +391,7 @@ class Cart(BaseModel):
         cur = self.connection.cursor(
             cursor_factory=psycopg2.extras.RealDictCursor)
 
-        query = '''select * from "Temp_Cart" where user_id = %(current_user_id)s'''
+        query = '''select * from "Temp_Cart" where user_id = %(old_user_id)s'''
         parameters = {
             "current_user_id": current_user_id,
             "old_user_id": old_user_id
@@ -409,14 +409,21 @@ class Cart(BaseModel):
 
         for item in new_cart:
 
+            print item["product_id"]
+
             cur0 = self.connection.cursor(
                 cursor_factory=psycopg2.extras.RealDictCursor)
 
-            query = '''select id from "Temp_Cart" where user_id = %(old_user_id)s and product_id = %(product_id)s'''
+            query = '''\
+                    select id from "Temp_Cart" 
+                    where user_id = %(current_user_id)s 
+                    and product_id = %(product_id)s
+                    and size = %(size)s'''
             parameters = {
                 "current_user_id": current_user_id,
                 "old_user_id": old_user_id,
-                "product_id": item["product_id"]
+                "product_id": item["product_id"],
+                "size": item["size"]
             }
 
             try:
@@ -427,9 +434,10 @@ class Cart(BaseModel):
                 if tc is not None:
                     cur1 = self.connection.cursor(
                         cursor_factory=psycopg2.extras.RealDictCursor)
-                    q = '''update "Temp_Cart" set quantity = quantity + 1, subtotal = quantity * price where id = %(id)s'''
+                    q = '''update "Temp_Cart" set quantity = quantity + %(quantity)s, subtotal = (quantity + %(quantity)s) * price where id = %(id)s'''
                     p = {
-                        "id": tc["id"]
+                        "id": tc["id"],
+                        "quantity": item["quantity"]
                     }
                     try:
                         cur1.execute(q, p)
@@ -442,8 +450,15 @@ class Cart(BaseModel):
                 else:
                     cur2 = self.connection.cursor(
                         cursor_factory=psycopg2.extras.RealDictCursor)
-                    q = '''update "Temp_Cart" set user_id = %(current_user_id)s where user_id = %(old_user_id)s and product_id = %(product_id)s'''
+                    q = '''\
+                        update "Temp_Cart" set user_id = %(current_user_id)s 
+                        where id = %(id)s'''
+                    p = {
+                        "current_user_id": current_user_id,
+                        "id": item["id"]
+                    }
                     try:
+                        print cur2.mogrify(q, p)
                         cur2.execute(q, p)
                         self.connection.commit()
                     except:
