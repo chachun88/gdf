@@ -409,8 +409,6 @@ class Cart(BaseModel):
 
         for item in new_cart:
 
-            print item["product_id"]
-
             cur0 = self.connection.cursor(
                 cursor_factory=psycopg2.extras.RealDictCursor)
 
@@ -458,7 +456,6 @@ class Cart(BaseModel):
                         "id": item["id"]
                     }
                     try:
-                        print cur2.mogrify(q, p)
                         cur2.execute(q, p)
                         self.connection.commit()
                     except:
