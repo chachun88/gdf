@@ -6,11 +6,40 @@ Giani Da Firenze - Home
 {% block css %}
 <link rel="stylesheet" href="/{{nocache_static}}/css/index.css">
 <link rel="stylesheet" href="/{{nocache_static}}/css/failure.css">
-<link href='http://fonts.googleapis.com/css?family=Vidaloka' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic' rel='stylesheet' type='text/css'>
 {% end %}
 
 {% block body %}
 <div class="contenedor_formularios">
+    <div class="row">
+        <div class="text-center">
+            <img src="/{{nocache_static}}/img/banner_pagina_fracaso.png">
+        </div>
+    </div>
+    <div class="row">
+        <form id="manualPaymentForm" action="/checkout/manual_payment" method="post" class="form-horizontal" role="form">
+            <legend class="col-md-offset-1 col-md-10 text-center">
+                <p>Al parecer hubo un problema con procesar tu pago, puedes intentarlo nuevamente o tambi&eacute;n nos puedes dejar tu mail o tel&eacute;fono para que una ejecutiva se comunique contigo y coordines el pago de forma manual.</p>
+                <p>Env&iacute;anos tu tel&eacute;fono o mail</p>
+            </legend>
+            <fieldset class="col-md-offset-1 col-md-8">
+                <input type="hidden" name="order_id" value="{{TBK_ORDEN_COMPRA}}">
+                <div class="form-group">
+                    <div class="col-sm-7 col-sm-offset-3">
+                        <input type="text" class="form-control" name="contact" id="inputContact" placeholder="Ingrese email o tel&eacute;fono">
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="submit" class="btn btn-default">Enviar</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+    <form action="{{PATHSUBMIT}}" method="get">
+        <center>
+            <input type="submit" value="Volver a Inicio" class="btn btn-default">
+        </center>
+    </form>
     <div class="mensaje-error_succes">
         <center>
             <b>TRANSACCI&Oacute;N FRACASADA !!!</b>
@@ -33,30 +62,6 @@ Giani Da Firenze - Home
             </table>
         </center>
     </div>
-    <div class="row">
-        <form id="manualPaymentForm" action="/checkout/manual_payment" method="post" class="form-horizontal" role="form">
-            <legend class="col-md-offset-1 col-md-10">
-                <h2>Al parecer hubo un problema con procesar tu pago, puedes intentarlo nuevamente o tambi&eacute;n nos puedes dejar tu mail o tel&eacute;fono para que una ejecutiva se comunique contigo y coordines el pago de forma manual.</h2>
-            </legend>
-            <fieldset class="col-md-offset-1 col-md-8">
-                <input type="hidden" name="order_id" value="{{TBK_ORDEN_COMPRA}}">
-                <div class="form-group">
-                    <label for="inputContact" class="col-sm-3 control-label">Email o tel&eacute;fono</label>
-                    <div class="col-sm-7">
-                        <input type="text" class="form-control" name="contact" id="inputContact" placeholder="Ingrese email o tel&eacute;fono">
-                    </div>
-                    <div class="col-sm-2">
-                        <button type="submit" class="btn btn-default">Enviar</button>
-                    </div>
-                </div>
-            </fieldset>
-        </form>
-    </div>
-    <form action="{{PATHSUBMIT}}" method="get">
-        <center>
-            <input type="submit" value="Volver a Inicio" class="btn btn-default">
-        </center>
-    </form>
 </div>
 {% end %}
 {% block javascript %}{% end %}
