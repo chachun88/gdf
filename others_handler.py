@@ -890,8 +890,8 @@ class FracasoHandler(BaseHandler):
             PATHSUBMIT=PATHSUBMIT)
 
     def get(self):
-        self.post()
-        # self.redirect("/")
+        # self.post()
+        self.redirect("/")
 
 
 class WSCorreosChileHandler(BaseHandler):
