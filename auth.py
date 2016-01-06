@@ -22,6 +22,9 @@ from tornado import template
 
 import re
 
+from datetime import datetime
+import pytz
+
 
 class UserRegistrationHandler(BaseHandler):    
 
@@ -157,12 +160,12 @@ class AuthHandler(BaseHandler):
 
                     cart = Cart()
 
-                    response = cart.MoveTempToLoggedUser(user_id,current_user_id)
+                    cart.MoveTempToLoggedUser(user_id,current_user_id)
 
-                if "error" in response:
-                    rtn_obj = {"status":"error","message":"Usuario y contraseña no coinciden, error:{}".format(response["error"])}
-                    self.write( json_util.dumps(rtn_obj) )
-                    return
+                # if "error" in response:
+                #     rtn_obj = {"status":"error","message":"Usuario y contraseña no coinciden, error:{}".format(response["error"])}
+                #     self.write( json_util.dumps(rtn_obj) )
+                #     return
 
                 rtn_obj = {"status":"ok","next":self.next,"user_id":current_user_id}
                 self.write( json_util.dumps(rtn_obj) )
@@ -243,7 +246,7 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
 
         response_obj = usr.InitByEmail(user["email"])
 
-        print response_obj
+        # print response_obj
 
         if "success" in response_obj:
 
@@ -263,6 +266,10 @@ class AuthFacebookHandler(BaseHandler, tornado.auth.FacebookGraphMixin):
                     #     print "Error moving cart detail: {}".format(response["error"])
 
             self.set_secure_cookie("user_giani", response_obj["success"], expires_days=0.02)
+
+            _u = User()
+
+            _u.updateLastView(current_user_id, datetime.now(pytz.timezone('Chile/Continental')).isoformat())
 
             self.redirect( self.next )
 
