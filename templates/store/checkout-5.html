@@ -301,6 +301,8 @@ Giani Da Firenze - Carro de Compra
               $(".total-price").text('$ '+ total);
               $('.sum-subtotal').text('$ '+response["success"]["total"]);
               $('.subtotal.'+cart_id).text('$ '+response["success"]["subtotal"]);
+              $(".quantity-"+cart_id).html(quantity);
+              $(".price-"+cart_id).html(response["success"]["subtotal"]);
               }
             }
           });

@@ -290,6 +290,7 @@ Giani Da Firenze - Carro de Compra
         if ("error" in response_json) {
           alert(response_json["error"]);
         } else {
+          $(".quantity-"+cart_id).html(quantity);
           $('.total-productos').text('$ '+response["success"]["total"]).addClass("text-right");
           iva = parseInt(parseInt(response["success"]["total"]) * 0.19);
           var total = parseInt(response["success"]["total"])+parseInt(iva);
@@ -297,6 +298,7 @@ Giani Da Firenze - Carro de Compra
           $(".total-price").text('$ '+ total);
           $('.sum-subtotal').text('$ '+response["success"]["total"]);
           $('.subtotal.'+cart_id).text('$ '+response["success"]["subtotal"]);
+          $(".price-"+cart_id).html(response["success"]["subtotal"]);
         }
       }
     });
