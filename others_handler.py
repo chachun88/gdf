@@ -151,7 +151,7 @@ class PagoHandler(BaseHandler):
             order.subtotal = subtotal
             order.shipping = costo_despacho
             order.tax = iva
-            order.total = total + costo_despacho
+            order.total = total + costo_despacho + iva
             order.items_quantity = cantidad_items
             order.products_quantity = cantidad_productos
             order.user_id = user_id
