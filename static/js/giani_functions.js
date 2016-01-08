@@ -317,6 +317,7 @@ var checkStock = function(){
     });
 };
 
+
 var enterpriseRegistration = function(form){
     var nombre = $("input[name=name]", form);
     var giro = $("input[name=bussiness]", form);
