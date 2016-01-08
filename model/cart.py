@@ -542,7 +542,7 @@ class Cart(BaseModel):
 
             total = cur.fetchone()["total"]
 
-            return self.ShowSuccessMessage({"subtotal": BaseHandler.money_format(int(quantity) * int(price)), "total": BaseHandler.money_format(total)})
+            return self.ShowSuccessMessage({"subtotal": int(quantity) * int(price), "total": total})
 
         except Exception, e:
             return self.ShowError("obtener cantidad: {}".format(str(e)))
