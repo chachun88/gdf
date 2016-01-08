@@ -328,6 +328,7 @@ class Cart(BaseModel):
             p = {
                 "user_id": self.user_id
             }
+            # print cur.mogrify(q, p)
             cur.execute(q, p)
 
             lista = cur.fetchall()

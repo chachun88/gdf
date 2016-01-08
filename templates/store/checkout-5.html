@@ -83,12 +83,19 @@ Giani Da Firenze - Carro de Compra
                                   <span class="size">{{d["size"]}}</span>
                                 </div>
                               </td>
-                              <td class="delete">
+                              <td>
                                   <p class="producto-precio">$ {{money_format(d['price'])}}</p>
                               </td>
-                              <td class="hidden-xs">{{d['quantity']}}</td>
+                              <td class="quantity">
+                                <div class="col-sm-10">
+                                  <input id="demo_vertical2" type="text" value="{{ d['quantity'] }}" cart-id="{{d['id']}}" name="demo_vertical2">
+                                </div>
+                                <div class="col-sm-2">
+                                  <a title="Delete" class="borrarproducto" cart-id="{{d['id']}}"> <i class="glyphicon glyphicon-trash fa-2x"></i></a>
+                                </div>
+                              </td>
                               <td class="price">
-                                <div class="text-right">${{money_format(d["subtotal"])}}</div>
+                                <div class="text-right subtotal {{d['id']}}">${{money_format(d["subtotal"])}}</div>
                               </td>
                             </tr>
                             {% end %}
@@ -98,7 +105,7 @@ Giani Da Firenze - Carro de Compra
                                   <div class="text-right">Total productos</div>
                                 </td>
                                 <td class="price">
-                                  <div class="text-right">${{money_format(suma)}}</div>
+                                  <div class="text-right total-productos">${{money_format(suma)}}</div>
                                 </td>
                               </tr>
                               <tr class="CartProduct">
@@ -107,7 +114,7 @@ Giani Da Firenze - Carro de Compra
                                 </td>
                                 <td class="price text-right" >
                                   <span class="success">
-                                    <div class="text-right">
+                                    <div class="costo_despacho_ajax text-right">
                                       {% if int(costo_despacho) == 0 %}
                                       Gratis!
                                       {% else %}
@@ -121,8 +128,8 @@ Giani Da Firenze - Carro de Compra
                                 <td colspan="4">
                                   <div class="text-right">Total</div>
                                 </td>
-                                <td id="total-price" class="price">
-                                  <div class="text-right">${{money_format(suma+costo_despacho)}}</div>
+                                <td class="price">
+                                  <div class="text-right total-price">${{money_format(suma+costo_despacho)}}</div>
                                 </td>
                               </tr>
                             </tfoot>
@@ -161,6 +168,8 @@ Giani Da Firenze - Carro de Compra
               <div class="pull-right"> 
 
                   <form id="form-pago" action="/checkout/payment" method="post">
+                    <input type="hidden" name="shipping_type" value="{{shipping_type}}">
+                    <input type="hidden" name="post_office_id" value="{{post_office_id}}">
                     <input type="hidden" name="shipping_price" value="{{costo_despacho}}">
                     <button type="submit" class="btn btn-primary btn-small btn-pago">Pago &nbsp; <i class="fa fa-arrow-circle-right"></i></button>
                   </form>
@@ -204,12 +213,12 @@ Giani Da Firenze - Carro de Compra
             <tbody>
               <tr>
                 <td>Total productos</td>
-                <td class="price">${{money_format(suma)}}</td>
+                <td class="price total-productos">${{money_format(suma)}}</td>
               </tr>
               <tr>
                 <td>Envío</td>
                 <td class="price" >
-                  <span class="success">
+                  <span class="success costo_despacho_ajax">
                     {% if int(costo_despacho) == 0 %}
                     Gratis!
                     {% else %}
@@ -220,7 +229,7 @@ Giani Da Firenze - Carro de Compra
               </tr>
               <tr>
                 <td > Total </td>
-                <td class=" site-color" id="total-price">${{money_format(suma+costo_despacho)}}</td>
+                <td class="site-color total-price">${{money_format(suma+costo_despacho)}}</td>
               </tr>
             </tbody>
           </table> 
@@ -252,5 +261,53 @@ Giani Da Firenze - Carro de Compra
   </div>
   {% end %}
 </div>
-
+<script>
+  $("input[name='demo_vertical2']").TouchSpin({
+    verticalbuttons: true,
+    verticalupclass: 'glyphicon glyphicon-plus',
+    verticaldownclass: 'glyphicon glyphicon-minus',
+    min: 1
+  }).on('change', function() {
+    var cart_id = $(this).attr("cart-id");
+    var quantity = $(this).val();
+    var shipping_cost = 0;
+    $.ajax({
+      type: 'post',
+      url: '/cart/update',
+      data: 'cart_id=' + cart_id + '&quantity=' + quantity,
+      dataType: 'json',
+      success: function(response) {
+        var response_json = $.parseJSON(JSON.stringify(response));
+        if ("error" in response_json) {
+          alert(response_json["error"]);
+        } else {
+          $.ajax({
+            type: "post",
+            url: "/checkout/shipping_cost",
+            data: $("#form-pago").serialize() + '&cart_id=' + cart_id,
+            dataType: "json",
+            success: function(res){
+              var res_json = $.parseJSON(JSON.stringify(res));
+              if(res_json.state=="ok"){
+                shipping_cost = parseInt(res_json.shipping_cost);
+                if (shipping_cost!=0){
+                $(".costo_despacho_ajax").text('$ ' + shipping_cost);
+              } else {
+                $(".costo_despacho_ajax").text('Gratis');
+              }
+              $("input[name='shipping_price']").val(shipping_cost);
+              $('.total-productos').text('$ '+response["success"]["total"]).addClass("text-right");
+              var total = parseInt(response["success"]["total"])+parseInt(shipping_cost);
+              $(".total-price").text('$ '+ total);
+              $('.sum-subtotal').text('$ '+response["success"]["total"]);
+              $('.subtotal.'+cart_id).text('$ '+response["success"]["subtotal"]);
+              }
+            }
+          });
+          
+        }
+      }
+    });
+  });
+</script>
 {% end %}

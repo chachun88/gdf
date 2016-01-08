@@ -17,6 +17,7 @@ from model.vote import Vote
 from model.tag import Tag
 from model.cellar import Cellar
 from model.size import Size
+from model.shipping import Shipping
 
 
 class IndexHandler(BaseHandler):

@@ -5,3 +5,6 @@
 ul li, .selection span {
     text-transform: capitalize;
 }
+.CartProduct td.quantity {
+    width: 200px;
+}
