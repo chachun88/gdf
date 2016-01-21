@@ -485,11 +485,19 @@ class EnterpriseRegistrationHandler(BaseHandler):
         else:
             user_id = res_save["success"]
 
+            city_id = None
+
+            city = City()
+            res_city = city.getIdByName(comuna)
+
+            if "success" in res_city:
+                city_id = res_city["success"]
+
             contact = Contact()
             contact.town = "{}, {}".format(comuna.encode("utf-8"),region.encode("utf-8")) 
             contact.address = direccion
             contact.user_id = user_id
-            contact.city = None
+            contact.city = city_id
 
             try:
                 html = self.generateMail(
