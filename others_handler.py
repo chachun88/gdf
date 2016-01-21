@@ -110,7 +110,7 @@ class PagoHandler(BaseHandler):
 
         payment_type = self.get_argument("payment_type", 2)
         costo_despacho = int(self.get_argument("shipping_price", 0))
-        iva = self.get_argument("tax",0)
+        iva = int(self.get_argument("tax",0))
 
         user_id = self.current_user["id"]
 
