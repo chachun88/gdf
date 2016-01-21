@@ -356,7 +356,8 @@ class NewPasswordHandler(BaseHandler):
 
         except Exception, e:
             print str( e )
-            self.write( "error al iniciar usuaio" )
+            self.render( "auth/fail.html", message="error al iniciar usuario" )
+            # self.write( "error al iniciar usuaio" )
 
     def post(self, id):
         try:
@@ -385,11 +386,11 @@ class NewPasswordHandler(BaseHandler):
                     self.render( "auth/fail.html", message="se ha cambiado correctamente" )
                 except Exception,e:
                     print str( e )
-                    self.render( "auth/fail.html", message="error al cambiar contrasña" )
+                    self.render( "auth/fail.html", message="error al cambiar contraseña" )
 
         except Exception, e:
             print str( e )
-            self.render( "auth/fail.html", message="error al cambiar contrasña" )
+            self.render( "auth/fail.html", message="error al cambiar contraseña" )
 
 
 class LogoutHandler(BaseHandler):
