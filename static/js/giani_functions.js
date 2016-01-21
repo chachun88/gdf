@@ -363,10 +363,8 @@ var enterpriseRegistration = function(form){
             success: function(html){
                 response_str = JSON.stringify(html);
                 response = $.parseJSON(response_str);
-                if(response.error){
-                    alert(response.error);
-                } else {
-                    alert("Gracias por registrarte. Pronto nos contactaremos contigo");
+                alert(response.message);
+                if(response.state){
                     $('.fancybox-close').click();
                 }
             }

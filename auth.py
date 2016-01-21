@@ -435,26 +435,35 @@ class EnterpriseRegistrationHandler(BaseHandler):
         clave = self.get_argument("password","")
         rep_clave = self.get_argument("re-password","")
 
-        if nombre.strip() == "":
-            return json_util.dumps({"state": 0, "message": "Debe ingresar nombre"})
-        elif giro.strip() == "":
-            return json_util.dumps({"state": 0, "message": "Debe ingresar giro"})
-        elif rut.strip() == "":
-            return json_util.dumps({"state": 0, "message": "Debe ingresar rut"})
-        elif not valida(rut.strip().replace("-","").replace(".","")):
-            return json_util.dumps({"state": 0, "message": "Rut ingresado no es válido"})
-        elif email.strip() == "":
-            return json_util.dumps({"state": 0, "message": "Debe ingresar email"})
-        elif not isEmailValid(email):
-            return json_util.dumps({"state": 0, "message": "Email ingresado no es válido"})
-        elif direccion.strip() == "" or region == "" or provincia == "" or comuna == "":
-            return json_util.dumps({"state": 0, "message": "Debe ingresar su dirección completa"})
-        elif clave.strip() == "":
-            return json_util.dumps({"state": 0, "message": "Debe ingresar clave"})
-        elif rep_clave.strip() != clave.strip():
-            return json_util.dumps({"state": 0, "message": "Las claves ingresadas no coinciden"})
-
         rut = re.sub(r'\.+|-+', "", rut).lower()
+
+        if nombre.strip() == "":
+            self.write(json_util.dumps({"state": 0, "message": "Debe ingresar nombre"}))
+            return
+        elif giro.strip() == "":
+            self.write(json_util.dumps({"state": 0, "message": "Debe ingresar giro"}))
+            return
+        elif rut.strip() == "":
+            self.write(json_util.dumps({"state": 0, "message": "Debe ingresar rut"}))
+            return
+        elif not valida(rut):
+            self.write(json_util.dumps({"state": 0, "message": "Rut ingresado no es válido"}))
+            return
+        elif email.strip() == "":
+            self.write(json_util.dumps({"state": 0, "message": "Debe ingresar email"}))
+            return
+        elif not isEmailValid(email):
+            self.write(json_util.dumps({"state": 0, "message": "Email ingresado no es válido"}))
+            return
+        elif direccion.strip() == "" or region == "" or provincia == "" or comuna == "":
+            self.write(json_util.dumps({"state": 0, "message": "Debe ingresar su dirección completa"}))
+            return
+        elif clave.strip() == "":
+            self.write(json_util.dumps({"state": 0, "message": "Debe ingresar clave"}))
+            return
+        elif rep_clave.strip() != clave.strip():
+            self.write(json_util.dumps({"state": 0, "message": "Las claves ingresadas no coinciden"}))
+            return
 
         user = User()
         user.name = nombre
@@ -469,7 +478,10 @@ class EnterpriseRegistrationHandler(BaseHandler):
         user_id = None
 
         if "error" in res_save:
-            self.write(json_util.dumps(res_save))
+            # self.write(json_util.dumps(res_save))
+            # return
+            self.write(json_util.dumps({"state": 0, "message": "error de registro {}".format(res_save["error"])}))
+            return
         else:
             user_id = res_save["success"]
 
@@ -525,7 +537,14 @@ class EnterpriseRegistrationHandler(BaseHandler):
             except Exception, e:
                 print str(e)
 
-            self.write(json_util.dumps(contact.Save()))
+            res_save = contact.Save()
+
+            if "error" in res_save:
+                self.write(json_util.dumps({"state": 0, "message": res_save["error"]}))
+                return
+            else:
+                self.write(json_util.dumps({"state": 1, "message": "Gracias por registrarte. Pronto nos contactaremos contigo"}))
+                return
 
 
 class EnterpriseLoginHandler(BaseHandler):
@@ -536,7 +555,8 @@ class EnterpriseLoginHandler(BaseHandler):
         password = self.get_argument("password","")
 
         if rut.strip() == "" or password.strip() == "":
-            return json_util.dumps({"state": 0, "message": "Debe ingresar rut y contraseña"})
+            self.write(json_util.dumps({"state": 0, "message": "Debe ingresar rut y contraseña"}))
+            return
         else:
             rut = re.sub(r'\.+|-+', "", rut).lower()
 
@@ -546,5 +566,7 @@ class EnterpriseLoginHandler(BaseHandler):
         if "success" in res_login:
             self.set_secure_cookie( "user_giani", res_login["success"], expires_days=None )
             self.write(json_util.dumps({"success":self.request.headers.get('Referer')}))
+            return
         else:
             self.write(json_util.dumps(res_login))
+            return
