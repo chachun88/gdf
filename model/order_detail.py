@@ -56,7 +56,7 @@ class OrderDetail(BaseModel):
     @size.setter
     def size(self, value):
         self._size = value
-    
+
     @property
     def price(self):
         return self._price
@@ -64,7 +64,6 @@ class OrderDetail(BaseModel):
     @price.setter
     def price(self, value):
         self._price = value
-    
 
     def __init__(self):
         BaseModel.__init__(self)
