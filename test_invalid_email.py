@@ -150,7 +150,7 @@ class UpdatePrice():
                     value = sheet.cell_value(i,j)
                     ciudad = value
 
-                    connection = psycopg2.connect("host='localhost' dbname='giani' user='postgres' password='12345'")
+                    connection = psycopg2.connect("host='localhost' dbname='giani' user='chachun88' password='chachun88'")
                     cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
                     try:
@@ -173,7 +173,7 @@ class UpdatePrice():
 
                     if city_id == 0:
 
-                        connection = psycopg2.connect("host='localhost' dbname='giani' user='postgres' password='12345'")
+                        connection = psycopg2.connect("host='localhost' dbname='giani' user='chachun88' password='chachun88'")
                         cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
                         try:
