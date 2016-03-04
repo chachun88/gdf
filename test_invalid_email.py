@@ -200,7 +200,7 @@ class UpdatePrice():
 
             if city_id is not None and price > 0:
 
-                connection = psycopg2.connect("host='localhost' dbname='giani' user='postgres' password='12345'")
+                connection = psycopg2.connect("host='localhost' dbname='giani' user='yichun' password='chachun88'")
                 cur = connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
 
                 try:
