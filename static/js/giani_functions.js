@@ -293,18 +293,24 @@ var checkStock = function(){
             response = $.parseJSON(response_str);
 
             if(response.error){
+
                 errores = response.error;
 
-                res = "";
+                if (errores instanceof Array) {
 
-                for(var i = 0; i < errores.length; i++){
-                    res += errores[i]["sku"]
-                        + ' '
-                        + errores[i]["error"]
-                        + "<br/>";
+                    res = "";
+
+                    for(var i = 0; i < errores.length; i++){
+                        res += errores[i]["sku"]
+                            + ' '
+                            + errores[i]["error"]
+                            + "<br/>";
+                    }
+
+                    fancyAlert(res);
+                } else {
+                    fancyAlert(errores);
                 }
-
-                fancyAlert(res);
 
             } else if (response.alert!==undefined) {
                 fancyAlert(response.alert, function(){

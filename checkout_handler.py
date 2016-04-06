@@ -839,6 +839,14 @@ class CheckStockHandler(BaseHandler):
             cellar = Cellar()
             res_web_cellar = cellar.GetWebCellar()
 
+            if self.current_user["type_id"] == User().getUserTypeID(UserType.EMPRESA):
+                total_quantity = 0
+                for item in lista:
+                    total_quantity += item["quantity"]
+                if total_quantity < 15:
+                    self.write(json_util.dumps({"error": "La cantidad mínima es de 15 pares"}))
+                    return
+
             if "success" in res_web_cellar:
                 web_cellar_id = res_web_cellar["success"]
 
