@@ -441,6 +441,7 @@ class CheckoutOrderHandler(BaseHandler):
 class CheckoutWhosaleOrderHandler(BaseHandler):
     pass
 
+
 class CheckoutSendHandler(BaseHandler):
 
     @staticmethod
@@ -717,7 +718,6 @@ class CheckoutSendHandler(BaseHandler):
                     elif debugMode:
                         print res_name["error"]
 
-
                     kardex.date = str(datetime.now(pytz.timezone('Chile/Continental')).isoformat()) 
                     kardex.user = "Sistema - Reservar Producto"
                     kardex.units = l["quantity"]
@@ -792,21 +792,19 @@ class CheckoutSendHandler(BaseHandler):
             if "success" in response_obj:
 
                 self.saveOrderDetail(lista, order)
-
                 self.notifyEmails(lista, order, self.current_user)
 
                 cart = Cart()
                 cart.user_id = self.current_user["id"]
 
                 carro = cart.GetCartByUserId()
-
                 self.moveStock(lista, carro, id_bodega, order.id)
 
-                self.render( "store/success.html",webpay="no", detalle=lista, order=order)
+                self.render( "store/success.html", webpay="no", detalle=lista, order=order)
             else:
-                self.render("beauty_error.html",message="{}".format(response_obj["error"]))
+                self.render("beauty_error.html", message="{}".format(response_obj["error"]))
         else:
-            self.render("beauty_error.html",message="Carro se encuentra vacío")
+            self.render("beauty_error.html", message="Carro se encuentra vacío")
 
 
 class GetAddressByIdHandler(BaseHandler):
