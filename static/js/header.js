@@ -32,7 +32,7 @@ HeaderView.prototype.animationInit = function()
                 self.is_running_animation = true;
                 $("#main-nav-fixed-navigation").animate(
                     {
-                        marginTop: -50
+                        marginTop: -300
                     },
                     "fast",
                     function()
