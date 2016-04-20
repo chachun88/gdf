@@ -1,3 +1,4 @@
+
 .salir_registro div {
     display: none;
 }
@@ -349,7 +350,7 @@
 .categoria-1 {
     display: block;
     float: left;
-    width: 20%;
+    width: 25%;
     font-size: 12px;
     text-align: center;
     letter-spacing: 0.8px;
@@ -699,4 +700,29 @@ form.form-register ._button {
 font-family: serif;
 font-weight: 700;
 font-size: 10px;
+}
+
+
+.separator {
+    margin-left:2px;
+    margin-right: 2px;
+}
+
+/* fixed navigation */
+#main-nav-fixed-navigation
+{
+    margin-top : -300px;
+}
+
+.fixed-menu{
+    position: fixed;
+    z-index: 2000;
+    height: 100px;
+    width: 100%;
+    /*box-shadow: inset 6000px 0 0 0 rgba(0, 0, 0, 0.5);*/
+}
+/* fixed navigation */
+
+.logo2-img{
+
 }

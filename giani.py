@@ -105,6 +105,7 @@ class Application(tornado.web.Application):
             (r"/profile/add_contact", profile_handler.AddContactHandler),
 
             (r"/tos", others_handler.TosHandler),
+            (r"/conditions2", others_handler.Conditions2Handler),
             (r"/pago", others_handler.PagoHandler),
             (r"/xt_compra", others_handler.XtCompraHandler),
             (r"/store/success", others_handler.ExitoHandler),
