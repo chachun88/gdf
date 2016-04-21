@@ -156,31 +156,31 @@
         <img class="redes-footer" src="https://7static.loadingplay.com/static/images/a1098ccc71b03675352e62d85fd5f6ad_icono_mail_footer.png">
         </a>
     </div>
-    <div class="col-md-offset-3 col-md-9 header-right-cont text-center menu-footer" >
-                <ul>
-                    <li class="pull-left pad-li">
-                        <a href="/aboutus">NOSOTROS</a>
+    <div class="col-md-offset-2 col-md-9 header-right-cont text-center menu-footer" >
+                <ul class="text1">
+                    <li class="pull-left pad-li col-sm-2 col-xs-12">
+                        <a  class="text3" href="/aboutus">NOSOTROS</a>
                     </li>
-                    <li class="pull-left separator verticalLine" ></li>
-                    <li class="pull-left pad-li" style="text-align: justify;">
-                        <a href="/tos">TÉRMINOS
-                        <br>& CONDICIONES</a>
+                    <li class="pull-left separator verticalLine hidden-xs visible-lg" ></li>
+                    <li class="pull-left pad-li col-sm-2 col-xs-12" style="padding-top: 7px;">
+                        <a href="/tos">TÉRMINOS &
+                        <br> CONDICIONES</a>
                     </li>
-                    <li class="pull-left separator verticalLine" ></li>
-                    <li class="pull-left pad-li">
+                    <li class="pull-left separator verticalLine  hidden-xs visible-lg" ></li>
+                    <li class="pull-left pad-li col-sm-2 col-xs-12" style="padding-top: 7px;">
                         <a href="/faq">PREGUNTAS 
                         <br>FRECUENTES</a>
                     </li>
-                     <li class="pull-left separator verticalLine" ></li>
-                    <li class="pull-left pad-li">
+                     <li class="pull-left separator verticalLine  hidden-xs visible-lg" ></li>
+                    <li class="pull-left pad-li col-sm-2 col-xs-12">
                         {% if current_user == None %}
                         <a href="/auth/login">REGISTRO</a>
                         {% else %}
                         <a href="/auth/logout">Salir</a>
                         {% end %}
                     </li>
-                    <li class="pull-left separator verticalLine" ></li>
-                    <li class="pull-left pad-li" style="text-align:justify;">
+                    <li class="pull-left separator verticalLine  hidden-xs visible-lg" ></li>
+                    <li class="pull-left pad-li col-sm-2 col-xs-12" style="padding-top: 7px;">
                         {% if current_user == None %}
                         <a href="/auth/login">REGISTRO 
                         <br>MAYORISTA</a>
