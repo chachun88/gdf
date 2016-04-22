@@ -159,22 +159,22 @@
     <div class="col-md-offset-2 col-md-9 header-right-cont text-center menu-footer" >
                 <ul class="text1">
                     <li class="pull-left pad-li col-sm-2 col-xs-12">
-                        <a  class="text3" href="/aboutus">NOSOTROS</a>
+                        <a  class="text3 text-footer2" href="/aboutus">NOSOTROS</a>
                     </li>
                     <li class="pull-left separator verticalLine hidden-xs visible-lg" ></li>
                     <li class="pull-left pad-li col-sm-2 col-xs-12" style="padding-top: 7px;">
-                        <a href="/tos">TÉRMINOS &
+                        <a class="text-footer2" href="/tos">TÉRMINOS &
                         <br> CONDICIONES</a>
                     </li>
                     <li class="pull-left separator verticalLine  hidden-xs visible-lg" ></li>
                     <li class="pull-left pad-li col-sm-2 col-xs-12" style="padding-top: 7px;">
-                        <a href="/faq">PREGUNTAS 
+                        <a class="text-footer2" href="/faq">PREGUNTAS 
                         <br>FRECUENTES</a>
                     </li>
                      <li class="pull-left separator verticalLine  hidden-xs visible-lg" ></li>
                     <li class="pull-left pad-li col-sm-2 col-xs-12">
                         {% if current_user == None %}
-                        <a href="/auth/login">REGISTRO</a>
+                        <a class="text-footer2" href="/auth/login">REGISTRO</a>
                         {% else %}
                         <a href="/auth/logout">Salir</a>
                         {% end %}
@@ -182,7 +182,7 @@
                     <li class="pull-left separator verticalLine  hidden-xs visible-lg" ></li>
                     <li class="pull-left pad-li col-sm-2 col-xs-12" style="padding-top: 7px;">
                         {% if current_user == None %}
-                        <a href="/auth/login">REGISTRO 
+                        <a class="text-footer2"href="/auth/login">REGISTRO 
                         <br>MAYORISTA</a>
                         {% else %}
                         <a href="/auth/logout">Salir</a>

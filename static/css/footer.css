@@ -266,6 +266,17 @@ background-color: #fefefe;}
 .fondo-logo{
    background-color: rgba(255, 255, 255, 0.46);
 }
+
+/*LETRAS DEL FOOTER*/
+.text-footer{
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: bold;
+}
+.text-footer2{
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 100;
+}
+
 @media(max-width:1200px) {
   .footer-left-center-cont ._button 
 {
