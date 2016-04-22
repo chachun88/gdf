@@ -446,6 +446,7 @@
 }
 .reg-strate-login ._input {
 }
+
 .logo-content {
     position: absolute;
     top: 0;
@@ -464,6 +465,10 @@
     margin-left: auto;
     max-width: 260px;
 }
+.logo-content2{
+    height:inherit!important;
+}
+
 .image-1 {
     top: 0;
     bottom: 0;
@@ -582,6 +587,9 @@ color: #bfd2c3;
         font-weight: 600;
 }
 
+.font-menu:hover{
+    color: #CD6C4D !important;
+}
 /*TEXTO CENTRADO*/
 .text1 { 
     /*width: 300px;
