@@ -1,42 +1,45 @@
 <div id="main-nav-fixed-navigation" class="fixed-menu">
     <nav class="navbar nav-fondo navbar-static-top" role="navigation">
-  ...       <div class="header-content clearfix" style="background-image: url('{{banner('background_header').image}}')      !important">
-        <!-- <div class="header-left-cont clearfix">
-            <div class="header-left-social"> -->
+
+    {% module Template('loginmovil.html', nxt=nxt, nocache_static=nocache_static) %}
+ 
+ <div class="header-content clearfix" style="background-image: url('{{banner('background_header').image}}') !important">
+    <div class="header-left-cont clearfix">
+        <div class="header-left-social">
             <!-- <div class="iconos margin-left-2"><a href="http://instagram.com/gianidafirenze" class="redes_sociales" target="_blank"><img src="/{{nocache_static}}/images/red04.png" style="  width: 40px;"></a></div>
             <div class="iconos-left iconos"><a href="https://www.facebook.com/giani.dafirenze?fref=ts" target="_blank" class="redes_sociales"><img src="/{{nocache_static}}/images/red03.png" style="  width: 40px;"></i></a></div>
              <div class="iconos-left iconos"><a href="https://twitter.com/GianidaFirenze" class="redes_sociales" target="_blank"><i class="fa icon-twitter"></i></a></div> -->
             
-           <!--  </div> -->
+        </div>
         <!-- <button class="_button">
             <p>&nbsp; &nbsp;Buscar</p>
         </button> --> 
-            </div>
-            <div class="logo-content logo-content2">
-                <a href="/">
-                    <img class="image logo2" src="https://84static.loadingplay.com/static/images/f1ba7efd0aab3b66d7cef0ff949d30c9_logo_pajaro-solo-menu-fixed.png">
-                </a>
-            </div>
+    </div>
+    <div class="logo-content">
+        <a href="/">
+            <img class="image image-1" src="/{{nocache_static}}/images/giani-logo-2-gris-260x119.png" data-rimage data-src="/{{nocache_static}}/images/giani-logo-2-gris-260x119.png">
+        </a>
+    </div>
 
-            <div class="header-right-cont clearfix movil-menu" style="margin-left: 1070px;margin-top: 10px;" >
-                <ul>
-                    <li class="pull-left">
-                        <a href="/contact">contacto &nbsp;</a>
-                    </li>
-                    <li class="pull-left separator" > / &nbsp;</li>
-                    <li class="pull-left">
-                        {% if current_user == None %}
-                        <a href="/auth/login">registro &nbsp; </a>
-                        {% else %}
-                        <a href="/auth/logout">Salir &nbsp;</a>
-                        {% end %}
-                    </li>
-                    <li class="pull-left separator" > / &nbsp; </li>
-                    <li class="pull-left">
-                        <a href=""><img class="img-carrito" src="https://84static.loadingplay.com/static/images/ae98952321918ae3698f3537c36e96eb_icono_bolsa-de-compra.png"></a>
-                    </li>
-                </ul>
-            </div>
+    <div class="header-right-cont clearfix movil-menu">
+        <ul>
+            <li class="pull-left">
+                <a href="/contact">contacto &nbsp; </a>
+            </li>
+            <li class="pull-left separator" > / &nbsp; </li>
+            <li class="pull-left">
+                {% if current_user == None %}
+                <a href="/auth/login">registro &nbsp;</a>
+                {% else %}
+                <a href="/auth/logout">Salir  &nbsp;</a>
+                {% end %}
+            </li>
+            <li class="pull-left separator" > / &nbsp; </li>
+            <li class="pull-left">
+                <a href=""><img class="img-carrito" src="https://84static.loadingplay.com/static/images/ae98952321918ae3698f3537c36e96eb_icono_bolsa-de-compra.png"></a>
+            </li>
+        </ul>
+    </div>
 
     <!-- <div class="header-rigth-cont clearfix">
         <div class="">
@@ -88,17 +91,19 @@
         <!-- redes sociales -->
     <!-- </div> -->
 
-        <div class="clearfix content-13-inch clearfix">
-            <nav class="clearfix nav text-center nav-justified">
-                <div class="col-lg-8 col-lg-offset-2" >
-                    <a href="/store/getproductsbytags/nuevo" class="categoria-1 que-es-lo-nuevo font-menu">COLECCIÓN</a>
-                    <a href="/store" class="categoria-1 zapatos font-menu">CARTERAS</a>
-                    <a href="/contact" class="categoria-1 contacto font-menu">ACCESORIOS</a>
-                    <!--<a href="/store/getproductsbytags/campaña" class="categoria-1 campana">CAMPAÑA</a>-->
-                    <a href="/store/getproductsbytags/sale" class="categoria-1 sale font-menu">SALE</a>
-                </div>
-            </nav>
-        </div>
+    <div class="clearfix content-13-inch clearfix movil-menu2">
+        <nav class="clearfix nav text-center nav-justified ">
+            <div class="col-lg-8 col-lg-offset-2" >
+                <a href="/store/getproductsbytags/nuevo" class="categoria-1 que-es-lo-nuevo font-menu">COLECCIÓN</a>
+                <a href="/store" class="categoria-1 zapatos font-menu">CARTERAS</a>
+                <a href="#" class="categoria-1 contacto font-menu">ACCESORIOS</a>
+                <!--<a href="/store/getproductsbytags/campaña" class="categoria-1 campana">CAMPAÑA</a>-->
+                <a href="/store/getproductsbytags/sale" class="categoria-1 sale font-menu">SALE</a>
+            </div>
+        </nav>
+    </div>
+</div>
+
 
     </nav>
 

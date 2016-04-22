@@ -604,6 +604,12 @@ color: #bfd2c3;
     position: relative;
     bottom: 10px;
 }
+
+
+.header-right-cont ul{
+    float: right;
+    margin: 20px; 
+}
 @media(max-width:1199px) {
 .carritoproductos {
     display: none;
@@ -658,7 +664,9 @@ color: #bfd2c3;
 /*MENU*/
 
 .movil-menu{
-    margin-left: 159px!important;
+    margin: 20px;
+    float: right;
+    margin-right: 50px;
     }
 .movil-menu2{
     margin-top: 150px !important;
@@ -701,6 +709,18 @@ color: #bfd2c3;
         width: 53.2319391634%;
         margin: 16px auto;
     }
+
+    .header-right-cont ul {
+        margin: 0px; 
+    }
+}
+
+@media(max-width:330px) {
+
+    .categoria-1{
+        font-size: 9px;
+    }
+
 }
 }
 .contenedor-contacto h2 {
