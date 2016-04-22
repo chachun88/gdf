@@ -629,6 +629,7 @@ color: #bfd2c3;
     }
 }
 @media(max-width:767px) {
+
     .carritoproductos {
         display: none;
         position: absolute;
@@ -646,6 +647,21 @@ color: #bfd2c3;
         margin-top: 10px;
     }
     .loginpopup .reg-strate-login {
+    }
+}
+@media(max-width:700px) {
+/*MENU FIXED*/
+
+.fixed-menu{
+    
+}
+/*MENU*/
+
+.movil-menu{
+    margin-left: 159px!important;
+    }
+.movil-menu2{
+    margin-top: 150px !important;
     }
 }
 @media(max-width:479px) {

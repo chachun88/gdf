@@ -138,3 +138,7 @@ padding: 6.4px 0px 0px 4px;
     float: left!important;
     margin: 10px 10px 10px 0px !important;
 }
+
+.box-contact{
+    border-radius: 0px !important;
+}

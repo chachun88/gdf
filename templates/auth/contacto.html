@@ -11,32 +11,62 @@
 	<h4 class="text-center">Avenida Nueva Costanera 3900, Vitacura-Local 224</h4>
 	<p class="text-center"> 2 2486 2026</p>
 </div>
-<div class=" col-md-6 contenedor-contacto">
+<!-- <div class=" col-md-6 contenedor-contacto">
 	<div class="contenedor-contacto-form">
-		<form action="/contact" method="post" class="contacto-form" onsubmit="return ValidateRequired('')" novalidate>
+		<form action="/contact" method="post" class="contacto-form form-horizontal" onsubmit="return ValidateRequired('')" novalidate>
 			<h1>Contáctanos</h1>
-			<div class="contacto-centrar required">
+			<div class="contacto-centrar required"> -->
 
 				<!--  Email  -->
-				<p></p>
-				NOMBRE <input placeholder="NOMBRE" type="text" name="name" required >
+				<!-- <p></p>
+				NOMBRE <input placeholder="" type="text" name="name" required > -->
 
 
 				<!--  Correo  -->
-				<p></p>
-				CORREO<input placeholder="CORREO" type="text" name="email" required>
-
+				<!-- <p></p>
+				CORREO<input placeholder="" type="text" name="email" required>
+ -->
 				<!--  Asunto  -->
-				<p></p>
-				ASUNTO<input placeholder="ASUNTO" type="text" name="subject" required>
+				<!-- <p></p>
+				ASUNTO<input placeholder="" type="text" name="subject" required>
 
-				MENSAJE<textarea placeholder="DÉJANOS TU MENSAJE" name="message"></textarea>
-
+				MENSAJE<textarea placeholder="" name="message"></textarea>
+ -->
 				<!-- <button type="submit">ENVIAR</button> -->
-			</div>
+			<!-- </div>
 		</form>
 	</div>
+</div> -->
+<div class=" col-md-6 contenedor-contacto" style="border-left: 1px solid black;">
+	<form  action="/contact" method="post" class="contacto-form form-horizontal" role="form" onsubmit="return ValidateRequired('')" novalidate>
+		<h1 class="text-center">CONTÁCTANOS</h1>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="email">Nombre:</label>
+			<div class="col-sm-10">
+				<input type="text" disabled="disabled" class="form-control box-contact" id="email" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="pwd">Correo:</label>
+			<div class="col-sm-10"> 
+				<input type="text" disabled="disabled" class="form-control box-contact" id="pwd" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="pwd">Asunto:</label>
+			<div class="col-sm-10"> 
+				<input type="text" disabled="disabled" class="form-control box-contact" id="pwd" placeholder="">
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="control-label col-sm-2" for="pwd">Mensaje:</label>
+			<div class="col-sm-10"> 
+				<input type="text" disabled="disabled" class="form-control box-contact" id="pwd" placeholder="" style="height: 160px;">
+			</div>
+		</div>
+	</form>
 </div>
+
 <script>
 $(".header-menu .contacto").addClass("activo");
 </script>
