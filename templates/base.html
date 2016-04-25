@@ -5,7 +5,8 @@
   <meta name="viewport" content="initial-scale=1.0">
   <meta name="google-site-verification" content="fZTQQO6_S3d0fhTbbwEg3RZMfrlp4woVzGWPJOcsCKQ" />
   <title>{% block title %}{% end %}</title>
-  <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,inherit,400,500,400|Playfair+Display:900,400,700,400|Ubuntu+Condensed:400|Raleway:100|Cabin:500" rel="stylesheet" type="text/css">
+  <!-- <link href="http://fonts.googleapis.com/css?family=Ubuntu:300,inherit,400,500,400|Playfair+Display:900,400,700,400|Ubuntu+Condensed:400|Raleway:100|Cabin:500" rel="stylesheet" type="text/css"> -->
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300,400,600,600,700,700,800,800' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/{{nocache_static}}/css/bootstrap/bootstrap.css">
   <link rel="stylesheet" href="/{{nocache_static}}/css/standardize.css">
   <link rel="stylesheet" href="/{{nocache_static}}/css/header.css">
@@ -13,6 +14,7 @@
   <link rel="stylesheet" type="text/css" href="/{{nocache_static}}/css/font-awesome.min.css"/>
   <link rel="stylesheet" type="text/css" href="/{{nocache_static}}/fancybox/source/jquery.fancybox.css?v=2.1.5" media="screen" />
   <link href='http://fonts.googleapis.com/css?family=Amatic+SC:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,700' rel='stylesheet' type='text/css'>
   <link rel="stylesheet" href="/{{nocache_static}}/css/bootstrap/style2.css">
   <link rel="stylesheet" href="/{{nocache_static}}/css/bootstrap/skin-10.css">
   <link href='http://fonts.googleapis.com/css?family=PT+Sans+Caption:400,700' rel='stylesheet' type='text/css'>
@@ -39,10 +41,11 @@
   <script type="text/javascript" src="/{{nocache_static}}/js/lp.preload.image.js" ></script>
   <script src="/{{nocache_static}}/js/giani.js"></script>
   <script type="text/javascript" src="/{{nocache_static}}/js/plugin-states-cities-towns.js"></script>
+  <script type="text/javascript" src="/{{nocache_static}}/js/header.js"></script>
   {% block javascript %}{% end %}
   
 </head>
-
+{% block header %}{% end %}
 <body class="body index clearfix">
   <script>
     window.fbAsyncInit = function() {

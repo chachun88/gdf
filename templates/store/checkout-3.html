@@ -82,7 +82,8 @@ Giani Da Firenze - Carro de Compra
                     <!-- <div class="pull-left"> <a class="btn btn-default" href="/checkout/address"> <i class="fa fa-arrow-left"></i> &nbsp; Dirección </a> </div> -->
                     <div class="pull-right">
                       <form id="form-resumen" action="/checkout/order" method="post">
-                        <input type="radio" name="shipping_type" id="optionsRadios2" value="1" checked="true" style="visibility:hidden" >
+                        <input type="hidden" name="shipping_type" value="{{shipping_type}}">
+                        <input type="hidden" name="post_office_id" value="{{post_office_id}}">
                         <input type="hidden" name="shipping_price" value="{{costo_despacho}}">
                         <button type="submit" class="btn btn-primary btn-small btn-resumen">Resumen &nbsp; <i class="fa fa-arrow-circle-right"></i></button>
                       </form>

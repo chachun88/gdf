@@ -65,6 +65,8 @@ Giani Da Firenze - Carro de Compra
                               <input type="hidden" name="TBK_URL_FRACASO" value="{{ url_local }}/store/failure" />
                               <input type="hidden" name="shipping_price" value="{{costo_despacho}}" />
                               <input type="hidden" name="payment_type" value="2">
+                              <input type="hidden" name="shipping_type" value="{{shipping_type}}">
+                              <input type="hidden" name="post_office_id" value="{{post_office_id}}">
                               <!-- <input type="submit" class="button" id="submit_webpayplus_payment_form" value="Pagar" /> -->
                           
                           <div class="form-group clearfix">
@@ -114,6 +116,8 @@ Giani Da Firenze - Carro de Compra
                                 Estoy de acuerdo y acepto los <a href="/tos" target="_blank" >Términos y condiciones</a> </label>
                             </div>
                             <input type="hidden" name="payment_type" value="1">
+                            <input type="hidden" name="shipping_type" value="{{shipping_type}}">
+                            <input type="hidden" name="post_office_id" value="{{post_office_id}}">
                             <input type="hidden" name="session_id" value="{{datetime.datetime.now(pytz.timezone('Chile/Continental')).strftime('%Y%m%d%H%M%S')}}">
                             <input type="hidden" name="subtotal" value="{{suma}}">
                             <input type="hidden" name="shipping_price" value="{{costo_despacho}}">

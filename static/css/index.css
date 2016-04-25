@@ -5,8 +5,9 @@
 
 body {
   background-color: rgb(255, 255, 255);
-  font: 400 0.75em/1.38 Ubuntu;
+  /*font: 400 0.75em/1.38 Ubuntu;*/
   color: rgb(0, 0, 0);
+  font-family: 'Open Sans', sans-serif ;
 }
 
 
@@ -333,6 +334,7 @@ body {
 .text-4 a {
   color: gray;
 }
+
 
 @media(max-width: 1199px) {
   .carritoicono:hover {
@@ -2330,7 +2332,7 @@ border: 0px;
   }
 
   .header-content .logo-content {
-    top: 61px;
+    top: 30px;
     left: 0;
     right: 0;
     width: 89.9791231732%;

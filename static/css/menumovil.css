@@ -177,14 +177,14 @@ display: none;
 }
 @media (max-width: 460px){
 .boton_busqueda_movil {
-float: right;
-top: 5px;
-right: 5px;
-position: fixed;
-width: 40px;
-height: 40px;
-z-index: 2100;
-display: inline;
+    float: right;
+    top: 15px;
+    right: 5px;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    z-index: 1999;
+    display: inline;
 }
 .parpadea {
   

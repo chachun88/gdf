@@ -11,7 +11,7 @@ from datetime import datetime
 from sendpassword import Email
 import random
 import hashlib
-
+import pytz
 from bson import json_util
 from lp.globals import enviroment, Enviroment
 
@@ -206,15 +206,7 @@ class User(BaseModel):
             if len(user) > 0:
                 user = user[0]
 
-                try:
-                    query = '''update "User" set last_view = %(last_view)s where id = %(identifier)s'''
-                    params = {
-                        "identifier": user['id'],
-                        "last_view": datetime.now(pytz.timezone('Chile/Continental')).isoformat()
-                    }
-                    lp_model.execute_query_real(query, params)
-                except Exception, e:
-                    pass
+                self.updateLastView(user['id'], datetime.now(pytz.timezone('Chile/Continental')).isoformat())
 
                 return self.ShowSuccessMessage(json_util.dumps(user))
             else:
@@ -227,6 +219,20 @@ class User(BaseModel):
         query = '''SELECT id FROM "User_Types" WHERE name = %(name)s'''
         params = {"name" : user_type}
         return lp_model.execute_query(query, params)[0]["id"]
+
+    def updateLastView(self, identifier, last_view):
+
+        try:
+            query = '''update "User" set last_view = %(last_view)s where id = %(identifier)s'''
+            params = {
+                "identifier": identifier,
+                "last_view": last_view
+            }
+            # print lp_model.mogrify(query, params)
+            lp_model.execute_query_real(query, params)
+        except Exception, e:
+            # print str(e)
+            pass
 
     def InitByEmail(self, email):
 
@@ -586,7 +592,14 @@ class User(BaseModel):
         offset = (page-1)*items
         cur = self.connection.cursor(cursor_factory=psycopg2.extras.DictCursor)
         try:
-            q = '''select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, STRING_AGG(distinct c.name, ',') as cellars_name from "User" u left join "Permission" p on p.id = any(u.permissions) left join "Cellar" c on c.id = any(u.cellar_permissions) group by u.id limit %(limit)s offset %(offset)s'''
+            q = '''\
+                select u.*, STRING_AGG(distinct p.name, ',') as permissions_name, 
+                STRING_AGG(distinct c.name, ',') as cellars_name 
+                from "User" u 
+                left join "Permission" p on p.id = any(u.permissions) 
+                left join "Cellar" c on c.id = any(u.cellar_permissions) 
+                group by u.id 
+                limit %(limit)s offset %(offset)s'''
             p = {
                 "limit":items,
                 "offset":offset
@@ -796,6 +809,7 @@ class User(BaseModel):
             cur.execute(q,p)
             user = cur.fetchone()
             if cur.rowcount > 0:
+                self.updateLastView(user["id"], datetime.now(pytz.timezone('Chile/Continental')).isoformat())
                 return self.ShowSuccessMessage(json_util.dumps(user))
             else:
                 return self.ShowError("usuario y contraseña no coinciden o no tiene permiso para acceder")

@@ -938,6 +938,12 @@ class ConditionsHandler(BaseHandler):
         self.render("conditions.html")
 
 
+class Conditions2Handler(BaseHandler):
+
+    def get(self):
+        self.render("conditions2.html")
+
+
 class FaqHandler(BaseHandler):
 
     def get(self):

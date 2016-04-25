@@ -124,6 +124,8 @@ class CheckoutBillingHandler(BaseHandler):
             shipping_type = self.get_argument("shipping_type", "")
             post_office_id = self.get_argument("post_office_id", "")
 
+            shipping_type_id = 1
+
             cart = Cart()
             cart.user_id = user_id
 
@@ -217,6 +219,7 @@ class CheckoutBillingHandler(BaseHandler):
                         if "error" in res:
                             self.render("beauty_error.html",message="Error al calcular costo de despacho, {}".format(res["error"]))
                     else:
+                        shipping_type_id = 2
                         shipping = Shipping()
                         shipping.post_office_id = post_office_id
                         res = shipping.GetPriceByPostOfficeId()
@@ -229,7 +232,15 @@ class CheckoutBillingHandler(BaseHandler):
                         else:
                             costo_despacho = shipping.price
 
-                        self.render("store/checkout-2.html",contactos=contactos,data=lista,suma=suma,selected_address=direccion,cities=cities,costo_despacho=costo_despacho)
+                        self.render("store/checkout-2.html",
+                                    contactos=contactos,
+                                    data=lista,
+                                    suma=suma,
+                                    selected_address=direccion,
+                                    cities=cities,
+                                    costo_despacho=costo_despacho,
+                                    shipping_type=shipping_type_id,
+                                    post_office_id=post_office_id)
         else:
 
             self.redirect("/auth/login")
@@ -265,6 +276,8 @@ class CheckoutShippingHandler(BaseHandler):
             misma_direccion = self.get_argument("same_address","")
             comuna = self.get_argument("town","")
             rut = self.get_argument("rut","")
+            shipping_type = self.get_argument("shipping_type", 1)
+            post_office_id = self.get_argument("post_office_id", "")
 
             cart = Cart()
             cart.user_id = user_id
@@ -317,7 +330,7 @@ class CheckoutShippingHandler(BaseHandler):
                     if self.current_user['type_id'] == User().getUserTypeID(UserType.EMPRESA):
                         self.render("wholesaler/checkout-4.html",data=lista,suma=suma,iva=iva)
                     else:
-                        self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho)
+                        self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho,shipping_type=shipping_type,post_office_id=post_office_id)
             else:
 
                 contact = Contact()
@@ -345,7 +358,7 @@ class CheckoutShippingHandler(BaseHandler):
                 if self.current_user['type_id'] == User().getUserTypeID(UserType.EMPRESA):
                     self.render("wholesaler/checkout-4.html",data=lista,suma=suma,iva=iva)
                 else:
-                    self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho)
+                    self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho,shipping_type=shipping_type,post_office_id=post_office_id)
 
         else:
 
@@ -361,6 +374,7 @@ class CheckoutPaymentHandler(BaseHandler):
 
             shipping_type = self.get_argument("shipping_type",1)
             costo_despacho = int(self.get_argument("shipping_price",0))
+            post_office_id = self.get_argument("post_office_id", "")
 
             user_id = self.current_user["id"]
 
@@ -386,7 +400,9 @@ class CheckoutPaymentHandler(BaseHandler):
                             data=lista,
                             suma=suma,
                             costo_despacho=costo_despacho,
-                            pytz=pytz)
+                            pytz=pytz,
+                            post_office_id=post_office_id,
+                            shipping_type=shipping_type)
             else:
                 self.render("wholesaler/checkout-5.html",
                             data=lista,
@@ -406,9 +422,12 @@ class CheckoutOrderHandler(BaseHandler):
     @tornado.web.authenticated
     def post(self):
 
+        post_office_id = self.get_argument("post_office_id", "")
+        shipping_type = self.get_argument("shipping_type", 1)
+
         if self.current_user:
 
-            print self.current_user
+            # print self.current_user
 
             user_id = self.current_user["id"]
 
@@ -427,7 +446,7 @@ class CheckoutOrderHandler(BaseHandler):
 
             costo_despacho = int(self.get_argument("shipping_price",0))
 
-            self.render("store/checkout-5.html",data=lista,suma=suma,costo_despacho=costo_despacho)
+            self.render("store/checkout-5.html",data=lista,suma=suma,costo_despacho=costo_despacho,post_office_id=post_office_id,shipping_type=shipping_type)
         else:
             self.redirect("/auth/login")
 
@@ -953,3 +972,66 @@ class ManualPaymentHandler(BaseHandler):
             self.write(json_util.dumps(result))
         except Exception, e:
             self.sendError('enviando correo procesamiento, {}'.format(str(e)))
+
+
+class ShippingCostHandler(BaseHandler):
+
+    def post(self):
+
+        post_office_id = self.get_argument("post_office_id", "")
+        shipping_type = self.get_argument("shipping_type", 1)
+        cart_id = self.get_argument("cart_id", "")
+        ciudad = None
+
+        items = 0
+
+        c = Cart()
+        c.user_id = self.current_user["id"]
+        detail = c.GetCartByUserId()
+
+        for d in detail:
+            items += int(d["quantity"])
+
+        if cart_id != "":
+            cart = Cart()
+            res = cart.InitById(cart_id)
+
+            if "success" in res:
+                contact = Contact()
+                res_contact = contact.InitById(cart.shipping_id)
+                if "success" in res_contact:
+                    ciudad = res_contact["success"]["city_id"]
+
+        c = Cellar()
+        res_cellar_id = c.GetWebCellar()
+
+        web_cellar_id = cellar_id
+
+        if "success" in res_cellar_id:
+            web_cellar_id = res_cellar_id["success"]
+
+        res_web_cellar = c.InitById(web_cellar_id)
+
+        if "success" in res_web_cellar:
+            if int(shipping_type) == 1:
+                cellar_city_id = c.city_id
+                shipping = Shipping()
+                shipping.from_city_id = int(cellar_city_id)
+                shipping.to_city_id = int(ciudad)
+                res = shipping.GetGianiPrice()
+            else:
+                shipping = Shipping()
+                shipping.post_office_id = post_office_id
+                res = shipping.GetPriceByPostOfficeId()
+
+            if "error" in res:
+                self.write(json_util.dumps({"state": "error", "message": res["error"]}))
+            else:
+                if shipping.charge_type == 1:
+                    costo_despacho = shipping.price * items
+                else:
+                    costo_despacho = shipping.price
+
+                self.write(json_util.dumps({"state": "ok", "shipping_cost": costo_despacho}))
+        else:
+            self.write(json_util.dumps({"state": "error", "message": res_web_cellar["error"]}))

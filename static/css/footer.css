@@ -241,6 +241,46 @@ background-color: #fefefe;}
   background-color: #ffffff;
   color: gray;
 }
+.text-footer{
+    font-weight: 700;
+    margin-top: 30px;
+}
+
+.redes-footer{
+    margin-top: 0px;
+    padding: 20px;
+}
+
+.menu-footer{
+    margin-top: 10px;
+}
+.pad-li{
+    padding: 15px;
+}
+
+ .verticalLine { 
+    border-left: 1px solid rgba(0, 0, 0, .5);
+    width: 10px;
+    height: 50px;
+} 
+.fondo-logo{
+   background-color: rgba(255, 255, 255, 0.46);
+}
+
+/*LETRAS DEL FOOTER*/
+.text-footer{
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: bold;
+}
+.text-footer2{
+  font-family: 'Open Sans Condensed', sans-serif;
+  font-weight: 100;
+}
+
+ul.text1 {
+    float: none!important;
+    margin: 0px !important;
+}
 
 @media(max-width:1200px) {
   .footer-left-center-cont ._button 
