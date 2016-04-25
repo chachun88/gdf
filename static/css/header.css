@@ -584,12 +584,13 @@ color: #bfd2c3;
 }
 
 .font-menu{
-        font-weight: 600;
+        font-weight: 100;
 }
 
-.font-menu:hover{
+/*.font-menu:hover{
     color: #CD6C4D !important;
-}
+}*/
+
 /*TEXTO CENTRADO*/
 .text1 { 
     /*width: 300px;
@@ -610,6 +611,13 @@ color: #bfd2c3;
     float: right;
     margin: 20px; 
 }
+
+.menu-corto{
+    font-size: 12px;
+    padding-right: 26px;
+
+}
+
 @media(max-width:1199px) {
 .carritoproductos {
     display: none;
