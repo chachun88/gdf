@@ -24,9 +24,9 @@
 			<li class="pull-left separator" > / &nbsp; </li>
 			<li class="pull-left">
 				{% if current_user == None %}
-				<a href="/auth/login">registro &nbsp;</a>
+				<a href="/auth/login?next={{url_escape(request.uri)}}">registro &nbsp;</a>
 				{% else %}
-				<a href="/auth/logout">Salir  &nbsp;</a>
+				<a href="/auth/logout?next={{url_escape(request.uri)}}">Salir  &nbsp;</a>
 				{% end %}
 			</li>
 			<li class="pull-left separator" > / &nbsp; </li>
