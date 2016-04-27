@@ -64,8 +64,8 @@ if enviroment == Enviroment.LOCAL:
     url_local = "http://localhost:8502"
     url_cgi = "http://cgiani.ondev.today"
 
-    facebook_api_key = "839778829389863"
-    facebook_secret = "5e533cd56091707c73e88c2113ffb13d"
+    facebook_api_key = "1067063349985852"
+    facebook_secret = "bbf044ebf55c524f9791e0fb23db610e"
 
     project_path = ""
     cgi_path = "/var/www/cgiani.ondev/"

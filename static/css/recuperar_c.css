@@ -16,7 +16,7 @@ float: left;
 	padding-top: 20px;
 
 }
-form {
+.gray_form {
 	background-color: rgb(221, 221, 221);
 	margin: 20px auto;
 	height: 300px;

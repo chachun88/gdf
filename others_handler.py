@@ -110,7 +110,7 @@ class PagoHandler(BaseHandler):
 
         payment_type = self.get_argument("payment_type", 2)
         costo_despacho = int(self.get_argument("shipping_price", 0))
-        iva = self.get_argument("tax",0)
+        iva = int(self.get_argument("tax",0))
 
         user_id = self.current_user["id"]
 
@@ -440,8 +440,11 @@ class XtCompraHandler(BaseHandler):
                 user = User()
                 usuario = user.InitById(order.user_id)
 
+                user_email = ''
+
                 if "error" not in usuario:
                     username = usuario['name']
+                    user_email = usuario["email"]
 
                 # rechaza si orden no esta pendiente
                 if order.state != Order.ESTADO_PENDIENTE:
@@ -501,7 +504,8 @@ class XtCompraHandler(BaseHandler):
                                     {"name": "order_id", "content": TBK_ORDEN_COMPRA},
                                     {"name": "company", "content": "Giani Da Firenze"},
                                     {"name": "current_year", "content": 2015},
-                                    {"name": "list_address_html", "content": 'contacto@gianidafirenze.cl'}
+                                    {"name": "list_address_html", "content": 'contacto@gianidafirenze.cl'},
+                                    {"name": "user_email", "content": user_email}
                                 ]
 
                                 html = mandrill_client.templates.render(processing_order_template, template_content, merge_vars)

@@ -293,18 +293,24 @@ var checkStock = function(){
             response = $.parseJSON(response_str);
 
             if(response.error){
+
                 errores = response.error;
 
-                res = "";
+                if (errores instanceof Array) {
 
-                for(var i = 0; i < errores.length; i++){
-                    res += errores[i]["sku"]
-                        + ' '
-                        + errores[i]["error"]
-                        + "<br/>";
+                    res = "";
+
+                    for(var i = 0; i < errores.length; i++){
+                        res += errores[i]["sku"]
+                            + ' '
+                            + errores[i]["error"]
+                            + "<br/>";
+                    }
+
+                    fancyAlert(res);
+                } else {
+                    fancyAlert(errores);
                 }
-
-                fancyAlert(res);
 
             } else if (response.alert!==undefined) {
                 fancyAlert(response.alert, function(){
@@ -364,10 +370,8 @@ var enterpriseRegistration = function(form){
             success: function(html){
                 response_str = JSON.stringify(html);
                 response = $.parseJSON(response_str);
-                if(response.error){
-                    alert(response.error);
-                } else {
-                    alert("Gracias por registrarte. Pronto nos contactaremos contigo");
+                alert(response.message);
+                if(response.state){
                     $('.fancybox-close').click();
                 }
             }

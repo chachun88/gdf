@@ -1,6 +1,6 @@
 <div class="footer clearfix">
-    <img src="{{data['background_footer_der']['thumb_200'] or ''}}" style="position: absolute; right: 0px; top: 0px;">
-    <img src="{{data['background_footer_izq']['thumb_200'] or ''}}" style="position: absolute; left: 0px; top: 0px;">
+    <img src="{% try %}{{data['background_footer_der']['thumb_200']}}{% except %}{% end %}" style="position: absolute; right: 0px; top: 0px;">
+    <img src="{% try %}{{data['background_footer_izq']['thumb_200']}}{% except %}{% end %}" style="position: absolute; left: 0px; top: 0px;">
     <div class="footer-left-cont clearfix">
         <!--<a href="/"><img class="image logo-footer" src="/{{nocache_static}}/images/logo001-50x50.png" data-rimage data-src="/{{nocache_static}}/images/logo001-50x50.png"></a>-->
         <img class="image right-arrow-footer" src="/{{nocache_static}}/images/flechas-15x15.png" data-rimage data-src="/{{nocache_static}}/images/flechas-15x15.png">

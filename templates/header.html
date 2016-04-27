@@ -1,4 +1,4 @@
-<div class="header-content clearfix" style="background-image: url('{{banner('background_header').image}}') !important">
+<div class="header-content clearfix" style="background-image: url('{% try %}{{banner('background_header').image}}{% except %}{% end %}') !important">
 	<div class="header-left-cont clearfix">
 		<div class="header-left-social">
 		    <!-- <div class="iconos margin-left-2"><a href="http://instagram.com/gianidafirenze" class="redes_sociales" target="_blank"><img src="/{{nocache_static}}/images/red04.png" style="  width: 40px;"></a></div>
@@ -24,9 +24,9 @@
 			<li class="pull-left separator" > / &nbsp; </li>
 			<li class="pull-left">
 				{% if current_user == None %}
-				<a href="/auth/login">registro &nbsp;</a>
+				<a href="/auth/login?next={{url_escape(request.uri)}}">registro &nbsp;</a>
 				{% else %}
-				<a href="/auth/logout">Salir  &nbsp;</a>
+				<a href="/auth/logout?next={{url_escape(request.uri)}}">Salir  &nbsp;</a>
 				{% end %}
 			</li>
 			<li class="pull-left separator" > / &nbsp; </li>
