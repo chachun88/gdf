@@ -7,55 +7,49 @@
 
 {% block body %}
 <div class="cuerpo clearfix">
-  {% include ../slider.html %}
-  <div class="slider-small">
-    <a href="/store">
-    <img class="slide" src="/{{nocache_static}}/images/baner.png" data-rimage data-src="/{{nocache_static}}/images/banermovil.png">
-    </a>
-  </div>
-  <div class="timeline clearfix">
-    <a href="/store">
-    <img class="image" src="/{{nocache_static}}/images/historia.png" data-rimage data-src="/{{nocache_static}}/images/historia.png">
-    </a>
-  </div>
-  <div class="estilodevida clearfix">
-  <a href="/store">
-  <img class="image" src="/{{nocache_static}}/images/poster-video.png" data-rimage data-src="/{{nocache_static}}/images/poster-video.png">
-  </a>
-  </div>
-  <div class="queeslonuevo clearfix">
-    <a href="/store">
-    <img class="image" src="/{{nocache_static}}/images/baner.png" data-rimage data-src="/{{nocache_static}}/images/baner-que-es.png">
-    </a>
-  </div>
-  <div class="queeslonuevo-small">
-    <a href="/store">
-    <img class="slide" src="/{{nocache_static}}/images/banermovil.png" data-rimage data-src="/{{nocache_static}}/images/banermovil-2.png">
-    </a>
-  </div>
-  <div class="comunidad clearfix">
-    <a href="/store">
-    <img class="image" src="/{{nocache_static}}/images/comunidad.png" data-rimage data-src="/{{nocache_static}}/images/comunidad.png">
-    </a>
-  </div>
-  <div id="videohome"class="tienda clearfix">
-    <ul>
-     <li><img id="videoimg"class="image" src="/{{nocache_static}}/images/ir-a-la.png" data-rimage data-src="/{{nocache_static}}/images/ir-a-la.png" style="position:relative;">
-        <!--<ul>
-       <img id="videoimg-1"class="image esconder" src="/{{nocache_static}}/images/ir-a-la.png" data-rimage data-src="/{{nocache_static}}/images/ir-a-la-hover.png" style="position:relative;margin-top: -64.49%;">
-       </ul>-->
-      </li>
-
-
-      <video loop preload poster="" id="video" class="video mostrar-1"style="width:100%;margin-top: -60%;float: left; z-index: 0;">
-          <source src="http://player.vimeo.com/external/146351296.sd.mp4?s=b9312d4ca6c31aaf51420d201af3a21d13ac5407&profile_id=112&oauth2_token_id=387155985" type="video/mp4">
-          <source src="http://player.vimeo.com/external/146351296.sd.webm?s=b9312d4ca6c31aaf51420d201af3a21d13ac5407&profile_id=112&oauth2_token_id=387155985" type="video/webm">
-      </video>
-    </ul>
-    
-      
-  
-  </div>
+    {% include ../slider.html %}
+<div class="content-13-inch">
+    <div id="videohome" class="timeline clearfix">
+        <ul>
+            <li id="videoimg" style="position:relative; z-index: -1;"><img class="image" src="{{banner('caluga_video').thumbnail}}" lp-load-big="{{banner('caluga_video').image}}" style="position:relative;">
+                <!--<ul>
+                    <img id="videoimg-1"class="image esconder" src="/{{nocache_static}}/images/ir-a-la-hover.png" style="position:relative;margin-top: -64.49%;">
+                </ul>-->
+            </li>
+            <video loop preload poster="" id="video" class="video mostrar-1"style="width:100%;margin-top: -60%;float: left; z-index: 0;">
+                <source src="http://player.vimeo.com/external/146351296.sd.mp4?s=b9312d4ca6c31aaf51420d201af3a21d13ac5407&profile_id=112&oauth2_token_id=387155985" type="video/mp4">
+                <source src="http://player.vimeo.com/external/146351296.sd.webm?s=b9312d4ca6c31aaf51420d201af3a21d13ac5407&profile_id=112&oauth2_token_id=387155985" type="video/webm">
+            </video>
+        </ul>
+        
+    </div>
+    <div class="estilodevida clearfix">
+        <a href="/store">
+        <img class="image" src="{{banner('caluga_ir_tienda').thumbnail}}" lp-load-big="{{banner('caluga_ir_tienda').image}}">
+        </a>
+    </div>
+    <div class="queeslonuevo clearfix">
+        <a href="/store/getproductsbytags/nuevo">
+        <img class="image" src="{{banner('caluga_nuevo').thumbnail}}" lp-load-big="{{banner('caluga_nuevo').image}}">
+        </a>
+    </div>
+<!--     <div class="queeslonuevo-small">
+        <a href="/store">
+        <img class="slide" src="https://static.loadingplay.com/static/images/200_f8c4101f84403c02b123ca4fa8ea17e1_lo_nuevo.png" lp-load-big="https://static.loadingplay.com/static/images/f8c4101f84403c02b123ca4fa8ea17e1_lo_nuevo.png" >
+        </a>
+    </div> -->
+    <div class="comunidad clearfix">
+        <a href="https://instagram.com/gianidafirenze/" target="_blank">
+        <img class="image" src="{{banner('instagram').thumbnail}}" lp-load-big="{{banner('instagram').image}}">
+        </a>
+    </div>
+    <div class="tienda clearfix">
+        <a href="/history">
+        <img class="image" src="{{banner('historia').thumbnail}}" lp-load-big="{{banner('historia').image}}">
+        </a>
+        
+    </div>
+</div>
 </div>
 {% end %}
 {% block javascript %}

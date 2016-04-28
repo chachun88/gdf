@@ -277,6 +277,11 @@ background-color: #fefefe;}
   font-weight: 100;
 }
 
+ul.text1 {
+    float: none!important;
+    margin: 0px !important;
+}
+
 @media(max-width:1200px) {
   .footer-left-center-cont ._button 
 {

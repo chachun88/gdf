@@ -26,7 +26,7 @@
             <li class="pull-left">
                 <a href="/contact">contacto &nbsp; </a>
             </li>
-            <li class="pull-left separator" > / &nbsp; </li>
+            <li class="pull-left separator header-separator" > / &nbsp; </li>
             <li class="pull-left">
                 {% if current_user == None %}
                 <a href="/auth/login">registro &nbsp;</a>
@@ -34,9 +34,12 @@
                 <a href="/auth/logout">Salir  &nbsp;</a>
                 {% end %}
             </li>
-            <li class="pull-left separator" > / &nbsp; </li>
+            <li class="pull-left separator header-separator" > / &nbsp; </li>
             <li class="pull-left">
+            <div class="carritoicono">
                 <img class="img-carrito" src="https://84static.loadingplay.com/static/images/ae98952321918ae3698f3537c36e96eb_icono_bolsa-de-compra.png" onclick="location.href='/cart/getbyuserid?user_id='+localStorage.userid+'&ajax=0'" id="icono-carro-movil">
+            </div>
+            </li>
         </ul>
     </div>
 

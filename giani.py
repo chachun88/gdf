@@ -21,7 +21,7 @@ import profile_handler
 from config import *
 from lp.globals import *
 
-define("nocache_static", default="static_v4", help="", type=str)
+define("nocache_static", default="static_v5", help="", type=str)
 
 if "enviroment" not in options:
 
@@ -39,7 +39,7 @@ class Application(tornado.web.Application):
             blog_title=u"Giani Da Firenze",
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            cookie_secret="12oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP1o/o=",
+            cookie_secret="12oETzKXQAGaYdkL5gEmGeJJFuYh7EQnp2XdTP0o/o=",
             facebook_api_key=options.facebook_api_key,
             facebook_secret=options.facebook_secret,
             login_url="/auth/login",

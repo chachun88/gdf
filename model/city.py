@@ -6,7 +6,9 @@ import psycopg2
 import psycopg2.extras
 # from bson.objectid import ObjectId
 
+
 class City(BaseModel):
+
     def __init__(self):
         BaseModel.__init__(self)
         self._name = ''
@@ -15,10 +17,10 @@ class City(BaseModel):
     @property
     def name(self):
         return self._name
+
     @name.setter
     def name(self, value):
         self._name = value
-
 
     def List(self):
 
@@ -77,7 +79,7 @@ class City(BaseModel):
             cur = self.connection.cursor(cursor_factory=psycopg2.extras.RealDictCursor)
             query = '''insert into "City" (name) values (%(name)s) returning id'''
             parameters = {
-            "name":self.name
+                "name":self.name
             }
 
             try:
@@ -108,7 +110,6 @@ class City(BaseModel):
         finally:
             self.connection.close()
             cur.close()
-
 
     def ListByFromCityId(self):
 
