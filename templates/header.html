@@ -21,7 +21,7 @@
 			<li class="pull-left">
 				<a href="/contact">contacto &nbsp; </a>
 			</li>
-			<li class="pull-left separator" > / &nbsp; </li>
+			<li class="pull-left separator header-separator" > / &nbsp; </li>
 			<li class="pull-left">
 				{% if current_user == None %}
 				<a href="/auth/login?next={{url_escape(request.uri)}}">registro &nbsp;</a>
@@ -29,7 +29,7 @@
 				<a href="/auth/logout?next={{url_escape(request.uri)}}">Salir  &nbsp;</a>
 				{% end %}
 			</li>
-			<li class="pull-left separator" > / &nbsp; </li>
+			<li class="pull-left separator header-separator" > / &nbsp; </li>
 			<li class="pull-left">
 				<a href=""><img class="img-carrito" src="https://84static.loadingplay.com/static/images/ae98952321918ae3698f3537c36e96eb_icono_bolsa-de-compra.png"></a>
 			</li>
