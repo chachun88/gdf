@@ -634,13 +634,9 @@ class CheckoutSendHandler(BaseHandler):
         final_name = ""
 
         if "image" in self.request.files:
-
             imagedata = self.request.files['image'][0]
-
             filename = imagedata["filename"]
-
             extension = filename.lower().split(".")[-1]
-
             final_name = "{filename}.{extension}".format(filename=uuid.uuid4(),extension=extension)
             # print final_name
 
