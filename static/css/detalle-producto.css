@@ -3,6 +3,12 @@ body {
     font: 300 0.75em/1.38 Ubuntu;
     color: rgb(255, 255, 255);
 }
+
+.c{
+    width: 100%;
+    height: 94px;
+}
+
 .otro-angulo {
     max-width: 70px;
 }
@@ -92,6 +98,8 @@ body {
     height: 94px;
     margin-left: -0.06546%;
     background-color: rgb(255, 255, 255);
+    position: relative;
+    top: 10px;
 }
 .foto-producto {
       display: block;
