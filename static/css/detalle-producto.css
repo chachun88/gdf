@@ -51,6 +51,7 @@ body {
     margin: auto;
     width: 100%;
     object-fit: cover;
+    float: left;
 }
 .container .producto-info {
     float: right;
