@@ -37,11 +37,12 @@ body {
 .container .image {
     position: absolute;
     top: 0;
-    bottom: 0;
+    bottom:0;
     left: 0;
     right: 0;
     margin: auto;
     width: 100%;
+    object-fit: cover;
 }
 .container .producto-info {
     float: right;
@@ -180,7 +181,7 @@ body {
     display: block;
     position: relative;
     float: left;
-    width: 100%;
+    width: 163%;
     height: 22px;
     padding-left: 10px;
     border: 1px solid rgb(119, 119, 119);
@@ -247,6 +248,9 @@ body {
     float: left;
     width: 50%;
     height: 89px;
+    left: 29px;
+    position: relative;
+    bottom: 5px;
 }
 .container-13 {
     position: relative;
@@ -626,6 +630,8 @@ body {
 .producto-precio.tachado {
     text-decoration: line-through;
 }
+
+
 @media(max-width:1199px) {
     .categorias .container {
         position: relative;
@@ -798,6 +804,11 @@ body {
         width: 84.1374269005%;
         margin-top: 7px;
     }
+    
+    .container .text-7{
+        margin-top: 16px;
+    }
+
     .container .text-10, .container .text-12, .container .text-14, .container .text-8 {
         width: 84.1374269005%;
         margin-left: 0.09834%;

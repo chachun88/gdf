@@ -624,6 +624,13 @@ color: #bfd2c3;
 
 }
 
+@media (max-width: 1280px){
+    .categoria-1{
+        font-size: 14px;
+    }
+}
+
+
 @media(max-width:1199px) {
 .carritoproductos {
     display: none;
