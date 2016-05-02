@@ -79,7 +79,7 @@ body {
     left: 0;
     z-index: 38;
     width: 100%;
-    height: auto;
+    height: 100%;
     overflow: hidden;
     max-width: 260px;
 }
@@ -687,6 +687,12 @@ body {
     .producto-foto .foto-producto, .slider .slide {
         height: auto;
         max-width: 100%;
+    }
+
+    .foto-producto{
+    height: 100%;
+    max-width: 100%;
+    object-fit: cover;
     }
     .producto-info .producto-nombre, .producto-info .producto-precio {
          text-align: center;

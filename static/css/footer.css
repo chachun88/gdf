@@ -286,6 +286,14 @@ ul.text1 {
     margin: 0px !important;
 }
 
+
+.sal{
+    font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: 100;
+    letter-spacing: 3px;
+    font-size: 14px;
+}
+
 @media(max-width:1200px) {
   .footer-left-center-cont ._button 
 {
