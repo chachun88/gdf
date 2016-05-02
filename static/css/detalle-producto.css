@@ -15,7 +15,8 @@ body {
 .otro-angulo-mas-combinaciones {
     max-width: 160px;
     padding-top: 1px;
-    height: 196px !important
+    height: 196px !important;
+    object-fit: cover;
 }
 .selects {
     float: left;
