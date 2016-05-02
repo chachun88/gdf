@@ -14,7 +14,6 @@ body {
 }
 .otro-angulo-mas-combinaciones {
     max-width: 160px;
-    max-height: 163px;
     padding-top: 1px;
 }
 .selects {
@@ -36,7 +35,7 @@ body {
     position: relative;
     float: left;
     width: 100%;
-    height: 128px;
+    height: 196px;
     /* border: 1px solid rgb(207, 207, 207);
     */
     margin-top: 10px;
