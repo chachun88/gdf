@@ -19,10 +19,6 @@ git checkout master -f
 echo "pull"
 git pull
 
-echo "npm and bower"
-npm install
-bower install
-
 echo "change permissions"
 chmod +x install_ondev.sh
 
