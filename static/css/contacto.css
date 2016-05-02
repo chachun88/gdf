@@ -154,6 +154,8 @@ padding: 6.4px 0px 0px 4px;
     font-weight: 600;
     font-size: 20px;
     margin-top: -23px;
+    top: 12px;
+    position: relative;
 }
 .tres{
     color: #2E2E2E;
