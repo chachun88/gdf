@@ -172,3 +172,21 @@ padding: 6.4px 0px 0px 4px;
     top: 50px;
     position: relative;
 }
+
+#map{
+    height: 250px;
+    width: 350px;
+    position: relative;
+    top: 12px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 700px){
+    #map{
+          right: 15px;
+    }
+
+   .contenedor-contacto{
+         border-left: none !important;
+   }
+}
