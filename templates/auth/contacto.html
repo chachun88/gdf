@@ -2,14 +2,69 @@
 {% block css %}
 <link rel="stylesheet" href="/{{nocache_static}}/css/index.css">
 <link rel="stylesheet" href="/{{nocache_static}}/css/contacto.css">
+
 {% end %}
+
+{% block javascript %}
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCeHcce9z_-7CF3sqZ0iuz581dmamU9ZJM"></script>
+<script>
+$(".header-menu .contacto").addClass("activo");
+</script>
+ 
+
+<script type="text/javascript">
+
+function initialize() {
+    myLatlng = new google.maps.LatLng(-33.398276,-70.598063);
+
+    var map_canvas = document.getElementById('map');
+    var map_options = {
+        center: myLatlng,
+        zoom: 16,
+    mapTypeId: google.maps.MapTypeId.ROADMAP }
+    var map = new google.maps.Map(map_canvas, map_options);
+
+    var marker = new google.maps.Marker({
+        position: myLatlng,
+        map: map,
+        icon: "https://7static.loadingplay.com/static/images/f1ba7efd0aab3b66d7cef0ff949d30c9_logo_pajaro-solo-menu-fixed.png",
+        title:"Hello World!" });
+}
+
+
+
+
+$(document).ready(function(){
+
+   google.maps.event.addDomListener(window, 'load', initialize);
+
+});
+
+
+
+
+</script>
+
+{% end %}
+
 {% block body %}
 <div class="col-md-6">
-	<h1 class="text-center">NUESTRA TIENDA</h1>
+	<h1 class="text-center uno">NUESTRA TIENDA</h1>
 	<br>
-	<h1 class="text-center">Mall Casa Costanera</h1>
-	<h4 class="text-center">Avenida Nueva Costanera 3900, Vitacura-Local 224</h4>
-	<p class="text-center"> 2 2486 2026</p>
+	<h1 class="text-center dos ">Mall Casa Costanera</h1>
+	<h4 class="text-center tres">Avenida Nueva Costanera 3900, Vitacura-Local 224</h4>
+	<p class="text-center tres"> 2 2486 2026</p>
+    
+
+<!--   <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3330.9575641741158!2d-70.60025188505108!3d-33.398271302221744!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cf35f591c839%3A0x65e1ca6255188ebe!2sNueva+Costanera+3900%2C+Vitacura%2C+Regi%C3%B3n+Metropolitana!5e0!3m2!1ses!2scl!4v1462203338427" width="380" height="250" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+
+<!-- <iframe class="map" src="https://www.google.com/maps/d/embed?mid=1OUp4KW4hSCDWk_75J7SR-TCTWFc&hl=en&z=16"  width="380" height="250" frameborder="0" style="border:0" allowfullscreen></iframe> -->
+
+<div align="center">
+        <div id="map"></div>
+</div>
+
 </div>
 <!-- <div class=" col-md-6 contenedor-contacto">
 	<div class="contenedor-contacto-form">
@@ -39,35 +94,38 @@
 </div> -->
 <div class=" col-md-6 contenedor-contacto" style="border-left: 1px solid black;">
 	<form  action="/contact" method="post" class="contacto-form form-horizontal" role="form" onsubmit="return ValidateRequired('')" novalidate>
-		<h1 class="text-center">CONTÁCTANOS</h1>
-		<div class="form-group">
-			<label class="control-label col-sm-2" for="email">Nombre:</label>
-			<div class="col-sm-10">
-				<input type="text" disabled="disabled" class="form-control box-contact" id="email" placeholder="">
+		<h1 class="text-center uno">CONTÁCTANOS</h1>
+		<div class="form-group f-1">
+			<label class="control-label col-sm-2" for="email">Nombre</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control box-contact" id="email" placeholder="">
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="control-label col-sm-2" for="pwd">Correo:</label>
-			<div class="col-sm-10"> 
-				<input type="text" disabled="disabled" class="form-control box-contact" id="pwd" placeholder="">
+		<div class="form-group f-1">
+			<label class="control-label col-sm-2" for="pwd">Correo</label>
+			<div class="col-sm-8"> 
+				<input type="text" class="form-control box-contact" id="pwd" placeholder="">
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="control-label col-sm-2" for="pwd">Asunto:</label>
-			<div class="col-sm-10"> 
-				<input type="text" disabled="disabled" class="form-control box-contact" id="pwd" placeholder="">
+		<div class="form-group f-1">
+			<label class="control-label col-sm-2" for="pwd">Asunto</label>
+			<div class="col-sm-8"> 
+				<input type="text"  class="form-control box-contact" id="pwd" placeholder="">
 			</div>
 		</div>
-		<div class="form-group">
-			<label class="control-label col-sm-2" for="pwd">Mensaje:</label>
-			<div class="col-sm-10"> 
-				<input type="text" disabled="disabled" class="form-control box-contact" id="pwd" placeholder="" style="height: 160px;">
+		<div class="form-group f-1">
+			<label class="control-label col-sm-2" for="pwd">Mensaje</label>
+			<div class="col-sm-8"> 
+				<input type="text" class="form-control box-contact" id="pwd" placeholder="" style="height: 160px;">
 			</div>
 		</div>
 	</form>
 </div>
 
-<script>
-$(".header-menu .contacto").addClass("activo");
-</script>
+
+
+
+
 {% end %}
+
+

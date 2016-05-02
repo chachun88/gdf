@@ -9,7 +9,7 @@
 .contenedor-contacto-form {
 }
 .contacto-form {
-    width: 100%;
+    width: 80%;
     margin: 20px auto;
 }
 
@@ -141,4 +141,52 @@ padding: 6.4px 0px 0px 4px;
 
 .box-contact{
     border-radius: 0px !important;
+}
+
+.uno{
+    margin-top: 57px;
+    font-weight: 700;
+    font-size: 20px;
+
+}
+
+.dos{
+    font-weight: 600;
+    font-size: 20px;
+    margin-top: -23px;
+}
+.tres{
+    color: #2E2E2E;
+    font-weight: 600;
+    font-family: 'Open Sans';
+}
+
+.map{
+     left: 139px;
+    position: relative;
+    top: 12px;
+    margin-bottom: 20px;
+}
+
+.f-1{
+    top: 50px;
+    position: relative;
+}
+
+#map{
+    height: 250px;
+    width: 350px;
+    position: relative;
+    top: 12px;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 700px){
+    #map{
+          right: 15px;
+    }
+
+   .contenedor-contacto{
+         border-left: none !important;
+   }
 }
