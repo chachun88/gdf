@@ -84,7 +84,7 @@ body {
 }
 .cuerpo-producto .container {
     position: relative;
-    float: right;
+    float:left;
     width: 12%;
     height: 69px;
     /* border: 1px solid rgb(207, 207, 207);
