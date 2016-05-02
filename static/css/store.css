@@ -82,6 +82,7 @@ body {
     height: 100%;
     overflow: hidden;
     max-width: 260px;
+    object-fit: cover;
 }
 .header-content {
     position: relative;
