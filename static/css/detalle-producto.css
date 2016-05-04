@@ -15,7 +15,7 @@ body {
 .otro-angulo-mas-combinaciones {
     max-width: 160px;
     padding-top: 1px;
-    height: 196px !important;
+    height: 196px;
     object-fit: cover;
 }
 .selects {
@@ -1609,11 +1609,7 @@ body {
         /* margin-left: 1.16636%;
         */
     }
-
-    .otro-angulo-mas-combinaciones{
-        height: auto;
-    }
-
+    
     .container.container-18{
         height: 394px;
     }
