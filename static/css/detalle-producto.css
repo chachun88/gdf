@@ -294,7 +294,7 @@ body {
     /* border-bottom: 1px solid #869388;
     */
     padding: 0px;
-    margin-top: 85px;
+    margin-top: 186px;
     margin-bottom: 29px;
 }
 .container-19 {
@@ -1173,6 +1173,11 @@ body {
     }
 }
 @media(max-width:767px) {
+    ._select{
+       width: 153px;
+    }
+
+
     .selects {
         width: 30px;
     }
@@ -1603,6 +1608,14 @@ body {
         height: 300px;
         /* margin-left: 1.16636%;
         */
+    }
+
+    .otro-angulo-mas-combinaciones{
+        height: auto;
+    }
+
+    .container.container-18{
+        height: 394px;
     }
     .container .producto-nombre-4 {
         float: left;
