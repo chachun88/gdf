@@ -38,7 +38,7 @@
         <a id="login-empresa" href="#form-login-empresa"><img src="{{banner('mayorista').image}}" style=" display: block; position: absolute; z-index: 1; height: auto; overflow: hidden; max-width: 100%; max-height: 100%; margin: auto; top: 0; bottom: 0; left: 0; right: 0;"></a>
         <img src="{{banner('background_mayorista').image}}" style="height: 100%; width:100%; z-index: 0; position: absolute;"> -->
 
-        <!-- <div style="display: none;">
+        <div style="display: none;">
             <div id="form-login-empresa" notitle>
                 <div class="col-xs-12 col-sm-12">
                     <form action="/auth/enterprise" method="post" id="enterpriseLogin" class="form-horizontal">
@@ -63,9 +63,9 @@
                     </form>
                 </div>
             </div>
-        </div> -->
+        </div>
         
-        <!-- <div style="display: none;">
+        <div style="display: none;">
             <div id="inline1" notitle>
                 <div class="col-xs-12 col-sm-12">
                     <form action="/auth/enterprise-registration" method="post" id="enterpriseRegistration" class="form-horizontal">
@@ -139,8 +139,8 @@
                         </div>
                     </form>
                 </div>
-            </div> -->
-        <!-- </div> -->
+            </div>
+        </div>
 
     <div class="col-md-12">
         <h4 class="text-center text-footer">¡Hablemos!</h4>
@@ -172,9 +172,10 @@
                         <br>FRECUENTES</a>
                     </li>
                      <li class="pull-left separator verticalLine  hidden-xs visible-lg" ></li>
-                    <li class="pull-left pad-li col-sm-2 col-xs-12">
+                    <li class="pull-left pad-li col-sm-2 col-xs-12" style="padding-top: 7px;">
                         {% if current_user == None %}
-                        <a class="text-footer2" href="/auth/login">REGISTRO</a>
+                        <a id="various1" href="#inline1" class="text-footer2" >Ingreso<br>mayorista</a>
+                        <!-- <br>MAYORISTA</a> -->
                         {% else %}
                         <a class="sal" href="/auth/logout">Salir</a>
                         {% end %}
@@ -182,7 +183,7 @@
                     <li class="pull-left separator verticalLine  hidden-xs visible-lg" ></li>
                     <li class="pull-left pad-li col-sm-2 col-xs-12" style="padding-top: 7px;">
                         {% if current_user == None %}
-                        <a class="text-footer2"href="/auth/login">Login 
+                        <a id="login-empresa" href="#form-login-empresa" class="text-footer2">Login 
                         <br>MAYORISTA</a>
                         {% else %}
                         <a href="/auth/logout">Salir</a>
