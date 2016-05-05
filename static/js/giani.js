@@ -1,6 +1,8 @@
 $(document).ready(function(){
 
-    $(".carritoicono").click(function(){
+    $(".carritoicono").click(function(e)
+    {
+        e.preventDefault();
         if($(".carritoproductos").css("display")=="none"){
             $(".carritoproductos").slideDown();
         } else {

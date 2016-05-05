@@ -232,15 +232,17 @@ class CheckoutBillingHandler(BaseHandler):
                         else:
                             costo_despacho = shipping.price
 
-                        self.render("store/checkout-2.html",
-                                    contactos=contactos,
-                                    data=lista,
-                                    suma=suma,
-                                    selected_address=direccion,
-                                    cities=cities,
-                                    costo_despacho=costo_despacho,
-                                    shipping_type=shipping_type_id,
-                                    post_office_id=post_office_id)
+                        self.render(
+                            "store/checkout-2.html",
+                            contactos=contactos,
+                            data=lista,
+                            suma=suma,
+                            selected_address=direccion,
+                            cities=cities,
+                            costo_despacho=costo_despacho,
+                            shipping_type=shipping_type_id,
+                            post_office_id=post_office_id
+                        )
         else:
 
             self.redirect("/auth/login")
@@ -330,7 +332,14 @@ class CheckoutShippingHandler(BaseHandler):
                     if self.current_user['type_id'] == User().getUserTypeID(UserType.EMPRESA):
                         self.render("wholesaler/checkout-4.html",data=lista,suma=suma,iva=iva)
                     else:
-                        self.render("store/checkout-3.html",data=lista,suma=suma,costo_despacho=costo_despacho,shipping_type=shipping_type,post_office_id=post_office_id)
+                        self.render(
+                            "store/checkout-3.html",
+                            data=lista,
+                            suma=suma,
+                            costo_despacho=costo_despacho,
+                            shipping_type=shipping_type,
+                            post_office_id=post_office_id
+                        )
             else:
 
                 contact = Contact()
@@ -634,13 +643,9 @@ class CheckoutSendHandler(BaseHandler):
         final_name = ""
 
         if "image" in self.request.files:
-
             imagedata = self.request.files['image'][0]
-
             filename = imagedata["filename"]
-
             extension = filename.lower().split(".")[-1]
-
             final_name = "{filename}.{extension}".format(filename=uuid.uuid4(),extension=extension)
             # print final_name
 

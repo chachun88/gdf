@@ -337,9 +337,9 @@ body {
 
 
 @media(max-width: 1199px) {
-  .carritoicono:hover {
+  /*.carritoicono:hover {
     background-color: rgb(255, 224, 218);
-  }
+  }*/
 
   .acciones .comprar {
     width: 40.9307933445%;
@@ -358,10 +358,10 @@ body {
     margin-left: 23.60561%;
   }
 
-  .carritoicono .image {
+  /*.carritoicono .image {
     height: auto;
     margin-left: -0.41667%;
-  }
+  }*/
 
   .carritoinfo .acciones {
     width: 100.0047931745%;
@@ -562,10 +562,10 @@ body {
     margin-left: auto;
   }
 
-  .header-rigth-cont .carritoicono {
+  /*.header-rigth-cont .carritoicono {
     width: 9.7719869706%;
     margin-left: 29.31596%;
-  }
+  }*/
 
   .loginpopup .reg-strate-correo {
     width: 46.8113034648%;
@@ -971,10 +971,10 @@ body {
     margin-left: 23.60349%;
   }
 
-  .carritoicono .image {
+  /*.carritoicono .image {
     height: auto;
     margin-left: -1.6666700001%;
-  }
+  }*/
 
   .carritoinfo .acciones {
     width: 99.6898408239%;
@@ -1171,9 +1171,9 @@ body {
     margin-left: auto;
   }
 
-  .header-rigth-cont .carritoicono {
+  /*.header-rigth-cont .carritoicono {
     margin-left: 29.48207%;
-  }
+  }*/
 
   .loginpopup .reg-strate-correo {
     width: 80.6192138412%;
@@ -1548,10 +1548,10 @@ body {
     margin-left: 21.51239%;
   }
 
-  .carritoicono .image {
+  /*.carritoicono .image {
     height: auto;
     margin-left: -2.91667%;
-  }
+  }*/
 
   .carritoinfo .acciones {
     width: 100%;
@@ -1736,9 +1736,9 @@ body {
     margin-left: auto;
   }
 
-  .header-rigth-cont .carritoicono {
+  /*.header-rigth-cont .carritoicono {
     margin-left: 29.68037%;
-  }
+  }*/
 
   .loginpopup .reg-strate-correo {
     width: 93.7931034482%;
@@ -2131,10 +2131,10 @@ body {
     margin-left: 5.01044%;
   }
 
-  .carritoicono .image {
+  /*.carritoicono .image {
     height: auto;
     margin-left: -2.65625%;
-  }
+  }*/
 
   .carritoinfo .productosencola {
     width: 92.3144168427%;
@@ -2151,8 +2151,8 @@ body {
     top: 53px;
     left: 4.9999999999%;
     width: 89.9791231732%;
-  
     position: fixed;
+    z-index: 2000;
 }
 
   .carritoproductos .carritoinfo {
@@ -2350,10 +2350,10 @@ border: 0px;
     height: 42px;
   }
 
-  .header-rigth-cont .carritoicono {
+  /*.header-rigth-cont .carritoicono {
     margin-left: 10px;
     margin-top: 10px;
-  }
+  }*/
 
   .loginpopup .reg-strate-correo {
     width: 96.5034965034%;
