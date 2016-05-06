@@ -57,6 +57,7 @@
     border: 1px solid #bfd2c3;
     background-color: white;
     min-height: 100px;
+
 }
 .carritoproductos {
     display: none;
@@ -67,6 +68,8 @@
     width: 27.2142857142%;
     position: fixed;
     z-index: 2000;
+    max-height: 500px;
+    overflow-y: auto !important;
 }
 .flecha {
     float: left;
