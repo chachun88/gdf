@@ -342,7 +342,7 @@
     float: left;
     z-index: 56;
     width: 18.7857142857%;
-    height: 135px;
+    height: 90px;
     margin-left: 7%;
 }
 .header-menu {
@@ -476,6 +476,11 @@
 }
 .logo-content2{
     height:inherit!important;
+}
+
+/*logo en fixed*/
+.logo_fixed {
+    max-width: 72px!important;
 }
 
 .image-1 {
