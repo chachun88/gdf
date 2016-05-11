@@ -219,6 +219,14 @@ body {
   margin: auto 0;
 }
 
+.logo-small-image-1 {
+    width: auto!important;
+}
+
+.logo-small-logo-cotent {
+    height: 80px!important;
+}
+
 
 .image-2 {
   visibility: hidden;
