@@ -28,7 +28,7 @@ try:
     mensaje = sendgrid.Mail()
     mensaje.set_from("{nombre} <{mail}>".format(nombre=info["from_name"], 
                                                 mail=info["from_email"]))
-    mensaje.add_to('yichun212@gmail.com')
+    mensaje.add_to('ricardo@loadingplay.com')
     mensaje.set_subject(info["subject"])
     mensaje.set_html(html["html"])
     status, msg = sg.send(mensaje)

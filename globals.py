@@ -71,8 +71,8 @@ if enviroment == Enviroment.LOCAL:
     cgi_path = "/var/www/cgiani.ondev/"
     dir_image = '../bodegas/uploads/images/'
 
-    to_giani = ['yichun212@gmail.com','ricardo@loadingplay.com']
-    email_giani = 'yi.neko@gmail.com'
+    to_giani = ['julian@loadingplay.com','ricardo@loadingplay.com']
+    email_giani = 'ricardo@loadingplay.com'
 
     debugMode = True
 
@@ -89,8 +89,8 @@ elif enviroment == Enviroment.ONDEV:
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.ondev/"
     dir_image = '../bgiani.ondev/uploads/images/'
-    to_giani = ['yichun212@gmail.com', 'julian@loadingplay.com']
-    email_giani = 'yi.neko@gmail.com'
+    to_giani = ['ricardo@loadingplay.com', 'julian@loadingplay.com']
+    email_giani = 'ricardo@loadingplay.com'
 
 elif enviroment == Enviroment.ONTEST:
     port = DEBUG_PORT
@@ -104,7 +104,7 @@ elif enviroment == Enviroment.ONTEST:
     project_path = "/var/www/giani.ondev/"
     cgi_path = "/var/www/cgiani.gianidafirenze.cl/"
     dir_image = '/var/www/bgiani.ondev/uploads/images/'
-    to_giani = ['yichun212@gmail.com']
+    to_giani = ['ricardo@loadingplay.com']
 
 
 elif enviroment == Enviroment.PRODUCTION:
